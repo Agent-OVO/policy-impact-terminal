@@ -1,19 +1,50 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
-import { companies } from "../../data/policy";
+import { chainNodes as defaultChainNodes, clauses as defaultClauses, companies as defaultCompanies, evidence as defaultEvidence } from "../../data/policy";
+import type { ChainNode, Clause, Company, Evidence } from "../../data/policy";
 import { CompanyCard } from "./CompanyCard";
 import { CompanyDetail } from "./CompanyDetail";
 import { CompanyMatrix } from "./CompanyMatrix";
 import { companySectionLabels, companySectionOrder } from "./companyConstants";
 import { cx, getCompanyById } from "./companyUtils";
 
-export function CompaniesView() {
-  const [selectedCompanyId, setSelectedCompanyId] = useState(companies[0].id);
-  const selected = getCompanyById(selectedCompanyId) || companies[0];
+export function CompaniesView({
+  chainNodes = defaultChainNodes,
+  clauses = defaultClauses,
+  companies = defaultCompanies,
+  evidence = defaultEvidence
+}: {
+  chainNodes?: ChainNode[];
+  clauses?: Clause[];
+  companies?: Company[];
+  evidence?: Evidence[];
+}) {
+  const [selectedCompanyId, setSelectedCompanyId] = useState(companies[0]?.id ?? "");
+  const selected = getCompanyById(selectedCompanyId, companies) || companies[0];
   const grouped = companySectionOrder.map((section) => ({
     section,
     items: companies.filter((company) => company.section === section)
   }));
+
+  useEffect(() => {
+    if (!companies.some((company) => company.id === selectedCompanyId)) {
+      setSelectedCompanyId(companies[0]?.id ?? "");
+    }
+  }, [companies, selectedCompanyId]);
+
+  if (!selected) {
+    return (
+      <div className="companies-layout">
+        <section className="panel company-matrix-panel">
+          <div className="panel-head">
+            <h2>代表性公司影响分析</h2>
+            <p>当前自动分析尚未生成公司映射，后续接入公司库后会补充。</p>
+          </div>
+          <CompanyMatrix companies={[]} />
+        </section>
+      </div>
+    );
+  }
 
   return (
     <div className="companies-layout">
@@ -22,7 +53,7 @@ export function CompaniesView() {
           <h2>代表性公司影响分析</h2>
           <p>仅服务于本次政策分析，不做公司持续跟踪。</p>
         </div>
-        <CompanyMatrix selectedCompanyId={selectedCompanyId} setSelectedCompanyId={setSelectedCompanyId} />
+        <CompanyMatrix companies={companies} selectedCompanyId={selectedCompanyId} setSelectedCompanyId={setSelectedCompanyId} />
       </section>
       <section className="panel company-cards-panel">
         <div className="panel-head">
@@ -44,7 +75,14 @@ export function CompaniesView() {
           ))}
         </div>
       </section>
-      <CompanyDetail selectedCompany={selected} setSelectedCompanyId={setSelectedCompanyId} />
+      <CompanyDetail
+        chainNodes={chainNodes}
+        clauses={clauses}
+        evidence={evidence}
+        companies={companies}
+        selectedCompany={selected}
+        setSelectedCompanyId={setSelectedCompanyId}
+      />
     </div>
   );
 }

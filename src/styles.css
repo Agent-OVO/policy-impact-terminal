@@ -603,6 +603,18 @@ input:focus-visible {
   line-height: 1.36;
 }
 
+.policy-card-empty {
+  display: grid;
+  gap: 10px;
+}
+
+.policy-card-empty p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
 .star-button {
   width: 32px;
   height: 32px;
@@ -909,6 +921,16 @@ input:focus-visible {
   border-radius: 999px;
 }
 
+.tab-placeholder {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 16px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 850;
+}
+
 .update-status {
   display: inline-flex;
   align-items: center;
@@ -949,6 +971,32 @@ input:focus-visible {
 .report-load-banner.error {
   border-color: rgba(239, 91, 91, 0.22);
   background: rgba(239, 91, 91, 0.08);
+  color: var(--red);
+}
+
+.report-unavailable {
+  min-height: 260px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 22px;
+}
+
+.report-unavailable svg {
+  flex: 0 0 auto;
+  color: var(--blue);
+}
+
+.report-unavailable h2 {
+  margin: 0 0 8px;
+}
+
+.report-unavailable p {
+  max-width: 640px;
+  color: var(--muted);
+}
+
+.report-unavailable.error svg {
   color: var(--red);
 }
 

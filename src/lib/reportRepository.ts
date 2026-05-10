@@ -259,8 +259,12 @@ const mockReportRepository: ReportRepository = {
     return mockSummaries;
   },
 
-  async getPolicyReport() {
-    return currentReport;
+  async getPolicyReport(reportId) {
+    const report = getMockReport(reportId);
+    if (!report) {
+      throw new ReportRepositoryError("getPolicyReport", `Mock report "${reportId}" was not found.`);
+    }
+    return report;
   },
 
   async listAnalysisJobs() {
@@ -282,6 +286,58 @@ const mockReportRepository: ReportRepository = {
     return nextJob;
   }
 };
+
+function getMockReport(reportId: string): PolicyReport | null {
+  if (reportId === currentReport.id) {
+    return currentReport;
+  }
+
+  const summary = mockSummaries.find((item) => item.id === reportId);
+  return summary ? buildMockReportFromSummary(summary) : null;
+}
+
+function buildMockReportFromSummary(summary: PolicySummary): PolicyReport {
+  const topic = summary.primarySignal || summary.title;
+  const derivedActions = actions.map((action, index) => ({
+    ...action,
+    title: index === 0 ? `${topic}政策信号` : action.title,
+    body:
+      index === 0
+        ? `系统演示报表围绕“${topic}”展示产业影响结构；真实部署后会由定时抓取的政策原文生成。`
+        : action.body
+  }));
+  const derivedClauses = clauses.map((clause, index) => ({
+    ...clause,
+    title: index === 0 ? topic : clause.title,
+    excerpt:
+      index === 0
+        ? `围绕“${topic}”形成政策目标、实施路径和产业影响的结构化摘要。`
+        : clause.excerpt
+  }));
+  const derivedPolicy = {
+    ...policy,
+    title: summary.title,
+    issuer: summary.issuer,
+    publishDate: summary.publishDate,
+    effectiveDate: summary.publishDate,
+    source: summary.source,
+    status: summary.status === "published" ? "已发布" : "处理中",
+    category: topic,
+    confidence: summary.confidence
+  };
+
+  return {
+    ...currentReport,
+    id: summary.id,
+    summary,
+    policy: derivedPolicy,
+    actions: derivedActions,
+    clauses: derivedClauses,
+    chainNodes: chainNodes.slice(0, Math.max(1, Math.min(summary.industryCount, chainNodes.length))),
+    companies: summary.companyCount > 0 ? companies.slice(0, Math.min(summary.companyCount, companies.length)) : [],
+    evidence: evidence.slice(0, Math.max(1, Math.min(summary.evidenceCount, evidence.length)))
+  };
+}
 
 const supabaseReportRepository: ReportRepository = {
   async listPolicyReports() {

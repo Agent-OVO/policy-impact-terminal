@@ -5,6 +5,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 const CRAWLER_VERSION = "policy-source-crawler-v0.2";
+const MIN_POLICY_FULL_TEXT_LENGTH = 280;
 
 const SOURCES = [
   {
@@ -76,7 +77,7 @@ const output = {
     collected: collected.length,
     afterFilters: filtered.length,
     candidates: candidates.length,
-    withFullText: candidates.filter((candidate) => candidate.fullText).length,
+    withFullText: candidates.filter(hasUsableFullText).length,
     duplicates: duplicates.length,
     errors: errors.length
   },
@@ -258,7 +259,7 @@ async function fetchMiitDocuments(source, args) {
 
   return rows.map((row) => {
     const item = row.groupData?.[0]?.data ?? row.data ?? row;
-    const contentText = htmlToText(extractMiitContentHtml(item.infoextends) ?? item.infocontent ?? "");
+    const searchContentPreview = htmlToText(extractMiitContentHtml(item.infoextends) ?? item.infocontent ?? "");
 
     return makeCandidate(source, {
       title: item.title ?? item.title_text,
@@ -266,14 +267,14 @@ async function fetchMiitDocuments(source, args) {
       publishDate: item.jsearch_date ?? item.deploytime ?? item.publishtime ?? item.cdate,
       issuer: item.publishgroupname ?? item.xxgkextend2 ?? source.issuer,
       policyNo: item.filenumbername ?? extractPolicyNo(item.title ?? item.title_text),
-      fullText: contentText,
-      contentHash: contentText.length > 100 ? hashText(contentText) : null,
       raw: {
         origin: "miit-search-api",
         typename: item.typename,
         themename: item.themename,
         columnname: item.columnname,
-        metaid: item.metaid
+        metaid: item.metaid,
+        searchContentPreview,
+        searchContentPreviewLength: searchContentPreview.length
       }
     });
   });
@@ -318,7 +319,7 @@ function makeCandidate(source, input) {
   const fullText = normalizePolicyText(input.fullText);
   const canonicalSourceUrl = normalizeUrl(resolveUrl(input.canonicalSourceUrl ?? sourceUrl, source.listUrl));
   const dedupeKey = buildDedupeKey({ title, issuer, publishDate, policyNo, canonicalSourceUrl });
-  const contentHash = input.contentHash ?? (fullText.length > 100 ? hashText(fullText) : null);
+  const contentHash = input.contentHash ?? (isUsablePolicyText(fullText) ? hashText(fullText) : null);
 
   return {
     sourceKey: source.key,
@@ -380,7 +381,7 @@ async function hydrateCandidates(candidates) {
   const hydrated = [];
 
   for (const candidate of candidates) {
-    if (candidate.fullText && candidate.fullText.length > 100) {
+    if (hasUsableFullText(candidate)) {
       hydrated.push(candidate);
       continue;
     }
@@ -407,7 +408,7 @@ function attachFullText(candidate, value) {
   return {
     ...candidate,
     fullText: fullText || null,
-    contentHash: candidate.contentHash ?? (fullText.length > 100 ? hashText(fullText) : null),
+    contentHash: candidate.contentHash ?? (isUsablePolicyText(fullText) ? hashText(fullText) : null),
     raw: {
       ...candidate.raw,
       fullTextLength: fullText.length,
@@ -433,8 +434,15 @@ async function ingestCandidates(candidates, args) {
   let linkedDuplicates = 0;
   let analyzed = 0;
   let published = 0;
+  let skippedWithoutFullText = 0;
 
   for (const candidate of candidates) {
+    if (!hasUsableFullText(candidate)) {
+      skippedWithoutFullText += 1;
+      console.warn(`[ingest] skipped without policy full text: ${candidate.sourceKey} ${candidate.title}`);
+      continue;
+    }
+
     const result = await callSupabaseFunction(supabaseUrl, "ingest", {
       headers: buildFunctionHeaders(accessToken, crawlerSecret),
       body: {
@@ -477,7 +485,7 @@ async function ingestCandidates(candidates, args) {
     }
   }
 
-  console.log(`[ingest] created=${created} linkedDuplicates=${linkedDuplicates} analyzed=${analyzed} published=${published}`);
+  console.log(`[ingest] created=${created} linkedDuplicates=${linkedDuplicates} analyzed=${analyzed} published=${published} skippedWithoutFullText=${skippedWithoutFullText}`);
 }
 
 async function analyzeAndPublishJob(supabaseUrl, jobId, accessToken, crawlerSecret) {
@@ -557,6 +565,14 @@ function printSummary(output, outPath) {
   for (const item of output.candidates.slice(0, 8)) {
     console.log(`- ${item.publishDate || "no-date"} ${item.sourceKey} ${item.title}`);
   }
+}
+
+function hasUsableFullText(candidate) {
+  return isUsablePolicyText(candidate?.fullText);
+}
+
+function isUsablePolicyText(value) {
+  return normalizePolicyText(value).length >= MIN_POLICY_FULL_TEXT_LENGTH;
 }
 
 function isNonPolicyDocument(item) {

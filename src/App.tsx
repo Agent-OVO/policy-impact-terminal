@@ -45,9 +45,7 @@ import {
   companies,
   compareRows,
   evidence,
-  modules,
   policy,
-  topTabs,
   type ChainNode,
   type Company,
   type ModuleId,
@@ -97,12 +95,12 @@ function percent(value: number) {
   return `${Math.round(value)}%`;
 }
 
-function getNode(id: string) {
-  return chainNodes.find((node) => node.id === id);
+function getNode(id: string, nodes: ChainNode[] = chainNodes) {
+  return nodes.find((node) => node.id === id);
 }
 
-function getCompany(id: string) {
-  return companies.find((company) => company.id === id);
+function getCompany(id: string, items: Company[] = companies) {
+  return items.find((company) => company.id === id);
 }
 
 function AuthScreen({ onLogin }: { onLogin: (user: SessionUser) => void }) {
@@ -111,6 +109,12 @@ function AuthScreen({ onLogin }: { onLogin: (user: SessionUser) => void }) {
   const [password, setPassword] = useState("demo123456");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (!isSupabaseConfigured && mode === "register") {
+      setMode("login");
+    }
+  }, [mode]);
 
   async function submit(event: React.FormEvent) {
     event.preventDefault();
@@ -166,7 +170,7 @@ function AuthScreen({ onLogin }: { onLogin: (user: SessionUser) => void }) {
           <p className="eyebrow">Policy Intelligence Terminal</p>
           <h1>把政策原文变成可追溯的产业影响分析。</h1>
           <p>
-            当前版本支持本地演示登录；配置 Supabase 后可切换为真实账号体系。早期开放注册，后续可平滑升级审核和订阅权限。
+            当前版本支持本地演示登录；配置 Supabase 后可切换为真实账号体系。普通用户只查看已发布报表，政策抓取和分析由后台定时完成。
           </p>
         </div>
 
@@ -175,9 +179,11 @@ function AuthScreen({ onLogin }: { onLogin: (user: SessionUser) => void }) {
             <button type="button" className={cx(mode === "login" && "active")} onClick={() => setMode("login")}>
               登录
             </button>
-            <button type="button" className={cx(mode === "register" && "active")} onClick={() => setMode("register")}>
-              注册
-            </button>
+            {isSupabaseConfigured && (
+              <button type="button" className={cx(mode === "register" && "active")} onClick={() => setMode("register")}>
+                注册
+              </button>
+            )}
           </div>
 
           <label>
@@ -241,7 +247,7 @@ function TopBar({
       </div>
       <div className="global-search">
         <Search size={17} />
-        <input placeholder="粘贴政策原文链接，或输入关键词、政策标题" />
+        <input placeholder="搜索已发布政策标题、来源或产业方向" />
         <span>
           Ctrl / <Command size={13} /> + K
         </span>
@@ -279,9 +285,9 @@ function PolicySidebar({
   onBackToList: () => void;
   report: PolicyReport | null;
 }) {
-  const currentPolicy = report?.policy ?? policy;
-  const currentModules = report?.modules ?? modules;
-  const currentEvidence = report?.evidence ?? evidence;
+  const currentPolicy = report?.policy;
+  const currentModules = report?.modules ?? [];
+  const currentEvidence = report?.evidence ?? [];
 
   return (
     <aside className={cx("sidebar", collapsed && "collapsed")}>
@@ -290,84 +296,96 @@ function PolicySidebar({
         返回政策列表
       </button>
 
-      <section className="policy-card">
-        <div className="row-between">
+      {currentPolicy ? (
+        <section className="policy-card">
+          <div className="row-between">
+            <span className="section-label">当前分析政策</span>
+            <span className="status-badge purple">{currentPolicy.status}</span>
+          </div>
+          <div className="policy-title-row">
+            <h2>{currentPolicy.title}</h2>
+            <button className="star-button" aria-label="收藏当前政策">
+              <Sparkles size={17} />
+            </button>
+          </div>
+          <dl className="meta-list">
+            <div>
+              <dt>发布机构</dt>
+              <dd>{currentPolicy.issuer}</dd>
+            </div>
+            <div>
+              <dt>发布日期</dt>
+              <dd>{currentPolicy.publishDate}</dd>
+            </div>
+            <div>
+              <dt>生效时间</dt>
+              <dd>{currentPolicy.effectiveDate}</dd>
+            </div>
+            <div>
+              <dt>来源网站</dt>
+              <dd>{currentPolicy.source}</dd>
+            </div>
+            <div>
+              <dt>政策类型</dt>
+              <dd>{currentPolicy.category}</dd>
+            </div>
+            <div>
+              <dt>政策层级</dt>
+              <dd>{currentPolicy.level}</dd>
+            </div>
+          </dl>
+          <div className="policy-illustration">
+            <ShieldCheck size={42} />
+          </div>
+        </section>
+      ) : (
+        <section className="policy-card policy-card-empty">
           <span className="section-label">当前分析政策</span>
-          <span className="status-badge purple">{currentPolicy.status}</span>
-        </div>
-        <div className="policy-title-row">
-          <h2>{currentPolicy.title}</h2>
-          <button className="star-button" aria-label="收藏当前政策">
-            <Sparkles size={17} />
-          </button>
-        </div>
-        <dl className="meta-list">
-          <div>
-            <dt>发布机构</dt>
-            <dd>{currentPolicy.issuer}</dd>
-          </div>
-          <div>
-            <dt>发布日期</dt>
-            <dd>{currentPolicy.publishDate}</dd>
-          </div>
-          <div>
-            <dt>生效时间</dt>
-            <dd>{currentPolicy.effectiveDate}</dd>
-          </div>
-          <div>
-            <dt>来源网站</dt>
-            <dd>{currentPolicy.source}</dd>
-          </div>
-          <div>
-            <dt>政策类型</dt>
-            <dd>{currentPolicy.category}</dd>
-          </div>
-          <div>
-            <dt>政策层级</dt>
-            <dd>{currentPolicy.level}</dd>
-          </div>
-        </dl>
-        <div className="policy-illustration">
-          <ShieldCheck size={42} />
-        </div>
-      </section>
+          <h2>报表未加载</h2>
+          <p>请等待数据读取完成，或返回政策列表重新选择报表。</p>
+        </section>
+      )}
 
-      <nav className="side-nav">
-        {currentModules.map((module) => (
-          <button
-            key={module.id}
-            className={cx(activeModule === module.id && "active")}
-            onClick={() => setActiveModule(module.id)}
-          >
-            {module.id === "brief" && <Home size={16} />}
-            {module.id === "industry" && <Network size={16} />}
-            {module.id === "clauses" && <BookOpenText size={16} />}
-            {module.id === "background" && <ClipboardList size={16} />}
-            {module.id === "compare" && <GitCompareArrows size={16} />}
-            {module.id === "companies" && <Building2 size={16} />}
-            {module.id === "evidence" && <FileText size={16} />}
-            <span>{module.label}</span>
-            {module.badge && <em>{module.badge}</em>}
-          </button>
-        ))}
-      </nav>
+      {currentModules.length > 0 && (
+        <nav className="side-nav">
+          {currentModules.map((module) => (
+            <button
+              key={module.id}
+              className={cx(activeModule === module.id && "active")}
+              onClick={() => setActiveModule(module.id)}
+            >
+              {module.id === "brief" && <Home size={16} />}
+              {module.id === "industry" && <Network size={16} />}
+              {module.id === "clauses" && <BookOpenText size={16} />}
+              {module.id === "background" && <ClipboardList size={16} />}
+              {module.id === "compare" && <GitCompareArrows size={16} />}
+              {module.id === "companies" && <Building2 size={16} />}
+              {module.id === "evidence" && <FileText size={16} />}
+              <span>{module.label}</span>
+              {module.badge && <em>{module.badge}</em>}
+            </button>
+          ))}
+        </nav>
+      )}
 
-      <section className="confidence-card">
-        <div className="confidence-summary">
-          <span>整体置信度</span>
-          <strong>{currentPolicy.confidence}<small>/100</small></strong>
-          <b>较高</b>
-        </div>
-        <div className="confidence-meter">
-          <i style={{ width: `${currentPolicy.confidence}%` }} />
-        </div>
-        <ul>
-          <li><span className="dot green" /> 强证据 <b>{currentEvidence.filter((item) => item.confidence >= 85).length}</b></li>
-          <li><span className="dot blue" /> 间接证据 <b>{currentEvidence.filter((item) => item.confidence >= 70 && item.confidence < 85).length}</b></li>
-          <li><span className="dot orange" /> 待验证 <b>{currentEvidence.filter((item) => item.confidence >= 50 && item.confidence < 70).length}</b></li>
-          <li><span className="dot red" /> 弱/风险 <b>{currentEvidence.filter((item) => item.confidence < 50).length}</b></li>
-        </ul>
-      </section>
+      {currentPolicy && (
+        <section className="confidence-card">
+          <div className="confidence-summary">
+            <span>整体置信度</span>
+            <strong>{currentPolicy.confidence}<small>/100</small></strong>
+            <b>较高</b>
+          </div>
+          <div className="confidence-meter">
+            <i style={{ width: `${currentPolicy.confidence}%` }} />
+          </div>
+          <ul>
+            <li><span className="dot green" /> 强证据 <b>{currentEvidence.filter((item) => item.confidence >= 85).length}</b></li>
+            <li><span className="dot blue" /> 间接证据 <b>{currentEvidence.filter((item) => item.confidence >= 70 && item.confidence < 85).length}</b></li>
+            <li><span className="dot orange" /> 待验证 <b>{currentEvidence.filter((item) => item.confidence >= 50 && item.confidence < 70).length}</b></li>
+            <li><span className="dot red" /> 弱/风险 <b>{currentEvidence.filter((item) => item.confidence < 50).length}</b></li>
+          </ul>
+        </section>
+      )}
 
       <button className="collapse-button" onClick={() => setCollapsed(!collapsed)}>
         <PanelLeftClose size={16} />
@@ -386,8 +404,8 @@ function ReportHeader({
   setActiveModule: (module: ModuleId) => void;
   report: PolicyReport | null;
 }) {
-  const currentTopTabs = report?.topTabs ?? topTabs;
-  const currentModules = report?.modules ?? modules;
+  const currentTopTabs = report?.topTabs ?? [];
+  const currentModules = report?.modules ?? [];
   const activeOutsideTopTabs = !currentTopTabs.some((tab) => tab.id === activeModule);
   const activeModuleMeta = currentModules.find((module) => module.id === activeModule);
   const visibleTabs = activeOutsideTopTabs && activeModuleMeta ? [...currentTopTabs, activeModuleMeta] : currentTopTabs;
@@ -395,11 +413,13 @@ function ReportHeader({
   return (
     <div className="report-header">
       <nav className="top-tabs">
-        {visibleTabs.map((tab) => (
+        {visibleTabs.length > 0 ? visibleTabs.map((tab) => (
           <button key={tab.id} className={cx(activeModule === tab.id && "active")} onClick={() => setActiveModule(tab.id)}>
             {tab.label}
           </button>
-        ))}
+        )) : (
+          <span className="tab-placeholder">报表加载中</span>
+        )}
       </nav>
       <div className="update-status">
         <span>数据更新：10:24</span>
@@ -423,6 +443,13 @@ function BriefView({
   report: PolicyReport | null;
 }) {
   const currentPolicy = report?.policy ?? policy;
+  const currentActions = report?.actions ?? actions;
+  const currentClauses = report?.clauses ?? clauses;
+  const currentEvidence = report?.evidence ?? evidence;
+  const quickTake = currentActions[0]?.body ?? currentClauses[0]?.excerpt ?? "系统已读取政策原文，正在形成可追溯的政策影响摘要。";
+  const quickItems = currentClauses.length
+    ? currentClauses.slice(0, 4).map((clause) => `${clause.no || "条款"} ${clause.title || "核心内容"}：${clause.excerpt}`)
+    : currentActions.slice(0, 4).map((action) => action.body);
 
   return (
     <div className="content-grid brief-grid">
@@ -432,13 +459,13 @@ function BriefView({
           <h1>{currentPolicy.title}</h1>
           <div className="judgement">
             <strong>一句话判断</strong>
-            <p>全面构建数据要素市场化配置制度体系，推动数据产业规模化发展，释放数据要素价值，为数字经济高质量发展提供长期牵引。</p>
+            <p>{quickTake}</p>
           </div>
           <div className="hero-metrics">
-            <Metric icon={Sparkles} label="政策定位" value="顶层设计 · 系统推进" />
-            <Metric icon={Network} label="影响范围" value="全国范围" />
+            <Metric icon={Sparkles} label="政策定位" value={currentPolicy.category || "政策文件"} />
+            <Metric icon={Network} label="影响范围" value={currentPolicy.source || "官方来源"} />
             <Metric icon={FileText} label="生效时间" value={currentPolicy.effectiveDate} />
-            <Metric icon={Layers3} label="政策力度" value="较强" />
+            <Metric icon={Layers3} label="置信度" value={`${currentPolicy.confidence}/100`} />
           </div>
         </div>
         <div className="policy-tower">
@@ -451,14 +478,14 @@ function BriefView({
       <section className="panel details-panel">
         <h2>速读详情</h2>
         <div className="score-inline">
-          <div className="ring small-ring" style={{ "--value": "86%" } as React.CSSProperties}>
-            <strong>86</strong>
+          <div className="ring small-ring" style={{ "--value": `${currentPolicy.confidence}%` } as React.CSSProperties}>
+            <strong>{currentPolicy.confidence}</strong>
             <span>/100</span>
           </div>
           <p>基于政策文本完整度、信号明确度、历史一致性等多维度评估，结论较为可靠。</p>
         </div>
-        <Accordion title="核心要点速览" items={["明确数据要素市场化配置的顶层目标与实施路径", "提出到 2028 年的定量发展目标与关键指标", "强调制度、流通、产业、环境四位一体协同推进", "突出安全治理与合规流通的底线要求"]} />
-        <EvidenceSnippets compact />
+        <Accordion title="核心要点速览" items={quickItems.length ? quickItems : ["政策原文已入库，等待后续深度结构化分析。"]} />
+        <EvidenceSnippets evidenceItems={currentEvidence} compact />
       </section>
 
       <section className="panel">
@@ -488,7 +515,7 @@ function BriefView({
           <h2>政策动作拆解</h2>
           <span className="muted">核心抓手</span>
         </div>
-        {actions.map((action) => (
+        {currentActions.map((action) => (
           <article className="action-row" key={action.id}>
             <div className={cx("action-icon", relationClass[action.signal as RelationType] || "positive")}>
               <Sparkles size={16} />
@@ -537,7 +564,7 @@ function BriefView({
         </button>
       </section>
 
-      <SignalBar />
+      <SignalBar actions={currentActions} />
     </div>
   );
 }
@@ -568,14 +595,23 @@ function Accordion({ title, items }: { title: string; items: string[] }) {
   );
 }
 
-function EvidenceSnippets({ compact }: { compact?: boolean }) {
+function EvidenceSnippets({
+  compact,
+  evidenceItems = evidence
+}: {
+  compact?: boolean;
+  evidenceItems?: typeof evidence;
+}) {
+  const visibleEvidence = evidenceItems.slice(0, compact ? 3 : evidenceItems.length);
+
   return (
     <section className={cx("evidence-snippets", compact && "compact")}>
       <div className="panel-head flush">
         <h3>关键依据</h3>
         <button className="text-button">查看更多</button>
       </div>
-      {evidence.slice(0, compact ? 3 : evidence.length).map((item, index) => (
+      {visibleEvidence.length === 0 && <p className="empty-note">暂无证据摘录。</p>}
+      {visibleEvidence.map((item, index) => (
         <article key={item.id}>
           <span>{String(index + 1).padStart(2, "0")}</span>
           <p>“{item.excerpt}”</p>
@@ -586,13 +622,19 @@ function EvidenceSnippets({ compact }: { compact?: boolean }) {
   );
 }
 
-function SignalBar() {
-  const signals = [
-    ["利好", 6, "positive"],
-    ["约束", 3, "warm"],
-    ["风险", 2, "risk"],
-    ["待验证", 4, "pending"]
-  ];
+function SignalBar({ actions: policyActions = actions }: { actions?: typeof actions }) {
+  const signalClasses: Record<string, string> = {
+    利好: "positive",
+    约束: "warm",
+    风险: "risk",
+    待验证: "pending"
+  };
+  const signals = ["利好", "约束", "风险", "待验证"].map((label) => [
+    label,
+    policyActions.filter((action) => action.signal === label).length,
+    signalClasses[label]
+  ]);
+
   return (
     <section className="panel signal-bar">
       <h2>政策信号</h2>
@@ -609,15 +651,28 @@ function SignalBar() {
 function IndustryView({
   selectedNodeId,
   setSelectedNodeId,
-  setActiveModule
+  setActiveModule,
+  report
 }: {
   selectedNodeId: string;
   setSelectedNodeId: (id: string) => void;
   setActiveModule: (module: ModuleId) => void;
+  report: PolicyReport | null;
 }) {
-  const selectedNode = getNode(selectedNodeId) || chainNodes[0];
-  const [selectedSnapshotCompanyId, setSelectedSnapshotCompanyId] = useState(companies[0].id);
-  const selectedSnapshotCompany = getCompany(selectedSnapshotCompanyId) || companies[0];
+  const currentChainNodes = report ? report.chainNodes : chainNodes;
+  const currentChainEdges = report ? report.chainEdges : chainEdges;
+  const currentCompanies = report ? report.companies : companies;
+  const currentClauses = report ? report.clauses : clauses;
+  const selectedNode = getNode(selectedNodeId, currentChainNodes) || currentChainNodes[0] || chainNodes[0];
+  const [selectedSnapshotCompanyId, setSelectedSnapshotCompanyId] = useState(currentCompanies[0]?.id ?? "");
+  const selectedSnapshotCompany = getCompany(selectedSnapshotCompanyId, currentCompanies) || currentCompanies[0];
+
+  useEffect(() => {
+    if (!currentCompanies.some((company) => company.id === selectedSnapshotCompanyId)) {
+      setSelectedSnapshotCompanyId(currentCompanies[0]?.id ?? "");
+    }
+  }, [currentCompanies, selectedSnapshotCompanyId]);
+
   return (
     <div className="industry-layout">
       <section className="panel industry-panel">
@@ -631,14 +686,14 @@ function IndustryView({
             <button><CircleHelp size={15} /> 说明</button>
           </div>
         </div>
-        <IndustryMap selectedNodeId={selectedNodeId} setSelectedNodeId={setSelectedNodeId} />
+        <IndustryMap nodes={currentChainNodes} edges={currentChainEdges} selectedNodeId={selectedNodeId} setSelectedNodeId={setSelectedNodeId} />
         <div className="map-footer">
           <span>当前高亮路径：政策 → {selectedNode.title}</span>
-          <button onClick={() => setActiveModule("companies")}>查看代表性公司（{companies.length}）</button>
+          <button onClick={() => setActiveModule("companies")}>查看代表性公司（{currentCompanies.length}）</button>
         </div>
       </section>
 
-      <NodeDetail node={selectedNode} />
+      <NodeDetail node={selectedNode} clauses={currentClauses} companies={currentCompanies} />
 
       <section className="panel company-snapshot">
         <div className="panel-head">
@@ -647,18 +702,20 @@ function IndustryView({
             进入公司影响分析 <ChevronRight size={16} />
           </button>
         </div>
-        <CompanyMatrix compact selectedCompanyId={selectedSnapshotCompanyId} setSelectedCompanyId={setSelectedSnapshotCompanyId} />
-        <div className="matrix-focus-card">
-          <span>{selectedSnapshotCompany.name}</span>
-          <strong>{selectedSnapshotCompany.platform}</strong>
-          <div>
-            <Tag value={selectedSnapshotCompany.relation} small />
-            <Tag value={selectedSnapshotCompany.evidence} small />
-            <b>{selectedSnapshotCompany.confidence}/100</b>
+        <CompanyMatrix compact companies={currentCompanies} selectedCompanyId={selectedSnapshotCompanyId} setSelectedCompanyId={setSelectedSnapshotCompanyId} />
+        {selectedSnapshotCompany ? (
+          <div className="matrix-focus-card">
+            <span>{selectedSnapshotCompany.name}</span>
+            <strong>{selectedSnapshotCompany.platform}</strong>
+            <div>
+              <Tag value={selectedSnapshotCompany.relation} small />
+              <Tag value={selectedSnapshotCompany.evidence} small />
+              <b>{selectedSnapshotCompany.confidence}/100</b>
+            </div>
           </div>
-        </div>
+        ) : <p className="empty-note">当前报表暂无代表性公司映射。</p>}
         <div className="company-strip">
-          {companies.slice(0, 5).map((company) => (
+          {currentCompanies.slice(0, 5).map((company) => (
             <button
               className={cx("company-strip-button", selectedSnapshotCompanyId === company.id && "active")}
               key={company.id}
@@ -674,25 +731,29 @@ function IndustryView({
 }
 
 function IndustryMap({
+  nodes,
+  edges,
   selectedNodeId,
   setSelectedNodeId
 }: {
+  nodes: typeof chainNodes;
+  edges: typeof chainEdges;
   selectedNodeId: string;
   setSelectedNodeId: (id: string) => void;
 }) {
-  const activeEdges = chainEdges.filter((edge) => edge.from === selectedNodeId || edge.to === selectedNodeId);
+  const activeEdges = edges.filter((edge) => edge.from === selectedNodeId || edge.to === selectedNodeId);
 
   return (
     <div className="industry-map">
       <svg className="map-lines" viewBox="0 0 1000 520" preserveAspectRatio="none">
-        {chainEdges.map((edge, index) => {
-          const from = getNode(edge.from);
-          const to = getNode(edge.to);
+        {edges.map((edge, index) => {
+          const from = getNode(edge.from, nodes);
+          const to = getNode(edge.to, nodes);
           if (!from || !to) return null;
           const x1 = sectionOrder.indexOf(from.section) * 250 + 95;
-          const y1 = 80 + chainNodes.filter((node) => node.section === from.section).findIndex((node) => node.id === from.id) * 92;
+          const y1 = 80 + nodes.filter((node) => node.section === from.section).findIndex((node) => node.id === from.id) * 92;
           const x2 = sectionOrder.indexOf(to.section) * 250 + 25;
-          const y2 = 80 + chainNodes.filter((node) => node.section === to.section).findIndex((node) => node.id === to.id) * 92;
+          const y2 = 80 + nodes.filter((node) => node.section === to.section).findIndex((node) => node.id === to.id) * 92;
           const active = activeEdges.includes(edge);
           return (
             <path
@@ -705,11 +766,11 @@ function IndustryMap({
       </svg>
 
       {sectionOrder.map((section) => {
-        const nodes = chainNodes.filter((node) => node.section === section);
+        const sectionNodes = nodes.filter((node) => node.section === section);
         return (
           <section className="map-section" key={section}>
             <h3>{sectionLabels[section]}</h3>
-            {nodes.map((node) => {
+            {sectionNodes.map((node) => {
               const Icon = node.icon;
               const selected = selectedNodeId === node.id;
               const related = activeEdges.some((edge) => edge.from === node.id || edge.to === node.id);
@@ -736,13 +797,23 @@ function IndustryMap({
   );
 }
 
-function NodeDetail({ node }: { node: ChainNode }) {
-  const relatedCompanies = node.companies.map(getCompany).filter(Boolean) as Company[];
-  const relatedClauses = node.clauses.map((id) => clauses.find((clause) => clause.id === id)).filter(Boolean);
+function NodeDetail({
+  node,
+  clauses: currentClauses = clauses,
+  companies: currentCompanies = companies
+}: {
+  node: ChainNode;
+  clauses?: typeof clauses;
+  companies?: typeof companies;
+}) {
+  const relatedCompanies = node.companies.map((id) => getCompany(id, currentCompanies)).filter(Boolean) as Company[];
+  const relatedClauses = node.clauses.map((id) => currentClauses.find((clause) => clause.id === id)).filter(Boolean);
+  const Icon = node.icon;
+
   return (
     <aside className="panel node-detail">
       <div className="node-detail-title">
-        <div className="node-icon"><node.icon size={22} /></div>
+        <div className="node-icon"><Icon size={22} /></div>
         <div>
           <span>节点详情</span>
           <h2>{node.title}</h2>
@@ -785,9 +856,31 @@ function NodeDetail({ node }: { node: ChainNode }) {
   );
 }
 
-function ClausesView() {
-  const [selectedClauseId, setSelectedClauseId] = useState("c4");
-  const selected = clauses.find((clause) => clause.id === selectedClauseId) || clauses[0];
+function ClausesView({ report }: { report: PolicyReport | null }) {
+  const currentPolicy = report?.policy ?? policy;
+  const currentClauseGroups = report?.clauseGroups ?? clauseGroups;
+  const currentClauses = report?.clauses ?? clauses;
+  const [selectedClauseId, setSelectedClauseId] = useState(currentClauses[0]?.id ?? "c4");
+  const selected = currentClauses.find((clause) => clause.id === selectedClauseId) || currentClauses[0];
+
+  useEffect(() => {
+    if (!currentClauses.some((clause) => clause.id === selectedClauseId)) {
+      setSelectedClauseId(currentClauses[0]?.id ?? "");
+    }
+  }, [currentClauses, selectedClauseId]);
+
+  if (!selected) {
+    return (
+      <div className="clauses-layout">
+        <section className="panel">
+          <div className="panel-head">
+            <h2>政策条款结构图</h2>
+          </div>
+          <p className="empty-note">当前报表暂无条款抽取结果。</p>
+        </section>
+      </div>
+    );
+  }
 
   return (
     <div className="clauses-layout">
@@ -797,8 +890,8 @@ function ClausesView() {
           <button><Download size={15} /> 导出条款结构图</button>
         </div>
         <div className="clause-orbit">
-          <div className="orbit-center">意见<span>共五部分，20条</span></div>
-          {clauseGroups.map((group, index) => (
+          <div className="orbit-center">{currentPolicy.category || "政策"}<span>共 {currentClauseGroups.length || 1} 组，{currentClauses.length} 条</span></div>
+          {currentClauseGroups.map((group, index) => (
             <button key={group.id} className={cx("orbit-item", group.tone)} style={{ "--i": index } as React.CSSProperties}>
               <strong>{group.title}</strong>
               <span>{group.count}条款</span>
@@ -809,11 +902,11 @@ function ClausesView() {
 
       <section className="panel clause-list-panel">
         <div className="panel-head">
-          <h2>政策条款列表 <span>共20条</span></h2>
+          <h2>政策条款列表 <span>共{currentClauses.length}条</span></h2>
           <div className="input-shell slim"><Search size={15} /><input placeholder="搜索条款内容、关键词" /></div>
         </div>
         <div className="clause-list">
-          {clauses.map((clause) => (
+          {currentClauses.map((clause) => (
             <button key={clause.id} className={cx(selectedClauseId === clause.id && "active")} onClick={() => setSelectedClauseId(clause.id)}>
               <b>{clause.no}</b>
               <span>{clause.title}</span>
@@ -860,19 +953,25 @@ function ClausesView() {
   );
 }
 
-function BackgroundView() {
+function BackgroundView({ report }: { report: PolicyReport | null }) {
+  const currentBackgroundCards = report?.backgroundCards?.length ? report.backgroundCards : backgroundCards;
+  const currentEvidence = report?.evidence ?? evidence;
   const backgroundFactors = [
     ["供给侧", "数据资源分散、质量参差", "公共/企业/个人数据融合应用仍需制度化"],
     ["流通侧", "交易与定价机制不完善", "登记、结算、合规流通基础设施仍在建设"],
     ["需求侧", "产业应用场景扩张", "金融、制造、城市治理形成高价值数据需求"],
     ["约束侧", "安全与隐私保护要求提升", "分类分级、风险评估、合规审计成为底线"]
   ];
-  const diagnosisItems = [
-    ["数据供给不足与质量不高", "政策原文", "第3条", "高"],
-    ["数据流通壁垒与交易成本较高", "政策原文", "第5条", "高"],
-    ["数据要素乘数效应显现", "权威解读", "答记者问", "中"],
-    ["安全合规要求提升", "法规依据", "数据安全法", "中"]
-  ];
+  const visibleBackgroundFactors = report
+    ? currentBackgroundCards.map((card, index) => [`背景${index + 1}`, card.title, card.body])
+    : backgroundFactors;
+  const diagnosisItems = currentEvidence.slice(0, 4).map((item) => [
+    item.excerpt,
+    item.source,
+    item.type,
+    item.confidence >= 85 ? "高" : "中"
+  ]);
+
   return (
     <div className="background-layout">
       <section className="panel background-factor-panel">
@@ -883,7 +982,7 @@ function BackgroundView() {
           </div>
         </div>
         <div className="factor-list">
-          {backgroundFactors.map(([type, title, body], index) => (
+          {visibleBackgroundFactors.map(([type, title, body], index) => (
             <article key={title}>
               <span>{String(index + 1).padStart(2, "0")}</span>
               <div>
@@ -947,6 +1046,7 @@ function BackgroundView() {
             <p>不做主观判断，展示结论来源和对应依据。</p>
           </div>
         </div>
+        {diagnosisItems.length === 0 && <p className="empty-note">暂无背景证据。</p>}
         {diagnosisItems.map(([body, source, clue, level]) => (
           <article key={body}>
             <Tag value={level === "高" ? "直接相关" : "间接相关"} small />
@@ -962,7 +1062,10 @@ function BackgroundView() {
   );
 }
 
-function CompareView() {
+function CompareView({ report }: { report: PolicyReport | null }) {
+  const currentPolicy = report?.policy ?? policy;
+  const currentRows = report?.compareRows?.length ? report.compareRows : compareRows;
+
   return (
     <div className="compare-layout">
       <section className="panel compare-main">
@@ -979,8 +1082,8 @@ function CompareView() {
         <div className="compare-cards">
           <article>
             <span>当前政策（新）</span>
-            <strong>{policy.title}</strong>
-            <p>发布时间：2024-05-28</p>
+            <strong>{currentPolicy.title}</strong>
+            <p>发布时间：{currentPolicy.publishDate || "待补充"}</p>
           </article>
           <GitCompareArrows size={22} />
           <article>
@@ -998,11 +1101,11 @@ function CompareView() {
         <div className="matrix-table">
           <div className="matrix-row header">
             <span>对比维度</span>
-            <span>当前政策（2024）</span>
+            <span>当前政策（{currentPolicy.publishDate?.slice(0, 4) || "本次"}）</span>
             <span>相似政策（2022）</span>
             <span>上一版本（2015）</span>
           </div>
-          {compareRows.map((row) => (
+          {currentRows.map((row) => (
             <div className="matrix-row" key={row[0]}>
               {row.map((cell) => <span key={cell}>{cell}</span>)}
             </div>
@@ -1041,7 +1144,14 @@ function CompareView() {
   );
 }
 
-function EvidenceView() {
+function EvidenceView({ report }: { report: PolicyReport | null }) {
+  const currentEvidence = report?.evidence ?? evidence;
+  const highEvidence = currentEvidence.filter((item) => item.confidence >= 85).length;
+  const mediumEvidence = currentEvidence.filter((item) => item.confidence >= 70 && item.confidence < 85).length;
+  const pendingEvidence = currentEvidence.filter((item) => item.confidence >= 50 && item.confidence < 70).length;
+  const weakEvidence = currentEvidence.filter((item) => item.confidence < 50).length;
+  const policyOriginalEvidence = currentEvidence.filter((item) => item.type.includes("政策原文")).length;
+
   return (
     <div className="evidence-layout">
       <section className="panel evidence-main">
@@ -1051,24 +1161,24 @@ function EvidenceView() {
         </div>
         <div className="evidence-stats">
           {[
-            ["证据总量", "40 条"],
-            ["高相关证据", "26 条"],
-            ["政策原文", "18 条"],
-            ["外部验证", "12 条"]
+            ["证据总量", `${currentEvidence.length} 条`],
+            ["高相关证据", `${highEvidence} 条`],
+            ["政策原文", `${policyOriginalEvidence} 条`],
+            ["外部验证", `${Math.max(0, currentEvidence.length - policyOriginalEvidence)} 条`]
           ].map(([label, value]) => (
             <article key={label}><span>{label}</span><strong>{value}</strong></article>
           ))}
         </div>
-        <EvidenceSnippets />
+        <EvidenceSnippets evidenceItems={currentEvidence} />
       </section>
       <aside className="panel">
         <h2>信号强度分布</h2>
         <div className="donut" />
         <ul className="legend-list">
-          <li><span className="dot green" /> 强证据 14（35%）</li>
-          <li><span className="dot blue" /> 中性 13（33%）</li>
-          <li><span className="dot orange" /> 待验证 8（20%）</li>
-          <li><span className="dot red" /> 约束 5（12%）</li>
+          <li><span className="dot green" /> 强证据 {highEvidence}</li>
+          <li><span className="dot blue" /> 中性 {mediumEvidence}</li>
+          <li><span className="dot orange" /> 待验证 {pendingEvidence}</li>
+          <li><span className="dot red" /> 弱/风险 {weakEvidence}</li>
         </ul>
       </aside>
     </div>
@@ -1230,13 +1340,22 @@ function ModuleContent({
   report: PolicyReport | null;
 }) {
   if (activeModule === "industry") {
-    return <IndustryView selectedNodeId={selectedNodeId} setSelectedNodeId={setSelectedNodeId} setActiveModule={setActiveModule} />;
+    return <IndustryView selectedNodeId={selectedNodeId} setSelectedNodeId={setSelectedNodeId} setActiveModule={setActiveModule} report={report} />;
   }
-  if (activeModule === "clauses") return <ClausesView />;
-  if (activeModule === "background") return <BackgroundView />;
-  if (activeModule === "compare") return <CompareView />;
-  if (activeModule === "companies") return <CompaniesView />;
-  if (activeModule === "evidence") return <EvidenceView />;
+  if (activeModule === "clauses") return <ClausesView report={report} />;
+  if (activeModule === "background") return <BackgroundView report={report} />;
+  if (activeModule === "compare") return <CompareView report={report} />;
+  if (activeModule === "companies") {
+    return (
+      <CompaniesView
+        chainNodes={report ? report.chainNodes : chainNodes}
+        clauses={report ? report.clauses : clauses}
+        companies={report ? report.companies : companies}
+        evidence={report ? report.evidence : evidence}
+      />
+    );
+  }
+  if (activeModule === "evidence") return <EvidenceView report={report} />;
   return <BriefView setActiveModule={setActiveModule} report={report} />;
 }
 
@@ -1269,6 +1388,31 @@ function ReportLoadState({
           <span>已加载报表：{report?.summary.title}</span>
         </>
       )}
+    </section>
+  );
+}
+
+function ReportUnavailableState({
+  loading,
+  error
+}: {
+  loading: boolean;
+  error: string;
+}) {
+  const title = loading ? "正在读取报表" : error ? "报表无法显示" : "暂无有效报表";
+  const body = loading
+    ? "系统正在读取当前政策的结构化报表，完成后会显示产业链、条款、背景、对比和证据模块。"
+    : error
+      ? "为避免展示不匹配的示例数据，本页不会回退到默认报表。请返回列表选择其他报表，或检查后端报表 payload。"
+      : "当前没有可显示的报表数据。";
+
+  return (
+    <section className={cx("panel report-unavailable", error && "error")}>
+      {loading ? <RefreshCw size={18} /> : <AlertCircle size={18} />}
+      <div>
+        <h2>{title}</h2>
+        <p>{body}</p>
+      </div>
     </section>
   );
 }
@@ -1321,7 +1465,15 @@ export function App() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const activeNode = useMemo(() => getNode(selectedNodeId) || chainNodes[0], [selectedNodeId]);
+  const activeChainNodes = activeReport ? activeReport.chainNodes : chainNodes;
+  const activeNode = useMemo(() => getNode(selectedNodeId, activeChainNodes) || activeChainNodes[0] || chainNodes[0], [activeChainNodes, selectedNodeId]);
+
+  useEffect(() => {
+    if (appView !== "report" || activeChainNodes.length === 0) return;
+    if (!activeChainNodes.some((node) => node.id === selectedNodeId)) {
+      setSelectedNodeId(activeChainNodes[0].id);
+    }
+  }, [activeChainNodes, appView, selectedNodeId]);
 
   useEffect(() => {
     if (!isSupabaseConfigured || !supabase) {
@@ -1438,11 +1590,13 @@ export function App() {
     setActiveModule("industry");
     setMobileMenuOpen(false);
     setAppView("report");
+    window.scrollTo({ top: 0, behavior: "auto" });
   }
 
   function openList() {
     setAppView("list");
     setMobileMenuOpen(false);
+    window.scrollTo({ top: 0, behavior: "auto" });
   }
 
   function resetSessionState() {
@@ -1515,17 +1669,25 @@ export function App() {
           <main className="report-main">
             <ReportHeader activeModule={activeModule} setActiveModule={setActiveModule} report={activeReport} />
             <ReportLoadState loading={reportLoading} error={reportError} report={activeReport} />
-            <ModuleContent
-              activeModule={activeModule}
-              setActiveModule={setActiveModule}
-              selectedNodeId={selectedNodeId}
-              setSelectedNodeId={setSelectedNodeId}
-              report={activeReport}
-            />
+            {activeReport ? (
+              <ModuleContent
+                activeModule={activeModule}
+                setActiveModule={setActiveModule}
+                selectedNodeId={selectedNodeId}
+                setSelectedNodeId={setSelectedNodeId}
+                report={activeReport}
+              />
+            ) : (
+              <ReportUnavailableState loading={reportLoading} error={reportError} />
+            )}
           </main>
-          {activeModule !== "industry" && activeModule !== "companies" && (
+          {activeReport && activeModule !== "industry" && activeModule !== "companies" && (
             <aside className="context-rail">
-              <NodeDetail node={activeNode} />
+              <NodeDetail
+                node={activeNode}
+                clauses={activeReport ? activeReport.clauses : clauses}
+                companies={activeReport ? activeReport.companies : companies}
+              />
             </aside>
           )}
         </div>

@@ -1,14 +1,21 @@
 import { ChevronRight, X } from "lucide-react";
-import type { ChainNode, Company } from "../../data/policy";
-import { clauses, companies, evidence } from "../../data/policy";
+import type { ChainNode, Clause, Company, Evidence } from "../../data/policy";
 import { CompanyTag } from "./CompanyTag";
 import { companySectionLabels } from "./companyConstants";
 import { getNodeById, isDefined } from "./companyUtils";
 
 export function CompanyDetail({
+  chainNodes,
+  clauses,
+  evidence,
+  companies,
   selectedCompany,
   setSelectedCompanyId
 }: {
+  chainNodes: ChainNode[];
+  clauses: Clause[];
+  evidence: Evidence[];
+  companies: Company[];
   selectedCompany: Company;
   setSelectedCompanyId: (id: string) => void;
 }) {
@@ -16,7 +23,8 @@ export function CompanyDetail({
     .map((id) => clauses.find((clause) => clause.id === id))
     .filter(isDefined);
   const selectedEvidence = selectedCompany.evidenceIds.map((id) => evidence.find((item) => item.id === id)).filter(isDefined);
-  const selectedNodes = selectedCompany.nodeIds.map(getNodeById).filter(isDefined) as ChainNode[];
+  const selectedNodes = selectedCompany.nodeIds.map((id) => getNodeById(id, chainNodes)).filter(isDefined) as ChainNode[];
+  const resetCompanyId = companies[0]?.id ?? selectedCompany.id;
 
   return (
     <aside className="panel company-detail">
@@ -24,7 +32,7 @@ export function CompanyDetail({
         <span>公司详情</span>
         <div className="row-between">
           <h2>{selectedCompany.name}</h2>
-          <button className="icon-button quiet" onClick={() => setSelectedCompanyId(companies[0].id)} aria-label="重置公司选择">
+          <button className="icon-button quiet" onClick={() => setSelectedCompanyId(resetCompanyId)} aria-label="重置公司选择">
             <X size={16} />
           </button>
         </div>

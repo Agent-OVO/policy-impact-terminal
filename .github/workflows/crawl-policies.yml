@@ -44,7 +44,22 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Check Supabase crawl configuration
+        id: config
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_FUNCTION_JWT: ${{ secrets.SUPABASE_FUNCTION_JWT }}
+          SUPABASE_CRAWLER_SECRET: ${{ secrets.SUPABASE_CRAWLER_SECRET }}
+        run: |
+          if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_FUNCTION_JWT" ] && [ -n "$SUPABASE_CRAWLER_SECRET" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Supabase crawl secrets are not fully configured; skipping scheduled ingest."
+          fi
+
       - name: Crawl and ingest policy documents
+        if: steps.config.outputs.ready == 'true'
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_FUNCTION_JWT: ${{ secrets.SUPABASE_FUNCTION_JWT }}

@@ -1,17 +1,31 @@
-import { companies } from "../../data/policy";
+import { companies as defaultCompanies } from "../../data/policy";
+import type { Company } from "../../data/policy";
 import { companyMatrixOffsets, companyRelationClass } from "./companyConstants";
 import { clamp, cx, getCompanyById } from "./companyUtils";
 
 export function CompanyMatrix({
   compact,
+  companies = defaultCompanies,
   selectedCompanyId,
   setSelectedCompanyId
 }: {
   compact?: boolean;
+  companies?: Company[];
   selectedCompanyId?: string;
   setSelectedCompanyId?: (id: string) => void;
 }) {
-  const selected = getCompanyById(selectedCompanyId || companies[0].id) || companies[0];
+  if (companies.length === 0) {
+    return (
+      <div className={cx("company-matrix", compact && "compact", "empty")}>
+        <div className="matrix-plot-label">
+          <strong>公司影响象限</strong>
+          <span>当前自动分析尚未生成公司映射</span>
+        </div>
+      </div>
+    );
+  }
+
+  const selected = getCompanyById(selectedCompanyId || companies[0].id, companies) || companies[0];
 
   return (
     <div className={cx("company-matrix", compact && "compact")}>

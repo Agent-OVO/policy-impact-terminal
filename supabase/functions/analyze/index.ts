@@ -33,6 +33,8 @@ type PolicyRecord = {
   metadata: Record<string, unknown>;
 };
 
+const MIN_POLICY_FULL_TEXT_LENGTH = 280;
+
 type IndustryRule = {
   id: string;
   title: string;
@@ -135,6 +137,13 @@ Deno.serve(async (req) => {
     }
 
     const policy = await fetchPolicy(supabase, job.policy_id);
+    if (!hasUsablePolicyText(policy.full_text)) {
+      throw new HttpError(
+        409,
+        "Policy full_text is missing or too short. Scheduled analysis requires the original policy text, not only title or summary metadata."
+      );
+    }
+
     const reportPayload = buildReportPayload(policy, now);
     const analysisOutput = {
       analyzerVersion: "rules-v0.1",
@@ -227,9 +236,10 @@ async function fetchPolicy(
 }
 
 function buildReportPayload(policy: PolicyRecord, generatedAt: string) {
-  const text = normalizeText(`${policy.title}\n${policy.summary ?? ""}\n${policy.full_text ?? ""}`);
+  const fullText = normalizeText(policy.full_text ?? "");
+  const text = normalizeText(`${policy.title}\n${policy.summary ?? ""}\n${fullText}`);
   const matchedRules = matchIndustryRules(text);
-  const clauses = extractPolicyClauses(policy.full_text ?? policy.summary ?? policy.title);
+  const clauses = extractPolicyClauses(fullText);
   const evidence = clauses.map((clause, index) => ({
     id: `evidence-${index + 1}`,
     title: `${clause.no} 原文证据`,
@@ -315,6 +325,10 @@ function buildReportPayload(policy: PolicyRecord, generatedAt: string) {
     modules: defaultModules(),
     topTabs: defaultTopTabs()
   };
+}
+
+function hasUsablePolicyText(value: string | null | undefined): boolean {
+  return normalizeText(value ?? "").length >= MIN_POLICY_FULL_TEXT_LENGTH;
 }
 
 function matchIndustryRules(text: string): IndustryRule[] {
