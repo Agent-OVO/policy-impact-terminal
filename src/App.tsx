@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
 import {
   AlertCircle,
@@ -51,6 +51,7 @@ import {
   type RelationType
 } from "./data/policy";
 import { isSupabaseConfigured, supabase } from "./lib/supabase";
+import { getAnalyticsSessionId, trackUserEvent, type TrackUserEventInput } from "./lib/analytics";
 import {
   getPolicyReport,
   listAnalysisJobs,
@@ -80,6 +81,7 @@ const relationClass: Record<RelationType, string> = {
 };
 
 type SessionUser = {
+  id?: string;
   email: string;
   name: string;
 };
@@ -1394,12 +1396,14 @@ function ModuleContent({
   setActiveModule,
   selectedNodeId,
   setSelectedNodeId,
+  onCompanySelect,
   report
 }: {
   activeModule: ModuleId;
   setActiveModule: (module: ModuleId) => void;
   selectedNodeId: string;
   setSelectedNodeId: (id: string) => void;
+  onCompanySelect?: (companyId: string, source?: string) => void;
   report: PolicyReport | null;
 }) {
   if (activeModule === "industry") {
@@ -1415,6 +1419,7 @@ function ModuleContent({
         clauses={report ? report.clauses : clauses}
         companies={report ? report.companies : companies}
         evidence={report ? report.evidence : evidence}
+        onCompanySelect={onCompanySelect}
       />
     );
   }
@@ -1507,6 +1512,7 @@ function toSessionUser(user: SupabaseUser): SessionUser {
   const email = user.email ?? "";
 
   return {
+    id: user.id,
     email,
     name: metadataName || email.split("@")[0] || "研究员"
   };
@@ -1527,9 +1533,15 @@ export function App() {
   const [selectedNodeId, setSelectedNodeId] = useState("exchange");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const analyticsSessionIdRef = useRef(getAnalyticsSessionId());
+  const trackedAppOpenRef = useRef(false);
 
   const activeChainNodes = activeReport ? activeReport.chainNodes : chainNodes;
   const activeNode = useMemo(() => getNode(selectedNodeId, activeChainNodes) || activeChainNodes[0] || chainNodes[0], [activeChainNodes, selectedNodeId]);
+  const track = useCallback((event: TrackUserEventInput) => {
+    if (!analyticsSessionIdRef.current) analyticsSessionIdRef.current = getAnalyticsSessionId();
+    void trackUserEvent(user?.id, event);
+  }, [user?.id]);
 
   useEffect(() => {
     if (appView !== "report" || activeChainNodes.length === 0) return;
@@ -1587,6 +1599,10 @@ export function App() {
   }, []);
 
   useEffect(() => {
+    if (!user?.id) trackedAppOpenRef.current = false;
+  }, [user?.id]);
+
+  useEffect(() => {
     if (!user) return undefined;
 
     let alive = true;
@@ -1610,6 +1626,72 @@ export function App() {
       alive = false;
     };
   }, [user]);
+
+  useEffect(() => {
+    if (!user?.id || trackedAppOpenRef.current) return;
+    trackedAppOpenRef.current = true;
+    track({
+      eventType: "app_open",
+      metadata: {
+        displayName: user.name
+      }
+    });
+  }, [track, user?.id, user?.name]);
+
+  useEffect(() => {
+    if (!user?.id || appView !== "list") return;
+    track({
+      eventType: "policy_list_view",
+      metadata: {
+        reportCount: reports.length,
+        jobCount: jobs.length
+      }
+    });
+  }, [appView, jobs.length, reports.length, track, user?.id]);
+
+  useEffect(() => {
+    if (!user?.id || appView !== "report") return undefined;
+
+    const startedAt = Date.now();
+    track({
+      eventType: "policy_view",
+      policyRef: selectedReportId
+    });
+
+    return () => {
+      const durationMs = Date.now() - startedAt;
+      if (durationMs >= 1000) {
+        track({
+          eventType: "policy_view_duration",
+          policyRef: selectedReportId,
+          durationMs
+        });
+      }
+    };
+  }, [appView, selectedReportId, track, user?.id]);
+
+  useEffect(() => {
+    if (!user?.id || appView !== "report") return undefined;
+
+    const startedAt = Date.now();
+    track({
+      eventType: "module_view",
+      policyRef: selectedReportId,
+      moduleId: activeModule
+    });
+
+    return () => {
+      const durationMs = Date.now() - startedAt;
+      if (durationMs >= 1000) {
+        track({
+          eventType: "module_view_duration",
+          policyRef: selectedReportId,
+          moduleId: activeModule,
+          durationMs
+        });
+      }
+    };
+  }, [activeModule, appView, selectedReportId, track, user?.id]);
 
   useEffect(() => {
     if (!user || appView !== "report") return undefined;
@@ -1647,6 +1729,17 @@ export function App() {
   }
 
   function openReport(reportId: string) {
+    const reportSummary = reports.find((item) => item.id === reportId);
+    track({
+      eventType: "policy_open",
+      policyRef: reportId,
+      targetType: "policy",
+      targetId: reportId,
+      metadata: {
+        title: reportSummary?.title,
+        source: reportSummary?.source
+      }
+    });
     setSelectedReportId(reportId);
     setActiveReport(null);
     setReportError("");
@@ -1657,9 +1750,53 @@ export function App() {
   }
 
   function openList() {
+    track({
+      eventType: "navigate_back_to_list",
+      policyRef: selectedReportId,
+      moduleId: activeModule
+    });
     setAppView("list");
     setMobileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: "auto" });
+  }
+
+  function changeModule(module: ModuleId, source = "navigation") {
+    track({
+      eventType: "module_click",
+      policyRef: selectedReportId,
+      moduleId: module,
+      targetType: "module",
+      targetId: module,
+      metadata: {
+        source,
+        previousModule: activeModule
+      }
+    });
+    setActiveModule(module);
+  }
+
+  function selectIndustryNode(nodeId: string) {
+    track({
+      eventType: "industry_node_select",
+      policyRef: selectedReportId,
+      moduleId: activeModule,
+      targetType: "industry_node",
+      targetId: nodeId
+    });
+    setSelectedNodeId(nodeId);
+  }
+
+  function selectCompany(companyId: string, source = "companies") {
+    track({
+      eventType: "company_select",
+      policyRef: selectedReportId,
+      moduleId: activeModule,
+      targetType: "company",
+      targetId: companyId,
+      metadata: {
+        source
+      }
+    });
   }
 
   function resetSessionState() {
@@ -1674,6 +1811,11 @@ export function App() {
   }
 
   function logout() {
+    track({
+      eventType: "logout",
+      policyRef: appView === "report" ? selectedReportId : undefined,
+      moduleId: appView === "report" ? activeModule : undefined
+    });
     resetSessionState();
     if (supabase) void supabase.auth.signOut();
   }
@@ -1720,7 +1862,7 @@ export function App() {
             <PolicySidebar
               activeModule={activeModule}
               setActiveModule={(module) => {
-                setActiveModule(module);
+                changeModule(module, "sidebar");
                 setMobileMenuOpen(false);
               }}
               collapsed={sidebarCollapsed}
@@ -1730,14 +1872,15 @@ export function App() {
             />
           </div>
           <main className="report-main">
-            <ReportHeader activeModule={activeModule} setActiveModule={setActiveModule} report={activeReport} />
+            <ReportHeader activeModule={activeModule} setActiveModule={(module) => changeModule(module, "top_tab")} report={activeReport} />
             <ReportLoadState loading={reportLoading} error={reportError} report={activeReport} />
             {activeReport ? (
               <ModuleContent
                 activeModule={activeModule}
-                setActiveModule={setActiveModule}
+                setActiveModule={(module) => changeModule(module, "content")}
                 selectedNodeId={selectedNodeId}
-                setSelectedNodeId={setSelectedNodeId}
+                setSelectedNodeId={selectIndustryNode}
+                onCompanySelect={selectCompany}
                 report={activeReport}
               />
             ) : (

@@ -12,12 +12,14 @@ export function CompaniesView({
   chainNodes = defaultChainNodes,
   clauses = defaultClauses,
   companies = defaultCompanies,
-  evidence = defaultEvidence
+  evidence = defaultEvidence,
+  onCompanySelect
 }: {
   chainNodes?: ChainNode[];
   clauses?: Clause[];
   companies?: Company[];
   evidence?: Evidence[];
+  onCompanySelect?: (companyId: string, source?: string) => void;
 }) {
   const [selectedCompanyId, setSelectedCompanyId] = useState(companies[0]?.id ?? "");
   const selected = getCompanyById(selectedCompanyId, companies) || companies[0];
@@ -31,6 +33,11 @@ export function CompaniesView({
       setSelectedCompanyId(companies[0]?.id ?? "");
     }
   }, [companies, selectedCompanyId]);
+
+  function selectCompany(companyId: string, source = "company_cards") {
+    setSelectedCompanyId(companyId);
+    onCompanySelect?.(companyId, source);
+  }
 
   if (!selected) {
     return (
@@ -53,7 +60,7 @@ export function CompaniesView({
           <h2>代表性公司影响分析</h2>
           <p>仅服务于本次政策分析，不做公司持续跟踪。</p>
         </div>
-        <CompanyMatrix companies={companies} selectedCompanyId={selectedCompanyId} setSelectedCompanyId={setSelectedCompanyId} />
+        <CompanyMatrix companies={companies} selectedCompanyId={selectedCompanyId} setSelectedCompanyId={(id) => selectCompany(id, "company_matrix")} />
       </section>
       <section className="panel company-cards-panel">
         <div className="panel-head">
@@ -66,7 +73,7 @@ export function CompaniesView({
               <h3>{companySectionLabels[section]} <span>相关公司 {items.length} 家</span></h3>
               <div className="company-grid">
                 {items.map((company) => (
-                  <button key={company.id} className={cx(selectedCompanyId === company.id && "active")} onClick={() => setSelectedCompanyId(company.id)}>
+                  <button key={company.id} className={cx(selectedCompanyId === company.id && "active")} onClick={() => selectCompany(company.id, "company_cards")}>
                     <CompanyCard company={company} />
                   </button>
                 ))}
@@ -81,7 +88,7 @@ export function CompaniesView({
         evidence={evidence}
         companies={companies}
         selectedCompany={selected}
-        setSelectedCompanyId={setSelectedCompanyId}
+        setSelectedCompanyId={(id) => selectCompany(id, "company_detail")}
       />
     </div>
   );

@@ -348,6 +348,37 @@ create table if not exists public.analysis_jobs (
   updated_at timestamptz not null default now()
 );
 
+create table if not exists public.user_events (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null default auth.uid() references auth.users(id) on delete cascade,
+  session_id text not null,
+  event_type text not null
+    check (event_type in (
+      'app_open',
+      'policy_list_view',
+      'policy_open',
+      'policy_view',
+      'policy_view_duration',
+      'module_click',
+      'module_view',
+      'module_view_duration',
+      'industry_node_select',
+      'company_select',
+      'navigate_back_to_list',
+      'logout'
+    )),
+  policy_ref text,
+  module_id text,
+  target_type text,
+  target_id text,
+  duration_ms integer check (duration_ms is null or duration_ms >= 0),
+  route_path text,
+  viewport jsonb not null default '{}'::jsonb,
+  metadata jsonb not null default '{}'::jsonb,
+  occurred_at timestamptz not null default now(),
+  created_at timestamptz not null default now()
+);
+
 create or replace function public.can_read_policy(target_policy_id uuid)
 returns boolean
 language sql
@@ -440,6 +471,12 @@ create index if not exists analysis_jobs_owner_id_idx on public.analysis_jobs (o
 create index if not exists analysis_jobs_policy_id_idx on public.analysis_jobs (policy_id);
 create index if not exists analysis_jobs_status_idx on public.analysis_jobs (status, created_at desc);
 
+create index if not exists user_events_user_id_idx on public.user_events (user_id, occurred_at desc);
+create index if not exists user_events_session_id_idx on public.user_events (session_id, occurred_at desc);
+create index if not exists user_events_policy_ref_idx on public.user_events (policy_ref, occurred_at desc);
+create index if not exists user_events_event_type_idx on public.user_events (event_type, occurred_at desc);
+create index if not exists user_events_module_id_idx on public.user_events (module_id, occurred_at desc);
+
 drop trigger if exists set_profiles_updated_at on public.profiles;
 create trigger set_profiles_updated_at
   before update on public.profiles
@@ -500,6 +537,7 @@ alter table public.industry_edges enable row level security;
 alter table public.companies enable row level security;
 alter table public.evidence enable row level security;
 alter table public.analysis_jobs enable row level security;
+alter table public.user_events enable row level security;
 
 drop policy if exists "profiles_select_own" on public.profiles;
 create policy "profiles_select_own"
@@ -693,6 +731,27 @@ create policy "analysis_jobs_delete_admin"
   to authenticated
   using (public.is_admin());
 
+drop policy if exists "user_events_insert_own" on public.user_events;
+create policy "user_events_insert_own"
+  on public.user_events
+  for insert
+  to authenticated
+  with check (user_id = auth.uid());
+
+drop policy if exists "user_events_select_own_or_admin" on public.user_events;
+create policy "user_events_select_own_or_admin"
+  on public.user_events
+  for select
+  to authenticated
+  using (user_id = auth.uid() or public.is_admin());
+
+drop policy if exists "user_events_delete_admin" on public.user_events;
+create policy "user_events_delete_admin"
+  on public.user_events
+  for delete
+  to authenticated
+  using (public.is_admin());
+
 grant usage on schema public to authenticated;
 
 grant select, insert, update on public.profiles to authenticated;
@@ -706,6 +765,7 @@ grant all on public.industry_edges to authenticated;
 grant all on public.companies to authenticated;
 grant all on public.evidence to authenticated;
 grant all on public.analysis_jobs to authenticated;
+grant select, insert, delete on public.user_events to authenticated;
 
 comment on table public.policies is 'Policy documents and top-level report metadata. Published rows are readable by authenticated users.';
 comment on column public.policies.external_id is 'Optional stable business identifier for imported reports or shareable routes. Frontend getPolicyReport can load by UUID id or external_id.';
@@ -720,6 +780,7 @@ comment on table public.industry_edges is 'Relationships between industry-chain 
 comment on table public.companies is 'Policy-specific company impact analysis records.';
 comment on table public.evidence is 'Evidence snippets linked to policies, clauses, industry nodes, or companies.';
 comment on table public.analysis_jobs is 'Async analysis job queue. Currently visible only to owner or admin.';
+comment on table public.user_events is 'Per-user frontend behavior events for policy report usage analytics. Normal users can insert and read their own events; admins can query all events.';
 comment on column public.analysis_jobs.input_payload is 'Original user request for Edge Functions. ingest writes sourceUrl/title/sourceName and later functions may append normalized inputs.';
 comment on column public.analysis_jobs.output_payload is 'Machine-readable outputs from analysis stages. The baseline analyzer writes a rules-based report payload before deeper model extraction is added.';
 comment on column public.analysis_jobs.current_step is 'Human-readable progress message shown by the frontend job list.';
