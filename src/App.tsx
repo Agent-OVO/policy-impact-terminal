@@ -288,7 +288,7 @@ function AuthScreen({ onLogin }: { onLogin: (user: SessionUser) => void }) {
                 onChange={(event) => setUsername(event.target.value)}
                 type="text"
                 autoComplete="username"
-                pattern="[A-Za-z0-9_-]{3,32}"
+                pattern="[A-Za-z0-9_\\-]{3,32}"
                 required
               />
             </div>
