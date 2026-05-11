@@ -23,7 +23,6 @@ import {
   Layers3,
   LockKeyhole,
   LogOut,
-  Mail,
   Menu,
   Network,
   PanelLeftClose,
@@ -103,17 +102,30 @@ function getCompany(id: string, items: Company[] = companies) {
   return items.find((company) => company.id === id);
 }
 
+const USERNAME_AUTH_DOMAIN = "users.policy-impact-terminal.invalid";
+
+function normalizeUsername(value: string) {
+  return value.trim().toLowerCase();
+}
+
+function isValidUsername(value: string) {
+  return /^[a-z0-9_-]{3,32}$/.test(value);
+}
+
+function usernameToAuthEmail(value: string) {
+  return `${normalizeUsername(value)}@${USERNAME_AUTH_DOMAIN}`;
+}
+
 function AuthScreen({ onLogin }: { onLogin: (user: SessionUser) => void }) {
   const [mode, setMode] = useState<"login" | "register">("login");
-  const [email, setEmail] = useState("researcher@example.com");
-  const [password, setPassword] = useState("demo123456");
+  const [username, setUsername] = useState(() => (isSupabaseConfigured ? "" : "researcher"));
+  const [password, setPassword] = useState(() => (isSupabaseConfigured ? "" : "demo123456"));
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    if (!isSupabaseConfigured && mode === "register") {
-      setMode("login");
-    }
+    if (!isSupabaseConfigured && mode === "register") setMode("login");
   }, [mode]);
 
   async function submit(event: React.FormEvent) {
@@ -123,10 +135,32 @@ function AuthScreen({ onLogin }: { onLogin: (user: SessionUser) => void }) {
 
     try {
       if (isSupabaseConfigured && supabase) {
+        const normalizedUsername = normalizeUsername(username);
+
+        if (!isValidUsername(normalizedUsername)) {
+          setMessage("用户名需为 3-32 位小写字母、数字、下划线或短横线。");
+          return;
+        }
+
+        if (mode === "register" && password !== confirmPassword) {
+          setMessage("两次输入的密码不一致。");
+          return;
+        }
+
+        const authEmail = usernameToAuthEmail(normalizedUsername);
         const response =
           mode === "login"
-            ? await supabase.auth.signInWithPassword({ email, password })
-            : await supabase.auth.signUp({ email, password });
+            ? await supabase.auth.signInWithPassword({ email: authEmail, password })
+            : await supabase.auth.signUp({
+                email: authEmail,
+                password,
+                options: {
+                  data: {
+                    name: normalizedUsername,
+                    username: normalizedUsername
+                  }
+                }
+              });
 
         if (response.error) {
           setMessage(response.error.message);
@@ -138,16 +172,11 @@ function AuthScreen({ onLogin }: { onLogin: (user: SessionUser) => void }) {
           return;
         }
 
-        if (mode === "register") {
-          setMessage("账号已创建，请按 Supabase 邮件确认策略完成验证后再登录。");
-          return;
-        }
-
-        setMessage("Supabase 未返回有效会话，请重新登录。");
+        setMessage(mode === "register" ? "账号已创建，请直接登录。" : "登录失败，请重新输入。");
         return;
       }
 
-      onLogin({ email, name: "研究员_王明远" });
+      onLogin({ email: username, name: "研究员" });
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "登录失败，请稍后重试。");
     } finally {
@@ -168,10 +197,8 @@ function AuthScreen({ onLogin }: { onLogin: (user: SessionUser) => void }) {
 
         <div className="auth-hero">
           <p className="eyebrow">Policy Intelligence Terminal</p>
-          <h1>把政策原文变成可追溯的产业影响分析。</h1>
-          <p>
-            当前版本支持本地演示登录；配置 Supabase 后可切换为真实账号体系。普通用户只查看已发布报表，政策抓取和分析由后台定时完成。
-          </p>
+          <h1>政策原文驱动的产业影响分析终端</h1>
+          <p>普通用户注册后即可查看已发布报表，政策抓取和分析由后台定时完成。</p>
         </div>
 
         <form className="auth-form" onSubmit={submit}>
@@ -187,34 +214,70 @@ function AuthScreen({ onLogin }: { onLogin: (user: SessionUser) => void }) {
           </div>
 
           <label>
-            <span>账号邮箱</span>
+            <span>用户名</span>
             <div className="input-shell">
-              <Mail size={16} />
-              <input value={email} onChange={(event) => setEmail(event.target.value)} type="email" required />
+              <UserRound size={16} />
+              <input
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+                type="text"
+                autoComplete="username"
+                pattern="[A-Za-z0-9_-]{3,32}"
+                required
+              />
             </div>
           </label>
+
           <label>
             <span>密码</span>
             <div className="input-shell">
               <LockKeyhole size={16} />
-              <input value={password} onChange={(event) => setPassword(event.target.value)} type="password" required />
+              <input
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                type="password"
+                autoComplete={mode === "login" ? "current-password" : "new-password"}
+                minLength={6}
+                required
+              />
             </div>
           </label>
+
+          {mode === "register" && (
+            <label>
+              <span>确认密码</span>
+              <div className="input-shell">
+                <LockKeyhole size={16} />
+                <input
+                  value={confirmPassword}
+                  onChange={(event) => setConfirmPassword(event.target.value)}
+                  type="password"
+                  autoComplete="new-password"
+                  minLength={6}
+                  required
+                />
+              </div>
+            </label>
+          )}
+
           {message && <p className="auth-error">{message}</p>}
           <button className="primary-button" disabled={isSubmitting} type="submit">
             {isSubmitting ? "正在验证..." : mode === "login" ? "进入终端" : "创建账号"}
             <ChevronRight size={16} />
           </button>
           <p className="auth-note">
-            Supabase 状态：{isSupabaseConfigured ? "已配置，可使用真实 Auth" : "未配置，使用本地演示会话"}
+            {isSupabaseConfigured
+              ? "注册无需邮箱确认；账号仅用于访问已发布政策分析。"
+              : "当前未配置 Supabase，使用本地演示会话。"}
           </p>
         </form>
       </section>
+
       <section className="auth-preview">
         <div className="preview-orbit" />
         <div className="mini-report">
-          <span>新政策解析完成</span>
-          <strong>数据要素市场化配置意见</strong>
+          <span>政策分析已发布</span>
+          <strong>自动抓取政策原文并生成产业影响报告</strong>
           <div className="mini-lines">
             <i />
             <i />
