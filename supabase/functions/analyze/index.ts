@@ -4,6 +4,7 @@ import {
   HttpError,
   isRecord,
   jsonResponse,
+  optionalString,
   readJsonObject,
   requirePost,
   requireString
@@ -519,6 +520,36 @@ Deno.serve(async (req: Request) => {
     const supabase = createSupabaseAdminClient();
     await requireCrawlerOrAdminUser(req, supabase);
     const body = await readJsonObject(req);
+    const requestedPolicyId = optionalString(body, "policyId") ?? optionalString(body, "policy_id");
+    if (requestedPolicyId) {
+      const now = new Date().toISOString();
+      const policy = await fetchPolicy(supabase, requestedPolicyId);
+      if (!hasUsablePolicyText(policy.full_text)) {
+        throw new HttpError(
+          409,
+          "Policy full_text is missing or too short. Scheduled analysis requires the original policy text, not only title or summary metadata."
+        );
+      }
+
+      const comparablePolicies = await fetchComparablePolicies(supabase, policy.id);
+      const reportPayload = buildReportPayload(policy, now, comparablePolicies);
+      const analysisOutput = {
+        analyzerVersion: "rules-v0.2",
+        analyzedAt: now,
+        status: "analysis_complete",
+        reportPayload,
+        fullTextLength: policy.full_text?.length ?? 0,
+        reanalysis: true
+      };
+      await updatePolicyAnalysisMetadata(supabase, policy, reportPayload, analysisOutput);
+
+      return jsonResponse({
+        policyId: policy.id,
+        analysis: analysisOutput,
+        reanalyzed: true
+      });
+    }
+
     const jobId = requireString(body, "jobId");
     const job = await requireAnalysisJobRecord(supabase, jobId);
     const now = new Date().toISOString();
@@ -577,37 +608,7 @@ Deno.serve(async (req: Request) => {
       throw jobError ?? new Error("Analysis job update returned no row.");
     }
 
-    const existingPolicyMetadata = isRecord(policy.metadata) ? policy.metadata : {};
-    const { error: policyError } = await supabase
-      .from("policies")
-      .update({
-        status: "reviewing",
-        analysis_version: "rules-v0.2",
-        confidence: reportPayload.policy.confidence,
-        category: reportPayload.policy.category,
-        summary: reportPayload.actions[0]?.body ?? policy.summary,
-        metadata: {
-          ...existingPolicyMetadata,
-          analysis: analysisOutput,
-          analysisStub: analysisOutput,
-          reportPayload,
-          policyReport: reportPayload,
-          counts: {
-            industryCount: reportPayload.chainNodes.length,
-            companyCount: reportPayload.companies.length,
-            evidenceCount: reportPayload.evidence.length,
-            primarySignal: reportPayload.chainNodes[0]?.title ?? "待分析",
-            comparablePolicyCount: reportPayload.compareInsights.comparableCount,
-            similarPolicyCount: reportPayload.compareInsights.similarPolicies.length,
-            contrastPolicyCount: reportPayload.compareInsights.contrastPolicies.length
-          }
-        }
-      })
-      .eq("id", job.policy_id);
-
-    if (policyError) {
-      throw policyError;
-    }
+    await updatePolicyAnalysisMetadata(supabase, policy, reportPayload, analysisOutput, "reviewing");
 
     return jsonResponse({
       job: updatedJob,
@@ -637,6 +638,51 @@ async function fetchPolicy(
     ...(data as PolicyRecord),
     metadata: isRecord((data as PolicyRecord).metadata) ? (data as PolicyRecord).metadata : {}
   };
+}
+
+async function updatePolicyAnalysisMetadata(
+  supabase: SupabaseAdminClient,
+  policy: PolicyRecord,
+  reportPayload: ReturnType<typeof buildReportPayload>,
+  analysisOutput: Record<string, unknown>,
+  status?: "reviewing"
+): Promise<void> {
+  const existingPolicyMetadata = isRecord(policy.metadata) ? policy.metadata : {};
+  const updateValues: Record<string, unknown> = {
+    analysis_version: "rules-v0.2",
+    confidence: reportPayload.policy.confidence,
+    category: reportPayload.policy.category,
+    summary: reportPayload.actions[0]?.body ?? policy.summary,
+    metadata: {
+      ...existingPolicyMetadata,
+      analysis: analysisOutput,
+      analysisStub: analysisOutput,
+      reportPayload,
+      policyReport: reportPayload,
+      counts: {
+        industryCount: reportPayload.chainNodes.length,
+        companyCount: reportPayload.companies.length,
+        evidenceCount: reportPayload.evidence.length,
+        primarySignal: reportPayload.chainNodes[0]?.title ?? "待分析",
+        comparablePolicyCount: reportPayload.compareInsights.comparableCount,
+        similarPolicyCount: reportPayload.compareInsights.similarPolicies.length,
+        contrastPolicyCount: reportPayload.compareInsights.contrastPolicies.length
+      }
+    }
+  };
+
+  if (status) {
+    updateValues.status = status;
+  }
+
+  const { error } = await supabase
+    .from("policies")
+    .update(updateValues)
+    .eq("id", policy.id);
+
+  if (error) {
+    throw error;
+  }
 }
 
 async function fetchComparablePolicies(
