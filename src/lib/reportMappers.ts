@@ -18,6 +18,8 @@ import type {
   Clause as AppClause,
   ClauseGroup as AppClauseGroup,
   Company as AppCompany,
+  AnalysisCoverage as AppAnalysisCoverage,
+  CompareInsights as AppCompareInsights,
   Evidence as AppEvidence,
   ModuleId as AppModuleId,
   PolicyAction as AppPolicyAction,
@@ -69,6 +71,8 @@ export interface AppPolicyReport {
   evidence: AppEvidence[];
   backgroundCards: Array<{ title: string; body: string }>;
   compareRows: string[][];
+  compareInsights?: AppCompareInsights;
+  analysisCoverage?: AppAnalysisCoverage;
   modules: Array<{ id: AppModuleId; label: string; badge?: string }>;
   topTabs: Array<{ id: AppModuleId; label: string }>;
   generatedAt?: string;
@@ -165,6 +169,10 @@ interface IndustryNodeLike {
   companies?: readonly string[];
   companyIds?: readonly string[];
   company_refs?: readonly string[];
+  evidenceIds?: readonly string[];
+  evidence_ids?: readonly string[];
+  impactReason?: string;
+  impact_reason?: string;
   iconKey?: string;
 }
 
@@ -176,6 +184,7 @@ interface IndustryEdgeLike {
   type?: string;
   edge_type?: string;
   confidence?: number;
+  reason?: string;
 }
 
 interface CompanyImpactLike {
@@ -818,6 +827,11 @@ export function mapPolicyReportPayloadForApp(
     chainNodes
   );
   const compareRows = normalizeAppCompareRows(mapAppCompareRows(toArray(input.compareRows ?? input.compare_rows)));
+  const compareInsights = mapAppCompareInsights(
+    asJsonRecord(input.compareInsights ?? input.compare_insights),
+    compareRows
+  );
+  const analysisCoverage = mapAppAnalysisCoverage(asJsonRecord(input.analysisCoverage ?? input.analysis_coverage));
   const fallbackSummary: PolicySummary = {
     id,
     title: policy.title,
@@ -851,6 +865,8 @@ export function mapPolicyReportPayloadForApp(
     evidence,
     backgroundCards,
     compareRows,
+    compareInsights,
+    analysisCoverage,
     modules: mapAppNavItems(toRecordArray(input.modules), DEFAULT_MODULES),
     topTabs: mapAppNavItems(toRecordArray(input.topTabs ?? input.top_tabs), DEFAULT_TOP_TABS),
     generatedAt: firstString(input.generatedAt, input.generated_at)
@@ -940,6 +956,8 @@ function mapAppChainNodes(items: JsonRecord[]): AppChainNode[] {
       description: firstString(item.description, item.body) || "",
       clauses: toStringList(item.clauses, item.clauseIds, item.clause_ids, item.clause_refs),
       companies: toStringList(item.companies, item.companyIds, item.company_ids, item.company_refs),
+      evidenceIds: toStringList(item.evidenceIds, item.evidence_ids, item.evidence_refs),
+      impactReason: firstString(item.impactReason, item.impact_reason),
       icon: resolveIcon(item, section)
     };
   });
@@ -949,7 +967,9 @@ function mapAppChainEdges(items: JsonRecord[]): AppChainEdge[] {
   return items.map((item) => ({
     from: firstString(item.from, item.from_node_id, item.fromNodeId) || "",
     to: firstString(item.to, item.to_node_id, item.toNodeId) || "",
-    type: normalizeAppChainEdgeType(item.type, item.edge_type)
+    type: normalizeAppChainEdgeType(item.type, item.edge_type),
+    confidence: firstNumberOrUndefined(item.confidence),
+    reason: firstString(item.reason)
   }));
 }
 
@@ -968,27 +988,41 @@ function mapAppCompanies(items: JsonRecord[]): AppCompany[] {
       confidence,
       policyRelevance: firstNumber(item.policyRelevance, item.policy_relevance, confidence),
       evidenceCertainty: firstNumber(item.evidenceCertainty, item.evidence_certainty, confidence),
-      evidenceCount: firstNumber(item.evidenceCount, item.evidence_count),
+      evidenceCount: firstPlainNumber(
+        item.evidenceCount,
+        item.evidence_count,
+        toStringList(item.evidenceIds, item.evidence_ids, item.evidenceRefs, item.evidence_refs).length
+      ),
       products: toStringList(item.products),
       nodeIds: toStringList(item.nodeIds, item.node_ids, item.nodes),
       clauseIds: toStringList(item.clauseIds, item.clause_ids, item.clauses),
       evidenceIds: toStringList(item.evidenceIds, item.evidence_ids, item.evidenceRefs, item.evidence_refs),
       reason: firstString(item.reason, item.description) || "",
-      uncertainty: firstString(item.uncertainty, item.risk_note, item.riskNote) || ""
+      uncertainty: firstString(item.uncertainty, item.risk_note, item.riskNote) || "",
+      opportunity: firstString(item.opportunity),
+      riskFactors: toStringList(item.riskFactors, item.risk_factors),
+      sourceUrls: toStringList(item.sourceUrls, item.source_urls)
     };
   });
 }
 
 function mapAppEvidence(items: JsonRecord[]): AppEvidence[] {
-  return items.map((item, index) => ({
-    id: firstString(item.id, item.evidence_key) || `evidence-${index + 1}`,
-    title: firstString(item.title, item.name) || "",
-    source: firstString(item.source, item.source_name) || "",
-    type: firstString(item.type, item.evidence_type) || "",
-    date: firstString(item.date, item.published_at, item.publish_date) || "",
-    excerpt: firstString(item.excerpt, item.summary, item.body) || "",
-    confidence: firstNumber(item.confidence)
-  }));
+  return items.map((item, index) => {
+    const links = asJsonRecord(item.links);
+    return {
+      id: firstString(item.id, item.evidence_key) || `evidence-${index + 1}`,
+      title: firstString(item.title, item.name) || "",
+      source: firstString(item.source, item.source_name) || "",
+      type: firstString(item.type, item.evidence_type) || "",
+      date: firstString(item.date, item.published_at, item.publish_date) || "",
+      excerpt: firstString(item.excerpt, item.summary, item.body) || "",
+      confidence: firstNumber(item.confidence),
+      url: firstString(item.url, item.sourceUrl, item.source_url),
+      clauseIds: toStringList(item.clauseIds, item.clause_ids, links?.clauseIds, links?.clause_ids),
+      nodeIds: toStringList(item.nodeIds, item.node_ids, links?.nodeIds, links?.node_ids),
+      companyIds: toStringList(item.companyIds, item.company_ids, links?.companyIds, links?.company_ids)
+    };
+  });
 }
 
 function mapAppBackgroundCards(items: JsonRecord[]): AppPolicyReport["backgroundCards"] {
@@ -1034,7 +1068,15 @@ function mapAppCompareRows(rows: unknown[]): string[][] {
 
     return [
       firstString(record.dimension, record.title, record.name) || `compare-${index + 1}`,
-      ...toStringList(record.values)
+      ...(
+        toStringList(record.values).length
+          ? toStringList(record.values)
+          : [
+              firstString(record.current, record.currentValue, record.current_value) || "",
+              firstString(record.similar, record.similarValue, record.similar_value, record.baseline) || "",
+              firstString(record.different, record.differentValue, record.different_value, record.contrast) || ""
+            ].filter(Boolean)
+      )
     ];
   });
 }
@@ -1044,6 +1086,126 @@ function normalizeAppCompareRows(rows: string[][]): string[][] {
     const [dimension, ...values] = row;
     return [dimension || `对比维度${index + 1}`, ...values].slice(0, 4);
   });
+}
+
+function mapAppCompareInsights(
+  input: JsonRecord | null,
+  compareRows: string[][]
+): AppCompareInsights | undefined {
+  if (!input && compareRows.length === 0) return undefined;
+
+  const rawRows = input
+    ? toArray(input.rows ?? input.dimensions ?? input.compareRows ?? input.compare_rows)
+    : [];
+  const rows = mapAppCompareInsightRows(rawRows.length > 0 ? rawRows : compareRows);
+  const similarPolicies = input
+    ? mapAppComparePolicies(toRecordArray(input.similarPolicies ?? input.similar_policies))
+    : [];
+  const contrastPolicies = input
+    ? mapAppComparePolicies(toRecordArray(input.contrastPolicies ?? input.contrast_policies ?? input.differentPolicies ?? input.different_policies))
+    : [];
+  const similarPolicy = input
+    ? mapAppComparePolicy(asJsonRecord(input.similarPolicy ?? input.similar_policy) ?? null) ?? similarPolicies[0] ?? null
+    : null;
+  const differencePolicy = input
+    ? mapAppComparePolicy(asJsonRecord(input.differencePolicy ?? input.difference_policy ?? input.contrastPolicy ?? input.contrast_policy) ?? null) ?? contrastPolicies[0] ?? null
+    : null;
+  const similarityPoints = input ? toStringList(input.similarityPoints, input.similarity_points) : [];
+  const differencePoints = input ? toStringList(input.differencePoints, input.difference_points) : [];
+
+  return {
+    status: input ? firstString(input.status) : undefined,
+    basis: input ? firstString(input.basis, input.method) : undefined,
+    method: input ? firstString(input.method) : undefined,
+    emptyReason: input ? firstString(input.emptyReason, input.empty_reason) : undefined,
+    comparableCount: input ? firstPlainNumber(input.comparableCount, input.comparable_count) : undefined,
+    similarPolicy,
+    differencePolicy,
+    similarPolicies,
+    contrastPolicies,
+    similarityPoints: similarityPoints.length
+      ? similarityPoints
+      : similarPolicies.map((item) => `与《${item.title}》形成相似基准${item.reason ? `：${item.reason}` : "。"}`),
+    differencePoints: differencePoints.length
+      ? differencePoints
+      : contrastPolicies.map((item) => `与《${item.title}》形成差异基准${item.reason ? `：${item.reason}` : "。"}`),
+    rows
+  };
+}
+
+function mapAppComparePolicies(items: JsonRecord[]): NonNullable<AppCompareInsights["similarPolicies"]> {
+  return items.map((item) => mapAppComparePolicy(item)).filter((item): item is NonNullable<AppCompareInsights["similarPolicy"]> => Boolean(item));
+}
+
+function mapAppComparePolicy(item: JsonRecord | null): NonNullable<AppCompareInsights["similarPolicy"]> | null {
+  if (!item) return null;
+  const title = firstString(item.title, item.name);
+  if (!title) return null;
+
+  return {
+    id: firstString(item.id, item.policyId, item.policy_id),
+    title,
+    issuer: firstString(item.issuer),
+    source: firstString(item.source, item.sourceName, item.source_name, item.category),
+    publishDate: firstString(item.publishDate, item.publish_date),
+    similarity: firstNumberOrUndefined(item.similarity, item.score),
+    reason: firstString(item.reason, item.basis)
+  };
+}
+
+function mapAppCompareInsightRows(rows: unknown[]): AppCompareInsights["rows"] {
+  return rows.map((row, index) => {
+    if (Array.isArray(row)) {
+      const [dimension = "", current = "", similar = "", different = ""] = row;
+      return {
+        id: `compare-${index + 1}`,
+        dimension: String(dimension || `对比维度${index + 1}`),
+        current: String(current ?? ""),
+        similar: String(similar ?? ""),
+        different: String(different ?? "")
+      };
+    }
+
+    const record = asJsonRecord(row);
+    if (!record) {
+      return {
+        id: `compare-${index + 1}`,
+        dimension: `对比维度${index + 1}`,
+        current: "",
+        similar: "",
+        different: ""
+      };
+    }
+
+    const values = toStringList(record.values);
+    return {
+      id: firstString(record.id) || `compare-${index + 1}`,
+      dimension: firstString(record.dimension, record.title, record.name) || `对比维度${index + 1}`,
+      current: firstString(record.current, record.currentValue, record.current_value) || values[0] || "",
+      similar: firstString(record.similar, record.similarValue, record.similar_value, record.baseline) || values[1] || "",
+      different: firstString(record.different, record.differentValue, record.different_value, record.contrast) || values[2] || "",
+      explanation: firstString(record.explanation, record.reason),
+      clauseIds: toStringList(record.clauseIds, record.clause_ids),
+      evidenceIds: toStringList(record.evidenceIds, record.evidence_ids)
+    };
+  });
+}
+
+function mapAppAnalysisCoverage(input: JsonRecord | null): AppAnalysisCoverage | undefined {
+  if (!input) return undefined;
+
+  return {
+    status: firstString(input.status),
+    textLength: firstPlainNumber(input.textLength, input.text_length),
+    clauseCount: firstPlainNumber(input.clauseCount, input.clause_count),
+    actionCount: firstPlainNumber(input.actionCount, input.action_count),
+    evidenceCount: firstPlainNumber(input.evidenceCount, input.evidence_count),
+    industryNodeCount: firstPlainNumber(input.industryNodeCount, input.industry_node_count, input.industryRuleCount, input.industry_rule_count),
+    companyCount: firstPlainNumber(input.companyCount, input.company_count, input.companyCandidateCount, input.company_candidate_count),
+    matchedKeywordCount: firstPlainNumber(input.matchedKeywordCount, input.matched_keyword_count),
+    comparablePolicyCount: firstPlainNumber(input.comparablePolicyCount, input.comparable_policy_count),
+    limitations: toStringList(input.limitations)
+  };
 }
 
 function inferAppPolicyScope(policy: AppPolicyMeta): string {
@@ -1175,6 +1337,18 @@ function firstString(...values: unknown[]): string | undefined {
   }
 
   return undefined;
+}
+
+function firstPlainNumber(...values: unknown[]): number {
+  for (const value of values) {
+    if (typeof value === "number" && Number.isFinite(value)) return Math.max(0, Math.round(value));
+    if (typeof value === "string" && value.trim()) {
+      const parsed = Number(value);
+      if (Number.isFinite(parsed)) return Math.max(0, Math.round(parsed));
+    }
+  }
+
+  return 0;
 }
 
 function firstNumber(...values: unknown[]): number {

@@ -12,6 +12,7 @@ import {
   policy,
   topTabs
 } from "../data/policy";
+import type { AnalysisCoverage, CompareInsights } from "../data/policy";
 import { extractPolicyReportPayload, mapPolicyReportPayloadForApp } from "./reportMappers";
 import { isSupabaseConfigured, supabase } from "./supabase";
 
@@ -70,6 +71,8 @@ export interface PolicyReport {
   evidence: typeof evidence;
   backgroundCards: typeof backgroundCards;
   compareRows: typeof compareRows;
+  compareInsights?: CompareInsights;
+  analysisCoverage?: AnalysisCoverage;
   modules: typeof modules;
   topTabs: typeof topTabs;
   generatedAt?: string;

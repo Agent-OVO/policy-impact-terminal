@@ -47,7 +47,7 @@ jobs:
       - name: Check Supabase crawl configuration
         id: config
         env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_URL: https://qxzspsofhmfjceuaulhu.supabase.co
           SUPABASE_FUNCTION_JWT: ${{ secrets.SUPABASE_FUNCTION_JWT }}
           SUPABASE_CRAWLER_SECRET: ${{ secrets.SUPABASE_CRAWLER_SECRET }}
         run: |
@@ -61,7 +61,7 @@ jobs:
       - name: Crawl and ingest policy documents
         if: steps.config.outputs.ready == 'true'
         env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_URL: https://qxzspsofhmfjceuaulhu.supabase.co
           SUPABASE_FUNCTION_JWT: ${{ secrets.SUPABASE_FUNCTION_JWT }}
           SUPABASE_CRAWLER_SECRET: ${{ secrets.SUPABASE_CRAWLER_SECRET }}
           CRAWL_SOURCE: ${{ github.event.inputs.source || 'all' }}

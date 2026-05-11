@@ -49,6 +49,7 @@ import {
   policy,
   type ChainNode,
   type Company,
+  type CompareInsightRow,
   type ModuleId,
   type RelationType
 } from "./data/policy";
@@ -1482,35 +1483,77 @@ function BackgroundView({ report }: { report: PolicyReport | null }) {
 
 function CompareView({ report }: { report: PolicyReport | null }) {
   const currentPolicy = report?.policy ?? policy;
-  const currentRows = report ? report.compareRows : compareRows;
-  const currentActions = report?.actions ?? actions;
   const currentClauses = report?.clauses ?? clauses;
   const currentChainNodes = report?.chainNodes ?? chainNodes;
   const currentEvidence = report?.evidence ?? evidence;
-  const similarityPoints = [
-    "同样基于官方政策原文、发布时间、发布机关和条款摘录形成判断。",
-    currentClauses.length ? `同样围绕 ${currentClauses.length} 条核心条款拆解政策动作。` : "同样以政策条款作为主证据入口。",
-    currentEvidence.length ? `同样保留 ${currentEvidence.length} 条可追溯证据，避免只展示结论。` : "同样要求结论回到证据链。"
-  ];
-  const differencePoints = [
-    currentActions[0]?.title ? `本政策最突出的动作是“${currentActions[0].title}”。` : "本政策尚未形成高置信动作。",
-    currentChainNodes.length ? `产业影响集中在：${currentChainNodes.slice(0, 4).map((node) => node.title).join("、")}。` : "产业节点暂未生成，无法做产业差异判断。",
-    currentEvidence.some((item) => item.confidence < 70) ? "部分证据低于 70 分，需要后续校验。" : "当前证据整体未暴露明显低置信段。"
-  ];
-  const displayedRows = currentRows.map((row, index) => {
-    if (row.length >= 4) return row.slice(0, 4);
-    return [
-      row[0] || `维度${index + 1}`,
-      row[1] || "已纳入本次分析",
-      similarityPoints[index % similarityPoints.length],
-      row[2] || differencePoints[index % differencePoints.length]
-    ];
-  });
+  const compareInsight = report?.compareInsights;
+  const legacyRows: CompareInsightRow[] = (report ? report.compareRows : compareRows).map((row, index) => ({
+    id: `legacy-${index + 1}`,
+    dimension: row[0] || `对比维度${index + 1}`,
+    current: row[1] || "",
+    similar: row[2] || "",
+    different: row[3] || ""
+  }));
+  const displayedRows = compareInsight?.rows?.length ? compareInsight.rows : legacyRows;
+  const [selectedRowId, setSelectedRowId] = useState(displayedRows[0]?.id ?? "");
+  const selectedRow = displayedRows.find((row) => row.id === selectedRowId) || displayedRows[0];
+  const similarBase = compareInsight?.similarPolicy || compareInsight?.similarPolicies?.[0] || null;
+  const differenceBase = compareInsight?.differencePolicy || compareInsight?.contrastPolicies?.[0] || null;
+  const similarityPoints = compareInsight?.similarityPoints?.length
+    ? compareInsight.similarityPoints
+    : report
+      ? ["当前报表尚未返回新版相似基准，请等待该政策重新自动分析后查看。"]
+      : ["本地演示样例展示静态政策对比口径。"];
+  const differencePoints = compareInsight?.differencePoints?.length
+    ? compareInsight.differencePoints
+    : report
+      ? ["当前报表尚未返回新版差异基准，请等待该政策重新自动分析后查看。"]
+      : ["本地演示样例展示静态政策差异口径。"];
+  const coverage = report?.analysisCoverage;
+  const detailClause = selectedRow?.clauseIds?.length
+    ? currentClauses.find((clause) => selectedRow.clauseIds?.includes(clause.id))
+    : currentClauses[0];
+
+  useEffect(() => {
+    if (displayedRows.length === 0) {
+      if (selectedRowId) setSelectedRowId("");
+      return;
+    }
+
+    if (!displayedRows.some((row) => row.id === selectedRowId)) {
+      setSelectedRowId(displayedRows[0].id);
+    }
+  }, [displayedRows, selectedRowId]);
+
+  function baselineMeta(item: typeof similarBase) {
+    if (!item) return "未生成可比政策";
+    const parts = [
+      item.issuer,
+      item.publishDate,
+      typeof item.similarity === "number" ? `相似度 ${item.similarity}/100` : ""
+    ].filter(Boolean);
+    return parts.join(" · ") || "已入库政策基准";
+  }
+
+  function baselineTitle(item: typeof similarBase, fallback: string) {
+    return item?.title || fallback;
+  }
+
+  function rowCells(row: typeof displayedRows[number]) {
+    return [row.dimension, row.current, row.similar, row.different];
+  }
+
+  const compareStatusText = compareInsight
+    ? `系统已检索 ${compareInsight.comparableCount ?? 0} 篇已发布政策作为基准。${compareInsight.method || ""}`
+    : "该历史报表尚未包含新版对比分析字段；重新分析后会显示真实相似基准、差异基准和维度说明。";
+  const emptyCompareReason = compareInsight?.emptyReason || "暂无可比政策矩阵。";
 
   function exportCompareReport() {
     const content = [
       `政策对比报告：${currentPolicy.title}`,
       `发布日期：${currentPolicy.publishDate || "待补充"}`,
+      `相似基准：${baselineTitle(similarBase, "未生成")}`,
+      `差异基准：${baselineTitle(differenceBase, "未生成")}`,
       "",
       "相似点：",
       ...similarityPoints.map((item) => `- ${item}`),
@@ -1519,7 +1562,12 @@ function CompareView({ report }: { report: PolicyReport | null }) {
       ...differencePoints.map((item) => `- ${item}`),
       "",
       "维度矩阵：",
-      ...displayedRows.map((row) => row.join(" | "))
+      ...displayedRows.map((row) => rowCells(row).join(" | ")),
+      "",
+      "覆盖情况：",
+      coverage
+        ? `条款 ${coverage.clauseCount}，证据 ${coverage.evidenceCount}，产业节点 ${coverage.industryNodeCount}，公司 ${coverage.companyCount}，可比政策 ${coverage.comparablePolicyCount ?? 0}`
+        : "该报表未返回覆盖率字段。"
     ].join("\n");
     downloadTextFile(buildFilename(currentPolicy.title, "compare"), content);
   }
@@ -1530,32 +1578,30 @@ function CompareView({ report }: { report: PolicyReport | null }) {
         <div className="panel-head">
           <div>
             <h2>对比分析</h2>
-            <p>通过政策文本、条款与影响层面的多维对比，识别政策变化及潜在影响差异。</p>
+            <p>通过已入库政策文本、条款与影响层面的多维对比，识别相似政策和差异政策。</p>
           </div>
           <div className="toolbar">
             <button type="button" onClick={exportCompareReport}><Download size={15} /> 导出对比报告</button>
           </div>
         </div>
-        <div className="analysis-note">
-          当前版本暂不开放用户新增对比项；系统会基于已入库政策文本、条款、产业节点和证据链说明相似点与差异点。
-        </div>
+        <div className="analysis-note">{compareStatusText}</div>
         <div className="compare-cards">
           <article>
-            <span>当前政策（新）</span>
+            <span>当前政策</span>
             <strong>{currentPolicy.title}</strong>
-            <p>发布时间：{currentPolicy.publishDate || "待补充"}</p>
+            <p>{currentPolicy.issuer} · {currentPolicy.publishDate || "待补充"}</p>
           </article>
           <GitCompareArrows size={22} />
           <article>
             <span>相似基准</span>
-            <strong>官方政策原文 + 条款证据链</strong>
-            <p>用于判断政策表达和证据来源是否一致</p>
+            <strong>{baselineTitle(similarBase, "暂无相似政策基准")}</strong>
+            <p>{baselineMeta(similarBase)}</p>
           </article>
           <GitCompareArrows size={22} />
           <article>
             <span>差异基准</span>
-            <strong>政策动作 + 产业节点 + 风险信号</strong>
-            <p>用于判断本政策新增强调和缺口</p>
+            <strong>{baselineTitle(differenceBase, "暂无差异政策基准")}</strong>
+            <p>{baselineMeta(differenceBase)}</p>
           </article>
         </div>
         <div className="compare-insight-grid">
@@ -1576,22 +1622,45 @@ function CompareView({ report }: { report: PolicyReport | null }) {
             <span>差异基准</span>
           </div>
           {displayedRows.length === 0 ? (
-            <p className="empty-note">暂无可比政策矩阵。系统仍会基于当前政策条款、产业节点和证据链说明相似点与不同点。</p>
+            <p className="empty-note">{emptyCompareReason}</p>
           ) : (
             displayedRows.map((row) => (
-              <div className="matrix-row" key={row[0]}>
-                {row.map((cell) => <span key={cell}>{cell}</span>)}
-              </div>
+              <button
+                type="button"
+                className={cx("matrix-row", "interactive", selectedRow?.id === row.id && "active")}
+                key={row.id}
+                onClick={() => setSelectedRowId(row.id)}
+              >
+                {rowCells(row).map((cell, index) => <span key={`${row.id}-${index}`}>{cell || "未返回"}</span>)}
+              </button>
             ))
           )}
         </div>
       </section>
       <aside className="panel compare-detail">
         <h2>对比项详情</h2>
-        <h3>当前政策 vs 系统基准口径</h3>
+        <h3>{selectedRow ? selectedRow.dimension : "暂无选中维度"}</h3>
         <section>
-          <h4>条款对比</h4>
-          <p>{currentClauses[0]?.excerpt || "当前政策尚未抽取到可对比条款。"}</p>
+          <h4>当前政策</h4>
+          <p>{selectedRow?.current || "该维度尚未返回当前政策摘要。"}</p>
+        </section>
+        <section>
+          <h4>相似基准</h4>
+          <p>{selectedRow?.similar || "该维度尚未返回相似基准。"}</p>
+        </section>
+        <section>
+          <h4>差异基准</h4>
+          <p>{selectedRow?.different || "该维度尚未返回差异基准。"}</p>
+        </section>
+        {selectedRow?.explanation && (
+          <section>
+            <h4>系统解释</h4>
+            <p>{selectedRow.explanation}</p>
+          </section>
+        )}
+        <section>
+          <h4>条款依据</h4>
+          <p>{detailClause?.excerpt || "当前维度未关联到具体条款。"}</p>
         </section>
         <section>
           <h4>影响行业</h4>
@@ -1600,14 +1669,17 @@ function CompareView({ report }: { report: PolicyReport | null }) {
           </div>
         </section>
         <section>
-          <h4>置信度评分</h4>
+          <h4>分析覆盖</h4>
           <div className="score-band">
             <div>
               <span>综合置信度</span>
               <strong>{currentPolicy.confidence}<small>/100</small></strong>
             </div>
             <i><b style={{ width: `${currentPolicy.confidence}%` }} /></i>
-            <p>证据 {currentEvidence.length} 条 · 条款 {currentClauses.length} 条 · 产业节点 {currentChainNodes.length} 个</p>
+            <p>
+              证据 {currentEvidence.length} 条 · 条款 {currentClauses.length} 条 · 产业节点 {currentChainNodes.length} 个
+              {coverage ? ` · 可比政策 ${coverage.comparablePolicyCount ?? 0} 篇` : ""}
+            </p>
           </div>
         </section>
       </aside>

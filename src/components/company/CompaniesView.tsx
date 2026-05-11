@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Search, X } from "lucide-react";
-import { chainNodes as defaultChainNodes, clauses as defaultClauses, evidence as defaultEvidence } from "../../data/policy";
 import type { ChainNode, Clause, Company, Evidence } from "../../data/policy";
 import { CompanyCard } from "./CompanyCard";
 import { CompanyDetail } from "./CompanyDetail";
@@ -27,10 +26,10 @@ function getCompanySearchText(company: Company) {
 }
 
 export function CompaniesView({
-  chainNodes = defaultChainNodes,
-  clauses = defaultClauses,
+  chainNodes = [],
+  clauses = [],
   companies = [],
-  evidence = defaultEvidence,
+  evidence = [],
   onCompanySelect
 }: {
   chainNodes?: ChainNode[];

@@ -81,6 +81,8 @@ export interface ChainNode {
   description: string;
   clauses: string[];
   companies: string[];
+  evidenceIds?: string[];
+  impactReason?: string;
   icon: LucideIcon;
 }
 
@@ -88,6 +90,8 @@ export interface ChainEdge {
   from: string;
   to: string;
   type: "strong" | "medium" | "weak" | "risk";
+  confidence?: number;
+  reason?: string;
 }
 
 export interface Company {
@@ -109,6 +113,9 @@ export interface Company {
   evidenceIds: string[];
   reason: string;
   uncertainty: string;
+  opportunity?: string;
+  riskFactors?: string[];
+  sourceUrls?: string[];
 }
 
 export interface Evidence {
@@ -119,6 +126,59 @@ export interface Evidence {
   date: string;
   excerpt: string;
   confidence: number;
+  url?: string;
+  clauseIds?: string[];
+  nodeIds?: string[];
+  companyIds?: string[];
+}
+
+export interface CompareBaselinePolicy {
+  id?: string;
+  title: string;
+  issuer?: string;
+  source?: string;
+  publishDate?: string;
+  similarity?: number;
+  reason?: string;
+}
+
+export interface CompareInsightRow {
+  id: string;
+  dimension: string;
+  current: string;
+  similar: string;
+  different: string;
+  explanation?: string;
+  clauseIds?: string[];
+  evidenceIds?: string[];
+}
+
+export interface CompareInsights {
+  status?: string;
+  basis?: string;
+  method?: string;
+  emptyReason?: string;
+  comparableCount?: number;
+  similarPolicy?: CompareBaselinePolicy | null;
+  differencePolicy?: CompareBaselinePolicy | null;
+  similarPolicies?: CompareBaselinePolicy[];
+  contrastPolicies?: CompareBaselinePolicy[];
+  similarityPoints: string[];
+  differencePoints: string[];
+  rows: CompareInsightRow[];
+}
+
+export interface AnalysisCoverage {
+  status?: string;
+  textLength?: number;
+  clauseCount: number;
+  actionCount?: number;
+  evidenceCount: number;
+  industryNodeCount: number;
+  companyCount: number;
+  matchedKeywordCount?: number;
+  comparablePolicyCount?: number;
+  limitations: string[];
 }
 
 export const policy: PolicyMeta = {

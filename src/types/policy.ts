@@ -171,6 +171,55 @@ export interface PolicyComparisonRow {
   values: string[];
 }
 
+export interface CompareBaselinePolicy {
+  id?: EntityId;
+  title: string;
+  issuer?: string;
+  source?: string;
+  publishDate?: ISODateString;
+  similarity?: ConfidenceScore;
+  reason?: string;
+}
+
+export interface CompareInsightRow {
+  id: EntityId;
+  dimension: string;
+  current: string;
+  similar: string;
+  different: string;
+  explanation?: string;
+  clauseIds?: EntityId[];
+  evidenceIds?: EntityId[];
+}
+
+export interface CompareInsights {
+  status?: string;
+  basis?: string;
+  method?: string;
+  emptyReason?: string;
+  comparableCount?: number;
+  similarPolicy?: CompareBaselinePolicy | null;
+  differencePolicy?: CompareBaselinePolicy | null;
+  similarPolicies?: CompareBaselinePolicy[];
+  contrastPolicies?: CompareBaselinePolicy[];
+  similarityPoints: string[];
+  differencePoints: string[];
+  rows: CompareInsightRow[];
+}
+
+export interface AnalysisCoverage {
+  status?: string;
+  textLength?: number;
+  clauseCount: number;
+  actionCount?: number;
+  evidenceCount: number;
+  industryNodeCount: number;
+  companyCount: number;
+  matchedKeywordCount?: number;
+  comparablePolicyCount?: number;
+  limitations: string[];
+}
+
 export interface ReportNavItem {
   id: ModuleId;
   label: string;
@@ -219,6 +268,8 @@ export interface PolicyReport {
   evidence: EvidenceItem[];
   backgroundCards: PolicyBackgroundCard[];
   compareRows: PolicyComparisonRow[];
+  compareInsights?: CompareInsights;
+  analysisCoverage?: AnalysisCoverage;
   modules: ReportNavItem[];
   topTabs: ReportNavItem[];
   generatedAt?: ISODateTimeString;

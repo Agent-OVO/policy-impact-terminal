@@ -2601,6 +2601,26 @@ a.text-button {
   grid-template-columns: 140px repeat(3, minmax(0, 1fr));
 }
 
+.matrix-row.interactive {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.matrix-row.interactive:hover span,
+.matrix-row.interactive.active span {
+  background: rgba(116, 87, 255, 0.08);
+  color: var(--ink);
+}
+
+.matrix-row.interactive.active span:first-child {
+  box-shadow: inset 3px 0 0 var(--violet);
+}
+
 .matrix-row span {
   padding: 13px;
   border-bottom: 1px solid rgba(206, 215, 255, 0.58);
