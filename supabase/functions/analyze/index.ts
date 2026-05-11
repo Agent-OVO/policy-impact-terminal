@@ -35,7 +35,7 @@ type PolicyRecord = {
 };
 
 const MIN_POLICY_FULL_TEXT_LENGTH = 280;
-const DEFAULT_BATCH_REANALYZE_LIMIT = 30;
+const DEFAULT_BATCH_REANALYZE_LIMIT = 5;
 const MAX_BATCH_REANALYZE_LIMIT = 100;
 
 type IndustryRule = {
@@ -524,7 +524,8 @@ Deno.serve(async (req: Request) => {
     const body = await readJsonObject(req);
     if (body.reanalyzePublished === true || body.reanalyze_published === true) {
       const limit = clampBatchLimit(body.limit);
-      const result = await reanalyzePublishedPolicies(supabase, limit);
+      const offset = clampBatchOffset(body.offset);
+      const result = await reanalyzePublishedPolicies(supabase, limit, offset);
       return jsonResponse(result);
     }
 
@@ -663,9 +664,25 @@ function clampBatchLimit(value: unknown): number {
   return Math.max(1, Math.min(MAX_BATCH_REANALYZE_LIMIT, Math.floor(numericValue)));
 }
 
+function clampBatchOffset(value: unknown): number {
+  const numericValue =
+    typeof value === "number"
+      ? value
+      : typeof value === "string"
+        ? Number(value)
+        : 0;
+
+  if (!Number.isFinite(numericValue)) {
+    return 0;
+  }
+
+  return Math.max(0, Math.floor(numericValue));
+}
+
 async function reanalyzePublishedPolicies(
   supabase: SupabaseAdminClient,
-  limit: number
+  limit: number,
+  offset: number
 ): Promise<Record<string, unknown>> {
   const startedAt = new Date().toISOString();
   const { data, error } = await supabase
@@ -674,7 +691,7 @@ async function reanalyzePublishedPolicies(
     .eq("status", "published")
     .order("publish_date", { ascending: false })
     .order("created_at", { ascending: false })
-    .limit(limit);
+    .range(offset, offset + limit - 1);
 
   if (error) {
     throw new HttpError(500, "Failed to list published policies for batch reanalysis.", error);
@@ -747,6 +764,7 @@ async function reanalyzePublishedPolicies(
   return {
     reanalyzePublished: true,
     limit,
+    offset,
     selected: policies.length,
     reanalyzed,
     skipped,
