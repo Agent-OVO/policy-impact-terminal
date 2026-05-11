@@ -53,6 +53,24 @@ Deno.serve(async (req) => {
     const body = await readJsonObject(req);
     const user = await requireCrawlerOrAdminUser(req, supabase);
 
+    if (body.preflight === true) {
+      const { count, error } = await supabase
+        .from("policy_sources")
+        .select("id", { count: "exact", head: true })
+        .eq("status", "active");
+
+      if (error) {
+        throw error;
+      }
+
+      return jsonResponse({
+        ok: true,
+        actor: user.source,
+        crawlerOwnerId: user.id,
+        activePolicySources: count ?? 0
+      });
+    }
+
     const sourceUrl = optionalString(body, "sourceUrl");
     const title = optionalString(body, "title") ?? "Untitled policy";
     const sourceName = optionalString(body, "sourceName") ?? inferSourceName(sourceUrl);

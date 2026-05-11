@@ -1,4 +1,4 @@
-import { chainNodes, companies } from "../../data/policy";
+import { chainNodes } from "../../data/policy";
 import type { ChainNode, Company } from "../../data/policy";
 
 export function cx(...values: Array<string | false | null | undefined>) {
@@ -9,7 +9,12 @@ export function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
 }
 
-export function getCompanyById(id: string, items: Company[] = companies) {
+export function clampScore(value: number | null | undefined) {
+  return Number.isFinite(value) ? clamp(Number(value), 0, 100) : 0;
+}
+
+export function getCompanyById(id: string | null | undefined, items: Company[] = []) {
+  if (!id) return undefined;
   return items.find((company) => company.id === id);
 }
 

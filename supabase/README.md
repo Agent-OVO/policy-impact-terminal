@@ -1,14 +1,17 @@
 # Supabase Backend Skeleton
 
-This folder holds the database schema and Edge Function boundary for the Policy Impact Terminal. The current frontend can still run with local mock data, but `src/lib/reportRepository.ts` now has an explicit mock adapter and Supabase adapter so production Supabase errors are not silently swallowed.
+This folder holds the database schema and Edge Function boundary for the Policy Impact Terminal. The production frontend reads Supabase only; local mock data is available only when `VITE_ENABLE_MOCK=true` is set explicitly.
 
 ## 1. Apply Schema
 
-Run `supabase/schema.sql` in the Supabase SQL Editor, or split it into a migration and run:
+Run the versioned migrations:
 
 ```powershell
 supabase db push
 ```
+
+The initial schema is checked in as `supabase/migrations/20260510000000_initial_schema.sql`. Keep `supabase/schema.sql` as the editable declarative reference, then generate or update migrations before deploying a new database.
+The official source seed is checked in as `supabase/migrations/20260510001000_seed_policy_sources.sql`, so a fresh database receives the crawler source registry during `supabase db push`.
 
 After the schema is applied, seed the first official policy source pool:
 
@@ -70,7 +73,7 @@ Minimal shape:
 }
 ```
 
-If no complete payload is present, only the local demo id `data-elements-2024` falls back to mock data; other ids throw a clear repository error.
+If no complete payload is present, the production frontend shows a clear error and does not fall back to local demo data. This prevents a real policy from being mixed with an unrelated sample report.
 
 ### Duplicate Policy Handling
 
@@ -104,6 +107,16 @@ VITE_ANALYSIS_JOB_MODE=disabled
 
 The production UI is read-only for normal users. Do not expose browser-side job creation for public users; scheduled GitHub Actions should run the crawler and call Edge Functions with the crawler secret.
 
+For local UI-only demos without Supabase, add `VITE_ENABLE_MOCK=true` to `.env.local`. Do not set this in GitHub Pages or any production build.
+
+Production setup can be driven by:
+
+```powershell
+npm run setup:production
+```
+
+The setup script now links the Supabase project and pushes migrations before resolving the crawler owner and deploying functions. Set `SUPABASE_DB_PASSWORD` in the shell if the Supabase CLI needs the remote database password. Use `--skip-db` only when the database has already been initialized.
+
 Keep `SUPABASE_SERVICE_ROLE_KEY` out of `.env.local` and every Vite-prefixed variable. It belongs only in Supabase Edge Function secrets.
 
 ## 3. Edge Function Deployment
@@ -122,6 +135,8 @@ supabase secrets set CRAWLER_OWNER_ID=admin-profile-user-uuid
 ```
 
 The functions are intended to run with Supabase JWT verification enabled. Manual calls require an active admin user's access token. Scheduled crawler calls use a JWT accepted by Supabase Functions plus `x-crawler-secret`. Inside the function, the service role key is used only for database writes after the function has verified admin/crawler authorization.
+
+The scheduled GitHub crawler runs `node scripts/crawl-policy-sources.mjs --preflight` before crawling. That preflight validates the Edge Function crawler secret, `CRAWLER_OWNER_ID`, active admin profile, and seeded active `policy_sources` rows.
 
 ## 4. Job Flow
 

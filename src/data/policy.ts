@@ -36,6 +36,12 @@ export interface PolicyMeta {
   category: string;
   level: string;
   confidence: number;
+  sourceUrl?: string;
+  source_url?: string;
+  scope?: string;
+  impactScope?: string;
+  jurisdiction?: string;
+  tags?: string[];
 }
 
 export interface PolicyAction {
@@ -124,7 +130,9 @@ export const policy: PolicyMeta = {
   source: "国家数据局官网",
   category: "指导意见",
   level: "国务院部门文件",
-  confidence: 78
+  confidence: 78,
+  sourceUrl: "https://www.nda.gov.cn/sjj/zwgk/zcfb/list/index_pc_1.html",
+  scope: "全国"
 };
 
 export const actions: PolicyAction[] = [

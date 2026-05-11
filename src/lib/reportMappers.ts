@@ -85,6 +85,7 @@ export interface AppPolicyReportContext {
   confidence?: number | null;
   category?: string | null;
   policyLevel?: string | null;
+  sourceUrl?: string | null;
   summary?: Partial<PolicySummary>;
 }
 
@@ -811,6 +812,12 @@ export function mapPolicyReportPayloadForApp(
   const chainEdges = mapAppChainEdges(toRecordArray(input.chainEdges ?? input.chain_edges));
   const companies = mapAppCompanies(toRecordArray(input.companies));
   const evidence = mapAppEvidence(toRecordArray(input.evidence));
+  const backgroundCards = normalizeAppBackgroundCards(
+    mapAppBackgroundCards(toRecordArray(input.backgroundCards ?? input.background_cards)),
+    policy,
+    chainNodes
+  );
+  const compareRows = normalizeAppCompareRows(mapAppCompareRows(toArray(input.compareRows ?? input.compare_rows)));
   const fallbackSummary: PolicySummary = {
     id,
     title: policy.title,
@@ -842,8 +849,8 @@ export function mapPolicyReportPayloadForApp(
     chainEdges,
     companies,
     evidence,
-    backgroundCards: mapAppBackgroundCards(toRecordArray(input.backgroundCards ?? input.background_cards)),
-    compareRows: mapAppCompareRows(toArray(input.compareRows ?? input.compare_rows)),
+    backgroundCards,
+    compareRows,
     modules: mapAppNavItems(toRecordArray(input.modules), DEFAULT_MODULES),
     topTabs: mapAppNavItems(toRecordArray(input.topTabs ?? input.top_tabs), DEFAULT_TOP_TABS),
     generatedAt: firstString(input.generatedAt, input.generated_at)
@@ -878,7 +885,12 @@ function mapAppPolicyMeta(input: JsonRecord, context: AppPolicyReportContext): A
     source: firstString(input.source, input.sourceName, input.source_name, context.sourceName) || "Unknown source",
     category: firstString(input.category, context.category) || "",
     level: firstString(input.level, input.policyLevel, input.policy_level, context.policyLevel) || "",
-    confidence: firstNumber(input.confidence, context.confidence)
+    confidence: firstNumber(input.confidence, context.confidence),
+    sourceUrl: firstString(input.sourceUrl, input.source_url, context.sourceUrl),
+    scope: firstString(input.scope),
+    impactScope: firstString(input.impactScope, input.impact_scope),
+    jurisdiction: firstString(input.jurisdiction),
+    tags: toStringList(input.tags)
   };
 }
 
@@ -986,6 +998,31 @@ function mapAppBackgroundCards(items: JsonRecord[]): AppPolicyReport["background
   }));
 }
 
+function normalizeAppBackgroundCards(
+  cards: AppPolicyReport["backgroundCards"],
+  policy: AppPolicyMeta,
+  chainNodes: AppChainNode[]
+): AppPolicyReport["backgroundCards"] {
+  const scope = policy.scope || policy.impactScope || policy.jurisdiction || inferAppPolicyScope(policy);
+  const directions = chainNodes.slice(0, 4).map((node) => node.title).filter(Boolean).join("、") || "尚未形成产业节点";
+  const nextCards = cards.map((card) => {
+    if (card.title !== "影响范围") return card;
+    return {
+      ...card,
+      body: `本政策影响范围判断为：${scope}。产业方向另行展示为：${directions}。`
+    };
+  });
+
+  if (!nextCards.some((card) => card.title === "影响范围")) {
+    nextCards.splice(1, 0, {
+      title: "影响范围",
+      body: `本政策影响范围判断为：${scope}。产业方向另行展示为：${directions}。`
+    });
+  }
+
+  return nextCards;
+}
+
 function mapAppCompareRows(rows: unknown[]): string[][] {
   return rows.map((row, index) => {
     if (Array.isArray(row)) {
@@ -1000,6 +1037,21 @@ function mapAppCompareRows(rows: unknown[]): string[][] {
       ...toStringList(record.values)
     ];
   });
+}
+
+function normalizeAppCompareRows(rows: string[][]): string[][] {
+  return rows.map((row, index) => {
+    const [dimension, ...values] = row;
+    return [dimension || `对比维度${index + 1}`, ...values].slice(0, 4);
+  });
+}
+
+function inferAppPolicyScope(policy: AppPolicyMeta): string {
+  const text = `${policy.title} ${policy.issuer} ${policy.level} ${policy.source}`;
+  const provinceMatch = text.match(/(北京市|天津市|上海市|重庆市|河北省|山西省|辽宁省|吉林省|黑龙江省|江苏省|浙江省|安徽省|福建省|江西省|山东省|河南省|湖北省|湖南省|广东省|海南省|四川省|贵州省|云南省|陕西省|甘肃省|青海省|台湾省|内蒙古自治区|广西壮族自治区|西藏自治区|宁夏回族自治区|新疆维吾尔自治区|香港特别行政区|澳门特别行政区)/);
+  if (provinceMatch) return provinceMatch[1];
+  if (/国务院|中共中央|全国|国家|中国政府网|国家发展改革委|国家数据局|工业和信息化部|部委/.test(text)) return "全国";
+  return "以政策发布机关管辖范围为准";
 }
 
 function mapAppNavItems<T extends AppPolicyReport["modules"] | AppPolicyReport["topTabs"]>(

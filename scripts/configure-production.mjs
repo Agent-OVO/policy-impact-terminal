@@ -15,6 +15,7 @@ const dispatchWorkflows = args.has("--dispatch");
 const skipFunctions = args.has("--skip-functions");
 const skipGithubSecrets = args.has("--skip-github-secrets");
 const skipSupabaseSecrets = args.has("--skip-supabase-secrets");
+const skipDatabase = args.has("--skip-db");
 
 function run(command, commandArgs, { input, quiet = false } = {}) {
   const label = [command, ...commandArgs].join(" ");
@@ -37,9 +38,21 @@ function run(command, commandArgs, { input, quiet = false } = {}) {
 }
 
 function runVisible(command, commandArgs) {
-  const label = [command, ...commandArgs].join(" ");
+  const label = [command, ...maskCommandArgs(commandArgs)].join(" ");
   console.log(`> ${label}`);
   execFileSync(command, commandArgs, { stdio: "inherit" });
+}
+
+function maskCommandArgs(commandArgs) {
+  const sensitive = new Set(
+    [
+      process.env.SUPABASE_DB_PASSWORD,
+      process.env.SUPABASE_CRAWLER_SECRET,
+      process.env.SUPABASE_ACCESS_TOKEN
+    ].filter(Boolean),
+  );
+
+  return commandArgs.map((arg) => sensitive.has(arg) ? "***" : arg);
 }
 
 function quoteCmdArg(arg) {
@@ -62,6 +75,10 @@ function runVisibleNpx(commandArgs) {
 
 function supabase(commandArgs, options) {
   return runNpx(["supabase", ...commandArgs], options);
+}
+
+function supabaseVisible(commandArgs) {
+  runVisibleNpx(["supabase", ...commandArgs]);
 }
 
 function collectKeyRows(value) {
@@ -193,6 +210,18 @@ function deployFunctions() {
   }
 }
 
+function buildDbArgs(baseArgs) {
+  return process.env.SUPABASE_DB_PASSWORD
+    ? [...baseArgs, "--password", process.env.SUPABASE_DB_PASSWORD]
+    : baseArgs;
+}
+
+function pushDatabaseMigrations() {
+  console.log("[db] Linking Supabase project and pushing migrations");
+  supabaseVisible(buildDbArgs(["link", "--project-ref", PROJECT_REF]));
+  supabaseVisible(buildDbArgs(["db", "push", "--include-all", "--yes"]));
+}
+
 function triggerWorkflows() {
   runVisible("gh", ["workflow", "run", "Deploy GitHub Pages", "--repo", GITHUB_REPO]);
   runVisible("gh", [
@@ -214,6 +243,10 @@ async function main() {
 
   const { anonKey, serviceRoleKey } = getApiKeys();
   console.log("[ok] Supabase API keys loaded");
+
+  if (!skipDatabase) {
+    pushDatabaseMigrations();
+  }
 
   let crawlerOwnerId = process.env.CRAWLER_OWNER_ID || "";
   if (!skipSupabaseSecrets) {

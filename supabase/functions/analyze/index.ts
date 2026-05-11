@@ -109,6 +109,157 @@ const INDUSTRY_RULES: IndustryRule[] = [
   }
 ];
 
+const CANDIDATE_MAPPING_NOTE = "基于政策文本关键词与公开业务标签的候选映射，不构成公司持续跟踪或投资结论。";
+
+type CompanyCandidateTemplate = {
+  id: string;
+  name: string;
+  ticker: string;
+  platform: string;
+  status: string;
+  products: string[];
+};
+
+type CompanyCandidate = {
+  id: string;
+  name: string;
+  ticker: string;
+  platform: string;
+  status: string;
+  section: IndustryRule["section"];
+  relation: string;
+  evidence: string;
+  evidenceLevel: string;
+  confidence: number;
+  policyRelevance: number;
+  evidenceCertainty: number;
+  evidenceCount: number;
+  products: string[];
+  nodeIds: string[];
+  clauseIds: string[];
+  evidenceIds: string[];
+  reason: string;
+  uncertainty: string;
+};
+
+type ExtractedPolicyClause = ReturnType<typeof extractPolicyClauses>[number];
+type ReportEvidenceItem = {
+  id: string;
+  clauseIds: string[];
+  confidence: number;
+};
+
+const COMPANY_CANDIDATE_TEMPLATES: Record<string, CompanyCandidateTemplate[]> = {
+  ai: [
+    {
+      id: "candidate-iflytek",
+      name: "科大讯飞",
+      ticker: "002230.SZ",
+      platform: "智能语音、认知大模型与行业 AI 应用",
+      status: "代表性上市公司候选",
+      products: ["讯飞星火", "智能语音", "行业 AI 应用"]
+    },
+    {
+      id: "candidate-baidu-ai",
+      name: "百度智能云",
+      ticker: "BIDU / 9888.HK",
+      platform: "大模型、AI 云与智能应用开发平台",
+      status: "代表性平台型机构候选",
+      products: ["文心大模型", "AI 云服务", "智能应用平台"]
+    }
+  ],
+  data: [
+    {
+      id: "candidate-sh-data-exchange",
+      name: "上海数据交易所",
+      ticker: "未上市机构",
+      platform: "数据交易、数据产品登记与流通服务",
+      status: "代表性市场基础设施候选",
+      products: ["数据交易", "数据产品登记", "合规流通服务"]
+    },
+    {
+      id: "candidate-e-hualu",
+      name: "易华录",
+      ticker: "300212.SZ",
+      platform: "数据湖、公共数据开发利用与数字城市服务",
+      status: "代表性上市公司候选",
+      products: ["数据湖", "公共数据运营", "数字城市"]
+    }
+  ],
+  energy: [
+    {
+      id: "candidate-sgcc-ict",
+      name: "国网信通",
+      ticker: "600131.SH",
+      platform: "电力数字化、能源互联网与企业信息化",
+      status: "代表性上市公司候选",
+      products: ["电力数字化", "能源互联网", "企业信息化"]
+    },
+    {
+      id: "candidate-csg-technology",
+      name: "南网科技",
+      ticker: "688248.SH",
+      platform: "电力技术服务、储能与节能低碳服务",
+      status: "代表性上市公司候选",
+      products: ["储能服务", "节能低碳", "电力技术服务"]
+    }
+  ],
+  manufacturing: [
+    {
+      id: "candidate-supcon",
+      name: "中控技术",
+      ticker: "688777.SH",
+      platform: "工业自动化、工业软件与智能制造解决方案",
+      status: "代表性上市公司候选",
+      products: ["工业控制", "工业软件", "智能制造"]
+    },
+    {
+      id: "candidate-digiwin",
+      name: "鼎捷数智",
+      ticker: "300378.SZ",
+      platform: "制造业数字化、ERP 与工业互联网应用",
+      status: "代表性上市公司候选",
+      products: ["ERP", "制造业数字化", "工业互联网应用"]
+    }
+  ],
+  infrastructure: [
+    {
+      id: "candidate-aliyun",
+      name: "阿里云",
+      ticker: "BABA / 9988.HK",
+      platform: "云计算、数据基础设施与算力服务",
+      status: "代表性平台型机构候选",
+      products: ["云计算", "数据基础设施", "算力服务"]
+    },
+    {
+      id: "candidate-china-mobile",
+      name: "中国移动",
+      ticker: "600941.SH / 0941.HK",
+      platform: "通信网络、算力网络与云网融合服务",
+      status: "代表性上市公司候选",
+      products: ["5G 网络", "算力网络", "移动云"]
+    }
+  ],
+  security: [
+    {
+      id: "candidate-qianxin",
+      name: "奇安信",
+      ticker: "688561.SH",
+      platform: "网络安全、数据安全与合规治理服务",
+      status: "代表性上市公司候选",
+      products: ["数据安全", "网络安全", "合规治理"]
+    },
+    {
+      id: "candidate-sangfor",
+      name: "深信服",
+      ticker: "300454.SZ",
+      platform: "网络安全、云安全与企业级安全服务",
+      status: "代表性上市公司候选",
+      products: ["云安全", "网络安全", "零信任"]
+    }
+  ]
+};
+
 Deno.serve(async (req) => {
   const options = handleOptions(req);
   if (options) return options;
@@ -240,7 +391,7 @@ function buildReportPayload(policy: PolicyRecord, generatedAt: string) {
   const text = normalizeText(`${policy.title}\n${policy.summary ?? ""}\n${fullText}`);
   const matchedRules = matchIndustryRules(text);
   const clauses = extractPolicyClauses(fullText);
-  const evidence = clauses.map((clause, index) => ({
+  const evidenceBase = clauses.map((clause, index) => ({
     id: `evidence-${index + 1}`,
     title: `${clause.no} 原文证据`,
     source: policy.source_name ?? "政策原文",
@@ -251,9 +402,18 @@ function buildReportPayload(policy: PolicyRecord, generatedAt: string) {
     url: policy.source_url ?? undefined,
     clauseIds: [clause.id],
     nodeIds: matchedRules.slice(0, 3).map((rule) => rule.id),
-    companyIds: []
+    companyIds: [] as string[]
   }));
+  const companies = buildCompanyCandidates(matchedRules, clauses, evidenceBase);
+  const evidence = evidenceBase.map((item) => ({
+    ...item,
+    companyIds: companies
+      .filter((company) => company.evidenceIds.includes(item.id))
+      .map((company) => company.id)
+  }));
+  const companyIdsByNodeId = buildCompanyIdsByNodeId(companies);
   const actions = buildActions(matchedRules, clauses);
+  const impactScope = inferImpactScope(policy);
   const chainNodes = matchedRules.map((rule, index) => ({
     id: rule.id,
     title: rule.title,
@@ -264,7 +424,7 @@ function buildReportPayload(policy: PolicyRecord, generatedAt: string) {
     confidence: Math.max(68, 88 - index * 4),
     description: rule.description,
     clauseIds: clauses.slice(0, 3).map((clause) => clause.id),
-    companyIds: [],
+    companyIds: companyIdsByNodeId[rule.id] ?? [],
     iconKey: rule.id
   }));
   const chainEdges = chainNodes.slice(1).map((node) => ({
@@ -287,7 +447,7 @@ function buildReportPayload(policy: PolicyRecord, generatedAt: string) {
       status: "published",
       confidence,
       industryCount: chainNodes.length,
-      companyCount: 0,
+      companyCount: companies.length,
       evidenceCount: evidence.length,
       primarySignal: chainNodes[0]?.title ?? "政策影响待细化",
       category: inferCategory(text)
@@ -302,6 +462,8 @@ function buildReportPayload(policy: PolicyRecord, generatedAt: string) {
       category: inferCategory(text),
       level: policy.policy_level ?? "政策文件",
       confidence,
+      scope: impactScope,
+      impactScope,
       sourceUrl: policy.source_url ?? undefined,
       tags: matchedRules.map((rule) => rule.title)
     },
@@ -314,13 +476,14 @@ function buildReportPayload(policy: PolicyRecord, generatedAt: string) {
     clauses,
     chainNodes,
     chainEdges,
-    companies: [],
+    companies,
     evidence,
-    backgroundCards: buildBackgroundCards(policy, text, evidence),
+    backgroundCards: buildBackgroundCards(policy, text, evidence, impactScope),
     compareRows: [
-      ["分析口径", "本次自动分析", "后续深度分析"],
-      ["政策来源", "官方政策原文", "可叠加部门解读与行业数据"],
-      ["公司覆盖", "暂不自动生成公司结论", "后续接入公司库后扩展"]
+      ["分析口径", "官方政策原文、条款、证据链", "与系统基准一致", "暂未接入用户自选对比项"],
+      ["政策范围", impactScope, "以发布机关管辖范围判断", "需人工复核地方性政策边界"],
+      ["产业影响", chainNodes.map((node) => node.title).slice(0, 4).join("、") || "尚未形成产业节点", "按命中产业词和条款映射", "公司映射为空时不生成公司结论"],
+      ["证据基础", `${evidence.length} 条政策原文证据`, "保留原文摘录和来源 URL", "外部市场数据尚未自动接入"]
     ],
     modules: defaultModules(),
     topTabs: defaultTopTabs()
@@ -348,6 +511,156 @@ function matchIndustryRules(text: string): IndustryRule[] {
         evidenceLevel: "待验证",
         description: "当前文本未命中特定产业词，需要结合人工复核或后续模型分析进一步判断产业影响。"
       }];
+}
+
+function buildCompanyCandidates(
+  rules: IndustryRule[],
+  clauses: ExtractedPolicyClause[],
+  evidence: ReportEvidenceItem[]
+): CompanyCandidate[] {
+  const candidates = new Map<string, CompanyCandidate>();
+
+  for (const [ruleIndex, rule] of rules.entries()) {
+    const templates = COMPANY_CANDIDATE_TEMPLATES[rule.id] ?? [];
+    if (templates.length === 0) continue;
+
+    const relatedClauses = findRelatedClausesForRule(rule, clauses).slice(0, 3);
+    if (relatedClauses.length === 0) continue;
+
+    const clauseIds = relatedClauses.map((clause) => clause.id);
+    const evidenceIds = evidence
+      .filter((item) => item.clauseIds.some((clauseId) => clauseIds.includes(clauseId)))
+      .slice(0, 3)
+      .map((item) => item.id);
+    if (evidenceIds.length === 0) continue;
+
+    for (const [templateIndex, template] of templates.entries()) {
+      const policyRelevance = estimateCompanyPolicyRelevance(rule, ruleIndex, templateIndex);
+      const evidenceCertainty = estimateCompanyEvidenceCertainty(rule, ruleIndex, evidenceIds.length);
+      const confidence = clampScoreValue(policyRelevance * 0.55 + evidenceCertainty * 0.45);
+      const existing = candidates.get(template.id);
+
+      if (existing) {
+        existing.nodeIds = uniqueStrings([...existing.nodeIds, rule.id]);
+        existing.clauseIds = uniqueStrings([...existing.clauseIds, ...clauseIds]);
+        existing.evidenceIds = uniqueStrings([...existing.evidenceIds, ...evidenceIds]);
+        existing.evidenceCount = existing.evidenceIds.length;
+        existing.products = uniqueStrings([...existing.products, ...template.products]).slice(0, 6);
+        existing.policyRelevance = Math.max(existing.policyRelevance, policyRelevance);
+        existing.evidenceCertainty = Math.max(existing.evidenceCertainty, evidenceCertainty);
+        existing.confidence = Math.max(existing.confidence, confidence);
+        existing.reason = buildCandidateReason(
+          template,
+          rules.filter((item) => existing.nodeIds.includes(item.id)),
+          existing.evidenceCount
+        );
+        existing.uncertainty = buildCandidateUncertainty();
+        continue;
+      }
+
+      if (candidates.size >= 8) break;
+
+      candidates.set(template.id, {
+        id: template.id,
+        name: template.name,
+        ticker: template.ticker,
+        platform: template.platform,
+        status: template.status,
+        section: rule.section,
+        relation: rule.relation,
+        evidence: rule.evidenceLevel,
+        evidenceLevel: rule.evidenceLevel,
+        confidence,
+        policyRelevance,
+        evidenceCertainty,
+        evidenceCount: evidenceIds.length,
+        products: template.products,
+        nodeIds: [rule.id],
+        clauseIds,
+        evidenceIds,
+        reason: buildCandidateReason(template, [rule], evidenceIds.length),
+        uncertainty: buildCandidateUncertainty()
+      });
+    }
+
+    if (candidates.size >= 8) break;
+  }
+
+  return Array.from(candidates.values()).slice(0, 8);
+}
+
+function buildCompanyIdsByNodeId(companies: CompanyCandidate[]): Record<string, string[]> {
+  return companies.reduce<Record<string, string[]>>((acc, company) => {
+    for (const nodeId of company.nodeIds) {
+      acc[nodeId] = [...(acc[nodeId] ?? []), company.id];
+    }
+    return acc;
+  }, {});
+}
+
+function findRelatedClausesForRule(rule: IndustryRule, clauses: ExtractedPolicyClause[]): ExtractedPolicyClause[] {
+  const keywords = rule.keywords.map((keyword) => keyword.trim()).filter(Boolean);
+  if (keywords.length === 0) return [];
+
+  return clauses.filter((clause) => {
+    const haystack = [
+      clause.title,
+      clause.excerpt,
+      clause.fullText,
+      clause.keywords.join(" "),
+      clause.industries.join(" ")
+    ].join("\n");
+    const lowerHaystack = haystack.toLowerCase();
+
+    return clause.industries.includes(rule.title)
+      || keywords.some((keyword) => lowerHaystack.includes(keyword.toLowerCase()));
+  });
+}
+
+function estimateCompanyPolicyRelevance(rule: IndustryRule, ruleIndex: number, templateIndex: number): number {
+  const base = rule.relation === "直接相关"
+    ? 82
+    : rule.relation === "潜在受益"
+      ? 76
+      : rule.relation === "约束风险"
+        ? 72
+        : rule.relation === "间接相关"
+          ? 70
+          : 60;
+
+  return clampScoreValue(base - ruleIndex * 3 - templateIndex * 2);
+}
+
+function estimateCompanyEvidenceCertainty(rule: IndustryRule, ruleIndex: number, evidenceCount: number): number {
+  const base = rule.evidenceLevel === "强证据"
+    ? 64
+    : rule.evidenceLevel === "间接证据"
+      ? 56
+      : 48;
+
+  return Math.min(78, clampScoreValue(base + Math.min(evidenceCount, 3) * 4 - ruleIndex * 2));
+}
+
+function buildCandidateReason(
+  template: CompanyCandidateTemplate,
+  rules: IndustryRule[],
+  evidenceCount: number
+): string {
+  const ruleTitles = rules.map((rule) => rule.title).join("、");
+  const productLabels = template.products.join("、");
+  return `${CANDIDATE_MAPPING_NOTE} 命中产业规则：${ruleTitles}；候选主体公开业务标签包含：${productLabels}；关联政策文本证据 ${evidenceCount} 条。`;
+}
+
+function buildCandidateUncertainty(): string {
+  return `${CANDIDATE_MAPPING_NOTE} 当前仅按文本关键词和业务标签做候选召回，未校验该主体的订单、收入占比、客户区域、政策执行进度或实际受益/受约束程度。`;
+}
+
+function uniqueStrings(values: string[]): string[] {
+  return Array.from(new Set(values.filter(Boolean)));
+}
+
+function clampScoreValue(value: number): number {
+  return Math.max(0, Math.min(100, Math.round(value)));
 }
 
 function extractPolicyClauses(text: string): Array<{
@@ -395,7 +708,17 @@ function buildActions(rules: IndustryRule[], clauses: ReturnType<typeof extractP
   }));
 }
 
-function buildBackgroundCards(policy: PolicyRecord, text: string, evidence: Array<{ id: string }>) {
+function inferImpactScope(policy: PolicyRecord): string {
+  const text = `${policy.title} ${policy.issuer ?? ""} ${policy.policy_level ?? ""} ${policy.source_name ?? ""}`;
+  const provinceMatch = text.match(/(北京市|天津市|上海市|重庆市|河北省|山西省|辽宁省|吉林省|黑龙江省|江苏省|浙江省|安徽省|福建省|江西省|山东省|河南省|湖北省|湖南省|广东省|海南省|四川省|贵州省|云南省|陕西省|甘肃省|青海省|台湾省|内蒙古自治区|广西壮族自治区|西藏自治区|宁夏回族自治区|新疆维吾尔自治区|香港特别行政区|澳门特别行政区)/);
+  if (provinceMatch) return provinceMatch[1];
+  if (/国务院|中共中央|全国|国家|中国政府网|国家发展改革委|国家数据局|工业和信息化部|部委/.test(text)) return "全国";
+  return "以政策发布机关管辖范围为准";
+}
+
+function buildBackgroundCards(policy: PolicyRecord, text: string, evidence: Array<{ id: string }>, impactScope: string) {
+  const matchedDirections = matchIndustryRules(text).map((rule) => rule.title).join("、") || "尚未命中明确产业方向";
+
   return [
     {
       id: "source",
@@ -406,7 +729,7 @@ function buildBackgroundCards(policy: PolicyRecord, text: string, evidence: Arra
     {
       id: "scope",
       title: "影响范围",
-      body: `${matchIndustryRules(text).map((rule) => rule.title).join("、")} 是当前文本命中的主要影响方向。`,
+      body: `本政策影响范围判断为：${impactScope}。产业方向另行展示为：${matchedDirections}。`,
       evidenceIds: evidence.slice(0, 3).map((item) => item.id)
     },
     {

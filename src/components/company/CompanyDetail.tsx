@@ -1,8 +1,17 @@
-import { ChevronRight, X } from "lucide-react";
+import type { CSSProperties } from "react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import type { ChainNode, Clause, Company, Evidence } from "../../data/policy";
 import { CompanyTag } from "./CompanyTag";
 import { companySectionLabels } from "./companyConstants";
-import { getNodeById, isDefined } from "./companyUtils";
+import { clampScore, getNodeById, isDefined } from "./companyUtils";
+
+const wrapTextStyle: CSSProperties = { minWidth: 0, overflowWrap: "anywhere" };
+const detailButtonGroupStyle: CSSProperties = { display: "inline-flex", gap: 6, flexShrink: 0 };
+
+function textOrFallback(value: string, fallback: string) {
+  const normalized = value.trim();
+  return normalized || fallback;
+}
 
 export function CompanyDetail({
   chainNodes,
@@ -24,22 +33,67 @@ export function CompanyDetail({
     .filter(isDefined);
   const selectedEvidence = selectedCompany.evidenceIds.map((id) => evidence.find((item) => item.id === id)).filter(isDefined);
   const selectedNodes = selectedCompany.nodeIds.map((id) => getNodeById(id, chainNodes)).filter(isDefined) as ChainNode[];
+  const selectedIndex = companies.findIndex((company) => company.id === selectedCompany.id);
+  const canSwitchCompanies = companies.length > 1 && selectedIndex >= 0;
+  const previousCompany = canSwitchCompanies ? companies[(selectedIndex - 1 + companies.length) % companies.length] : undefined;
+  const nextCompany = canSwitchCompanies ? companies[(selectedIndex + 1) % companies.length] : undefined;
   const resetCompanyId = companies[0]?.id ?? selectedCompany.id;
+  const companyName = textOrFallback(selectedCompany.name, "未命名公司");
+  const platform = textOrFallback(selectedCompany.platform, "未标注业务");
+  const status = textOrFallback(selectedCompany.status, "状态未标注");
+  const ticker = textOrFallback(selectedCompany.ticker, "代码未标注");
+  const confidence = clampScore(selectedCompany.confidence);
+  const evidenceCount = Number.isFinite(selectedCompany.evidenceCount)
+    ? Math.max(0, Math.round(selectedCompany.evidenceCount))
+    : selectedEvidence.length;
+
+  function selectDetailCompany(company?: Company) {
+    if (company?.id) setSelectedCompanyId(company.id);
+  }
 
   return (
     <aside className="panel company-detail">
       <div className="company-detail-hero">
         <span>公司详情</span>
         <div className="row-between">
-          <h2>{selectedCompany.name}</h2>
-          <button className="icon-button quiet" onClick={() => setSelectedCompanyId(resetCompanyId)} aria-label="重置公司选择">
-            <X size={16} />
-          </button>
+          <h2 style={wrapTextStyle}>{companyName}</h2>
+          <div style={detailButtonGroupStyle}>
+            <button
+              type="button"
+              className="icon-button quiet"
+              onClick={() => selectDetailCompany(previousCompany)}
+              disabled={!previousCompany}
+              aria-label="上一家公司"
+              title="上一家公司"
+            >
+              <ChevronLeft size={16} />
+            </button>
+            <button
+              type="button"
+              className="icon-button quiet"
+              onClick={() => selectDetailCompany(nextCompany)}
+              disabled={!nextCompany}
+              aria-label="下一家公司"
+              title="下一家公司"
+            >
+              <ChevronRight size={16} />
+            </button>
+            <button
+              type="button"
+              className="icon-button quiet"
+              onClick={() => setSelectedCompanyId(resetCompanyId)}
+              disabled={!resetCompanyId || resetCompanyId === selectedCompany.id}
+              aria-label="重置公司选择"
+              title="回到第一家公司"
+            >
+              <X size={16} />
+            </button>
+          </div>
         </div>
-        <p>{selectedCompany.ticker} · {selectedCompany.status}</p>
+        <p style={wrapTextStyle}>{ticker} · {status}</p>
         <div className="company-scoreline">
-          <strong>{selectedCompany.confidence}<small>/100</small></strong>
-          <i><b style={{ width: `${selectedCompany.confidence}%` }} /></i>
+          <strong>{confidence}<small>/100</small></strong>
+          <i><b style={{ width: `${confidence}%` }} /></i>
         </div>
         <div className="tag-row">
           <CompanyTag value={selectedCompany.relation} />
@@ -47,48 +101,58 @@ export function CompanyDetail({
         </div>
       </div>
       <dl className="company-facts">
-        <div><dt>证据数量</dt><dd>{selectedCompany.evidenceCount} 条</dd></div>
-        <div><dt>政策相关度</dt><dd>{selectedCompany.policyRelevance}/100</dd></div>
-        <div><dt>证据确定性</dt><dd>{selectedCompany.evidenceCertainty}/100</dd></div>
-        <div><dt>产业环节</dt><dd>{companySectionLabels[selectedCompany.section]}</dd></div>
-        <div><dt>主要映射</dt><dd>{selectedCompany.platform}</dd></div>
+        <div><dt>证据数量</dt><dd style={wrapTextStyle}>{evidenceCount} 条</dd></div>
+        <div><dt>政策相关度</dt><dd style={wrapTextStyle}>{clampScore(selectedCompany.policyRelevance)}/100</dd></div>
+        <div><dt>证据确定性</dt><dd style={wrapTextStyle}>{clampScore(selectedCompany.evidenceCertainty)}/100</dd></div>
+        <div><dt>产业环节</dt><dd style={wrapTextStyle}>{companySectionLabels[selectedCompany.section]}</dd></div>
+        <div><dt>主要映射</dt><dd style={wrapTextStyle}>{platform}</dd></div>
       </dl>
       <section>
         <h3>为什么纳入本政策分析</h3>
-        <p>{selectedCompany.reason}</p>
+        <p style={wrapTextStyle}>{textOrFallback(selectedCompany.reason, "当前分析未给出明确纳入理由。")}</p>
       </section>
       <section>
         <h3>映射路径</h3>
-        <div className="company-path">
+        <div className="company-path" style={wrapTextStyle}>
           <span>政策条款</span>
-          {selectedClauses.map((clause) => <b key={clause.id}>{clause.no}</b>)}
-          <ChevronRight size={14} />
-          {selectedNodes.map((node) => <b key={node.id}>{node.title}</b>)}
-          <ChevronRight size={14} />
-          <strong>{selectedCompany.name}</strong>
+          {selectedClauses.length > 0
+            ? selectedClauses.map((clause) => <b key={clause.id} style={wrapTextStyle}>{clause.no}</b>)
+            : <b style={wrapTextStyle}>未关联条款</b>}
+          <ChevronRight size={14} aria-hidden="true" />
+          {selectedNodes.length > 0
+            ? selectedNodes.map((node) => <b key={node.id} style={wrapTextStyle}>{node.title}</b>)
+            : <b style={wrapTextStyle}>未关联环节</b>}
+          <ChevronRight size={14} aria-hidden="true" />
+          <strong style={wrapTextStyle}>{companyName}</strong>
         </div>
       </section>
       <section>
         <h3>关键证据</h3>
-        <div className="company-evidence-list">
-          {selectedEvidence.map((item) => (
-            <article key={item.id}>
-              <span>{item.type} · {item.source}</span>
-              <p>{item.excerpt}</p>
-            </article>
-          ))}
-        </div>
+        {selectedEvidence.length > 0 ? (
+          <div className="company-evidence-list">
+            {selectedEvidence.map((item) => (
+              <article key={item.id} style={wrapTextStyle}>
+                <span style={wrapTextStyle}>{item.type} · {item.source}</span>
+                <p style={wrapTextStyle}>{item.excerpt}</p>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <p className="empty-note">暂无逐条证据映射。为避免误导，不展示替代证据。</p>
+        )}
       </section>
       <section>
         <h3>关联产业环节</h3>
         <div className="tag-row">
-          <span>{companySectionLabels[selectedCompany.section]}</span>
-          {selectedCompany.products.map((product) => <span key={product}>{product}</span>)}
+          <span style={wrapTextStyle}>{companySectionLabels[selectedCompany.section]}</span>
+          {selectedCompany.products.length > 0
+            ? selectedCompany.products.map((product) => <span key={product} style={wrapTextStyle}>{product}</span>)
+            : <span style={wrapTextStyle}>未标注细分产品</span>}
         </div>
       </section>
       <section>
         <h3>本次分析不确定点</h3>
-        <p>{selectedCompany.uncertainty}</p>
+        <p style={wrapTextStyle}>{textOrFallback(selectedCompany.uncertainty, "当前分析未标注额外不确定点。")}</p>
       </section>
     </aside>
   );

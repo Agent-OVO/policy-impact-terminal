@@ -72,6 +72,7 @@ export interface PolicyReport {
   compareRows: typeof compareRows;
   modules: typeof modules;
   topTabs: typeof topTabs;
+  generatedAt?: string;
 }
 
 export interface ReportRepository {
@@ -96,6 +97,7 @@ type SupabasePolicyRow = {
   title: string | null;
   issuer: string | null;
   source_name: string | null;
+  source_url: string | null;
   publish_date: string | null;
   status: string | null;
   confidence: number | null;
@@ -148,7 +150,7 @@ const jobStatuses: readonly JobStatus[] = [
 ];
 
 const POLICY_REPORT_SELECT =
-  "id,external_id,title,issuer,source_name,publish_date,effective_date,status,confidence,category,policy_level,metadata";
+  "id,external_id,title,issuer,source_name,source_url,publish_date,effective_date,status,confidence,category,policy_level,metadata";
 
 const METADATA_COUNT_CONTAINERS = [
   "counts",
@@ -198,7 +200,8 @@ const currentReport: PolicyReport = {
   backgroundCards,
   compareRows,
   modules,
-  topTabs
+  topTabs,
+  generatedAt: "2024-05-28T10:24:00+08:00"
 };
 
 const mockSummaries: PolicySummary[] = [
@@ -345,6 +348,7 @@ const supabaseReportRepository: ReportRepository = {
     const { data, error } = await client
       .from("policies")
       .select("id,external_id,title,issuer,source_name,publish_date,status,confidence,metadata")
+      .eq("status", "published")
       .order("publish_date", { ascending: false });
 
     if (error) {
@@ -358,12 +362,16 @@ const supabaseReportRepository: ReportRepository = {
     const row = await fetchPolicyReportRow(reportId);
 
     if (!row) {
-      return getMockReportFallbackOrThrow(
-        reportId,
+      throw new ReportRepositoryError(
+        "getPolicyReport",
         isLikelyUuid(reportId)
           ? `Report "${reportId}" was not found in Supabase.`
           : `Report "${reportId}" was not found in Supabase policies.external_id.`
       );
+    }
+
+    if (coerceReportStatus(row.status) !== "published") {
+      throw new ReportRepositoryError("getPolicyReport", `Report "${reportId}" is not published.`);
     }
 
     const metadata = isJsonRecord(row.metadata) ? row.metadata : {};
@@ -375,6 +383,7 @@ const supabaseReportRepository: ReportRepository = {
         title: row.title,
         issuer: row.issuer,
         sourceName: row.source_name,
+        sourceUrl: row.source_url,
         publishDate: row.publish_date,
         effectiveDate: row.effective_date,
         status: row.status,
@@ -385,8 +394,8 @@ const supabaseReportRepository: ReportRepository = {
       }) as PolicyReport;
     }
 
-    return getMockReportFallbackOrThrow(
-      reportId,
+    throw new ReportRepositoryError(
+      "getPolicyReport",
       `Report "${reportId}" was found in Supabase, but policies.metadata does not contain a full report payload. Expected metadata.reportPayload, metadata.report_payload, metadata.policyReport, metadata.policy_report, metadata.report, or a nested payload equivalent.`
     );
   },
@@ -438,11 +447,30 @@ const supabaseReportRepository: ReportRepository = {
   }
 };
 
-export const reportRepository: ReportRepository =
-  isSupabaseConfigured && supabase ? supabaseReportRepository : mockReportRepository;
+const allowLocalMockData = import.meta.env.VITE_ENABLE_MOCK === "true";
 
-export function getReportRepositoryMode(): "mock" | "supabase" {
-  return reportRepository === supabaseReportRepository ? "supabase" : "mock";
+const unavailableReportRepository: ReportRepository = {
+  async listPolicyReports() {
+    throw new ReportRepositoryError("listPolicyReports", "Supabase is not configured. Production builds do not fall back to local mock policy data.");
+  },
+  async getPolicyReport() {
+    throw new ReportRepositoryError("getPolicyReport", "Supabase is not configured. Production builds do not fall back to local mock policy data.");
+  },
+  async listAnalysisJobs() {
+    return [];
+  },
+  async createAnalysisJob() {
+    throw new ReportRepositoryError("createAnalysisJob", "普通用户界面不支持创建政策分析任务。");
+  }
+};
+
+export const reportRepository: ReportRepository =
+  isSupabaseConfigured && supabase ? supabaseReportRepository : allowLocalMockData ? mockReportRepository : unavailableReportRepository;
+
+export function getReportRepositoryMode(): "mock" | "supabase" | "unavailable" {
+  if (reportRepository === supabaseReportRepository) return "supabase";
+  if (reportRepository === mockReportRepository) return "mock";
+  return "unavailable";
 }
 
 export async function listPolicyReports(): Promise<PolicySummary[]> {
@@ -550,14 +578,6 @@ async function fetchPolicyReportRow(reportId: string): Promise<SupabasePolicyRep
   }
 
   return data ? data as SupabasePolicyReportRow : null;
-}
-
-function getMockReportFallbackOrThrow(reportId: string, message: string): PolicyReport {
-  if (reportId === currentReport.id) {
-    return currentReport;
-  }
-
-  throw new ReportRepositoryError("getPolicyReport", `${message} Only "${currentReport.id}" can fall back to the local mock report.`);
 }
 
 function mapPolicySummary(row: SupabasePolicyRow): PolicySummary {

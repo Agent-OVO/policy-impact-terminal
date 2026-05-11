@@ -67,6 +67,7 @@ jobs:
           CRAWL_SOURCE: ${{ github.event.inputs.source || 'all' }}
           CRAWL_LIMIT: ${{ github.event.inputs.limit || '80' }}
         run: |
+          node scripts/crawl-policy-sources.mjs --preflight
           node scripts/crawl-policy-sources.mjs \
             --source="${CRAWL_SOURCE}" \
             --limit="${CRAWL_LIMIT}" \

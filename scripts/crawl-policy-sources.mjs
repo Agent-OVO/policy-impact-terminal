@@ -45,6 +45,11 @@ const SOURCES = [
 const args = parseArgs(process.argv.slice(2));
 await loadEnvFiles([".env.local", ".env"]);
 
+if (args.preflight) {
+  await preflightSupabaseFunctions();
+  process.exit(0);
+}
+
 const selectedSources = selectSources(args.source);
 const crawledAt = new Date().toISOString();
 const collected = [];
@@ -100,12 +105,14 @@ function parseArgs(argv) {
     out: "artifacts/policy-candidates.json",
     ingest: false,
     autoPublish: false,
+    preflight: false,
     includeInterpretations: false,
     since: ""
   };
 
   for (const arg of argv) {
     if (arg === "--ingest") parsed.ingest = true;
+    else if (arg === "--preflight") parsed.preflight = true;
     else if (arg === "--auto-publish") {
       parsed.ingest = true;
       parsed.autoPublish = true;
@@ -140,6 +147,7 @@ Options:
   --include-interpretations   Keep policy interpretation pages.
   --ingest                    Call Supabase Edge Function ingest for unique candidates.
   --auto-publish              After ingest, call analyze and publish for newly created jobs.
+  --preflight                 Verify Supabase function auth, crawler owner, and source seed.
 
 Ingest environment:
   SUPABASE_URL or VITE_SUPABASE_URL
@@ -147,6 +155,28 @@ Ingest environment:
   SUPABASE_FUNCTION_JWT       Optional JWT accepted by Supabase Edge Functions.
   SUPABASE_CRAWLER_SECRET     Optional crawler shared secret for scheduled ingest.
 `);
+}
+
+async function preflightSupabaseFunctions() {
+  const { supabaseUrl, accessToken, crawlerSecret } = readIngestEnvironment();
+  const result = await callSupabaseFunction(supabaseUrl, "ingest", {
+    headers: buildFunctionHeaders(accessToken, crawlerSecret),
+    body: {
+      preflight: true,
+      crawlerVersion: CRAWLER_VERSION,
+      checkedAt: new Date().toISOString()
+    }
+  });
+
+  const activePolicySources = Number(result.activePolicySources ?? 0);
+  if (!result.ok) {
+    throw new Error(`Supabase preflight failed: ${JSON.stringify(result)}`);
+  }
+  if (activePolicySources <= 0) {
+    throw new Error("Supabase preflight found no active policy_sources rows. Apply schema and seed policy sources before crawling.");
+  }
+
+  console.log(`[preflight] ok actor=${result.actor ?? "unknown"} activePolicySources=${activePolicySources}`);
 }
 
 function selectSources(sourceArg) {
@@ -418,17 +448,7 @@ function attachFullText(candidate, value) {
 }
 
 async function ingestCandidates(candidates, args) {
-  const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
-  const accessToken =
-    process.env.SUPABASE_ACCESS_TOKEN ||
-    process.env.SUPABASE_FUNCTION_JWT ||
-    process.env.SUPABASE_ANON_KEY ||
-    process.env.VITE_SUPABASE_ANON_KEY;
-  const crawlerSecret = process.env.SUPABASE_CRAWLER_SECRET;
-
-  if (!supabaseUrl || (!accessToken && !crawlerSecret)) {
-    throw new Error("Ingest requires SUPABASE_URL or VITE_SUPABASE_URL, plus SUPABASE_ACCESS_TOKEN or SUPABASE_CRAWLER_SECRET.");
-  }
+  const { supabaseUrl, accessToken, crawlerSecret } = readIngestEnvironment();
 
   let created = 0;
   let linkedDuplicates = 0;
@@ -486,6 +506,28 @@ async function ingestCandidates(candidates, args) {
   }
 
   console.log(`[ingest] created=${created} linkedDuplicates=${linkedDuplicates} analyzed=${analyzed} published=${published} skippedWithoutFullText=${skippedWithoutFullText}`);
+  if (skippedWithoutFullText > 0) {
+    printWorkflowWarning(`${skippedWithoutFullText} candidates were skipped because policy full text could not be extracted.`);
+  }
+  if (args.autoPublish && analyzed > 0 && published === 0) {
+    printWorkflowWarning("Auto-publish was requested, but no policy report was published.");
+  }
+}
+
+function readIngestEnvironment() {
+  const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
+  const accessToken =
+    process.env.SUPABASE_ACCESS_TOKEN ||
+    process.env.SUPABASE_FUNCTION_JWT ||
+    process.env.SUPABASE_ANON_KEY ||
+    process.env.VITE_SUPABASE_ANON_KEY;
+  const crawlerSecret = process.env.SUPABASE_CRAWLER_SECRET;
+
+  if (!supabaseUrl || (!accessToken && !crawlerSecret)) {
+    throw new Error("Ingest requires SUPABASE_URL or VITE_SUPABASE_URL, plus SUPABASE_ACCESS_TOKEN or SUPABASE_CRAWLER_SECRET.");
+  }
+
+  return { supabaseUrl, accessToken, crawlerSecret };
 }
 
 async function analyzeAndPublishJob(supabaseUrl, jobId, accessToken, crawlerSecret) {
@@ -562,9 +604,24 @@ async function writeJson(filePath, data) {
 function printSummary(output, outPath) {
   console.log(`[summary] collected=${output.counts.collected} filtered=${output.counts.afterFilters} candidates=${output.counts.candidates} withFullText=${output.counts.withFullText} duplicates=${output.counts.duplicates} errors=${output.counts.errors}`);
   console.log(`[summary] wrote ${path.resolve(outPath)}`);
+  if (output.counts.errors > 0) {
+    printWorkflowWarning(`${output.counts.errors} source crawler errors occurred. Check artifacts/policy-candidates.json for details.`);
+  }
+  if (output.counts.candidates > 0 && output.counts.withFullText === 0) {
+    printWorkflowWarning("Crawler found candidates but extracted no usable policy full text. Source page selectors may need updating.");
+  }
   for (const item of output.candidates.slice(0, 8)) {
     console.log(`- ${item.publishDate || "no-date"} ${item.sourceKey} ${item.title}`);
   }
+}
+
+function printWorkflowWarning(message) {
+  if (process.env.GITHUB_ACTIONS) {
+    console.warn(`::warning::${message}`);
+    return;
+  }
+
+  console.warn(`[warning] ${message}`);
 }
 
 function hasUsableFullText(candidate) {

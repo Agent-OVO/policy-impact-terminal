@@ -1,11 +1,10 @@
-import { companies as defaultCompanies } from "../../data/policy";
 import type { Company } from "../../data/policy";
 import { companyMatrixOffsets, companyRelationClass } from "./companyConstants";
-import { clamp, cx, getCompanyById } from "./companyUtils";
+import { clamp, clampScore, cx, getCompanyById } from "./companyUtils";
 
 export function CompanyMatrix({
   compact,
-  companies = defaultCompanies,
+  companies = [],
   selectedCompanyId,
   setSelectedCompanyId
 }: {
@@ -16,16 +15,30 @@ export function CompanyMatrix({
 }) {
   if (companies.length === 0) {
     return (
-      <div className={cx("company-matrix", compact && "compact", "empty")}>
+      <div className={cx("company-matrix", compact && "compact", "empty")} role="status" aria-live="polite">
         <div className="matrix-plot-label">
           <strong>公司影响象限</strong>
           <span>当前自动分析尚未生成公司映射</span>
+        </div>
+        <div
+          className="matrix-selected-label"
+          style={{
+            left: "50%",
+            right: "auto",
+            bottom: "50%",
+            maxWidth: "calc(100% - 32px)",
+            transform: "translate(-50%, 50%)",
+            textAlign: "center"
+          }}
+        >
+          <span style={{ overflowWrap: "anywhere" }}>暂无公司数据</span>
         </div>
       </div>
     );
   }
 
   const selected = getCompanyById(selectedCompanyId || companies[0].id, companies) || companies[0];
+  const activeCompanyId = selected.id;
 
   return (
     <div className={cx("company-matrix", compact && "compact")}>
@@ -41,32 +54,42 @@ export function CompanyMatrix({
       <div className="axis x">政策相关度</div>
       {companies.map((company, index) => {
         const [offsetX, offsetY] = companyMatrixOffsets[index % companyMatrixOffsets.length];
-        const active = selectedCompanyId === company.id;
-        const showLabel = compact ? active : true;
-        const left = clamp(company.policyRelevance + offsetX, 14, 88);
-        const bottom = clamp(company.evidenceCertainty + offsetY, 16, 84);
+        const active = activeCompanyId === company.id;
+        const showLabel = active || companies.length <= 5;
+        const policyRelevance = clampScore(company.policyRelevance);
+        const evidenceCertainty = clampScore(company.evidenceCertainty);
+        const left = clamp(policyRelevance + offsetX, 14, 88);
+        const bottom = clamp(evidenceCertainty + offsetY, 16, 84);
+        const companyName = company.name.trim() || `公司 ${index + 1}`;
+        const platform = company.platform.trim() || "未标注业务";
 
         return (
           <button
-            key={company.id}
+            type="button"
+            key={company.id || `company-${index + 1}`}
             style={{
               left: `${left}%`,
               bottom: `${bottom}%`
             }}
             className={cx(active && "active", showLabel && "with-label", companyRelationClass[company.relation])}
-            onClick={() => setSelectedCompanyId?.(company.id)}
-            aria-label={`${company.name}，政策相关度 ${company.policyRelevance}，证据确定性 ${company.evidenceCertainty}`}
+            onClick={() => {
+              if (company.id) setSelectedCompanyId?.(company.id);
+            }}
+            aria-label={`${companyName}，政策相关度 ${policyRelevance}，证据确定性 ${evidenceCertainty}`}
             aria-pressed={active}
-            title={`${company.name} · ${company.platform}`}
+            disabled={!setSelectedCompanyId || !company.id}
+            title={`${companyName} · ${platform}`}
           >
             <span>{index + 1}</span>
-            {showLabel && <em>{company.name}</em>}
+            {showLabel && <em>{companyName}</em>}
           </button>
         );
       })}
       <div className="matrix-selected-label">
-        <span>{selected.name}</span>
-        <strong>{selected.policyRelevance}/{selected.evidenceCertainty}</strong>
+        <span style={{ minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+          {selected.name.trim() || "未命名公司"}
+        </span>
+        <strong>{clampScore(selected.policyRelevance)}/{clampScore(selected.evidenceCertainty)}</strong>
       </div>
       <span className="axis-label low-x">低</span>
       <span className="axis-label high-x">高</span>
