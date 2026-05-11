@@ -35,6 +35,8 @@ type PolicyRecord = {
 };
 
 const MIN_POLICY_FULL_TEXT_LENGTH = 280;
+const DEFAULT_BATCH_REANALYZE_LIMIT = 30;
+const MAX_BATCH_REANALYZE_LIMIT = 100;
 
 type IndustryRule = {
   id: string;
@@ -520,6 +522,12 @@ Deno.serve(async (req: Request) => {
     const supabase = createSupabaseAdminClient();
     await requireCrawlerOrAdminUser(req, supabase);
     const body = await readJsonObject(req);
+    if (body.reanalyzePublished === true || body.reanalyze_published === true) {
+      const limit = clampBatchLimit(body.limit);
+      const result = await reanalyzePublishedPolicies(supabase, limit);
+      return jsonResponse(result);
+    }
+
     const requestedPolicyId = optionalString(body, "policyId") ?? optionalString(body, "policy_id");
     if (requestedPolicyId) {
       const now = new Date().toISOString();
@@ -637,6 +645,115 @@ async function fetchPolicy(
   return {
     ...(data as PolicyRecord),
     metadata: isRecord((data as PolicyRecord).metadata) ? (data as PolicyRecord).metadata : {}
+  };
+}
+
+function clampBatchLimit(value: unknown): number {
+  const numericValue =
+    typeof value === "number"
+      ? value
+      : typeof value === "string"
+        ? Number(value)
+        : DEFAULT_BATCH_REANALYZE_LIMIT;
+
+  if (!Number.isFinite(numericValue)) {
+    return DEFAULT_BATCH_REANALYZE_LIMIT;
+  }
+
+  return Math.max(1, Math.min(MAX_BATCH_REANALYZE_LIMIT, Math.floor(numericValue)));
+}
+
+async function reanalyzePublishedPolicies(
+  supabase: SupabaseAdminClient,
+  limit: number
+): Promise<Record<string, unknown>> {
+  const startedAt = new Date().toISOString();
+  const { data, error } = await supabase
+    .from("policies")
+    .select("id,external_id,title,issuer,publish_date,effective_date,source_name,source_url,category,policy_level,confidence,summary,full_text,metadata")
+    .eq("status", "published")
+    .order("publish_date", { ascending: false })
+    .order("created_at", { ascending: false })
+    .limit(limit);
+
+  if (error) {
+    throw new HttpError(500, "Failed to list published policies for batch reanalysis.", error);
+  }
+
+  const policies = (Array.isArray(data) ? data : []).map((item: unknown) => {
+    const record = item as PolicyRecord;
+    return {
+      ...record,
+      metadata: isRecord(record.metadata) ? record.metadata : {}
+    };
+  });
+
+  let reanalyzed = 0;
+  let skipped = 0;
+  let failed = 0;
+  const results: Array<Record<string, unknown>> = [];
+
+  for (const policy of policies) {
+    try {
+      if (!hasUsablePolicyText(policy.full_text)) {
+        skipped += 1;
+        results.push({
+          policyId: policy.id,
+          title: policy.title,
+          status: "skipped",
+          reason: "full_text_missing_or_too_short",
+          fullTextLength: policy.full_text?.length ?? 0
+        });
+        continue;
+      }
+
+      const analyzedAt = new Date().toISOString();
+      const comparablePolicies = await fetchComparablePolicies(supabase, policy.id);
+      const reportPayload = buildReportPayload(policy, analyzedAt, comparablePolicies);
+      const analysisOutput = {
+        analyzerVersion: "rules-v0.2",
+        analyzedAt,
+        status: "analysis_complete",
+        reportPayload,
+        fullTextLength: policy.full_text?.length ?? 0,
+        reanalysis: true,
+        reanalysisMode: "published-batch"
+      };
+
+      await updatePolicyAnalysisMetadata(supabase, policy, reportPayload, analysisOutput);
+      reanalyzed += 1;
+      results.push({
+        policyId: policy.id,
+        title: policy.title,
+        publishDate: policy.publish_date,
+        status: "reanalyzed",
+        chainNodeCount: reportPayload.chainNodes.length,
+        companyCount: reportPayload.companies.length,
+        evidenceCount: reportPayload.evidence.length,
+        compareStatus: reportPayload.compareInsights.status,
+        comparablePolicyCount: reportPayload.compareInsights.comparableCount
+      });
+    } catch (error) {
+      failed += 1;
+      results.push({
+        policyId: policy.id,
+        title: policy.title,
+        status: "failed",
+        error: error instanceof Error ? error.message : String(error)
+      });
+    }
+  }
+
+  return {
+    reanalyzePublished: true,
+    limit,
+    selected: policies.length,
+    reanalyzed,
+    skipped,
+    failed,
+    startedAt,
+    finishedAt: new Date().toISOString(),
+    results
   };
 }
 

@@ -36,7 +36,6 @@ jobs:
       - name: Refresh published report payloads
         env:
           SUPABASE_URL: https://qxzspsofhmfjceuaulhu.supabase.co
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
           SUPABASE_FUNCTION_JWT: ${{ secrets.SUPABASE_FUNCTION_JWT }}
           SUPABASE_CRAWLER_SECRET: ${{ secrets.SUPABASE_CRAWLER_SECRET }}
           REANALYZE_LIMIT: ${{ github.event.inputs.limit || '30' }}

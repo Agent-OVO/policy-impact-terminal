@@ -1487,6 +1487,7 @@ function CompareView({ report }: { report: PolicyReport | null }) {
   const currentChainNodes = report?.chainNodes ?? chainNodes;
   const currentEvidence = report?.evidence ?? evidence;
   const compareInsight = report?.compareInsights;
+  const hasRealCompareInsights = Boolean(compareInsight?.rows?.length);
   const legacyRows: CompareInsightRow[] = (report ? report.compareRows : compareRows).map((row, index) => ({
     id: `legacy-${index + 1}`,
     dimension: row[0] || `对比维度${index + 1}`,
@@ -1494,7 +1495,7 @@ function CompareView({ report }: { report: PolicyReport | null }) {
     similar: row[2] || "",
     different: row[3] || ""
   }));
-  const displayedRows = compareInsight?.rows?.length ? compareInsight.rows : legacyRows;
+  const displayedRows = hasRealCompareInsights ? compareInsight!.rows : report ? [] : legacyRows;
   const [selectedRowId, setSelectedRowId] = useState(displayedRows[0]?.id ?? "");
   const selectedRow = displayedRows.find((row) => row.id === selectedRowId) || displayedRows[0];
   const similarBase = compareInsight?.similarPolicy || compareInsight?.similarPolicies?.[0] || null;

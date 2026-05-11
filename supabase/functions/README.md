@@ -64,6 +64,24 @@ Behavior:
 - Rejects already published or failed jobs.
 - Returns `{ job, analysis, next: ["publish"] }`.
 
+Published-policy refresh input:
+
+```json
+{
+  "reanalyzePublished": true,
+  "limit": 30
+}
+```
+
+Behavior:
+
+- Authenticates an active admin caller or verifies the scheduled crawler secret.
+- Uses the server-side service role client to list the latest `status = 'published'` policies.
+- Rebuilds `metadata.reportPayload` for each policy from stored `policies.full_text`.
+- Keeps policies published; it only updates analysis metadata, confidence, category, summary, and counts.
+- Skips policies whose original full text is missing or too short.
+- Returns `{ selected, reanalyzed, skipped, failed, results }`.
+
 Current limitation: this is a baseline rules analyzer, not a full LLM/policy expert analyzer. It creates a usable report shell from policy text, but company-level and deep industry conclusions should be upgraded later.
 
 ### `publish`

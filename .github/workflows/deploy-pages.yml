@@ -45,6 +45,7 @@ jobs:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
           VITE_ANALYSIS_JOB_MODE: disabled
+          VITE_ENABLE_MOCK: "false"
           VITE_BASE_PATH: /${{ github.event.repository.name }}/
         run: npm run build
 

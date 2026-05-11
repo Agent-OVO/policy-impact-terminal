@@ -136,7 +136,7 @@ supabase secrets set CRAWLER_OWNER_ID=admin-profile-user-uuid
 
 The functions are intended to run with Supabase JWT verification enabled. Manual calls require an active admin user's access token. Scheduled crawler calls use a JWT accepted by Supabase Functions plus `x-crawler-secret`. Inside the function, the service role key is used only for database writes after the function has verified admin/crawler authorization.
 
-The scheduled GitHub crawler runs `node scripts/crawl-policy-sources.mjs --preflight` before crawling. That preflight validates the Edge Function crawler secret, `CRAWLER_OWNER_ID`, active admin profile, and seeded active `policy_sources` rows.
+The scheduled GitHub crawler runs `node scripts/crawl-policy-sources.mjs --preflight` before crawling. That preflight validates the Edge Function crawler secret, `CRAWLER_OWNER_ID`, active admin profile, and seeded active `policy_sources` rows. Published-policy refreshes use `scripts/reanalyze-published-policies.mjs`, which calls the `analyze` Edge Function batch endpoint instead of querying `policies` with an anonymous REST session.
 
 ## 4. Job Flow
 

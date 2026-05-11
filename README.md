@@ -90,6 +90,7 @@ GitHub Pages 只负责托管静态前端。政策抓取通过 GitHub Actions 定
 - 周六、周日按北京时间每 12 小时运行一次，分别在 00:00 和 12:00。
 - 每次运行 `scripts/crawl-policy-sources.mjs --auto-publish`，抓取政策原文、写入 Supabase、执行基础自动分析并发布报表。
 - 前端部署工作流在 `.github/workflows/deploy-pages.yml`。GitHub Pages 的发布源应设置为 GitHub Actions。
+- 已发布政策的批量重分析通过 `.github/workflows/reanalyze-policies.yml` 手动触发。该流程调用 `analyze` Edge Function 的 `{ "reanalyzePublished": true, "limit": 30 }` 服务端入口，不从浏览器或匿名 REST 读取政策表。
 
 GitHub 仓库需要配置 Actions Secrets：
 

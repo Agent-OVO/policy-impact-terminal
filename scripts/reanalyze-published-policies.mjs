@@ -5,32 +5,33 @@ const DEFAULT_LIMIT = 30;
 const args = parseArgs(process.argv.slice(2));
 const limit = Math.max(1, Number(args.limit ?? DEFAULT_LIMIT));
 const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
-const anonKey = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
 const accessToken = process.env.SUPABASE_ACCESS_TOKEN || process.env.SUPABASE_FUNCTION_JWT;
 const crawlerSecret = process.env.SUPABASE_CRAWLER_SECRET;
 
-if (!supabaseUrl || !anonKey || (!accessToken && !crawlerSecret)) {
-  throw new Error("Requires SUPABASE_URL, VITE_SUPABASE_ANON_KEY, and either SUPABASE_FUNCTION_JWT/SUPABASE_ACCESS_TOKEN or SUPABASE_CRAWLER_SECRET.");
+if (!supabaseUrl || (!accessToken && !crawlerSecret)) {
+  throw new Error("Requires SUPABASE_URL and either SUPABASE_FUNCTION_JWT/SUPABASE_ACCESS_TOKEN or SUPABASE_CRAWLER_SECRET.");
 }
 
-const policies = await listPublishedPolicies(limit);
-let reanalyzed = 0;
-let failed = 0;
+const result = await callAnalyzeBatch(limit);
+const selected = Number(result.selected ?? 0);
+const reanalyzed = Number(result.reanalyzed ?? 0);
+const skipped = Number(result.skipped ?? 0);
+const failed = Number(result.failed ?? 0);
 
-console.log(`[reanalyze] selected=${policies.length} limit=${limit}`);
+console.log(`[reanalyze] selected=${selected} limit=${limit}`);
+console.log(`[reanalyze] reanalyzed=${reanalyzed} skipped=${skipped} failed=${failed}`);
 
-for (const policy of policies) {
-  try {
-    await callAnalyze(policy.id);
-    reanalyzed += 1;
-    console.log(`[reanalyze] ok ${policy.publish_date ?? "no-date"} ${policy.title}`);
-  } catch (error) {
-    failed += 1;
-    console.warn(`[reanalyze] failed ${policy.id} ${policy.title}: ${error.message}`);
+for (const item of Array.isArray(result.results) ? result.results : []) {
+  const status = String(item.status ?? "unknown");
+  const title = String(item.title ?? item.policyId ?? "untitled");
+  if (status === "failed") {
+    console.warn(`[reanalyze] failed ${title}: ${String(item.error ?? "unknown error")}`);
+  } else if (status === "skipped") {
+    console.warn(`[reanalyze] skipped ${title}: ${String(item.reason ?? "unknown reason")}`);
+  } else {
+    console.log(`[reanalyze] ok ${title}`);
   }
 }
-
-console.log(`[reanalyze] reanalyzed=${reanalyzed} failed=${failed}`);
 
 if (failed > 0) {
   process.exitCode = 1;
@@ -46,29 +47,7 @@ function parseArgs(values) {
   return parsed;
 }
 
-async function listPublishedPolicies(maxRows) {
-  const endpoint = new URL(`${supabaseUrl.replace(/\/$/, "")}/rest/v1/policies`);
-  endpoint.searchParams.set("select", "id,title,publish_date");
-  endpoint.searchParams.set("status", "eq.published");
-  endpoint.searchParams.set("order", "publish_date.desc.nullslast,created_at.desc");
-  endpoint.searchParams.set("limit", String(maxRows));
-
-  const response = await fetch(endpoint, {
-    headers: {
-      apikey: anonKey,
-      authorization: `Bearer ${anonKey}`
-    }
-  });
-
-  const result = await response.json().catch(() => []);
-  if (!response.ok) {
-    throw new Error(`List published policies failed: ${response.status} ${JSON.stringify(result)}`);
-  }
-
-  return Array.isArray(result) ? result : [];
-}
-
-async function callAnalyze(policyId) {
+async function callAnalyzeBatch(maxRows) {
   const endpoint = `${supabaseUrl.replace(/\/$/, "")}/functions/v1/analyze`;
   const response = await fetch(endpoint, {
     method: "POST",
@@ -78,7 +57,8 @@ async function callAnalyze(policyId) {
       "content-type": "application/json"
     },
     body: JSON.stringify({
-      policyId,
+      reanalyzePublished: true,
+      limit: maxRows,
       reanalysisReason: "refresh-published-report-payload"
     })
   });
