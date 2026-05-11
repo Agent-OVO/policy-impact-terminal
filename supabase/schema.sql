@@ -693,6 +693,20 @@ create policy "analysis_jobs_delete_admin"
   to authenticated
   using (public.is_admin());
 
+grant usage on schema public to authenticated;
+
+grant select, insert, update on public.profiles to authenticated;
+
+grant select on public.policy_sources to authenticated;
+grant all on public.policies to authenticated;
+grant all on public.policy_actions to authenticated;
+grant all on public.policy_clauses to authenticated;
+grant all on public.industry_nodes to authenticated;
+grant all on public.industry_edges to authenticated;
+grant all on public.companies to authenticated;
+grant all on public.evidence to authenticated;
+grant all on public.analysis_jobs to authenticated;
+
 comment on table public.policies is 'Policy documents and top-level report metadata. Published rows are readable by authenticated users.';
 comment on column public.policies.external_id is 'Optional stable business identifier for imported reports or shareable routes. Frontend getPolicyReport can load by UUID id or external_id.';
 comment on column public.policies.dedupe_key is 'Stable duplicate-detection key, usually built from policy_no or normalized issuer/title/publish_date. Unique for canonical policies.';
