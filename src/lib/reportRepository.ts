@@ -105,6 +105,7 @@ type SupabasePolicyRow = {
   source_url: string | null;
   publish_date: string | null;
   status: string | null;
+  analysis_version: string | null;
   confidence: number | null;
   metadata: JsonRecord | null;
 };
@@ -136,6 +137,7 @@ const FALLBACK_POLICY_TITLE = "未命名政策";
 const FALLBACK_SOURCE_NAME = "手动提交";
 const QUEUED_STEP = "政策原文已入库，等待 Codex 手动分析";
 const POLICY_MIN_PUBLISH_DATE = "2026-05-01";
+const MANUAL_ANALYSIS_VERSION = "codex-manual-v1";
 
 const reportStatuses: readonly ReportStatus[] = [
   "published",
@@ -156,7 +158,7 @@ const jobStatuses: readonly JobStatus[] = [
 ];
 
 const POLICY_REPORT_SELECT =
-  "id,external_id,title,issuer,source_name,source_url,publish_date,effective_date,status,confidence,category,policy_level,metadata";
+  "id,external_id,title,issuer,source_name,source_url,publish_date,effective_date,status,analysis_version,confidence,category,policy_level,metadata";
 
 const METADATA_COUNT_CONTAINERS = [
   "counts",
@@ -356,8 +358,9 @@ const supabaseReportRepository: ReportRepository = {
     const client = requireSupabaseClient("listPolicyReports");
     const { data, error } = await client
       .from("policies")
-      .select("id,external_id,title,issuer,source_name,publish_date,status,confidence,metadata")
+      .select("id,external_id,title,issuer,source_name,publish_date,status,analysis_version,confidence,metadata")
       .eq("status", "published")
+      .eq("analysis_version", MANUAL_ANALYSIS_VERSION)
       .gte("publish_date", POLICY_MIN_PUBLISH_DATE)
       .order("publish_date", { ascending: false });
 
@@ -386,6 +389,10 @@ const supabaseReportRepository: ReportRepository = {
 
     if (!row.publish_date || row.publish_date < POLICY_MIN_PUBLISH_DATE) {
       throw new ReportRepositoryError("getPolicyReport", `Report "${reportId}" is outside the active policy scope.`);
+    }
+
+    if (row.analysis_version !== MANUAL_ANALYSIS_VERSION) {
+      throw new ReportRepositoryError("getPolicyReport", `Report "${reportId}" has not completed Codex manual analysis.`);
     }
 
     const metadata = isJsonRecord(row.metadata) ? row.metadata : {};
