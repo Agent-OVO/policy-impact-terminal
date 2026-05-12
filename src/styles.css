@@ -3043,8 +3043,9 @@ a.text-button {
 
 .report-list button {
   width: 100%;
+  min-width: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.85fr) minmax(160px, auto);
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.85fr) minmax(128px, 0.36fr);
   align-items: center;
   gap: 16px;
   min-height: 96px;
@@ -3057,6 +3058,10 @@ a.text-button {
   color: var(--ink);
   text-align: left;
   transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.report-list button > * {
+  min-width: 0;
 }
 
 .report-list button:hover {
@@ -3079,6 +3084,8 @@ a.text-button {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
   font-size: 16px;
 }
 
@@ -3086,15 +3093,20 @@ a.text-button {
   margin: 0;
   color: var(--muted);
   font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .report-list-metrics {
+  min-width: 0;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
 }
 
 .report-list-metrics span {
+  min-width: 0;
   min-height: 48px;
   display: grid;
   align-content: center;
@@ -3106,19 +3118,37 @@ a.text-button {
   background: transparent;
   color: var(--muted);
   font-size: 12px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .report-list-metrics b {
   color: var(--ink);
   font-size: 16px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .report-list-signal {
+  min-width: 0;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 10px;
   color: var(--violet);
+}
+
+.report-list-signal .tag {
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  line-height: 1.25;
+}
+
+.report-list-signal svg {
+  flex: 0 0 auto;
 }
 
 .job-list-panel .panel-head > button {
@@ -3509,25 +3539,36 @@ a.text-button {
 
 .company-strip,
 .company-grid {
+  --company-card-block-size: 224px;
   align-items: stretch;
-  grid-auto-rows: 1fr;
+  grid-auto-rows: var(--company-card-block-size);
+  max-width: 100%;
 }
 
 .company-strip-button,
 .company-grid > button {
-  height: 100%;
+  width: 100%;
+  height: var(--company-card-block-size);
+  min-height: var(--company-card-block-size);
+  max-height: var(--company-card-block-size);
   min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
 }
 
-.company-card-stable {
+.company-card.company-card-stable {
   position: relative;
   height: 100%;
-  min-height: 198px;
+  min-width: 0;
+  max-width: 100%;
+  min-height: var(--company-card-block-size, 224px);
+  max-height: var(--company-card-block-size, 224px);
   overflow: hidden;
 }
 
 .company-grid .company-card-stable {
-  min-height: 214px;
+  min-height: var(--company-card-block-size, 224px);
+  max-height: var(--company-card-block-size, 224px);
 }
 
 .company-card-stable::after {
@@ -3578,6 +3619,7 @@ a.text-button {
 
 .company-card-metrics {
   align-items: center;
+  flex-wrap: wrap;
   color: var(--muted);
   font-size: 12px;
 }
@@ -4448,6 +4490,16 @@ a.text-button {
 
   .panel {
     padding: 12px;
+  }
+
+  .company-grid {
+    --company-card-block-size: 232px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .company-strip {
+    --company-card-block-size: 232px;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .hero-panel h1 {

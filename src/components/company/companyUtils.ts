@@ -51,6 +51,12 @@ const knownCompanyLogoSources: CompanyLogoSource[] = [
 
 const knownDomainLogoUrls = new Map<string, string[]>([
   ["chinadep.com", ["https://www.google.com/s2/favicons?domain=chinadep.com&sz=128"]],
+  ["foton.com.cn", ["https://www.foton.com.cn/favicon.ico"]],
+  ["huali-group.com", ["https://www.huali-group.com/template/default/images/logo.png"]],
+  ["luolai.com.cn", ["https://www.google.com/s2/favicons?domain=luolai.com&sz=128"]],
+  ["lutai.com", ["https://images.weserv.nl/?url=www.lutai.com/favicon.ico&default=1"]],
+  ["saicmotor.com", ["https://www.saicmotor.com/favicon.ico"]],
+  ["shenzhouintl.com", ["https://www.shenzhouintl.com/favicon_old2.ico"]],
   [
     "csnwd.com.cn",
     [
