@@ -1,0 +1,887 @@
+{
+  "id": "7d457090-64b4-4985-94f3-87f72f6ee3cb",
+  "policyId": "7d457090-64b4-4985-94f3-87f72f6ee3cb",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "generatedAt": "2026-05-12T12:20:00+08:00",
+  "summary": {
+    "id": "7d457090-64b4-4985-94f3-87f72f6ee3cb",
+    "title": "中华人民共和国行政复议法实施条例",
+    "issuer": "国务院",
+    "source": "中国政府网 - 最新政策",
+    "publishDate": "2026-05-08",
+    "status": "published",
+    "confidence": 92,
+    "industryCount": 5,
+    "companyCount": 0,
+    "evidenceCount": 11,
+    "primarySignal": "行政争议救济程序细化，企业获得更清晰的复议路径但无公司级映射",
+    "category": "行政法规"
+  },
+  "policy": {
+    "title": "中华人民共和国行政复议法实施条例",
+    "status": "已发布",
+    "issuer": "国务院",
+    "publishDate": "2026-05-08",
+    "effectiveDate": "2026-07-01",
+    "source": "中国政府网 - 最新政策",
+    "category": "行政复议制度",
+    "level": "国务院令第836号",
+    "confidence": 92,
+    "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068115.htm",
+    "jurisdiction": "全国",
+    "scope": "全国行政复议机关、行政机关、公民、法人和其他组织参与行政复议的申请、受理、审理、决定、监督和责任规则",
+    "impactScope": "直接影响行政复议机关和行政机关办案流程；对企业、个体工商户、合伙企业、公司等主体体现为行政救济路径、证据规则和争议解决程序的完善",
+    "tags": [
+      "行政复议",
+      "行政争议",
+      "法治政府",
+      "行政协议",
+      "信用惩戒",
+      "线上复议",
+      "行政救济"
+    ]
+  },
+  "brief": {
+    "judgement": "修订后的实施条例把行政复议从“有路可走”进一步细化为“路径、主体、证据、纠错和监督都有规则”的程序体系；企业影响主要是行政救济可预期性增强，而不是某一行业或某一公司获得直接政策利好。",
+    "summary": "条例自2026年7月1日起施行，围绕行政复议法细化申请范围、参加人、期限、互联网渠道、受理、审理证据、决定类型、行政协议救济、监督和法律责任。它对政府端提出办案能力、信息化平台、调解、统计分析和监督责任；对企业端的意义在于，列入严重失信主体名单、失信惩戒、行政协议、公平竞争受影响、公司权益被侵害等场景可以更清楚地进入复议框架。由于规则面向所有公民、法人和其他组织，不指向特定产业经营者，故不做代表公司映射。",
+    "keyPoints": [
+      "行政复议机关要对行政行为合法性、适当性进行全面审查，推动行政争议实质性化解。",
+      "统一行政复议信息化平台、线上复议同等法律效力、线上材料合格不得另行要求纸质材料，提升申请便利性。",
+      "严重失信主体名单、失信惩戒、政府特许经营协议、征收征用补偿协议、医保服务协议等事项被明确纳入可复议场景。",
+      "被申请行政机关需要说明事实和理由、提交证据依据，违法或不当行政处罚可在5个工作日内自行纠正。"
+    ],
+    "methodology": "人工阅读中国政府网公布的国务院令第836号全文，按行政复议流程拆分为申请、受理、审理、决定、监督五类影响；证据均取自官方条例原文，不采用媒体评论或二手解读。"
+  },
+  "actions": [
+    {
+      "id": "a1",
+      "title": "行政复议机关要补强办案能力和信息化平台",
+      "body": "条例要求行政复议机关履行全面审查、调解、审理、统计、督促履行等职责，并通过统一行政复议信息化平台便利申请和参加复议，形成政府端流程建设任务。",
+      "signal": "constraint",
+      "confidence": 92,
+      "clauseIds": [
+        "c1",
+        "c2"
+      ],
+      "sortOrder": 1
+    },
+    {
+      "id": "a2",
+      "title": "法人和其他组织的复议主体资格更明确",
+      "body": "合伙企业、其他组织、公司股东会或董事会、业主委员会等主体如何提出申请得到细化，企业在行政行为侵害公司权益时可更清晰地组织复议。",
+      "signal": "positive",
+      "confidence": 89,
+      "clauseIds": [
+        "c4"
+      ],
+      "sortOrder": 2
+    },
+    {
+      "id": "a3",
+      "title": "信用惩戒和行政协议争议进入更清晰救济通道",
+      "body": "条例列明对严重失信主体名单、失信惩戒措施不服的情形，并明确政府特许经营、征收征用补偿、保障性住房、医保服务等行政协议，给市场主体处理行政争议提供程序入口。",
+      "signal": "positive",
+      "confidence": 90,
+      "clauseIds": [
+        "c3"
+      ],
+      "sortOrder": 3
+    },
+    {
+      "id": "a4",
+      "title": "被申请行政机关承担事实、理由和证据回应压力",
+      "body": "被申请人提交书面答复时要说明行政行为合法性、适当性和事实理由，行政处罚违法或不当时可在5个工作日内自行纠正，行政机关程序管理压力提高。",
+      "signal": "constraint",
+      "confidence": 91,
+      "clauseIds": [
+        "c6"
+      ],
+      "sortOrder": 4
+    },
+    {
+      "id": "a5",
+      "title": "复议决定和监督机制强化纠错闭环",
+      "body": "条例细化不适当、依据适用错误、依据不合法、重大明显违法、行政协议救济、行政赔偿和复议建议书等规则，使复议结果更能反馈到行政执法和制度完善。",
+      "signal": "positive",
+      "confidence": 88,
+      "clauseIds": [
+        "c7",
+        "c8"
+      ],
+      "sortOrder": 5
+    }
+  ],
+  "clauseGroups": [
+    {
+      "id": "g1",
+      "title": "总则和平台",
+      "count": 2,
+      "tone": "blue"
+    },
+    {
+      "id": "g2",
+      "title": "申请和受理",
+      "count": 4,
+      "tone": "green"
+    },
+    {
+      "id": "g3",
+      "title": "审理决定和监督",
+      "count": 3,
+      "tone": "orange"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "c1",
+      "no": "第二条至第七条",
+      "title": "行政复议定位为全面审查和实质化解争议",
+      "group": "g1",
+      "excerpt": "行政复议机关应当对行政行为的合法性、适当性进行全面审查。",
+      "fullText": "条例开篇明确行政复议保护公民、法人和其他组织合法权益，监督保障行政机关依法行使职权，并要求配备人员、加强调解和规范化建设。",
+      "confidence": 94,
+      "keywords": [
+        "全面审查",
+        "合法性",
+        "适当性",
+        "实质性化解",
+        "规范化建设"
+      ],
+      "industries": [
+        "行政机关",
+        "法律服务",
+        "企业合规"
+      ],
+      "sortOrder": 1
+    },
+    {
+      "id": "c2",
+      "no": "第八条、第二十八条",
+      "title": "统一信息化平台和线上申请效力",
+      "group": "g1",
+      "excerpt": "行政复议活动通过信息网络平台在线进行的，与线下行政复议活动具有同等法律效力。",
+      "fullText": "国务院行政复议机构通过统一平台便利申请和参加复议；申请人通过指定互联网渠道提交材料，材料到达特定系统即为收到申请，材料符合法定要求时不得另行要求纸质材料。",
+      "confidence": 93,
+      "keywords": [
+        "信息化平台",
+        "在线复议",
+        "同等法律效力",
+        "互联网渠道",
+        "纸质材料"
+      ],
+      "industries": [
+        "电子政务",
+        "法律服务",
+        "政务信息化"
+      ],
+      "sortOrder": 2
+    },
+    {
+      "id": "c3",
+      "no": "第九条、第十条",
+      "title": "信用惩戒和行政协议纳入复议范围说明",
+      "group": "g2",
+      "excerpt": "对行政机关作出的列入严重失信主体名单决定或者失信惩戒措施不服。",
+      "fullText": "条例列明严重失信主体名单、失信惩戒、教育和学位事项、公务员录用处理及其他侵权行政行为，并列明政府特许经营、征收征用补偿、保障性住房、医保服务等行政协议。",
+      "confidence": 94,
+      "keywords": [
+        "严重失信主体名单",
+        "失信惩戒",
+        "行政协议",
+        "政府特许经营",
+        "医保服务协议"
+      ],
+      "industries": [
+        "公共服务",
+        "特许经营",
+        "信用监管",
+        "医疗保障"
+      ],
+      "sortOrder": 3
+    },
+    {
+      "id": "c4",
+      "no": "第十二条至第十八条",
+      "title": "企业、组织和多人案件参加规则细化",
+      "group": "g2",
+      "excerpt": "公司股东会、董事会认为行政机关作出的行政行为侵犯公司合法权益的，可以以公司的名义申请行政复议。",
+      "fullText": "条例细化个体工商户、农村承包经营户、合伙企业、不具备法人资格组织、公司、农村集体经济组织、业主委员会和超过10名申请人的代表参加规则。",
+      "confidence": 92,
+      "keywords": [
+        "合伙企业",
+        "公司股东会",
+        "董事会",
+        "业主委员会",
+        "代表人"
+      ],
+      "industries": [
+        "企业合规",
+        "商事主体",
+        "物业治理"
+      ],
+      "sortOrder": 4
+    },
+    {
+      "id": "c5",
+      "no": "第二十三条至第三十三条",
+      "title": "申请期限、材料和管辖规则明确",
+      "group": "g2",
+      "excerpt": "行政机关作出的行政行为对公民、法人或者其他组织的权利、义务可能产生不利影响的，应当告知其申请行政复议的权利。",
+      "fullText": "条例规定当场、直接送达、邮寄、电子送达、公告、补充告知等期限起算，明确申请书载明事项、错列被申请人处理、政府信息公开先复议以及共同作出行政行为的管辖规则。",
+      "confidence": 90,
+      "keywords": [
+        "申请期限",
+        "电子送达",
+        "权利告知",
+        "政府信息公开",
+        "管辖"
+      ],
+      "industries": [
+        "行政执法",
+        "法律服务",
+        "企业合规"
+      ],
+      "sortOrder": 5
+    },
+    {
+      "id": "c6",
+      "no": "第三十四条至第四十九条",
+      "title": "受理、纠错、书面答复和证据规则",
+      "group": "g2",
+      "excerpt": "作出行政处罚决定的行政机关收到申请后，认为行政处罚决定违法或者不当，需要自行纠正的，应当自收到行政复议申请之日起5个工作日内纠正。",
+      "fullText": "条例要求符合条件的行政复议申请必须受理，细化利害关系、不予受理和驳回情形，规定行政处罚自纠、提级审理、被申请人书面答复、现场勘验、鉴定、调解证据和材料查阅复制。",
+      "confidence": 93,
+      "keywords": [
+        "必须受理",
+        "利害关系",
+        "自行纠正",
+        "书面答复",
+        "证据"
+      ],
+      "industries": [
+        "行政执法",
+        "企业合规",
+        "争议解决"
+      ],
+      "sortOrder": 6
+    },
+    {
+      "id": "c7",
+      "no": "第五十条至第六十五条",
+      "title": "决定标准覆盖不适当、适用依据和行政协议救济",
+      "group": "g3",
+      "excerpt": "内容不适当包括违背行政管理目的、超过必要限度、对相同情况的当事人不平等对待。",
+      "fullText": "条例规定行政复议委员会咨询、规范性文件附带审查、不适当、未正确适用依据、依据不合法、重大且明显违法、重新作出行政行为、行政协议决定、行政赔偿和同类行政行为直接决定等规则。",
+      "confidence": 92,
+      "keywords": [
+        "不适当",
+        "未正确适用依据",
+        "依据不合法",
+        "行政协议",
+        "行政赔偿"
+      ],
+      "industries": [
+        "行政执法",
+        "法律服务",
+        "公共服务"
+      ],
+      "sortOrder": 7
+    },
+    {
+      "id": "c8",
+      "no": "第六十六条至第七十三条",
+      "title": "指导监督和法律责任形成制度反馈",
+      "group": "g3",
+      "excerpt": "行政复议机构在行政复议工作中发现法律、法规、规章、规范性文件实施中带有普遍性的问题，可以制作行政复议建议书。",
+      "fullText": "条例要求地方政府建立行政复议工作责任制，行政复议机构统计分析、提交工作报告、接受检查并提出制度改进建议，同时规定未按复议决定重作行政行为和侵害复议人员的法律责任。",
+      "confidence": 91,
+      "keywords": [
+        "工作责任制",
+        "统计分析",
+        "检查",
+        "复议建议书",
+        "法律责任"
+      ],
+      "industries": [
+        "法治政府",
+        "行政监督",
+        "行政执法"
+      ],
+      "sortOrder": 8
+    },
+    {
+      "id": "c9",
+      "no": "第七十四条至第七十七条",
+      "title": "特殊事项和施行日期",
+      "group": "g3",
+      "excerpt": "本条例自2026年7月1日起施行。",
+      "fullText": "附则规定商标、专利申请驳回复审按专门法律提出，海警机构行政行为复议路径按上一级海警机构，行政复议案件参照国务院行政复议机构发布的指导性案例，并明确施行日期。",
+      "confidence": 93,
+      "keywords": [
+        "商标",
+        "专利",
+        "海警机构",
+        "指导性案例",
+        "施行日期"
+      ],
+      "industries": [
+        "知识产权",
+        "行政执法",
+        "法律服务"
+      ],
+      "sortOrder": 9
+    }
+  ],
+  "chainNodes": [
+    {
+      "id": "n1",
+      "title": "行政复议机关能力建设",
+      "subtitle": "人员、调解、规范化和统一信息化平台",
+      "section": "support",
+      "relation": "direct",
+      "evidenceLevel": "strong",
+      "confidence": 91,
+      "description": "条例直接要求复议机关和复议机构承担全面审查、调解、审理、统计、督促履行和信息化便利职责，政府端需要提升办案能力和线上流程规范。",
+      "clauseIds": [
+        "c1",
+        "c2",
+        "c8"
+      ],
+      "companyIds": [],
+      "evidenceIds": [
+        "e2",
+        "e3",
+        "e11"
+      ],
+      "impactReason": "条文直接规定复议机关和机构职责，是最明确的受影响主体。",
+      "iconKey": "building"
+    },
+    {
+      "id": "n2",
+      "title": "企业和组织行政救济通道",
+      "subtitle": "法人、合伙企业、公司治理机关和其他组织的申请规则",
+      "section": "downstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 88,
+      "description": "法人和其他组织作为申请人被反复纳入条文，合伙企业、公司股东会和董事会等规则细化，使企业处理行政处罚、信用惩戒、信息公开、行政协议等争议更有程序可依。",
+      "clauseIds": [
+        "c3",
+        "c4",
+        "c5"
+      ],
+      "companyIds": [],
+      "evidenceIds": [
+        "e4",
+        "e5",
+        "e6"
+      ],
+      "impactReason": "条例不面向特定行业，但显著细化了商事主体可用的行政救济机制。",
+      "iconKey": "briefcase"
+    },
+    {
+      "id": "n3",
+      "title": "行政执法纠错和证据责任",
+      "subtitle": "受理、行政处罚自纠、答复和证据提交",
+      "section": "midstream",
+      "relation": "constraint_risk",
+      "evidenceLevel": "strong",
+      "confidence": 89,
+      "description": "行政机关在复议中需要面对更清晰的纠错和答复机制：符合条件必须受理，行政处罚可限期自纠，被申请人要说明合法性、适当性、事实和理由并提交证据依据。",
+      "clauseIds": [
+        "c6"
+      ],
+      "companyIds": [],
+      "evidenceIds": [
+        "e7",
+        "e8"
+      ],
+      "impactReason": "这会改变行政机关办理争议和企业挑战行政行为时的证据博弈。",
+      "iconKey": "scale"
+    },
+    {
+      "id": "n4",
+      "title": "信用惩戒与行政协议争议",
+      "subtitle": "严重失信名单、特许经营、征收补偿和医保服务协议",
+      "section": "downstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 87,
+      "description": "条例把信用惩戒和多类行政协议明确纳入复议解释范围，对依赖政府合同、特许经营、医保服务、征收补偿或信用监管评价的主体具有程序性救济价值。",
+      "clauseIds": [
+        "c3",
+        "c7"
+      ],
+      "companyIds": [],
+      "evidenceIds": [
+        "e4",
+        "e10"
+      ],
+      "impactReason": "这些场景常涉及市场主体与行政机关之间的权利义务争议。",
+      "iconKey": "file-check"
+    },
+    {
+      "id": "n5",
+      "title": "制度反馈和监督闭环",
+      "subtitle": "复议建议书、统计分析、检查和责任追究",
+      "section": "support",
+      "relation": "direct",
+      "evidenceLevel": "strong",
+      "confidence": 85,
+      "description": "复议结果不只解决个案，还可通过建议书、统计分析、政府目标责任制、检查和法律责任反馈到行政执法制度改进中。",
+      "clauseIds": [
+        "c8",
+        "c9"
+      ],
+      "companyIds": [],
+      "evidenceIds": [
+        "e11"
+      ],
+      "impactReason": "监督章节把行政复议案件发现的问题转化为制度改进渠道。",
+      "iconKey": "network"
+    }
+  ],
+  "chainEdges": [
+    {
+      "from": "n1",
+      "to": "n2",
+      "type": "strong",
+      "confidence": 84,
+      "reason": "复议机关能力和线上平台建设直接决定企业及其他组织能否便利申请和参加复议。"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "type": "strong",
+      "confidence": 82,
+      "reason": "申请人进入复议后，行政机关需要围绕事实、理由和证据回应并可能自纠。"
+    },
+    {
+      "from": "n3",
+      "to": "n5",
+      "type": "medium",
+      "confidence": 78,
+      "reason": "个案纠错和审理发现的问题可通过建议书、统计分析和监督检查进入制度反馈。"
+    },
+    {
+      "from": "n4",
+      "to": "n2",
+      "type": "medium",
+      "confidence": 76,
+      "reason": "信用惩戒和行政协议场景扩展了企业与组织可使用复议的事项类型。"
+    }
+  ],
+  "companies": [],
+  "evidence": [
+    {
+      "id": "e1",
+      "title": "条例修订通过和施行日期",
+      "source": "中国政府网官方原文",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068115.htm",
+      "url": "https://www.gov.cn/zhengce/content/202605/content_7068115.htm",
+      "type": "policy_text",
+      "date": "2026-05-08",
+      "excerpt": "已经2026年4月17日国务院第83次常务会议修订通过，现予公布，自2026年7月1日起施行。",
+      "confidence": 95,
+      "clauseIds": [
+        "c9"
+      ],
+      "nodeIds": [
+        "n5"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e2",
+      "title": "全面审查和实质化解争议",
+      "source": "中国政府网官方原文",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068115.htm",
+      "url": "https://www.gov.cn/zhengce/content/202605/content_7068115.htm",
+      "type": "policy_text",
+      "date": "2026-05-08",
+      "excerpt": "行政复议机关应当对行政行为的合法性、适当性进行全面审查。",
+      "confidence": 95,
+      "clauseIds": [
+        "c1"
+      ],
+      "nodeIds": [
+        "n1"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e3",
+      "title": "统一信息化平台和线上法律效力",
+      "source": "中国政府网官方原文",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068115.htm",
+      "url": "https://www.gov.cn/zhengce/content/202605/content_7068115.htm",
+      "type": "policy_text",
+      "date": "2026-05-08",
+      "excerpt": "通过统一的行政复议信息化平台，为公民、法人或者其他组织申请、参加行政复议提供便利。",
+      "confidence": 94,
+      "clauseIds": [
+        "c2"
+      ],
+      "nodeIds": [
+        "n1"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e4",
+      "title": "信用惩戒和行政协议范围",
+      "source": "中国政府网官方原文",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068115.htm",
+      "url": "https://www.gov.cn/zhengce/content/202605/content_7068115.htm",
+      "type": "policy_text",
+      "date": "2026-05-08",
+      "excerpt": "对行政机关作出的列入严重失信主体名单决定或者失信惩戒措施不服。",
+      "confidence": 95,
+      "clauseIds": [
+        "c3"
+      ],
+      "nodeIds": [
+        "n2",
+        "n4"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e5",
+      "title": "公司可以以自身名义申请复议",
+      "source": "中国政府网官方原文",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068115.htm",
+      "url": "https://www.gov.cn/zhengce/content/202605/content_7068115.htm",
+      "type": "policy_text",
+      "date": "2026-05-08",
+      "excerpt": "公司股东会、董事会认为行政机关作出的行政行为侵犯公司合法权益的，可以以公司的名义申请行政复议。",
+      "confidence": 95,
+      "clauseIds": [
+        "c4"
+      ],
+      "nodeIds": [
+        "n2"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e6",
+      "title": "线上材料合格不得另要纸质材料",
+      "source": "中国政府网官方原文",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068115.htm",
+      "url": "https://www.gov.cn/zhengce/content/202605/content_7068115.htm",
+      "type": "policy_text",
+      "date": "2026-05-08",
+      "excerpt": "申请人通过互联网渠道提交的申请材料符合法定要求的，行政复议机关不得要求另行提供纸质材料。",
+      "confidence": 94,
+      "clauseIds": [
+        "c2",
+        "c5"
+      ],
+      "nodeIds": [
+        "n2"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e7",
+      "title": "行政处罚自我纠正期限",
+      "source": "中国政府网官方原文",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068115.htm",
+      "url": "https://www.gov.cn/zhengce/content/202605/content_7068115.htm",
+      "type": "policy_text",
+      "date": "2026-05-08",
+      "excerpt": "应当自收到行政复议申请之日起5个工作日内按照法定程序，采取撤销、变更行政处罚决定等方式予以纠正。",
+      "confidence": 94,
+      "clauseIds": [
+        "c6"
+      ],
+      "nodeIds": [
+        "n3"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e8",
+      "title": "被申请人答复需说明事实和理由",
+      "source": "中国政府网官方原文",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068115.htm",
+      "url": "https://www.gov.cn/zhengce/content/202605/content_7068115.htm",
+      "type": "policy_text",
+      "date": "2026-05-08",
+      "excerpt": "被申请人提交书面答复时，应当就行政行为合法性、适当性和申请人的行政复议请求说明相关事实和理由。",
+      "confidence": 94,
+      "clauseIds": [
+        "c6"
+      ],
+      "nodeIds": [
+        "n3"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e9",
+      "title": "公平竞争受影响属于利害关系",
+      "source": "中国政府网官方原文",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068115.htm",
+      "url": "https://www.gov.cn/zhengce/content/202605/content_7068115.htm",
+      "type": "policy_text",
+      "date": "2026-05-08",
+      "excerpt": "行政行为影响申请人公平参与竞争的。",
+      "confidence": 93,
+      "clauseIds": [
+        "c6"
+      ],
+      "nodeIds": [
+        "n2",
+        "n3"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e10",
+      "title": "行政协议复议救济方式",
+      "source": "中国政府网官方原文",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068115.htm",
+      "url": "https://www.gov.cn/zhengce/content/202605/content_7068115.htm",
+      "type": "policy_text",
+      "date": "2026-05-08",
+      "excerpt": "责令被申请人依法履行或者按照行政协议约定履行义务。",
+      "confidence": 93,
+      "clauseIds": [
+        "c7"
+      ],
+      "nodeIds": [
+        "n4"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e11",
+      "title": "复议建议书推动制度改进",
+      "source": "中国政府网官方原文",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068115.htm",
+      "url": "https://www.gov.cn/zhengce/content/202605/content_7068115.htm",
+      "type": "policy_text",
+      "date": "2026-05-08",
+      "excerpt": "可以制作行政复议建议书，向有关机关提出完善制度和改进行政执法的建议。",
+      "confidence": 93,
+      "clauseIds": [
+        "c8"
+      ],
+      "nodeIds": [
+        "n1",
+        "n5"
+      ],
+      "companyIds": []
+    }
+  ],
+  "backgroundCards": [
+    {
+      "id": "b1",
+      "title": "修订和施行",
+      "body": "条例由国务院令第836号公布，2026年4月17日国务院第83次常务会议修订通过，2026年7月1日起施行；原条例于2007年公布，本次为系统修订后的实施规则。",
+      "evidenceIds": [
+        "e1"
+      ]
+    },
+    {
+      "id": "b2",
+      "title": "企业可用场景",
+      "body": "条例多处使用“公民、法人或者其他组织”表述，并明确公司、合伙企业等主体参加规则；企业遇到信用惩戒、行政协议、信息公开、行政处罚等行政争议时，复议路径更清楚。",
+      "evidenceIds": [
+        "e4",
+        "e5",
+        "e9"
+      ]
+    },
+    {
+      "id": "b3",
+      "title": "数字化办理",
+      "body": "统一行政复议信息化平台、线上复议同等法律效力、互联网渠道材料到达即视为收到申请，以及材料合格不得另要纸质材料，都会降低申请和参加复议的流程摩擦。",
+      "evidenceIds": [
+        "e3",
+        "e6"
+      ]
+    },
+    {
+      "id": "b4",
+      "title": "纠错闭环",
+      "body": "行政处罚自纠、被申请人书面答复、行政协议履行救济、复议建议书和统计监督共同构成行政争议从个案纠错到制度改进的闭环。",
+      "evidenceIds": [
+        "e7",
+        "e8",
+        "e10",
+        "e11"
+      ]
+    },
+    {
+      "id": "b5",
+      "title": "公司映射边界",
+      "body": "条例是普遍适用的程序性行政法规，不区分行业龙头、上市公司或运营商类型。它可能影响所有与行政机关发生争议的市场主体，但不存在可验证的代表公司名单。",
+      "evidenceIds": [
+        "e2",
+        "e5"
+      ]
+    }
+  ],
+  "compareRows": [
+    {
+      "id": "cr1",
+      "dimension": "制度层级",
+      "values": [
+        "实施条例，细化行政复议法的程序和适用",
+        "行政复议法提供上位制度框架",
+        "条例更重在操作规则、期限、证据和决定类型"
+      ]
+    },
+    {
+      "id": "cr2",
+      "dimension": "企业影响方式",
+      "values": [
+        "提供行政救济路径和争议解决工具",
+        "不是行业准入、财政扶持或专项监管名单",
+        "影响发生在企业与行政机关存在具体争议时"
+      ]
+    },
+    {
+      "id": "cr3",
+      "dimension": "数字化办理",
+      "values": [
+        "统一信息化平台和线上同等法律效力",
+        "传统线下复议活动仍然有效",
+        "线上材料合格不得另行要求纸质材料降低流程成本"
+      ]
+    }
+  ],
+  "compareInsights": {
+    "status": "official_text_limited_comparison",
+    "basis": "条例第一条明确根据《中华人民共和国行政复议法》制定，官方文本还多次引用行政复议法具体条款。",
+    "method": "以本条例和其引用的上位法关系为比较对象，不延伸引用媒体或其他评论。",
+    "comparableCount": 1,
+    "similarPolicy": {
+      "title": "中华人民共和国行政复议法",
+      "issuer": "全国人大常委会",
+      "source": "本条例第一条引用",
+      "reason": "本条例为行政复议法的实施条例"
+    },
+    "differencePolicy": null,
+    "similarPolicies": [
+      {
+        "title": "中华人民共和国行政复议法",
+        "issuer": "全国人大常委会",
+        "source": "本条例第一条引用",
+        "reason": "条例以行政复议法为制定依据并细化其程序"
+      }
+    ],
+    "contrastPolicies": [],
+    "similarityPoints": [
+      "二者都围绕行政复议制度，保护公民、法人和其他组织合法权益。",
+      "二者都服务监督行政机关依法行使职权和化解行政争议。"
+    ],
+    "differencePoints": [
+      "行政复议法提供基本制度，实施条例细化参加人、期限、证据、决定和监督等操作规则。",
+      "条例新增或细化线上办理、行政协议、信用惩戒、行政处罚自纠等具体场景。"
+    ],
+    "rows": [
+      {
+        "id": "ci1",
+        "dimension": "制定依据",
+        "current": "根据行政复议法制定的实施条例",
+        "similar": "行政复议法是上位法",
+        "different": "条例承担执行细化功能",
+        "clauseIds": [
+          "c1"
+        ],
+        "evidenceIds": [
+          "e2"
+        ]
+      },
+      {
+        "id": "ci2",
+        "dimension": "流程细化",
+        "current": "规定线上渠道、材料、期限、受理和证据",
+        "similar": "上位法确立复议制度",
+        "different": "实施条例更便于办案和申请人操作",
+        "clauseIds": [
+          "c2",
+          "c5",
+          "c6"
+        ],
+        "evidenceIds": [
+          "e3",
+          "e6",
+          "e8"
+        ]
+      }
+    ]
+  },
+  "analysisCoverage": {
+    "status": "complete_manual_official_sources_only",
+    "textLength": 9729,
+    "clauseCount": 9,
+    "actionCount": 5,
+    "evidenceCount": 11,
+    "industryNodeCount": 5,
+    "companyCount": 0,
+    "matchedKeywordCount": 24,
+    "comparablePolicyCount": 1,
+    "companyNoMatchReason": "条例面向所有行政复议机关、行政机关、公民、法人和其他组织，属于普遍适用的行政程序规则。虽然公司、合伙企业、个体工商户等可以成为复议申请人，但官方文本没有指向任何特定行业经营者、公司名单、运营商类别、补贴采购或准入资格。",
+    "companyImpactConclusion": "公司影响应理解为在发生具体行政争议时可用的程序性救济增强，而非某些代表公司直接受益或受损。因此本报告不列公司，避免把一般行政救济制度误读为产业或个股政策。",
+    "limitations": [
+      "仅依据中国政府网公布的国务院令第836号正文，不引用新闻报道或专家解读。",
+      "条例是程序性行政法规，实际影响取决于企业是否发生具体行政行为争议以及各地复议机关执行质量。",
+      "文本中涉及商标、专利等特殊事项时明确转向专门法律，本报告不展开具体知识产权复审规则。",
+      "公司列表留空不代表企业无影响，而是因为影响不可被合理归属到特定代表性公司。"
+    ]
+  },
+  "modules": [
+    {
+      "id": "brief",
+      "label": "政策速读"
+    },
+    {
+      "id": "industry",
+      "label": "影响链条"
+    },
+    {
+      "id": "clauses",
+      "label": "政策条款"
+    },
+    {
+      "id": "background",
+      "label": "政策背景"
+    },
+    {
+      "id": "compare",
+      "label": "对比分析"
+    },
+    {
+      "id": "companies",
+      "label": "公司影响分析"
+    },
+    {
+      "id": "evidence",
+      "label": "证据链总览"
+    }
+  ],
+  "topTabs": [
+    {
+      "id": "brief",
+      "label": "政策总览"
+    },
+    {
+      "id": "clauses",
+      "label": "政策条款"
+    },
+    {
+      "id": "background",
+      "label": "政策背景"
+    },
+    {
+      "id": "compare",
+      "label": "对比分析"
+    }
+  ]
+}

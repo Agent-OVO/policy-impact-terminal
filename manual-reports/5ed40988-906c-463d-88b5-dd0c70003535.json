@@ -1,0 +1,1316 @@
+{
+  "id": "5ed40988-906c-463d-88b5-dd0c70003535",
+  "policyId": "5ed40988-906c-463d-88b5-dd0c70003535",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "generatedAt": "2026-05-12T00:00:00+08:00",
+  "summary": {
+    "id": "5ed40988-906c-463d-88b5-dd0c70003535",
+    "title": "工业和信息化部等五部门关于印发《纺织服装卓越品牌培育行动方案（2026—2028年）》的通知",
+    "issuer": "工业和信息化部、人力资源社会保障部、市场监管总局、广电总局、国家知识产权局",
+    "source": "工业和信息化部 - 政策文件库",
+    "publishDate": "2026-05-11",
+    "status": "published",
+    "confidence": 92,
+    "industryCount": 6,
+    "companyCount": 7,
+    "evidenceCount": 9,
+    "primarySignal": "纺织服装品牌培育从单一消费品牌扩展到供应链、产业生态、终端消费三类品牌协同升级",
+    "category": "产业政策"
+  },
+  "policy": {
+    "title": "工业和信息化部等五部门关于印发《纺织服装卓越品牌培育行动方案（2026—2028年）》的通知",
+    "status": "已发布",
+    "issuer": "工业和信息化部、人力资源社会保障部、市场监管总局、广电总局、国家知识产权局",
+    "publishDate": "2026-05-11",
+    "effectiveDate": "2026-04-30",
+    "source": "工业和信息化部 - 政策文件库",
+    "category": "产业政策",
+    "level": "五部门联合通知",
+    "confidence": 92,
+    "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bd0b0deb7f334faf911a7cfcccad2248.html",
+    "scope": "全国纺织服装行业及地方产业集聚区",
+    "impactScope": "供应链品牌、产业生态品牌、终端消费品牌，以及功能性面料、智能制造、绿色低碳、文化IP、全域营销和品牌出海服务",
+    "jurisdiction": "中国",
+    "tags": [
+      "纺织服装",
+      "卓越品牌",
+      "供应链品牌",
+      "智能化",
+      "绿色化",
+      "服务型制造",
+      "品牌出海",
+      "质量分级"
+    ]
+  },
+  "brief": {
+    "judgement": "这份行动方案的核心不是给若干服装企业直接发放品牌补贴，而是用2026至2028三年窗口把纺织服装品牌培育拆成供应链品牌、产业生态品牌、终端消费品牌三条线，并把科技创新、创意设计、AI+纺织、绿色低碳、文化传承、全域营销、出海合规和质量治理串成一套品牌升级基础设施；受益最确定的是具备研发、制造、质量、供应链协同和品牌全球化能力的企业群体，但具体“卓越品牌”名单仍需后续遴选和地方执行确认。",
+    "summary": "官方附件提出，到2028年纺织服装品牌竞争优势和市场影响力显著提升，培育不少于25个卓越品牌。政策把品牌对象分为供应链品牌、产业生态品牌、终端消费品牌，重点任务覆盖分类培育、创新创意和标准、智能化绿色化融合化、文化价值和历史经典传承、全域营销与全球拓展、市场环境与人才。产业影响不是只偏向终端服装零售，而是同时指向上游纤维材料和功能性面料、中游柔性制造和智能工厂、下游消费品牌和出海营销，以及质量分级、知识产权、非遗设计、绿色工厂、碳足迹核算等支撑环节。",
+    "keyPoints": [
+      "到2028年培育不少于25个纺织服装卓越品牌是明确量化目标，但政策没有公布入选名单。",
+      "供应链品牌被纳入卓越品牌范围，上游纤维材料、功能性面料、高端制造和共同质量管理体系的重要性上升。",
+      "AI+纺织、视觉检测、智能质检机器人、数据集、模型仓、工业智能体和卓越级智能工厂，是制造端最具体的技术抓手。",
+      "绿色转型包含废旧纺织品回收、重点企业节能降碳诊断、纺织产品碳足迹核算标准、绿色工厂和绿色园区。",
+      "公司映射只做代表性产业观察，不能理解为官方遴选、直接补贴或投资建议。"
+    ],
+    "methodology": "人工阅读工信部官方页面正文，并用页面嵌入的官方PDF附件提取完整行动方案；证据摘录均来自官方通知和附件原文。公司映射依据政策所列品牌类型、重点任务和产业链位置进行代表性归类，所有未被官方点名的公司均标注不确定性。"
+  },
+  "actions": [
+    {
+      "id": "a1",
+      "title": "按供应链、产业生态、终端消费三类培育品牌",
+      "body": "方案把卓越品牌从消费者熟悉的终端品牌扩展到供应链品牌和产业生态品牌，意味着功能性材料、面料开发、高端制造、产业集群、营销渠道和终端设计都可能进入品牌评价体系。",
+      "signal": "positive",
+      "confidence": 94,
+      "clauseIds": [
+        "c1"
+      ],
+      "sortOrder": 1
+    },
+    {
+      "id": "a2",
+      "title": "用创新产品、功能性面料和标准提升品牌附加值",
+      "body": "政策安排功能性面料揭榜挂帅、先进适用技术推广、智能纺织品发展、强制性标准制修订和产品质量分级标准，品牌竞争将更依赖材料、工艺、设计和质量体系，而不只是渠道投放。",
+      "signal": "positive",
+      "confidence": 91,
+      "clauseIds": [
+        "c2",
+        "c3"
+      ],
+      "sortOrder": 2
+    },
+    {
+      "id": "a3",
+      "title": "推动AI+纺织、智能工厂和服务型制造",
+      "body": "方案明确人工智能视觉检测、智能质检机器人、数据集、模型仓、通用数字工具、工业智能体和卓越级智能工厂，叠加智能量身定制、用户画像和需求预测模型，制造端数字化改造成为品牌培育的硬抓手。",
+      "signal": "positive",
+      "confidence": 93,
+      "clauseIds": [
+        "c4",
+        "c6"
+      ],
+      "sortOrder": 3
+    },
+    {
+      "id": "a4",
+      "title": "以绿色低碳和碳足迹核算提升品牌可信度",
+      "body": "政策将废旧纺织品回收、行业规范管理、节能降碳诊断、纺织产品碳足迹核算标准、绿色工厂和绿色园区纳入任务，说明出口和国内高端消费场景中的绿色可信度会成为品牌资产的一部分。",
+      "signal": "constraint",
+      "confidence": 88,
+      "clauseIds": [
+        "c5"
+      ],
+      "sortOrder": 4
+    },
+    {
+      "id": "a5",
+      "title": "强化文化价值、全域营销和品牌出海",
+      "body": "非遗、丝绸历史经典产业、虚拟试衣、智能穿搭推荐、虚拟主播、首店旗舰店、海外仓和出海合规服务被纳入政策工具箱。终端品牌的竞争重心将从铺渠道扩展到文化叙事、体验营销和国际履约能力。",
+      "signal": "positive",
+      "confidence": 89,
+      "clauseIds": [
+        "c7",
+        "c8",
+        "c9"
+      ],
+      "sortOrder": 5
+    },
+    {
+      "id": "a6",
+      "title": "规范质量分级、电商秩序和品牌人才体系",
+      "body": "政策要求推进产品质量分级、线上线下全链条执法、规范电商平台经营秩序、抵制非理性竞争，并支持品牌研究院、首席质量官和专业人才培养。品牌建设同时具有合规和治理约束。",
+      "signal": "constraint",
+      "confidence": 87,
+      "clauseIds": [
+        "c10"
+      ],
+      "sortOrder": 6
+    }
+  ],
+  "clauseGroups": [
+    {
+      "id": "g1",
+      "title": "目标与分类",
+      "count": 2,
+      "tone": "blue"
+    },
+    {
+      "id": "g2",
+      "title": "创新与标准",
+      "count": 2,
+      "tone": "green"
+    },
+    {
+      "id": "g3",
+      "title": "数智绿色融合",
+      "count": 3,
+      "tone": "purple"
+    },
+    {
+      "id": "g4",
+      "title": "文化营销出海",
+      "count": 2,
+      "tone": "orange"
+    },
+    {
+      "id": "g5",
+      "title": "市场环境",
+      "count": 1,
+      "tone": "neutral"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "c1",
+      "no": "总体要求及第二部分（一）",
+      "title": "到2028年培育不少于25个卓越品牌，并分类覆盖三类品牌",
+      "group": "g1",
+      "excerpt": "到2028年，纺织服装品牌的竞争优势和市场影响力显著提升，培育不少于25个纺织服装卓越品牌。",
+      "fullText": "方案明确卓越品牌主要包括供应链品牌、产业生态品牌、终端消费品牌，并分别强调纤维材料科技研发、服装面料功能性开发、高端制造、集群营销渠道建设、创意设计和跨领域合作能力。",
+      "confidence": 96,
+      "keywords": [
+        "不少于25个",
+        "供应链品牌",
+        "产业生态品牌",
+        "终端消费品牌"
+      ],
+      "industries": [
+        "纺织服装",
+        "供应链制造",
+        "消费品牌",
+        "产业集群"
+      ],
+      "sortOrder": 1
+    },
+    {
+      "id": "c2",
+      "no": "重点任务2至3",
+      "title": "细分赛道、质量强链和企业梯次培育",
+      "group": "g1",
+      "excerpt": "引导企业聚焦细分赛道和消费场景，打造一批供应链品牌和终端消费品牌。",
+      "fullText": "政策提出特色产业集聚区、创新产品培育、质量强链、质量技术创新联合体、中小微企业质量创新金融扶持，以及在卓越品牌企业中培育更多高新技术企业、专精特新小巨人和制造业单项冠军。",
+      "confidence": 93,
+      "keywords": [
+        "细分赛道",
+        "质量强链",
+        "专精特新",
+        "制造业单项冠军"
+      ],
+      "industries": [
+        "服装制造",
+        "面料开发",
+        "产业集聚区",
+        "中小企业服务"
+      ],
+      "sortOrder": 2
+    },
+    {
+      "id": "c3",
+      "no": "重点任务4至6及专栏1",
+      "title": "功能性面料、智能纺织品和标准体系提升品牌附加值",
+      "group": "g2",
+      "excerpt": "开展纺织服装功能性面料“揭榜挂帅”工作，促进产业链上下游加大功能性面料的研发与应用。",
+      "fullText": "政策要求推广新型合成纤维加工、生物合成纺织材料制备等技术，加力发展智能穿戴、智能家纺、健康医疗等智能纺织品，并推进基本安全、婴童用纺织产品、舒适消费体验、产品质量分级等标准。",
+      "confidence": 94,
+      "keywords": [
+        "功能性面料",
+        "先进适用技术",
+        "智能穿戴",
+        "智能家纺",
+        "质量分级"
+      ],
+      "industries": [
+        "纤维新材料",
+        "功能面料",
+        "家纺",
+        "产业用纺织品"
+      ],
+      "sortOrder": 3
+    },
+    {
+      "id": "c4",
+      "no": "重点任务7",
+      "title": "AI+纺织和智能工厂成为制造端抓手",
+      "group": "g3",
+      "excerpt": "指导发布“人工智能+纺织”在全产业链的创新应用场景，重点推广人工智能视觉检测、智能质检机器人等先进技术。",
+      "fullText": "方案要求场景化、图谱化推动行业数智化转型，面向场景建设数据集、模型仓，研发通用数字工具和工业智能体，培育一批卓越级和领航级智能工厂。",
+      "confidence": 95,
+      "keywords": [
+        "人工智能+纺织",
+        "视觉检测",
+        "智能质检机器人",
+        "数据集",
+        "工业智能体",
+        "智能工厂"
+      ],
+      "industries": [
+        "纺织智能制造",
+        "工业软件",
+        "机器视觉",
+        "智能装备"
+      ],
+      "sortOrder": 4
+    },
+    {
+      "id": "c5",
+      "no": "重点任务8",
+      "title": "绿色化转型覆盖回收、降碳诊断和碳足迹标准",
+      "group": "g3",
+      "excerpt": "组织开展重点企业节能降碳诊断服务，制定一批纺织产品碳足迹核算标准，加快绿色工厂、绿色园区建设。",
+      "fullText": "政策推广工业互联网+再生资源回收利用模式，提升酒店布草等废旧纺织品回收利用能力，加强印染、粘胶纤维、循环再利用化学纤维等行业规范管理。",
+      "confidence": 92,
+      "keywords": [
+        "废旧纺织品回收",
+        "节能降碳诊断",
+        "碳足迹核算",
+        "绿色工厂",
+        "绿色园区"
+      ],
+      "industries": [
+        "循环再利用纤维",
+        "印染",
+        "绿色制造",
+        "碳管理"
+      ],
+      "sortOrder": 5
+    },
+    {
+      "id": "c6",
+      "no": "重点任务9及专栏2",
+      "title": "服务型制造与柔性生产支撑个性化消费",
+      "group": "g3",
+      "excerpt": "应用人机交互、虚拟交互等方式获取客户的个性化需求，通过协同设计、云设计等技术加快推动智能量身定制。",
+      "fullText": "方案要求打通产供销数据链，实现快速响应；专栏提出产线柔性升级、一次成型加工、小批量多品种个性化定制、共享车间和用户画像与需求预测模型。",
+      "confidence": 93,
+      "keywords": [
+        "智能量身定制",
+        "产供销数据链",
+        "柔性生产",
+        "用户画像",
+        "需求预测"
+      ],
+      "industries": [
+        "服装柔性制造",
+        "供应链协同",
+        "电商定制",
+        "工业互联网"
+      ],
+      "sortOrder": 6
+    },
+    {
+      "id": "c7",
+      "no": "重点任务10至11及专栏3",
+      "title": "非遗、丝绸等文化资源被纳入品牌价值工程",
+      "group": "g4",
+      "excerpt": "推动非遗传承人与品牌企业协同开发兼具文化底蕴与时代审美的限定、高定及联名系列产品。",
+      "fullText": "政策支持地方和企业申报纺织类国家工业遗产，推动企业和设计师依托非遗项目打造地域特色和民族特色品牌，系统梳理丝绸等历史经典产业的文化内涵和市场潜力。",
+      "confidence": 89,
+      "keywords": [
+        "非遗",
+        "丝绸",
+        "工业遗产",
+        "品牌文化叙事",
+        "文旅活动"
+      ],
+      "industries": [
+        "国潮服饰",
+        "丝绸",
+        "文旅消费",
+        "设计服务"
+      ],
+      "sortOrder": 7
+    },
+    {
+      "id": "c8",
+      "no": "重点任务12至14及专栏4",
+      "title": "体验营销、品牌出海和全媒体传播被系统化",
+      "group": "g4",
+      "excerpt": "提升虚拟试衣、智能穿搭推荐、虚拟主播等技术水平与应用覆盖率，提高品牌消费获得感。",
+      "fullText": "政策支持首店、旗舰店、创新概念店、海外市场调研、出海金融保险、法律仲裁、财会税务、安全环保合规咨询、海外仓和品牌故事短视频征集推广。",
+      "confidence": 91,
+      "keywords": [
+        "虚拟试衣",
+        "智能穿搭推荐",
+        "虚拟主播",
+        "海外仓",
+        "品牌出海"
+      ],
+      "industries": [
+        "服装零售",
+        "跨境电商",
+        "营销科技",
+        "出海服务"
+      ],
+      "sortOrder": 8
+    },
+    {
+      "id": "c9",
+      "no": "重点任务13",
+      "title": "国际消费市场适配要求提高出海合规和履约能力",
+      "group": "g4",
+      "excerpt": "鼓励地方为企业出海提供金融保险、法律法规、仲裁维权、财会税务、安全环保等合规、合同文书咨询服务。",
+      "fullText": "方案要求加强海外市场调研和分析，引导企业形成品牌全球化协同模式，支持企业和产业集群共建共享海外仓，优化国际供应链履约服务。",
+      "confidence": 90,
+      "keywords": [
+        "海外市场",
+        "出海合规",
+        "海外仓",
+        "国际供应链履约"
+      ],
+      "industries": [
+        "跨境服装品牌",
+        "海外仓",
+        "出海合规服务",
+        "供应链管理"
+      ],
+      "sortOrder": 9
+    },
+    {
+      "id": "c10",
+      "no": "重点任务15至16",
+      "title": "质量分级、电商秩序和品牌人才构成市场环境约束",
+      "group": "g5",
+      "excerpt": "推进实施产品质量分级，强化线上线下全链条执法。规范电商平台经营秩序，严控恶意低价竞争、刷单炒信等行为。",
+      "fullText": "政策还支持企业设立品牌研究院，推行首席质量官制度，实施非遗传承人与服装设计师合作培养计划，并围绕智能化、绿色化、融合化加大专业人才培养和培训力度。",
+      "confidence": 90,
+      "keywords": [
+        "质量分级",
+        "全链条执法",
+        "电商平台秩序",
+        "首席质量官",
+        "品牌研究院"
+      ],
+      "industries": [
+        "质量检测",
+        "电商治理",
+        "品牌咨询",
+        "职业培训"
+      ],
+      "sortOrder": 10
+    }
+  ],
+  "chainNodes": [
+    {
+      "id": "n1",
+      "title": "纤维材料与功能面料",
+      "subtitle": "供应链品牌从材料、面料和高端制造建立优势",
+      "section": "upstream",
+      "relation": "direct",
+      "evidenceLevel": "strong",
+      "confidence": 90,
+      "description": "方案把供应链品牌纳入卓越品牌范围，并要求开展功能性面料揭榜挂帅、推广先进适用技术和纤维新材料研发应用。上游材料和面料企业不再只是代工配套，而可能成为品牌培育对象。",
+      "clauseIds": [
+        "c1",
+        "c3"
+      ],
+      "companyIds": [
+        "co1",
+        "co6"
+      ],
+      "evidenceIds": [
+        "e2",
+        "e3"
+      ],
+      "impactReason": "供应链品牌和功能性面料研发应用被正文明确列出。",
+      "iconKey": "layers"
+    },
+    {
+      "id": "n2",
+      "title": "高端制造与柔性供应链",
+      "subtitle": "质量强链、共享工厂、智能工厂、需求预测",
+      "section": "midstream",
+      "relation": "direct",
+      "evidenceLevel": "strong",
+      "confidence": 89,
+      "description": "政策要求质量强链、共同质量管理体系、柔性生产、小批量多品种定制和卓越级智能工厂。制造端企业若具备快速响应、数字化和稳定质量管理能力，更容易匹配品牌培育方向。",
+      "clauseIds": [
+        "c2",
+        "c4",
+        "c6"
+      ],
+      "companyIds": [
+        "co1",
+        "co2",
+        "co7"
+      ],
+      "evidenceIds": [
+        "e2",
+        "e4",
+        "e6"
+      ],
+      "impactReason": "智能化和服务型制造任务直接落在生产制造体系。",
+      "iconKey": "factory"
+    },
+    {
+      "id": "n3",
+      "title": "终端消费品牌",
+      "subtitle": "创意设计、细分赛道、体验营销和全域传播",
+      "section": "downstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 88,
+      "description": "终端消费品牌仍是重要对象，但政策对其要求更综合，包括创意设计、质量标准、虚拟试衣、智能穿搭、首店旗舰店、品牌故事和文化消费场景。",
+      "clauseIds": [
+        "c1",
+        "c7",
+        "c8",
+        "c10"
+      ],
+      "companyIds": [
+        "co3",
+        "co4",
+        "co5"
+      ],
+      "evidenceIds": [
+        "e1",
+        "e7",
+        "e8",
+        "e9"
+      ],
+      "impactReason": "终端消费品牌被列入卓越品牌范围，营销和文化任务非常具体。",
+      "iconKey": "badge"
+    },
+    {
+      "id": "n4",
+      "title": "绿色低碳和循环利用",
+      "subtitle": "废旧纺织品回收、节能降碳诊断、碳足迹标准",
+      "section": "support",
+      "relation": "constraint_risk",
+      "evidenceLevel": "strong",
+      "confidence": 86,
+      "description": "绿色化既是机会也是约束。品牌企业和供应链企业需要面对节能降碳诊断、行业规范管理、碳足迹核算、绿色工厂和绿色园区要求，尤其影响印染、粘胶纤维、再生化纤等环节。",
+      "clauseIds": [
+        "c5"
+      ],
+      "companyIds": [
+        "co1",
+        "co2",
+        "co6"
+      ],
+      "evidenceIds": [
+        "e5"
+      ],
+      "impactReason": "绿色任务直接指向工厂和产品碳足迹，影响供应链准入和品牌可信度。",
+      "iconKey": "shield"
+    },
+    {
+      "id": "n5",
+      "title": "文化IP与非遗设计",
+      "subtitle": "非遗、丝绸、工业遗产、文旅场景支撑品牌溢价",
+      "section": "downstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 82,
+      "description": "非遗、丝绸、城市时尚地标和文旅活动被纳入品牌培育，说明政策鼓励终端品牌把文化资源转化为产品系列、消费体验和国际传播素材。",
+      "clauseIds": [
+        "c7"
+      ],
+      "companyIds": [
+        "co3",
+        "co4",
+        "co5"
+      ],
+      "evidenceIds": [
+        "e7"
+      ],
+      "impactReason": "文化价值任务明确提出非遗传承人与品牌企业协同开发产品。",
+      "iconKey": "sparkles"
+    },
+    {
+      "id": "n6",
+      "title": "出海合规与国际供应链履约",
+      "subtitle": "海外仓、金融保险、法律仲裁、税务环保咨询",
+      "section": "support",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 83,
+      "description": "政策把国际市场适配和品牌全球化协同列为重点任务，企业出海不只是开店或投广告，还需要合规咨询、海外仓和供应链履约服务支撑。",
+      "clauseIds": [
+        "c8",
+        "c9"
+      ],
+      "companyIds": [
+        "co1",
+        "co2",
+        "co3",
+        "co4"
+      ],
+      "evidenceIds": [
+        "e8"
+      ],
+      "impactReason": "出海服务和海外仓被正文明确列为地方可支持方向。",
+      "iconKey": "network"
+    }
+  ],
+  "chainEdges": [
+    {
+      "from": "n1",
+      "to": "n2",
+      "type": "strong",
+      "confidence": 86,
+      "reason": "材料和功能面料创新需要通过高端制造、质量强链和智能工厂转化为稳定品牌供给。"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "type": "strong",
+      "confidence": 84,
+      "reason": "柔性生产、需求预测和产供销数据链提升终端品牌快速响应能力。"
+    },
+    {
+      "from": "n4",
+      "to": "n1",
+      "type": "risk",
+      "confidence": 78,
+      "reason": "绿色低碳要求对材料、印染和再生纤维环节形成合规约束。"
+    },
+    {
+      "from": "n5",
+      "to": "n3",
+      "type": "medium",
+      "confidence": 77,
+      "reason": "文化资源通过设计、联名和消费场景转化为终端品牌溢价。"
+    },
+    {
+      "from": "n3",
+      "to": "n6",
+      "type": "medium",
+      "confidence": 76,
+      "reason": "终端品牌提升后，海外市场适配、履约和合规能力决定全球拓展效果。"
+    }
+  ],
+  "companies": [
+    {
+      "id": "co1",
+      "name": "申洲国际",
+      "ticker": "2313.HK",
+      "platform": "针织服装供应链制造和国际客户协同代表性主体",
+      "status": "供应链品牌方向代表性观察对象；政策未点名；非投资建议",
+      "section": "midstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 64,
+      "policyRelevance": 76,
+      "evidenceCertainty": 56,
+      "evidenceCount": 5,
+      "products": [
+        "服装制造",
+        "供应链协同",
+        "质量管理",
+        "国际品牌代工"
+      ],
+      "nodeIds": [
+        "n1",
+        "n2",
+        "n4",
+        "n6"
+      ],
+      "clauseIds": [
+        "c1",
+        "c2",
+        "c4",
+        "c5",
+        "c9"
+      ],
+      "evidenceIds": [
+        "e1",
+        "e2",
+        "e4",
+        "e5",
+        "e8"
+      ],
+      "reason": "方案将供应链品牌纳入卓越品牌范围，并强调共同质量管理、智能工厂、绿色工厂和国际供应链履约。申洲国际可作为供应链制造品牌方向的代表性观察对象。",
+      "uncertainty": "政策没有公布入选企业名单，也没有点名申洲国际；公司是否直接参与取决于后续行业评价、地方申报和企业自身品牌战略。",
+      "opportunity": "供应链品牌被政策正式纳入，制造端高质量、数字化和绿色能力有望提升品牌议价和客户黏性。",
+      "riskFactors": [
+        "国际需求波动",
+        "绿色和劳工合规成本",
+        "卓越品牌遴选不确定"
+      ],
+      "sourceUrls": [
+        "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bd0b0deb7f334faf911a7cfcccad2248.html"
+      ]
+    },
+    {
+      "id": "co2",
+      "name": "华利集团",
+      "ticker": "300979.SZ",
+      "platform": "运动鞋履制造和全球供应链履约代表性主体",
+      "status": "供应链制造和出海履约方向代表性观察对象；政策未点名；非投资建议",
+      "section": "midstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 60,
+      "policyRelevance": 68,
+      "evidenceCertainty": 53,
+      "evidenceCount": 4,
+      "products": [
+        "鞋履制造",
+        "供应链管理",
+        "国际客户服务",
+        "质量控制"
+      ],
+      "nodeIds": [
+        "n2",
+        "n4",
+        "n6"
+      ],
+      "clauseIds": [
+        "c2",
+        "c4",
+        "c5",
+        "c9"
+      ],
+      "evidenceIds": [
+        "e2",
+        "e4",
+        "e5",
+        "e8"
+      ],
+      "reason": "虽然方案标题为纺织服装，政策中的高端制造、质量强链、绿色工厂和国际供应链履约也可映射到运动鞋服供应链制造企业。",
+      "uncertainty": "鞋履制造与纺织服装品牌培育并非完全同一政策口径，映射为相关供应链观察而非直接政策对象。",
+      "opportunity": "若供应链品牌评价体系强调全球履约、质量和绿色制造，具备规模制造能力的企业可能受关注。",
+      "riskFactors": [
+        "政策适用边界不确定",
+        "客户结构变化",
+        "海外合规和成本压力"
+      ],
+      "sourceUrls": [
+        "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bd0b0deb7f334faf911a7cfcccad2248.html"
+      ]
+    },
+    {
+      "id": "co3",
+      "name": "安踏体育",
+      "ticker": "2020.HK",
+      "platform": "运动服饰终端消费品牌和多品牌运营代表性主体",
+      "status": "终端消费品牌方向代表性观察对象；政策未点名；非投资建议",
+      "section": "downstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 63,
+      "policyRelevance": 74,
+      "evidenceCertainty": 55,
+      "evidenceCount": 5,
+      "products": [
+        "运动服饰",
+        "多品牌运营",
+        "零售渠道",
+        "国际化品牌"
+      ],
+      "nodeIds": [
+        "n3",
+        "n5",
+        "n6"
+      ],
+      "clauseIds": [
+        "c1",
+        "c7",
+        "c8",
+        "c9",
+        "c10"
+      ],
+      "evidenceIds": [
+        "e1",
+        "e7",
+        "e8",
+        "e9"
+      ],
+      "reason": "政策将终端消费品牌列入卓越品牌范围，并强调体验营销、全媒体传播、国际消费市场适配和品牌全球化协同，安踏体育可作为成熟终端品牌观察对象。",
+      "uncertainty": "官方没有公布25个卓越品牌名单，不能推断安踏入选或获得专项支持。",
+      "opportunity": "政策方向有利于终端品牌提升技术体验、文化叙事和国际传播能力。",
+      "riskFactors": [
+        "终端消费景气度",
+        "国际化投入回报不确定",
+        "电商秩序和质量分级要求"
+      ],
+      "sourceUrls": [
+        "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bd0b0deb7f334faf911a7cfcccad2248.html"
+      ]
+    },
+    {
+      "id": "co4",
+      "name": "波司登",
+      "ticker": "3998.HK",
+      "platform": "羽绒服终端消费品牌和品类聚焦代表性主体",
+      "status": "终端消费品牌方向代表性观察对象；政策未点名；非投资建议",
+      "section": "downstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 62,
+      "policyRelevance": 73,
+      "evidenceCertainty": 54,
+      "evidenceCount": 4,
+      "products": [
+        "羽绒服",
+        "服装品牌",
+        "产品创新",
+        "渠道营销"
+      ],
+      "nodeIds": [
+        "n3",
+        "n5",
+        "n6"
+      ],
+      "clauseIds": [
+        "c1",
+        "c7",
+        "c8",
+        "c9"
+      ],
+      "evidenceIds": [
+        "e1",
+        "e7",
+        "e8"
+      ],
+      "reason": "方案鼓励终端消费品牌聚焦细分赛道和消费场景，提升创意设计、体验营销和国际传播能力，波司登可作为细分品类品牌代表性观察对象。",
+      "uncertainty": "是否被纳入卓越品牌培育取决于后续申报、评价和地方行业安排，政策文本未直接指向公司。",
+      "opportunity": "细分赛道、首店旗舰店、品牌故事和国际市场适配与公司品牌升级方向具有相关性。",
+      "riskFactors": [
+        "季节品类波动",
+        "品牌营销成本",
+        "国际市场拓展不确定"
+      ],
+      "sourceUrls": [
+        "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bd0b0deb7f334faf911a7cfcccad2248.html"
+      ]
+    },
+    {
+      "id": "co5",
+      "name": "罗莱生活",
+      "ticker": "002293.SZ",
+      "platform": "家纺终端消费品牌和智能家纺场景代表性主体",
+      "status": "终端消费品牌和智能家纺方向代表性观察对象；政策未点名；非投资建议",
+      "section": "downstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 59,
+      "policyRelevance": 70,
+      "evidenceCertainty": 52,
+      "evidenceCount": 4,
+      "products": [
+        "家纺品牌",
+        "家居零售",
+        "智能家纺场景",
+        "消费品牌运营"
+      ],
+      "nodeIds": [
+        "n3",
+        "n5"
+      ],
+      "clauseIds": [
+        "c1",
+        "c3",
+        "c7",
+        "c8"
+      ],
+      "evidenceIds": [
+        "e1",
+        "e3",
+        "e7",
+        "e8"
+      ],
+      "reason": "政策明确终端消费品牌包括家纺方向，并提出加力发展智能家纺、体验营销和文化消费场景，罗莱生活可作为家纺品牌代表性观察对象。",
+      "uncertainty": "政策没有指名具体家纺企业，实际影响取决于产品创新、智能家纺落地和地方品牌培育项目。",
+      "opportunity": "智能家纺和场景化消费可为家纺品牌提供产品升级和营销叙事。",
+      "riskFactors": [
+        "智能家纺商业化进度",
+        "居民消费能力",
+        "渠道库存和促销竞争"
+      ],
+      "sourceUrls": [
+        "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bd0b0deb7f334faf911a7cfcccad2248.html"
+      ]
+    },
+    {
+      "id": "co6",
+      "name": "鲁泰A",
+      "ticker": "000726.SZ",
+      "platform": "纺织面料和服装制造供应链代表性主体",
+      "status": "功能面料和供应链品牌方向代表性观察对象；政策未点名；非投资建议",
+      "section": "upstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 58,
+      "policyRelevance": 69,
+      "evidenceCertainty": 52,
+      "evidenceCount": 3,
+      "products": [
+        "色织面料",
+        "衬衫",
+        "纺织制造",
+        "功能面料研发"
+      ],
+      "nodeIds": [
+        "n1",
+        "n4"
+      ],
+      "clauseIds": [
+        "c1",
+        "c3",
+        "c5"
+      ],
+      "evidenceIds": [
+        "e2",
+        "e3",
+        "e5"
+      ],
+      "reason": "政策强调供应链品牌、面料功能性开发、纤维面料标准和绿色低碳，鲁泰A可作为面料和制造一体化方向的代表性观察对象。",
+      "uncertainty": "公司是否进入任何卓越品牌或相关试点并未由政策确认。",
+      "opportunity": "功能面料和绿色制造标准提升可能利于具备研发和质量体系的面料企业。",
+      "riskFactors": [
+        "出口需求波动",
+        "原材料和能源成本",
+        "绿色改造投入"
+      ],
+      "sourceUrls": [
+        "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bd0b0deb7f334faf911a7cfcccad2248.html"
+      ]
+    },
+    {
+      "id": "co7",
+      "name": "杰克科技",
+      "ticker": "603337.SH",
+      "platform": "服装智能制造装备和柔性生产设备代表性主体",
+      "status": "智能制造配套方向代表性观察对象；政策未点名；非投资建议",
+      "section": "support",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 55,
+      "policyRelevance": 64,
+      "evidenceCertainty": 50,
+      "evidenceCount": 2,
+      "products": [
+        "缝制设备",
+        "智能制造装备",
+        "柔性生产支持",
+        "服装制造数字化"
+      ],
+      "nodeIds": [
+        "n2"
+      ],
+      "clauseIds": [
+        "c4",
+        "c6"
+      ],
+      "evidenceIds": [
+        "e4",
+        "e6"
+      ],
+      "reason": "政策提出智能质检机器人、智能工厂、柔性生产、共享车间和大规模定制，智能缝制与服装制造装备可作为配套环节观察对象。",
+      "uncertainty": "方案没有采购设备清单或智能工厂项目名单，装备企业影响需要后续招采和企业资本开支验证。",
+      "opportunity": "如果品牌企业加速智能工厂和柔性生产改造，相关装备和数字化解决方案可能获得需求。",
+      "riskFactors": [
+        "下游资本开支周期",
+        "设备更新节奏",
+        "技术路线竞争"
+      ],
+      "sourceUrls": [
+        "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bd0b0deb7f334faf911a7cfcccad2248.html"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "e1",
+      "title": "目标：2028年培育不少于25个卓越品牌",
+      "source": "工业和信息化部官方PDF附件",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/f48234fb1f6a4552805bb9c4c8531de6.pdf",
+      "url": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/f48234fb1f6a4552805bb9c4c8531de6.pdf",
+      "type": "official_attachment",
+      "date": "2026-05-11",
+      "excerpt": "到2028年，纺织服装品牌的竞争优势和市场影响力显著提升，培育不少于25个纺织服装卓越品牌。",
+      "confidence": 97,
+      "clauseIds": [
+        "c1"
+      ],
+      "nodeIds": [
+        "n3"
+      ],
+      "companyIds": [
+        "co3",
+        "co4",
+        "co5"
+      ]
+    },
+    {
+      "id": "e2",
+      "title": "分类：供应链、产业生态、终端消费三类品牌",
+      "source": "工业和信息化部官方PDF附件",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/f48234fb1f6a4552805bb9c4c8531de6.pdf",
+      "url": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/f48234fb1f6a4552805bb9c4c8531de6.pdf",
+      "type": "official_attachment",
+      "date": "2026-05-11",
+      "excerpt": "供应链品牌是指产业上游和中间环节生产企业及产品品牌，重点培育企业的纤维材料科技研发、服装面料功能性开发和高端制造能力。",
+      "confidence": 97,
+      "clauseIds": [
+        "c1",
+        "c2"
+      ],
+      "nodeIds": [
+        "n1",
+        "n2"
+      ],
+      "companyIds": [
+        "co1",
+        "co2",
+        "co6"
+      ]
+    },
+    {
+      "id": "e3",
+      "title": "创新：功能性面料和智能纺织品",
+      "source": "工业和信息化部官方PDF附件",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/f48234fb1f6a4552805bb9c4c8531de6.pdf",
+      "url": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/f48234fb1f6a4552805bb9c4c8531de6.pdf",
+      "type": "official_attachment",
+      "date": "2026-05-11",
+      "excerpt": "开展纺织服装功能性面料“揭榜挂帅”工作，促进产业链上下游加大功能性面料的研发与应用。",
+      "confidence": 96,
+      "clauseIds": [
+        "c3"
+      ],
+      "nodeIds": [
+        "n1"
+      ],
+      "companyIds": [
+        "co5",
+        "co6"
+      ]
+    },
+    {
+      "id": "e4",
+      "title": "数智化：AI+纺织、视觉检测和智能工厂",
+      "source": "工业和信息化部官方PDF附件",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/f48234fb1f6a4552805bb9c4c8531de6.pdf",
+      "url": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/f48234fb1f6a4552805bb9c4c8531de6.pdf",
+      "type": "official_attachment",
+      "date": "2026-05-11",
+      "excerpt": "指导发布“人工智能+纺织”在全产业链的创新应用场景，重点推广人工智能视觉检测、智能质检机器人等先进技术。",
+      "confidence": 97,
+      "clauseIds": [
+        "c4"
+      ],
+      "nodeIds": [
+        "n2"
+      ],
+      "companyIds": [
+        "co1",
+        "co2",
+        "co7"
+      ]
+    },
+    {
+      "id": "e5",
+      "title": "绿色化：回收利用、降碳诊断和碳足迹",
+      "source": "工业和信息化部官方PDF附件",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/f48234fb1f6a4552805bb9c4c8531de6.pdf",
+      "url": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/f48234fb1f6a4552805bb9c4c8531de6.pdf",
+      "type": "official_attachment",
+      "date": "2026-05-11",
+      "excerpt": "组织开展重点企业节能降碳诊断服务，制定一批纺织产品碳足迹核算标准，加快绿色工厂、绿色园区建设。",
+      "confidence": 96,
+      "clauseIds": [
+        "c5"
+      ],
+      "nodeIds": [
+        "n4"
+      ],
+      "companyIds": [
+        "co1",
+        "co2",
+        "co6"
+      ]
+    },
+    {
+      "id": "e6",
+      "title": "服务型制造：智能量身定制和柔性生产",
+      "source": "工业和信息化部官方PDF附件",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/f48234fb1f6a4552805bb9c4c8531de6.pdf",
+      "url": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/f48234fb1f6a4552805bb9c4c8531de6.pdf",
+      "type": "official_attachment",
+      "date": "2026-05-11",
+      "excerpt": "支持企业建立用户画像和需求预测模型，形成基于数字决策的市场需求快速响应模式。",
+      "confidence": 95,
+      "clauseIds": [
+        "c6"
+      ],
+      "nodeIds": [
+        "n2"
+      ],
+      "companyIds": [
+        "co1",
+        "co7"
+      ]
+    },
+    {
+      "id": "e7",
+      "title": "文化：非遗与品牌企业协同开发",
+      "source": "工业和信息化部官方PDF附件",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/f48234fb1f6a4552805bb9c4c8531de6.pdf",
+      "url": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/f48234fb1f6a4552805bb9c4c8531de6.pdf",
+      "type": "official_attachment",
+      "date": "2026-05-11",
+      "excerpt": "推动非遗传承人与品牌企业协同开发兼具文化底蕴与时代审美的限定、高定及联名系列产品，提升品牌文化附加值。",
+      "confidence": 94,
+      "clauseIds": [
+        "c7"
+      ],
+      "nodeIds": [
+        "n3",
+        "n5"
+      ],
+      "companyIds": [
+        "co3",
+        "co4",
+        "co5"
+      ]
+    },
+    {
+      "id": "e8",
+      "title": "营销出海：虚拟试衣、海外仓和合规服务",
+      "source": "工业和信息化部官方PDF附件",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/f48234fb1f6a4552805bb9c4c8531de6.pdf",
+      "url": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/f48234fb1f6a4552805bb9c4c8531de6.pdf",
+      "type": "official_attachment",
+      "date": "2026-05-11",
+      "excerpt": "提升虚拟试衣、智能穿搭推荐、虚拟主播等技术水平与应用覆盖率，提高品牌消费获得感。",
+      "confidence": 95,
+      "clauseIds": [
+        "c8",
+        "c9"
+      ],
+      "nodeIds": [
+        "n3",
+        "n6"
+      ],
+      "companyIds": [
+        "co1",
+        "co2",
+        "co3",
+        "co4",
+        "co5"
+      ]
+    },
+    {
+      "id": "e9",
+      "title": "市场环境：质量分级和电商平台秩序",
+      "source": "工业和信息化部官方PDF附件",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/f48234fb1f6a4552805bb9c4c8531de6.pdf",
+      "url": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/f48234fb1f6a4552805bb9c4c8531de6.pdf",
+      "type": "official_attachment",
+      "date": "2026-05-11",
+      "excerpt": "推进实施产品质量分级，强化线上线下全链条执法。规范电商平台经营秩序，严控恶意低价竞争、刷单炒信等行为。",
+      "confidence": 95,
+      "clauseIds": [
+        "c10"
+      ],
+      "nodeIds": [
+        "n3"
+      ],
+      "companyIds": [
+        "co3"
+      ]
+    }
+  ],
+  "backgroundCards": [
+    {
+      "id": "b1",
+      "title": "政策性质",
+      "body": "本政策是三年期品牌培育行动方案，不是直接财政补贴清单或卓越品牌名单。它通过评价体系、产业集聚区、质量强链、智能工厂、绿色标准、营销推广和出海服务来塑造品牌培育环境。",
+      "evidenceIds": [
+        "e1",
+        "e2"
+      ]
+    },
+    {
+      "id": "b2",
+      "title": "产业链范围",
+      "body": "卓越品牌被定义为供应链品牌、产业生态品牌和终端消费品牌，政策影响从上游纤维材料和面料，到中游制造和产业集群，再到下游终端零售和全球营销，不能只按服装零售企业理解。",
+      "evidenceIds": [
+        "e2",
+        "e4",
+        "e8"
+      ]
+    },
+    {
+      "id": "b3",
+      "title": "公司映射边界",
+      "body": "官方文本没有点名任何上市公司。报告中的公司只是按供应链制造、终端品牌、家纺、面料和装备等环节选取的代表性观察对象，不代表入选卓越品牌、获得补贴或取得订单。",
+      "evidenceIds": [
+        "e1",
+        "e2"
+      ]
+    },
+    {
+      "id": "b4",
+      "title": "约束因素",
+      "body": "绿色低碳、质量分级、线上线下执法、电商平台秩序和首席质量官制度说明品牌建设也会增加合规要求。低价竞争、质量不稳定、绿色证明不足的企业可能承压。",
+      "evidenceIds": [
+        "e5",
+        "e9"
+      ]
+    }
+  ],
+  "compareRows": [
+    [
+      "培育对象",
+      "本方案同时覆盖供应链品牌、产业生态品牌、终端消费品牌",
+      "传统品牌政策更容易聚焦消费者终端品牌",
+      "制造端和产业集群被提升到品牌培育核心位置"
+    ],
+    [
+      "技术抓手",
+      "AI+纺织、视觉检测、工业智能体、智能工厂、柔性生产",
+      "一般消费品牌政策更多强调营销、渠道和设计",
+      "本方案把制造数字化作为品牌质量和响应速度基础"
+    ],
+    [
+      "绿色约束",
+      "回收利用、降碳诊断、碳足迹核算、绿色工厂和园区",
+      "普通营销政策较少进入工厂和产品碳足迹",
+      "绿色可信度成为品牌竞争和出海的基础设施"
+    ],
+    [
+      "公司证据",
+      "政策未点名任何企业，只有产业链方向",
+      "后续可能通过地方申报、协会评价、品牌指数体现",
+      "不能直接推断上市公司入选或受益"
+    ]
+  ],
+  "compareInsights": {
+    "status": "manual_official_attachment_reviewed",
+    "basis": "基于工信部官方通知和官方PDF附件全文，不使用媒体评论或券商解读。",
+    "method": "按品牌分类、技术创新、智能制造、绿色低碳、文化营销、出海和市场秩序拆解政策影响。",
+    "comparableCount": 0,
+    "similarityPoints": [
+      "与“三品”类消费品工业政策相同，均强调增品种、提品质、创品牌和消费场景牵引。",
+      "与智能制造和绿色制造政策相同，均把数字化、绿色工厂、标准体系作为产业升级基础。"
+    ],
+    "differencePoints": [
+      "本方案把供应链品牌和产业生态品牌与终端品牌并列，品牌政策颗粒度更贴近纺织服装完整产业链。",
+      "本方案把AI+纺织、工业智能体、数据集和模型仓写入品牌培育路径，制造端技术要求更明确。",
+      "本方案没有公布卓越品牌名单，因此公司映射必须保持代表性和不确定性。"
+    ],
+    "rows": [
+      {
+        "id": "ci1",
+        "dimension": "品牌定义",
+        "current": "供应链、产业生态、终端消费三类品牌共同培育。",
+        "similar": "延续消费品工业重视品牌质量和市场影响力的政策主线。",
+        "different": "供应链品牌被正式写入卓越品牌范围。",
+        "explanation": "这使制造和面料企业也能成为品牌培育对象，而非只作为终端品牌供应商。",
+        "clauseIds": [
+          "c1"
+        ],
+        "evidenceIds": [
+          "e1",
+          "e2"
+        ]
+      },
+      {
+        "id": "ci2",
+        "dimension": "技术路径",
+        "current": "AI+纺织、智能工厂、柔性生产和绿色低碳并行。",
+        "similar": "与智能制造政策一样重视工厂数字化。",
+        "different": "这些技术被服务于品牌质量、体验和响应速度，而非单纯产能效率。",
+        "explanation": "品牌竞争力被绑定到生产体系和供应链响应能力。",
+        "clauseIds": [
+          "c4",
+          "c5",
+          "c6"
+        ],
+        "evidenceIds": [
+          "e4",
+          "e5",
+          "e6"
+        ]
+      },
+      {
+        "id": "ci3",
+        "dimension": "证据边界",
+        "current": "官方没有给出企业名单。",
+        "similar": "可以按政策方向观察产业链公司。",
+        "different": "不能把代表性公司当作卓越品牌名单或确定受益名单。",
+        "explanation": "后续需要品牌评价体系、地方申报、公示名单和项目落地来验证。",
+        "clauseIds": [
+          "c1",
+          "c10"
+        ],
+        "evidenceIds": [
+          "e1",
+          "e9"
+        ]
+      }
+    ]
+  },
+  "analysisCoverage": {
+    "status": "manual_complete_official_page_and_attachment",
+    "textLength": 491,
+    "attachmentTextLength": 6184,
+    "clauseCount": 10,
+    "actionCount": 6,
+    "evidenceCount": 9,
+    "industryNodeCount": 6,
+    "companyCount": 7,
+    "matchedKeywordCount": 31,
+    "comparablePolicyCount": 0,
+    "companyImpactConclusion": "政策未点名任何企业，所有公司均为产业链代表性观察对象。映射依据是供应链品牌、终端消费品牌、功能面料、智能制造、家纺、绿色低碳和出海履约等政策方向，不代表入选卓越品牌、获得补贴、取得订单或构成投资建议。",
+    "companyImpactReasoning": "企业层面证据弱于行业层面证据。强证据来自官方附件的任务条款，弱化为公司映射时必须经过企业业务位置匹配，并等待后续评价体系、申报遴选、公示名单和地方项目验证。",
+    "sourceIntegrityNote": "已阅读工信部官方通知页面和页面嵌入PDF附件全文；未采用媒体评论、市场解读或非官方名单。",
+    "limitations": [
+      "政策未公布25个卓越品牌名单，因此无法确认任何公司入选。",
+      "政策未披露财政补贴额度、具体项目预算或采购清单。",
+      "公司映射按业务方向代表性选择，不代表收入弹性、订单确定性或投资建议。",
+      "智能工厂、绿色工厂、碳足迹标准和品牌评价体系仍需后续实施细则和地方申报结果验证。"
+    ]
+  },
+  "modules": [
+    {
+      "id": "brief",
+      "label": "政策速读"
+    },
+    {
+      "id": "industry",
+      "label": "产业链影响"
+    },
+    {
+      "id": "clauses",
+      "label": "政策条款"
+    },
+    {
+      "id": "background",
+      "label": "政策背景"
+    },
+    {
+      "id": "compare",
+      "label": "对比分析"
+    },
+    {
+      "id": "companies",
+      "label": "公司影响分析"
+    },
+    {
+      "id": "evidence",
+      "label": "证据链总览"
+    }
+  ],
+  "topTabs": [
+    {
+      "id": "brief",
+      "label": "政策总览"
+    },
+    {
+      "id": "clauses",
+      "label": "政策条款"
+    },
+    {
+      "id": "background",
+      "label": "背景与边界"
+    },
+    {
+      "id": "compare",
+      "label": "分析口径"
+    }
+  ]
+}

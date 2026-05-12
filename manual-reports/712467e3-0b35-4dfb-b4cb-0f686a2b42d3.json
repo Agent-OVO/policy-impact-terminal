@@ -1,0 +1,749 @@
+{
+  "id": "712467e3-0b35-4dfb-b4cb-0f686a2b42d3",
+  "policyId": "712467e3-0b35-4dfb-b4cb-0f686a2b42d3",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "generatedAt": "2026-05-12T12:20:00+08:00",
+  "summary": {
+    "id": "712467e3-0b35-4dfb-b4cb-0f686a2b42d3",
+    "title": "国务院办公厅关于印发《国务院2026年度立法工作计划》的通知",
+    "issuer": "国务院办公厅",
+    "source": "中国政府网 - 最新政策",
+    "publishDate": "2026-05-11",
+    "status": "published",
+    "confidence": 90,
+    "industryCount": 5,
+    "companyCount": 0,
+    "evidenceCount": 8,
+    "primarySignal": "年度立法项目管线确定，影响以规则预期和部委起草责任为主",
+    "category": "年度立法计划"
+  },
+  "policy": {
+    "title": "国务院办公厅关于印发《国务院2026年度立法工作计划》的通知",
+    "status": "已发布",
+    "issuer": "国务院办公厅",
+    "publishDate": "2026-05-11",
+    "effectiveDate": "2026-05-08",
+    "source": "中国政府网 - 最新政策",
+    "category": "年度立法计划",
+    "level": "国务院办公厅通知",
+    "confidence": 90,
+    "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068345.htm",
+    "jurisdiction": "全国",
+    "scope": "国务院2026年度拟提请审议、拟制定修订及预备推进的法律、行政法规和其他立法项目",
+    "impactScope": "直接影响国务院有关部门、司法部和立法项目起草审查流程；对企业和行业主要形成规则预期，不构成直接许可、补贴、处罚或名单管理",
+    "tags": [
+      "立法计划",
+      "十五五",
+      "统一大市场",
+      "人工智能治理",
+      "法治化营商环境",
+      "涉外法治",
+      "产业链供应链安全"
+    ]
+  },
+  "brief": {
+    "judgement": "这份年度立法计划不是直接调整企业经营的单项监管令，而是把2026年国务院立法资源投向市场经济、数字与人工智能治理、公共安全、涉外开放等重点领域；对企业最重要的信号是规则供给和监管预期提前显性化，但不能据此映射到具体上市公司。",
+    "summary": "通知确认《国务院2026年度立法工作计划》已经党中央、国务院同意，并列出拟提请全国人大常委会审议的14件法律案、拟制定修订的24件行政法规、预备项目以及责任起草单位。政策的直接任务在国务院部门和司法部：起草部门要调研论证、征求意见、风险评估，司法部负责审查把关、跟踪指导和协调分歧。对产业侧的影响主要是预期管理：金融、招投标、税收、价格、统一大市场、平台与网络治理、AI、产业链供应链安全、涉外投资等事项将进入或继续推进法定程序。",
+    "keyPoints": [
+      "计划以“十五五”开局之年的高质量发展和高水平安全为总背景，强调重点领域、新兴领域、涉外领域立法。",
+      "金融法、招标投标法、税收征管法、中国人民银行法、价格法等被列为拟提请审议项目，全国统一大市场建设条例、证券公司监督管理条例等进入行政法规项目。",
+      "人工智能综合性立法、数据算力算法产权网络安全供应链安全等共性要素规则被明确提出，但仍处在立法推进信号阶段。",
+      "企业影响是跨行业规则预期，不是公司点名、项目入选、采购订单或行政许可安排。"
+    ],
+    "methodology": "人工阅读中国政府网官方原文，按政策性质区分“立法工作安排”与“直接经营约束”；证据仅取自官方通知正文和附件项目清单，未采用媒体解读。公司映射因缺少可验证的行业运营主体指向而留空。"
+  },
+  "actions": [
+    {
+      "id": "a1",
+      "title": "国务院部门要按项目清单推进起草和审查准备",
+      "body": "计划把法律案、行政法规和预备项目分配到具体起草单位，要求国务院各部门加强组织领导、完善机制、压实责任，高质高效完成年度立法任务。",
+      "signal": "constraint",
+      "confidence": 91,
+      "clauseIds": [
+        "c1",
+        "c6"
+      ],
+      "sortOrder": 1
+    },
+    {
+      "id": "a2",
+      "title": "市场经济和金融监管规则进入集中推进窗口",
+      "body": "金融、招投标、税收征管、央行、价格、统一大市场、证券公司监管、上市公司监管等项目形成明确立法或预备立法路径，相关经营主体需要关注后续草案征求意见和配套规则。",
+      "signal": "pending",
+      "confidence": 87,
+      "clauseIds": [
+        "c2"
+      ],
+      "sortOrder": 2
+    },
+    {
+      "id": "a3",
+      "title": "AI、数据、网络与平台治理规则被放入年度议程",
+      "body": "计划明确完善人工智能治理并加快综合性立法，同时把数据、算力、算法、产权、网络安全、供应链安全和重点应用场景纳入AI共性要素立法方向。",
+      "signal": "pending",
+      "confidence": 88,
+      "clauseIds": [
+        "c4"
+      ],
+      "sortOrder": 3
+    },
+    {
+      "id": "a4",
+      "title": "涉外法治和供应链安全规则将继续制度化",
+      "body": "反外国不当域外管辖、产业链供应链安全、对外投资、原产地、技术进出口和国际海运等项目被列入制定修订或预备修订范围，更多属于对外开放和安全边界的规则预告。",
+      "signal": "pending",
+      "confidence": 86,
+      "clauseIds": [
+        "c5"
+      ],
+      "sortOrder": 4
+    },
+    {
+      "id": "a5",
+      "title": "起草和审查过程要强化公众参与、风险评估和协调",
+      "body": "起草部门被要求做好调研论证、意见征集、风险评估，司法部则要审查把关、跟踪指导、督促协调，说明该计划的执行重点是提升立法质量而非立即落地单项监管措施。",
+      "signal": "constraint",
+      "confidence": 90,
+      "clauseIds": [
+        "c6"
+      ],
+      "sortOrder": 5
+    }
+  ],
+  "clauseGroups": [
+    {
+      "id": "g1",
+      "title": "总体导向",
+      "count": 1,
+      "tone": "blue"
+    },
+    {
+      "id": "g2",
+      "title": "立法项目",
+      "count": 4,
+      "tone": "green"
+    },
+    {
+      "id": "g3",
+      "title": "执行机制",
+      "count": 1,
+      "tone": "orange"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "c1",
+      "no": "总体要求",
+      "title": "以十五五开局和重点领域立法为年度主线",
+      "group": "g1",
+      "excerpt": "统筹立改废释，加强重点领域、新兴领域、涉外领域立法，提高立法质效。",
+      "fullText": "计划把2026年定位为“十五五”开局之年，要求法治与改革、发展、稳定相协同，并通过重点领域、新兴领域和涉外领域立法提供法治保障。",
+      "confidence": 92,
+      "keywords": [
+        "十五五",
+        "立改废释",
+        "重点领域",
+        "新兴领域",
+        "涉外领域"
+      ],
+      "industries": [
+        "公共治理",
+        "法治建设"
+      ],
+      "sortOrder": 1
+    },
+    {
+      "id": "c2",
+      "no": "二",
+      "title": "市场经济、金融和统一大市场项目密集列入",
+      "group": "g2",
+      "excerpt": "提请全国人大常委会审议金融法草案、招标投标法修订草案、税收征收管理法修订草案。",
+      "fullText": "市场经济体制部分覆盖金融法、招标投标法、税收征管法、央行法、价格法，全国统一大市场建设条例、证券公司监管条例，以及上市公司、地方金融、预付式消费、网络交易平台等预备监管项目。",
+      "confidence": 90,
+      "keywords": [
+        "金融法",
+        "招标投标",
+        "税收征管",
+        "统一大市场",
+        "网络交易平台"
+      ],
+      "industries": [
+        "金融服务",
+        "平台经济",
+        "招投标市场",
+        "上市公司监管"
+      ],
+      "sortOrder": 2
+    },
+    {
+      "id": "c3",
+      "no": "二",
+      "title": "法治政府和营商环境规则继续补强",
+      "group": "g2",
+      "excerpt": "围绕加强法治政府建设、优化法治化营商环境，提请全国人大常委会审议律师法修订草案、机关事务管理法草案。",
+      "fullText": "法治政府部分列入行政复议法实施条例、工商行政管理所条例、仲裁机构登记、行政裁量权基准、政府信息公开、行政法规和规章制定程序等项目，强调行政行为规则和争议解决程序。",
+      "confidence": 88,
+      "keywords": [
+        "法治政府",
+        "营商环境",
+        "行政复议",
+        "行政裁量权",
+        "政府信息公开"
+      ],
+      "industries": [
+        "政务服务",
+        "法律服务",
+        "企业合规"
+      ],
+      "sortOrder": 3
+    },
+    {
+      "id": "c4",
+      "no": "二",
+      "title": "人工智能、数据和网络规则成为新兴领域重点",
+      "group": "g2",
+      "excerpt": "完善人工智能治理，加快推进人工智能健康发展综合性立法。",
+      "fullText": "科技文化部分除教师法、中医药传统知识、集成电路布图设计、互联网信息服务管理办法外，还明确提出推进AI综合性立法，并完善数据、算力、算法、产权、网络安全、供应链安全等共性要素和重点应用场景规则。",
+      "confidence": 91,
+      "keywords": [
+        "人工智能治理",
+        "数据",
+        "算力",
+        "算法",
+        "网络安全"
+      ],
+      "industries": [
+        "人工智能",
+        "数据服务",
+        "互联网信息服务",
+        "网络安全"
+      ],
+      "sortOrder": 4
+    },
+    {
+      "id": "c5",
+      "no": "二",
+      "title": "公共安全、绿色民生和涉外法治形成安全边界",
+      "group": "g2",
+      "excerpt": "制定中华人民共和国反外国不当域外管辖条例、国务院关于产业链供应链安全的规定、国务院关于对外投资的规定。",
+      "fullText": "计划在生产安全事故隐患排查、电力安全事故、网络安全等级保护、粮食储备、化学物质环境风险、终端设备直连卫星服务，以及反外国不当域外管辖、对外投资、产业链供应链安全等方面推进规则制定修订。",
+      "confidence": 89,
+      "keywords": [
+        "生产安全",
+        "网络安全等级保护",
+        "粮食储备",
+        "产业链供应链安全",
+        "对外投资"
+      ],
+      "industries": [
+        "安全生产",
+        "涉外经营",
+        "供应链管理",
+        "公共安全"
+      ],
+      "sortOrder": 5
+    },
+    {
+      "id": "c6",
+      "no": "四",
+      "title": "部门起草、司法部审查和协调是执行抓手",
+      "group": "g3",
+      "excerpt": "起草部门要认真履职，扎实做好调研论证、意见征集、风险评估等工作。",
+      "fullText": "计划要求国务院各部门压实责任，起草部门做好调研论证、意见征集、风险评估，送审前与司法部沟通；司法部加强审查把关、跟踪指导、督促协调，并可按程序退回不合格送审稿。",
+      "confidence": 92,
+      "keywords": [
+        "起草部门",
+        "调研论证",
+        "意见征集",
+        "风险评估",
+        "司法部审查"
+      ],
+      "industries": [
+        "政府立法",
+        "行政管理"
+      ],
+      "sortOrder": 6
+    }
+  ],
+  "chainNodes": [
+    {
+      "id": "n1",
+      "title": "年度立法项目管线",
+      "subtitle": "法律案、行政法规和预备项目的任务清单",
+      "section": "support",
+      "relation": "direct",
+      "evidenceLevel": "strong",
+      "confidence": 90,
+      "description": "该政策的核心不是直接设定企业义务，而是确定国务院系统2026年立法项目的优先级、负责单位和推进机制，为后续法律法规草案提供制度管线。",
+      "clauseIds": [
+        "c1",
+        "c6"
+      ],
+      "companyIds": [],
+      "evidenceIds": [
+        "e1",
+        "e7",
+        "e8"
+      ],
+      "impactReason": "年度计划本身是立法组织文件，直接约束起草审查流程。",
+      "iconKey": "file-text"
+    },
+    {
+      "id": "n2",
+      "title": "市场经济与金融监管规则",
+      "subtitle": "金融、招投标、税收、价格、统一大市场和平台监管",
+      "section": "midstream",
+      "relation": "indirect",
+      "evidenceLevel": "strong",
+      "confidence": 86,
+      "description": "金融和市场秩序类项目被集中列入，提示未来监管体系会围绕统一大市场、金融秩序、平台交易和上市公司监管继续细化，但实际义务需等待具体法律法规文本。",
+      "clauseIds": [
+        "c2"
+      ],
+      "companyIds": [],
+      "evidenceIds": [
+        "e3",
+        "e4"
+      ],
+      "impactReason": "计划列明具体法案和行政法规项目，形成明确规则预期。",
+      "iconKey": "landmark"
+    },
+    {
+      "id": "n3",
+      "title": "AI、数据、网络与新质生产力规则",
+      "subtitle": "AI综合立法和共性要素规则预告",
+      "section": "upstream",
+      "relation": "indirect",
+      "evidenceLevel": "strong",
+      "confidence": 88,
+      "description": "人工智能治理被从单项部门管理提升到综合性立法方向，并关联数据、算力、算法、产权、网络安全和供应链安全，影响范围宽但仍处于立法规划阶段。",
+      "clauseIds": [
+        "c4"
+      ],
+      "companyIds": [],
+      "evidenceIds": [
+        "e5"
+      ],
+      "impactReason": "政策明确提出AI健康发展综合性立法及共性要素规则。",
+      "iconKey": "cpu"
+    },
+    {
+      "id": "n4",
+      "title": "涉外法治与供应链安全",
+      "subtitle": "反域外管辖、对外投资、原产地和技术进出口",
+      "section": "downstream",
+      "relation": "indirect",
+      "evidenceLevel": "strong",
+      "confidence": 84,
+      "description": "计划把涉外法治和产业链供应链安全列为服务高水平开放的制度工具，对跨境经营、原产地、对外投资、技术进出口和海事规则形成后续规则预期。",
+      "clauseIds": [
+        "c5"
+      ],
+      "companyIds": [],
+      "evidenceIds": [
+        "e6"
+      ],
+      "impactReason": "涉外规则项目被列入制定修订和预备修订清单。",
+      "iconKey": "globe"
+    },
+    {
+      "id": "n5",
+      "title": "民生、绿色与公共安全治理",
+      "subtitle": "供水、药品、产品质量、生产安全和自然灾害防治",
+      "section": "support",
+      "relation": "indirect",
+      "evidenceLevel": "strong",
+      "confidence": 82,
+      "description": "民生绿色和公共安全板块覆盖供水、药品、产品质量、养老、住房安全、矿山和防灾减灾等公共治理议题，更多是风险治理和公共服务规则储备。",
+      "clauseIds": [
+        "c5"
+      ],
+      "companyIds": [],
+      "evidenceIds": [
+        "e2",
+        "e6"
+      ],
+      "impactReason": "计划列入多项民生、安全、绿色转型项目，但尚无具体经营主体指向。",
+      "iconKey": "shield"
+    }
+  ],
+  "chainEdges": [
+    {
+      "from": "n1",
+      "to": "n2",
+      "type": "medium",
+      "confidence": 78,
+      "reason": "年度项目管线将市场金融项目送入具体法律法规程序。"
+    },
+    {
+      "from": "n1",
+      "to": "n3",
+      "type": "medium",
+      "confidence": 80,
+      "reason": "新兴领域立法安排为AI和数据网络治理提供制度入口。"
+    },
+    {
+      "from": "n1",
+      "to": "n4",
+      "type": "medium",
+      "confidence": 77,
+      "reason": "涉外法治项目通过年度计划获得推进优先级。"
+    },
+    {
+      "from": "n1",
+      "to": "n5",
+      "type": "weak",
+      "confidence": 72,
+      "reason": "民生和安全项目较多，但需等待专项草案确定具体义务。"
+    }
+  ],
+  "companies": [],
+  "evidence": [
+    {
+      "id": "e1",
+      "title": "计划经党中央、国务院同意印发",
+      "source": "中国政府网官方原文",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068345.htm",
+      "url": "https://www.gov.cn/zhengce/content/202605/content_7068345.htm",
+      "type": "policy_text",
+      "date": "2026-05-11",
+      "excerpt": "《国务院2026年度立法工作计划》已经党中央、国务院同意，现印发给你们。",
+      "confidence": 95,
+      "clauseIds": [
+        "c1"
+      ],
+      "nodeIds": [
+        "n1"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e2",
+      "title": "总体要求强调重点、新兴和涉外领域",
+      "source": "中国政府网官方原文",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068345.htm",
+      "url": "https://www.gov.cn/zhengce/content/202605/content_7068345.htm",
+      "type": "policy_text",
+      "date": "2026-05-11",
+      "excerpt": "统筹立改废释，加强重点领域、新兴领域、涉外领域立法，提高立法质效。",
+      "confidence": 94,
+      "clauseIds": [
+        "c1"
+      ],
+      "nodeIds": [
+        "n1",
+        "n5"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e3",
+      "title": "市场经济和金融法律案清单",
+      "source": "中国政府网官方原文",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068345.htm",
+      "url": "https://www.gov.cn/zhengce/content/202605/content_7068345.htm",
+      "type": "policy_text",
+      "date": "2026-05-11",
+      "excerpt": "提请全国人大常委会审议金融法草案、招标投标法修订草案、税收征收管理法修订草案。",
+      "confidence": 94,
+      "clauseIds": [
+        "c2"
+      ],
+      "nodeIds": [
+        "n2"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e4",
+      "title": "统一大市场和平台监管行政法规",
+      "source": "中国政府网官方原文",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068345.htm",
+      "url": "https://www.gov.cn/zhengce/content/202605/content_7068345.htm",
+      "type": "policy_text",
+      "date": "2026-05-11",
+      "excerpt": "制定全国统一大市场建设条例，修订全国农业普查条例、审计法实施条例、证券公司监督管理条例。",
+      "confidence": 93,
+      "clauseIds": [
+        "c2"
+      ],
+      "nodeIds": [
+        "n2"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e5",
+      "title": "人工智能综合性立法信号",
+      "source": "中国政府网官方原文",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068345.htm",
+      "url": "https://www.gov.cn/zhengce/content/202605/content_7068345.htm",
+      "type": "policy_text",
+      "date": "2026-05-11",
+      "excerpt": "完善人工智能治理，加快推进人工智能健康发展综合性立法。",
+      "confidence": 95,
+      "clauseIds": [
+        "c4"
+      ],
+      "nodeIds": [
+        "n3"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e6",
+      "title": "涉外法治和供应链安全项目",
+      "source": "中国政府网官方原文",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068345.htm",
+      "url": "https://www.gov.cn/zhengce/content/202605/content_7068345.htm",
+      "type": "policy_text",
+      "date": "2026-05-11",
+      "excerpt": "制定中华人民共和国反外国不当域外管辖条例、国务院关于产业链供应链安全的规定、国务院关于对外投资的规定。",
+      "confidence": 94,
+      "clauseIds": [
+        "c5"
+      ],
+      "nodeIds": [
+        "n4",
+        "n5"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e7",
+      "title": "起草部门执行要求",
+      "source": "中国政府网官方原文",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068345.htm",
+      "url": "https://www.gov.cn/zhengce/content/202605/content_7068345.htm",
+      "type": "policy_text",
+      "date": "2026-05-11",
+      "excerpt": "起草部门要认真履职，扎实做好调研论证、意见征集、风险评估等工作。",
+      "confidence": 94,
+      "clauseIds": [
+        "c6"
+      ],
+      "nodeIds": [
+        "n1"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e8",
+      "title": "司法部审查把关和协调职责",
+      "source": "中国政府网官方原文",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068345.htm",
+      "url": "https://www.gov.cn/zhengce/content/202605/content_7068345.htm",
+      "type": "policy_text",
+      "date": "2026-05-11",
+      "excerpt": "司法部要加强对立法项目的审查把关和跟踪指导，强化督促协调，全面推进计划落实。",
+      "confidence": 94,
+      "clauseIds": [
+        "c6"
+      ],
+      "nodeIds": [
+        "n1"
+      ],
+      "companyIds": []
+    }
+  ],
+  "backgroundCards": [
+    {
+      "id": "b1",
+      "title": "政策性质",
+      "body": "本政策是年度立法工作计划的印发通知和项目清单，核心功能是确定2026年国务院系统立法优先级、责任单位和工作方法，不是直接规定某类企业立即新增义务的专项监管文件。",
+      "evidenceIds": [
+        "e1",
+        "e7",
+        "e8"
+      ]
+    },
+    {
+      "id": "b2",
+      "title": "项目结构",
+      "body": "附件列明14件拟提请全国人大常委会审议的法律案、24件拟制定修订的行政法规，以及预备提请、预备制定和预备修订项目，覆盖市场经济、法治政府、科技文化、民生绿色、安全和涉外法治。",
+      "evidenceIds": [
+        "e3",
+        "e4",
+        "e6"
+      ]
+    },
+    {
+      "id": "b3",
+      "title": "产业含义",
+      "body": "企业侧可把该计划视为后续合规议题的雷达图：金融、平台、AI、网络安全、涉外投资和供应链安全等方向确定性提高，但具体合规成本、许可门槛和处罚规则仍取决于后续草案及正式文本。",
+      "evidenceIds": [
+        "e3",
+        "e5",
+        "e6"
+      ]
+    },
+    {
+      "id": "b4",
+      "title": "公司映射边界",
+      "body": "官方文本列的是立法项目和负责起草单位，没有点名企业、园区、运营商或受益主体，也没有项目遴选条件。将其映射到个股会把宏观立法预期误读为公司事件。",
+      "evidenceIds": [
+        "e1",
+        "e7"
+      ]
+    }
+  ],
+  "compareRows": [
+    {
+      "id": "cr1",
+      "dimension": "政策功能",
+      "values": [
+        "年度立法计划，主要确定项目管线和责任单位",
+        "单项法律法规会直接设定权利义务和程序",
+        "本政策只形成规则预期，不能替代后续正式制度文本"
+      ]
+    },
+    {
+      "id": "cr2",
+      "dimension": "企业触达",
+      "values": [
+        "跨行业、跨部门的间接预期影响",
+        "专项监管文件通常会锁定行业、对象和义务",
+        "公司映射应等待具体草案或正式法规"
+      ]
+    },
+    {
+      "id": "cr3",
+      "dimension": "执行抓手",
+      "values": [
+        "起草部门调研论证、意见征集、风险评估，司法部审查协调",
+        "行政执法文件通常依靠执法检查、许可审批或处罚执行",
+        "当前重点在立法流程质量控制"
+      ]
+    }
+  ],
+  "compareInsights": {
+    "status": "official_text_limited_comparison",
+    "basis": "官方文本自身列明行政复议法实施条例等单项法规项目，可用于说明年度计划与单项法规的层级差异。",
+    "method": "仅基于中国政府网原文和附件项目清单做政策性质比较，不引用媒体评论。",
+    "comparableCount": 1,
+    "similarPolicy": {
+      "title": "中华人民共和国行政复议法实施条例",
+      "issuer": "国务院",
+      "source": "本年度计划列明的拟修订行政法规项目",
+      "reason": "计划附件将行政复议法实施条例列为拟制定、修订的行政法规之一"
+    },
+    "differencePolicy": null,
+    "similarPolicies": [
+      {
+        "title": "中华人民共和国行政复议法实施条例",
+        "issuer": "国务院",
+        "source": "国务院令第836号",
+        "reason": "属于年度计划中已经推进落地的单项法规"
+      }
+    ],
+    "contrastPolicies": [],
+    "similarityPoints": [
+      "二者都服务法治政府建设和行政规则体系完善。",
+      "年度计划提供项目入口，单项条例提供可执行制度文本。"
+    ],
+    "differencePoints": [
+      "本政策是计划和责任分工，不直接创设企业个案权利义务。",
+      "单项行政法规会进一步规定程序、主体、期限、责任等可执行规则。"
+    ],
+    "rows": [
+      {
+        "id": "ci1",
+        "dimension": "层级",
+        "current": "年度立法计划",
+        "similar": "单项行政法规",
+        "different": "计划负责排程，法规负责落地",
+        "clauseIds": [
+          "c1",
+          "c6"
+        ],
+        "evidenceIds": [
+          "e1",
+          "e8"
+        ]
+      },
+      {
+        "id": "ci2",
+        "dimension": "影响确定性",
+        "current": "给出方向和项目名称",
+        "similar": "给出具体条款",
+        "different": "企业应以草案征求意见和正式文本判断义务",
+        "clauseIds": [
+          "c2",
+          "c4"
+        ],
+        "evidenceIds": [
+          "e3",
+          "e5"
+        ]
+      }
+    ]
+  },
+  "analysisCoverage": {
+    "status": "complete_manual_official_sources_only",
+    "textLength": 5865,
+    "clauseCount": 6,
+    "actionCount": 5,
+    "evidenceCount": 8,
+    "industryNodeCount": 5,
+    "companyCount": 0,
+    "matchedKeywordCount": 21,
+    "comparablePolicyCount": 1,
+    "companyNoMatchReason": "官方原文和附件列明的是立法项目、负责起草单位和立法工作要求，没有企业名单、行业遴选条件、补贴采购对象或明确运营商类别。虽然若干项目未来可能影响金融、平台、AI、涉外经营等行业，但在本计划阶段映射到具体公司缺乏事实基础。",
+    "companyImpactConclusion": "本政策对公司层面的影响应表述为规则预期和后续合规观察事项，而不是代表性公司受益或受损清单；因此公司列表留空，避免把年度立法计划误读为个股事件。",
+    "limitations": [
+      "中国政府网正文标注“本文有删减”，分析以公开页面可见文本为准。",
+      "本报告未推断未公开草案内容，具体合规义务需以后续征求意见稿、正式法律法规和配套规则为准。",
+      "公司映射留空是政策性质判断，不代表相关行业不会在后续单项立法中受到实质影响。",
+      "仅使用中国政府网官方政策文本和附件项目清单，未采用媒体评论。"
+    ]
+  },
+  "modules": [
+    {
+      "id": "brief",
+      "label": "政策速读"
+    },
+    {
+      "id": "industry",
+      "label": "影响链条"
+    },
+    {
+      "id": "clauses",
+      "label": "政策条款"
+    },
+    {
+      "id": "background",
+      "label": "政策背景"
+    },
+    {
+      "id": "compare",
+      "label": "对比分析"
+    },
+    {
+      "id": "companies",
+      "label": "公司影响分析"
+    },
+    {
+      "id": "evidence",
+      "label": "证据链总览"
+    }
+  ],
+  "topTabs": [
+    {
+      "id": "brief",
+      "label": "政策总览"
+    },
+    {
+      "id": "clauses",
+      "label": "政策条款"
+    },
+    {
+      "id": "background",
+      "label": "政策背景"
+    },
+    {
+      "id": "compare",
+      "label": "对比分析"
+    }
+  ]
+}

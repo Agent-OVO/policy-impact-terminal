@@ -1,0 +1,628 @@
+{
+  "id": "4ce9cfc5-f9ca-48bb-a265-3ee7fdc9c39d",
+  "policyId": "4ce9cfc5-f9ca-48bb-a265-3ee7fdc9c39d",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "generatedAt": "2026-05-12T14:30:00+08:00",
+  "summary": {
+    "id": "4ce9cfc5-f9ca-48bb-a265-3ee7fdc9c39d",
+    "title": "国务院关于同意在上海市暂时调整实施有关行政法规规定的批复",
+    "issuer": "国务院",
+    "source": "中国政府网 - 最新政策",
+    "publishDate": "2026-05-08",
+    "status": "published",
+    "confidence": 91,
+    "industryCount": 4,
+    "companyCount": 0,
+    "evidenceCount": 6,
+    "primarySignal": "上海外资律师事务所代表机构变更事项试点审批下放和材料承诺制",
+    "category": "司法行政与服务业开放"
+  },
+  "policy": {
+    "title": "国务院关于同意在上海市暂时调整实施有关行政法规规定的批复",
+    "status": "已发布",
+    "issuer": "国务院",
+    "publishDate": "2026-05-08",
+    "effectiveDate": "2026-04-27",
+    "source": "中国政府网 - 最新政策",
+    "category": "公安、安全、司法\\司法",
+    "level": "国务院批复",
+    "confidence": 91,
+    "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068117.htm",
+    "jurisdiction": "上海市",
+    "scope": "在上海市暂时调整实施《外国律师事务所驻华代表机构管理条例》的部分规定",
+    "impactScope": "外国律师事务所驻上海代表机构、代表变更、司法行政审批、外资法律服务营商环境",
+    "tags": [
+      "上海",
+      "外国律师事务所",
+      "代表机构",
+      "司法行政",
+      "告知承诺",
+      "服务业开放"
+    ]
+  },
+  "brief": {
+    "judgement": "这份批复是面向上海外资法律服务开放和司法行政便利化的试点授权，重点不在直接扶持某类上市公司，而在把外国律师事务所驻上海代表机构的部分代表变更事项，从中央核准和重材料证明，调整为地方核准备案与告知承诺，从而降低跨代表处人员流动的制度摩擦。",
+    "summary": "国务院同意自批复日起在上海市暂时调整实施《外国律师事务所驻华代表机构管理条例》的有关规定，并要求上海市人民政府、司法部等部门同步调整规章和规范性文件，统筹发展和安全，建立相适应的管理制度。官方附件进一步明确两项调整：一是外国律师事务所驻上海代表机构的代表在驻上海代表机构间变更执业机构，由司法部核准调整为上海市司法局核准后报司法部备案；二是相关代表境外执业年限证明文件实行告知承诺。",
+    "keyPoints": [
+      "政策对象是外国律师事务所驻上海代表机构及其代表变更，不是一般企业经营许可。",
+      "审批权下放到上海市司法局并保留司法部备案，体现地方试点和中央备案结合。",
+      "告知承诺只针对附件列明的境外执业年限证明材料，不是取消全部代表资格要求。",
+      "官方文本没有点名具体公司或律所，企业映射应为空，并说明无上市公司直接匹配依据。"
+    ],
+    "methodology": "人工阅读中国政府网批复正文，并对页面内官方图片附件进行OCR核验，提取《外国律师事务所驻华代表机构管理条例》第十二条、第八条的调整内容。未采用媒体解读或评论。"
+  },
+  "actions": [
+    {
+      "id": "a1",
+      "title": "授权上海暂时调整实施外资律师代表机构规定",
+      "body": "国务院同意在上海市暂时调整实施《外国律师事务所驻华代表机构管理条例》的有关规定，政策空间限定在上海，属于行政法规部分规定的地方试点调整。",
+      "signal": "positive",
+      "confidence": 94,
+      "clauseIds": [
+        "c1"
+      ],
+      "sortOrder": 1
+    },
+    {
+      "id": "a2",
+      "title": "下放驻上海代表机构间代表变更核准",
+      "body": "附件将外国律师事务所驻上海代表机构的代表在驻上海代表机构间变更执业机构事项，由司法部核准调整为上海市司法局核准后报司法部备案，缩短审批链条但仍保留备案管理。",
+      "signal": "positive",
+      "confidence": 92,
+      "clauseIds": [
+        "c4"
+      ],
+      "sortOrder": 2
+    },
+    {
+      "id": "a3",
+      "title": "对境外执业年限证明实行告知承诺",
+      "body": "附件对拟任首席代表不少于3年、其他拟任代表不少于2年的中国境外执业证明文件实行告知承诺，减轻重复证明负担，但资格条件本身仍然存在。",
+      "signal": "positive",
+      "confidence": 89,
+      "clauseIds": [
+        "c5"
+      ],
+      "sortOrder": 3
+    },
+    {
+      "id": "a4",
+      "title": "要求配套制度调整和安全管理",
+      "body": "批复要求上海市人民政府、司法部等部门及时调整本市、本部门规章和规范性文件，并建立相适应的管理制度，说明便利化试点需要配套监管和风险控制。",
+      "signal": "constraint",
+      "confidence": 90,
+      "clauseIds": [
+        "c2",
+        "c3"
+      ],
+      "sortOrder": 4
+    }
+  ],
+  "clauseGroups": [
+    {
+      "id": "g1",
+      "title": "批复正文",
+      "count": 3,
+      "tone": "blue"
+    },
+    {
+      "id": "g2",
+      "title": "附件调整",
+      "count": 2,
+      "tone": "green"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "c1",
+      "no": "第一项",
+      "title": "同意上海暂时调整实施有关行政法规规定",
+      "group": "g1",
+      "excerpt": "同意自即日起在上海市暂时调整实施《外国律师事务所驻华代表机构管理条例》的有关规定。",
+      "fullText": "批复把调整限定在上海市，并明确对象是《外国律师事务所驻华代表机构管理条例》的有关规定，性质是地方试点而非全国性全面修订。",
+      "confidence": 95,
+      "keywords": [
+        "上海市",
+        "暂时调整实施",
+        "外国律师事务所",
+        "代表机构"
+      ],
+      "industries": [
+        "法律服务",
+        "司法行政",
+        "外资服务业"
+      ],
+      "sortOrder": 1
+    },
+    {
+      "id": "c2",
+      "no": "第二项",
+      "title": "地方和部门需同步调整规章规范性文件",
+      "group": "g1",
+      "excerpt": "及时对本市、本部门制定的规章和规范性文件作相应调整。",
+      "fullText": "批复要求上海市人民政府、司法部等有关部门根据上述调整及时修改配套制度，防止上位授权和地方执行之间出现规则空档。",
+      "confidence": 92,
+      "keywords": [
+        "规章",
+        "规范性文件",
+        "配套调整",
+        "管理制度"
+      ],
+      "industries": [
+        "政务服务",
+        "法律服务管理",
+        "合规咨询"
+      ],
+      "sortOrder": 2
+    },
+    {
+      "id": "c3",
+      "no": "第二项、第三项",
+      "title": "统筹发展和安全，并保留动态调整空间",
+      "group": "g1",
+      "excerpt": "统筹发展和安全，建立相适应的管理制度。",
+      "fullText": "国务院要求建立适配管理制度，并说明将根据实施情况适时调整批复内容，体现试点监管的可回收、可迭代特征。",
+      "confidence": 90,
+      "keywords": [
+        "发展和安全",
+        "管理制度",
+        "实施情况",
+        "适时调整"
+      ],
+      "industries": [
+        "司法行政监管",
+        "外资法律服务",
+        "制度试点"
+      ],
+      "sortOrder": 3
+    },
+    {
+      "id": "c4",
+      "no": "附件：第十二条调整",
+      "title": "代表在上海代表机构间变更执业机构改由上海市司法局核准备案",
+      "group": "g2",
+      "excerpt": "由司法部核准调整为上海市司法局核准后报司法部备案。",
+      "fullText": "附件针对《外国律师事务所驻华代表机构管理条例》第十二条，调整外国律师事务所驻上海代表机构的代表在驻上海代表机构间变更执业机构的审批路径。",
+      "confidence": 93,
+      "keywords": [
+        "第十二条",
+        "代表变更",
+        "上海市司法局",
+        "司法部备案"
+      ],
+      "industries": [
+        "外资律师事务所",
+        "司法行政审批",
+        "法律服务开放"
+      ],
+      "sortOrder": 4
+    },
+    {
+      "id": "c5",
+      "no": "附件：第八条调整",
+      "title": "境外执业年限证明文件实行告知承诺",
+      "group": "g2",
+      "excerpt": "拟任首席代表不少于3年、其他拟任代表不少于2年的证明文件，实行告知承诺。",
+      "fullText": "附件针对第八条所列文件材料，对驻上海代表机构间变更执业机构时相关代表的境外执业年限证明材料实行告知承诺，降低材料提交成本。",
+      "confidence": 91,
+      "keywords": [
+        "第八条",
+        "告知承诺",
+        "境外执业",
+        "证明文件"
+      ],
+      "industries": [
+        "法律服务",
+        "政务服务",
+        "外资机构合规"
+      ],
+      "sortOrder": 5
+    }
+  ],
+  "chainNodes": [
+    {
+      "id": "n1",
+      "title": "上海外资法律服务便利化",
+      "subtitle": "试点降低外国律师事务所驻沪代表机构人员流动摩擦",
+      "section": "downstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 88,
+      "description": "审批权下放和告知承诺制度可提升驻沪代表机构内部人员调配效率，有利于上海国际法律服务资源集聚，但作用对象是代表机构和执业代表，不是一般企业。",
+      "impactReason": "代表变更效率提升会改善外资法律服务机构在上海的运营便利度。",
+      "clauseIds": [
+        "c1",
+        "c4",
+        "c5"
+      ],
+      "companyIds": [],
+      "evidenceIds": [
+        "e2",
+        "e5",
+        "e6"
+      ],
+      "iconKey": "landmark"
+    },
+    {
+      "id": "n2",
+      "title": "司法行政审批链条缩短",
+      "subtitle": "上海市司法局核准后报司法部备案",
+      "section": "support",
+      "relation": "direct",
+      "evidenceLevel": "strong",
+      "confidence": 90,
+      "description": "附件把特定代表变更事项从司法部核准调整为上海市司法局核准备案，形成地方审批、中央备案的试点流程。",
+      "impactReason": "审批层级变化直接影响办理时间、材料流转和监管责任配置。",
+      "clauseIds": [
+        "c4"
+      ],
+      "companyIds": [],
+      "evidenceIds": [
+        "e5"
+      ],
+      "iconKey": "workflow"
+    },
+    {
+      "id": "n3",
+      "title": "证明材料告知承诺",
+      "subtitle": "境外执业年限证明从提交核验转向承诺管理",
+      "section": "support",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 86,
+      "description": "附件保留拟任代表境外执业年限要求，但对证明文件实行告知承诺，减轻跨境证明、公证认证和材料补正成本。",
+      "impactReason": "材料制度的调整提高办理便利度，同时要求后续监管能核验承诺真实性。",
+      "clauseIds": [
+        "c5"
+      ],
+      "companyIds": [],
+      "evidenceIds": [
+        "e6"
+      ],
+      "iconKey": "file-text"
+    },
+    {
+      "id": "n4",
+      "title": "配套监管和动态评估",
+      "subtitle": "统筹发展和安全，国务院保留适时调整权",
+      "section": "support",
+      "relation": "constraint_risk",
+      "evidenceLevel": "strong",
+      "confidence": 85,
+      "description": "批复要求相关部门建立相适应的管理制度，并根据实施情况适时调整。便利化并不意味着放松全部监管，而是把审批、备案、承诺核查和风险处置重新组合。",
+      "impactReason": "试点成效取决于上海和司法部后续规则衔接、承诺核查机制和风险处置能力。",
+      "clauseIds": [
+        "c2",
+        "c3"
+      ],
+      "companyIds": [],
+      "evidenceIds": [
+        "e3",
+        "e4"
+      ],
+      "iconKey": "shield-check"
+    }
+  ],
+  "chainEdges": [
+    {
+      "from": "n1",
+      "to": "n2",
+      "type": "strong",
+      "confidence": 84,
+      "reason": "外资法律服务便利化首先通过代表机构变更审批链条缩短实现。"
+    },
+    {
+      "from": "n1",
+      "to": "n3",
+      "type": "medium",
+      "confidence": 78,
+      "reason": "告知承诺减少材料证明负担，改善人员变更办理体验。"
+    },
+    {
+      "from": "n2",
+      "to": "n4",
+      "type": "strong",
+      "confidence": 82,
+      "reason": "审批下放后，需要地方规则、部门备案和后续核查形成监管闭环。"
+    }
+  ],
+  "companies": [],
+  "evidence": [
+    {
+      "id": "e1",
+      "title": "中国政府网公开发布批复元信息",
+      "source": "中国政府网",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068117.htm",
+      "url": "https://www.gov.cn/zhengce/content/202605/content_7068117.htm",
+      "type": "policy_text",
+      "date": "2026-05-08",
+      "excerpt": "发文机关：国务院；发文字号：国函〔2026〕38号。",
+      "confidence": 96,
+      "clauseIds": [
+        "c1"
+      ],
+      "nodeIds": [
+        "n1"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e2",
+      "title": "批复同意上海暂时调整实施有关规定",
+      "source": "中国政府网批复正文",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068117.htm",
+      "url": "https://www.gov.cn/zhengce/content/202605/content_7068117.htm",
+      "type": "policy_text",
+      "date": "2026-05-08",
+      "excerpt": "同意自即日起在上海市暂时调整实施《外国律师事务所驻华代表机构管理条例》的有关规定。",
+      "confidence": 96,
+      "clauseIds": [
+        "c1"
+      ],
+      "nodeIds": [
+        "n1"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e3",
+      "title": "批复要求配套调整规章和规范性文件",
+      "source": "中国政府网批复正文",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068117.htm",
+      "url": "https://www.gov.cn/zhengce/content/202605/content_7068117.htm",
+      "type": "policy_text",
+      "date": "2026-05-08",
+      "excerpt": "及时对本市、本部门制定的规章和规范性文件作相应调整。",
+      "confidence": 94,
+      "clauseIds": [
+        "c2"
+      ],
+      "nodeIds": [
+        "n4"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e4",
+      "title": "批复保留动态调整机制",
+      "source": "中国政府网批复正文",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/content_7068117.htm",
+      "url": "https://www.gov.cn/zhengce/content/202605/content_7068117.htm",
+      "type": "policy_text",
+      "date": "2026-05-08",
+      "excerpt": "国务院将根据上述调整实施情况，适时对本批复的内容进行调整。",
+      "confidence": 94,
+      "clauseIds": [
+        "c3"
+      ],
+      "nodeIds": [
+        "n4"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e5",
+      "title": "附件第十二条调整审批主体",
+      "source": "中国政府网官方图片附件",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/W020260508610440309411.jpg",
+      "url": "https://www.gov.cn/zhengce/content/202605/W020260508610440309411.jpg",
+      "type": "official_attachment",
+      "date": "2026-05-08",
+      "excerpt": "由司法部核准调整为上海市司法局核准后报司法部备案。",
+      "confidence": 91,
+      "clauseIds": [
+        "c4"
+      ],
+      "nodeIds": [
+        "n1",
+        "n2"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e6",
+      "title": "附件第八条调整证明材料办理方式",
+      "source": "中国政府网官方图片附件",
+      "sourceUrl": "https://www.gov.cn/zhengce/content/202605/W020260508610440309411.jpg",
+      "url": "https://www.gov.cn/zhengce/content/202605/W020260508610440309411.jpg",
+      "type": "official_attachment",
+      "date": "2026-05-08",
+      "excerpt": "境外执业不少于3年、2年的证明文件实行告知承诺。",
+      "confidence": 88,
+      "clauseIds": [
+        "c5"
+      ],
+      "nodeIds": [
+        "n1",
+        "n3"
+      ],
+      "companyIds": []
+    }
+  ],
+  "backgroundCards": [
+    {
+      "id": "b1",
+      "title": "政策性质",
+      "body": "本批复是国务院同意上海对特定行政法规规定进行暂时调整的授权文件，范围限于《外国律师事务所驻华代表机构管理条例》有关事项，不是全国性直接修法。",
+      "evidenceIds": [
+        "e1",
+        "e2"
+      ]
+    },
+    {
+      "id": "b2",
+      "title": "附件关键信息",
+      "body": "附件以图片形式列出两项调整：第十二条的审批主体从司法部核准调整为上海市司法局核准备案；第八条的部分境外执业年限证明文件实行告知承诺。",
+      "evidenceIds": [
+        "e5",
+        "e6"
+      ]
+    },
+    {
+      "id": "b3",
+      "title": "公司映射边界",
+      "body": "官方文本没有列出任何具体公司、律所或上市主体。影响对象是外国律师事务所驻上海代表机构这一经营者类别，因此本报告不列公司名单。",
+      "evidenceIds": [
+        "e2",
+        "e5",
+        "e6"
+      ]
+    },
+    {
+      "id": "b4",
+      "title": "执行关注点",
+      "body": "便利化试点需要上海市和司法部后续规则衔接，包括核准备案流程、告知承诺核查、失信处理和动态评估机制。",
+      "evidenceIds": [
+        "e3",
+        "e4"
+      ]
+    }
+  ],
+  "compareRows": [
+    [
+      "调整对象",
+      "本批复：外国律师事务所驻上海代表机构",
+      "一般市场主体登记改革：覆盖更广企业类型",
+      "本批复更窄，聚焦外资法律服务代表机构"
+    ],
+    [
+      "审批方式",
+      "上海市司法局核准后报司法部备案",
+      "原条例路径偏中央核准",
+      "变化在于审批层级和办理效率，不是取消监管"
+    ],
+    [
+      "材料要求",
+      "境外执业年限证明实行告知承诺",
+      "原要求提交证明文件",
+      "资格要求保留，证明方式更便利"
+    ]
+  ],
+  "compareInsights": {
+    "status": "limited_official_basis",
+    "basis": "仅以批复正文和官方附件目录为依据，对比调整前后制度含义。",
+    "method": "人工阅读中国政府网正文，OCR核验官方图片附件。",
+    "comparableCount": 1,
+    "similarPolicy": {
+      "title": "《外国律师事务所驻华代表机构管理条例》",
+      "issuer": "国务院",
+      "source": "本批复正文和附件引用",
+      "reason": "本批复暂时调整实施该条例的第十二条和第八条相关内容"
+    },
+    "differencePolicy": null,
+    "similarPolicies": [
+      {
+        "title": "《外国律师事务所驻华代表机构管理条例》",
+        "issuer": "国务院",
+        "source": "本批复正文和附件引用",
+        "reason": "被调整实施的上位行政法规"
+      }
+    ],
+    "contrastPolicies": [],
+    "similarityPoints": [
+      "调整前后均围绕外国律师事务所驻华代表机构及其代表资格管理。",
+      "代表境外执业年限要求并未消失，仍是资格条件之一。"
+    ],
+    "differencePoints": [
+      "上海代表机构间变更执业机构的核准主体发生变化，审批链条缩短。",
+      "部分证明文件从提交材料转向告知承诺，便利化程度提高但后续核查责任上升。"
+    ],
+    "rows": [
+      {
+        "id": "ci1",
+        "dimension": "审批层级",
+        "current": "上海市司法局核准后报司法部备案",
+        "similar": "仍属于外国律师事务所代表机构管理",
+        "different": "从中央核准转向地方核准备案",
+        "clauseIds": [
+          "c4"
+        ],
+        "evidenceIds": [
+          "e5"
+        ]
+      },
+      {
+        "id": "ci2",
+        "dimension": "材料方式",
+        "current": "境外执业年限证明实行告知承诺",
+        "similar": "拟任代表年限条件仍保留",
+        "different": "证明文件负担下降，核查转向事中事后",
+        "clauseIds": [
+          "c5"
+        ],
+        "evidenceIds": [
+          "e6"
+        ]
+      }
+    ]
+  },
+  "analysisCoverage": {
+    "status": "complete_manual_official_text_and_image_attachment",
+    "textLength": 329,
+    "attachmentReview": "已读取中国政府网正文，并对页面内官方图片附件进行OCR核验。",
+    "clauseCount": 5,
+    "actionCount": 4,
+    "evidenceCount": 6,
+    "industryNodeCount": 4,
+    "companyCount": 0,
+    "matchedKeywordCount": 14,
+    "comparablePolicyCount": 1,
+    "companyImpactConclusion": "官方批复和附件均未列出具体公司、律所或上市主体，影响对象是外国律师事务所驻上海代表机构及其代表变更事项，因此不做公司映射。",
+    "companyNoMatchReason": "政策对象是行政法规适用和司法行政审批流程调整，官方文本没有点名任何企业或可核验上市公司，列公司会造成过度推断。",
+    "limitations": [
+      "附件为图片，已用OCR核验主要文字，表格版式未逐像素复原。",
+      "政策只明确国务院同意调整和附件目录，后续上海市、司法部配套细则尚需另行跟踪。",
+      "未采用媒体解读、行业评论或非官方律所文章。",
+      "无公司列表不代表没有经营者受影响，而是官方文本不足以安全映射到具体公司。"
+    ]
+  },
+  "modules": [
+    {
+      "id": "brief",
+      "label": "政策速读"
+    },
+    {
+      "id": "industry",
+      "label": "影响链条"
+    },
+    {
+      "id": "clauses",
+      "label": "条款拆解"
+    },
+    {
+      "id": "background",
+      "label": "背景与边界"
+    },
+    {
+      "id": "compare",
+      "label": "对比分析"
+    },
+    {
+      "id": "companies",
+      "label": "公司映射"
+    },
+    {
+      "id": "evidence",
+      "label": "证据链"
+    }
+  ],
+  "topTabs": [
+    {
+      "id": "brief",
+      "label": "政策总览"
+    },
+    {
+      "id": "clauses",
+      "label": "条款拆解"
+    },
+    {
+      "id": "background",
+      "label": "边界说明"
+    },
+    {
+      "id": "compare",
+      "label": "调整对比"
+    }
+  ]
+}
