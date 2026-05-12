@@ -37,6 +37,8 @@ Input:
 Behavior:
 
 - Authenticates an active admin caller or verifies the scheduled crawler secret.
+- Rejects policies without `publishDate >= 2026-05-01`.
+- Rejects ingest requests that do not include extracted original policy `fullText` of at least 280 characters.
 - Links the policy to `policy_sources` by `sourceKey/source_key` when provided, otherwise by matching the submitted URL host against active source registry rows.
 - Creates a `policies` row with `status = 'draft'`.
 - Returns frontend-usable policy identifiers as `policyId`, `policyRef.id`, and `job.policy_id`.
@@ -112,11 +114,11 @@ Behavior:
 - Moves the policy to `status = 'published'` and marks the latest linked analysis job as `published` when present.
 - Returns `{ policyId, analyzerVersion, published, jobUpdated, jobId, reportPayload }`.
 
-The function stores the Codex-reviewed result; it does not derive production reports during scheduled crawling.
+The function stores the Codex-reviewed result; it does not derive production reports during scheduled crawling. Legacy rules-analysis request shapes are disabled in production unless the Edge Function has `ALLOW_RULES_ANALYSIS=true` set server-side and the request also explicitly opts in. Do not enable that for normal operation.
 
 ### `publish`
 
-The current scheduled/manual architecture does not call `publish` after crawling. `applyManualAnalysis` publishes the policy when it writes the reviewed Codex report payload. The standalone `publish` function remains deployable for explicit admin job flows.
+The current scheduled/manual architecture does not call `publish` after crawling. `applyManualAnalysis` publishes the policy when it writes the reviewed Codex report payload. The standalone `publish` function is locked down: it only accepts jobs whose linked policy already has `analysis_version = 'codex-manual-v1'` and `publish_date >= 2026-05-01`.
 
 Input:
 

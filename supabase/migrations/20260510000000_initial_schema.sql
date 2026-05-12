@@ -391,8 +391,12 @@ as $$
     from public.policies p
     where p.id = target_policy_id
       and (
-        p.status = 'published'
-        or public.is_admin()
+        public.is_admin()
+        or (
+          p.status = 'published'
+          and p.analysis_version = 'codex-manual-v1'
+          and p.publish_date >= date '2026-05-01'
+        )
       )
   );
 $$;

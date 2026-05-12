@@ -42,6 +42,9 @@ type ExistingPolicyRecord = {
   content_hash?: string | null;
 };
 
+const POLICY_MIN_PUBLISH_DATE = "2026-05-01";
+const MIN_POLICY_FULL_TEXT_LENGTH = 280;
+
 Deno.serve(async (req) => {
   const options = handleOptions(req);
   if (options) return options;
@@ -122,6 +125,18 @@ Deno.serve(async (req) => {
 
     if (!sourceUrl && title === "Untitled policy") {
       return jsonResponse({ error: "Provide at least sourceUrl or title." }, 400);
+    }
+
+    if (!isAllowedPolicyPublishDate(publishDate)) {
+      return jsonResponse({
+        error: `Policy ingest is limited to original policies published on or after ${POLICY_MIN_PUBLISH_DATE}.`
+      }, 409);
+    }
+
+    if (!hasUsablePolicyText(fullText)) {
+      return jsonResponse({
+        error: `Policy ingest requires original policy full_text with at least ${MIN_POLICY_FULL_TEXT_LENGTH} characters.`
+      }, 409);
     }
 
     const policyValues = {
@@ -516,6 +531,14 @@ function isMissingExternalIdColumnError(error: unknown): boolean {
 function getString(record: object, key: string): string | null {
   const value = (record as Record<string, unknown>)[key];
   return typeof value === "string" && value.trim() ? value : null;
+}
+
+function isAllowedPolicyPublishDate(value: string | null): boolean {
+  return typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value) && value >= POLICY_MIN_PUBLISH_DATE;
+}
+
+function hasUsablePolicyText(value: string | null): boolean {
+  return typeof value === "string" && value.trim().length >= MIN_POLICY_FULL_TEXT_LENGTH;
 }
 
 function buildDedupeKey(input: {

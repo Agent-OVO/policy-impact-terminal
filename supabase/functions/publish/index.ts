@@ -13,6 +13,9 @@ import {
   requireCrawlerOrAdminUser
 } from "../_shared/supabaseAdmin.ts";
 
+const POLICY_MIN_PUBLISH_DATE = "2026-05-01";
+const MANUAL_ANALYSIS_VERSION = "codex-manual-v1";
+
 Deno.serve(async (req) => {
   const options = handleOptions(req);
   if (options) return options;
@@ -38,7 +41,29 @@ Deno.serve(async (req) => {
     const hasAnalysisStub = analysisStub !== null;
     const analysisMethod = readString(analysisStub, "analysisMethod") ?? readString(analysisStub, "analysis_method");
     const analyzerVersion = readString(analysisStub, "analyzerVersion") ?? readString(analysisStub, "analyzer_version");
-    const hasManualAnalysis = analysisMethod === "codex-manual-v1" || analyzerVersion === "codex-manual-v1";
+    const hasManualAnalysis = analysisMethod === MANUAL_ANALYSIS_VERSION || analyzerVersion === MANUAL_ANALYSIS_VERSION;
+
+    const { data: currentPolicy, error: currentPolicyError } = await supabase
+      .from("policies")
+      .select("id,title,status,publish_date,analysis_version")
+      .eq("id", job.policy_id)
+      .single();
+
+    if (currentPolicyError || !currentPolicy) {
+      throw currentPolicyError ?? new Error("Linked policy lookup returned no row.");
+    }
+
+    if (!currentPolicy.publish_date || currentPolicy.publish_date < POLICY_MIN_PUBLISH_DATE) {
+      return jsonResponse({
+        error: `Only policies published on or after ${POLICY_MIN_PUBLISH_DATE} can be published to the public terminal.`
+      }, 409);
+    }
+
+    if (currentPolicy.analysis_version !== MANUAL_ANALYSIS_VERSION) {
+      return jsonResponse({
+        error: "Standalone publish is disabled until applyManualAnalysis has written a Codex manual report to the policy."
+      }, 409);
+    }
 
     if (job.status === "failed") {
       return jsonResponse({ error: "Analysis job is failed and cannot be published." }, 409);
@@ -60,7 +85,8 @@ Deno.serve(async (req) => {
       .from("policies")
       .update({
         status: "published",
-        published_at: now
+        published_at: now,
+        analysis_version: MANUAL_ANALYSIS_VERSION
       })
       .eq("id", job.policy_id)
       .select("id,title,status,published_at,analysis_version")

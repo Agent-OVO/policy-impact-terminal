@@ -713,13 +713,15 @@ function readSincePublishDate(body: Record<string, unknown>): string {
 }
 
 function requireRulesAnalysisOptIn(body: Record<string, unknown>): void {
-  if (body.allowRulesAnalysis === true || body.allow_rules_analysis === true) {
+  const serverAllowsRulesAnalysis = Deno.env.get("ALLOW_RULES_ANALYSIS") === "true";
+  const requestAllowsRulesAnalysis = body.allowRulesAnalysis === true || body.allow_rules_analysis === true;
+  if (serverAllowsRulesAnalysis && requestAllowsRulesAnalysis) {
     return;
   }
 
   throw new HttpError(
-    409,
-    "Automatic rules analysis is disabled. Use getManualAnalysisPolicy and applyManualAnalysis after Codex manually reads and analyzes the original policy text."
+    410,
+    "Automatic rules analysis is disabled in production. Use getManualAnalysisPolicy and applyManualAnalysis after Codex manually reads and analyzes the original policy text."
   );
 }
 

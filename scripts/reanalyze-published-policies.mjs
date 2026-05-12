@@ -7,14 +7,16 @@ const args = parseArgs(process.argv.slice(2));
 const limit = Math.max(1, Number(args.limit ?? DEFAULT_LIMIT));
 let chunkSize = clampChunkSize(args.chunk ?? args.chunkSize ?? DEFAULT_CHUNK_SIZE);
 const allowRulesAnalysis = args.allowRulesAnalysis === "true" || args["allow-rules-analysis"] === "true";
+const serverAllowsRulesAnalysis = process.env.ALLOW_RULES_ANALYSIS === "true";
+const confirmedRulesMigration = process.env.CONFIRM_RULES_ANALYSIS_MIGRATION === "rules-v0.2";
 const sincePublishDate = String(args.since ?? args.sincePublishDate ?? args["since-publish-date"] ?? "2026-05-01");
 const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
 const accessToken = process.env.SUPABASE_ACCESS_TOKEN || process.env.SUPABASE_FUNCTION_JWT;
 const crawlerSecret = process.env.SUPABASE_CRAWLER_SECRET;
 
-if (!allowRulesAnalysis) {
+if (!allowRulesAnalysis || !serverAllowsRulesAnalysis || !confirmedRulesMigration) {
   throw new Error(
-    "Published-policy rules reanalysis is disabled. Use scripts/manual-policy-analysis.mjs list/get/apply, or pass --allow-rules-analysis=true only for an explicit internal migration."
+    "Published-policy rules reanalysis is disabled. Use scripts/manual-policy-analysis.mjs list/get/apply. For a one-off internal migration, pass --allow-rules-analysis=true and set ALLOW_RULES_ANALYSIS=true plus CONFIRM_RULES_ANALYSIS_MIGRATION=rules-v0.2."
   );
 }
 
