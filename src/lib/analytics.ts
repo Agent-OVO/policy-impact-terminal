@@ -26,24 +26,29 @@ export type TrackUserEventInput = {
 
 const SESSION_STORAGE_KEY = "policy-terminal-analytics-session-id";
 const MAX_UNKNOWN_ANALYTICS_WARNINGS = 3;
+const MAX_DATABASE_POLICY_WARNINGS = 1;
 const knownUnknownAnalyticsWarnings = new Set<string>();
+const knownDatabasePolicyWarnings = new Set<string>();
 
 const BENIGN_ANALYTICS_ERROR_PATTERNS = [
   /\b401\b/i,
-  /\b403\b/i,
   /\bunauthenticated\b/i,
   /\bnot authenticated\b/i,
   /\bunauthorized\b/i,
-  /\bforbidden\b/i,
-  /row[-\s]level security/i,
-  /\brls\b/i,
-  /violates.*security policy/i,
   /\bjwt\b/i,
   /\bsession\b/i,
   /\brefresh token\b/i,
   /\btoken\b.*\b(expired|invalid|missing)\b/i,
   /\b(expired|invalid|missing)\b.*\btoken\b/i,
-  /\bPGRST301\b/i,
+  /\bPGRST301\b/i
+];
+
+const DATABASE_POLICY_ANALYTICS_ERROR_PATTERNS = [
+  /\b403\b/i,
+  /\bforbidden\b/i,
+  /row[-\s]level security/i,
+  /\brls\b/i,
+  /violates.*security policy/i,
   /\b42501\b/i
 ];
 
@@ -118,10 +123,25 @@ function getAnalyticsErrorSummary(error: unknown, status?: number, statusText?: 
 }
 
 function isBenignAnalyticsError(error: unknown, status?: number, statusText?: string) {
-  if (status === 401 || status === 403) return true;
+  if (status === 401) return true;
 
   const summary = getAnalyticsErrorSummary(error, status, statusText);
   return BENIGN_ANALYTICS_ERROR_PATTERNS.some((pattern) => pattern.test(summary));
+}
+
+function isDatabasePolicyAnalyticsError(summary: string, status?: number) {
+  if (status === 403) return true;
+  return DATABASE_POLICY_ANALYTICS_ERROR_PATTERNS.some((pattern) => pattern.test(summary));
+}
+
+function warnDatabasePolicyAnalyticsError(error: unknown, summary: string) {
+  const signature = summary.slice(0, 240);
+
+  if (knownDatabasePolicyWarnings.has(signature)) return;
+  if (knownDatabasePolicyWarnings.size >= MAX_DATABASE_POLICY_WARNINGS) return;
+
+  knownDatabasePolicyWarnings.add(signature);
+  console.warn("[analytics] user event rejected by database policy", summary, error);
 }
 
 function warnUnknownAnalyticsError(error: unknown, status?: number, statusText?: string) {
@@ -137,6 +157,13 @@ function warnUnknownAnalyticsError(error: unknown, status?: number, statusText?:
 
 function handleAnalyticsError(error: unknown, status?: number, statusText?: string) {
   if (isBenignAnalyticsError(error, status, statusText)) return;
+
+  const summary = getAnalyticsErrorSummary(error, status, statusText);
+  if (isDatabasePolicyAnalyticsError(summary, status)) {
+    warnDatabasePolicyAnalyticsError(error, summary);
+    return;
+  }
+
   warnUnknownAnalyticsError(error, status, statusText);
 }
 
