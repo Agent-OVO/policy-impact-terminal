@@ -738,15 +738,15 @@ export const modules: Array<{ id: ModuleId; label: string; badge?: string }> = [
   { id: "brief", label: "政策速读" },
   { id: "industry", label: "产业链影响", badge: "NEW" },
   { id: "clauses", label: "政策条款" },
-  { id: "background", label: "政策背景" },
+  { id: "background", label: "背景与边界" },
   { id: "compare", label: "对比分析" },
   { id: "companies", label: "公司影响分析" },
   { id: "evidence", label: "证据链总览" }
 ];
 
 export const topTabs: Array<{ id: ModuleId; label: string }> = [
-  { id: "brief", label: "政策总览" },
+  { id: "brief", label: "政策速读" },
   { id: "clauses", label: "政策条款" },
-  { id: "background", label: "政策背景" },
+  { id: "background", label: "背景与边界" },
   { id: "compare", label: "对比分析" }
 ];

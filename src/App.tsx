@@ -56,6 +56,7 @@ import {
   policy,
   type ChainNode,
   type Company,
+  type CompareBaselinePolicy,
   type CompareInsightRow,
   type ModuleId,
   type RelationType
@@ -131,8 +132,22 @@ type PolicyMetaWithExtras = typeof policy & {
   tags?: string[];
 };
 
-type TimelineFilter = "all" | "policy" | "evidence" | "analysis";
+type TimelineFilter = "all" | "historical" | "current" | "implementation";
 type RepositoryMode = "mock" | "supabase" | "unavailable";
+
+type HistoricalPolicyReference = CompareBaselinePolicy & {
+  focus: string;
+  relation: "similar" | "contrast" | "context";
+  sourceKind: "入库基准" | "历史政策参考";
+};
+
+type RelatedTimelineItem = {
+  type: Exclude<TimelineFilter, "all">;
+  date?: string;
+  title: string;
+  body: string;
+  source?: string;
+};
 
 function cx(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(" ");
@@ -188,6 +203,306 @@ function inferPolicyScope(currentPolicy: typeof policy) {
 function buildFilename(value: string, suffix: string) {
   const safe = value.replace(/[\\/:*?"<>|]+/g, "").replace(/\s+/g, "-").slice(0, 40) || "policy-report";
   return `${safe}-${suffix}.txt`;
+}
+
+function normalizeModuleLabel(id: ModuleId, label: string) {
+  if (id === "background") return "背景与边界";
+  return label;
+}
+
+function getPolicyThemeText(currentPolicy: typeof policy, currentActions: typeof actions = [], currentChainNodes: ChainNode[] = []) {
+  return [
+    currentPolicy.title,
+    currentPolicy.issuer,
+    currentPolicy.source,
+    currentPolicy.category,
+    currentPolicy.level,
+    currentActions.map((item) => `${item.title} ${item.body}`).join(" "),
+    currentChainNodes.map((item) => `${item.title} ${item.subtitle} ${item.description}`).join(" ")
+  ].join(" ");
+}
+
+function inferPolicyTheme(currentPolicy: typeof policy, currentActions: typeof actions = [], currentChainNodes: ChainNode[] = []) {
+  const text = getPolicyThemeText(currentPolicy, currentActions, currentChainNodes);
+  if (/水利|水资源|南水北调|供水|水价|节水|再生水/.test(text)) return "water";
+  if (/汽车|新能源车|智能网联|车联网|动力电池|充电/.test(text)) return "vehicle";
+  if (/(工业互联网|智能制造|新型工业化|工业软件|工业模型|制造业数字化)/.test(text)) return "industrial-internet";
+  if (/(人工智能|AI|大模型|算力|数据中心)/.test(text) && /(能源|电力|电网|新能源|虚拟电厂|绿色算力)/.test(text)) return "ai-energy";
+  if (/数据|数据要素|公共数据|数据资源|数据交易|数字经济|数据安全|数据资产/.test(text)) return "data";
+  if (/安全|个人信息|隐私|网络安全|合规|治理/.test(text)) return "security";
+  if (/制造|工业|中小企业|专精特新|产业链|供应链/.test(text)) return "industry";
+  return "general";
+}
+
+function buildThemeHistoricalReferences(theme: string): HistoricalPolicyReference[] {
+  const shared: HistoricalPolicyReference[] = [
+    {
+      title: "《“十四五”数字经济发展规划》",
+      issuer: "国务院",
+      publishDate: "2021-12",
+      similarity: 68,
+      focus: "提供数字基础设施、数据要素和产业数字化的中长期政策底座。",
+      relation: "context",
+      sourceKind: "历史政策参考"
+    }
+  ];
+
+  const references: Record<string, HistoricalPolicyReference[]> = {
+    data: [
+      {
+        title: "《关于构建数据基础制度更好发挥数据要素作用的意见》",
+        issuer: "中共中央、国务院",
+        publishDate: "2022-12",
+        similarity: 88,
+        focus: "奠定数据产权、流通交易、收益分配和安全治理的基础制度框架。",
+        relation: "similar",
+        sourceKind: "历史政策参考"
+      },
+      {
+        title: "《“数据要素×”三年行动计划（2024-2026年）》",
+        issuer: "国家数据局等",
+        publishDate: "2023-12",
+        similarity: 82,
+        focus: "从行业场景侧推动数据要素应用扩散，强调以应用带动供给和流通。",
+        relation: "contrast",
+        sourceKind: "历史政策参考"
+      }
+    ],
+    "ai-energy": [
+      {
+        title: "《算力基础设施高质量发展行动计划》",
+        issuer: "工业和信息化部等",
+        publishDate: "2023-10",
+        similarity: 78,
+        focus: "侧重算力供给、网络和调度体系，支撑人工智能应用扩散。",
+        relation: "similar",
+        sourceKind: "历史政策参考"
+      },
+      {
+        title: "《能源领域碳达峰实施方案》",
+        issuer: "国家发展改革委、国家能源局",
+        publishDate: "2022-08",
+        similarity: 72,
+        focus: "更强调能源结构、低碳转型和安全保供，与AI赋能能源政策形成约束侧对照。",
+        relation: "contrast",
+        sourceKind: "历史政策参考"
+      }
+    ],
+    "industrial-internet": [
+      {
+        title: "《工业互联网创新发展行动计划（2021-2023年）》",
+        issuer: "工业和信息化部",
+        publishDate: "2020-12",
+        similarity: 84,
+        focus: "更侧重工业互联网网络、平台、安全体系和融合应用的基础建设。",
+        relation: "similar",
+        sourceKind: "历史政策参考"
+      },
+      {
+        title: "《“十四五”信息化和工业化深度融合发展规划》",
+        issuer: "工业和信息化部",
+        publishDate: "2021-11",
+        similarity: 76,
+        focus: "从两化融合和制造业数字化转型角度提供中期政策参照。",
+        relation: "contrast",
+        sourceKind: "历史政策参考"
+      }
+    ],
+    water: [
+      {
+        title: "《水利工程供水价格管理办法》",
+        issuer: "国家发展改革委、水利部",
+        publishDate: "2022-01",
+        similarity: 84,
+        focus: "提供水利工程供水成本监审、价格核定和收费约束的基础规则。",
+        relation: "similar",
+        sourceKind: "历史政策参考"
+      },
+      {
+        title: "《国家水网建设规划纲要》",
+        issuer: "中共中央、国务院",
+        publishDate: "2023-05",
+        similarity: 70,
+        focus: "更偏工程网络和水资源配置格局，适合对照当前政策的价格、运营或结算安排。",
+        relation: "contrast",
+        sourceKind: "历史政策参考"
+      }
+    ],
+    vehicle: [
+      {
+        title: "《新能源汽车产业发展规划（2021-2035年）》",
+        issuer: "国务院办公厅",
+        publishDate: "2020-10",
+        similarity: 76,
+        focus: "从产业发展、技术路线和基础设施建设角度提供历史参照。",
+        relation: "similar",
+        sourceKind: "历史政策参考"
+      }
+    ],
+    security: [
+      {
+        title: "《数据安全法》",
+        issuer: "全国人大常委会",
+        publishDate: "2021-06",
+        similarity: 78,
+        focus: "确立数据分类分级、风险监测和安全治理的法律底线。",
+        relation: "similar",
+        sourceKind: "历史政策参考"
+      },
+      {
+        title: "《个人信息保护法》",
+        issuer: "全国人大常委会",
+        publishDate: "2021-08",
+        similarity: 72,
+        focus: "更偏个人信息处理规则和权益保护，适合对照政策中的合规边界。",
+        relation: "contrast",
+        sourceKind: "历史政策参考"
+      }
+    ],
+    industry: [
+      {
+        title: "《“十四五”促进中小企业发展规划》",
+        issuer: "工业和信息化部",
+        publishDate: "2021-12",
+        similarity: 70,
+        focus: "围绕专精特新、创新能力和产业链配套能力形成历史政策参照。",
+        relation: "similar",
+        sourceKind: "历史政策参考"
+      }
+    ],
+    general: []
+  };
+
+  return [...(references[theme] ?? []), ...shared];
+}
+
+function toHistoricalReference(
+  item: CompareBaselinePolicy | null | undefined,
+  relation: HistoricalPolicyReference["relation"],
+  sourceKind: HistoricalPolicyReference["sourceKind"]
+): HistoricalPolicyReference | null {
+  if (!item?.title) return null;
+  return {
+    ...item,
+    focus: item.reason || "作为当前政策的历史参照，用于识别政策延续、强化和边界变化。",
+    relation,
+    sourceKind
+  };
+}
+
+function dedupeHistoricalReferences(items: Array<HistoricalPolicyReference | null>) {
+  const seen = new Set<string>();
+  return items.filter((item): item is HistoricalPolicyReference => {
+    if (!item) return false;
+    const key = `${item.title}-${item.publishDate || ""}`.replace(/\s+/g, "");
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+function buildHistoricalPolicyReferences(
+  currentPolicy: typeof policy,
+  currentActions: typeof actions = [],
+  currentChainNodes: ChainNode[] = [],
+  compareInsight?: PolicyReport["compareInsights"]
+) {
+  const stored = dedupeHistoricalReferences([
+    toHistoricalReference(compareInsight?.similarPolicy, "similar", "入库基准"),
+    toHistoricalReference(compareInsight?.differencePolicy, "contrast", "入库基准"),
+    ...(compareInsight?.similarPolicies ?? []).map((item) => toHistoricalReference(item, "similar", "入库基准")),
+    ...(compareInsight?.contrastPolicies ?? []).map((item) => toHistoricalReference(item, "contrast", "入库基准"))
+  ]);
+
+  const theme = inferPolicyTheme(currentPolicy, currentActions, currentChainNodes);
+  const fallback = buildThemeHistoricalReferences(theme);
+  return dedupeHistoricalReferences([...stored, ...fallback]).slice(0, 6);
+}
+
+function dateSortValue(value?: string) {
+  if (!value) return Number.MAX_SAFE_INTEGER;
+  const match = value.match(/(\d{4})(?:-(\d{1,2}))?(?:-(\d{1,2}))?/);
+  if (!match) return Number.MAX_SAFE_INTEGER;
+  const year = Number(match[1]);
+  const month = Number(match[2] ?? 1) - 1;
+  const day = Number(match[3] ?? 1);
+  return new Date(year, month, day).getTime();
+}
+
+function buildRelatedPolicyTimeline(
+  currentPolicy: typeof policy,
+  currentActions: typeof actions = [],
+  currentChainNodes: ChainNode[] = [],
+  compareInsight?: PolicyReport["compareInsights"]
+): RelatedTimelineItem[] {
+  const historicalReferences = buildHistoricalPolicyReferences(currentPolicy, currentActions, currentChainNodes, compareInsight);
+  const items: RelatedTimelineItem[] = [
+    ...historicalReferences.map((item) => ({
+      type: "historical" as const,
+      date: item.publishDate,
+      title: item.title,
+      source: `${item.sourceKind}${item.issuer ? ` · ${item.issuer}` : ""}`,
+      body: item.focus
+    })),
+    {
+      type: "current",
+      date: currentPolicy.publishDate,
+      title: "当前政策发布",
+      source: currentPolicy.issuer || "发布机构待补充",
+      body: `${currentPolicy.category || "政策文件"}，影响范围：${inferPolicyScope(currentPolicy)}。`
+    }
+  ];
+
+  if (currentPolicy.effectiveDate && currentPolicy.effectiveDate !== currentPolicy.publishDate) {
+    items.push({
+      type: "implementation",
+      date: currentPolicy.effectiveDate,
+      title: "执行节点",
+      source: "当前政策",
+      body: `政策生效或执行起点。需结合条款继续跟踪实施主体、配套规则和地方落地。`
+    });
+  }
+
+  currentActions.slice(0, 2).forEach((item, index) => {
+    items.push({
+      type: "implementation",
+      date: currentPolicy.effectiveDate || currentPolicy.publishDate,
+      title: item.title || `执行抓手 ${index + 1}`,
+      source: "动作拆解",
+      body: compactText(item.body, 76)
+    });
+  });
+
+  return items.sort((left, right) => dateSortValue(left.date) - dateSortValue(right.date));
+}
+
+function buildConicGradient(segments: Array<{ color: string; value: number }>) {
+  const total = segments.reduce((sum, item) => sum + Math.max(0, item.value), 0);
+  if (total <= 0) return "conic-gradient(rgba(206, 215, 255, 0.72) 0 100%)";
+
+  let cursor = 0;
+  const stops = segments.map((item) => {
+    const start = cursor;
+    cursor += (Math.max(0, item.value) / total) * 100;
+    return `${item.color} ${start.toFixed(2)}% ${cursor.toFixed(2)}%`;
+  });
+
+  return `conic-gradient(${stops.join(", ")})`;
+}
+
+function wrapPolicyTitle(title: string) {
+  const normalized = title.trim();
+  if (!normalized) return "未命名政策";
+  return normalized.startsWith("《") && normalized.endsWith("》") ? normalized : `《${normalized}》`;
+}
+
+function hasWeakCompareRows(rows: CompareInsightRow[]) {
+  if (!rows.length) return false;
+  const weakPattern = /暂无(相似|差异|可比|入库|历史参考)|无可比|不生成|尚未返回/;
+  const weakCount = rows.filter((row) =>
+    weakPattern.test([row.similar, row.different, row.explanation].filter(Boolean).join(" "))
+  ).length;
+  return weakCount >= Math.max(2, Math.ceil(rows.length / 2));
 }
 
 function downloadTextFile(filename: string, content: string) {
@@ -707,7 +1022,7 @@ function PolicySidebar({
               {module.id === "compare" && <GitCompareArrows size={16} />}
               {module.id === "companies" && <Building2 size={16} />}
               {module.id === "evidence" && <FileText size={16} />}
-              <span>{module.label}</span>
+              <span>{normalizeModuleLabel(module.id, module.label)}</span>
               {module.badge && <em>{module.badge}</em>}
             </button>
           ))}
@@ -742,35 +1057,20 @@ function PolicySidebar({
 }
 
 function ReportHeader({
-  activeModule,
-  setActiveModule,
   report,
   onRefresh,
   refreshing
 }: {
-  activeModule: ModuleId;
-  setActiveModule: (module: ModuleId) => void;
   report: PolicyReport | null;
   onRefresh: () => void;
   refreshing: boolean;
 }) {
-  const currentTopTabs = report?.topTabs ?? [];
-  const currentModules = report?.modules ?? [];
-  const activeOutsideTopTabs = !currentTopTabs.some((tab) => tab.id === activeModule);
-  const activeModuleMeta = currentModules.find((module) => module.id === activeModule);
-  const visibleTabs = activeOutsideTopTabs && activeModuleMeta ? [...currentTopTabs, activeModuleMeta] : currentTopTabs;
-
   return (
-    <div className="report-header">
-      <nav className="top-tabs">
-        {visibleTabs.length > 0 ? visibleTabs.map((tab) => (
-          <button key={tab.id} className={cx(activeModule === tab.id && "active")} onClick={() => setActiveModule(tab.id)}>
-            {tab.label}
-          </button>
-        )) : (
-          <span className="tab-placeholder">报表加载中</span>
-        )}
-      </nav>
+    <div className="report-header report-header-compact">
+      <div className="report-header-context">
+        <span>当前报表</span>
+        <strong>{report?.policy?.title || "报表加载中"}</strong>
+      </div>
       <div className="update-status">
         <span>数据更新：{report?.generatedAt ? new Date(report.generatedAt).toLocaleString("zh-CN", { hour12: false }) : "读取中"}</span>
         <button type="button" onClick={onRefresh} disabled={refreshing}>
@@ -1553,6 +1853,8 @@ function BackgroundView({ report }: { report: PolicyReport | null }) {
   const currentEvidence = report?.evidence ?? evidence;
   const currentClauses = report?.clauses ?? clauses;
   const currentChainNodes = report?.chainNodes ?? chainNodes;
+  const currentActions = report?.actions ?? actions;
+  const compareInsight = report?.compareInsights;
   const policySourceUrl = getPolicySourceUrl(currentPolicy);
   const [timelineFilter, setTimelineFilter] = useState<TimelineFilter>("all");
   const backgroundFactors = [
@@ -1570,32 +1872,12 @@ function BackgroundView({ report }: { report: PolicyReport | null }) {
     formatSourceTypeLabel(item.type, "证据"),
     item.confidence >= 85 ? "高" : "中"
   ]);
-  const timelineItems = [
-    {
-      type: "policy" as const,
-      date: currentPolicy.publishDate,
-      title: "政策发布",
-      body: `${currentPolicy.issuer || "发布机构"}发布${currentPolicy.category || "政策文件"}。`
-    },
-    {
-      type: "policy" as const,
-      date: currentPolicy.effectiveDate,
-      title: "政策生效",
-      body: `影响范围：${inferPolicyScope(currentPolicy)}。`
-    },
-    ...currentEvidence.slice(0, 4).map((item) => ({
-      type: "evidence" as const,
-      date: item.date || currentPolicy.publishDate,
-      title: formatSourceTypeLabel(item.type, "证据"),
-      body: `${formatSourceTypeLabel(item.source, "未标注来源")}：${compactText(item.excerpt, 56)}`
-    })),
-    {
-      type: "analysis" as const,
-      date: report?.generatedAt?.slice(0, 10) || currentPolicy.publishDate,
-      title: "系统生成分析",
-      body: `已形成 ${currentClauses.length} 条条款、${currentChainNodes.length} 个产业节点、${currentEvidence.length} 条证据。`
-    }
-  ].filter((item, index, list) => item.date || index === list.length - 1);
+  const timelineItems = buildRelatedPolicyTimeline(
+    currentPolicy,
+    currentActions,
+    currentChainNodes,
+    compareInsight
+  ).filter((item, index, list) => item.date || index === list.length - 1);
   const visibleTimeline = timelineItems.filter((item) => timelineFilter === "all" || item.type === timelineFilter);
   const dataCoverage = [
     ["政策来源", policySourceUrl ? "已保存" : "缺失", policySourceUrl ? "可跳转原文" : "需要补充 URL", policySourceUrl ? 92 : 24],
@@ -1629,13 +1911,16 @@ function BackgroundView({ report }: { report: PolicyReport | null }) {
       </section>
       <section className="panel timeline-panel">
         <div className="panel-head">
-          <h2>时间线</h2>
+          <div>
+            <h2>相关政策时间线</h2>
+            <p>把历史政策、当前政策和执行节点放在同一条线上，用于判断政策演进与边界变化。</p>
+          </div>
           <div className="segmented-filter">
             {[
               ["all", "全部"],
-              ["policy", "政策"],
-              ["evidence", "证据"],
-              ["analysis", "分析"]
+              ["historical", "历史政策"],
+              ["current", "当前政策"],
+              ["implementation", "执行节点"]
             ].map(([value, label]) => (
               <button
                 key={value}
@@ -1650,9 +1935,10 @@ function BackgroundView({ report }: { report: PolicyReport | null }) {
         </div>
         <div className="timeline timeline-flow">
           {visibleTimeline.map((item, index) => (
-            <article key={`${item.type}-${item.date}-${index}`}>
+            <article className={cx("timeline-item", `timeline-item-${item.type}`)} key={`${item.type}-${item.date}-${index}`}>
               <span>{formatDateLabel(item.date)}</span>
               <b>{item.title}</b>
+              {item.source && <em>{item.source}</em>}
               <p>{item.body}</p>
             </article>
           ))}
@@ -1708,9 +1994,13 @@ function CompareView({ report }: { report: PolicyReport | null }) {
   const currentEvidence = report?.evidence ?? evidence;
   const compareInsight = report?.compareInsights;
   const coverage = report?.analysisCoverage;
-  const similarBase = compareInsight?.similarPolicy || compareInsight?.similarPolicies?.[0] || null;
-  const differenceBase = compareInsight?.differencePolicy || compareInsight?.contrastPolicies?.[0] || null;
-  const noBaselineLabel = "暂无入库基准";
+  const historicalReferences = useMemo(
+    () => buildHistoricalPolicyReferences(currentPolicy, currentActions, currentChainNodes, compareInsight),
+    [compareInsight, currentActions, currentChainNodes, currentPolicy]
+  );
+  const similarBase = historicalReferences.find((item) => item.relation === "similar") || historicalReferences.find((item) => item.relation === "context") || null;
+  const differenceBase = historicalReferences.find((item) => item.relation === "contrast") || historicalReferences.find((item) => item.title !== similarBase?.title) || null;
+  const noBaselineLabel = "暂无历史参考";
   const topActionText = currentActions.slice(0, 3).map((item) => item.title).filter(Boolean).join("；") || "尚未返回政策动作";
   const topNodeText = currentChainNodes.slice(0, 4).map((item) => item.title).filter(Boolean).join("、") || "尚未形成产业节点";
   const highEvidenceCount = currentEvidence.filter((item) => item.confidence >= 85).length;
@@ -1724,9 +2014,28 @@ function CompareView({ report }: { report: PolicyReport | null }) {
     similar: row[2] || "",
     different: row[3] || ""
   })), [report]);
+  const storedCompareRowsAreWeak = Boolean(compareInsight?.rows?.length && hasWeakCompareRows(compareInsight.rows));
   const fallbackRows = useMemo<CompareInsightRow[]>(() => {
-    const baselineCell = (item: typeof similarBase, label: string) =>
-      item ? `已识别《${item.title}》，但该维度解释尚未返回。` : `${noBaselineLabel}：不生成${label}政策伪匹配。`;
+    const baselineCell = (item: typeof similarBase, label: string, dimension: string) => {
+      if (!item) return `${noBaselineLabel}：需要在人工分析时补充同主题历史政策。`;
+      const title = wrapPolicyTitle(item.title);
+      const source = item.sourceKind === "入库基准" ? "入库政策" : "历史政策参考";
+      const focus = item.focus || item.reason || "可作为政策沿革参照。";
+      const focusClause = focus.replace(/[。；;]+$/g, "");
+      if (dimension === "政策定位与适用范围") {
+        return `${title}属于${source}，由${item.issuer || "相关部门"}发布，重点是${focus}`;
+      }
+      if (dimension === "目标抓手") {
+        return `${title}的主要抓手是${focusClause}；与当前政策的对照重点是“${topActionText}”。`;
+      }
+      if (dimension === "产业影响链路") {
+        return `${title}可用于观察产业链变化：当前政策指向 ${topNodeText}，历史政策侧重 ${focusClause}。`;
+      }
+      if (dimension === "证据支撑") {
+        return `${title}提供${label}参照；当前页仍以本政策原文证据为准，历史政策仅用于解释延续和变化。`;
+      }
+      return `${title}作为${label}参照：${focus}`;
+    };
     const clauseGroupSummary = currentClauseGroups.length
       ? currentClauseGroups.map((group) => `${group.title || "未命名分组"} ${group.count || currentClauses.filter((clause) => clause.group === group.id).length} 条`).join("、")
       : "尚未返回条款分组";
@@ -1736,44 +2045,45 @@ function CompareView({ report }: { report: PolicyReport | null }) {
         id: "coverage-scope",
         dimension: "政策定位与适用范围",
         current: `${currentPolicy.category || "政策文件"}，适用范围：${inferPolicyScope(currentPolicy)}。发布机构：${currentPolicy.issuer || "待补充"}。`,
-        similar: baselineCell(similarBase, "相似"),
-        different: baselineCell(differenceBase, "差异")
+        similar: baselineCell(similarBase, "相似", "政策定位与适用范围"),
+        different: baselineCell(differenceBase, "差异", "政策定位与适用范围")
       },
       {
         id: "coverage-actions",
         dimension: "目标抓手",
         current: `核心动作：${topActionText}。`,
-        similar: baselineCell(similarBase, "相似"),
-        different: baselineCell(differenceBase, "差异")
+        similar: baselineCell(similarBase, "相似", "目标抓手"),
+        different: baselineCell(differenceBase, "差异", "目标抓手")
       },
       {
         id: "coverage-clauses",
         dimension: "条款结构",
         current: `已抽取 ${currentClauses.length} 条条款；${clauseGroupSummary}。`,
-        similar: baselineCell(similarBase, "相似"),
-        different: baselineCell(differenceBase, "差异")
+        similar: baselineCell(similarBase, "相似", "条款结构"),
+        different: baselineCell(differenceBase, "差异", "条款结构")
       },
       {
         id: "coverage-impact",
         dimension: "产业影响链路",
         current: `已形成 ${currentChainNodes.length} 个产业节点，重点指向：${topNodeText}。`,
-        similar: baselineCell(similarBase, "相似"),
-        different: baselineCell(differenceBase, "差异")
+        similar: baselineCell(similarBase, "相似", "产业影响链路"),
+        different: baselineCell(differenceBase, "差异", "产业影响链路")
       },
       {
         id: "coverage-evidence",
         dimension: "证据支撑",
         current: `已收录 ${currentEvidence.length} 条证据，其中高置信证据 ${highEvidenceCount} 条；来源与类型标签已中文化。`,
-        similar: baselineCell(similarBase, "相似"),
-        different: baselineCell(differenceBase, "差异")
+        similar: baselineCell(similarBase, "相似", "证据支撑"),
+        different: baselineCell(differenceBase, "差异", "证据支撑")
       }
     ];
-  }, [currentActions, currentChainNodes, currentClauseGroups, currentClauses, currentEvidence, currentPolicy, differenceBase, highEvidenceCount, noBaselineLabel, similarBase, topActionText, topNodeText]);
+  }, [currentChainNodes, currentClauseGroups, currentClauses, currentEvidence, currentPolicy, differenceBase, highEvidenceCount, noBaselineLabel, similarBase, topActionText, topNodeText]);
   const displayedRows = useMemo<CompareInsightRow[]>(() => {
-    if (compareInsight?.rows?.length) return compareInsight.rows;
+    if (compareInsight?.rows?.length && !storedCompareRowsAreWeak) return compareInsight.rows;
+    if (historicalReferences.length) return fallbackRows;
     if (legacyRows.length) return legacyRows;
     return fallbackRows;
-  }, [compareInsight?.rows, fallbackRows, legacyRows]);
+  }, [compareInsight?.rows, fallbackRows, historicalReferences.length, legacyRows, storedCompareRowsAreWeak]);
   const [selectedRowId, setSelectedRowId] = useState(displayedRows[0]?.id ?? "");
   const selectedRow = displayedRows.find((row) => row.id === selectedRowId) || displayedRows[0];
   const detailClause = selectedRow?.clauseIds?.length
@@ -1792,13 +2102,14 @@ function CompareView({ report }: { report: PolicyReport | null }) {
   }, [displayedRows, selectedRowId]);
 
   function baselineMeta(item: typeof similarBase) {
-    if (!item) return "仍展示当前政策维度，不生成伪匹配";
+    if (!item) return "需要补充历史政策参考";
     const parts = [
+      item.sourceKind,
       item.issuer,
       item.publishDate,
       typeof item.similarity === "number" ? `相似度 ${item.similarity}/100` : ""
     ].filter(Boolean);
-    return parts.join(" · ") || "已入库政策基准";
+    return parts.join(" · ") || item.sourceKind;
   }
 
   function baselineTitle(item: typeof similarBase, fallback: string) {
@@ -1809,9 +2120,10 @@ function CompareView({ report }: { report: PolicyReport | null }) {
     return [row.dimension, row.current, row.similar, row.different];
   }
 
-  const comparableCount = compareInsight?.comparableCount ?? coverage?.comparablePolicyCount ?? 0;
-  const hasBaseline = Boolean(similarBase || differenceBase || comparableCount > 0);
-  const emptyCompareReason = compareInsight?.emptyReason || "暂无入库基准；已按当前政策结构展示可比分析维度。";
+  const comparableCount = compareInsight?.comparableCount ?? coverage?.comparablePolicyCount ?? historicalReferences.length;
+  const hasBaseline = Boolean(similarBase || differenceBase || comparableCount > 0 || historicalReferences.length > 0);
+  const emptyCompareReason = compareInsight?.emptyReason || "暂无历史参考；已按当前政策结构展示可比分析维度。";
+  const hasExternalHistoricalRefs = historicalReferences.some((item) => item.sourceKind === "历史政策参考");
   const rowSimilarityPoints = displayedRows
     .filter((row) => row.similar && !row.similar.includes(noBaselineLabel))
     .slice(0, 3)
@@ -1820,7 +2132,8 @@ function CompareView({ report }: { report: PolicyReport | null }) {
     .filter((row) => row.different && !row.different.includes(noBaselineLabel))
     .slice(0, 3)
     .map((row) => `在“${row.dimension}”维度：${row.different}`);
-  const similarityPoints = compareInsight?.similarityPoints?.length
+  const useStoredComparePoints = Boolean(compareInsight?.rows?.length && !storedCompareRowsAreWeak);
+  const similarityPoints = useStoredComparePoints && compareInsight?.similarityPoints?.length
     ? compareInsight.similarityPoints
     : rowSimilarityPoints.length
       ? rowSimilarityPoints
@@ -1828,16 +2141,18 @@ function CompareView({ report }: { report: PolicyReport | null }) {
           `${noBaselineLabel}。本页先把当前政策拆成“定位、抓手、条款、影响、证据”五个可比维度。`,
           `当前政策覆盖：${coverageSummary}；后续有基准入库后可直接复用这些维度做相似性计算。`
         ];
-  const differencePoints = compareInsight?.differencePoints?.length
+  const differencePoints = useStoredComparePoints && compareInsight?.differencePoints?.length
     ? compareInsight.differencePoints
     : rowDifferencePoints.length
       ? rowDifferencePoints
       : [
-          `${noBaselineLabel}。差异判断需要真实基准政策，因此这里不生成虚构差异结论。`,
+          `${noBaselineLabel}。差异判断需要真实历史政策或人工补充参照，因此这里不生成虚构差异结论。`,
           `当前可先关注政策自身的独特覆盖：${topActionText}；产业链路集中于 ${topNodeText}。`
         ];
   const compareStatusText = hasBaseline
-    ? `系统已检索 ${comparableCount} 篇已发布政策作为基准。${compareInsight?.method || compareInsight?.basis || "下方按维度展示相似与差异依据。"}`
+    ? hasExternalHistoricalRefs && !compareInsight?.comparableCount
+      ? `系统已按政策主题整理 ${historicalReferences.length} 项历史政策参考（不纳入本系统政策库），用于解释延续、强化和边界变化。`
+      : `系统已检索 ${comparableCount} 篇已发布政策作为基准。${compareInsight?.method || compareInsight?.basis || "下方按维度展示相似与差异依据。"}`
     : `${emptyCompareReason} 当前覆盖 ${coverageSummary}，可用于后续真实基准入库后的逐项比较。`;
 
   function exportCompareReport() {
@@ -1846,6 +2161,7 @@ function CompareView({ report }: { report: PolicyReport | null }) {
       `发布日期：${currentPolicy.publishDate || "待补充"}`,
       `相似基准：${baselineTitle(similarBase, noBaselineLabel)}`,
       `差异基准：${baselineTitle(differenceBase, noBaselineLabel)}`,
+      `历史参考：${historicalReferences.map((item) => item.title).join("；") || "暂无"}`,
       "",
       "相似点：",
       ...similarityPoints.map((item) => `- ${item}`),
@@ -1870,7 +2186,7 @@ function CompareView({ report }: { report: PolicyReport | null }) {
         <div className="panel-head">
           <div>
             <h2>对比分析</h2>
-            <p>通过已入库政策文本、条款与影响层面的多维对比，识别相似政策和差异政策。</p>
+            <p>结合入库基准和历史政策参考，说明当前政策延续了什么、强化了什么、边界变化在哪里。</p>
           </div>
           <div className="toolbar">
             <button type="button" onClick={exportCompareReport}><Download size={15} /> 导出对比报告</button>
@@ -1885,8 +2201,8 @@ function CompareView({ report }: { report: PolicyReport | null }) {
           </article>
           <article>
             <span>基准状态</span>
-            <strong>{hasBaseline ? `${comparableCount} 篇可比政策` : noBaselineLabel}</strong>
-            <p>{hasBaseline ? "相似与差异结论来自入库基准。" : "未指向具体政策，不生成伪匹配。"}</p>
+            <strong>{hasBaseline ? `${comparableCount} 项历史参考` : noBaselineLabel}</strong>
+            <p>{hasExternalHistoricalRefs ? "用于当前页对比说明，不自动纳入新政策库。" : hasBaseline ? "相似与差异结论来自入库基准。" : "未指向具体政策，不生成伪匹配。"}</p>
           </article>
           <article>
             <span>分析重心</span>
@@ -1902,13 +2218,13 @@ function CompareView({ report }: { report: PolicyReport | null }) {
           </article>
           <GitCompareArrows className="compare-link-icon" size={22} />
           <article className={cx("compare-card", "baseline-card", !similarBase && "missing-baseline")}>
-            <span>相似基准</span>
+            <span>相似参考</span>
             <strong>{baselineTitle(similarBase, noBaselineLabel)}</strong>
             <p>{baselineMeta(similarBase)}</p>
           </article>
           <GitCompareArrows className="compare-link-icon" size={22} />
           <article className={cx("compare-card", "baseline-card", !differenceBase && "missing-baseline")}>
-            <span>差异基准</span>
+            <span>差异参考</span>
             <strong>{baselineTitle(differenceBase, noBaselineLabel)}</strong>
             <p>{baselineMeta(differenceBase)}</p>
           </article>
@@ -1927,8 +2243,8 @@ function CompareView({ report }: { report: PolicyReport | null }) {
           <div className="matrix-row header">
             <span>对比维度</span>
             <span>当前政策（{currentPolicy.publishDate?.slice(0, 4) || "本次"}）</span>
-            <span>相似基准</span>
-            <span>差异基准</span>
+            <span>相似参考</span>
+            <span>差异参考</span>
           </div>
           {displayedRows.length === 0 ? (
             <p className="empty-note">{emptyCompareReason}</p>
@@ -1958,11 +2274,11 @@ function CompareView({ report }: { report: PolicyReport | null }) {
           <p>{selectedRow?.current || `当前政策已覆盖 ${coverageSummary}，该维度摘要待补充。`}</p>
         </section>
         <section className="compare-detail-section baseline-section">
-          <h4>相似基准</h4>
+          <h4>相似参考</h4>
           <p>{selectedRow?.similar || `${noBaselineLabel}；该维度保留为后续真实基准入库后的对照位。`}</p>
         </section>
         <section className="compare-detail-section contrast-section">
-          <h4>差异基准</h4>
+          <h4>差异参考</h4>
           <p>{selectedRow?.different || `${noBaselineLabel}；差异解释需要真实基准政策支撑。`}</p>
         </section>
         {selectedRow?.explanation && (
@@ -2009,6 +2325,14 @@ function EvidenceView({ report }: { report: PolicyReport | null }) {
   const pendingEvidence = currentEvidence.filter((item) => item.confidence >= 50 && item.confidence < 70).length;
   const weakEvidence = currentEvidence.filter((item) => item.confidence < 50).length;
   const policyOriginalEvidence = currentEvidence.filter((item) => formatSourceTypeLabel(item.type, "").includes("政策原文")).length;
+  const evidenceTotal = currentEvidence.length;
+  const highEvidenceShare = evidenceTotal ? Math.round((highEvidence / evidenceTotal) * 100) : 0;
+  const evidenceDonutGradient = buildConicGradient([
+    { color: "var(--green)", value: highEvidence },
+    { color: "var(--blue)", value: mediumEvidence },
+    { color: "var(--amber)", value: pendingEvidence },
+    { color: "var(--red)", value: weakEvidence }
+  ]);
 
   return (
     <div className="evidence-layout">
@@ -2031,12 +2355,19 @@ function EvidenceView({ report }: { report: PolicyReport | null }) {
       </section>
       <aside className="panel">
         <h2>信号强度分布</h2>
-        <div className="donut" />
+        <div
+          className="donut evidence-donut"
+          style={{ background: `radial-gradient(circle, #fff 0 54%, transparent 55%), ${evidenceDonutGradient}` }}
+          aria-label={`强证据占比 ${highEvidenceShare}%`}
+        >
+          <strong>{highEvidenceShare}%</strong>
+          <span>强证据</span>
+        </div>
         <ul className="legend-list">
-          <li><span className="dot green" /> 强证据 {highEvidence}</li>
-          <li><span className="dot blue" /> 中性 {mediumEvidence}</li>
-          <li><span className="dot orange" /> 待验证 {pendingEvidence}</li>
-          <li><span className="dot red" /> 弱/风险 {weakEvidence}</li>
+          <li><span className="dot green" /><span className="legend-label">强证据</span><b>{highEvidence}</b><em>{evidenceTotal ? Math.round((highEvidence / evidenceTotal) * 100) : 0}%</em></li>
+          <li><span className="dot blue" /><span className="legend-label">中性</span><b>{mediumEvidence}</b><em>{evidenceTotal ? Math.round((mediumEvidence / evidenceTotal) * 100) : 0}%</em></li>
+          <li><span className="dot orange" /><span className="legend-label">待验证</span><b>{pendingEvidence}</b><em>{evidenceTotal ? Math.round((pendingEvidence / evidenceTotal) * 100) : 0}%</em></li>
+          <li><span className="dot red" /><span className="legend-label">弱/风险</span><b>{weakEvidence}</b><em>{evidenceTotal ? Math.round((weakEvidence / evidenceTotal) * 100) : 0}%</em></li>
         </ul>
       </aside>
     </div>
@@ -2991,8 +3322,6 @@ export function App() {
           </div>
           <main className="report-main">
             <ReportHeader
-              activeModule={activeModule}
-              setActiveModule={(module) => changeModule(module, "top_tab")}
               report={activeReport}
               onRefresh={refreshCurrentReport}
               refreshing={reportLoading}

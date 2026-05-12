@@ -82,6 +82,7 @@ export function CompanyLogo({
   const companyName = getCompanyName(company);
   const label = `${companyName} 标识`;
   const fallbackLabel = `${companyName} 标识暂不可用`;
+  const logoFallbackDelay = variant === "matrix" ? 520 : variant === "card" ? 900 : 1200;
 
   useEffect(() => {
     setLogoIndex(0);
@@ -100,10 +101,10 @@ export function CompanyLogo({
         if (logoCandidates[index] !== currentLogo) return index;
         return Math.min(index + 1, logoCandidates.length);
       });
-    }, 1800);
+    }, logoFallbackDelay);
 
     return () => window.clearTimeout(timeout);
-  }, [currentLogo, logoCandidates, logoLoaded]);
+  }, [currentLogo, logoCandidates, logoFallbackDelay, logoLoaded]);
 
   function advanceLogoCandidate() {
     setLogoLoaded(false);
@@ -138,7 +139,7 @@ export function CompanyLogo({
           <img
             src={currentLogo}
             alt={label}
-            loading="lazy"
+            loading={variant === "matrix" || variant === "hero" ? "eager" : "lazy"}
             decoding="async"
             referrerPolicy="no-referrer"
             style={logoImageStyle}

@@ -25,6 +25,21 @@ const matrixSelectedMetaStyle: CSSProperties = {
   whiteSpace: "nowrap"
 };
 
+function buildScoreDomain(values: number[]) {
+  const safeValues = values.map(clampScore);
+  const min = Math.min(...safeValues);
+  const max = Math.max(...safeValues);
+  return { min, max, spread: max - min };
+}
+
+function scaleScoreWithinDomain(value: number, domain: { min: number; max: number; spread: number }, index: number, total: number) {
+  if (domain.spread < 8) {
+    return total <= 1 ? 52 : 20 + (index / (total - 1)) * 64;
+  }
+
+  return 18 + ((clampScore(value) - domain.min) / domain.spread) * 68;
+}
+
 export function CompanyMatrix({
   compact,
   companies = [],
@@ -66,6 +81,18 @@ export function CompanyMatrix({
   const selectedPlatform = selected.platform.trim() || "未标注业务";
   const selectedPolicyRelevance = clampScore(selected.policyRelevance);
   const selectedEvidenceCertainty = clampScore(selected.evidenceCertainty);
+  const policyDomain = buildScoreDomain(companies.map((company) => company.policyRelevance));
+  const evidenceDomain = buildScoreDomain(companies.map((company) => company.evidenceCertainty));
+  const policyRank = new Map(
+    [...companies]
+      .sort((left, right) => clampScore(left.policyRelevance) - clampScore(right.policyRelevance))
+      .map((company, index) => [company.id, index])
+  );
+  const evidenceRank = new Map(
+    [...companies]
+      .sort((left, right) => clampScore(left.evidenceCertainty) - clampScore(right.evidenceCertainty))
+      .map((company, index) => [company.id, index])
+  );
 
   return (
     <div className={cx("company-matrix", compact && "compact")}>
@@ -85,8 +112,10 @@ export function CompanyMatrix({
         const showLabel = active || companies.length <= 5;
         const policyRelevance = clampScore(company.policyRelevance);
         const evidenceCertainty = clampScore(company.evidenceCertainty);
-        const left = clamp(policyRelevance + offsetX, 14, 88);
-        const bottom = clamp(evidenceCertainty + offsetY, 16, 84);
+        const scaledPolicy = scaleScoreWithinDomain(policyRelevance, policyDomain, policyRank.get(company.id) ?? index, companies.length);
+        const scaledEvidence = scaleScoreWithinDomain(evidenceCertainty, evidenceDomain, evidenceRank.get(company.id) ?? index, companies.length);
+        const left = clamp(scaledPolicy + offsetX * 0.58, 12, 90);
+        const bottom = clamp(scaledEvidence + offsetY * 0.58, 14, 86);
         const companyName = company.name.trim() || `公司 ${index + 1}`;
         const platform = company.platform.trim() || "未标注业务";
 
@@ -113,6 +142,8 @@ export function CompanyMatrix({
             title={`${companyName} · ${platform}`}
             data-policy-relevance={policyRelevance}
             data-evidence-certainty={evidenceCertainty}
+            data-scaled-policy-relevance={Math.round(left)}
+            data-scaled-evidence-certainty={Math.round(bottom)}
           >
             <span className="matrix-marker-logo">
               <CompanyLogo company={company} variant="matrix" />

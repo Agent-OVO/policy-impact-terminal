@@ -29,8 +29,7 @@ const knownCompanyLogoSources: CompanyLogoSource[] = [
     urls: ["https://gt-static.getui.com/mrtech/static/favicon.ico"]
   },
   {
-    keys: ["digiwin", "数鼎科技", "广东数鼎科技有限公司", "Piston Intelligence"],
-    domains: ["www.pistonint.com"]
+    keys: ["digiwin", "数鼎科技", "广东数鼎科技有限公司", "Piston Intelligence"]
   },
   {
     keys: ["qi-an-xin", "奇安信", "奇安信集团", "奇安信科技集团股份有限公司", "688561", "688561.SH"],
@@ -46,6 +45,41 @@ const knownCompanyLogoSources: CompanyLogoSource[] = [
     keys: ["digital-china", "数字政通", "北京数字政通科技股份有限公司", "300075", "300075.SZ"],
     domains: ["www.egova.com.cn"],
     urls: ["https://www.egova.com.cn/Web/images/favicon.png"]
+  },
+  {
+    keys: ["中国南水北调集团有限公司", "中国南水北调集团", "南水北调集团", "csnwd"],
+    domains: ["www.csnwd.com.cn"],
+    urls: ["https://images.weserv.nl/?url=www.csnwd.com.cn/images/202106-nsbd-logo.png"]
+  },
+  {
+    keys: ["国家电网有限公司", "国家电网", "sgcc"],
+    domains: ["www.sgcc.com.cn"],
+    urls: ["https://www.google.com/s2/favicons?domain=sgcc.com.cn&sz=128"]
+  },
+  {
+    keys: ["中国南方电网有限责任公司", "南方电网", "csg"],
+    domains: ["www.csg.cn"],
+    urls: ["https://www.google.com/s2/favicons?domain=csg.cn&sz=128"]
+  },
+  {
+    keys: ["百度集团", "百度智能云", "百度", "Baidu"],
+    domains: ["www.baidu.com", "cloud.baidu.com"],
+    urls: ["https://www.google.com/s2/favicons?domain=baidu.com&sz=128"]
+  },
+  {
+    keys: ["腾讯科技（深圳）有限公司", "腾讯科技", "腾讯云", "腾讯", "Tencent"],
+    domains: ["www.tencent.com", "cloud.tencent.com"],
+    urls: ["https://www.google.com/s2/favicons?domain=tencent.com&sz=128"]
+  },
+  {
+    keys: ["华为技术有限公司", "华为云", "华为", "Huawei"],
+    domains: ["www.huawei.com", "huaweicloud.com"],
+    urls: ["https://www.google.com/s2/favicons?domain=huawei.com&sz=128"]
+  },
+  {
+    keys: ["浪潮集团", "浪潮信息", "浪潮云", "Inspur"],
+    domains: ["www.inspur.com"],
+    urls: ["https://www.google.com/s2/favicons?domain=inspur.com&sz=128"]
   }
 ];
 
@@ -57,6 +91,13 @@ const knownDomainLogoUrls = new Map<string, string[]>([
   ["lutai.com", ["https://images.weserv.nl/?url=www.lutai.com/favicon.ico&default=1"]],
   ["saicmotor.com", ["https://www.saicmotor.com/favicon.ico"]],
   ["shenzhouintl.com", ["https://www.shenzhouintl.com/favicon_old2.ico"]],
+  ["sgcc.com.cn", ["https://www.google.com/s2/favicons?domain=sgcc.com.cn&sz=128"]],
+  ["csg.cn", ["https://www.google.com/s2/favicons?domain=csg.cn&sz=128"]],
+  ["baidu.com", ["https://www.google.com/s2/favicons?domain=baidu.com&sz=128"]],
+  ["tencent.com", ["https://www.google.com/s2/favicons?domain=tencent.com&sz=128"]],
+  ["huawei.com", ["https://www.google.com/s2/favicons?domain=huawei.com&sz=128"]],
+  ["huaweicloud.com", ["https://www.google.com/s2/favicons?domain=huaweicloud.com&sz=128"]],
+  ["inspur.com", ["https://www.google.com/s2/favicons?domain=inspur.com&sz=128"]],
   [
     "csnwd.com.cn",
     [
@@ -112,7 +153,7 @@ export function getCompanyLogoCandidates(company: CompanyWithLogo) {
   const mappedDomainUrls = mappedSources.flatMap((source) => source.domains ?? []).flatMap(getDomainLogoCandidates);
   const reportLogoUrl = normalizeLogoUrl(company.logoUrl);
   const reportDomainUrls = getDomainLogoCandidates(company.logoDomain);
-  const candidates = [...mappedUrls, ...mappedDomainUrls, reportLogoUrl, ...reportDomainUrls];
+  const candidates = [reportLogoUrl, ...mappedUrls, ...mappedDomainUrls, ...reportDomainUrls];
 
   return Array.from(new Set(candidates.filter(isDefined)));
 }
@@ -146,11 +187,10 @@ function getDomainLogoCandidates(value: string | undefined) {
     `https://${host}/favicon.ico`
   ]);
   const proxyUrls = hosts.flatMap((host) => [
-    `https://www.google.com/s2/favicons?domain=${encodeURIComponent(host)}&sz=128`,
-    `https://icons.duckduckgo.com/ip3/${host}.ico`
+    `https://www.google.com/s2/favicons?domain=${encodeURIComponent(host)}&sz=128`
   ]);
 
-  return [...knownUrls, ...hostAssetUrls, ...proxyUrls];
+  return [...knownUrls, ...proxyUrls, ...hostAssetUrls];
 }
 
 function getDomainHostVariants(domain: string) {
