@@ -1061,7 +1061,7 @@ function normalizeManualReportPayload(
       industryCount: chainNodes.length,
       companyCount: companies.length,
       evidenceCount: evidence.length,
-      primarySignal: readRecordString(summaryInput, "primarySignal") ?? readRecordString(isRecord(input.brief) ? input.brief : null, "judgement") ?? "已完成人工大模型分析",
+      primarySignal: readRecordString(summaryInput, "primarySignal") ?? readRecordString(isRecord(input.brief) ? input.brief : null, "judgement") ?? "已完成人工智能大模型分析",
       category
     },
     policy: {
@@ -1125,7 +1125,7 @@ async function updatePolicyManualAnalysisMetadata(
           industryCount: arrayField(reportPayload.chainNodes ?? reportPayload.chain_nodes).length,
           companyCount: arrayField(reportPayload.companies).length,
           evidenceCount: arrayField(reportPayload.evidence).length,
-          primarySignal: readRecordString(summary, "primarySignal") ?? readRecordString(isRecord(reportPayload.brief) ? reportPayload.brief : null, "judgement") ?? "已完成人工大模型分析"
+          primarySignal: readRecordString(summary, "primarySignal") ?? readRecordString(isRecord(reportPayload.brief) ? reportPayload.brief : null, "judgement") ?? "已完成人工智能大模型分析"
         }
       }
     })

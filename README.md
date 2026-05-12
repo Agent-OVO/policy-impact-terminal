@@ -95,6 +95,7 @@ npm run manual:policies -- apply --policyId=<policy-uuid> --file=artifacts/manua
 - `list` 默认只列出 `publish_date >= 2026-05-01` 且尚未完成 `codex-manual-v1` 分析的政策。
 - `get` 返回政策元数据和 `policies.full_text`，供 Codex 在对话中完成分析。
 - `apply` 写回手动整理的 `reportPayload`，把政策标记为 `published`，前端随后只展示这些已发布分析。
+- 如果本地没有 Supabase 函数密钥，可把审核后的 JSON 放在 `manual-reports/*.json`，然后手动触发 `.github/workflows/apply-manual-analysis.yml` 写回。
 
 ## GitHub Pages 与定时抓取
 

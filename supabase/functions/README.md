@@ -171,6 +171,7 @@ SUPABASE_CRAWLER_SECRET=strong-random-shared-secret
 ```powershell
 npm run manual:policies -- list --limit=10
 npm run manual:policies -- get --policyId=<policy-uuid>
+npm run manual:validate -- artifacts/manual-report-payload.json
 npm run manual:policies -- apply --policyId=<policy-uuid> --file=artifacts/manual-report-payload.json
 ```
 

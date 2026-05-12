@@ -147,6 +147,8 @@ The intended production flow is:
 3. `manual get`: run `npm run manual:policies -- get --policyId=<policy-uuid>` to read metadata and `policies.full_text` into the Codex conversation.
 4. `manual apply`: run `npm run manual:policies -- apply --policyId=<policy-uuid> --file=artifacts/manual-report-payload.json` to write the reviewed `reportPayload`, set `analysis_version = 'codex-manual-v1'`, mark the policy `published`, and update the linked job when one exists.
 
+When local function secrets are unavailable, commit reviewed payloads under `manual-reports/*.json` and trigger `.github/workflows/apply-manual-analysis.yml` with the policy UUID and report file path. The workflow uses repository secrets and still calls the same `applyManualAnalysis` Edge Function.
+
 Normal users only browse policies that have reached `status = 'published'` through the manual apply step. Database RLS enforces the same public boundary through `public.can_read_policy`: non-admin users can read only policies with `analysis_version = 'codex-manual-v1'` and `publish_date >= '2026-05-01'`.
 
 See `supabase/functions/README.md` for request/response examples and deployment commands.

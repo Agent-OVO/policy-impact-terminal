@@ -1,0 +1,63 @@
+name: Apply manual policy analysis
+
+on:
+  workflow_dispatch:
+    inputs:
+      policy_id:
+        description: "Policy UUID to publish with manual analysis"
+        required: true
+      report_file:
+        description: "Repository path to reportPayload JSON"
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: apply-manual-policy-analysis-${{ github.event.inputs.policy_id }}
+  cancel-in-progress: false
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate report file path
+        env:
+          REPORT_FILE: ${{ github.event.inputs.report_file }}
+        run: |
+          case "$REPORT_FILE" in
+            manual-reports/*.json) ;;
+            *)
+              echo "::error::report_file must be a JSON file under manual-reports/"
+              exit 1
+              ;;
+          esac
+          test -f "$REPORT_FILE"
+
+      - name: Validate manual report payload
+        env:
+          REPORT_FILE: ${{ github.event.inputs.report_file }}
+        run: npm run manual:validate -- "$REPORT_FILE"
+
+      - name: Apply manual analysis
+        env:
+          SUPABASE_URL: https://qxzspsofhmfjceuaulhu.supabase.co
+          SUPABASE_FUNCTION_JWT: ${{ secrets.SUPABASE_FUNCTION_JWT }}
+          SUPABASE_CRAWLER_SECRET: ${{ secrets.SUPABASE_CRAWLER_SECRET }}
+          POLICY_ID: ${{ github.event.inputs.policy_id }}
+          REPORT_FILE: ${{ github.event.inputs.report_file }}
+        run: npm run manual:policies -- apply --policyId="${POLICY_ID}" --file="${REPORT_FILE}"
