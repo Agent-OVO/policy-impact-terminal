@@ -525,10 +525,11 @@
   ],
   "companies": [
     {
-      "id": "company-state-grid",
-      "name": "国家电网有限公司",
-      "ticker": "未上市",
-      "platform": "电网调度、算电协同、能源数据和场景开放主体",
+    "id": "company-state-grid",
+    "name": "国家电网有限公司",
+    "ticker": "未上市",
+    "logoDomain": "sgcc.com.cn",
+    "platform": "电网调度、算电协同、能源数据和场景开放主体",
       "status": "中央能源企业/代表性平台",
       "section": "midstream",
       "relation": "direct",
@@ -574,10 +575,11 @@
       ]
     },
     {
-      "id": "company-csg",
-      "name": "中国南方电网有限责任公司",
-      "ticker": "未上市",
-      "platform": "区域电网、需求响应、虚拟电厂和能源数字化平台",
+    "id": "company-csg",
+    "name": "中国南方电网有限责任公司",
+    "ticker": "未上市",
+    "logoDomain": "csg.cn",
+    "platform": "区域电网、需求响应、虚拟电厂和能源数字化平台",
       "status": "中央能源企业/代表性平台",
       "section": "midstream",
       "relation": "direct",
@@ -625,6 +627,7 @@
       "id": "company-guodian-nari",
       "name": "国电南瑞",
       "ticker": "600406.SH",
+      "logoDomain": "naritech.cn",
       "platform": "电网自动化、保护控制、调度和数字化系统",
       "status": "上市公司/电力自动化代表",
       "section": "downstream",
@@ -665,10 +668,11 @@
       ]
     },
     {
-      "id": "company-kehua-data",
-      "name": "科华数据",
-      "ticker": "002335.SZ",
-      "platform": "数据中心供配电、UPS、储能和绿色算力基础设施",
+    "id": "company-kehua-data",
+    "name": "科华数据",
+    "ticker": "002335.SZ",
+    "logoDomain": "kehua.com",
+    "platform": "数据中心供配电、UPS、储能和绿色算力基础设施",
       "status": "上市公司/绿色算力基础设施代表",
       "section": "upstream",
       "relation": "beneficiary",
@@ -711,6 +715,7 @@
       "id": "company-sh-data-exchange",
       "name": "上海数据交易所",
       "ticker": "未上市",
+      "logoDomain": "chinadep.com",
       "platform": "数据流通、数据产品挂牌和可信数据空间服务平台",
       "status": "数据交易平台/代表性平台",
       "section": "midstream",
@@ -748,10 +753,11 @@
       ]
     },
     {
-      "id": "company-baidu-ai",
-      "name": "百度集团/百度智能云",
-      "ticker": "BIDU / 9888.HK",
-      "platform": "AI云、行业大模型、智能体和模型即服务",
+    "id": "company-baidu-ai",
+    "name": "百度集团/百度智能云",
+    "ticker": "BIDU / 9888.HK",
+    "logoDomain": "baidu.com",
+    "platform": "AI云、行业大模型、智能体和模型即服务",
       "status": "上市公司/AI平台代表",
       "section": "support",
       "relation": "beneficiary",
@@ -791,10 +797,11 @@
       ]
     },
     {
-      "id": "company-qianxin",
-      "name": "奇安信",
-      "ticker": "688561.SH",
-      "platform": "网络安全、数据安全、关键基础设施安全和安全运营",
+    "id": "company-qianxin",
+    "name": "奇安信",
+    "ticker": "688561.SH",
+    "logoDomain": "qianxin.com",
+    "platform": "网络安全、数据安全、关键基础设施安全和安全运营",
       "status": "上市公司/安全治理代表",
       "section": "support",
       "relation": "constraint_risk",
@@ -1101,37 +1108,70 @@
   ],
   "compareRows": [
     [
-      "政策主线",
+      "制度基准：AI+行业应用",
       "本方案强调能源与AI双向赋能",
       "此前同类AI+行业政策多强调AI向行业赋能",
       "本方案新增算力用能、绿电、市场交易和能源数据资产化约束"
     ],
     [
-      "落地抓手",
-      "29项任务覆盖供能、绿电、市场、场景、数据、模型、标准和资金",
-      "一般产业政策多以应用示范和技术攻关为主",
-      "本方案把数据中心/算力设施纳入能源治理和电力市场"
+      "执行方式基准：新型电力系统和需求响应",
+      "算力设施被要求参与电网运行、需求响应和电力市场交易",
+      "一般数据中心政策多关注能耗指标和建设布局",
+      "本方案把算力负荷从用电对象提升为可调节、可交易的能源系统资源"
     ],
     [
-      "证据强弱",
+      "执行方式基准：绿色算力",
+      "绿电直连、能效、供电架构和碳核算成为算力设施建设条件",
+      "普通AI应用政策较少约束算力用能来源",
+      "绿色算力既是新基建机会，也是数据中心扩张的合规约束"
+    ],
+    [
+      "数据要素基准",
+      "能源数据集、可信数据空间和能源数据运营主体被单列",
+      "一般能源数字化政策更多强调业务系统和平台建设",
+      "本方案为数据交易、数据治理和模型训练提供了更明确接口"
+    ],
+    [
+      "公司证据边界",
       "算电协同、绿色算力、能源数据、专业模型证据强",
       "单个上市公司受益证据偏间接",
       "需要后续试点名单、标准文本、预算和招标验证"
     ]
   ],
   "compareInsights": {
-    "status": "manual-contextual",
+    "status": "manual_contextual_with_energy_ai_baselines",
     "basis": "基于官方原文中的任务结构和政策动作做文本比较，不引入市场或媒体解读。",
     "method": "将政策任务拆分为算力能源供给、绿色低碳、算电协同、场景开放、数据价值、模型创新、标准安全和资金组织八类，再判断产业链传导。",
     "comparableCount": 0,
+    "conceptualBaselines": [
+      {
+        "label": "制度基准",
+        "title": "AI+行业应用政策",
+        "reason": "用于说明场景牵引、模型和软硬件协同的共性；不是已存具体可比报告。"
+      },
+      {
+        "label": "执行方式基准",
+        "title": "新型电力系统、需求响应和绿色算力治理",
+        "reason": "用于解释算力设施为何被纳入电网调度、电力市场、绿电和碳核算约束。"
+      },
+      {
+        "label": "数据要素基准",
+        "title": "可信数据空间和数据运营主体",
+        "reason": "用于区分能源数据资产化与一般业务信息化建设。"
+      }
+    ],
     "similarityPoints": [
       "与既有“人工智能+”政策相同点是以场景牵引技术创新，并要求模型、数据、软硬件协同。",
-      "与能源数字化政策相同点是强调电网、发电、煤炭、油气和储能等具体场景。"
+      "与能源数字化政策相同点是强调电网、发电、煤炭、油气和储能等具体场景。",
+      "与绿色算力政策相同点是把绿电、能效和碳核算纳入算力基础设施评价。",
+      "与数据要素政策相同点是把高质量数据集、可信数据空间和数据运营主体作为基础设施。"
     ],
     "differencePoints": [
       "本方案把算力设施作为能源系统中的可规划、可调节、可交易对象，政策颗粒度高于泛AI应用文件。",
       "本方案将能源数据集、可信数据空间和能源数据运营主体单列，给数据要素平台留下明确接口。",
-      "本方案将绿色算力、绿电直连和碳核算纳入算力设施建设条件，既是机会也是约束。"
+      "本方案将绿色算力、绿电直连和碳核算纳入算力设施建设条件，既是机会也是约束。",
+      "本方案要求能源专业模型、模型即服务和自主可控软硬件协同，区别于只采购通用大模型的应用政策。",
+      "安全、标准、资金和组织实施被放到同一闭环，企业机会需要后续试点、标准和采购验证。"
     ],
     "rows": [
       {
@@ -1160,6 +1200,60 @@
         ],
         "evidenceIds": [
           "evidence-implementation"
+        ]
+      },
+      {
+        "id": "compare-3",
+        "dimension": "算电协同",
+        "current": "算力设施参与电网运行、需求响应和市场交易。",
+        "similar": "执行方式基准：新型电力系统政策也强调负荷调节和源网荷储协同。",
+        "different": "这里把数据中心/算力设施纳入可调节负荷和交易资源，而不是单纯用能大户。",
+        "clauseIds": [
+          "clause-compute-power-market"
+        ],
+        "evidenceIds": [
+          "evidence-compute-power-market"
+        ]
+      },
+      {
+        "id": "compare-4",
+        "dimension": "绿色算力约束",
+        "current": "绿电、能效、供电架构和碳核算成为算力设施建设要求。",
+        "similar": "执行方式基准：绿色算力治理同样要求能耗和碳排可核证。",
+        "different": "本方案把绿色要求直接嵌入能源与AI双向赋能，而不是只做数据中心节能专项。",
+        "clauseIds": [
+          "clause-green-compute"
+        ],
+        "evidenceIds": [
+          "evidence-green-compute"
+        ]
+      },
+      {
+        "id": "compare-5",
+        "dimension": "能源数据价值",
+        "current": "能源数据集、可信数据空间和能源数据运营主体被单列。",
+        "similar": "数据要素基准：数据空间和数据运营主体是数据流通的制度接口。",
+        "different": "能源数据既服务模型训练，也服务调度、交易、安全和场景验证，敏感度高于一般行业数据。",
+        "clauseIds": [
+          "clause-energy-data"
+        ],
+        "evidenceIds": [
+          "evidence-energy-data"
+        ]
+      },
+      {
+        "id": "compare-6",
+        "dimension": "模型与安全闭环",
+        "current": "能源专业模型、自主可控软硬件、标准体系和安全治理并行推进。",
+        "similar": "制度基准：AI+行业政策也要求模型、算力、数据和安全协同。",
+        "different": "能源场景涉及关键信息基础设施和电力安全，安全标准不是附属要求。",
+        "clauseIds": [
+          "clause-energy-model",
+          "clause-standards-security"
+        ],
+        "evidenceIds": [
+          "evidence-energy-model",
+          "evidence-security-standard"
         ]
       }
     ]

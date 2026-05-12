@@ -219,7 +219,7 @@ const mockSummaries: PolicySummary[] = [
     title: "推动工业互联网平台高质量发展行动方案（2026—2028年）",
     issuer: "工业和信息化部",
     source: "中国政府网",
-    publishDate: "2026-01-13",
+    publishDate: "2026-05-08",
     status: "published",
     confidence: 84,
     industryCount: 17,
@@ -260,7 +260,7 @@ const mockJobs: AnalysisJob[] = [
     sourceName: "中国政府网",
     status: "analyzing",
     progress: 72,
-    createdAt: "2026-01-13 09:16",
+    createdAt: "2026-05-08 09:16",
     currentStep: "正在生成产业链影响图"
   }
 ];
@@ -472,10 +472,10 @@ const allowLocalMockData = import.meta.env.VITE_ENABLE_MOCK === "true";
 
 const unavailableReportRepository: ReportRepository = {
   async listPolicyReports() {
-    throw new ReportRepositoryError("listPolicyReports", "Supabase is not configured. Production builds do not fall back to local mock policy data.");
+    throw new ReportRepositoryError("listPolicyReports", "尚未配置 Supabase。生产环境不会回退到本地演示政策数据。");
   },
   async getPolicyReport() {
-    throw new ReportRepositoryError("getPolicyReport", "Supabase is not configured. Production builds do not fall back to local mock policy data.");
+    throw new ReportRepositoryError("getPolicyReport", "尚未配置 Supabase。生产环境不会回退到本地演示政策数据。");
   },
   async listAnalysisJobs() {
     return [];
@@ -538,7 +538,7 @@ function shouldUseIngestFunction(): boolean {
 
 function requireSupabaseClient(operation: RepositoryOperation) {
   if (!supabase) {
-    throw new ReportRepositoryError(operation, "Supabase is not configured.");
+    throw new ReportRepositoryError(operation, "尚未配置 Supabase。");
   }
 
   return supabase;

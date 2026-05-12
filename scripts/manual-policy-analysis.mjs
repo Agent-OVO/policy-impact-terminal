@@ -41,6 +41,7 @@ if (command === "list") {
   }
 
   const reportPayload = JSON.parse(await fs.readFile(file, "utf8"));
+  assertReportPolicyIdMatches(policyId, reportPayload, file);
   const result = await callAnalyze({
     applyManualAnalysis: true,
     policyId,
@@ -66,6 +67,35 @@ function parseArgs(values) {
     parsed[key] = raw;
   }
   return parsed;
+}
+
+function assertReportPolicyIdMatches(policyId, reportPayload, file) {
+  if (!isRecord(reportPayload)) {
+    throw new Error(`Manual report ${file} must be a JSON object.`);
+  }
+
+  const policy = isRecord(reportPayload.policy) ? reportPayload.policy : {};
+  const summary = isRecord(reportPayload.summary) ? reportPayload.summary : {};
+  const reportIds = [
+    reportPayload.policyId,
+    reportPayload.policy_id,
+    reportPayload.id,
+    summary.id,
+    policy.id,
+    policy.policyId,
+    policy.policy_id
+  ].filter((value) => typeof value === "string" && value.trim());
+
+  const mismatched = reportIds.filter((value) => value !== policyId);
+  if (mismatched.length > 0) {
+    throw new Error(
+      `Manual report ${file} does not match --policyId=${policyId}; found report id(s): ${[...new Set(reportIds)].join(", ")}.`
+    );
+  }
+}
+
+function isRecord(value) {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 async function callAnalyze(body) {

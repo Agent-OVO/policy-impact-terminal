@@ -135,6 +135,8 @@ export interface CompanyImpact {
   reason: string;
   uncertainty: string;
   exchange?: string;
+  logoUrl?: string;
+  logoDomain?: string;
   nodeIds?: EntityId[];
   displayRelation?: string;
   displayEvidenceLevel?: string;

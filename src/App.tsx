@@ -55,6 +55,7 @@ import {
 } from "./data/policy";
 import { isSupabaseConfigured, supabase } from "./lib/supabase";
 import { getAnalyticsSessionId, trackUserEvent, type TrackUserEventInput } from "./lib/analytics";
+import { formatSourceTypeLabel } from "./lib/reportMappers";
 import {
   getPolicyReport,
   getReportRepositoryMode,
@@ -263,7 +264,7 @@ function AuthScreen({ onLogin }: { onLogin: (user: SessionUser) => void }) {
         </div>
 
         <div className="auth-hero">
-          <p className="eyebrow">Policy Intelligence Terminal</p>
+          <p className="eyebrow">政策智能分析终端</p>
           <h1>政策原文驱动的产业影响分析终端</h1>
           <p>普通用户注册后即可查看已发布报表，政策抓取和分析由后台定时完成。</p>
         </div>
@@ -735,9 +736,75 @@ function BriefView({
     [currentCompanies.length ? `${currentCompanies.length} 家` : "未生成", "代表性公司", currentCompanies.length ? "仅服务本政策分析" : "不使用样例公司填充"],
     [`${currentPolicy.confidence}/100`, "整体置信度", policySourceUrl ? "含政策来源链接" : "等待来源链接"]
   ];
-  const logicGoals = currentActions.slice(0, 3).map((action) => action.title).filter(Boolean);
-  const logicPaths = currentClauses.slice(0, 3).map((clause) => clause.title || clause.no).filter(Boolean);
-  const logicResults = currentChainNodes.slice(0, 3).map((node) => node.title).filter(Boolean);
+  const logicActionItems = currentActions.slice(0, 4).map((action, index) => ({
+    id: action.id || `logic-action-${index}`,
+    title: action.title || `政策动作 ${index + 1}`,
+    body: action.body || "该动作尚未返回解释文本。",
+    meta: `信号：${action.signal}`,
+    count: `${action.confidence}/100`
+  }));
+  const logicClauseItems = currentClauses.slice(0, 4).map((clause, index) => {
+    const linkedEvidenceCount = currentEvidence.filter((item) => item.clauseIds?.includes(clause.id)).length;
+    return {
+      id: clause.id || `logic-clause-${index}`,
+      title: `${clause.no || `条款${index + 1}`} ${clause.title || "未命名条款"}`,
+      body: clause.excerpt || "该条款尚未返回摘录。",
+      meta: clause.keywords.slice(0, 3).join(" / ") || "条款依据",
+      count: linkedEvidenceCount ? `${linkedEvidenceCount} 证据` : `${clause.confidence}%`
+    };
+  });
+  const logicNodeItems = currentChainNodes.slice(0, 4).map((node, index) => ({
+    id: node.id || `logic-node-${index}`,
+    title: node.title || `产业节点 ${index + 1}`,
+    body: node.description || node.subtitle || "该节点尚未返回影响说明。",
+    meta: `${node.relation} · ${node.evidence}`,
+    count: `${node.clauses.length} 条款`
+  }));
+  const logicEvidenceItems = currentEvidence.slice(0, 4).map((item, index) => ({
+    id: item.id || `logic-evidence-${index}`,
+    title: item.title || `${formatSourceTypeLabel(item.type, "证据")} ${index + 1}`,
+    body: item.excerpt || "该证据尚未返回摘录。",
+    meta: `${formatSourceTypeLabel(item.type, "证据")} · ${formatSourceTypeLabel(item.source, "未标注来源")}`,
+    count: `${item.confidence}%`
+  }));
+  const logicStages = [
+    {
+      id: "actions",
+      step: "01",
+      title: "政策动作",
+      summary: `${currentActions.length} 个动作`,
+      items: logicActionItems.length
+        ? logicActionItems
+        : [{ id: "logic-actions-empty", title: "政策原文已入库", body: "等待补充政策动作拆解。", meta: "待分析", count: "0" }]
+    },
+    {
+      id: "clauses",
+      step: "02",
+      title: "条款依据",
+      summary: `${currentClauses.length} 条条款`,
+      items: logicClauseItems.length
+        ? logicClauseItems
+        : [{ id: "logic-clauses-empty", title: "暂无可展示条款", body: "等待条款抽取结果。", meta: "待抽取", count: "0" }]
+    },
+    {
+      id: "nodes",
+      step: "03",
+      title: "影响节点",
+      summary: `${currentChainNodes.length} 个节点`,
+      items: logicNodeItems.length
+        ? logicNodeItems
+        : [{ id: "logic-nodes-empty", title: "尚未形成产业节点", body: policyTags.slice(0, 3).join(" / ") || "等待产业链映射。", meta: "待映射", count: "0" }]
+    },
+    {
+      id: "evidence",
+      step: "04",
+      title: "证据校验",
+      summary: `${currentEvidence.length} 条证据`,
+      items: logicEvidenceItems.length
+        ? logicEvidenceItems
+        : [{ id: "logic-evidence-empty", title: "暂无证据摘录", body: "等待证据链结构化。", meta: "待校验", count: "0" }]
+    }
+  ];
 
   return (
     <div className="content-grid brief-grid">
@@ -756,7 +823,7 @@ function BriefView({
             <Metric icon={Layers3} label="置信度" value={`${currentPolicy.confidence}/100`} />
           </div>
           <div className="source-row">
-            <span>来源：{currentPolicy.source || "官方来源"}</span>
+            <span>来源：{formatSourceTypeLabel(currentPolicy.source, "官方来源")}</span>
             {policySourceUrl ? (
               <a href={policySourceUrl} target="_blank" rel="noreferrer">
                 查看政策原文 <ExternalLink size={14} />
@@ -771,9 +838,9 @@ function BriefView({
         </div>
       </section>
 
-      <section className="panel details-panel">
+      <section className="panel details-panel quick-read-detail-panel">
         <h2>速读详情</h2>
-        <div className="score-inline">
+        <div className="score-inline quick-read-score">
           <div className="ring small-ring" style={{ "--value": `${currentPolicy.confidence}%` } as React.CSSProperties}>
             <strong>{currentPolicy.confidence}</strong>
             <span>/100</span>
@@ -823,30 +890,36 @@ function BriefView({
         <div className="panel-head">
           <div>
             <h2>政策逻辑图谱</h2>
-            <p>按“政策动作 - 条款依据 - 产业影响”梳理，不再使用固定样例链路。</p>
+            <p>按“政策动作 - 条款依据 - 影响节点 - 证据校验”梳理，不再使用固定样例链路。</p>
           </div>
         </div>
-        <div className="logic-map">
-          <div>
-            <span>政策动作</span>
-            {(logicGoals.length ? logicGoals : ["政策原文已入库", "等待更深度模型分析", "形成可追溯报告"]).map((item) => <b key={item}>{compactText(item, 24)}</b>)}
-          </div>
-          <svg viewBox="0 0 220 160">
-            <path d="M10 30 C70 30 70 30 110 30" />
-            <path d="M10 80 C70 80 70 80 110 80" />
-            <path d="M10 130 C70 130 70 130 110 130" />
-            <path d="M110 30 C150 45 150 60 205 70" />
-            <path d="M110 80 C150 80 150 80 205 80" />
-            <path d="M110 130 C150 115 150 100 205 90" />
-          </svg>
-          <div>
-            <span>条款依据</span>
-            {(logicPaths.length ? logicPaths : ["暂无可展示条款"]).map((item) => <b key={item}>{compactText(item, 24)}</b>)}
-          </div>
-          <div>
-            <span>影响方向</span>
-            {(logicResults.length ? logicResults : policyTags.slice(0, 3).length ? policyTags.slice(0, 3) : ["尚未形成产业节点"]).map((item) => <b key={item}>{compactText(item, 24)}</b>)}
-          </div>
+        <div className="logic-map logic-board">
+          {logicStages.map((stage, index) => (
+            <div className="logic-stage-wrap" key={stage.id}>
+              <section className={cx("logic-stage", `logic-stage-${stage.id}`)}>
+                <div className="logic-stage-head">
+                  <span>{stage.step}</span>
+                  <div>
+                    <strong>{stage.title}</strong>
+                    <em>{stage.summary}</em>
+                  </div>
+                </div>
+                <div className="logic-stage-list">
+                  {stage.items.map((item) => (
+                    <article className="logic-card" key={item.id}>
+                      <div className="logic-card-title">
+                        <b>{item.title}</b>
+                        <span>{item.count}</span>
+                      </div>
+                      <p>{compactText(item.body, 108)}</p>
+                      <small>{item.meta}</small>
+                    </article>
+                  ))}
+                </div>
+              </section>
+              {index < logicStages.length - 1 && <div className="logic-flow-cue" aria-hidden="true">→</div>}
+            </div>
+          ))}
         </div>
         <button className="text-button" onClick={() => setActiveModule("industry")}>
           查看产业链影响 <ChevronRight size={16} />
@@ -915,7 +988,7 @@ function EvidenceSnippets({
         <article key={item.id}>
           <span>{String(index + 1).padStart(2, "0")}</span>
           <p>“{item.excerpt}”</p>
-          <em>{item.type} · {item.source}</em>
+          <em>{formatSourceTypeLabel(item.type, "证据")} · {formatSourceTypeLabel(item.source, "未标注来源")}</em>
         </article>
       ))}
     </section>
@@ -1187,6 +1260,7 @@ function ClausesView({ report }: { report: PolicyReport | null }) {
   const currentPolicy = report?.policy ?? policy;
   const currentClauseGroups = report?.clauseGroups ?? clauseGroups;
   const currentClauses = report?.clauses ?? clauses;
+  const currentEvidence = report?.evidence ?? evidence;
   const [selectedClauseId, setSelectedClauseId] = useState(currentClauses[0]?.id ?? "c4");
   const [clauseQuery, setClauseQuery] = useState("");
   const normalizedClauseQuery = clauseQuery.trim().toLowerCase();
@@ -1200,6 +1274,12 @@ function ClausesView({ report }: { report: PolicyReport | null }) {
     : currentClauses;
   const selected = currentClauses.find((clause) => clause.id === selectedClauseId) || currentClauses[0];
   const policySourceUrl = getPolicySourceUrl(currentPolicy);
+  const structureGroups = currentClauseGroups.length
+    ? currentClauseGroups
+    : [{ id: "ungrouped", title: "未分组条款", count: currentClauses.length, tone: "blue" as const }];
+  const selectedEvidence = selected
+    ? currentEvidence.filter((item) => item.clauseIds?.includes(selected.id)).slice(0, 3)
+    : [];
 
   useEffect(() => {
     if (!currentClauses.some((clause) => clause.id === selectedClauseId)) {
@@ -1239,27 +1319,49 @@ function ClausesView({ report }: { report: PolicyReport | null }) {
 
   return (
     <div className="clauses-layout">
-      <section className="panel">
+      <section className="panel clause-structure-panel">
         <div className="panel-head">
           <h2>政策条款结构图</h2>
           <button type="button" onClick={exportClauses}><Download size={15} /> 导出条款结构</button>
         </div>
-        <div className="clause-orbit">
-          <div className="orbit-center">{currentPolicy.category || "政策"}<span>共 {currentClauseGroups.length || 1} 组，{currentClauses.length} 条</span></div>
-          {currentClauseGroups.map((group, index) => (
-            <button
-              key={group.id}
-              className={cx("orbit-item", group.tone)}
-              style={{ "--i": index } as React.CSSProperties}
-              onClick={() => {
-                const firstClause = currentClauses.find((clause) => clause.group === group.id) || currentClauses[index] || currentClauses[0];
-                if (firstClause) setSelectedClauseId(firstClause.id);
-              }}
-            >
-              <strong>{group.title}</strong>
-              <span>{group.count}条款</span>
-            </button>
-          ))}
+        <div className="clause-orbit clause-structure-board">
+          <div className="orbit-center clause-structure-summary">
+            <strong>{currentPolicy.category || "政策"}</strong>
+            <span>共 {structureGroups.length} 组，{currentClauses.length} 条</span>
+            <em>按条款主题、证据置信度和产业映射组织</em>
+          </div>
+          <div className="clause-group-lanes">
+            {structureGroups.map((group, index) => {
+              const groupClauses = currentClauseGroups.length
+                ? currentClauses.filter((clause) => clause.group === group.id)
+                : currentClauses;
+              const firstClause = groupClauses[0] || currentClauses[index] || currentClauses[0];
+              const groupCount = groupClauses.length || group.count;
+              const averageConfidence = groupClauses.length
+                ? Math.round(groupClauses.reduce((sum, clause) => sum + clause.confidence, 0) / groupClauses.length)
+                : 0;
+              return (
+                <button
+                  key={group.id}
+                  className={cx("orbit-item", "clause-group-lane", group.tone, selected?.group === group.id && "active")}
+                  style={{ "--i": index } as React.CSSProperties}
+                  onClick={() => {
+                    if (firstClause) setSelectedClauseId(firstClause.id);
+                  }}
+                >
+                  <span className="clause-group-index">{String(index + 1).padStart(2, "0")}</span>
+                  <strong>{group.title}</strong>
+                  <em>{groupCount} 条 · {averageConfidence || "待评估"}% 平均置信</em>
+                  <div className="clause-group-preview">
+                    {groupClauses.slice(0, 2).map((clause) => (
+                      <small key={clause.id}>{clause.no} {compactText(clause.title || clause.excerpt, 28)}</small>
+                    ))}
+                    {groupClauses.length === 0 && <small>暂无映射条款</small>}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </section>
 
@@ -1279,7 +1381,7 @@ function ClausesView({ report }: { report: PolicyReport | null }) {
         <div className="clause-list">
           {visibleClauses.length === 0 && <p className="empty-note">没有匹配的政策条款。</p>}
           {visibleClauses.map((clause) => (
-            <button key={clause.id} className={cx(selectedClauseId === clause.id && "active")} onClick={() => setSelectedClauseId(clause.id)}>
+            <button key={clause.id} className={cx("clause-list-item", selectedClauseId === clause.id && "active")} onClick={() => setSelectedClauseId(clause.id)}>
               <b>{clause.no}</b>
               <span>{clause.title}</span>
               <p>{clause.excerpt}</p>
@@ -1289,8 +1391,8 @@ function ClausesView({ report }: { report: PolicyReport | null }) {
         </div>
       </section>
 
-      <aside className="panel clause-detail">
-        <div className="row-between">
+      <aside className="panel clause-detail clause-detail-panel">
+        <div className="row-between clause-detail-toolbar">
           <h2>条款详情</h2>
           {policySourceUrl ? (
             <a className="text-button" href={policySourceUrl} target="_blank" rel="noreferrer">
@@ -1300,31 +1402,67 @@ function ClausesView({ report }: { report: PolicyReport | null }) {
             <span className="muted">暂无原文链接</span>
           )}
         </div>
-        <span className="status-badge blue">{selected.no}</span>
-        <h3>{selected.title}</h3>
-        <div className="confidence-line">
-          <span>置信度</span>
-          <b>{selected.confidence}%</b>
-          <i style={{ width: `${selected.confidence}%` }} />
+        <div className="clause-detail-hero">
+          <span className="status-badge blue">{selected.no}</span>
+          <div>
+            <p className="clause-detail-kicker">结构化条款</p>
+            <h3>{selected.title || "未命名条款"}</h3>
+          </div>
         </div>
-        <section>
+        <div className="clause-detail-meta-grid">
+          <article>
+            <span>置信度</span>
+            <strong>{selected.confidence}%</strong>
+            <i><b style={{ width: `${selected.confidence}%` }} /></i>
+          </article>
+          <article>
+            <span>关键词</span>
+            <strong>{selected.keywords.slice(0, 3).join(" / ") || "待补充"}</strong>
+          </article>
+          <article>
+            <span>关联证据</span>
+            <strong>{selectedEvidence.length ? `${selectedEvidence.length} 条` : "政策原文"}</strong>
+          </article>
+        </div>
+        <section className="clause-explain-block">
           <h4>条款解读</h4>
           <p>{selected.excerpt}</p>
         </section>
-        <section>
+        <section className="clause-industries-block">
           <h4>关联产业环节</h4>
-          <div className="tag-row">{selected.industries.map((item) => <span key={item}>{item}</span>)}</div>
+          <div className="tag-row">
+            {selected.industries.length
+              ? selected.industries.map((item) => <span key={item}>{item}</span>)
+              : <span>暂无明确产业映射</span>}
+          </div>
         </section>
-        <section>
-          <h4>原文证据摘录</h4>
-          <blockquote className="evidence-quote">
-            <span>{selected.no}</span>
-            <p>{selected.excerpt}</p>
-            <footer>
-              <Tag value="强证据" small />
-              <em>政策原文 · 已定位到条款</em>
-            </footer>
-          </blockquote>
+        <section className="clause-evidence-block">
+          <h4>证据摘录</h4>
+          <div className="clause-evidence-list">
+            {selectedEvidence.length ? (
+              selectedEvidence.map((item) => (
+                <article className="evidence-excerpt-card" key={item.id}>
+                  <div className="evidence-excerpt-head">
+                    <span>{formatSourceTypeLabel(item.type, "证据")}</span>
+                    <em>{formatSourceTypeLabel(item.source, "未标注来源")} · {item.confidence}%</em>
+                  </div>
+                  <p>{item.excerpt}</p>
+                </article>
+              ))
+            ) : (
+              <article className="evidence-excerpt-card policy-text-evidence">
+                <div className="evidence-excerpt-head">
+                  <span>{selected.no}</span>
+                  <em>政策原文 · 已定位到条款</em>
+                </div>
+                <p>{selected.excerpt}</p>
+                <footer>
+                  <Tag value="强证据" small />
+                  <span>{currentPolicy.issuer || "发布机构"}</span>
+                </footer>
+              </article>
+            )}
+          </div>
         </section>
       </aside>
     </div>
@@ -1346,12 +1484,12 @@ function BackgroundView({ report }: { report: PolicyReport | null }) {
     ["约束侧", "安全与隐私保护要求提升", "分类分级、风险评估、合规审计成为底线"]
   ];
   const visibleBackgroundFactors = report
-    ? currentBackgroundCards.map((card, index) => [`背景${index + 1}`, card.title, card.body])
+    ? currentBackgroundCards.map((card, index) => [`背景${index + 1}`, formatSourceTypeLabel(card.title, `背景${index + 1}`), card.body])
     : backgroundFactors;
   const diagnosisItems = currentEvidence.slice(0, 4).map((item) => [
     item.excerpt,
-    item.source,
-    item.type,
+    formatSourceTypeLabel(item.source, "未标注来源"),
+    formatSourceTypeLabel(item.type, "证据"),
     item.confidence >= 85 ? "高" : "中"
   ]);
   const timelineItems = [
@@ -1370,8 +1508,8 @@ function BackgroundView({ report }: { report: PolicyReport | null }) {
     ...currentEvidence.slice(0, 4).map((item) => ({
       type: "evidence" as const,
       date: item.date || currentPolicy.publishDate,
-      title: item.type,
-      body: `${item.source}：${compactText(item.excerpt, 56)}`
+      title: formatSourceTypeLabel(item.type, "证据"),
+      body: `${formatSourceTypeLabel(item.source, "未标注来源")}：${compactText(item.excerpt, 56)}`
     })),
     {
       type: "analysis" as const,
@@ -1485,34 +1623,81 @@ function BackgroundView({ report }: { report: PolicyReport | null }) {
 
 function CompareView({ report }: { report: PolicyReport | null }) {
   const currentPolicy = report?.policy ?? policy;
+  const currentActions = report?.actions ?? actions;
+  const currentClauseGroups = report?.clauseGroups ?? clauseGroups;
   const currentClauses = report?.clauses ?? clauses;
   const currentChainNodes = report?.chainNodes ?? chainNodes;
   const currentEvidence = report?.evidence ?? evidence;
   const compareInsight = report?.compareInsights;
-  const hasRealCompareInsights = Boolean(compareInsight?.rows?.length);
-  const legacyRows: CompareInsightRow[] = (report ? report.compareRows : compareRows).map((row, index) => ({
+  const coverage = report?.analysisCoverage;
+  const similarBase = compareInsight?.similarPolicy || compareInsight?.similarPolicies?.[0] || null;
+  const differenceBase = compareInsight?.differencePolicy || compareInsight?.contrastPolicies?.[0] || null;
+  const noBaselineLabel = "暂无入库基准";
+  const topActionText = currentActions.slice(0, 3).map((item) => item.title).filter(Boolean).join("；") || "尚未返回政策动作";
+  const topNodeText = currentChainNodes.slice(0, 4).map((item) => item.title).filter(Boolean).join("、") || "尚未形成产业节点";
+  const highEvidenceCount = currentEvidence.filter((item) => item.confidence >= 85).length;
+  const coverageSummary = coverage
+    ? `条款 ${coverage.clauseCount}、证据 ${coverage.evidenceCount}、产业节点 ${coverage.industryNodeCount}、公司 ${coverage.companyCount}`
+    : `条款 ${currentClauses.length}、证据 ${currentEvidence.length}、产业节点 ${currentChainNodes.length}`;
+  const legacyRows = useMemo<CompareInsightRow[]>(() => (report ? report.compareRows : compareRows).map((row, index) => ({
     id: `legacy-${index + 1}`,
     dimension: row[0] || `对比维度${index + 1}`,
     current: row[1] || "",
     similar: row[2] || "",
     different: row[3] || ""
-  }));
-  const displayedRows = hasRealCompareInsights ? compareInsight!.rows : report ? [] : legacyRows;
+  })), [report]);
+  const fallbackRows = useMemo<CompareInsightRow[]>(() => {
+    const baselineCell = (item: typeof similarBase, label: string) =>
+      item ? `已识别《${item.title}》，但该维度解释尚未返回。` : `${noBaselineLabel}：不生成${label}政策伪匹配。`;
+    const clauseGroupSummary = currentClauseGroups.length
+      ? currentClauseGroups.map((group) => `${group.title || "未命名分组"} ${group.count || currentClauses.filter((clause) => clause.group === group.id).length} 条`).join("、")
+      : "尚未返回条款分组";
+
+    return [
+      {
+        id: "coverage-scope",
+        dimension: "政策定位与适用范围",
+        current: `${currentPolicy.category || "政策文件"}，适用范围：${inferPolicyScope(currentPolicy)}。发布机构：${currentPolicy.issuer || "待补充"}。`,
+        similar: baselineCell(similarBase, "相似"),
+        different: baselineCell(differenceBase, "差异")
+      },
+      {
+        id: "coverage-actions",
+        dimension: "目标抓手",
+        current: `核心动作：${topActionText}。`,
+        similar: baselineCell(similarBase, "相似"),
+        different: baselineCell(differenceBase, "差异")
+      },
+      {
+        id: "coverage-clauses",
+        dimension: "条款结构",
+        current: `已抽取 ${currentClauses.length} 条条款；${clauseGroupSummary}。`,
+        similar: baselineCell(similarBase, "相似"),
+        different: baselineCell(differenceBase, "差异")
+      },
+      {
+        id: "coverage-impact",
+        dimension: "产业影响链路",
+        current: `已形成 ${currentChainNodes.length} 个产业节点，重点指向：${topNodeText}。`,
+        similar: baselineCell(similarBase, "相似"),
+        different: baselineCell(differenceBase, "差异")
+      },
+      {
+        id: "coverage-evidence",
+        dimension: "证据支撑",
+        current: `已收录 ${currentEvidence.length} 条证据，其中高置信证据 ${highEvidenceCount} 条；来源与类型标签已中文化。`,
+        similar: baselineCell(similarBase, "相似"),
+        different: baselineCell(differenceBase, "差异")
+      }
+    ];
+  }, [currentActions, currentChainNodes, currentClauseGroups, currentClauses, currentEvidence, currentPolicy, differenceBase, highEvidenceCount, noBaselineLabel, similarBase, topActionText, topNodeText]);
+  const displayedRows = useMemo<CompareInsightRow[]>(() => {
+    if (compareInsight?.rows?.length) return compareInsight.rows;
+    if (legacyRows.length) return legacyRows;
+    return fallbackRows;
+  }, [compareInsight?.rows, fallbackRows, legacyRows]);
   const [selectedRowId, setSelectedRowId] = useState(displayedRows[0]?.id ?? "");
   const selectedRow = displayedRows.find((row) => row.id === selectedRowId) || displayedRows[0];
-  const similarBase = compareInsight?.similarPolicy || compareInsight?.similarPolicies?.[0] || null;
-  const differenceBase = compareInsight?.differencePolicy || compareInsight?.contrastPolicies?.[0] || null;
-  const similarityPoints = compareInsight?.similarityPoints?.length
-    ? compareInsight.similarityPoints
-    : report
-      ? ["当前报表尚未返回新版相似基准，请完成该政策的人工分析后查看。"]
-      : ["本地演示样例展示静态政策对比口径。"];
-  const differencePoints = compareInsight?.differencePoints?.length
-    ? compareInsight.differencePoints
-    : report
-      ? ["当前报表尚未返回新版差异基准，请完成该政策的人工分析后查看。"]
-      : ["本地演示样例展示静态政策差异口径。"];
-  const coverage = report?.analysisCoverage;
   const detailClause = selectedRow?.clauseIds?.length
     ? currentClauses.find((clause) => selectedRow.clauseIds?.includes(clause.id))
     : currentClauses[0];
@@ -1529,7 +1714,7 @@ function CompareView({ report }: { report: PolicyReport | null }) {
   }, [displayedRows, selectedRowId]);
 
   function baselineMeta(item: typeof similarBase) {
-    if (!item) return "未生成可比政策";
+    if (!item) return "仍展示当前政策维度，不生成伪匹配";
     const parts = [
       item.issuer,
       item.publishDate,
@@ -1546,17 +1731,43 @@ function CompareView({ report }: { report: PolicyReport | null }) {
     return [row.dimension, row.current, row.similar, row.different];
   }
 
-  const compareStatusText = compareInsight
-    ? `系统已检索 ${compareInsight.comparableCount ?? 0} 篇已发布政策作为基准。${compareInsight.method || ""}`
-    : "该历史报表尚未包含新版对比分析字段；重新分析后会显示真实相似基准、差异基准和维度说明。";
-  const emptyCompareReason = compareInsight?.emptyReason || "暂无可比政策矩阵。";
+  const comparableCount = compareInsight?.comparableCount ?? coverage?.comparablePolicyCount ?? 0;
+  const hasBaseline = Boolean(similarBase || differenceBase || comparableCount > 0);
+  const emptyCompareReason = compareInsight?.emptyReason || "暂无入库基准；已按当前政策结构展示可比分析维度。";
+  const rowSimilarityPoints = displayedRows
+    .filter((row) => row.similar && !row.similar.includes(noBaselineLabel))
+    .slice(0, 3)
+    .map((row) => `在“${row.dimension}”维度：${row.similar}`);
+  const rowDifferencePoints = displayedRows
+    .filter((row) => row.different && !row.different.includes(noBaselineLabel))
+    .slice(0, 3)
+    .map((row) => `在“${row.dimension}”维度：${row.different}`);
+  const similarityPoints = compareInsight?.similarityPoints?.length
+    ? compareInsight.similarityPoints
+    : rowSimilarityPoints.length
+      ? rowSimilarityPoints
+      : [
+          `${noBaselineLabel}。本页先把当前政策拆成“定位、抓手、条款、影响、证据”五个可比维度。`,
+          `当前政策覆盖：${coverageSummary}；后续有基准入库后可直接复用这些维度做相似性计算。`
+        ];
+  const differencePoints = compareInsight?.differencePoints?.length
+    ? compareInsight.differencePoints
+    : rowDifferencePoints.length
+      ? rowDifferencePoints
+      : [
+          `${noBaselineLabel}。差异判断需要真实基准政策，因此这里不生成虚构差异结论。`,
+          `当前可先关注政策自身的独特覆盖：${topActionText}；产业链路集中于 ${topNodeText}。`
+        ];
+  const compareStatusText = hasBaseline
+    ? `系统已检索 ${comparableCount} 篇已发布政策作为基准。${compareInsight?.method || compareInsight?.basis || "下方按维度展示相似与差异依据。"}`
+    : `${emptyCompareReason} 当前覆盖 ${coverageSummary}，可用于后续真实基准入库后的逐项比较。`;
 
   function exportCompareReport() {
     const content = [
       `政策对比报告：${currentPolicy.title}`,
       `发布日期：${currentPolicy.publishDate || "待补充"}`,
-      `相似基准：${baselineTitle(similarBase, "未生成")}`,
-      `差异基准：${baselineTitle(differenceBase, "未生成")}`,
+      `相似基准：${baselineTitle(similarBase, noBaselineLabel)}`,
+      `差异基准：${baselineTitle(differenceBase, noBaselineLabel)}`,
       "",
       "相似点：",
       ...similarityPoints.map((item) => `- ${item}`),
@@ -1570,7 +1781,7 @@ function CompareView({ report }: { report: PolicyReport | null }) {
       "覆盖情况：",
       coverage
         ? `条款 ${coverage.clauseCount}，证据 ${coverage.evidenceCount}，产业节点 ${coverage.industryNodeCount}，公司 ${coverage.companyCount}，可比政策 ${coverage.comparablePolicyCount ?? 0}`
-        : "该报表未返回覆盖率字段。"
+        : coverageSummary
     ].join("\n");
     downloadTextFile(buildFilename(currentPolicy.title, "compare"), content);
   }
@@ -1588,22 +1799,39 @@ function CompareView({ report }: { report: PolicyReport | null }) {
           </div>
         </div>
         <div className="analysis-note">{compareStatusText}</div>
-        <div className="compare-cards">
+        <div className="compare-analysis-summary">
           <article>
+            <span>当前覆盖</span>
+            <strong>{coverageSummary}</strong>
+            <p>先把本政策整理成稳定可比口径，避免基准缺失时页面只剩空状态。</p>
+          </article>
+          <article>
+            <span>基准状态</span>
+            <strong>{hasBaseline ? `${comparableCount} 篇可比政策` : noBaselineLabel}</strong>
+            <p>{hasBaseline ? "相似与差异结论来自入库基准。" : "未指向具体政策，不生成伪匹配。"}</p>
+          </article>
+          <article>
+            <span>分析重心</span>
+            <strong>{topActionText}</strong>
+            <p>产业链路：{topNodeText}</p>
+          </article>
+        </div>
+        <div className="compare-cards">
+          <article className="compare-card current-policy-card">
             <span>当前政策</span>
             <strong>{currentPolicy.title}</strong>
             <p>{currentPolicy.issuer} · {currentPolicy.publishDate || "待补充"}</p>
           </article>
-          <GitCompareArrows size={22} />
-          <article>
+          <GitCompareArrows className="compare-link-icon" size={22} />
+          <article className={cx("compare-card", "baseline-card", !similarBase && "missing-baseline")}>
             <span>相似基准</span>
-            <strong>{baselineTitle(similarBase, "暂无相似政策基准")}</strong>
+            <strong>{baselineTitle(similarBase, noBaselineLabel)}</strong>
             <p>{baselineMeta(similarBase)}</p>
           </article>
-          <GitCompareArrows size={22} />
-          <article>
+          <GitCompareArrows className="compare-link-icon" size={22} />
+          <article className={cx("compare-card", "baseline-card", !differenceBase && "missing-baseline")}>
             <span>差异基准</span>
-            <strong>{baselineTitle(differenceBase, "暂无差异政策基准")}</strong>
+            <strong>{baselineTitle(differenceBase, noBaselineLabel)}</strong>
             <p>{baselineMeta(differenceBase)}</p>
           </article>
         </div>
@@ -1634,26 +1862,30 @@ function CompareView({ report }: { report: PolicyReport | null }) {
                 key={row.id}
                 onClick={() => setSelectedRowId(row.id)}
               >
-                {rowCells(row).map((cell, index) => <span key={`${row.id}-${index}`}>{cell || "未返回"}</span>)}
+                {rowCells(row).map((cell, index) => (
+                  <span className={cx(!cell && "matrix-cell-empty", cell?.includes(noBaselineLabel) && "matrix-cell-no-baseline")} key={`${row.id}-${index}`}>
+                    {cell || (index > 1 ? noBaselineLabel : "待补充")}
+                  </span>
+                ))}
               </button>
             ))
           )}
         </div>
       </section>
-      <aside className="panel compare-detail">
+      <aside className="panel compare-detail compare-detail-panel">
         <h2>对比项详情</h2>
         <h3>{selectedRow ? selectedRow.dimension : "暂无选中维度"}</h3>
-        <section>
+        <section className="compare-detail-section current-policy-section">
           <h4>当前政策</h4>
-          <p>{selectedRow?.current || "该维度尚未返回当前政策摘要。"}</p>
+          <p>{selectedRow?.current || `当前政策已覆盖 ${coverageSummary}，该维度摘要待补充。`}</p>
         </section>
-        <section>
+        <section className="compare-detail-section baseline-section">
           <h4>相似基准</h4>
-          <p>{selectedRow?.similar || "该维度尚未返回相似基准。"}</p>
+          <p>{selectedRow?.similar || `${noBaselineLabel}；该维度保留为后续真实基准入库后的对照位。`}</p>
         </section>
-        <section>
+        <section className="compare-detail-section contrast-section">
           <h4>差异基准</h4>
-          <p>{selectedRow?.different || "该维度尚未返回差异基准。"}</p>
+          <p>{selectedRow?.different || `${noBaselineLabel}；差异解释需要真实基准政策支撑。`}</p>
         </section>
         {selectedRow?.explanation && (
           <section>
@@ -1698,7 +1930,7 @@ function EvidenceView({ report }: { report: PolicyReport | null }) {
   const mediumEvidence = currentEvidence.filter((item) => item.confidence >= 70 && item.confidence < 85).length;
   const pendingEvidence = currentEvidence.filter((item) => item.confidence >= 50 && item.confidence < 70).length;
   const weakEvidence = currentEvidence.filter((item) => item.confidence < 50).length;
-  const policyOriginalEvidence = currentEvidence.filter((item) => item.type.includes("政策原文")).length;
+  const policyOriginalEvidence = currentEvidence.filter((item) => formatSourceTypeLabel(item.type, "").includes("政策原文")).length;
 
   return (
     <div className="evidence-layout">
@@ -2340,7 +2572,7 @@ export function App() {
             </div>
           </div>
           <div className="auth-hero">
-            <p className="eyebrow">Policy Intelligence Terminal</p>
+            <p className="eyebrow">政策智能分析终端</p>
             <h1>正在连接账户与报表工作台。</h1>
             <p>系统正在读取 Supabase 会话，完成后会自动进入终端或回到登录页。</p>
           </div>

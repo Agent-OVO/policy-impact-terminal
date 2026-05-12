@@ -57,6 +57,7 @@ import { clampPercent, clampScore } from "../utils/confidence";
 import { createPolicySummary } from "../utils/reportStats";
 
 type JsonRecord = Record<string, unknown>;
+type AppCompanyWithLogo = AppCompany & Pick<CompanyImpact, "logoUrl" | "logoDomain">;
 
 export interface AppPolicyReport {
   id: string;
@@ -73,7 +74,7 @@ export interface AppPolicyReport {
   clauses: AppClause[];
   chainNodes: AppChainNode[];
   chainEdges: AppChainEdge[];
-  companies: AppCompany[];
+  companies: AppCompanyWithLogo[];
   evidence: AppEvidence[];
   backgroundCards: Array<{ title: string; body: string }>;
   compareRows: string[][];
@@ -212,6 +213,14 @@ interface CompanyImpactLike {
   products?: readonly string[];
   reason?: string;
   uncertainty?: string;
+  logoUrl?: string;
+  logo_url?: string;
+  logoDomain?: string;
+  logo_domain?: string;
+  domain?: string;
+  website?: string;
+  websiteUrl?: string;
+  website_url?: string;
   nodeIds?: readonly string[];
   node_ids?: readonly string[];
 }
@@ -362,6 +371,67 @@ const CLAUSE_TONES = new Set<ClauseTone>(["blue", "purple", "green", "orange", "
 
 function normalizeToken(value: string | null | undefined): string {
   return (value ?? "").trim().toLowerCase();
+}
+
+const SOURCE_TYPE_LABELS: Record<string, string> = {
+  policy: "政策文件",
+  policy_text: "政策原文",
+  policy_text_text: "政策原文摘录",
+  policy_original: "政策原文",
+  policy_document: "政策文件",
+  policy_pdf: "政策 PDF",
+  official_attachment: "官方附件",
+  official_document: "官方文件",
+  official_notice: "官方公告",
+  official_interpretation: "权威解读",
+  official_explanation: "权威解读",
+  department_qa: "部门答问",
+  government_website: "政府网站",
+  official_website: "官方网站",
+  website: "网站来源",
+  web_page: "网页来源",
+  webpage: "网页来源",
+  source_url: "来源链接",
+  url: "来源链接",
+  attachment: "附件材料",
+  pdf: "PDF 文件",
+  notice: "公告",
+  announcement: "公告",
+  press_release: "新闻稿",
+  news: "新闻资讯",
+  media_report: "媒体报道",
+  external_evidence: "外部证据",
+  industry_report: "行业报告",
+  research_report: "研究报告",
+  institution_report: "机构研究",
+  legal_document: "法律文件",
+  law: "法律法规",
+  regulation: "法规文件",
+  manual: "人工录入",
+  manual_input: "人工录入",
+  database: "入库数据",
+  local_payload: "本地载荷",
+  analysis_note: "分析记录",
+  system_analysis: "系统分析",
+  text_excerpt: "文本摘录",
+  source_text: "来源文本",
+  original_text: "原文摘录",
+  unknown_source: "未标注来源",
+  unknown: "未标注"
+};
+
+function normalizeSourceTypeToken(value: string): string {
+  return value
+    .replace(/([a-z0-9])([A-Z])/g, "$1_$2")
+    .replace(/[\s-]+/g, "_")
+    .trim()
+    .toLowerCase();
+}
+
+export function formatSourceTypeLabel(value: string | null | undefined, fallback = "未标注"): string {
+  const text = (value ?? "").trim();
+  if (!text) return fallback;
+  return SOURCE_TYPE_LABELS[normalizeSourceTypeToken(text)] ?? text;
 }
 
 function toStringArray(value: readonly string[] | undefined): string[] {
@@ -573,6 +643,8 @@ export function mapCompanyImpacts(items: readonly CompanyImpactLike[] = []): Com
       products: toStringArray(item.products),
       reason: item.reason ?? "",
       uncertainty: item.uncertainty ?? "",
+      logoUrl: item.logoUrl ?? item.logo_url,
+      logoDomain: item.logoDomain ?? item.logo_domain ?? item.domain ?? item.website ?? item.websiteUrl ?? item.website_url,
       nodeIds: toStringArray(item.nodeIds ?? item.node_ids),
       displayRelation: item.relation,
       displayEvidenceLevel: evidenceLabel
@@ -584,8 +656,8 @@ export function mapEvidenceItems(items: readonly EvidenceItemLike[] = []): Evide
   return items.map((item, index) => ({
     id: item.id ?? `evidence-${index + 1}`,
     title: item.title ?? "",
-    source: item.source ?? item.source_name ?? "",
-    type: item.type ?? item.evidence_type ?? "",
+    source: formatSourceTypeLabel(item.source ?? item.source_name, ""),
+    type: formatSourceTypeLabel(item.type ?? item.evidence_type, ""),
     date: item.date ?? item.published_at ?? "",
     excerpt: item.excerpt ?? "",
     confidence: clampScore(item.confidence),
@@ -1026,7 +1098,7 @@ function mapAppChainEdges(items: JsonRecord[]): AppChainEdge[] {
   }));
 }
 
-function mapAppCompanies(items: JsonRecord[]): AppCompany[] {
+function mapAppCompanies(items: JsonRecord[]): AppCompanyWithLogo[] {
   return items.map((item, index) => {
     const confidence = firstNumber(item.confidence);
     return {
@@ -1052,6 +1124,15 @@ function mapAppCompanies(items: JsonRecord[]): AppCompany[] {
       evidenceIds: toStringList(item.evidenceIds, item.evidence_ids, item.evidenceRefs, item.evidence_refs),
       reason: firstString(item.reason, item.description) || "",
       uncertainty: firstString(item.uncertainty, item.risk_note, item.riskNote) || "",
+      logoUrl: firstString(item.logoUrl, item.logo_url),
+      logoDomain: firstString(
+        item.logoDomain,
+        item.logo_domain,
+        item.domain,
+        item.website,
+        item.websiteUrl,
+        item.website_url
+      ),
       opportunity: firstString(item.opportunity),
       riskFactors: toStringList(item.riskFactors, item.risk_factors),
       sourceUrls: toStringList(item.sourceUrls, item.source_urls)
@@ -1065,8 +1146,8 @@ function mapAppEvidence(items: JsonRecord[]): AppEvidence[] {
     return {
       id: firstString(item.id, item.evidence_key) || `evidence-${index + 1}`,
       title: firstString(item.title, item.name) || "",
-      source: firstString(item.source, item.source_name) || "",
-      type: firstString(item.type, item.evidence_type) || "",
+      source: formatSourceTypeLabel(firstString(item.source, item.source_name), ""),
+      type: formatSourceTypeLabel(firstString(item.type, item.evidence_type), ""),
       date: firstString(item.date, item.published_at, item.publish_date) || "",
       excerpt: firstString(item.excerpt, item.summary, item.body) || "",
       confidence: firstNumber(item.confidence),
@@ -1080,7 +1161,7 @@ function mapAppEvidence(items: JsonRecord[]): AppEvidence[] {
 
 function mapAppBackgroundCards(items: JsonRecord[]): AppPolicyReport["backgroundCards"] {
   return items.map((item) => ({
-    title: firstString(item.title, item.name) || "",
+    title: formatSourceTypeLabel(firstString(item.title, item.name), ""),
     body: firstString(item.body, item.description, item.summary) || ""
   }));
 }
@@ -1163,6 +1244,14 @@ function mapAppCompareInsights(
     : null;
   const similarityPoints = input ? toStringList(input.similarityPoints, input.similarity_points) : [];
   const differencePoints = input ? toStringList(input.differencePoints, input.difference_points) : [];
+  const rowSimilarityPoints = rows
+    .filter((row) => row.similar)
+    .slice(0, 3)
+    .map((row) => `在“${row.dimension}”维度：${row.similar}`);
+  const rowDifferencePoints = rows
+    .filter((row) => row.different)
+    .slice(0, 3)
+    .map((row) => `在“${row.dimension}”维度：${row.different}`);
 
   return {
     status: input ? firstString(input.status) : undefined,
@@ -1176,10 +1265,14 @@ function mapAppCompareInsights(
     contrastPolicies,
     similarityPoints: similarityPoints.length
       ? similarityPoints
-      : similarPolicies.map((item) => `与《${item.title}》形成相似基准${item.reason ? `：${item.reason}` : "。"}`),
+      : similarPolicies.length
+        ? similarPolicies.map((item) => `与《${item.title}》形成相似基准${item.reason ? `：${item.reason}` : "。"}`)
+        : rowSimilarityPoints,
     differencePoints: differencePoints.length
       ? differencePoints
-      : contrastPolicies.map((item) => `与《${item.title}》形成差异基准${item.reason ? `：${item.reason}` : "。"}`),
+      : contrastPolicies.length
+        ? contrastPolicies.map((item) => `与《${item.title}》形成差异基准${item.reason ? `：${item.reason}` : "。"}`)
+        : rowDifferencePoints,
     rows
   };
 }

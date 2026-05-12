@@ -1,6 +1,29 @@
+import type { CSSProperties } from "react";
 import type { Company } from "../../data/policy";
+import { CompanyLogo } from "./CompanyCard";
 import { companyMatrixOffsets, companyRelationClass } from "./companyConstants";
-import { clamp, clampScore, cx, getCompanyById } from "./companyUtils";
+import { clamp, clampScore, cx, getCompanyById, getCompanyName } from "./companyUtils";
+
+const matrixSelectedCopyStyle: CSSProperties = {
+  minWidth: 0,
+  display: "grid",
+  gap: 2,
+  overflow: "hidden"
+};
+
+const matrixSelectedNameStyle: CSSProperties = {
+  minWidth: 0,
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap"
+};
+
+const matrixSelectedMetaStyle: CSSProperties = {
+  minWidth: 0,
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap"
+};
 
 export function CompanyMatrix({
   compact,
@@ -39,6 +62,10 @@ export function CompanyMatrix({
 
   const selected = getCompanyById(selectedCompanyId || companies[0].id, companies) || companies[0];
   const activeCompanyId = selected.id;
+  const selectedName = getCompanyName(selected);
+  const selectedPlatform = selected.platform.trim() || "未标注业务";
+  const selectedPolicyRelevance = clampScore(selected.policyRelevance);
+  const selectedEvidenceCertainty = clampScore(selected.evidenceCertainty);
 
   return (
     <div className={cx("company-matrix", compact && "compact")}>
@@ -71,25 +98,39 @@ export function CompanyMatrix({
               left: `${left}%`,
               bottom: `${bottom}%`
             }}
-            className={cx(active && "active", showLabel && "with-label", companyRelationClass[company.relation])}
+            className={cx(
+              "company-matrix-point",
+              active && "active",
+              showLabel && "with-label",
+              companyRelationClass[company.relation]
+            )}
             onClick={() => {
               if (company.id) setSelectedCompanyId?.(company.id);
             }}
-            aria-label={`${companyName}，政策相关度 ${policyRelevance}，证据确定性 ${evidenceCertainty}`}
+            aria-label={`${companyName}，${platform}，政策相关度 ${policyRelevance}，证据确定性 ${evidenceCertainty}`}
             aria-pressed={active}
             disabled={!setSelectedCompanyId || !company.id}
             title={`${companyName} · ${platform}`}
+            data-policy-relevance={policyRelevance}
+            data-evidence-certainty={evidenceCertainty}
           >
-            <span>{index + 1}</span>
+            <span className="matrix-marker-logo">
+              <CompanyLogo company={company} variant="matrix" />
+            </span>
             {showLabel && <em>{companyName}</em>}
+            {active && <small className="matrix-point-metrics">{policyRelevance}/{evidenceCertainty}</small>}
           </button>
         );
       })}
-      <div className="matrix-selected-label">
-        <span style={{ minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-          {selected.name.trim() || "未命名公司"}
+      <div className="matrix-selected-label matrix-selected-card" role="status" aria-live="polite">
+        <CompanyLogo company={selected} variant="matrix" />
+        <span className="matrix-selected-copy" style={matrixSelectedCopyStyle}>
+          <span style={matrixSelectedNameStyle}>{selectedName}</span>
+          <small style={matrixSelectedMetaStyle}>{selectedPlatform}</small>
         </span>
-        <strong>{clampScore(selected.policyRelevance)}/{clampScore(selected.evidenceCertainty)}</strong>
+        <strong aria-label={`政策相关度 ${selectedPolicyRelevance}，证据确定性 ${selectedEvidenceCertainty}`}>
+          {selectedPolicyRelevance}/{selectedEvidenceCertainty}
+        </strong>
       </div>
       <span className="axis-label low-x">低</span>
       <span className="axis-label high-x">高</span>

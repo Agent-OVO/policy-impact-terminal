@@ -1,12 +1,28 @@
 import type { CSSProperties } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import type { ChainNode, Clause, Company, Evidence } from "../../data/policy";
+import { CompanyLogo } from "./CompanyCard";
 import { CompanyTag } from "./CompanyTag";
 import { companySectionLabels } from "./companyConstants";
 import { clampScore, getNodeById, isDefined } from "./companyUtils";
 
 const wrapTextStyle: CSSProperties = { minWidth: 0, overflowWrap: "anywhere" };
 const detailButtonGroupStyle: CSSProperties = { display: "inline-flex", gap: 6, flexShrink: 0 };
+const detailHeroHeadStyle: CSSProperties = {
+  display: "grid",
+  gridTemplateColumns: "minmax(0, 1fr) auto",
+  gap: 12,
+  alignItems: "start",
+  minWidth: 0
+};
+const detailIdentityStyle: CSSProperties = {
+  display: "grid",
+  gridTemplateColumns: "auto minmax(0, 1fr)",
+  gap: 12,
+  alignItems: "center",
+  minWidth: 0
+};
+const detailTitleStyle: CSSProperties = { display: "grid", gap: 4, minWidth: 0 };
 
 function textOrFallback(value: string, fallback: string) {
   const normalized = value.trim();
@@ -54,9 +70,15 @@ export function CompanyDetail({
   return (
     <aside className="panel company-detail">
       <div className="company-detail-hero">
-        <span>公司详情</span>
-        <div className="row-between">
-          <h2 style={wrapTextStyle}>{companyName}</h2>
+        <div className="company-detail-hero-head" style={detailHeroHeadStyle}>
+          <div className="company-detail-identity" style={detailIdentityStyle}>
+            <CompanyLogo company={selectedCompany} variant="hero" />
+            <div className="company-detail-title" style={detailTitleStyle}>
+              <span className="company-detail-kicker">公司详情</span>
+              <h2 style={wrapTextStyle}>{companyName}</h2>
+              <p style={wrapTextStyle}>{ticker} · {status}</p>
+            </div>
+          </div>
           <div style={detailButtonGroupStyle}>
             <button
               type="button"
@@ -90,7 +112,6 @@ export function CompanyDetail({
             </button>
           </div>
         </div>
-        <p style={wrapTextStyle}>{ticker} · {status}</p>
         <div className="company-scoreline">
           <strong>{confidence}<small>/100</small></strong>
           <i><b style={{ width: `${confidence}%` }} /></i>
