@@ -1005,6 +1005,7 @@ input:focus-visible {
 
 .report-main {
   min-width: 0;
+  grid-column: 2 / -1;
 }
 
 .context-rail {
@@ -1507,6 +1508,7 @@ a.text-button {
 
 .industry-panel,
 .company-snapshot {
+  min-width: 0;
   min-height: 0;
 }
 
@@ -1721,7 +1723,11 @@ a.text-button {
 .node-detail {
   position: sticky;
   top: 80px;
+  grid-column: 2;
   align-self: start;
+  min-width: 0;
+  max-height: calc(100vh - 96px);
+  overflow: auto;
   padding: 16px;
   display: grid;
   gap: 16px;
@@ -1729,9 +1735,13 @@ a.text-button {
 
 .node-detail-title {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   gap: 12px;
   align-items: center;
+}
+
+.node-detail-title > div {
+  min-width: 0;
 }
 
 .node-icon {
@@ -1754,6 +1764,7 @@ a.text-button {
 .company-detail h2 {
   margin: 4px 0 0;
   font-size: 20px;
+  overflow-wrap: anywhere;
 }
 
 .node-detail section {
@@ -1844,7 +1855,7 @@ a.text-button {
 
 .company-strip {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(178px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(178px, 100%), 1fr));
   gap: 10px;
   margin-top: 12px;
   overflow: visible;
@@ -2682,7 +2693,7 @@ a.text-button {
 }
 
 .companies-layout {
-  grid-template-columns: minmax(0, 1fr) 370px;
+  grid-template-columns: minmax(0, 1fr) minmax(330px, clamp(340px, 24vw, 420px));
   grid-template-areas:
     "matrix detail"
     "cards detail";
@@ -2726,7 +2737,7 @@ a.text-button {
 
 .company-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 220px));
+  grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
   gap: 10px;
 }
 
@@ -2744,6 +2755,11 @@ a.text-button {
 .company-detail {
   grid-area: detail;
   align-self: start;
+  min-width: 0;
+  position: sticky;
+  top: 80px;
+  max-height: calc(100vh - 96px);
+  overflow: auto;
   display: grid;
   gap: 14px;
 }
@@ -3467,7 +3483,7 @@ a.text-button {
 }
 
 .industry-layout {
-  grid-template-columns: minmax(0, 1fr) minmax(330px, 370px);
+  grid-template-columns: minmax(0, 1fr) minmax(320px, clamp(330px, 24vw, 420px));
   align-items: stretch;
 }
 
@@ -3487,7 +3503,8 @@ a.text-button {
 }
 
 .company-snapshot {
-  grid-column: 1 / -1;
+  grid-column: 1 / 2;
+  min-width: 0;
 }
 
 .company-strip,
@@ -3571,11 +3588,19 @@ a.text-button {
 }
 
 .company-logo {
+  box-sizing: border-box;
   flex: 0 0 auto;
+  display: grid;
+  place-items: center;
   overflow: hidden;
   border: 1px solid rgba(206, 215, 255, 0.7);
   border-radius: var(--radius);
   background: #fff;
+  color: #526076;
+}
+
+.company-logo.has-image {
+  position: relative;
 }
 
 .company-logo-card {
@@ -3601,25 +3626,28 @@ a.text-button {
   padding: 2px;
 }
 
+.company-logo-pending {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  color: #7d879b;
+  opacity: 0.52;
+  transform: translate(-50%, -50%);
+}
+
 .company-logo.fallback {
-  border-color: rgba(116, 87, 255, 0.18);
-  background: linear-gradient(145deg, var(--violet-soft), var(--blue-soft));
+  border-color: rgba(82, 96, 118, 0.24);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.86), rgba(236, 242, 255, 0.78)),
+    #f8fbff;
 }
 
-.company-logo.fallback span {
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 100%;
-  color: var(--violet);
-  font-size: 12px;
-  font-weight: 900;
+.company-logo.fallback svg {
+  color: currentColor;
+  stroke-width: 1.8;
 }
 
-.company-logo-matrix.fallback span {
-  font-size: 8px;
-  line-height: 1;
-  white-space: nowrap;
+.company-logo-matrix.fallback svg {
+  stroke-width: 2;
 }
 
 .company-matrix {
@@ -4005,31 +4033,15 @@ a.text-button {
 @media (max-width: 1700px) {
   .content-grid,
   .brief-grid,
-  .industry-layout,
-  .compare-layout,
-  .companies-layout {
+  .compare-layout {
     grid-template-columns: minmax(0, 1fr);
   }
 
   .details-panel,
-  .node-detail,
-  .compare-detail-panel,
-  .company-detail {
+  .compare-detail-panel {
     position: static;
     grid-column: auto;
     grid-row: auto;
-  }
-
-  .industry-panel.expanded-map,
-  .company-snapshot {
-    grid-column: auto;
-  }
-
-  .companies-layout {
-    grid-template-areas:
-      "matrix"
-      "detail"
-      "cards";
   }
 
   .clause-structure-board {
@@ -4116,11 +4128,29 @@ a.text-button {
     grid-column: auto;
     grid-row: auto;
     grid-area: auto;
+    max-height: none;
+    overflow: visible;
   }
 
   .company-snapshot,
   .industry-panel.expanded-map {
     grid-column: auto;
+  }
+
+  .industry-panel {
+    order: 1;
+  }
+
+  .node-detail {
+    order: 2;
+  }
+
+  .company-snapshot {
+    order: 3;
+  }
+
+  .industry-panel .industry-map {
+    grid-template-columns: repeat(4, minmax(120px, 1fr));
   }
 
   .logic-map.logic-board {
@@ -4162,7 +4192,7 @@ a.text-button {
   }
 
   .company-strip {
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr));
   }
 
   .company-matrix-panel {
@@ -4182,7 +4212,7 @@ a.text-button {
   }
 
   .company-grid {
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr));
   }
 
   .dashboard-stats {
@@ -4312,7 +4342,8 @@ a.text-button {
     padding: 0 12px;
   }
 
-  .industry-map {
+  .industry-map,
+  .industry-panel .industry-map {
     grid-template-columns: 1fr;
     min-height: 0;
     overflow: visible;

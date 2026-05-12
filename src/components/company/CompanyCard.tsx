@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState, type CSSProperties } from "react";
+import { Building2 } from "lucide-react";
 import type { Company } from "../../data/policy";
 import { CompanyTag } from "./CompanyTag";
 import {
   clampScore,
   cx,
-  getCompanyInitials,
   getCompanyLogoCandidates,
   getCompanyName,
   type CompanyWithLogo
@@ -18,12 +18,20 @@ const logoVariantStyles: Record<LogoVariant, CSSProperties> = {
   matrix: { width: 18, height: 18, flex: "0 0 auto", fontSize: 9 }
 };
 
+const logoPlaceholderIconSizes: Record<LogoVariant, number> = {
+  card: 20,
+  hero: 28,
+  matrix: 12
+};
+
 const logoImageStyle: CSSProperties = {
   width: "100%",
   height: "100%",
   display: "block",
   objectFit: "contain",
-  borderRadius: "inherit"
+  borderRadius: "inherit",
+  position: "relative",
+  zIndex: 1
 };
 
 const cardShellStyle: CSSProperties = {
@@ -63,16 +71,44 @@ export function CompanyLogo({
   variant?: LogoVariant;
   className?: string;
 }) {
-  const logoCandidates = useMemo(() => getCompanyLogoCandidates(company), [company.logoDomain, company.logoUrl]);
+  const logoCandidates = useMemo(
+    () => getCompanyLogoCandidates(company),
+    [company.id, company.name, company.ticker, company.logoDomain, company.logoUrl]
+  );
   const logoKey = `${company.id}:${logoCandidates.join("|")}`;
   const [logoIndex, setLogoIndex] = useState(0);
+  const [logoLoaded, setLogoLoaded] = useState(false);
   const currentLogo = logoCandidates[logoIndex];
   const companyName = getCompanyName(company);
   const label = `${companyName} 标识`;
+  const fallbackLabel = `${companyName} 标识暂不可用`;
 
   useEffect(() => {
     setLogoIndex(0);
+    setLogoLoaded(false);
   }, [logoKey]);
+
+  useEffect(() => {
+    setLogoLoaded(false);
+  }, [currentLogo]);
+
+  useEffect(() => {
+    if (!currentLogo || logoLoaded) return;
+
+    const timeout = window.setTimeout(() => {
+      setLogoIndex((index) => {
+        if (logoCandidates[index] !== currentLogo) return index;
+        return Math.min(index + 1, logoCandidates.length);
+      });
+    }, 1800);
+
+    return () => window.clearTimeout(timeout);
+  }, [currentLogo, logoCandidates, logoLoaded]);
+
+  function advanceLogoCandidate() {
+    setLogoLoaded(false);
+    setLogoIndex((index) => Math.min(index + 1, logoCandidates.length));
+  }
 
   return (
     <span
@@ -80,25 +116,38 @@ export function CompanyLogo({
         "company-logo",
         `company-logo-${variant}`,
         currentLogo ? "has-image" : "fallback",
+        currentLogo && !logoLoaded && "loading",
+        currentLogo && logoLoaded && "loaded",
         className
       )}
       style={logoVariantStyles[variant]}
       role={currentLogo ? undefined : "img"}
-      aria-label={currentLogo ? undefined : label}
+      aria-label={currentLogo ? undefined : fallbackLabel}
       title={companyName}
     >
       {currentLogo ? (
-        <img
-          src={currentLogo}
-          alt={label}
-          loading="lazy"
-          decoding="async"
-          referrerPolicy="no-referrer"
-          style={logoImageStyle}
-          onError={() => setLogoIndex((index) => index + 1)}
-        />
+        <>
+          {!logoLoaded && (
+            <Building2
+              className="company-logo-pending"
+              size={logoPlaceholderIconSizes[variant]}
+              strokeWidth={1.8}
+              aria-hidden="true"
+            />
+          )}
+          <img
+            src={currentLogo}
+            alt={label}
+            loading="lazy"
+            decoding="async"
+            referrerPolicy="no-referrer"
+            style={logoImageStyle}
+            onLoad={() => setLogoLoaded(true)}
+            onError={advanceLogoCandidate}
+          />
+        </>
       ) : (
-        <span aria-hidden="true">{getCompanyInitials(company)}</span>
+        <Building2 size={logoPlaceholderIconSizes[variant]} strokeWidth={1.8} aria-hidden="true" />
       )}
     </span>
   );
