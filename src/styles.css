@@ -3001,7 +3001,7 @@ a.text-button {
 
 .dashboard-stats {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 14px;
 }
 
@@ -3163,6 +3163,124 @@ a.text-button {
 
 .report-list-signal svg {
   flex: 0 0 auto;
+}
+
+.pending-policy-panel {
+  padding: 18px;
+  border-color: transparent;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.68), rgba(245, 247, 255, 0.52)),
+    repeating-linear-gradient(90deg, rgba(75, 115, 255, 0.042) 0 1px, transparent 1px 42px);
+}
+
+.pending-policy-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.pending-policy-head h2 {
+  margin: 8px 0 6px;
+  font-size: 20px;
+}
+
+.pending-policy-head p {
+  margin: 0;
+  max-width: 760px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.pending-policy-count {
+  min-width: 106px;
+  min-height: 74px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 2px;
+  border-left: 1px solid rgba(206, 215, 255, 0.72);
+}
+
+.pending-policy-count strong {
+  color: var(--blue);
+  font-size: 32px;
+  line-height: 1;
+}
+
+.pending-policy-count span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.pending-policy-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: var(--red);
+  font-weight: 800;
+}
+
+.pending-policy-list {
+  display: grid;
+  gap: 8px;
+}
+
+.pending-policy-row {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 12px 14px;
+  border: 1px solid rgba(206, 215, 255, 0.58);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.56);
+}
+
+.pending-policy-main {
+  min-width: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.pending-policy-main strong {
+  min-width: 0;
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+
+.pending-policy-main p,
+.pending-policy-more {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.pending-policy-meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.pending-policy-meta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--blue);
+  font-weight: 900;
+}
+
+.pending-policy-more {
+  margin-top: 10px;
 }
 
 .job-list-panel .panel-head > button {
@@ -5888,6 +6006,24 @@ a.text-button {
   .report-list button,
   .job-list article {
     padding: 12px;
+  }
+
+  .pending-policy-head,
+  .pending-policy-row,
+  .pending-policy-meta {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: start;
+  }
+
+  .pending-policy-count {
+    width: 100%;
+    min-height: 58px;
+    place-items: start;
+    align-content: start;
+    border-left: 0;
+    border-top: 1px solid rgba(206, 215, 255, 0.72);
+    padding-top: 10px;
   }
 
   .stat-tile {

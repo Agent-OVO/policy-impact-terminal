@@ -45,6 +45,24 @@ export interface AnalysisJob {
   currentStep: string;
 }
 
+export interface PendingPolicyAnalysisItem {
+  id: string;
+  title: string;
+  issuer: string;
+  source: string;
+  sourceUrl: string;
+  publishDate: string;
+  status: ReportStatus;
+  analysisVersion: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface PendingPolicyAnalysisResult {
+  total: number;
+  rows: PendingPolicyAnalysisItem[];
+}
+
 export interface CreateAnalysisJobInput {
   sourceUrl: string;
   title: string;
@@ -82,6 +100,7 @@ export interface PolicyReport {
 
 export interface ReportRepository {
   listPolicyReports(): Promise<PolicySummary[]>;
+  listPendingPolicyAnalysis(): Promise<PendingPolicyAnalysisResult>;
   getPolicyReport(reportId: string): Promise<PolicyReport>;
   listAnalysisJobs(): Promise<AnalysisJob[]>;
   createAnalysisJob(input: CreateAnalysisJobInput): Promise<AnalysisJob>;
@@ -89,6 +108,7 @@ export interface ReportRepository {
 
 type RepositoryOperation =
   | "listPolicyReports"
+  | "listPendingPolicyAnalysis"
   | "getPolicyReport"
   | "listAnalysisJobs"
   | "createAnalysisJob"
@@ -127,6 +147,19 @@ type SupabaseAnalysisJobRow = {
   current_step: string | null;
 };
 
+type PendingPolicyAnalysisRpcRow = {
+  id?: unknown;
+  title?: unknown;
+  issuer?: unknown;
+  sourceName?: unknown;
+  sourceUrl?: unknown;
+  publishDate?: unknown;
+  status?: unknown;
+  analysisVersion?: unknown;
+  createdAt?: unknown;
+  updatedAt?: unknown;
+};
+
 type CreateAnalysisJobFunctionResponse = {
   job?: SupabaseAnalysisJobRow;
 };
@@ -138,6 +171,7 @@ const FALLBACK_SOURCE_NAME = "手动提交";
 const QUEUED_STEP = "政策原文已入库，等待 Codex 手动分析";
 const POLICY_MIN_PUBLISH_DATE = "2026-05-01";
 const MANUAL_ANALYSIS_VERSION = "codex-manual-v1";
+const PENDING_POLICY_LIMIT = 20;
 
 const reportStatuses: readonly ReportStatus[] = [
   "published",
@@ -270,6 +304,38 @@ const mockReportRepository: ReportRepository = {
     return mockSummaries.filter((item) => item.publishDate >= POLICY_MIN_PUBLISH_DATE);
   },
 
+  async listPendingPolicyAnalysis() {
+    return {
+      total: 2,
+      rows: [
+        {
+          id: "pending-demo-001",
+          title: "关于加快数字基础设施协同发展的政策文件",
+          issuer: "示例机构",
+          source: "定时抓取",
+          sourceUrl: "",
+          publishDate: "2026-05-10",
+          status: "draft",
+          analysisVersion: "",
+          createdAt: "",
+          updatedAt: ""
+        },
+        {
+          id: "pending-demo-002",
+          title: "关于促进重点行业数据流通应用的通知",
+          issuer: "示例机构",
+          source: "定时抓取",
+          sourceUrl: "",
+          publishDate: "2026-05-09",
+          status: "reviewing",
+          analysisVersion: "",
+          createdAt: "",
+          updatedAt: ""
+        }
+      ]
+    };
+  },
+
   async getPolicyReport(reportId) {
     const report = getMockReport(reportId);
     if (!report) {
@@ -369,6 +435,19 @@ const supabaseReportRepository: ReportRepository = {
     }
 
     return (data ?? []).map((item) => mapPolicySummary(item as SupabasePolicyRow));
+  },
+
+  async listPendingPolicyAnalysis() {
+    const client = requireSupabaseClient("listPendingPolicyAnalysis");
+    const { data, error } = await client.rpc("list_pending_policy_analysis", {
+      limit_count: PENDING_POLICY_LIMIT
+    });
+
+    if (error) {
+      throw createRepositoryError("listPendingPolicyAnalysis", error);
+    }
+
+    return normalizePendingPolicyAnalysis(data);
   },
 
   async getPolicyReport(reportId) {
@@ -474,6 +553,9 @@ const unavailableReportRepository: ReportRepository = {
   async listPolicyReports() {
     throw new ReportRepositoryError("listPolicyReports", "尚未配置 Supabase。生产环境不会回退到本地演示政策数据。");
   },
+  async listPendingPolicyAnalysis() {
+    return { total: 0, rows: [] };
+  },
   async getPolicyReport() {
     throw new ReportRepositoryError("getPolicyReport", "尚未配置 Supabase。生产环境不会回退到本地演示政策数据。");
   },
@@ -496,6 +578,10 @@ export function getReportRepositoryMode(): "mock" | "supabase" | "unavailable" {
 
 export async function listPolicyReports(): Promise<PolicySummary[]> {
   return reportRepository.listPolicyReports();
+}
+
+export async function listPendingPolicyAnalysis(): Promise<PendingPolicyAnalysisResult> {
+  return reportRepository.listPendingPolicyAnalysis();
 }
 
 export async function getPolicyReport(reportId: string): Promise<PolicyReport> {
@@ -651,6 +737,32 @@ function mapAnalysisJob(row: SupabaseAnalysisJobRow): AnalysisJob {
     progress: toNumber(row.progress),
     createdAt: row.created_at ?? "",
     currentStep: row.current_step ?? QUEUED_STEP
+  };
+}
+
+function normalizePendingPolicyAnalysis(value: unknown): PendingPolicyAnalysisResult {
+  const record = isJsonRecord(value) ? value : {};
+  const rawRows = Array.isArray(record.rows) ? record.rows : [];
+  const rows = rawRows.map(mapPendingPolicyAnalysisItem).filter((item) => item.id && item.title);
+  const total = toNumberOrUndefined(record.total) ?? rows.length;
+
+  return { total, rows };
+}
+
+function mapPendingPolicyAnalysisItem(value: unknown): PendingPolicyAnalysisItem {
+  const row = (isJsonRecord(value) ? value : {}) as PendingPolicyAnalysisRpcRow;
+
+  return {
+    id: toStringValue(row.id, ""),
+    title: toStringValue(row.title, FALLBACK_POLICY_TITLE),
+    issuer: toStringValue(row.issuer, FALLBACK_ISSUER),
+    source: toStringValue(row.sourceName, FALLBACK_SOURCE),
+    sourceUrl: toStringValue(row.sourceUrl, ""),
+    publishDate: toStringValue(row.publishDate, ""),
+    status: coerceReportStatus(toStringValue(row.status, "draft")),
+    analysisVersion: toStringValue(row.analysisVersion, ""),
+    createdAt: toStringValue(row.createdAt, ""),
+    updatedAt: toStringValue(row.updatedAt, "")
   };
 }
 

@@ -72,9 +72,11 @@ import { formatSourceTypeLabel } from "./lib/reportMappers";
 import {
   getPolicyReport,
   getReportRepositoryMode,
+  listPendingPolicyAnalysis,
   listPolicyReports,
   type AnalysisJob,
   type JobStatus,
+  type PendingPolicyAnalysisResult,
   type PolicyReport,
   type PolicySummary,
   type ReportStatus
@@ -102,6 +104,8 @@ const sectionLabels: Record<ChainNode["section"], string> = {
 };
 
 const sectionOrder: ChainNode["section"][] = ["upstream", "midstream", "downstream", "support"];
+
+const EMPTY_PENDING_POLICY_ANALYSIS: PendingPolicyAnalysisResult = { total: 0, rows: [] };
 
 const relationClass: Record<RelationType, string> = {
   直接相关: "positive",
@@ -2066,12 +2070,16 @@ function jobStatusLabel(status: JobStatus) {
 function PolicyListView({
   reports,
   jobs,
+  pendingPolicies,
+  pendingPolicyError,
   error,
   onOpenReport,
   repositoryMode
 }: {
   reports: PolicySummary[];
   jobs: AnalysisJob[];
+  pendingPolicies: PendingPolicyAnalysisResult;
+  pendingPolicyError: string;
   error: string;
   onOpenReport: (reportId: string) => void;
   repositoryMode: RepositoryMode;
@@ -2117,6 +2125,11 @@ function PolicyListView({
       )}
 
       <section className="dashboard-stats">
+        <article className="panel stat-tile">
+          <ClipboardList size={22} />
+          <span>待分析政策</span>
+          <strong>{pendingPolicies.total}</strong>
+        </article>
         {stats.map(({ label, value, icon: Icon }) => (
           <article className="panel stat-tile" key={label}>
             <Icon size={22} />
@@ -2124,6 +2137,56 @@ function PolicyListView({
             <strong>{String(value)}</strong>
           </article>
         ))}
+      </section>
+
+      <section className="panel pending-policy-panel">
+        <div className="pending-policy-head">
+          <div>
+            <span className="status-badge blue">定时抓取入库</span>
+            <h2>已爬取但未分析的政策</h2>
+            <p>这里展示抓取任务已入库、但尚未完成 Codex 手动分析与发布的政策。普通用户只能查看清单，不能创建分析任务。</p>
+          </div>
+          <div className="pending-policy-count">
+            <strong>{pendingPolicies.total}</strong>
+            <span>待分析</span>
+          </div>
+        </div>
+        {pendingPolicyError && (
+          <div className="pending-policy-error">
+            <AlertCircle size={15} />
+            <span>{pendingPolicyError}</span>
+          </div>
+        )}
+        {!pendingPolicyError && pendingPolicies.rows.length === 0 && (
+          <p className="empty-note">当前没有待分析政策。已爬取政策均已完成分析，或尚无 2026-05-01 之后的新政策入库。</p>
+        )}
+        {pendingPolicies.rows.length > 0 && (
+          <div className="pending-policy-list">
+            {pendingPolicies.rows.map((item) => (
+              <article key={item.id} className="pending-policy-row">
+                <div className="pending-policy-main">
+                  <span className={cx("status-badge", item.status === "failed" ? "red" : item.status === "reviewing" ? "purple" : "blue")}>
+                    {reportStatusLabel(item.status)}
+                  </span>
+                  <strong>{item.title}</strong>
+                  <p>{item.issuer} · {item.source} · {item.publishDate || "日期待识别"}</p>
+                </div>
+                <div className="pending-policy-meta">
+                  {item.analysisVersion ? <span>版本 {item.analysisVersion}</span> : <span>未生成分析版本</span>}
+                  {item.sourceUrl && (
+                    <a href={item.sourceUrl} target="_blank" rel="noreferrer" aria-label={`打开政策来源：${item.title}`}>
+                      来源
+                      <ExternalLink size={13} />
+                    </a>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+        {pendingPolicies.total > pendingPolicies.rows.length && (
+          <p className="pending-policy-more">仅展示最近 {pendingPolicies.rows.length} 条，仍有 {pendingPolicies.total - pendingPolicies.rows.length} 条在队列中。</p>
+        )}
       </section>
 
       <section className="panel report-list-panel">
@@ -2464,6 +2527,8 @@ export function App() {
   const [adminAccessLoading, setAdminAccessLoading] = useState(false);
   const [reports, setReports] = useState<PolicySummary[]>([]);
   const [jobs, setJobs] = useState<AnalysisJob[]>([]);
+  const [pendingPolicies, setPendingPolicies] = useState<PendingPolicyAnalysisResult>(EMPTY_PENDING_POLICY_ANALYSIS);
+  const [pendingPolicyError, setPendingPolicyError] = useState("");
   const [workspaceError, setWorkspaceError] = useState("");
   const [activeReport, setActiveReport] = useState<PolicyReport | null>(null);
   const [reportLoading, setReportLoading] = useState(false);
@@ -2526,6 +2591,8 @@ export function App() {
       if (!session) {
         setReports([]);
         setJobs([]);
+        setPendingPolicies(EMPTY_PENDING_POLICY_ANALYSIS);
+        setPendingPolicyError("");
         setActiveReport(null);
         setWorkspaceError("");
         setReportError("");
@@ -2586,14 +2653,28 @@ export function App() {
     async function loadWorkspace() {
       try {
         setWorkspaceError("");
-        const nextReports = await listPolicyReports();
+        setPendingPolicyError("");
+        const [nextReports, nextPendingPolicies] = await Promise.all([
+          listPolicyReports(),
+          listPendingPolicyAnalysis().catch((error) => {
+            const message = error instanceof Error ? error.message : "待分析政策清单加载失败";
+            return { ...EMPTY_PENDING_POLICY_ANALYSIS, error: message };
+          })
+        ]);
         if (!alive) return;
         setReports(nextReports.filter((item) => item.status === "published"));
+        if ("error" in nextPendingPolicies) {
+          setPendingPolicies(EMPTY_PENDING_POLICY_ANALYSIS);
+          setPendingPolicyError(String(nextPendingPolicies.error));
+        } else {
+          setPendingPolicies(nextPendingPolicies);
+        }
         setJobs([]);
       } catch (error) {
         if (!alive) return;
         const message = error instanceof Error ? error.message : "工作台数据加载失败";
         setWorkspaceError(message);
+        setPendingPolicies(EMPTY_PENDING_POLICY_ANALYSIS);
       }
     }
 
@@ -2812,6 +2893,8 @@ export function App() {
     setAdminAccessLoading(false);
     setReports([]);
     setJobs([]);
+    setPendingPolicies(EMPTY_PENDING_POLICY_ANALYSIS);
+    setPendingPolicyError("");
     setActiveReport(null);
     setWorkspaceError("");
     setReportError("");
@@ -2871,7 +2954,15 @@ export function App() {
         </button>
       )}
       {appView === "list" && (
-        <PolicyListView reports={reports} jobs={jobs} error={workspaceError} onOpenReport={openReport} repositoryMode={repositoryMode} />
+        <PolicyListView
+          reports={reports}
+          jobs={jobs}
+          pendingPolicies={pendingPolicies}
+          pendingPolicyError={pendingPolicyError}
+          error={workspaceError}
+          onOpenReport={openReport}
+          repositoryMode={repositoryMode}
+        />
       )}
       {appView === "adminAnalytics" && (
         <UserBehaviorAnalyticsView
