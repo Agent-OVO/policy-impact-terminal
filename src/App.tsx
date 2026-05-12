@@ -4,6 +4,7 @@ import type { User as SupabaseUser } from "@supabase/supabase-js";
 import {
   AlertCircle,
   ArrowLeft,
+  BarChart3,
   Bell,
   BookOpenText,
   Building2,
@@ -35,6 +36,12 @@ import {
   UserRound
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import {
+  UserBehaviorAnalyticsView,
+  type AdminAnalyticsFilters as AdminViewFilters,
+  type AdminAnalyticsPathStep,
+  type UserBehaviorAnalyticsData
+} from "./components/admin";
 import { CompaniesView, CompanyCard, CompanyMatrix } from "./components/company";
 import {
   actions,
@@ -55,6 +62,12 @@ import {
 } from "./data/policy";
 import { isSupabaseConfigured, supabase } from "./lib/supabase";
 import { getAnalyticsSessionId, trackUserEvent, type TrackUserEventInput } from "./lib/analytics";
+import { loadCurrentUserAccess } from "./lib/adminAccess";
+import {
+  fetchAdminBehaviorDetail,
+  fetchAdminBehaviorList,
+  fetchAdminBehaviorOverview
+} from "./lib/adminAnalytics";
 import { formatSourceTypeLabel } from "./lib/reportMappers";
 import {
   getPolicyReport,
@@ -66,6 +79,20 @@ import {
   type PolicySummary,
   type ReportStatus
 } from "./lib/reportRepository";
+import type {
+  AdminBehaviorDetail,
+  AdminBehaviorFilters,
+  AdminBehaviorListResult,
+  AdminBehaviorOverview,
+  AdminBehaviorTimelineItem,
+  CurrentUserAccess
+} from "./types/analytics";
+import {
+  formatAdminDuration,
+  formatAdminEventType,
+  formatAdminModuleId,
+  formatAdminNumber
+} from "./types/analytics";
 
 const sectionLabels: Record<ChainNode["section"], string> = {
   upstream: "上游基础",
@@ -90,7 +117,7 @@ type SessionUser = {
   name: string;
 };
 
-type AppView = "list" | "report";
+type AppView = "list" | "report" | "adminAnalytics";
 type PolicyMetaWithExtras = typeof policy & {
   sourceUrl?: string;
   source_url?: string;
@@ -106,6 +133,15 @@ type RepositoryMode = "mock" | "supabase" | "unavailable";
 function cx(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(" ");
 }
+
+const EMPTY_ADMIN_ACCESS: CurrentUserAccess = {
+  userId: "",
+  role: "unknown",
+  status: "unknown",
+  isActive: false,
+  isAdmin: false,
+  canAccessAdmin: false
+};
 
 function percent(value: number) {
   return `${Math.round(value)}%`;
@@ -362,13 +398,21 @@ function TopBar({
   onLogout,
   reports,
   onOpenReport,
-  repositoryMode
+  repositoryMode,
+  activeView,
+  canOpenAdmin,
+  adminAccessLoading,
+  onOpenAdminAnalytics
 }: {
   user: SessionUser;
   onLogout: () => void;
   reports: PolicySummary[];
   onOpenReport: (reportId: string) => void;
   repositoryMode: RepositoryMode;
+  activeView: AppView;
+  canOpenAdmin: boolean;
+  adminAccessLoading: boolean;
+  onOpenAdminAnalytics: () => void;
 }) {
   const [noticeOpen, setNoticeOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
@@ -465,6 +509,24 @@ function TopBar({
         )}
       </div>
       <div className="top-actions" ref={menuRef}>
+        {canOpenAdmin && (
+          <button
+            className={cx("icon-button quiet", activeView === "adminAnalytics" && "active")}
+            type="button"
+            aria-label="用户行为分析"
+            title="用户行为分析"
+            onClick={() => {
+              onOpenAdminAnalytics();
+              setNoticeOpen(false);
+              setProfileOpen(false);
+            }}
+          >
+            <BarChart3 size={18} />
+          </button>
+        )}
+        {!canOpenAdmin && adminAccessLoading && (
+          <span className="topbar-admin-loading" aria-label="正在校验管理员权限" />
+        )}
         <div className="top-action-menu">
           <button
             className="icon-button"
@@ -502,6 +564,18 @@ function TopBar({
           <div className="top-popover profile-popover">
             <strong>{user.name}</strong>
             <p>{user.email}</p>
+            {canOpenAdmin && (
+              <button
+                type="button"
+                onClick={() => {
+                  setProfileOpen(false);
+                  onOpenAdminAnalytics();
+                }}
+              >
+                <BarChart3 size={15} />
+                用户行为分析
+              </button>
+            )}
             <button type="button" onClick={onLogout}>
               <LogOut size={15} />
               退出登录
@@ -2232,6 +2306,136 @@ function readStoredUser(): SessionUser | null {
   }
 }
 
+function toAdminBehaviorFilters(filters: AdminViewFilters): AdminBehaviorFilters {
+  const now = new Date();
+  const endDate = filters.timeRange === "custom" ? toEndOfDayIso(filters.to) : now.toISOString();
+  const startDate =
+    filters.timeRange === "custom"
+      ? toStartOfDayIso(filters.from)
+      : new Date(now.getTime() - getAdminRangeMs(filters.timeRange)).toISOString();
+
+  return {
+    startDate,
+    endDate,
+    granularity: filters.timeRange === "24h" ? "hour" : "day",
+    search: filters.username,
+    policyRef: filters.policyId,
+    moduleIds: filters.moduleId ? [filters.moduleId] : undefined,
+    eventTypes: filters.eventType ? [filters.eventType] : undefined,
+    limit: 50,
+    offset: 0
+  };
+}
+
+function getAdminRangeMs(range: AdminViewFilters["timeRange"]) {
+  if (range === "24h") return 24 * 60 * 60 * 1000;
+  if (range === "30d") return 30 * 24 * 60 * 60 * 1000;
+  if (range === "90d") return 90 * 24 * 60 * 60 * 1000;
+  return 7 * 24 * 60 * 60 * 1000;
+}
+
+function toStartOfDayIso(value?: string) {
+  if (!value) return undefined;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return undefined;
+  date.setHours(0, 0, 0, 0);
+  return date.toISOString();
+}
+
+function toEndOfDayIso(value?: string) {
+  if (!value) return new Date().toISOString();
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return new Date().toISOString();
+  date.setHours(23, 59, 59, 999);
+  return date.toISOString();
+}
+
+function policyTitleByRef(reports: PolicySummary[]) {
+  return new Map(reports.map((item) => [item.id, item.title]));
+}
+
+function toUserBehaviorAnalyticsData(
+  overview: AdminBehaviorOverview,
+  list: AdminBehaviorListResult,
+  detail: AdminBehaviorDetail | null,
+  reports: PolicySummary[]
+): UserBehaviorAnalyticsData {
+  const reportTitles = policyTitleByRef(reports);
+  const policyViews = overview.summary.policyViewEvents || overview.summary.policyOpenEvents;
+
+  return {
+    kpis: [
+      { id: "total-users", label: "总用户数", value: overview.summary.totalUsers || overview.summary.uniqueUsers },
+      { id: "today-active", label: "今日活跃用户", value: overview.summary.todayActiveUsers },
+      { id: "seven-day-active", label: "近 7 日活跃用户", value: overview.summary.last7dActiveUsers },
+      { id: "total-events", label: "总访问事件数", value: overview.summary.totalEvents },
+      { id: "policy-views", label: "政策查看次数", value: policyViews },
+      { id: "avg-policy-duration", label: "平均政策停留时长", value: formatAdminDuration(overview.summary.avgPolicyViewMs || overview.summary.avgDurationMs) }
+    ],
+    trend: overview.series.map((point) => ({
+      id: point.bucket,
+      date: point.bucket,
+      label: point.label || point.bucket,
+      value: point.eventCount,
+      uniqueUsers: point.uniqueUsers,
+      sessions: point.sessionCount
+    })),
+    topPolicies: overview.topPolicies.slice(0, 10).map((item) => ({
+      id: item.policyRef,
+      label: item.title || reportTitles.get(item.policyRef) || item.policyRef,
+      value: item.eventCount,
+      helper: `${formatAdminNumber(item.uniqueUsers)} 用户`
+    })),
+    moduleDistribution: overview.topModules.slice(0, 10).map((item) => ({
+      id: item.moduleId,
+      label: item.moduleLabel || formatAdminModuleId(item.moduleId),
+      value: item.eventCount,
+      helper: `${formatAdminNumber(item.uniqueUsers)} 用户`
+    })),
+    eventDistribution: overview.eventBreakdown.slice(0, 10).map((item) => ({
+      id: item.eventType,
+      label: item.eventLabel || formatAdminEventType(item.eventType),
+      value: item.eventCount,
+      helper: `${formatAdminNumber(item.uniqueUsers)} 用户`
+    })),
+    users: list.rows.map((row) => ({
+      id: row.userId,
+      userId: row.userId,
+      username: row.displayName,
+      displayName: row.displayName,
+      email: row.email,
+      eventCount: row.eventCount,
+      sessionCount: row.sessionCount,
+      lastSeenAt: row.lastSeenAt,
+      topPolicy: undefined,
+      topModule: undefined
+    })),
+    userPaths: detail?.timeline.length && detail.user?.userId ? { [detail.user.userId]: detail.timeline.map(toAdminPathStep) } : {}
+  };
+}
+
+function toAdminPathStep(item: AdminBehaviorTimelineItem): AdminAnalyticsPathStep {
+  const labelParts = [
+    item.eventLabel || formatAdminEventType(item.eventType),
+    item.policyTitle,
+    item.moduleLabel || (item.moduleId ? formatAdminModuleId(item.moduleId) : undefined)
+  ].filter(Boolean);
+
+  return {
+    id: item.id,
+    timestamp: item.occurredAt,
+    label: labelParts.join(" · "),
+    eventType: item.eventType,
+    policyId: item.policyRef,
+    policyLabel: item.policyTitle,
+    moduleId: item.moduleId,
+    moduleLabel: item.moduleLabel,
+    routePath: item.routePath,
+    durationMs: item.durationMs,
+    metadata: item.metadata
+  };
+}
+
 function toSessionUser(user: SupabaseUser): SessionUser {
   const metadata = user.user_metadata ?? {};
   const metadataName =
@@ -2256,6 +2460,8 @@ export function App() {
   const [user, setUser] = useState<SessionUser | null>(() => readStoredUser());
   const [authLoading, setAuthLoading] = useState(isSupabaseConfigured);
   const [appView, setAppView] = useState<AppView>("list");
+  const [adminAccess, setAdminAccess] = useState<CurrentUserAccess>(EMPTY_ADMIN_ACCESS);
+  const [adminAccessLoading, setAdminAccessLoading] = useState(false);
   const [reports, setReports] = useState<PolicySummary[]>([]);
   const [jobs, setJobs] = useState<AnalysisJob[]>([]);
   const [workspaceError, setWorkspaceError] = useState("");
@@ -2324,6 +2530,8 @@ export function App() {
         setWorkspaceError("");
         setReportError("");
         setAppView("list");
+        setAdminAccess(EMPTY_ADMIN_ACCESS);
+        setAdminAccessLoading(false);
       }
     });
 
@@ -2336,6 +2544,40 @@ export function App() {
   useEffect(() => {
     if (!user?.id) trackedAppOpenRef.current = false;
   }, [user?.id]);
+
+  useEffect(() => {
+    if (!user?.id || !isSupabaseConfigured) {
+      setAdminAccess(EMPTY_ADMIN_ACCESS);
+      setAdminAccessLoading(false);
+      return undefined;
+    }
+
+    let alive = true;
+    setAdminAccessLoading(true);
+    loadCurrentUserAccess(user.id)
+      .then((access) => {
+        if (!alive) return;
+        setAdminAccess(access);
+      })
+      .catch(() => {
+        if (!alive) return;
+        setAdminAccess({ ...EMPTY_ADMIN_ACCESS, userId: user.id ?? "" });
+      })
+      .finally(() => {
+        if (alive) setAdminAccessLoading(false);
+      });
+
+    return () => {
+      alive = false;
+    };
+  }, [user?.id]);
+
+  useEffect(() => {
+    if (adminAccessLoading) return;
+    if (appView === "adminAnalytics" && !adminAccess.canAccessAdmin) {
+      setAppView("list");
+    }
+  }, [adminAccess.canAccessAdmin, adminAccessLoading, appView]);
 
   useEffect(() => {
     if (!user) return undefined;
@@ -2485,12 +2727,21 @@ export function App() {
   }
 
   function openList() {
-    track({
-      eventType: "navigate_back_to_list",
-      policyRef: selectedReportId,
-      moduleId: activeModule
-    });
+    if (appView === "report") {
+      track({
+        eventType: "navigate_back_to_list",
+        policyRef: selectedReportId,
+        moduleId: activeModule
+      });
+    }
     setAppView("list");
+    setMobileMenuOpen(false);
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }
+
+  function openAdminAnalytics() {
+    if (!adminAccess.canAccessAdmin) return;
+    setAppView("adminAnalytics");
     setMobileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: "auto" });
   }
@@ -2539,9 +2790,26 @@ export function App() {
     setReportReloadKey((value) => value + 1);
   }
 
+  const loadAdminAnalytics = useCallback(async (filters: AdminViewFilters): Promise<UserBehaviorAnalyticsData> => {
+    const rpcFilters = toAdminBehaviorFilters(filters);
+    const overviewPromise = fetchAdminBehaviorOverview(rpcFilters);
+    const listPromise = fetchAdminBehaviorList(rpcFilters);
+    const [overview, list] = await Promise.all([overviewPromise, listPromise]);
+    const firstUserId = list.rows[0]?.userId;
+    const detail = firstUserId ? await fetchAdminBehaviorDetail(firstUserId, rpcFilters) : null;
+    return toUserBehaviorAnalyticsData(overview, list, detail, reports);
+  }, [reports]);
+
+  const loadAdminUserPath = useCallback(async (userId: string, filters: AdminViewFilters): Promise<AdminAnalyticsPathStep[]> => {
+    const detail = await fetchAdminBehaviorDetail(userId, toAdminBehaviorFilters(filters));
+    return detail.timeline.map(toAdminPathStep);
+  }, []);
+
   function resetSessionState() {
     setUser(null);
     setAppView("list");
+    setAdminAccess(EMPTY_ADMIN_ACCESS);
+    setAdminAccessLoading(false);
     setReports([]);
     setJobs([]);
     setActiveReport(null);
@@ -2585,7 +2853,17 @@ export function App() {
 
   return (
     <div className="app-shell">
-      <TopBar user={user} onLogout={logout} reports={reports} onOpenReport={openReport} repositoryMode={repositoryMode} />
+      <TopBar
+        user={user}
+        onLogout={logout}
+        reports={reports}
+        onOpenReport={openReport}
+        repositoryMode={repositoryMode}
+        activeView={appView}
+        canOpenAdmin={adminAccess.canAccessAdmin}
+        adminAccessLoading={adminAccessLoading}
+        onOpenAdminAnalytics={openAdminAnalytics}
+      />
       {appView === "report" && (
         <button className="mobile-menu-button" onClick={() => setMobileMenuOpen(true)}>
           <Menu size={18} />
@@ -2594,6 +2872,15 @@ export function App() {
       )}
       {appView === "list" && (
         <PolicyListView reports={reports} jobs={jobs} error={workspaceError} onOpenReport={openReport} repositoryMode={repositoryMode} />
+      )}
+      {appView === "adminAnalytics" && (
+        <UserBehaviorAnalyticsView
+          canAccess={adminAccess.canAccessAdmin}
+          accessLoading={adminAccessLoading}
+          currentUser={{ id: user.id, email: user.email, name: user.name }}
+          loadAnalytics={loadAdminAnalytics}
+          loadUserPath={loadAdminUserPath}
+        />
       )}
       {appView === "report" && (
         <div className="workspace" data-report-id={selectedReportId}>
