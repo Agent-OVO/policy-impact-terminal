@@ -6,6 +6,7 @@ import path from "node:path";
 
 const CRAWLER_VERSION = "policy-source-crawler-v0.2";
 const MIN_POLICY_FULL_TEXT_LENGTH = 280;
+const DEFAULT_POLICY_SINCE = "2026-05-01";
 
 const SOURCES = [
   {
@@ -55,6 +56,10 @@ const crawledAt = new Date().toISOString();
 const collected = [];
 const errors = [];
 
+if (args.autoPublishRequested) {
+  throw new Error("--auto-publish is disabled. The crawler only ingests original policy text; Codex manual analysis must publish reports.");
+}
+
 for (const source of selectedSources) {
   try {
     const items = await source.fetch(source, args);
@@ -68,7 +73,7 @@ for (const source of selectedSources) {
 
 const filtered = collected
   .filter((item) => args.includeInterpretations || !isNonPolicyDocument(item))
-  .filter((item) => !args.since || !item.publishDate || item.publishDate >= args.since);
+  .filter((item) => !args.since || (item.publishDate ? item.publishDate >= args.since : !args.excludeUndated));
 
 const deduped = dedupeCandidates(filtered);
 const candidates = await hydrateCandidates(deduped.candidates.slice(0, args.limit));
@@ -104,10 +109,11 @@ function parseArgs(argv) {
     limit: 40,
     out: "artifacts/policy-candidates.json",
     ingest: false,
-    autoPublish: false,
+    autoPublishRequested: false,
     preflight: false,
     includeInterpretations: false,
-    since: ""
+    since: DEFAULT_POLICY_SINCE,
+    excludeUndated: true
   };
 
   for (const arg of argv) {
@@ -115,9 +121,11 @@ function parseArgs(argv) {
     else if (arg === "--preflight") parsed.preflight = true;
     else if (arg === "--auto-publish") {
       parsed.ingest = true;
-      parsed.autoPublish = true;
+      parsed.autoPublishRequested = true;
     }
     else if (arg === "--include-interpretations") parsed.includeInterpretations = true;
+    else if (arg === "--include-undated") parsed.excludeUndated = false;
+    else if (arg === "--exclude-undated") parsed.excludeUndated = true;
     else if (arg.startsWith("--source=")) parsed.source = arg.slice("--source=".length);
     else if (arg.startsWith("--limit=")) parsed.limit = Number(arg.slice("--limit=".length)) || parsed.limit;
     else if (arg.startsWith("--out=")) parsed.out = arg.slice("--out=".length);
@@ -142,11 +150,13 @@ Usage:
 Options:
   --source=<keys|all>          Comma-separated source keys. Default: all.
   --limit=<n>                 Max candidates after filtering. Default: 40.
-  --since=<YYYY-MM-DD>        Keep candidates on/after this date when date exists.
+  --since=<YYYY-MM-DD>        Keep candidates on/after this date. Defaults to ${DEFAULT_POLICY_SINCE}.
+  --include-undated           Keep candidates whose publish date cannot be parsed.
+  --exclude-undated           Drop candidates whose publish date cannot be parsed. Default.
   --out=<path>                JSON output path. Default: artifacts/policy-candidates.json.
   --include-interpretations   Keep policy interpretation pages.
   --ingest                    Call Supabase Edge Function ingest for unique candidates.
-  --auto-publish              After ingest, call analyze and publish for newly created jobs.
+  --auto-publish              Disabled. Use Codex manual analysis after ingest.
   --preflight                 Verify Supabase function auth, crawler owner, and source seed.
 
 Ingest environment:
@@ -452,8 +462,6 @@ async function ingestCandidates(candidates, args) {
 
   let created = 0;
   let linkedDuplicates = 0;
-  let analyzed = 0;
-  let published = 0;
   let skippedWithoutFullText = 0;
 
   for (const candidate of candidates) {
@@ -488,29 +496,14 @@ async function ingestCandidates(candidates, args) {
 
     if (result.duplicate) {
       linkedDuplicates += 1;
-
-      if (args.autoPublish && result.job?.id && result.job?.status !== "published") {
-        await analyzeAndPublishJob(supabaseUrl, result.job.id, accessToken, crawlerSecret);
-        analyzed += 1;
-        published += 1;
-      }
     } else {
       created += 1;
-
-      if (args.autoPublish && result.job?.id) {
-        await analyzeAndPublishJob(supabaseUrl, result.job.id, accessToken, crawlerSecret);
-        analyzed += 1;
-        published += 1;
-      }
     }
   }
 
-  console.log(`[ingest] created=${created} linkedDuplicates=${linkedDuplicates} analyzed=${analyzed} published=${published} skippedWithoutFullText=${skippedWithoutFullText}`);
+  console.log(`[ingest] created=${created} linkedDuplicates=${linkedDuplicates} skippedWithoutFullText=${skippedWithoutFullText}`);
   if (skippedWithoutFullText > 0) {
     printWorkflowWarning(`${skippedWithoutFullText} candidates were skipped because policy full text could not be extracted.`);
-  }
-  if (args.autoPublish && analyzed > 0 && published === 0) {
-    printWorkflowWarning("Auto-publish was requested, but no policy report was published.");
   }
 }
 
@@ -528,18 +521,6 @@ function readIngestEnvironment() {
   }
 
   return { supabaseUrl, accessToken, crawlerSecret };
-}
-
-async function analyzeAndPublishJob(supabaseUrl, jobId, accessToken, crawlerSecret) {
-  await callSupabaseFunction(supabaseUrl, "analyze", {
-    headers: buildFunctionHeaders(accessToken, crawlerSecret),
-    body: { jobId }
-  });
-
-  await callSupabaseFunction(supabaseUrl, "publish", {
-    headers: buildFunctionHeaders(accessToken, crawlerSecret),
-    body: { jobId }
-  });
 }
 
 function buildFunctionHeaders(accessToken, crawlerSecret) {

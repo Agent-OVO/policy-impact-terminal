@@ -52,6 +52,13 @@ export interface PolicyAction {
   confidence: number;
 }
 
+export interface PolicyBrief {
+  judgement: string;
+  summary?: string;
+  keyPoints?: string[];
+  methodology?: string;
+}
+
 export interface ClauseGroup {
   id: string;
   title: string;

@@ -21,6 +21,7 @@ type PolicyRecord = {
   id: string;
   external_id: string | null;
   title: string;
+  status: string | null;
   issuer: string | null;
   publish_date: string | null;
   effective_date: string | null;
@@ -37,6 +38,8 @@ type PolicyRecord = {
 const MIN_POLICY_FULL_TEXT_LENGTH = 280;
 const DEFAULT_BATCH_REANALYZE_LIMIT = 5;
 const MAX_BATCH_REANALYZE_LIMIT = 100;
+const POLICY_MIN_PUBLISH_DATE = "2026-05-01";
+const MANUAL_ANALYSIS_VERSION = "codex-manual-v1";
 
 type IndustryRule = {
   id: string;
@@ -522,17 +525,38 @@ Deno.serve(async (req: Request) => {
     const supabase = createSupabaseAdminClient();
     await requireCrawlerOrAdminUser(req, supabase);
     const body = await readJsonObject(req);
+    if (body.listPendingManualAnalysis === true || body.list_pending_manual_analysis === true) {
+      const sincePublishDate = readSincePublishDate(body);
+      const limit = clampBatchLimit(body.limit);
+      const result = await listPendingManualAnalysisPolicies(supabase, sincePublishDate, limit);
+      return jsonResponse(result);
+    }
+
+    if (body.getManualAnalysisPolicy === true || body.get_manual_analysis_policy === true) {
+      const result = await getManualAnalysisPolicy(supabase, body);
+      return jsonResponse(result);
+    }
+
+    if (body.applyManualAnalysis === true || body.apply_manual_analysis === true) {
+      const result = await applyManualAnalysisReport(supabase, body);
+      return jsonResponse(result);
+    }
+
     if (body.reanalyzePublished === true || body.reanalyze_published === true) {
+      requireRulesAnalysisOptIn(body);
       const limit = clampBatchLimit(body.limit);
       const offset = clampBatchOffset(body.offset);
-      const result = await reanalyzePublishedPolicies(supabase, limit, offset);
+      const sincePublishDate = readSincePublishDate(body);
+      const result = await reanalyzePublishedPolicies(supabase, limit, offset, sincePublishDate);
       return jsonResponse(result);
     }
 
     const requestedPolicyId = optionalString(body, "policyId") ?? optionalString(body, "policy_id");
     if (requestedPolicyId) {
+      requireRulesAnalysisOptIn(body);
       const now = new Date().toISOString();
       const policy = await fetchPolicy(supabase, requestedPolicyId);
+      requirePolicyInManualScope(policy);
       if (!hasUsablePolicyText(policy.full_text)) {
         throw new HttpError(
           409,
@@ -559,6 +583,7 @@ Deno.serve(async (req: Request) => {
       });
     }
 
+    requireRulesAnalysisOptIn(body);
     const jobId = requireString(body, "jobId");
     const job = await requireAnalysisJobRecord(supabase, jobId);
     const now = new Date().toISOString();
@@ -577,6 +602,7 @@ Deno.serve(async (req: Request) => {
     }
 
     const policy = await fetchPolicy(supabase, job.policy_id);
+    requirePolicyInManualScope(policy);
     if (!hasUsablePolicyText(policy.full_text)) {
       throw new HttpError(
         409,
@@ -635,7 +661,7 @@ async function fetchPolicy(
 ): Promise<PolicyRecord> {
   const { data, error } = await supabase
     .from("policies")
-    .select("id,external_id,title,issuer,publish_date,effective_date,source_name,source_url,category,policy_level,confidence,summary,full_text,metadata")
+    .select("id,external_id,title,status,issuer,publish_date,effective_date,source_name,source_url,category,policy_level,confidence,summary,full_text,metadata")
     .eq("id", policyId)
     .single();
 
@@ -679,16 +705,104 @@ function clampBatchOffset(value: unknown): number {
   return Math.max(0, Math.floor(numericValue));
 }
 
+function readSincePublishDate(body: Record<string, unknown>): string {
+  return optionalString(body, "sincePublishDate") ??
+    optionalString(body, "since_publish_date") ??
+    optionalString(body, "since") ??
+    POLICY_MIN_PUBLISH_DATE;
+}
+
+function requireRulesAnalysisOptIn(body: Record<string, unknown>): void {
+  if (body.allowRulesAnalysis === true || body.allow_rules_analysis === true) {
+    return;
+  }
+
+  throw new HttpError(
+    409,
+    "Automatic rules analysis is disabled. Use getManualAnalysisPolicy and applyManualAnalysis after Codex manually reads and analyzes the original policy text."
+  );
+}
+
+function requirePolicyInManualScope(policy: PolicyRecord): void {
+  if (!policy.publish_date || policy.publish_date < POLICY_MIN_PUBLISH_DATE) {
+    throw new HttpError(
+      409,
+      `Policy is outside the active system scope. Only policies published on or after ${POLICY_MIN_PUBLISH_DATE} are analyzed.`
+    );
+  }
+
+  if (!["draft", "reviewing", "published"].includes(policy.status ?? "")) {
+    throw new HttpError(409, `Policy status "${policy.status ?? "unknown"}" cannot be manually analyzed or published.`);
+  }
+}
+
+async function listPendingManualAnalysisPolicies(
+  supabase: SupabaseAdminClient,
+  sincePublishDate: string,
+  limit: number
+): Promise<Record<string, unknown>> {
+  const fetchLimit = Math.min(Math.max(limit * 4, 50), 200);
+  const { data, error } = await supabase
+    .from("policies")
+    .select("id,external_id,title,issuer,publish_date,effective_date,source_name,source_url,category,policy_level,confidence,summary,full_text,metadata,status,analysis_version,created_at")
+    .gte("publish_date", sincePublishDate)
+    .not("publish_date", "is", null)
+    .order("publish_date", { ascending: false })
+    .order("created_at", { ascending: false })
+    .limit(fetchLimit);
+
+  if (error) {
+    throw new HttpError(500, "Failed to list policies pending manual analysis.", error);
+  }
+
+  const policies = (Array.isArray(data) ? data : [])
+    .map((item: unknown) => {
+      const record = item as PolicyRecord & { status?: string | null; analysis_version?: string | null; created_at?: string | null };
+      const metadata = isRecord(record.metadata) ? record.metadata : {};
+      const analysis = isRecord(metadata.analysis) ? metadata.analysis : {};
+      const reportPayload = isRecord(metadata.reportPayload) ? metadata.reportPayload : isRecord(metadata.policyReport) ? metadata.policyReport : null;
+      const analysisVersion = record.analysis_version ?? readRecordString(analysis, "analyzerVersion") ?? readRecordString(reportPayload, "analyzerVersion");
+      const manual = analysisVersion === MANUAL_ANALYSIS_VERSION || readRecordString(analysis, "analysisMethod") === MANUAL_ANALYSIS_VERSION;
+      return {
+        id: record.id,
+        externalId: record.external_id,
+        title: record.title,
+        issuer: record.issuer,
+        publishDate: record.publish_date,
+        sourceName: record.source_name,
+        sourceUrl: record.source_url,
+        status: record.status ?? "draft",
+        analysisVersion,
+        fullTextLength: record.full_text?.length ?? 0,
+        reason: manual ? "already_manual_analyzed" : record.status === "published" ? "published_needs_manual_reanalysis" : "raw_policy_waiting_manual_analysis",
+        pending: !manual
+      };
+    })
+    .filter((item) => item.pending)
+    .slice(0, limit);
+
+  return {
+    mode: "listPendingManualAnalysis",
+    sincePublishDate,
+    scanned: Array.isArray(data) ? data.length : 0,
+    count: policies.length,
+    policies
+  };
+}
+
 async function reanalyzePublishedPolicies(
   supabase: SupabaseAdminClient,
   limit: number,
-  offset: number
+  offset: number,
+  sincePublishDate: string
 ): Promise<Record<string, unknown>> {
   const startedAt = new Date().toISOString();
   const { data, error } = await supabase
     .from("policies")
-    .select("id,external_id,title,issuer,publish_date,effective_date,source_name,source_url,category,policy_level,confidence,summary,full_text,metadata")
+    .select("id,external_id,title,status,issuer,publish_date,effective_date,source_name,source_url,category,policy_level,confidence,summary,full_text,metadata")
     .eq("status", "published")
+    .gte("publish_date", sincePublishDate)
+    .not("publish_date", "is", null)
     .order("publish_date", { ascending: false })
     .order("created_at", { ascending: false })
     .range(offset, offset + limit - 1);
@@ -765,6 +879,7 @@ async function reanalyzePublishedPolicies(
     reanalyzePublished: true,
     limit,
     offset,
+    sincePublishDate,
     selected: policies.length,
     reanalyzed,
     skipped,
@@ -773,6 +888,300 @@ async function reanalyzePublishedPolicies(
     finishedAt: new Date().toISOString(),
     results
   };
+}
+
+async function getManualAnalysisPolicy(
+  supabase: SupabaseAdminClient,
+  body: Record<string, unknown>
+): Promise<Record<string, unknown>> {
+  const policyId = optionalString(body, "policyId") ?? optionalString(body, "policy_id");
+  if (!policyId) {
+    throw new HttpError(400, "Missing required string field: policyId");
+  }
+
+  const policy = await fetchPolicy(supabase, policyId);
+  requirePolicyInManualScope(policy);
+
+  return {
+    mode: "getManualAnalysisPolicy",
+    policy: {
+      id: policy.id,
+      externalId: policy.external_id,
+      title: policy.title,
+      issuer: policy.issuer,
+      publishDate: policy.publish_date,
+      effectiveDate: policy.effective_date,
+      sourceName: policy.source_name,
+      sourceUrl: policy.source_url,
+      category: policy.category,
+      policyLevel: policy.policy_level,
+      summary: policy.summary,
+      fullText: policy.full_text,
+      fullTextLength: policy.full_text?.length ?? 0
+    }
+  };
+}
+
+async function applyManualAnalysisReport(
+  supabase: SupabaseAdminClient,
+  body: Record<string, unknown>
+): Promise<Record<string, unknown>> {
+  const policyId = optionalString(body, "policyId") ?? optionalString(body, "policy_id");
+  if (!policyId) {
+    throw new HttpError(400, "Missing required string field: policyId");
+  }
+  const reportPayloadInput = isRecord(body.reportPayload)
+    ? body.reportPayload
+    : isRecord(body.report_payload)
+      ? body.report_payload
+      : null;
+
+  if (!reportPayloadInput) {
+    throw new HttpError(400, "Missing required object field: reportPayload");
+  }
+
+  const policy = await fetchPolicy(supabase, policyId);
+  requirePolicyInManualScope(policy);
+  validateManualReportPayload(policy, reportPayloadInput);
+  const now = new Date().toISOString();
+  const reportPayload = normalizeManualReportPayload(policy, reportPayloadInput, now);
+  const analysisOutput = {
+    analyzerVersion: MANUAL_ANALYSIS_VERSION,
+    analysisMethod: MANUAL_ANALYSIS_VERSION,
+    analyzedAt: now,
+    status: "analysis_complete",
+    reportPayload,
+    fullTextLength: policy.full_text?.length ?? 0,
+    manual: true
+  };
+
+  await updatePolicyManualAnalysisMetadata(supabase, policy, reportPayload, analysisOutput);
+  const jobUpdate = await markLatestAnalysisJobPublished(supabase, policy.id, now, analysisOutput);
+
+  return {
+    policyId: policy.id,
+    analyzerVersion: MANUAL_ANALYSIS_VERSION,
+    published: true,
+    jobUpdated: jobUpdate.updated,
+    jobId: jobUpdate.jobId,
+    reportPayload
+  };
+}
+
+function validateManualReportPayload(policy: PolicyRecord, input: Record<string, unknown>): void {
+  const errors: string[] = [];
+  const brief = isRecord(input.brief)
+    ? input.brief
+    : isRecord(input.policyBrief)
+      ? input.policyBrief
+      : isRecord(input.policy_brief)
+        ? input.policy_brief
+        : null;
+  const analysisCoverage = isRecord(input.analysisCoverage)
+    ? input.analysisCoverage
+    : isRecord(input.analysis_coverage)
+      ? input.analysis_coverage
+      : null;
+  const judgement = readRecordString(brief, "judgement") ?? "";
+  const actions = arrayField(input.actions);
+  const clauses = arrayField(input.clauses);
+  const chainNodes = arrayField(input.chainNodes ?? input.chain_nodes);
+  const companies = arrayField(input.companies);
+  const evidence = arrayField(input.evidence);
+  const backgroundCards = arrayField(input.backgroundCards ?? input.background_cards);
+  const companyNoMatchReason =
+    readRecordString(analysisCoverage, "companyImpactConclusion") ??
+    readRecordString(analysisCoverage, "companyImpactReasoning") ??
+    readRecordString(analysisCoverage, "companyNoMatchReason") ??
+    readRecordString(input, "companyImpactConclusion") ??
+    "";
+
+  if (!hasUsablePolicyText(policy.full_text)) {
+    errors.push("policy.full_text is missing or too short");
+  }
+  if (judgement.trim().length < 20) {
+    errors.push("brief.judgement must contain a real manual conclusion");
+  }
+  if (actions.length < 2) {
+    errors.push("actions must include at least 2 policy action analyses");
+  }
+  if (clauses.length < 2) {
+    errors.push("clauses must include at least 2 interpreted policy clauses");
+  }
+  if (chainNodes.length < 1) {
+    errors.push("chainNodes must include at least 1 industry-chain node or impact area");
+  }
+  if (companies.length < 1 && companyNoMatchReason.trim().length < 20) {
+    errors.push("companies must include representative entities, or analysisCoverage must explain why no representative company is applicable");
+  }
+  if (evidence.length < 2) {
+    errors.push("evidence must include at least 2 original-text or external evidence items");
+  }
+  if (backgroundCards.length < 1) {
+    errors.push("backgroundCards must include at least 1 factual background item");
+  }
+
+  if (errors.length > 0) {
+    throw new HttpError(400, `Manual report payload is incomplete: ${errors.join("; ")}.`);
+  }
+}
+
+function normalizeManualReportPayload(
+  policy: PolicyRecord,
+  input: Record<string, unknown>,
+  generatedAt: string
+): Record<string, unknown> {
+  const policyInput = isRecord(input.policy) ? input.policy : {};
+  const summaryInput = isRecord(input.summary) ? input.summary : {};
+  const clauses = arrayField(input.clauses);
+  const chainNodes = arrayField(input.chainNodes ?? input.chain_nodes);
+  const companies = arrayField(input.companies);
+  const evidence = arrayField(input.evidence);
+  const actions = arrayField(input.actions);
+  const confidence = clampScoreValue(readRecordNumber(summaryInput, "confidence") ?? readRecordNumber(policyInput, "confidence") ?? policy.confidence ?? 80);
+  const category = readRecordString(policyInput, "category") ?? policy.category ?? inferCategory(buildPolicyAnalysisText(policy));
+
+  return {
+    ...input,
+    id: policy.external_id ?? policy.id,
+    generatedAt,
+    analyzerVersion: MANUAL_ANALYSIS_VERSION,
+    analysisMethod: MANUAL_ANALYSIS_VERSION,
+    summary: {
+      ...summaryInput,
+      id: policy.external_id ?? policy.id,
+      title: policy.title,
+      issuer: policy.issuer ?? "未知机构",
+      source: policy.source_name ?? "政策来源",
+      publishDate: policy.publish_date ?? "",
+      status: "published",
+      confidence,
+      industryCount: chainNodes.length,
+      companyCount: companies.length,
+      evidenceCount: evidence.length,
+      primarySignal: readRecordString(summaryInput, "primarySignal") ?? readRecordString(isRecord(input.brief) ? input.brief : null, "judgement") ?? "已完成人工大模型分析",
+      category
+    },
+    policy: {
+      ...policyInput,
+      title: policy.title,
+      status: "已发布",
+      issuer: policy.issuer ?? "未知机构",
+      publishDate: policy.publish_date ?? "",
+      effectiveDate: policy.effective_date ?? policy.publish_date ?? "",
+      source: policy.source_name ?? "政策来源",
+      category,
+      level: policy.policy_level ?? "政策文件",
+      confidence,
+      sourceUrl: policy.source_url ?? undefined,
+      scope: readRecordString(policyInput, "scope") ?? inferImpactScope(policy),
+      impactScope: readRecordString(policyInput, "impactScope") ?? readRecordString(policyInput, "impact_scope") ?? inferImpactScope(policy)
+    },
+    actions,
+    clauses,
+    chainNodes,
+    chainEdges: arrayField(input.chainEdges ?? input.chain_edges),
+    companies,
+    evidence,
+    clauseGroups: arrayField(input.clauseGroups ?? input.clause_groups),
+    backgroundCards: arrayField(input.backgroundCards ?? input.background_cards),
+    compareRows: arrayField(input.compareRows ?? input.compare_rows),
+    compareInsights: isRecord(input.compareInsights) ? input.compareInsights : isRecord(input.compare_insights) ? input.compare_insights : undefined,
+    analysisCoverage: isRecord(input.analysisCoverage) ? input.analysisCoverage : isRecord(input.analysis_coverage) ? input.analysis_coverage : undefined,
+    modules: arrayField(input.modules).length ? arrayField(input.modules) : defaultModules(),
+    topTabs: arrayField(input.topTabs ?? input.top_tabs).length ? arrayField(input.topTabs ?? input.top_tabs) : defaultTopTabs()
+  };
+}
+
+async function updatePolicyManualAnalysisMetadata(
+  supabase: SupabaseAdminClient,
+  policy: PolicyRecord,
+  reportPayload: Record<string, unknown>,
+  analysisOutput: Record<string, unknown>
+): Promise<void> {
+  const existingPolicyMetadata = isRecord(policy.metadata) ? policy.metadata : {};
+  const summary = isRecord(reportPayload.summary) ? reportPayload.summary : {};
+  const policyMeta = isRecord(reportPayload.policy) ? reportPayload.policy : {};
+  const { error } = await supabase
+    .from("policies")
+    .update({
+      status: "published",
+      published_at: new Date().toISOString(),
+      analysis_version: MANUAL_ANALYSIS_VERSION,
+      confidence: readRecordNumber(summary, "confidence") ?? readRecordNumber(policyMeta, "confidence") ?? policy.confidence,
+      category: readRecordString(policyMeta, "category") ?? policy.category,
+      summary: readRecordString(isRecord(reportPayload.brief) ? reportPayload.brief : null, "judgement") ?? policy.summary,
+      metadata: {
+        ...existingPolicyMetadata,
+        analysisMethod: MANUAL_ANALYSIS_VERSION,
+        analysis_method: MANUAL_ANALYSIS_VERSION,
+        analysis: analysisOutput,
+        analysisStub: analysisOutput,
+        reportPayload,
+        policyReport: reportPayload,
+        counts: {
+          industryCount: arrayField(reportPayload.chainNodes ?? reportPayload.chain_nodes).length,
+          companyCount: arrayField(reportPayload.companies).length,
+          evidenceCount: arrayField(reportPayload.evidence).length,
+          primarySignal: readRecordString(summary, "primarySignal") ?? readRecordString(isRecord(reportPayload.brief) ? reportPayload.brief : null, "judgement") ?? "已完成人工大模型分析"
+        }
+      }
+    })
+    .eq("id", policy.id);
+
+  if (error) {
+    throw error;
+  }
+}
+
+async function markLatestAnalysisJobPublished(
+  supabase: SupabaseAdminClient,
+  policyId: string,
+  now: string,
+  analysisOutput: Record<string, unknown>
+): Promise<{ updated: boolean; jobId?: string }> {
+  const { data, error: selectError } = await supabase
+    .from("analysis_jobs")
+    .select("id,output_payload")
+    .eq("policy_id", policyId)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (selectError) {
+    throw selectError;
+  }
+
+  if (!data?.id) return { updated: false };
+
+  const existingOutput = isRecord((data as { output_payload?: unknown }).output_payload)
+    ? (data as { output_payload: Record<string, unknown> }).output_payload
+    : {};
+
+  const { error: updateError } = await supabase
+    .from("analysis_jobs")
+    .update({
+      status: "published",
+      progress: 100,
+      current_step: "Manual Codex analysis published",
+      finished_at: now,
+      output_payload: {
+        ...existingOutput,
+        analysisStub: analysisOutput,
+        analysis: analysisOutput,
+        reportPayload: analysisOutput.reportPayload,
+        publishedAt: now,
+        publishedPolicyId: policyId
+      },
+      error_message: null
+    })
+    .eq("id", data.id);
+
+  if (updateError) {
+    throw updateError;
+  }
+
+  return { updated: true, jobId: data.id };
 }
 
 async function updatePolicyAnalysisMetadata(
@@ -826,8 +1235,10 @@ async function fetchComparablePolicies(
 ): Promise<ComparablePolicyFetchResult> {
   const { data, error } = await supabase
     .from("policies")
-    .select("id,external_id,title,issuer,publish_date,effective_date,source_name,source_url,category,policy_level,confidence,summary,full_text,metadata")
+    .select("id,external_id,title,status,issuer,publish_date,effective_date,source_name,source_url,category,policy_level,confidence,summary,full_text,metadata")
     .eq("status", "published")
+    .gte("publish_date", POLICY_MIN_PUBLISH_DATE)
+    .not("publish_date", "is", null)
     .neq("id", currentPolicyId)
     .limit(40);
 
@@ -1155,6 +1566,22 @@ function buildCandidateUncertainty(): string {
 
 function uniqueStrings(values: string[]): string[] {
   return Array.from(new Set(values.filter(Boolean)));
+}
+
+function readRecordString(record: Record<string, unknown> | null | undefined, key: string): string | null {
+  const value = record?.[key];
+  return typeof value === "string" && value.trim() ? value.trim() : null;
+}
+
+function readRecordNumber(record: Record<string, unknown> | null | undefined, key: string): number | null {
+  const value = record?.[key];
+  if (typeof value === "number" && Number.isFinite(value)) return value;
+  if (typeof value === "string" && value.trim() && Number.isFinite(Number(value))) return Number(value);
+  return null;
+}
+
+function arrayField(value: unknown): unknown[] {
+  return Array.isArray(value) ? value : [];
 }
 
 function intersectStrings(left: string[], right: string[]): string[] {

@@ -34,7 +34,7 @@ The core tables are:
 - `analysis_jobs`: async job queue for ingest/analyze/publish.
 - `policy_actions`, `policy_clauses`, `industry_nodes`, `industry_edges`, `companies`, `evidence`: future hydrated report data.
 
-RLS is enabled. Normal browser clients use the anon key and authenticated user session, and are read-only for published policy reports. Policy/job writes are reserved for active admins and the scheduled crawler path. Edge Functions use the service role key server-side only after verifying an active admin JWT or the crawler secret.
+RLS is enabled. Normal browser clients use the anon key and authenticated user session, and are read-only for published policy reports. Policy/job writes are reserved for active admins, the scheduled crawler ingest path, and Codex manual analysis writeback. Edge Functions use the service role key server-side only after verifying an active admin JWT or the crawler secret.
 
 ### Report Payload Contract
 
@@ -105,7 +105,7 @@ VITE_SUPABASE_ANON_KEY=your-anon-key
 VITE_ANALYSIS_JOB_MODE=disabled
 ```
 
-The production UI is read-only for normal users. Do not expose browser-side job creation for public users; scheduled GitHub Actions should run the crawler and call Edge Functions with the crawler secret.
+The production UI is read-only for normal users. Do not expose browser-side job creation for public users; scheduled GitHub Actions should run the crawler with `--ingest` and call Edge Functions with the crawler secret. Analysis is triggered from a Codex conversation with `scripts/manual-policy-analysis.mjs`.
 
 For local UI-only demos without Supabase, add `VITE_ENABLE_MOCK=true` to `.env.local`. Do not set this in GitHub Pages or any production build.
 
@@ -136,16 +136,17 @@ supabase secrets set CRAWLER_OWNER_ID=admin-profile-user-uuid
 
 The functions are intended to run with Supabase JWT verification enabled. Manual calls require an active admin user's access token. Scheduled crawler calls use a JWT accepted by Supabase Functions plus `x-crawler-secret`. Inside the function, the service role key is used only for database writes after the function has verified admin/crawler authorization.
 
-The scheduled GitHub crawler runs `node scripts/crawl-policy-sources.mjs --preflight` before crawling. That preflight validates the Edge Function crawler secret, `CRAWLER_OWNER_ID`, active admin profile, and seeded active `policy_sources` rows. Published-policy refreshes use `scripts/reanalyze-published-policies.mjs`, which calls the `analyze` Edge Function batch endpoint instead of querying `policies` with an anonymous REST session.
+The scheduled GitHub crawler runs `node scripts/crawl-policy-sources.mjs --preflight` before crawling. That preflight validates the Edge Function crawler secret, `CRAWLER_OWNER_ID`, active admin profile, and seeded active `policy_sources` rows. The crawl job then runs `scripts/crawl-policy-sources.mjs --ingest` with `--since=2026-05-01` by default, storing original policy text in `policies.full_text` and leaving report analysis unpublished until the Codex manual workflow applies it.
 
-## 4. Job Flow
+## 4. Current Flow
 
-The intended minimal flow is:
+The intended production flow is:
 
-1. `ingest`: create a draft `policies` row and a queued `analysis_jobs` row. The response includes `policyId`, `policyRef.id`, and `job.policy_id` for frontend routing. If the request includes `externalId` or `external_id`, ingest writes `policies.external_id` when that column exists; on older schemas it falls back to `policies.metadata.externalId` / `metadata.external_id` and still returns `policyExternalId`.
-2. `analyze`: update the job to `analyzing`, generate a rules-based `metadata.reportPayload` from `policies.full_text`, and move the policy to `reviewing`.
-3. `publish`: require the analyze stage to have completed, then mark the linked policy and job as `published`.
+1. `ingest`: create a draft `policies` row and a queued `analysis_jobs` row for policy originals published on or after 2026-05-01. The response includes `policyId`, `policyRef.id`, and `job.policy_id` for routing. If the request includes `externalId` or `external_id`, ingest writes `policies.external_id` when that column exists; on older schemas it falls back to `policies.metadata.externalId` / `metadata.external_id` and still returns `policyExternalId`.
+2. `manual list`: run `npm run manual:policies -- list --limit=10` to find policies that still need Codex manual analysis.
+3. `manual get`: run `npm run manual:policies -- get --policyId=<policy-uuid>` to read metadata and `policies.full_text` into the Codex conversation.
+4. `manual apply`: run `npm run manual:policies -- apply --policyId=<policy-uuid> --file=artifacts/manual-report-payload.json` to write the reviewed `reportPayload`, set `analysis_version = 'codex-manual-v1'`, mark the policy `published`, and update the linked job when one exists.
 
-The current `analyze` function is a baseline rules analyzer. It makes the system usable end-to-end, but deeper industrial-chain and company-level analysis should later be upgraded with a dedicated model/worker.
+Normal users only browse policies that have reached `status = 'published'` through the manual apply step.
 
 See `supabase/functions/README.md` for request/response examples and deployment commands.

@@ -1,6 +1,6 @@
 # Supabase Edge Functions
 
-This directory contains the deployable MVP function boundary for moving the mock prototype toward a real Supabase job flow. The functions do not call an LLM yet; `analyze` generates a rules-based baseline report payload from stored policy text so scheduled crawls can publish readable reports.
+This directory contains the deployable MVP function boundary for moving the mock prototype toward a real Supabase job flow. The current production path separates collection from analysis: scheduled crawls only ingest original policy text published on or after 2026-05-01, and Codex-driven manual analysis writes the final report payload back through `analyze`.
 
 ## Auth Contract
 
@@ -9,7 +9,8 @@ This directory contains the deployable MVP function boundary for moving the mock
 - Manual calls must include an active admin user's access token: `Authorization: Bearer <admin-user-access-token>`.
 - Scheduled crawler calls include a JWT accepted by Supabase Edge Functions plus `x-crawler-secret`.
 - The function runtime uses `SUPABASE_SERVICE_ROLE_KEY` only server-side, after checking the caller. Never expose the service role key to Vite, browser code, or manual client calls.
-- `ingest`, `analyze`, and `publish` are admin/crawler-write operations. Normal authenticated users are read-only.
+- `ingest`, `analyze`, and `publish` are privileged write operations. Normal authenticated users are read-only and only browse published analyses.
+- The scheduled crawler calls `ingest` only. Codex manual analysis uses the `analyze` manual `list/get/apply` operations.
 
 ## Functions
 
@@ -43,48 +44,79 @@ Behavior:
 - Builds `dedupe_key` from `policyNo/policy_no`, otherwise normalized `title + issuer + publishDate`, otherwise normalized URL.
 - Checks existing canonical policies by `dedupe_key` and `contentHash/content_hash`. When a duplicate is detected, returns `{ duplicate: true, policyId, policyRef, policy, job, next: [] }` and does not create a second policy row.
 - Creates an `analysis_jobs` row with `status = 'queued'`, `progress = 8`, and the normalized request in `input_payload`.
-- Returns `{ policyId, policyExternalId, policyRef, policy, job, next: ["analyze"] }`.
+- Returns `{ policyId, policyExternalId, policyRef, policy, job, next: ["analyze"] }`; the scheduled crawler stops here and leaves analysis for the manual Codex workflow.
 
 ### `analyze`
 
-Input:
+`analyze` is the authenticated control plane used by `scripts/manual-policy-analysis.mjs`. The current workflow is manual:
+
+1. List policies waiting for Codex analysis.
+2. Fetch one policy's metadata and `full_text`.
+3. Apply a reviewed `reportPayload`, marking the policy published.
+
+List input:
 
 ```json
 {
-  "jobId": "analysis-job-uuid"
+  "listPendingManualAnalysis": true,
+  "limit": 10,
+  "sincePublishDate": "2026-05-01"
 }
 ```
 
 Behavior:
 
 - Authenticates an active admin caller or verifies the scheduled crawler secret.
-- Reads the linked `policies.full_text` and generates a rules-based `metadata.reportPayload`.
-- Moves the job to `status = 'analyzing'`, `progress = 85`.
-- Moves the linked policy to `status = 'reviewing'`.
-- Rejects already published or failed jobs.
-- Returns `{ job, analysis, next: ["publish"] }`.
+- Lists policies with `publish_date >= sincePublishDate` that have not yet been marked with `codex-manual-v1`.
+- Returns `{ mode, sincePublishDate, count, policies }`.
 
-Published-policy refresh input:
+Get input:
 
 ```json
 {
-  "reanalyzePublished": true,
-  "limit": 30
+  "getManualAnalysisPolicy": true,
+  "policyId": "policy-uuid"
 }
 ```
 
 Behavior:
 
 - Authenticates an active admin caller or verifies the scheduled crawler secret.
-- Uses the server-side service role client to list the latest `status = 'published'` policies.
-- Rebuilds `metadata.reportPayload` for each policy from stored `policies.full_text`.
-- Keeps policies published; it only updates analysis metadata, confidence, category, summary, and counts.
-- Skips policies whose original full text is missing or too short.
-- Returns `{ selected, reanalyzed, skipped, failed, results }`.
+- Requires the policy to be in the active manual scope: `publish_date >= 2026-05-01` and status `draft`, `reviewing`, or `published`.
+- Returns policy metadata plus `fullText` for Codex to analyze in the conversation.
 
-Current limitation: this is a baseline rules analyzer, not a full LLM/policy expert analyzer. It creates a usable report shell from policy text, but company-level and deep industry conclusions should be upgraded later.
+Apply input:
+
+```json
+{
+  "applyManualAnalysis": true,
+  "policyId": "policy-uuid",
+  "reportPayload": {
+    "brief": { "judgement": "Codex-written policy conclusion..." },
+    "actions": [],
+    "clauses": [],
+    "chainNodes": [],
+    "companies": [],
+    "evidence": [],
+    "backgroundCards": []
+  }
+}
+```
+
+Behavior:
+
+- Authenticates an active admin caller or verifies the scheduled crawler secret.
+- Rejects empty or template-only payloads. A publishable manual report must include a real `brief.judgement`, policy actions, interpreted clauses, industry-chain impact nodes, evidence, factual background, and either representative companies or an explicit company-impact no-match explanation in `analysisCoverage`.
+- Normalizes the submitted manual `reportPayload`.
+- Writes `metadata.reportPayload`, `metadata.policyReport`, `metadata.analysis`, counts, summary, category, confidence, and `analysis_version = 'codex-manual-v1'`.
+- Moves the policy to `status = 'published'` and marks the latest linked analysis job as `published` when present.
+- Returns `{ policyId, analyzerVersion, published, jobUpdated, jobId, reportPayload }`.
+
+The function stores the Codex-reviewed result; it does not derive production reports during scheduled crawling.
 
 ### `publish`
+
+The current scheduled/manual architecture does not call `publish` after crawling. `applyManualAnalysis` publishes the policy when it writes the reviewed Codex report payload. The standalone `publish` function remains deployable for explicit admin job flows.
 
 Input:
 
@@ -124,46 +156,22 @@ Never expose `SUPABASE_SERVICE_ROLE_KEY` to Vite or browser code.
 
 ## Manual Calls
 
-Use a real admin user access token, not the service role key:
+Use a real admin user access token or the configured crawler secret, not the service role key. The supported manual analysis client is `scripts/manual-policy-analysis.mjs`:
+
+```text
+SUPABASE_URL=https://your-project-ref.supabase.co
+SUPABASE_ACCESS_TOKEN=admin-user-jwt
+# or
+SUPABASE_FUNCTION_JWT=your-supabase-anon-key-or-function-jwt
+SUPABASE_CRAWLER_SECRET=strong-random-shared-secret
+```
 
 ```powershell
-$ProjectUrl = "https://your-project-ref.supabase.co"
-$AnonKey = "your-anon-key"
-$AccessToken = "admin-user-access-token-from-auth-session"
-$Headers = @{
-  Authorization = "Bearer $AccessToken"
-  apikey = $AnonKey
-}
-
-$Ingest = Invoke-RestMethod `
-  -Method Post `
-  -Uri "$ProjectUrl/functions/v1/ingest" `
-  -Headers $Headers `
-  -ContentType "application/json" `
-  -Body (@{
-    sourceUrl = "https://www.gov.cn/example/policy.html"
-    title = "Policy title"
-    sourceName = "gov.cn"
-    externalId = "gov-policy-2024-001"
-  } | ConvertTo-Json)
-
-$JobId = $Ingest.job.id
-
-Invoke-RestMethod `
-  -Method Post `
-  -Uri "$ProjectUrl/functions/v1/analyze" `
-  -Headers $Headers `
-  -ContentType "application/json" `
-  -Body (@{ jobId = $JobId } | ConvertTo-Json)
-
-Invoke-RestMethod `
-  -Method Post `
-  -Uri "$ProjectUrl/functions/v1/publish" `
-  -Headers $Headers `
-  -ContentType "application/json" `
-  -Body (@{ jobId = $JobId } | ConvertTo-Json)
+npm run manual:policies -- list --limit=10
+npm run manual:policies -- get --policyId=<policy-uuid>
+npm run manual:policies -- apply --policyId=<policy-uuid> --file=artifacts/manual-report-payload.json
 ```
 
 ## Frontend
 
-The production frontend is read-only for normal users. Scheduled GitHub Actions should call `scripts/crawl-policy-sources.mjs --auto-publish` instead of allowing users to create analysis jobs from the browser.
+The production frontend is read-only for normal users. Scheduled GitHub Actions call `scripts/crawl-policy-sources.mjs --ingest`; Codex manual analysis publishes reports later through `scripts/manual-policy-analysis.mjs list/get/apply`.

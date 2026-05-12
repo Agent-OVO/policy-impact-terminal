@@ -18,7 +18,7 @@ export function CompanyMatrix({
       <div className={cx("company-matrix", compact && "compact", "empty")} role="status" aria-live="polite">
         <div className="matrix-plot-label">
           <strong>公司影响象限</strong>
-          <span>当前自动分析尚未生成公司映射</span>
+          <span>当前人工分析尚未生成公司映射</span>
         </div>
         <div
           className="matrix-selected-label"

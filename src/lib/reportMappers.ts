@@ -61,6 +61,12 @@ type JsonRecord = Record<string, unknown>;
 export interface AppPolicyReport {
   id: string;
   summary: PolicySummary;
+  brief?: {
+    judgement: string;
+    summary?: string;
+    keyPoints?: string[];
+    methodology?: string;
+  };
   policy: AppPolicyMeta;
   actions: AppPolicyAction[];
   clauseGroups: AppClauseGroup[];
@@ -240,9 +246,27 @@ interface ReportNavItemLike {
   badge?: string;
 }
 
+interface PolicyBriefLike {
+  judgement?: string;
+  judgment?: string;
+  oneLine?: string;
+  one_line?: string;
+  summary?: string;
+  overallSummary?: string;
+  overall_summary?: string;
+  keyPoints?: readonly string[];
+  key_points?: readonly string[];
+  points?: readonly string[];
+  methodology?: string;
+  method?: string;
+}
+
 export interface PolicyReportLike {
   id?: string;
   summary?: Partial<PolicySummary>;
+  brief?: PolicyBriefLike;
+  policyBrief?: PolicyBriefLike;
+  policy_brief?: PolicyBriefLike;
   policy?: PolicyMetaLike;
   actions?: readonly PolicyActionLike[];
   clauseGroups?: readonly ClauseGroupLike[];
@@ -610,6 +634,7 @@ export function mapReportNavItems(items: readonly ReportNavItemLike[] = []): Rep
 
 export function mapPolicyReport(input: PolicyReportLike): PolicyReport {
   const id = input.id ?? input.summary?.id ?? "policy-report";
+  const brief = mapPolicyBrief(input.brief ?? input.policyBrief ?? input.policy_brief);
   const policy = mapPolicyMeta(input.policy);
   const actions = mapPolicyActions(input.actions);
   const clauseGroups = mapClauseGroups(input.clauseGroups ?? input.clause_groups);
@@ -635,6 +660,7 @@ export function mapPolicyReport(input: PolicyReportLike): PolicyReport {
       ...input.summary,
       id
     },
+    brief,
     policy,
     actions,
     clauseGroups,
@@ -648,6 +674,19 @@ export function mapPolicyReport(input: PolicyReportLike): PolicyReport {
     modules: mapReportNavItems(input.modules),
     topTabs: mapReportNavItems(input.topTabs ?? input.top_tabs),
     generatedAt: input.generatedAt ?? input.generated_at
+  };
+}
+
+function mapPolicyBrief(input?: PolicyBriefLike): PolicyReport["brief"] {
+  if (!input) return undefined;
+  const judgement = input.judgement ?? input.judgment ?? input.oneLine ?? input.one_line ?? input.summary;
+  if (!judgement) return undefined;
+
+  return {
+    judgement,
+    summary: input.summary ?? input.overallSummary ?? input.overall_summary,
+    keyPoints: toStringArray(input.keyPoints ?? input.key_points ?? input.points),
+    methodology: input.methodology ?? input.method
   };
 }
 
@@ -814,6 +853,7 @@ export function mapPolicyReportPayloadForApp(
   const policyInput = asJsonRecord(input.policy) ?? input;
   const id = firstString(input.id, summaryInput?.id, context.id) || "policy-report";
   const policy = mapAppPolicyMeta(policyInput, context);
+  const brief = mapAppPolicyBrief(asJsonRecord(input.brief ?? input.policyBrief ?? input.policy_brief));
   const actions = mapAppPolicyActions(toRecordArray(input.actions));
   const clauseGroups = mapAppClauseGroups(toRecordArray(input.clauseGroups ?? input.clause_groups));
   const clauses = mapAppClauses(toRecordArray(input.clauses));
@@ -823,8 +863,7 @@ export function mapPolicyReportPayloadForApp(
   const evidence = mapAppEvidence(toRecordArray(input.evidence));
   const backgroundCards = normalizeAppBackgroundCards(
     mapAppBackgroundCards(toRecordArray(input.backgroundCards ?? input.background_cards)),
-    policy,
-    chainNodes
+    policy
   );
   const compareRows = normalizeAppCompareRows(mapAppCompareRows(toArray(input.compareRows ?? input.compare_rows)));
   const compareInsights = mapAppCompareInsights(
@@ -855,6 +894,7 @@ export function mapPolicyReportPayloadForApp(
       ...context.summary,
       id
     },
+    brief,
     policy,
     actions,
     clauseGroups,
@@ -870,6 +910,19 @@ export function mapPolicyReportPayloadForApp(
     modules: mapAppNavItems(toRecordArray(input.modules), DEFAULT_MODULES),
     topTabs: mapAppNavItems(toRecordArray(input.topTabs ?? input.top_tabs), DEFAULT_TOP_TABS),
     generatedAt: firstString(input.generatedAt, input.generated_at)
+  };
+}
+
+function mapAppPolicyBrief(input: JsonRecord | null): AppPolicyReport["brief"] {
+  if (!input) return undefined;
+  const judgement = firstString(input.judgement, input.judgment, input.oneLine, input.one_line, input.summary);
+  if (!judgement) return undefined;
+
+  return {
+    judgement,
+    summary: firstString(input.summary, input.overallSummary, input.overall_summary),
+    keyPoints: toStringList(input.keyPoints, input.key_points, input.points),
+    methodology: firstString(input.methodology, input.method)
   };
 }
 
@@ -1034,23 +1087,21 @@ function mapAppBackgroundCards(items: JsonRecord[]): AppPolicyReport["background
 
 function normalizeAppBackgroundCards(
   cards: AppPolicyReport["backgroundCards"],
-  policy: AppPolicyMeta,
-  chainNodes: AppChainNode[]
+  policy: AppPolicyMeta
 ): AppPolicyReport["backgroundCards"] {
   const scope = policy.scope || policy.impactScope || policy.jurisdiction || inferAppPolicyScope(policy);
-  const directions = chainNodes.slice(0, 4).map((node) => node.title).filter(Boolean).join("、") || "尚未形成产业节点";
   const nextCards = cards.map((card) => {
     if (card.title !== "影响范围") return card;
     return {
       ...card,
-      body: `本政策影响范围判断为：${scope}。产业方向另行展示为：${directions}。`
+      body: card.body || `本政策影响范围判断为：${scope}。`
     };
   });
 
   if (!nextCards.some((card) => card.title === "影响范围")) {
     nextCards.splice(1, 0, {
       title: "影响范围",
-      body: `本政策影响范围判断为：${scope}。产业方向另行展示为：${directions}。`
+      body: `本政策影响范围判断为：${scope}。`
     });
   }
 

@@ -344,7 +344,7 @@ function AuthScreen({ onLogin }: { onLogin: (user: SessionUser) => void }) {
         <div className="preview-orbit" />
         <div className="mini-report">
           <span>政策分析已发布</span>
-          <strong>自动抓取政策原文并生成产业影响报告</strong>
+          <strong>定时抓取政策原文，人工生成产业影响报告</strong>
           <div className="mini-lines">
             <i />
             <i />
@@ -479,7 +479,7 @@ function TopBar({
           {noticeOpen && (
             <div className="top-popover notice-popover">
               <strong>系统通知</strong>
-              <p>当前为只读工作台。政策由后台定时抓取并自动生成分析。</p>
+              <p>当前为只读工作台。政策由后台定时抓取，分析由 Codex 手动审核后发布。</p>
               <p>暂无新的个人通知。</p>
             </div>
           )}
@@ -722,8 +722,10 @@ function BriefView({
   const policySourceUrl = getPolicySourceUrl(currentPolicy);
   const impactScope = inferPolicyScope(currentPolicy);
   const policyTags = getPolicyTags(currentPolicy);
-  const quickTake = currentActions[0]?.body ?? currentClauses[0]?.excerpt ?? "系统已读取政策原文，正在形成可追溯的政策影响摘要。";
-  const quickItems = currentClauses.length
+  const quickTake = report?.brief?.judgement ?? "该政策尚未完成人工大模型归纳，请在待分析队列中触发 Codex 分析后查看。";
+  const quickItems = report?.brief?.keyPoints?.length
+    ? report.brief.keyPoints
+    : currentClauses.length
     ? currentClauses.slice(0, 4).map((clause) => `${clause.no || "条款"} ${clause.title || "核心内容"}：${clause.excerpt}`)
     : currentActions.slice(0, 4).map((action) => action.body);
   const kpis = [
@@ -1004,7 +1006,7 @@ function IndustryView({
         </div>
         {helpOpen && (
           <div className="inline-help">
-            地图只展示当前政策自动分析命中的产业节点；节点越亮表示与当前选择节点关系越近，点击节点可查看对应条款和证据。
+            地图只展示当前政策人工分析确认的产业节点；节点越亮表示与当前选择节点关系越近，点击节点可查看对应条款和证据。
           </div>
         )}
         <IndustryMap nodes={currentChainNodes} edges={currentChainEdges} selectedNodeId={selectedNodeId} setSelectedNodeId={setSelectedNodeId} />
@@ -1307,7 +1309,7 @@ function ClausesView({ report }: { report: PolicyReport | null }) {
         </div>
         <section>
           <h4>条款解读</h4>
-          <p>{selected.excerpt} 该条款对应数据资源开发利用和数据产业生态建设，是后续产业链映射的重要依据。</p>
+          <p>{selected.excerpt}</p>
         </section>
         <section>
           <h4>关联产业环节</h4>
@@ -1444,7 +1446,7 @@ function BackgroundView({ report }: { report: PolicyReport | null }) {
         <div className="panel-head">
           <div>
             <h2>材料与数据覆盖</h2>
-            <p>只展示当前政策真实入库和自动分析得到的数据覆盖，不使用外部市场规模样例。</p>
+            <p>只展示当前政策真实入库和人工分析得到的数据覆盖，不使用外部市场规模样例。</p>
           </div>
         </div>
         <div className="market-grid">
@@ -1503,12 +1505,12 @@ function CompareView({ report }: { report: PolicyReport | null }) {
   const similarityPoints = compareInsight?.similarityPoints?.length
     ? compareInsight.similarityPoints
     : report
-      ? ["当前报表尚未返回新版相似基准，请等待该政策重新自动分析后查看。"]
+      ? ["当前报表尚未返回新版相似基准，请完成该政策的人工分析后查看。"]
       : ["本地演示样例展示静态政策对比口径。"];
   const differencePoints = compareInsight?.differencePoints?.length
     ? compareInsight.differencePoints
     : report
-      ? ["当前报表尚未返回新版差异基准，请等待该政策重新自动分析后查看。"]
+      ? ["当前报表尚未返回新版差异基准，请完成该政策的人工分析后查看。"]
       : ["本地演示样例展示静态政策差异口径。"];
   const coverage = report?.analysisCoverage;
   const detailClause = selectedRow?.clauseIds?.length
@@ -1663,12 +1665,14 @@ function CompareView({ report }: { report: PolicyReport | null }) {
           <h4>条款依据</h4>
           <p>{detailClause?.excerpt || "当前维度未关联到具体条款。"}</p>
         </section>
-        <section>
-          <h4>影响行业</h4>
-          <div className="tag-row">
-            {(currentChainNodes.length ? currentChainNodes.slice(0, 6).map((node) => node.title) : ["尚未生成产业节点"]).map((item) => <span key={item}>{item}</span>)}
-          </div>
-        </section>
+        {currentChainNodes.length > 0 && (
+          <section>
+            <h4>关联分析维度</h4>
+            <div className="tag-row">
+              {currentChainNodes.slice(0, 6).map((node) => <span key={node.id}>{node.title}</span>)}
+            </div>
+          </section>
+        )}
         <section>
           <h4>分析覆盖</h4>
           <div className="score-band">
@@ -1768,7 +1772,7 @@ function PolicyListView({
 }) {
   const [query, setQuery] = useState("");
   const normalizedQuery = query.trim().toLowerCase();
-  const publishedReports = reports.filter((item) => item.status === "published");
+  const publishedReports = reports.filter((item) => item.status === "published" && item.publishDate >= "2026-05-01");
   const visibleReports = normalizedQuery
     ? publishedReports.filter((item) =>
         [item.title, item.issuer, item.source, item.primarySignal]
@@ -1795,7 +1799,7 @@ function PolicyListView({
         <div>
           <span className="status-badge purple">工作台首页</span>
           <h1>政策监测与分析报表</h1>
-          <p>这里是登录后的入口页。系统会按计划监测政府官网政策，自动生成可阅读的政策产业影响报表。</p>
+          <p>这里是登录后的入口页。系统会按计划监测政府官网政策，并展示人工审核后的政策产业影响报表。</p>
         </div>
       </section>
 
@@ -1858,7 +1862,7 @@ function PolicyListView({
         <div className="panel-head">
           <div>
             <h2>后台运行状态</h2>
-            <p>政策由后台定时抓取并自动分析。普通用户只查看已发布报表，不能创建新的政策分析任务。</p>
+            <p>政策由后台定时抓取，分析由 Codex 手动审核后发布。普通用户只查看已发布报表，不能创建新的政策分析任务。</p>
           </div>
         </div>
         <div className="job-list">
@@ -1869,7 +1873,7 @@ function PolicyListView({
               </span>
               <strong>
                 {repositoryMode === "supabase"
-                  ? "定时抓取与自动分析已接入云端数据源"
+                  ? "定时抓取与人工分析发布已接入云端数据源"
                   : repositoryMode === "mock"
                     ? "当前使用显式本地演示数据"
                     : "当前缺少 Supabase 前端配置"}
@@ -1878,7 +1882,7 @@ function PolicyListView({
             </div>
             <div className="job-progress">
               <span>{jobs.length > 0 ? `后台任务 ${jobs.length} 条` : "任务明细不可见"}</span>
-              <b>{repositoryMode === "supabase" ? "自动" : repositoryMode === "mock" ? "演示" : "待配置"}</b>
+              <b>{repositoryMode === "supabase" ? "待人工分析" : repositoryMode === "mock" ? "演示" : "待配置"}</b>
               <i style={{ width: repositoryMode === "supabase" ? "100%" : repositoryMode === "mock" ? "38%" : "8%" }} />
             </div>
           </article>
@@ -1912,10 +1916,10 @@ function ModuleContent({
   if (activeModule === "companies") {
     return (
       <CompaniesView
-        chainNodes={report ? report.chainNodes : chainNodes}
-        clauses={report ? report.clauses : clauses}
-        companies={report ? report.companies : companies}
-        evidence={report ? report.evidence : evidence}
+        chainNodes={report?.chainNodes ?? []}
+        clauses={report?.clauses ?? []}
+        companies={report?.companies ?? []}
+        evidence={report?.evidence ?? []}
         onCompanySelect={onCompanySelect}
       />
     );
@@ -2036,8 +2040,7 @@ export function App() {
   const analyticsSessionIdRef = useRef(getAnalyticsSessionId());
   const trackedAppOpenRef = useRef(false);
 
-  const activeChainNodes = activeReport ? activeReport.chainNodes : chainNodes;
-  const activeNode = useMemo(() => getNode(selectedNodeId, activeChainNodes) || activeChainNodes[0] || chainNodes[0], [activeChainNodes, selectedNodeId]);
+  const activeChainNodes = activeReport?.chainNodes ?? [];
   const track = useCallback((event: TrackUserEventInput) => {
     if (!analyticsSessionIdRef.current) analyticsSessionIdRef.current = getAnalyticsSessionId();
     void trackUserEvent(user?.id, event);
@@ -2398,15 +2401,6 @@ export function App() {
               <ReportUnavailableState loading={reportLoading} error={reportError} />
             )}
           </main>
-          {activeReport && activeReport.chainNodes.length > 0 && activeModule !== "brief" && activeModule !== "industry" && activeModule !== "companies" && (
-            <aside className="context-rail">
-              <NodeDetail
-                node={activeNode}
-                clauses={activeReport ? activeReport.clauses : clauses}
-                companies={activeReport ? activeReport.companies : companies}
-              />
-            </aside>
-          )}
         </div>
       )}
     </div>

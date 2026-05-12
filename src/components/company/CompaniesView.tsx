@@ -76,7 +76,7 @@ export function CompaniesView({
         <section className="panel company-matrix-panel">
           <div className="panel-head">
             <h2>代表性公司影响分析</h2>
-            <p>当前自动分析尚未生成公司映射。系统不会用样例公司填充，以免误导政策判断。</p>
+            <p>当前人工分析尚未生成公司映射。系统不会用样例公司填充，以免误导政策判断。</p>
           </div>
           <CompanyMatrix companies={[]} />
         </section>

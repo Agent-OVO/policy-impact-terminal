@@ -34,7 +34,11 @@ Deno.serve(async (req) => {
 
     const now = new Date().toISOString();
     const existingOutput = isRecord(job.output_payload) ? job.output_payload : {};
-    const hasAnalysisStub = isRecord(existingOutput.analysisStub);
+    const analysisStub = isRecord(existingOutput.analysisStub) ? existingOutput.analysisStub : null;
+    const hasAnalysisStub = analysisStub !== null;
+    const analysisMethod = readString(analysisStub, "analysisMethod") ?? readString(analysisStub, "analysis_method");
+    const analyzerVersion = readString(analysisStub, "analyzerVersion") ?? readString(analysisStub, "analyzer_version");
+    const hasManualAnalysis = analysisMethod === "codex-manual-v1" || analyzerVersion === "codex-manual-v1";
 
     if (job.status === "failed") {
       return jsonResponse({ error: "Analysis job is failed and cannot be published." }, 409);
@@ -46,12 +50,17 @@ Deno.serve(async (req) => {
       }, 409);
     }
 
+    if (job.status !== "published" && !hasManualAnalysis) {
+      return jsonResponse({
+        error: "Only Codex manual analysis output can be published. Use applyManualAnalysis instead of rules analysis."
+      }, 409);
+    }
+
     const { data: policy, error: policyError } = await supabase
       .from("policies")
       .update({
         status: "published",
-        published_at: now,
-        analysis_version: "rules-v0.1"
+        published_at: now
       })
       .eq("id", job.policy_id)
       .select("id,title,status,published_at,analysis_version")
@@ -91,3 +100,8 @@ Deno.serve(async (req) => {
     return errorResponse(error);
   }
 });
+
+function readString(record: Record<string, unknown> | null, key: string): string | null {
+  const value = record?.[key];
+  return typeof value === "string" && value.trim() ? value.trim() : null;
+}

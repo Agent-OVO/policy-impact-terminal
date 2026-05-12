@@ -6,9 +6,17 @@ const DEFAULT_CHUNK_SIZE = 3;
 const args = parseArgs(process.argv.slice(2));
 const limit = Math.max(1, Number(args.limit ?? DEFAULT_LIMIT));
 let chunkSize = clampChunkSize(args.chunk ?? args.chunkSize ?? DEFAULT_CHUNK_SIZE);
+const allowRulesAnalysis = args.allowRulesAnalysis === "true" || args["allow-rules-analysis"] === "true";
+const sincePublishDate = String(args.since ?? args.sincePublishDate ?? args["since-publish-date"] ?? "2026-05-01");
 const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
 const accessToken = process.env.SUPABASE_ACCESS_TOKEN || process.env.SUPABASE_FUNCTION_JWT;
 const crawlerSecret = process.env.SUPABASE_CRAWLER_SECRET;
+
+if (!allowRulesAnalysis) {
+  throw new Error(
+    "Published-policy rules reanalysis is disabled. Use scripts/manual-policy-analysis.mjs list/get/apply, or pass --allow-rules-analysis=true only for an explicit internal migration."
+  );
+}
 
 if (!supabaseUrl || (!accessToken && !crawlerSecret)) {
   throw new Error("Requires SUPABASE_URL and either SUPABASE_FUNCTION_JWT/SUPABASE_ACCESS_TOKEN or SUPABASE_CRAWLER_SECRET.");
@@ -103,8 +111,10 @@ async function callAnalyzeBatch(maxRows, offsetValue) {
     },
     body: JSON.stringify({
       reanalyzePublished: true,
+      allowRulesAnalysis: true,
       limit: maxRows,
       offset: offsetValue,
+      sincePublishDate,
       reanalysisReason: "refresh-published-report-payload"
     })
   });

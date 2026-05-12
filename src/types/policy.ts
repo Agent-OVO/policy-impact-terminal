@@ -255,9 +255,17 @@ export interface AnalysisJob {
   errorMessage?: string;
 }
 
+export interface PolicyBrief {
+  judgement: string;
+  summary?: string;
+  keyPoints?: string[];
+  methodology?: string;
+}
+
 export interface PolicyReport {
   id: EntityId;
   summary: PolicySummary;
+  brief?: PolicyBrief;
   policy: PolicyMeta;
   actions: PolicyAction[];
   clauseGroups: ClauseGroup[];

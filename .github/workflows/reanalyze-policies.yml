@@ -1,22 +1,26 @@
-name: Reanalyze published policies
+name: List pending manual policy analysis
 
 on:
   workflow_dispatch:
     inputs:
       limit:
-        description: "Maximum published policies to refresh"
+        description: "Maximum pending policies to list"
         required: false
-        default: "30"
+        default: "20"
+      since:
+        description: "Only include policies published on or after this date"
+        required: false
+        default: "2026-05-01"
 
 permissions:
   contents: read
 
 concurrency:
-  group: policy-reanalysis
+  group: policy-manual-analysis-list
   cancel-in-progress: false
 
 jobs:
-  reanalyze:
+  list:
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -33,10 +37,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Refresh published report payloads
+      - name: List pending manual analysis policies
         env:
           SUPABASE_URL: https://qxzspsofhmfjceuaulhu.supabase.co
           SUPABASE_FUNCTION_JWT: ${{ secrets.SUPABASE_FUNCTION_JWT }}
           SUPABASE_CRAWLER_SECRET: ${{ secrets.SUPABASE_CRAWLER_SECRET }}
-          REANALYZE_LIMIT: ${{ github.event.inputs.limit || '30' }}
-        run: node scripts/reanalyze-published-policies.mjs --limit="${REANALYZE_LIMIT}"
+          MANUAL_ANALYSIS_LIMIT: ${{ github.event.inputs.limit || '20' }}
+          MANUAL_ANALYSIS_SINCE: ${{ github.event.inputs.since || '2026-05-01' }}
+        run: node scripts/manual-policy-analysis.mjs list --limit="${MANUAL_ANALYSIS_LIMIT}" --since="${MANUAL_ANALYSIS_SINCE}"

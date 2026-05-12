@@ -7,6 +7,7 @@
     "dev": "vite --host 127.0.0.1",
     "build": "tsc -b && vite build",
     "crawl:sources": "node scripts/crawl-policy-sources.mjs",
+    "manual:policies": "node scripts/manual-policy-analysis.mjs",
     "setup:production": "node scripts/configure-production.mjs",
     "preview": "vite preview --host 127.0.0.1"
   },

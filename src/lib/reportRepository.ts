@@ -13,6 +13,7 @@ import {
   topTabs
 } from "../data/policy";
 import type { AnalysisCoverage, CompareInsights } from "../data/policy";
+import type { PolicyBrief } from "../data/policy";
 import { extractPolicyReportPayload, mapPolicyReportPayloadForApp } from "./reportMappers";
 import { isSupabaseConfigured, supabase } from "./supabase";
 
@@ -61,6 +62,7 @@ export interface CreateAnalysisJobInput {
 export interface PolicyReport {
   id: string;
   summary: PolicySummary;
+  brief?: PolicyBrief;
   policy: typeof policy;
   actions: typeof actions;
   clauseGroups: typeof clauseGroups;
@@ -132,7 +134,8 @@ const FALLBACK_ISSUER = "未知机构";
 const FALLBACK_SOURCE = "未知来源";
 const FALLBACK_POLICY_TITLE = "未命名政策";
 const FALLBACK_SOURCE_NAME = "手动提交";
-const QUEUED_STEP = "已创建后台解析任务，等待抓取政策正文";
+const QUEUED_STEP = "政策原文已入库，等待 Codex 手动分析";
+const POLICY_MIN_PUBLISH_DATE = "2026-05-01";
 
 const reportStatuses: readonly ReportStatus[] = [
   "published",
@@ -262,13 +265,16 @@ const mockJobs: AnalysisJob[] = [
 
 const mockReportRepository: ReportRepository = {
   async listPolicyReports() {
-    return mockSummaries;
+    return mockSummaries.filter((item) => item.publishDate >= POLICY_MIN_PUBLISH_DATE);
   },
 
   async getPolicyReport(reportId) {
     const report = getMockReport(reportId);
     if (!report) {
       throw new ReportRepositoryError("getPolicyReport", `Mock report "${reportId}" was not found.`);
+    }
+    if (report.summary.publishDate < POLICY_MIN_PUBLISH_DATE) {
+      throw new ReportRepositoryError("getPolicyReport", `Mock report "${reportId}" is outside the active policy scope.`);
     }
     return report;
   },
@@ -309,7 +315,7 @@ function buildMockReportFromSummary(summary: PolicySummary): PolicyReport {
     title: index === 0 ? `${topic}政策信号` : action.title,
     body:
       index === 0
-        ? `系统演示报表围绕“${topic}”展示产业影响结构；真实部署后会由定时抓取的政策原文生成。`
+        ? `系统演示报表围绕“${topic}”展示产业影响结构；真实部署后会由定时抓取的政策原文和人工分析结果生成。`
         : action.body
   }));
   const derivedClauses = clauses.map((clause, index) => ({
@@ -352,6 +358,7 @@ const supabaseReportRepository: ReportRepository = {
       .from("policies")
       .select("id,external_id,title,issuer,source_name,publish_date,status,confidence,metadata")
       .eq("status", "published")
+      .gte("publish_date", POLICY_MIN_PUBLISH_DATE)
       .order("publish_date", { ascending: false });
 
     if (error) {
@@ -375,6 +382,10 @@ const supabaseReportRepository: ReportRepository = {
 
     if (coerceReportStatus(row.status) !== "published") {
       throw new ReportRepositoryError("getPolicyReport", `Report "${reportId}" is not published.`);
+    }
+
+    if (!row.publish_date || row.publish_date < POLICY_MIN_PUBLISH_DATE) {
+      throw new ReportRepositoryError("getPolicyReport", `Report "${reportId}" is outside the active policy scope.`);
     }
 
     const metadata = isJsonRecord(row.metadata) ? row.metadata : {};
