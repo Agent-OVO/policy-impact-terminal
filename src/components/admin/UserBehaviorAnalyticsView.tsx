@@ -507,8 +507,8 @@ export function UserBehaviorAnalyticsView({
   const activeData = useMemo(() => normalizeData(data ?? loadedData), [data, loadedData]);
   const allUserPaths = useMemo(
     () => ({
-      ...lazyUserPaths,
-      ...activeData.userPaths
+      ...activeData.userPaths,
+      ...lazyUserPaths
     }),
     [activeData.userPaths, lazyUserPaths]
   );
@@ -616,7 +616,7 @@ export function UserBehaviorAnalyticsView({
     return () => {
       active = false;
     };
-  }, [activeData.userPaths, filters, guardAllowed, lazyUserPaths, loadUserPath, pathLoadStatus, selectedUserId]);
+  }, [activeData.userPaths, filters, guardAllowed, lazyUserPaths, loadUserPath, selectedUserId]);
 
   const selectedPath = useMemo(() => {
     if (!selectedUserId) return [];
@@ -632,6 +632,10 @@ export function UserBehaviorAnalyticsView({
 
   function resetFilters() {
     setFilters(createFilters(initialFilters));
+    setLoadedData(undefined);
+    setSelectedUserId("");
+    setLazyUserPaths({});
+    setPathLoadStatus({});
   }
 
   function selectUser(userId: string) {

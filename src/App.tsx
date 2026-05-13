@@ -2086,6 +2086,7 @@ function CompareView({ report }: { report: PolicyReport | null }) {
   }, [compareInsight?.rows, fallbackRows, historicalReferences.length, legacyRows, storedCompareRowsAreWeak]);
   const [selectedRowId, setSelectedRowId] = useState(displayedRows[0]?.id ?? "");
   const selectedRow = displayedRows.find((row) => row.id === selectedRowId) || displayedRows[0];
+  const [exportNotice, setExportNotice] = useState("");
   const detailClause = selectedRow?.clauseIds?.length
     ? currentClauses.find((clause) => selectedRow.clauseIds?.includes(clause.id))
     : currentClauses[0];
@@ -2120,10 +2121,17 @@ function CompareView({ report }: { report: PolicyReport | null }) {
     return [row.dimension, row.current, row.similar, row.different];
   }
 
-  const comparableCount = compareInsight?.comparableCount ?? coverage?.comparablePolicyCount ?? historicalReferences.length;
-  const hasBaseline = Boolean(similarBase || differenceBase || comparableCount > 0 || historicalReferences.length > 0);
+  const rawComparableCount = compareInsight?.comparableCount ?? coverage?.comparablePolicyCount ?? 0;
+  const referenceCount = Math.max(rawComparableCount, historicalReferences.length);
+  const hasBaseline = Boolean(similarBase || differenceBase || referenceCount > 0);
   const emptyCompareReason = compareInsight?.emptyReason || "暂无历史参考；已按当前政策结构展示可比分析维度。";
   const hasExternalHistoricalRefs = historicalReferences.some((item) => item.sourceKind === "历史政策参考");
+  const hasStoredBaselineRefs = historicalReferences.some((item) => item.sourceKind === "入库基准");
+  const referenceCountLabel = hasBaseline
+    ? hasExternalHistoricalRefs && !hasStoredBaselineRefs
+      ? `${historicalReferences.length} 项历史政策参考`
+      : `${referenceCount} 项可比基准`
+    : noBaselineLabel;
   const rowSimilarityPoints = displayedRows
     .filter((row) => row.similar && !row.similar.includes(noBaselineLabel))
     .slice(0, 3)
@@ -2152,32 +2160,11 @@ function CompareView({ report }: { report: PolicyReport | null }) {
   const compareStatusText = hasBaseline
     ? hasExternalHistoricalRefs && !compareInsight?.comparableCount
       ? `系统已按政策主题整理 ${historicalReferences.length} 项历史政策参考（不纳入本系统政策库），用于解释延续、强化和边界变化。`
-      : `系统已检索 ${comparableCount} 篇已发布政策作为基准。${compareInsight?.method || compareInsight?.basis || "下方按维度展示相似与差异依据。"}`
+      : `系统已检索 ${referenceCount} 篇已发布政策作为基准。${compareInsight?.method || compareInsight?.basis || "下方按维度展示相似与差异依据。"}`
     : `${emptyCompareReason} 当前覆盖 ${coverageSummary}，可用于后续真实基准入库后的逐项比较。`;
 
   function exportCompareReport() {
-    const content = [
-      `政策对比报告：${currentPolicy.title}`,
-      `发布日期：${currentPolicy.publishDate || "待补充"}`,
-      `相似基准：${baselineTitle(similarBase, noBaselineLabel)}`,
-      `差异基准：${baselineTitle(differenceBase, noBaselineLabel)}`,
-      `历史参考：${historicalReferences.map((item) => item.title).join("；") || "暂无"}`,
-      "",
-      "相似点：",
-      ...similarityPoints.map((item) => `- ${item}`),
-      "",
-      "不同点：",
-      ...differencePoints.map((item) => `- ${item}`),
-      "",
-      "维度矩阵：",
-      ...displayedRows.map((row) => rowCells(row).join(" | ")),
-      "",
-      "覆盖情况：",
-      coverage
-        ? `条款 ${coverage.clauseCount}，证据 ${coverage.evidenceCount}，产业节点 ${coverage.industryNodeCount}，公司 ${coverage.companyCount}，可比政策 ${coverage.comparablePolicyCount ?? 0}`
-        : coverageSummary
-    ].join("\n");
-    downloadTextFile(buildFilename(currentPolicy.title, "compare"), content);
+    setExportNotice("对比报告导出暂未开放。当前版本请先在页面查看相似点、不同点和维度矩阵；后续会接入正式报告生成。");
   }
 
   return (
@@ -2192,6 +2179,11 @@ function CompareView({ report }: { report: PolicyReport | null }) {
             <button type="button" onClick={exportCompareReport}><Download size={15} /> 导出对比报告</button>
           </div>
         </div>
+        {exportNotice && (
+          <p className="compare-export-notice" role="status" aria-live="polite">
+            {exportNotice}
+          </p>
+        )}
         <div className="analysis-note">{compareStatusText}</div>
         <div className="compare-analysis-summary">
           <article>
@@ -2201,7 +2193,7 @@ function CompareView({ report }: { report: PolicyReport | null }) {
           </article>
           <article>
             <span>基准状态</span>
-            <strong>{hasBaseline ? `${comparableCount} 项历史参考` : noBaselineLabel}</strong>
+            <strong>{referenceCountLabel}</strong>
             <p>{hasExternalHistoricalRefs ? "用于当前页对比说明，不自动纳入新政策库。" : hasBaseline ? "相似与差异结论来自入库基准。" : "未指向具体政策，不生成伪匹配。"}</p>
           </article>
           <article>
@@ -2309,7 +2301,7 @@ function CompareView({ report }: { report: PolicyReport | null }) {
             <i><b style={{ width: `${currentPolicy.confidence}%` }} /></i>
             <p>
               证据 {currentEvidence.length} 条 · 条款 {currentClauses.length} 条 · 产业节点 {currentChainNodes.length} 个
-              {coverage ? ` · 可比政策 ${coverage.comparablePolicyCount ?? 0} 篇` : ""}
+              {hasBaseline ? ` · ${hasExternalHistoricalRefs && !hasStoredBaselineRefs ? `历史参考 ${historicalReferences.length} 项` : `可比政策 ${referenceCount} 篇`}` : ""}
             </p>
           </div>
         </section>

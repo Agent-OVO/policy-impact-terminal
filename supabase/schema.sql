@@ -1246,6 +1246,7 @@ language plpgsql
 security definer
 set search_path = pg_catalog, public, analytics_private
 as $$
+#variable_conflict use_column
 declare
   v_from timestamptz;
   v_to timestamptz;
@@ -1536,6 +1537,7 @@ language plpgsql
 security definer
 set search_path = pg_catalog, public, analytics_private
 as $$
+#variable_conflict use_column
 declare
   v_from timestamptz;
   v_to timestamptz;
@@ -1685,6 +1687,7 @@ language plpgsql
 security definer
 set search_path = pg_catalog, public, analytics_private
 as $$
+#variable_conflict use_column
 declare
   v_from timestamptz;
   v_to timestamptz;

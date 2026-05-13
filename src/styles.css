@@ -5521,6 +5521,18 @@ a.text-button {
   margin: 14px 0;
 }
 
+.compare-export-notice {
+  margin: 10px 0 0;
+  padding: 10px 12px;
+  border: 1px solid rgba(124, 92, 255, 0.22);
+  border-radius: 10px;
+  background: rgba(246, 248, 255, 0.72);
+  color: var(--violet);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
 .compare-analysis-summary article,
 .compare-card {
   padding: 13px;
