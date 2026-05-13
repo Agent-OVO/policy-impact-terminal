@@ -26,6 +26,9 @@ export interface PolicySummary {
   issuer: string;
   source: string;
   publishDate: string;
+  publishDateTime?: string;
+  officialPublishedAt?: string;
+  publishTimezone?: string;
   status: ReportStatus;
   confidence: number;
   industryCount: number;
@@ -52,6 +55,9 @@ export interface PendingPolicyAnalysisItem {
   source: string;
   sourceUrl: string;
   publishDate: string;
+  publishDateTime?: string;
+  officialPublishedAt?: string;
+  publishTimezone?: string;
   status: ReportStatus;
   analysisVersion: string;
   createdAt: string;
@@ -70,6 +76,9 @@ export interface CreateAnalysisJobInput {
   sourceKey?: string;
   issuer?: string;
   publishDate?: string;
+  publishDateTime?: string;
+  officialPublishedAt?: string;
+  publishTimezone?: string;
   policyNo?: string;
   canonicalSourceUrl?: string;
   contentHash?: string;
@@ -154,6 +163,12 @@ type PendingPolicyAnalysisRpcRow = {
   sourceName?: unknown;
   sourceUrl?: unknown;
   publishDate?: unknown;
+  publishDateTime?: unknown;
+  publish_date_time?: unknown;
+  officialPublishedAt?: unknown;
+  official_published_at?: unknown;
+  publishTimezone?: unknown;
+  publish_timezone?: unknown;
   status?: unknown;
   analysisVersion?: unknown;
   createdAt?: unknown;
@@ -202,6 +217,22 @@ const METADATA_COUNT_CONTAINERS = [
   "stats",
   "reportStats",
   "report_stats"
+];
+
+const METADATA_PUBLISH_TIME_KEYS = [
+  "publishDateTime",
+  "publish_date_time",
+  "officialPublishedAt",
+  "official_published_at",
+  "sourcePublishedAt",
+  "source_published_at"
+];
+
+const METADATA_PUBLISH_TIMEZONE_KEYS = [
+  "publishTimezone",
+  "publish_timezone",
+  "timezone",
+  "timeZone"
 ];
 
 export class ReportRepositoryError extends Error {
@@ -485,6 +516,7 @@ const supabaseReportRepository: ReportRepository = {
         sourceName: row.source_name,
         sourceUrl: row.source_url,
         publishDate: row.publish_date,
+        ...mapPolicyPublishTiming(metadata),
         effectiveDate: row.effective_date,
         status: row.status,
         confidence: toNumberOrUndefined(row.confidence),
@@ -633,6 +665,7 @@ function requireSupabaseClient(operation: RepositoryOperation) {
 function normalizeCreateJobInput(input: CreateAnalysisJobInput) {
   const title = normalizeTitle(input.title);
   const sourceName = input.sourceName ?? inferSourceName(input.sourceUrl);
+  const officialPublishedAt = input.officialPublishedAt ?? input.publishDateTime;
 
   return {
     title,
@@ -645,6 +678,15 @@ function normalizeCreateJobInput(input: CreateAnalysisJobInput) {
       ...(input.sourceKey ? { sourceKey: input.sourceKey, source_key: input.sourceKey } : {}),
       ...(input.issuer ? { issuer: input.issuer } : {}),
       ...(input.publishDate ? { publishDate: input.publishDate, publish_date: input.publishDate } : {}),
+      ...(officialPublishedAt
+        ? {
+            publishDateTime: officialPublishedAt,
+            publish_date_time: officialPublishedAt,
+            officialPublishedAt,
+            official_published_at: officialPublishedAt
+          }
+        : {}),
+      ...(input.publishTimezone ? { publishTimezone: input.publishTimezone, publish_timezone: input.publishTimezone } : {}),
       ...(input.policyNo ? { policyNo: input.policyNo, policy_no: input.policyNo } : {}),
       ...(input.canonicalSourceUrl ? { canonicalSourceUrl: input.canonicalSourceUrl, canonical_source_url: input.canonicalSourceUrl } : {}),
       ...(input.contentHash ? { contentHash: input.contentHash, content_hash: input.contentHash } : {}),
@@ -690,6 +732,7 @@ async function fetchPolicyReportRow(reportId: string): Promise<SupabasePolicyRep
 function mapPolicySummary(row: SupabasePolicyRow): PolicySummary {
   const metadata = isJsonRecord(row.metadata) ? row.metadata : {};
   const counts = mapPolicySummaryCounts(metadata);
+  const timing = mapPolicyPublishTiming(metadata);
 
   return {
     id: row.external_id ?? row.id,
@@ -697,6 +740,7 @@ function mapPolicySummary(row: SupabasePolicyRow): PolicySummary {
     issuer: row.issuer ?? FALLBACK_ISSUER,
     source: row.source_name ?? FALLBACK_SOURCE,
     publishDate: row.publish_date ?? "",
+    ...timing,
     status: coerceReportStatus(row.status),
     confidence: toNumber(row.confidence),
     industryCount: counts.industryCount ?? 0,
@@ -709,6 +753,7 @@ function mapPolicySummary(row: SupabasePolicyRow): PolicySummary {
 function mapPolicySummaryContext(row: SupabasePolicyReportRow): Partial<PolicySummary> {
   const metadata = isJsonRecord(row.metadata) ? row.metadata : {};
   const counts = mapPolicySummaryCounts(metadata);
+  const timing = mapPolicyPublishTiming(metadata);
   const confidence = toNumberOrUndefined(row.confidence);
   const summary: Partial<PolicySummary> = {
     id: row.external_id ?? row.id,
@@ -716,6 +761,7 @@ function mapPolicySummaryContext(row: SupabasePolicyReportRow): Partial<PolicySu
     issuer: row.issuer ?? FALLBACK_ISSUER,
     source: row.source_name ?? FALLBACK_SOURCE,
     publishDate: row.publish_date ?? "",
+    ...timing,
     status: coerceReportStatus(row.status),
     ...counts
   };
@@ -759,6 +805,9 @@ function mapPendingPolicyAnalysisItem(value: unknown): PendingPolicyAnalysisItem
     source: toStringValue(row.sourceName, FALLBACK_SOURCE),
     sourceUrl: toStringValue(row.sourceUrl, ""),
     publishDate: toStringValue(row.publishDate, ""),
+    publishDateTime: toStringValue(row.publishDateTime ?? row.publish_date_time ?? row.officialPublishedAt ?? row.official_published_at, "") || undefined,
+    officialPublishedAt: toStringValue(row.officialPublishedAt ?? row.official_published_at ?? row.publishDateTime ?? row.publish_date_time, "") || undefined,
+    publishTimezone: toStringValue(row.publishTimezone ?? row.publish_timezone, "") || undefined,
     status: coerceReportStatus(toStringValue(row.status, "draft")),
     analysisVersion: toStringValue(row.analysisVersion, ""),
     createdAt: toStringValue(row.createdAt, ""),
@@ -795,6 +844,24 @@ function mapPolicySummaryCounts(metadata: JsonRecord): Partial<Pick<
   return counts;
 }
 
+function mapPolicyPublishTiming(metadata: JsonRecord): Pick<
+  PolicySummary,
+  "publishDateTime" | "officialPublishedAt" | "publishTimezone"
+> {
+  const publishDateTime = getNestedMetadataString(metadata, METADATA_PUBLISH_TIME_KEYS);
+  const publishTimezone = getNestedMetadataString(metadata, METADATA_PUBLISH_TIMEZONE_KEYS);
+
+  return {
+    ...(publishDateTime
+      ? {
+          publishDateTime,
+          officialPublishedAt: publishDateTime
+        }
+      : {}),
+    ...(publishTimezone ? { publishTimezone } : {})
+  };
+}
+
 function getMetadataNumber(metadata: JsonRecord, ...keys: string[]): number | undefined {
   return toNumberOrUndefined(getMetadataValue(metadata, keys));
 }
@@ -815,6 +882,50 @@ function getMetadataValue(metadata: JsonRecord, keys: readonly string[]): unknow
     for (const key of keys) {
       if (container[key] !== undefined) return container[key];
     }
+  }
+
+  return undefined;
+}
+
+function getNestedMetadataString(value: unknown, keys: readonly string[], depth = 0): string | undefined {
+  if (depth > 6 || value === null || value === undefined) return undefined;
+
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      const nested = getNestedMetadataString(item, keys, depth + 1);
+      if (nested) return nested;
+    }
+    return undefined;
+  }
+
+  if (!isJsonRecord(value)) return undefined;
+
+  for (const key of keys) {
+    const text = toStringValue(value[key], "");
+    if (text) return text;
+  }
+
+  const preferredContainers = [
+    "reportPayload",
+    "report_payload",
+    "policyReport",
+    "policy_report",
+    "report",
+    "summary",
+    "policy",
+    "inputPayload",
+    "input_payload",
+    "raw"
+  ];
+
+  for (const key of preferredContainers) {
+    const nested = getNestedMetadataString(value[key], keys, depth + 1);
+    if (nested) return nested;
+  }
+
+  for (const nestedValue of Object.values(value)) {
+    const nested = getNestedMetadataString(nestedValue, keys, depth + 1);
+    if (nested) return nested;
   }
 
   return undefined;

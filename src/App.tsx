@@ -127,6 +127,14 @@ type AppView = "list" | "report" | "adminAnalytics";
 type PolicyMetaWithExtras = typeof policy & {
   sourceUrl?: string;
   source_url?: string;
+  publishDateTime?: string;
+  publish_date_time?: string;
+  officialPublishedAt?: string;
+  official_published_at?: string;
+  sourcePublishedAt?: string;
+  source_published_at?: string;
+  publishTimezone?: string;
+  publish_timezone?: string;
   scope?: string;
   impactScope?: string;
   jurisdiction?: string;
@@ -152,6 +160,98 @@ type RelatedTimelineItem = {
 
 function cx(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(" ");
+}
+
+type PolicyPublishTimingTarget = {
+  publishDate?: string;
+  publishDateTime?: string;
+  publish_date_time?: string;
+  officialPublishedAt?: string;
+  official_published_at?: string;
+  sourcePublishedAt?: string;
+  source_published_at?: string;
+};
+
+function formatDateTimeInBeijing(date: Date): string {
+  const parts = new Intl.DateTimeFormat("zh-CN", {
+    timeZone: "Asia/Shanghai",
+    hour12: false,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit"
+  }).formatToParts(date);
+  const get = (type: string) => parts.find((part) => part.type === type)?.value ?? "";
+  return `${get("year")}-${get("month")}-${get("day")} ${get("hour")}:${get("minute")}`;
+}
+
+function normalizeOfficialPublishDateTime(value?: string): string {
+  const raw = value?.trim();
+  if (!raw) return "";
+
+  if (/^\d{4}-\d{2}-\d{2}T.*(?:Z|[+-]\d{2}:?\d{2})$/i.test(raw)) {
+    const parsed = new Date(raw);
+    if (!Number.isNaN(parsed.getTime())) return formatDateTimeInBeijing(parsed);
+  }
+
+  const match = raw.match(/(\d{4})\s*(?:年|[./-])\s*(\d{1,2})\s*(?:月|[./-])\s*(\d{1,2})\s*(?:日)?(?:[T\s]+|[^\d]{0,4})(\d{1,2})[:：](\d{2})/);
+  if (!match) return "";
+
+  const [, year, month, day, hour, minute] = match;
+  return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")} ${hour.padStart(2, "0")}:${minute}`;
+}
+
+function normalizePolicyPublishDate(value?: string): string {
+  const raw = value?.trim();
+  if (!raw) return "";
+  const match = raw.match(/(\d{4})\s*(?:年|[./-])\s*(\d{1,2})\s*(?:月|[./-])\s*(\d{1,2})/);
+  if (!match) return raw;
+  const [, year, month, day] = match;
+  return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+}
+
+function getOfficialPublishDateTime(item: PolicyPublishTimingTarget): string {
+  return normalizeOfficialPublishDateTime(
+    item.publishDateTime ??
+      item.publish_date_time ??
+      item.officialPublishedAt ??
+      item.official_published_at ??
+      item.sourcePublishedAt ??
+      item.source_published_at
+  );
+}
+
+function formatPolicyOfficialPublish(item: PolicyPublishTimingTarget, fallback = "日期待补充"): string {
+  const dateTime = getOfficialPublishDateTime(item);
+  if (dateTime) return `${dateTime}（北京时间）`;
+
+  const date = normalizePolicyPublishDate(item.publishDate);
+  return date ? `${date} · 时间待补充` : fallback;
+}
+
+function formatPolicyOfficialPublishCompact(item: PolicyPublishTimingTarget, fallback = "待发布"): string {
+  const dateTime = getOfficialPublishDateTime(item);
+  if (dateTime) return dateTime;
+
+  const date = normalizePolicyPublishDate(item.publishDate);
+  return date ? `${date} · 待补时` : fallback;
+}
+
+function officialPublishSortValue(item: PolicyPublishTimingTarget): number {
+  const dateTime = getOfficialPublishDateTime(item);
+  if (dateTime) {
+    const parsed = Date.parse(`${dateTime.replace(" ", "T")}:00+08:00`);
+    if (!Number.isNaN(parsed)) return parsed;
+  }
+
+  const date = normalizePolicyPublishDate(item.publishDate);
+  if (date) {
+    const parsed = Date.parse(`${date}T00:00:00+08:00`);
+    if (!Number.isNaN(parsed)) return parsed;
+  }
+
+  return 0;
 }
 
 const EMPTY_ADMIN_ACCESS: CurrentUserAccess = {
@@ -821,7 +921,7 @@ function TopBar({
               searchMatches.map((item) => (
                 <button key={item.id} type="button" onClick={() => openSearchResult(item.id)}>
                   <strong>{item.title}</strong>
-                  <small>{item.issuer} · {item.source} · {item.publishDate || "日期待补充"}</small>
+                  <small>{item.issuer} · {item.source} · {formatPolicyOfficialPublish(item)}</small>
                 </button>
               ))
             )}
@@ -976,8 +1076,8 @@ function PolicySidebar({
               <dd>{currentPolicy.issuer}</dd>
             </div>
             <div>
-              <dt>发布日期</dt>
-              <dd>{currentPolicy.publishDate}</dd>
+              <dt>官网发布时间</dt>
+              <dd>{formatPolicyOfficialPublish(currentPolicy)}</dd>
             </div>
             <div>
               <dt>生效时间</dt>
@@ -1197,7 +1297,7 @@ function MobileReportNavigator({
           <h1>{currentPolicy?.title ?? "报表加载中"}</h1>
           <p>
             {currentPolicy
-              ? `${currentPolicy.issuer || "发布机构待补充"} · ${currentPolicy.publishDate || "日期待补充"}`
+              ? `${currentPolicy.issuer || "发布机构待补充"} · ${formatPolicyOfficialPublish(currentPolicy)}`
               : "正在读取政策元信息"}
           </p>
         </div>
@@ -1215,7 +1315,7 @@ function MobileReportNavigator({
             <h3>{currentPolicy?.title ?? "报表加载中"}</h3>
             <p>
               {currentPolicy
-                ? `${currentPolicy.issuer || "发布机构待补充"} · ${currentPolicy.publishDate || "日期待补充"}`
+                ? `${currentPolicy.issuer || "发布机构待补充"} · ${formatPolicyOfficialPublish(currentPolicy)}`
                 : "正在读取政策元信息"}
             </p>
           </section>
@@ -1317,6 +1417,7 @@ function BriefView({
   const currentChainNodes = report?.chainNodes ?? chainNodes;
   const currentCompanies = report?.companies ?? companies;
   const policySourceUrl = getPolicySourceUrl(currentPolicy);
+  const officialPublishDisplay = formatPolicyOfficialPublish(currentPolicy);
   const impactScope = inferPolicyScope(currentPolicy);
   const policyTags = getPolicyTags(currentPolicy);
   const quickTake = report?.brief?.judgement ?? "该政策尚未完成人工大模型归纳，请在待分析队列中触发 Codex 分析后查看。";
@@ -1326,6 +1427,7 @@ function BriefView({
     ? currentClauses.slice(0, 4).map((clause) => `${clause.no || "条款"} ${clause.title || "核心内容"}：${clause.excerpt}`)
     : currentActions.slice(0, 4).map((action) => action.body);
   const kpis: BriefKpi[] = [
+    [officialPublishDisplay, "官网发布时间", "按政策官网披露的北京时间"],
     [`${currentClauses.length} 条`, "结构化条款", "来自政策原文分段"],
     [`${currentEvidence.length} 条`, "证据摘录", "可追溯到来源材料"],
     [`${currentChainNodes.length} 个`, "产业影响节点", currentChainNodes.length ? "由政策文本命中生成" : "尚未形成产业映射"],
@@ -1432,7 +1534,7 @@ function BriefView({
           <div className="hero-metrics">
             <Metric icon={Sparkles} label="政策定位" value={currentPolicy.category || "政策文件"} />
             <Metric icon={Network} label="影响范围" value={impactScope} />
-            <Metric icon={FileText} label="生效时间" value={currentPolicy.effectiveDate} />
+            <Metric icon={Clock} label="官网发布时间" value={officialPublishDisplay} />
             <Metric icon={Layers3} label="置信度" value={`${currentPolicy.confidence}/100`} />
           </div>
           <div className="source-row">
@@ -1578,6 +1680,7 @@ function MobileBriefView({
   const [sheet, setSheet] = useState<BriefSheet>(null);
   const [logicSheet, setLogicSheet] = useState<BriefLogicStage | null>(null);
   const strongEvidence = currentEvidence.filter((item) => item.confidence >= 85).length;
+  const officialPublishDisplay = formatPolicyOfficialPublish(currentPolicy);
   const visibleQuickItems = quickItems.slice(0, 3);
   const visibleEvidence = currentEvidence.slice(0, 3);
   const panes: Array<{ id: BriefPane; label: string }> = [
@@ -1589,7 +1692,7 @@ function MobileBriefView({
   const quickMetrics = [
     { label: "定位", value: currentPolicy.category || "政策文件", icon: Sparkles },
     { label: "范围", value: impactScope, icon: Network },
-    { label: "生效", value: currentPolicy.effectiveDate || currentPolicy.publishDate, icon: FileText },
+    { label: "发布", value: officialPublishDisplay, icon: Clock },
     { label: "置信", value: `${currentPolicy.confidence}/100`, icon: Layers3 }
   ];
 
@@ -2840,7 +2943,7 @@ function CompareView({ report }: { report: PolicyReport | null }) {
     const parts = [
       item.sourceKind,
       item.issuer,
-      item.publishDate,
+      formatPolicyOfficialPublish(item, ""),
       typeof item.similarity === "number" ? `相似度 ${item.similarity}/100` : ""
     ].filter(Boolean);
     return parts.join(" · ") || item.sourceKind;
@@ -2939,7 +3042,7 @@ function CompareView({ report }: { report: PolicyReport | null }) {
           <article className="compare-card current-policy-card">
             <span>当前政策</span>
             <strong>{currentPolicy.title}</strong>
-            <p>{currentPolicy.issuer} · {currentPolicy.publishDate || "待补充"}</p>
+            <p>{currentPolicy.issuer} · {formatPolicyOfficialPublish(currentPolicy, "待补充")}</p>
           </article>
           <GitCompareArrows className="compare-link-icon" size={22} />
           <article className={cx("compare-card", "baseline-card", !similarBase && "missing-baseline")}>
@@ -3203,7 +3306,9 @@ function PolicyListView({
 }) {
   const [query, setQuery] = useState("");
   const normalizedQuery = query.trim().toLowerCase();
-  const publishedReports = reports.filter((item) => item.status === "published" && item.publishDate >= "2026-05-01");
+  const publishedReports = [...reports]
+    .filter((item) => item.status === "published" && item.publishDate >= "2026-05-01")
+    .sort((left, right) => officialPublishSortValue(right) - officialPublishSortValue(left));
   const visibleReports = normalizedQuery
     ? publishedReports.filter((item) =>
         [item.title, item.issuer, item.source, item.primarySignal]
@@ -3212,11 +3317,9 @@ function PolicyListView({
           .includes(normalizedQuery)
       )
     : publishedReports;
-  const latestPublished = publishedReports
-    .filter((item) => item.publishDate)
-    .map((item) => item.publishDate)
-    .sort();
-  const latestPublishedDate = latestPublished[latestPublished.length - 1] ?? "待发布";
+  const latestPublishedDate = publishedReports[0]
+    ? formatPolicyOfficialPublishCompact(publishedReports[0])
+    : "待发布";
   const stats: Array<{ label: string; value: string | number; icon: LucideIcon }> = [
     { label: "已发布报表", value: publishedReports.length, icon: FileText },
     { label: "最近发布", value: latestPublishedDate, icon: Clock },
@@ -3324,7 +3427,7 @@ function PolicyListView({
                     {reportStatusLabel(item.status)}
                   </span>
                   <strong>{item.title}</strong>
-                  <p>{item.issuer} · {item.source} · {item.publishDate || "日期待识别"}</p>
+                  <p>{item.issuer} · {item.source} · {formatPolicyOfficialPublish(item, "日期待识别")}</p>
                 </div>
                 <div className="pending-policy-meta">
                   {item.analysisVersion ? <span>版本 {item.analysisVersion}</span> : <span>未生成分析版本</span>}
@@ -3365,7 +3468,7 @@ function PolicyListView({
                   {reportStatusLabel(item.status)}
                 </span>
                 <strong>{item.title}</strong>
-                <p>{item.issuer} · {item.source} · {item.publishDate}</p>
+                <p>{item.issuer} · {item.source} · {formatPolicyOfficialPublish(item)}</p>
               </div>
               <div className="report-list-metrics">
                 <span>置信度 <b>{item.confidence}</b></span>

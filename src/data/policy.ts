@@ -31,6 +31,9 @@ export interface PolicyMeta {
   status: string;
   issuer: string;
   publishDate: string;
+  publishDateTime?: string;
+  officialPublishedAt?: string;
+  publishTimezone?: string;
   effectiveDate: string;
   source: string;
   category: string;
@@ -145,6 +148,9 @@ export interface CompareBaselinePolicy {
   issuer?: string;
   source?: string;
   publishDate?: string;
+  publishDateTime?: string;
+  officialPublishedAt?: string;
+  publishTimezone?: string;
   similarity?: number;
   reason?: string;
 }

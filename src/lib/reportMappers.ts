@@ -91,6 +91,9 @@ export interface AppPolicyReportContext {
   issuer?: string | null;
   sourceName?: string | null;
   publishDate?: string | null;
+  publishDateTime?: string | null;
+  officialPublishedAt?: string | null;
+  publishTimezone?: string | null;
   effectiveDate?: string | null;
   status?: string | null;
   confidence?: number | null;
@@ -106,6 +109,14 @@ interface PolicyMetaLike {
   issuer?: string;
   publishDate?: string;
   publish_date?: string;
+  publishDateTime?: string;
+  publish_date_time?: string;
+  officialPublishedAt?: string;
+  official_published_at?: string;
+  sourcePublishedAt?: string;
+  source_published_at?: string;
+  publishTimezone?: string;
+  publish_timezone?: string;
   effectiveDate?: string;
   effective_date?: string;
   source?: string;
@@ -513,6 +524,9 @@ export function mapPolicyRowToSummary(
     issuer: row.issuer ?? "Unknown issuer",
     source: row.source ?? row.source_name ?? "Unknown source",
     publishDate: row.publishDate ?? row.publish_date ?? "",
+    publishDateTime: row.publishDateTime ?? row.publish_date_time ?? row.officialPublishedAt ?? row.official_published_at ?? undefined,
+    officialPublishedAt: row.officialPublishedAt ?? row.official_published_at ?? row.publishDateTime ?? row.publish_date_time ?? undefined,
+    publishTimezone: row.publishTimezone ?? row.publish_timezone ?? undefined,
     status: normalizeReportStatus(row.status),
     confidence: clampScore(row.confidence),
     industryCount: counts.industryCount ?? row.industryCount ?? 0,
@@ -545,6 +559,9 @@ export function mapPolicyMeta(input: PolicyMetaLike = {}): PolicyMeta {
     status: input.status ?? "draft",
     issuer: input.issuer ?? "Unknown issuer",
     publishDate: input.publishDate ?? input.publish_date ?? "",
+    publishDateTime: input.publishDateTime ?? input.publish_date_time ?? input.officialPublishedAt ?? input.official_published_at ?? input.sourcePublishedAt ?? input.source_published_at,
+    officialPublishedAt: input.officialPublishedAt ?? input.official_published_at ?? input.publishDateTime ?? input.publish_date_time ?? input.sourcePublishedAt ?? input.source_published_at,
+    publishTimezone: input.publishTimezone ?? input.publish_timezone,
     effectiveDate: input.effectiveDate ?? input.effective_date ?? "",
     source: input.source ?? input.sourceName ?? input.source_name ?? "Unknown source",
     category: input.category ?? "",
@@ -949,6 +966,9 @@ export function mapPolicyReportPayloadForApp(
     issuer: policy.issuer,
     source: policy.source,
     publishDate: policy.publishDate,
+    publishDateTime: policy.publishDateTime,
+    officialPublishedAt: policy.officialPublishedAt,
+    publishTimezone: policy.publishTimezone,
     status: normalizeReportStatus(firstString(context.status, summaryInput?.status)),
     confidence: policy.confidence,
     industryCount: chainNodes.length,
@@ -1022,6 +1042,27 @@ function mapAppPolicyMeta(input: JsonRecord, context: AppPolicyReportContext): A
     status: firstString(input.status, context.status) || "draft",
     issuer: firstString(input.issuer, context.issuer) || "Unknown issuer",
     publishDate: firstString(input.publishDate, input.publish_date, context.publishDate) || "",
+    publishDateTime: firstString(
+      input.publishDateTime,
+      input.publish_date_time,
+      input.officialPublishedAt,
+      input.official_published_at,
+      input.sourcePublishedAt,
+      input.source_published_at,
+      context.publishDateTime,
+      context.officialPublishedAt
+    ),
+    officialPublishedAt: firstString(
+      input.officialPublishedAt,
+      input.official_published_at,
+      input.publishDateTime,
+      input.publish_date_time,
+      input.sourcePublishedAt,
+      input.source_published_at,
+      context.officialPublishedAt,
+      context.publishDateTime
+    ),
+    publishTimezone: firstString(input.publishTimezone, input.publish_timezone, context.publishTimezone),
     effectiveDate: firstString(input.effectiveDate, input.effective_date, context.effectiveDate) || "",
     source: firstString(input.source, input.sourceName, input.source_name, context.sourceName) || "Unknown source",
     category: firstString(input.category, context.category) || "",
@@ -1292,6 +1333,9 @@ function mapAppComparePolicy(item: JsonRecord | null): NonNullable<AppCompareIns
     issuer: firstString(item.issuer),
     source: firstString(item.source, item.sourceName, item.source_name, item.category),
     publishDate: firstString(item.publishDate, item.publish_date),
+    publishDateTime: firstString(item.publishDateTime, item.publish_date_time, item.officialPublishedAt, item.official_published_at),
+    officialPublishedAt: firstString(item.officialPublishedAt, item.official_published_at, item.publishDateTime, item.publish_date_time),
+    publishTimezone: firstString(item.publishTimezone, item.publish_timezone),
     similarity: firstNumberOrUndefined(item.similarity, item.score),
     reason: firstString(item.reason, item.basis)
   };
@@ -1381,6 +1425,9 @@ function readSummary(input: JsonRecord | null | undefined): Partial<PolicySummar
   const issuer = firstString(input.issuer);
   const source = firstString(input.source, input.sourceName, input.source_name);
   const publishDate = firstString(input.publishDate, input.publish_date);
+  const publishDateTime = firstString(input.publishDateTime, input.publish_date_time, input.officialPublishedAt, input.official_published_at, input.sourcePublishedAt, input.source_published_at);
+  const officialPublishedAt = firstString(input.officialPublishedAt, input.official_published_at, input.publishDateTime, input.publish_date_time, input.sourcePublishedAt, input.source_published_at);
+  const publishTimezone = firstString(input.publishTimezone, input.publish_timezone);
   const status = firstString(input.status);
   const confidence = firstNumberOrUndefined(input.confidence);
   const industryCount = firstNumberOrUndefined(input.industryCount, input.industry_count);
@@ -1394,6 +1441,9 @@ function readSummary(input: JsonRecord | null | undefined): Partial<PolicySummar
   if (issuer) summary.issuer = issuer;
   if (source) summary.source = source;
   if (publishDate) summary.publishDate = publishDate;
+  if (publishDateTime) summary.publishDateTime = publishDateTime;
+  if (officialPublishedAt) summary.officialPublishedAt = officialPublishedAt;
+  if (publishTimezone) summary.publishTimezone = publishTimezone;
   if (status) summary.status = normalizeReportStatus(status);
   if (confidence !== undefined) summary.confidence = confidence;
   if (industryCount !== undefined) summary.industryCount = industryCount;

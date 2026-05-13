@@ -22,6 +22,12 @@ export interface PolicySummaryRow extends PolicySummaryCounts {
   source_name?: string | null;
   publishDate?: ISODateString | null;
   publish_date?: ISODateString | null;
+  publishDateTime?: ISODateTimeString | null;
+  publish_date_time?: ISODateTimeString | null;
+  officialPublishedAt?: ISODateTimeString | null;
+  official_published_at?: ISODateTimeString | null;
+  publishTimezone?: string | null;
+  publish_timezone?: string | null;
   status?: ReportStatus | string | null;
   confidence?: number | null;
   category?: string | null;

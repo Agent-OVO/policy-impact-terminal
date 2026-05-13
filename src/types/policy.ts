@@ -56,6 +56,9 @@ export interface PolicyMeta {
   status: string;
   issuer: string;
   publishDate: ISODateString;
+  publishDateTime?: ISODateTimeString;
+  officialPublishedAt?: ISODateTimeString;
+  publishTimezone?: string;
   effectiveDate: ISODateString;
   source: string;
   category: string;
@@ -179,6 +182,9 @@ export interface CompareBaselinePolicy {
   issuer?: string;
   source?: string;
   publishDate?: ISODateString;
+  publishDateTime?: ISODateTimeString;
+  officialPublishedAt?: ISODateTimeString;
+  publishTimezone?: string;
   similarity?: ConfidenceScore;
   reason?: string;
 }
@@ -234,6 +240,9 @@ export interface PolicySummary {
   issuer: string;
   source: string;
   publishDate: ISODateString;
+  publishDateTime?: ISODateTimeString;
+  officialPublishedAt?: ISODateTimeString;
+  publishTimezone?: string;
   status: ReportStatus;
   confidence: ConfidenceScore;
   industryCount: number;

@@ -91,6 +91,25 @@ Deno.serve(async (req) => {
       optionalString(body, "publish_date") ??
       optionalString(inputPayload, "publishDate") ??
       optionalString(inputPayload, "publish_date");
+    const publishDateTime =
+      optionalString(body, "publishDateTime") ??
+      optionalString(body, "publish_date_time") ??
+      optionalString(body, "officialPublishedAt") ??
+      optionalString(body, "official_published_at") ??
+      optionalString(body, "sourcePublishedAt") ??
+      optionalString(body, "source_published_at") ??
+      optionalString(inputPayload, "publishDateTime") ??
+      optionalString(inputPayload, "publish_date_time") ??
+      optionalString(inputPayload, "officialPublishedAt") ??
+      optionalString(inputPayload, "official_published_at") ??
+      optionalString(inputPayload, "sourcePublishedAt") ??
+      optionalString(inputPayload, "source_published_at");
+    const publishTimezone =
+      optionalString(body, "publishTimezone") ??
+      optionalString(body, "publish_timezone") ??
+      optionalString(inputPayload, "publishTimezone") ??
+      optionalString(inputPayload, "publish_timezone") ??
+      (publishDateTime ? "Asia/Shanghai" : null);
     const policyNo =
       optionalString(body, "policyNo") ??
       optionalString(body, "policy_no") ??
@@ -165,6 +184,16 @@ Deno.serve(async (req) => {
         content_hash: contentHash,
         canonicalSourceUrl,
         canonical_source_url: canonicalSourceUrl,
+        ...(publishDateTime
+          ? {
+              publishDateTime,
+              publish_date_time: publishDateTime,
+              officialPublishedAt: publishDateTime,
+              official_published_at: publishDateTime,
+              publishTimezone,
+              publish_timezone: publishTimezone
+            }
+          : {}),
         ...(externalId
           ? {
               externalId,
@@ -242,6 +271,16 @@ Deno.serve(async (req) => {
           issuer,
           publishDate,
           publish_date: publishDate,
+          ...(publishDateTime
+            ? {
+                publishDateTime,
+                publish_date_time: publishDateTime,
+                officialPublishedAt: publishDateTime,
+                official_published_at: publishDateTime,
+                publishTimezone,
+                publish_timezone: publishTimezone
+              }
+            : {}),
           policyNo,
           policy_no: policyNo,
           canonicalSourceUrl,

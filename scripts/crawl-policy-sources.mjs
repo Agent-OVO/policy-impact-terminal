@@ -216,6 +216,7 @@ async function fetchGovLatest(source, args) {
       title: item.TITLE,
       sourceUrl: item.URL,
       publishDate: item.DOCRELPUBTIME,
+      publishDateTime: item.DOCRELPUBTIME,
       raw: {
         origin: "gov-json",
         subTitle: item.SUB_TITLE ?? ""
@@ -251,6 +252,7 @@ async function fetchNdrcDocuments(source, args) {
       title: item.title ?? item.dreTitle,
       sourceUrl: item.url,
       publishDate: item.docDate,
+      publishDateTime: item.docDate,
       issuer: item.domainSiteName ?? source.issuer,
       policyNo: extractPolicyNo(item.title ?? item.dreTitle),
       raw: {
@@ -305,6 +307,7 @@ async function fetchMiitDocuments(source, args) {
       title: item.title ?? item.title_text,
       sourceUrl: item.url,
       publishDate: item.jsearch_date ?? item.deploytime ?? item.publishtime ?? item.cdate,
+      publishDateTime: item.jsearch_date ?? item.deploytime ?? item.publishtime ?? item.cdate,
       issuer: item.publishgroupname ?? item.xxgkextend2 ?? source.issuer,
       policyNo: item.filenumbername ?? extractPolicyNo(item.title ?? item.title_text),
       raw: {
@@ -333,12 +336,14 @@ async function fetchNdaPolicyRelease(source) {
     const sourceUrl = new URL(href, source.listUrl).href;
     const parentText = cleanText($(anchor).parent().text());
     const publishDate = normalizeDate(parentText.match(/(\d{4})[.-](\d{2})[.-](\d{2})/)?.[0]);
+    const publishDateTime = normalizeDateTime(parentText);
 
     candidates.push(
       makeCandidate(source, {
         title,
         sourceUrl,
         publishDate,
+        publishDateTime,
         policyNo: extractPolicyNo(title),
         raw: {
           origin: "nda-html-list"
@@ -353,7 +358,8 @@ async function fetchNdaPolicyRelease(source) {
 function makeCandidate(source, input) {
   const title = cleanText(input.title);
   const sourceUrl = normalizeUrl(resolveUrl(input.sourceUrl, source.listUrl));
-  const publishDate = normalizeDate(input.publishDate);
+  const publishDateTime = normalizeDateTime(input.publishDateTime ?? input.officialPublishedAt ?? input.sourcePublishedAt ?? input.publishDate);
+  const publishDate = normalizeDate(input.publishDate) ?? (publishDateTime ? publishDateTime.slice(0, 10) : null);
   const issuer = cleanText(input.issuer) || source.issuer;
   const policyNo = cleanText(input.policyNo) || extractPolicyNo(title);
   const fullText = normalizePolicyText(input.fullText);
@@ -370,6 +376,9 @@ function makeCandidate(source, input) {
     canonicalSourceUrl,
     issuer,
     publishDate,
+    publishDateTime,
+    officialPublishedAt: publishDateTime,
+    publishTimezone: publishDateTime ? "Asia/Shanghai" : null,
     policyNo,
     dedupeKey,
     contentHash,
@@ -404,6 +413,8 @@ function dedupeCandidates(items) {
   const candidates = [...canonicalByKey.values()].sort((a, b) => {
     const dateOrder = (b.publishDate || "").localeCompare(a.publishDate || "");
     if (dateOrder) return dateOrder;
+    const timeOrder = (b.publishDateTime || "").localeCompare(a.publishDateTime || "");
+    if (timeOrder) return timeOrder;
     return b.sourcePriority - a.sourcePriority;
   });
 
@@ -414,6 +425,9 @@ function pickPreferred(a, b) {
   if (a.policyNo && !b.policyNo) return a;
   if (b.policyNo && !a.policyNo) return b;
   if (a.sourcePriority !== b.sourcePriority) return a.sourcePriority > b.sourcePriority ? a : b;
+  if ((a.publishDateTime || "") !== (b.publishDateTime || "")) {
+    return (a.publishDateTime || "") >= (b.publishDateTime || "") ? a : b;
+  }
   return (a.publishDate || "") >= (b.publishDate || "") ? a : b;
 }
 
@@ -428,7 +442,7 @@ async function hydrateCandidates(candidates) {
 
     try {
       const html = await fetchText(candidate.sourceUrl, { referer: candidate.canonicalSourceUrl });
-      hydrated.push(attachFullText(candidate, extractPolicyTextFromHtml(html, candidate.sourceKey)));
+      hydrated.push(attachFullText(candidate, extractPolicyTextFromHtml(html, candidate.sourceKey), html));
     } catch (error) {
       hydrated.push({
         ...candidate,
@@ -443,10 +457,16 @@ async function hydrateCandidates(candidates) {
   return hydrated;
 }
 
-function attachFullText(candidate, value) {
+function attachFullText(candidate, value, html = "") {
   const fullText = normalizePolicyText(value);
+  const officialPublishedAt = extractOfficialPublishedAtFromHtml(html, candidate.sourceKey) ?? candidate.officialPublishedAt ?? candidate.publishDateTime;
+  const publishDate = candidate.publishDate ?? (officialPublishedAt ? officialPublishedAt.slice(0, 10) : null);
   return {
     ...candidate,
+    publishDate,
+    publishDateTime: officialPublishedAt ?? candidate.publishDateTime,
+    officialPublishedAt: officialPublishedAt ?? candidate.officialPublishedAt,
+    publishTimezone: (officialPublishedAt ?? candidate.publishDateTime) ? "Asia/Shanghai" : candidate.publishTimezone,
     fullText: fullText || null,
     contentHash: candidate.contentHash ?? (isUsablePolicyText(fullText) ? hashText(fullText) : null),
     raw: {
@@ -480,6 +500,9 @@ async function ingestCandidates(candidates, args) {
         sourceKey: candidate.sourceKey,
         issuer: candidate.issuer,
         publishDate: candidate.publishDate,
+        publishDateTime: candidate.publishDateTime,
+        officialPublishedAt: candidate.officialPublishedAt,
+        publishTimezone: candidate.publishTimezone,
         policyNo: candidate.policyNo,
         canonicalSourceUrl: candidate.canonicalSourceUrl,
         contentHash: candidate.contentHash,
@@ -488,6 +511,12 @@ async function ingestCandidates(candidates, args) {
           crawlerVersion: CRAWLER_VERSION,
           crawledAt,
           fullTextLength: candidate.fullText?.length ?? 0,
+          publishDateTime: candidate.publishDateTime,
+          publish_date_time: candidate.publishDateTime,
+          officialPublishedAt: candidate.officialPublishedAt,
+          official_published_at: candidate.officialPublishedAt,
+          publishTimezone: candidate.publishTimezone,
+          publish_timezone: candidate.publishTimezone,
           dedupeKey: candidate.dedupeKey,
           raw: candidate.raw
         }
@@ -592,7 +621,7 @@ function printSummary(output, outPath) {
     printWorkflowWarning("Crawler found candidates but extracted no usable policy full text. Source page selectors may need updating.");
   }
   for (const item of output.candidates.slice(0, 8)) {
-    console.log(`- ${item.publishDate || "no-date"} ${item.sourceKey} ${item.title}`);
+    console.log(`- ${item.publishDateTime || item.publishDate || "no-date"} ${item.sourceKey} ${item.title}`);
   }
 }
 
@@ -739,6 +768,52 @@ function extractPolicyTextFromHtml(html, sourceKey) {
   return bestText.length > 80 ? bestText : "";
 }
 
+function extractOfficialPublishedAtFromHtml(html) {
+  if (!html) return null;
+  const $ = cheerio.load(html);
+  const visibleCandidates = [];
+
+  [
+    "#con_time",
+    ".con_time",
+    ".article-info",
+    ".article-meta",
+    ".info",
+    ".source",
+    ".time",
+    ".date"
+  ].forEach((selector) => {
+    const text = cleanText($(selector).first().text());
+    if (text) visibleCandidates.push(text);
+  });
+
+  const bodyText = cleanText($("body").text());
+  const bodyMatches = [
+    bodyText.match(/发布时间[：:\s]*(\d{4}\s*(?:年|[./-])\s*\d{1,2}\s*(?:月|[./-])\s*\d{1,2}\s*(?:日)?\s*\d{1,2}[:：]\d{2})/)?.[1],
+    bodyText.match(/发布日期[：:\s]*(\d{4}\s*(?:年|[./-])\s*\d{1,2}\s*(?:月|[./-])\s*\d{1,2}\s*(?:日)?\s*\d{1,2}[:：]\d{2})/)?.[1]
+  ].filter(Boolean);
+
+  for (const candidate of [...visibleCandidates, ...bodyMatches]) {
+    const normalized = normalizeDateTime(candidate);
+    if (normalized) return normalized;
+  }
+
+  const metaCandidates = [
+    "meta[name='PubDate']",
+    "meta[name='publishdate']",
+    "meta[name='publishDate']",
+    "meta[name='date']",
+    "meta[property='article:published_time']"
+  ].map((selector) => $(selector).attr("content")).filter(Boolean);
+
+  for (const candidate of metaCandidates) {
+    const normalized = normalizeDateTime(candidate);
+    if (normalized) return normalized;
+  }
+
+  return null;
+}
+
 function htmlToText(value) {
   return cleanText(cheerio.load(value).text());
 }
@@ -779,6 +854,42 @@ function normalizeDate(value) {
   }
 
   return null;
+}
+
+function normalizeDateTime(value) {
+  if (!value) return null;
+  const raw = String(value).trim();
+  if (/^\d{10,13}$/.test(raw)) {
+    const timestamp = raw.length === 10 ? Number(raw) * 1000 : Number(raw);
+    const date = new Date(timestamp);
+    return Number.isNaN(date.getTime()) ? null : formatDateTimeInShanghai(date);
+  }
+
+  if (/^\d{4}-\d{2}-\d{2}T.*(?:Z|[+-]\d{2}:?\d{2})$/i.test(raw)) {
+    const date = new Date(raw);
+    return Number.isNaN(date.getTime()) ? null : formatDateTimeInShanghai(date);
+  }
+
+  const match = raw.match(/(\d{4})\s*(?:年|[./-])\s*(\d{1,2})\s*(?:月|[./-])\s*(\d{1,2})\s*(?:日)?(?:[T\s]+|[^\d]{0,4})(\d{1,2})[:：](\d{2})/);
+  if (match) {
+    return `${match[1]}-${match[2].padStart(2, "0")}-${match[3].padStart(2, "0")} ${match[4].padStart(2, "0")}:${match[5]}`;
+  }
+
+  return null;
+}
+
+function formatDateTimeInShanghai(date) {
+  const parts = new Intl.DateTimeFormat("zh-CN", {
+    timeZone: "Asia/Shanghai",
+    hour12: false,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit"
+  }).formatToParts(date);
+  const get = (type) => parts.find((part) => part.type === type)?.value ?? "";
+  return `${get("year")}-${get("month")}-${get("day")} ${get("hour")}:${get("minute")}`;
 }
 
 function normalizeText(value) {
