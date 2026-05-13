@@ -16,7 +16,7 @@
     "status": "published",
     "confidence": 90,
     "industryCount": 5,
-    "companyCount": 8,
+    "companyCount": 18,
     "evidenceCount": 7,
     "primarySignal": "59项先进计算典型应用案例公布，地方支持重点转向技术创新、应用落地和政府服务",
     "category": "先进计算与新质生产力示范应用"
@@ -305,7 +305,15 @@
       ],
       "companyIds": [
         "co1",
-        "co2"
+        "co2",
+        "co9",
+        "co10",
+        "co11",
+        "co12",
+        "co13",
+        "co14",
+        "co15",
+        "co17"
       ],
       "evidenceIds": [
         "e4"
@@ -329,7 +337,10 @@
         "co3",
         "co4",
         "co5",
-        "co6"
+        "co6",
+        "co14",
+        "co16",
+        "co18"
       ],
       "evidenceIds": [
         "e5"
@@ -352,7 +363,15 @@
       ],
       "companyIds": [
         "co1",
-        "co2"
+        "co2",
+        "co9",
+        "co10",
+        "co11",
+        "co12",
+        "co13",
+        "co14",
+        "co15",
+        "co17"
       ],
       "evidenceIds": [
         "e4",
@@ -374,7 +393,9 @@
         "c2",
         "c6"
       ],
-      "companyIds": [],
+      "companyIds": [
+        "co18"
+      ],
       "evidenceIds": [
         "e3"
       ],
@@ -395,7 +416,8 @@
       ],
       "companyIds": [
         "co7",
-        "co8"
+        "co8",
+        "co16"
       ],
       "evidenceIds": [
         "e6"
@@ -464,7 +486,12 @@
         "e4"
       ],
       "reason": "附件计算技术底座部分列有浪潮电子信息产业股份有限公司申报的基于高密度智算中心的算力仓典型应用案例。",
-      "uncertainty": "入选案例代表示范认可，不等于新增采购订单或收入确认。"
+      "uncertainty": "入选案例代表示范认可，不等于新增采购订单或收入确认。",
+      "entityType": "上市公司",
+      "listingStatus": "A股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": true,
+      "selectionBasis": "官方原文或附件直接点名"
     },
     {
       "id": "co2",
@@ -496,7 +523,12 @@
         "e4"
       ],
       "reason": "附件计算技术底座部分列有中兴通讯股份有限公司相关的智算自主可控、能源质效双升案例。",
-      "uncertainty": "官方名单没有披露商业合同规模，影响应理解为技术和场景背书。"
+      "uncertainty": "官方名单没有披露商业合同规模，影响应理解为技术和场景背书。",
+      "entityType": "上市公司",
+      "listingStatus": "A股/港股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": true,
+      "selectionBasis": "官方原文或附件直接点名"
     },
     {
       "id": "co3",
@@ -527,7 +559,12 @@
         "e5"
       ],
       "reason": "附件赋能行业发展部分列有长城汽车“如影”智能研发平台，场景为先进计算技术赋能整车及零部件研发。",
-      "uncertainty": "案例入选不直接改变汽车销售或研发费用，应作为研发数字化能力信号。"
+      "uncertainty": "案例入选不直接改变汽车销售或研发费用，应作为研发数字化能力信号。",
+      "entityType": "上市整车企业",
+      "listingStatus": "A股/港股上市",
+      "ownershipType": "民营/产业链企业",
+      "officialMention": true,
+      "selectionBasis": "官方原文或附件直接点名"
     },
     {
       "id": "co4",
@@ -558,7 +595,12 @@
         "e5"
       ],
       "reason": "附件赋能行业发展部分列有信雅达科技股份有限公司申报的基于大小模型联动与知识推理增强的智能贸易金融平台。",
-      "uncertainty": "政策只确认案例名单，没有明确银行客户扩容或采购安排。"
+      "uncertainty": "政策只确认案例名单，没有明确银行客户扩容或采购安排。",
+      "entityType": "上市金融科技企业",
+      "listingStatus": "A股上市",
+      "ownershipType": "民营/产业链企业",
+      "officialMention": true,
+      "selectionBasis": "官方原文或附件直接点名"
     },
     {
       "id": "co5",
@@ -589,7 +631,12 @@
         "e5"
       ],
       "reason": "附件赋能行业发展部分列有神思电子技术股份有限公司申报的先进计算赋能安全低碳智慧能源新范式案例。",
-      "uncertainty": "名单没有披露具体项目收入，后续需跟踪公司公告和地方推广。"
+      "uncertainty": "名单没有披露具体项目收入，后续需跟踪公司公告和地方推广。",
+      "entityType": "上市公司",
+      "listingStatus": "A股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": true,
+      "selectionBasis": "官方原文或附件直接点名"
     },
     {
       "id": "co6",
@@ -620,7 +667,12 @@
         "e5"
       ],
       "reason": "附件赋能行业发展部分列有澳柯玛股份有限公司申报的基于多物理场精准数智化仿真的新一代家用冰箱研发及应用。",
-      "uncertainty": "政策没有涉及终端产品补贴或销售目标，影响主要体现为研发能力示范。"
+      "uncertainty": "政策没有涉及终端产品补贴或销售目标，影响主要体现为研发能力示范。",
+      "entityType": "上市公司",
+      "listingStatus": "A股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": true,
+      "selectionBasis": "官方原文或附件直接点名"
     },
     {
       "id": "co7",
@@ -651,7 +703,12 @@
         "e6"
       ],
       "reason": "附件支撑新兴领域部分列有北方国际合作股份有限公司申报的数智赋能中蒙跨境运输案例。",
-      "uncertainty": "示范案例不等于跨境运输业务新增合同，需结合后续项目公告验证。"
+      "uncertainty": "示范案例不等于跨境运输业务新增合同，需结合后续项目公告验证。",
+      "entityType": "上市公司",
+      "listingStatus": "A股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": true,
+      "selectionBasis": "官方原文或附件直接点名"
     },
     {
       "id": "co8",
@@ -682,7 +739,377 @@
         "e6"
       ],
       "reason": "附件支撑新兴领域部分列有安徽华恒生物科技股份有限公司申报的从分子设计到生物工业智造的全链条AI赋能平台。",
-      "uncertainty": "政策没有提供项目金额或客户清单，应视为技术示范和场景推广信号。"
+      "uncertainty": "政策没有提供项目金额或客户清单，应视为技术示范和场景推广信号。",
+      "entityType": "上市生物制造企业",
+      "listingStatus": "A股上市",
+      "ownershipType": "民营/产业链企业",
+      "officialMention": true,
+      "selectionBasis": "官方原文或附件直接点名"
+    },
+    {
+      "evidenceCount": 1,
+      "id": "co9",
+      "name": "统信软件技术有限公司",
+      "ticker": "未上市",
+      "platform": "操作系统与先进计算基础软件",
+      "status": "附件直接点名申报单位",
+      "section": "upstream",
+      "relation": "direct",
+      "evidenceLevel": "strong",
+      "confidence": 84,
+      "policyRelevance": 86,
+      "evidenceCertainty": 84,
+      "products": [
+        "操作系统",
+        "基础软件",
+        "算力底座"
+      ],
+      "nodeIds": [
+        "n1",
+        "n3"
+      ],
+      "clauseIds": [
+        "c3"
+      ],
+      "evidenceIds": [
+        "e4"
+      ],
+      "reason": "工信部附件计算技术底座类案例中列示统信软件技术有限公司，体现先进计算底层软件和国产操作系统生态的示范价值。",
+      "uncertainty": "案例入选不等于新增采购订单或收入确认。",
+      "entityType": "非上市基础软件企业",
+      "listingStatus": "非上市主体",
+      "ownershipType": "混合所有制/产业链企业",
+      "officialMention": true,
+      "selectionBasis": "官方附件申报单位"
+    },
+    {
+      "evidenceCount": 1,
+      "id": "co10",
+      "name": "蓝耘科技集团股份有限公司",
+      "ticker": "代码未标注",
+      "platform": "算力服务、智算集群和云化资源调度",
+      "status": "附件直接点名申报单位",
+      "section": "upstream",
+      "relation": "direct",
+      "evidenceLevel": "strong",
+      "confidence": 82,
+      "policyRelevance": 84,
+      "evidenceCertainty": 82,
+      "products": [
+        "智算集群",
+        "算力服务",
+        "云资源调度"
+      ],
+      "nodeIds": [
+        "n1",
+        "n3"
+      ],
+      "clauseIds": [
+        "c3"
+      ],
+      "evidenceIds": [
+        "e4"
+      ],
+      "reason": "附件将其列入先进计算典型应用案例申报单位，补充了非上市算力服务商在示范案例中的位置。",
+      "uncertainty": "公开附件未披露项目金额、客户规模和商业化节奏。",
+      "entityType": "非上市算力服务企业",
+      "listingStatus": "非上市或代码未标注",
+      "ownershipType": "民营/产业链企业",
+      "officialMention": true,
+      "selectionBasis": "官方附件申报单位"
+    },
+    {
+      "evidenceCount": 1,
+      "id": "co11",
+      "name": "翼华科技（北京）股份有限公司",
+      "ticker": "代码未标注",
+      "platform": "先进计算软硬件协同和行业应用支撑",
+      "status": "附件直接点名申报单位",
+      "section": "upstream",
+      "relation": "direct",
+      "evidenceLevel": "strong",
+      "confidence": 80,
+      "policyRelevance": 82,
+      "evidenceCertainty": 80,
+      "products": [
+        "行业计算平台",
+        "软硬件协同",
+        "应用支撑"
+      ],
+      "nodeIds": [
+        "n1",
+        "n3"
+      ],
+      "clauseIds": [
+        "c3"
+      ],
+      "evidenceIds": [
+        "e4"
+      ],
+      "reason": "附件列有该公司申报案例，说明先进计算案例名单覆盖中小型和非上市技术企业，而不仅限于上市公司。",
+      "uncertainty": "入选案例不能直接转换为收入弹性，需后续项目和客户验证。",
+      "entityType": "非上市技术企业",
+      "listingStatus": "非上市或代码未标注",
+      "ownershipType": "民营/产业链企业",
+      "officialMention": true,
+      "selectionBasis": "官方附件申报单位"
+    },
+    {
+      "evidenceCount": 1,
+      "id": "co12",
+      "name": "百信信息技术有限公司",
+      "ticker": "未上市",
+      "platform": "国产计算整机、服务器和信创硬件生态",
+      "status": "附件直接点名申报单位",
+      "section": "upstream",
+      "relation": "direct",
+      "evidenceLevel": "strong",
+      "confidence": 83,
+      "policyRelevance": 85,
+      "evidenceCertainty": 82,
+      "products": [
+        "信创整机",
+        "服务器",
+        "国产计算硬件"
+      ],
+      "nodeIds": [
+        "n1",
+        "n3"
+      ],
+      "clauseIds": [
+        "c3"
+      ],
+      "evidenceIds": [
+        "e4"
+      ],
+      "reason": "附件计算技术底座方向点名百信信息技术有限公司，说明政策案例覆盖国产计算硬件和信创基础设施主体。",
+      "uncertainty": "案例名单不披露采购金额，影响需结合后续政企项目验证。",
+      "entityType": "非上市计算硬件企业",
+      "listingStatus": "非上市主体",
+      "ownershipType": "产业链企业",
+      "officialMention": true,
+      "selectionBasis": "官方附件申报单位"
+    },
+    {
+      "evidenceCount": 1,
+      "id": "co13",
+      "name": "上海燧原科技股份有限公司",
+      "ticker": "未上市",
+      "platform": "AI训练/推理芯片和算力加速卡",
+      "status": "附件直接点名申报单位",
+      "section": "upstream",
+      "relation": "direct",
+      "evidenceLevel": "strong",
+      "confidence": 84,
+      "policyRelevance": 87,
+      "evidenceCertainty": 83,
+      "products": [
+        "AI芯片",
+        "推理加速",
+        "训练加速"
+      ],
+      "nodeIds": [
+        "n1",
+        "n3"
+      ],
+      "clauseIds": [
+        "c3"
+      ],
+      "evidenceIds": [
+        "e4"
+      ],
+      "reason": "附件列示燧原科技相关案例，强化了先进计算底座中国产AI加速芯片和软硬件生态的代表性。",
+      "uncertainty": "政策仅为示范案例公布，不能判断芯片出货、订单或盈利变化。",
+      "entityType": "非上市AI芯片企业",
+      "listingStatus": "非上市主体",
+      "ownershipType": "民营/产业链企业",
+      "officialMention": true,
+      "selectionBasis": "官方附件申报单位"
+    },
+    {
+      "evidenceCount": 2,
+      "id": "co14",
+      "name": "中国电信股份有限公司上海分公司",
+      "ticker": "601728.SH / 00728.HK",
+      "platform": "运营商智算基础设施、云网融合和城市算力服务",
+      "status": "附件直接点名申报单位；上市集团分支机构",
+      "section": "midstream",
+      "relation": "direct",
+      "evidenceLevel": "strong",
+      "confidence": 83,
+      "policyRelevance": 85,
+      "evidenceCertainty": 82,
+      "products": [
+        "智算中心",
+        "云网融合",
+        "算力服务"
+      ],
+      "nodeIds": [
+        "n1",
+        "n2",
+        "n3"
+      ],
+      "clauseIds": [
+        "c3",
+        "c4"
+      ],
+      "evidenceIds": [
+        "e4",
+        "e5"
+      ],
+      "reason": "附件点名中国电信上海分公司，表明运营商区域公司在先进计算基础设施和应用承载中是直接示范主体。",
+      "uncertainty": "分支机构案例不等于上市集团整体业绩弹性，需看投入规模和客户转化。",
+      "entityType": "上市集团分支机构",
+      "listingStatus": "上市集团相关主体",
+      "ownershipType": "中央企业",
+      "officialMention": true,
+      "selectionBasis": "官方附件申报单位"
+    },
+    {
+      "evidenceCount": 1,
+      "id": "co15",
+      "name": "上海曦智科技股份有限公司",
+      "ticker": "未上市",
+      "platform": "光电计算芯片和先进计算新型架构",
+      "status": "附件直接点名申报单位",
+      "section": "upstream",
+      "relation": "direct",
+      "evidenceLevel": "strong",
+      "confidence": 81,
+      "policyRelevance": 84,
+      "evidenceCertainty": 80,
+      "products": [
+        "光电计算",
+        "AI加速",
+        "新型计算架构"
+      ],
+      "nodeIds": [
+        "n1",
+        "n3"
+      ],
+      "clauseIds": [
+        "c3"
+      ],
+      "evidenceIds": [
+        "e4"
+      ],
+      "reason": "附件列有曦智科技，说明政策支持的先进计算案例涵盖新型芯片架构和前沿计算路线。",
+      "uncertainty": "前沿架构商业化周期较长，政策案例不等于规模收入。",
+      "entityType": "非上市AI芯片企业",
+      "listingStatus": "非上市主体",
+      "ownershipType": "民营/产业链企业",
+      "officialMention": true,
+      "selectionBasis": "官方附件申报单位"
+    },
+    {
+      "evidenceCount": 2,
+      "id": "co16",
+      "name": "中国质量检验检测科学研究院",
+      "ticker": "未上市",
+      "platform": "质量检测、标准验证和先进计算行业应用评测",
+      "status": "附件直接点名申报单位；科研院所/公共检测机构",
+      "section": "midstream",
+      "relation": "direct",
+      "evidenceLevel": "strong",
+      "confidence": 82,
+      "policyRelevance": 82,
+      "evidenceCertainty": 82,
+      "products": [
+        "检验检测",
+        "标准验证",
+        "行业评测"
+      ],
+      "nodeIds": [
+        "n2",
+        "n5"
+      ],
+      "clauseIds": [
+        "c4",
+        "c6"
+      ],
+      "evidenceIds": [
+        "e5",
+        "e7"
+      ],
+      "reason": "附件行业赋能案例点名中国质量检验检测科学研究院，说明先进计算应用扩散不仅涉及企业，也涉及公共检测和科研机构。",
+      "uncertainty": "科研院所案例更多体现公共服务能力，不适合作为上市公司投资线索。",
+      "entityType": "科研院所/公共检测机构",
+      "listingStatus": "非上市机构",
+      "ownershipType": "科研事业/公共服务机构",
+      "officialMention": true,
+      "selectionBasis": "官方附件申报单位"
+    },
+    {
+      "evidenceCount": 1,
+      "id": "co17",
+      "name": "超聚变数字技术股份有限公司",
+      "ticker": "未上市",
+      "platform": "服务器、智算硬件和数据中心基础设施",
+      "status": "附件直接点名申报单位",
+      "section": "upstream",
+      "relation": "direct",
+      "evidenceLevel": "strong",
+      "confidence": 83,
+      "policyRelevance": 85,
+      "evidenceCertainty": 82,
+      "products": [
+        "服务器",
+        "智算硬件",
+        "数据中心基础设施"
+      ],
+      "nodeIds": [
+        "n1",
+        "n3"
+      ],
+      "clauseIds": [
+        "c3"
+      ],
+      "evidenceIds": [
+        "e4"
+      ],
+      "reason": "附件列示超聚变相关案例，补充服务器和智算硬件非上市主体在先进计算示范中的代表性。",
+      "uncertainty": "入选案例不能直接推断订单金额或市场份额变化。",
+      "entityType": "非上市智算硬件企业",
+      "listingStatus": "非上市主体",
+      "ownershipType": "民营/产业链企业",
+      "officialMention": true,
+      "selectionBasis": "官方附件申报单位"
+    },
+    {
+      "evidenceCount": 1,
+      "id": "co18",
+      "name": "马上消费金融股份有限公司",
+      "ticker": "未上市",
+      "platform": "金融科技、智能风控和消费金融大模型应用",
+      "status": "附件直接点名申报单位",
+      "section": "downstream",
+      "relation": "direct",
+      "evidenceLevel": "strong",
+      "confidence": 80,
+      "policyRelevance": 82,
+      "evidenceCertainty": 80,
+      "products": [
+        "智能风控",
+        "消费金融",
+        "金融大模型应用"
+      ],
+      "nodeIds": [
+        "n2",
+        "n4"
+      ],
+      "clauseIds": [
+        "c4"
+      ],
+      "evidenceIds": [
+        "e5"
+      ],
+      "reason": "附件行业应用案例点名马上消费金融，说明先进计算示范覆盖金融科技和智能风控应用场景。",
+      "uncertainty": "案例示范不等于业务规模扩张，金融场景还受监管和风控要求约束。",
+      "entityType": "非上市金融科技企业",
+      "listingStatus": "非上市主体",
+      "ownershipType": "民营/产业链企业",
+      "officialMention": true,
+      "selectionBasis": "官方附件申报单位"
     }
   ],
   "evidence": [
@@ -762,7 +1189,15 @@
       ],
       "companyIds": [
         "co1",
-        "co2"
+        "co2",
+        "co9",
+        "co10",
+        "co11",
+        "co12",
+        "co13",
+        "co14",
+        "co15",
+        "co17"
       ]
     },
     {
@@ -786,7 +1221,10 @@
         "co3",
         "co4",
         "co5",
-        "co6"
+        "co6",
+        "co14",
+        "co16",
+        "co18"
       ]
     },
     {
@@ -831,7 +1269,9 @@
         "n2",
         "n5"
       ],
-      "companyIds": []
+      "companyIds": [
+        "co16"
+      ]
     }
   ],
   "backgroundCards": [
@@ -1001,17 +1441,19 @@
     "actionCount": 6,
     "evidenceCount": 7,
     "industryNodeCount": 5,
-    "companyCount": 8,
+    "companyCount": 18,
     "matchedKeywordCount": 24,
     "comparablePolicyCount": 1,
-    "companyImpactConclusion": "本报告只列附件直接点名且可识别的代表性上市申报单位；未直接出现在附件中的公司不纳入公司页，避免把产业链联想写成公司影响。",
+    "companyImpactConclusion": "本报告已从原先偏上市公司的样本扩展为官方附件直接点名的代表性主体，覆盖上市公司、非上市技术企业、运营商分支机构、科研院所和金融科技机构；案例入选代表示范认可，不等于订单、补贴或收入确认。",
     "companyNoMatchReason": "",
     "limitations": [
       "附件为案例名单而非项目合同，未披露金额、客户、收入、利润或实施周期。",
       "部分申报单位为非上市公司、事业单位、地方国企或上市公司子公司，本报告只选取可较清晰识别的代表性上市主体。",
       "地方支持方式尚未细化，需跟踪各地工信部门后续配套政策和企业公告。",
-      "案例入选不能直接解释为市场份额提升或订单落地。"
-    ]
+      "案例入选不能直接解释为市场份额提升或订单落地。",
+      "公司/主体映射已扩展至非上市企业、央国企分支机构、科研院所和平台机构；官方未点名主体仍按代表性观察对象处理，不构成投资建议。"
+    ],
+    "companyImpactReasoning": "强证据来自工信部官方附件的案例名称、申报单位和推荐地区；公司页优先纳入附件直接点名主体，并用主体类型和上市状态区分投资标的、非上市企业与公共支撑机构。"
   },
   "modules": [
     {

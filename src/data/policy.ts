@@ -110,6 +110,11 @@ export interface Company {
   ticker: string;
   platform: string;
   status: string;
+  entityType?: string;
+  listingStatus?: string;
+  ownershipType?: string;
+  officialMention?: boolean;
+  selectionBasis?: string;
   section: ChainNode["section"];
   relation: RelationType;
   evidence: EvidenceLevel;

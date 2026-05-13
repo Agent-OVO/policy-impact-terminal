@@ -13,7 +13,7 @@
     "status": "published",
     "confidence": 92,
     "industryCount": 4,
-    "companyCount": 7,
+    "companyCount": 12,
     "evidenceCount": 8,
     "primarySignal": "车型准入与税收优惠目录同步更新，影响入选车型上市合规和消费者税负",
     "category": "汽车产业准入与新能源汽车税收优惠"
@@ -277,7 +277,12 @@
         "co4",
         "co5",
         "co6",
-        "co7"
+        "co7",
+        "co8",
+        "co9",
+        "co10",
+        "co11",
+        "co12"
       ],
       "evidenceIds": [
         "e1",
@@ -306,7 +311,12 @@
         "co3",
         "co4",
         "co5",
-        "co6"
+        "co6",
+        "co8",
+        "co9",
+        "co10",
+        "co11",
+        "co12"
       ],
       "evidenceIds": [
         "e5",
@@ -361,7 +371,12 @@
         "co4",
         "co5",
         "co6",
-        "co7"
+        "co7",
+        "co8",
+        "co9",
+        "co10",
+        "co11",
+        "co12"
       ],
       "evidenceIds": [
         "e1",
@@ -396,11 +411,11 @@
   ],
   "companies": [
     {
-    "id": "co1",
-    "name": "比亚迪股份有限公司（相关主体：比亚迪汽车有限公司、比亚迪汽车工业有限公司）",
-    "ticker": "002594.SZ / 1211.HK",
-    "logoDomain": "byd.com",
-    "exchange": "深交所 / 港交所",
+      "id": "co1",
+      "name": "比亚迪股份有限公司（相关主体：比亚迪汽车有限公司、比亚迪汽车工业有限公司）",
+      "ticker": "002594.SZ / 1211.HK",
+      "logoDomain": "byd.com",
+      "exchange": "深交所 / 港交所",
       "platform": "新能源乘用车、客车、货车及插电式混合动力车型",
       "status": "官方附件点名相关生产主体；代表性受影响企业，不构成投资建议",
       "section": "downstream",
@@ -445,14 +460,19 @@
       "sourceUrls": [
         "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/f66eea329f224580a312ab5b26b09f75.doc",
         "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/7ef7905198e642c7bc2e12755c54d11e.doc"
-      ]
+      ],
+      "entityType": "上市公司",
+      "listingStatus": "A股/港股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": true,
+      "selectionBasis": "官方原文或附件直接点名"
     },
     {
-    "id": "co2",
-    "name": "小米集团（相关主体：小米汽车科技有限公司）",
-    "ticker": "1810.HK",
-    "logoDomain": "xiaomi.com",
-    "exchange": "港交所",
+      "id": "co2",
+      "name": "小米集团（相关主体：小米汽车科技有限公司）",
+      "ticker": "1810.HK",
+      "logoDomain": "xiaomi.com",
+      "exchange": "港交所",
       "platform": "纯电动乘用车",
       "status": "官方附件点名生产主体；代表性受影响企业",
       "section": "downstream",
@@ -489,14 +509,19 @@
       ],
       "sourceUrls": [
         "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/7ef7905198e642c7bc2e12755c54d11e.doc"
-      ]
+      ],
+      "entityType": "上市公司",
+      "listingStatus": "港股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": true,
+      "selectionBasis": "官方原文或附件直接点名"
     },
     {
-    "id": "co3",
-    "name": "理想汽车（相关主体：北京理想汽车有限公司）",
-    "ticker": "LI / 2015.HK",
-    "logoDomain": "lixiang.com",
-    "exchange": "纳斯达克 / 港交所",
+      "id": "co3",
+      "name": "理想汽车（相关主体：北京理想汽车有限公司）",
+      "ticker": "LI / 2015.HK",
+      "logoDomain": "lixiang.com",
+      "exchange": "纳斯达克 / 港交所",
       "platform": "插电式增程混合动力乘用车",
       "status": "官方附件点名生产主体；代表性受影响企业",
       "section": "downstream",
@@ -532,14 +557,19 @@
       "sourceUrls": [
         "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/de417ae61c604655ac6d30e4c60411c9.doc",
         "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/7ef7905198e642c7bc2e12755c54d11e.doc"
-      ]
+      ],
+      "entityType": "上市公司",
+      "listingStatus": "港股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": true,
+      "selectionBasis": "官方原文或附件直接点名"
     },
     {
-    "id": "co4",
-    "name": "零跑汽车有限公司",
-    "ticker": "9863.HK",
-    "logoDomain": "leapmotor.com",
-    "exchange": "港交所",
+      "id": "co4",
+      "name": "零跑汽车有限公司",
+      "ticker": "9863.HK",
+      "logoDomain": "leapmotor.com",
+      "exchange": "港交所",
       "platform": "纯电动和插电式增程乘用车",
       "status": "官方附件点名生产主体；代表性受影响企业",
       "section": "downstream",
@@ -578,14 +608,19 @@
       ],
       "sourceUrls": [
         "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/7ef7905198e642c7bc2e12755c54d11e.doc"
-      ]
+      ],
+      "entityType": "上市公司",
+      "listingStatus": "港股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": true,
+      "selectionBasis": "官方原文或附件直接点名"
     },
     {
-    "id": "co5",
-    "name": "上海汽车集团股份有限公司",
-    "ticker": "600104.SH",
-    "logoDomain": "saicmotor.com",
-    "exchange": "上交所",
+      "id": "co5",
+      "name": "上海汽车集团股份有限公司",
+      "ticker": "600104.SH",
+      "logoDomain": "saicmotor.com",
+      "exchange": "上交所",
       "platform": "纯电动乘用车、换电式纯电动轿车",
       "status": "官方附件点名生产主体；代表性受影响企业",
       "section": "downstream",
@@ -624,14 +659,19 @@
       ],
       "sourceUrls": [
         "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/7ef7905198e642c7bc2e12755c54d11e.doc"
-      ]
+      ],
+      "entityType": "上市公司",
+      "listingStatus": "A股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": true,
+      "selectionBasis": "官方原文或附件直接点名"
     },
     {
-    "id": "co6",
-    "name": "长城汽车股份有限公司",
-    "ticker": "601633.SH / 2333.HK",
-    "logoDomain": "gwm.com.cn",
-    "exchange": "上交所 / 港交所",
+      "id": "co6",
+      "name": "长城汽车股份有限公司",
+      "ticker": "601633.SH / 2333.HK",
+      "logoDomain": "gwm.com.cn",
+      "exchange": "上交所 / 港交所",
       "platform": "节能型乘用车、纯电动和插电式混合动力车型",
       "status": "官方附件点名生产主体；代表性受影响企业",
       "section": "midstream",
@@ -673,14 +713,19 @@
       "sourceUrls": [
         "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/de417ae61c604655ac6d30e4c60411c9.doc",
         "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/7ef7905198e642c7bc2e12755c54d11e.doc"
-      ]
+      ],
+      "entityType": "上市公司",
+      "listingStatus": "A股/港股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": true,
+      "selectionBasis": "官方原文或附件直接点名"
     },
     {
-    "id": "co7",
-    "name": "北汽福田汽车股份有限公司",
-    "ticker": "600166.SH",
-    "logoDomain": "foton.com.cn",
-    "exchange": "上交所",
+      "id": "co7",
+      "name": "北汽福田汽车股份有限公司",
+      "ticker": "600166.SH",
+      "logoDomain": "foton.com.cn",
+      "exchange": "上交所",
       "platform": "商用车、货车和新能源商用车",
       "status": "官方附件点名生产主体；代表性受影响企业",
       "section": "midstream",
@@ -720,7 +765,212 @@
       "sourceUrls": [
         "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/f66eea329f224580a312ab5b26b09f75.doc",
         "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/de417ae61c604655ac6d30e4c60411c9.doc"
-      ]
+      ],
+      "entityType": "上市公司",
+      "listingStatus": "A股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": true,
+      "selectionBasis": "官方原文或附件直接点名"
+    },
+    {
+      "evidenceCount": 2,
+      "id": "co8",
+      "name": "特斯拉（上海）有限公司",
+      "ticker": "TSLA",
+      "platform": "纯电动乘用车和上海制造基地",
+      "status": "官方附件点名生产主体；境外上市集团在华制造主体",
+      "section": "downstream",
+      "relation": "direct",
+      "evidenceLevel": "strong",
+      "confidence": 82,
+      "policyRelevance": 86,
+      "evidenceCertainty": 82,
+      "products": [
+        "纯电动乘用车",
+        "上海制造",
+        "新能源乘用车"
+      ],
+      "nodeIds": [
+        "n1",
+        "n2",
+        "n4"
+      ],
+      "clauseIds": [
+        "c2",
+        "c3",
+        "c6"
+      ],
+      "evidenceIds": [
+        "e2",
+        "e5"
+      ],
+      "reason": "目录类附件覆盖新能源乘用车生产企业，特斯拉上海工厂是纯电车型目录和税收减免政策传导中的代表性主体。",
+      "uncertainty": "目录资格不代表销量预测，且境外上市公司影响需结合全球交付和中国市场竞争判断。",
+      "entityType": "境外上市集团在华制造主体",
+      "listingStatus": "美股上市集团相关主体",
+      "ownershipType": "外资企业",
+      "officialMention": true,
+      "selectionBasis": "官方目录生产主体"
+    },
+    {
+      "evidenceCount": 2,
+      "id": "co9",
+      "name": "奇瑞汽车股份有限公司",
+      "ticker": "代码未标注",
+      "platform": "新能源乘用车、混动和出口车型制造",
+      "status": "官方附件点名生产主体；非上市整车企业",
+      "section": "downstream",
+      "relation": "direct",
+      "evidenceLevel": "strong",
+      "confidence": 80,
+      "policyRelevance": 84,
+      "evidenceCertainty": 80,
+      "products": [
+        "新能源乘用车",
+        "插电式混合动力",
+        "出口车型"
+      ],
+      "nodeIds": [
+        "n1",
+        "n2",
+        "n4"
+      ],
+      "clauseIds": [
+        "c2",
+        "c3",
+        "c6"
+      ],
+      "evidenceIds": [
+        "e2",
+        "e5"
+      ],
+      "reason": "官方目录类附件中整车生产主体不限于上市公司，奇瑞作为非上市整车集团应纳入代表性公司观察范围。",
+      "uncertainty": "目录入选不等于销售兑现，需跟踪具体车型上市、价格和出口节奏。",
+      "entityType": "非上市整车企业",
+      "listingStatus": "非上市或代码未标注",
+      "ownershipType": "地方国企/混合所有制",
+      "officialMention": true,
+      "selectionBasis": "官方目录生产主体"
+    },
+    {
+      "evidenceCount": 2,
+      "id": "co10",
+      "name": "重庆长安汽车股份有限公司",
+      "ticker": "000625.SZ",
+      "platform": "新能源乘用车、混动平台和整车制造",
+      "status": "官方附件点名生产主体；代表性受影响企业",
+      "section": "downstream",
+      "relation": "direct",
+      "evidenceLevel": "strong",
+      "confidence": 81,
+      "policyRelevance": 84,
+      "evidenceCertainty": 80,
+      "products": [
+        "新能源乘用车",
+        "插电式混合动力",
+        "整车制造"
+      ],
+      "nodeIds": [
+        "n1",
+        "n2",
+        "n4"
+      ],
+      "clauseIds": [
+        "c2",
+        "c3",
+        "c6"
+      ],
+      "evidenceIds": [
+        "e2",
+        "e5"
+      ],
+      "reason": "目录政策影响对象是列入附件的车辆产品和生产主体，长安汽车补充了央国企整车平台在节能与新能源目录中的代表性。",
+      "uncertainty": "目录资格只是准入和税收减免基础，不能推导单车销量或利润。",
+      "entityType": "上市整车企业",
+      "listingStatus": "A股上市",
+      "ownershipType": "中央企业体系/国有控股",
+      "officialMention": true,
+      "selectionBasis": "官方目录生产主体"
+    },
+    {
+      "evidenceCount": 2,
+      "id": "co11",
+      "name": "广汽埃安新能源汽车股份有限公司",
+      "ticker": "代码未标注",
+      "platform": "纯电动乘用车和新能源平台制造",
+      "status": "官方附件点名生产主体；上市集团子公司/非上市主体",
+      "section": "downstream",
+      "relation": "direct",
+      "evidenceLevel": "strong",
+      "confidence": 79,
+      "policyRelevance": 83,
+      "evidenceCertainty": 78,
+      "products": [
+        "纯电动乘用车",
+        "新能源平台",
+        "智能电动车"
+      ],
+      "nodeIds": [
+        "n1",
+        "n2",
+        "n4"
+      ],
+      "clauseIds": [
+        "c2",
+        "c3",
+        "c6"
+      ],
+      "evidenceIds": [
+        "e2",
+        "e5"
+      ],
+      "reason": "官方目录类附件对具体生产主体产生直接影响，广汽埃安体现了非上市新能源品牌主体也应被纳入公司页。",
+      "uncertainty": "子公司未单独上市，影响需区分品牌主体与母公司报表口径。",
+      "entityType": "上市集团子公司/非上市新能源车企",
+      "listingStatus": "上市集团相关主体",
+      "ownershipType": "地方国企体系",
+      "officialMention": true,
+      "selectionBasis": "官方目录生产主体"
+    },
+    {
+      "evidenceCount": 2,
+      "id": "co12",
+      "name": "赛力斯集团股份有限公司",
+      "ticker": "601127.SH",
+      "platform": "新能源乘用车、增程式电动车和智能汽车制造",
+      "status": "官方附件点名生产主体；代表性受影响企业",
+      "section": "downstream",
+      "relation": "direct",
+      "evidenceLevel": "strong",
+      "confidence": 80,
+      "policyRelevance": 84,
+      "evidenceCertainty": 79,
+      "products": [
+        "新能源乘用车",
+        "增程式电动车",
+        "智能汽车"
+      ],
+      "nodeIds": [
+        "n1",
+        "n2",
+        "n4"
+      ],
+      "clauseIds": [
+        "c2",
+        "c3",
+        "c6"
+      ],
+      "evidenceIds": [
+        "e2",
+        "e5"
+      ],
+      "reason": "赛力斯是新能源乘用车目录和车辆购置税减免政策影响链条中的代表性整车上市公司，补充了增程路线观察对象。",
+      "uncertainty": "是否形成销量增量仍取决于车型配置、价格和竞争格局。",
+      "entityType": "上市整车企业",
+      "listingStatus": "A股上市",
+      "ownershipType": "民营/产业链企业",
+      "officialMention": true,
+      "selectionBasis": "官方目录生产主体"
     }
   ],
   "evidence": [
@@ -762,7 +1012,13 @@
       "nodeIds": [
         "n1"
       ],
-      "companyIds": []
+      "companyIds": [
+        "co8",
+        "co9",
+        "co10",
+        "co11",
+        "co12"
+      ]
     },
     {
       "id": "e3",
@@ -828,7 +1084,14 @@
         "n4"
       ],
       "companyIds": [
-        "co2"
+        "co2",
+        "co5",
+        "co6",
+        "co8",
+        "co9",
+        "co10",
+        "co11",
+        "co12"
       ]
     },
     {
@@ -876,7 +1139,8 @@
       "companyIds": [
         "co1",
         "co3",
-        "co6"
+        "co6",
+        "co4"
       ]
     },
     {
@@ -896,7 +1160,8 @@
         "n3"
       ],
       "companyIds": [
-        "co7"
+        "co7",
+        "co1"
       ]
     }
   ],
@@ -1094,15 +1359,16 @@
     "actionCount": 4,
     "evidenceCount": 8,
     "industryNodeCount": 4,
-    "companyCount": 7,
+    "companyCount": 12,
     "matchedKeywordCount": 20,
     "comparablePolicyCount": 0,
-    "companyImpactConclusion": "存在可映射公司，但仅限官方附件中出现的企业或其清晰对应上市主体；目录入选代表车型资格，不代表订单、销量或利润确定增加。",
+    "companyImpactConclusion": "公司映射扩展为官方目录中出现的代表性生产主体，既包括上市整车企业，也包括非上市整车集团、上市集团子公司和境外上市集团在华制造主体；目录入选代表车型资格和税收适用基础，不代表销量或利润确定增加。",
     "limitations": [
       "官方网页正文较短，实质信息主要来自三份Word附件；附件文本为人工抽取和核对，未逐项复原全部表格。",
       "公司映射只覆盖代表性企业，没有穷尽附件中的全部生产企业和改装车企业。",
       "入选目录不等于业绩兑现，实际影响取决于车型上市时间、价格、产能、竞争格局和终端需求。",
-      "未采用媒体评论、券商观点或非官方二次解读。"
+      "未采用媒体评论、券商观点或非官方二次解读。",
+      "公司/主体映射已扩展至非上市企业、央国企分支机构、科研院所和平台机构；官方未点名主体仍按代表性观察对象处理，不构成投资建议。"
     ]
   },
   "modules": [

@@ -48,7 +48,7 @@
     "status": "published",
     "confidence": 89,
     "industryCount": 7,
-    "companyCount": 7,
+    "companyCount": 12,
     "evidenceCount": 11,
     "primarySignal": "算电协同与能源AI场景开放",
     "category": "行动方案"
@@ -334,7 +334,8 @@
       "companyIds": [
         "company-state-grid",
         "company-csg",
-        "company-kehua-data"
+        "company-kehua-data",
+        "company-envision"
       ],
       "evidenceIds": [
         "evidence-energy-supply",
@@ -357,7 +358,10 @@
       ],
       "companyIds": [
         "company-kehua-data",
-        "company-state-grid"
+        "company-state-grid",
+        "company-huawei-digital-power",
+        "company-alibaba-cloud",
+        "company-tencent-cloud"
       ],
       "evidenceIds": [
         "evidence-green-compute"
@@ -403,7 +407,9 @@
       "companyIds": [
         "company-guodian-nari",
         "company-csg",
-        "company-baidu-ai"
+        "company-baidu-ai",
+        "company-envision",
+        "company-cepri"
       ],
       "evidenceIds": [
         "evidence-energy-scenes",
@@ -427,7 +433,8 @@
       "companyIds": [
         "company-sh-data-exchange",
         "company-state-grid",
-        "company-qianxin"
+        "company-qianxin",
+        "company-alibaba-cloud"
       ],
       "evidenceIds": [
         "evidence-energy-data"
@@ -448,7 +455,10 @@
         "clause-energy-model"
       ],
       "companyIds": [
-        "company-baidu-ai"
+        "company-baidu-ai",
+        "company-huawei-digital-power",
+        "company-alibaba-cloud",
+        "company-tencent-cloud"
       ],
       "evidenceIds": [
         "evidence-energy-model"
@@ -470,7 +480,9 @@
         "clause-energy-data"
       ],
       "companyIds": [
-        "company-qianxin"
+        "company-qianxin",
+        "company-tencent-cloud",
+        "company-cepri"
       ],
       "evidenceIds": [
         "evidence-security-standard"
@@ -525,11 +537,11 @@
   ],
   "companies": [
     {
-    "id": "company-state-grid",
-    "name": "国家电网有限公司",
-    "ticker": "未上市",
-    "logoDomain": "sgcc.com.cn",
-    "platform": "电网调度、算电协同、能源数据和场景开放主体",
+      "id": "company-state-grid",
+      "name": "国家电网有限公司",
+      "ticker": "未上市",
+      "logoDomain": "sgcc.com.cn",
+      "platform": "电网调度、算电协同、能源数据和场景开放主体",
       "status": "中央能源企业/代表性平台",
       "section": "midstream",
       "relation": "direct",
@@ -572,14 +584,19 @@
       ],
       "sourceUrls": [
         "https://www.nea.gov.cn/20260508/4dae97ca01d348e4871bb8654be34b3a/c.html"
-      ]
+      ],
+      "entityType": "中央能源企业/电网平台",
+      "listingStatus": "非上市主体",
+      "ownershipType": "中央企业",
+      "officialMention": false,
+      "selectionBasis": "中游环节代表性映射"
     },
     {
-    "id": "company-csg",
-    "name": "中国南方电网有限责任公司",
-    "ticker": "未上市",
-    "logoDomain": "csg.cn",
-    "platform": "区域电网、需求响应、虚拟电厂和能源数字化平台",
+      "id": "company-csg",
+      "name": "中国南方电网有限责任公司",
+      "ticker": "未上市",
+      "logoDomain": "csg.cn",
+      "platform": "区域电网、需求响应、虚拟电厂和能源数字化平台",
       "status": "中央能源企业/代表性平台",
       "section": "midstream",
       "relation": "direct",
@@ -621,7 +638,12 @@
       ],
       "sourceUrls": [
         "https://www.nea.gov.cn/20260508/4dae97ca01d348e4871bb8654be34b3a/c.html"
-      ]
+      ],
+      "entityType": "中央能源企业/电网平台",
+      "listingStatus": "非上市主体",
+      "ownershipType": "中央企业",
+      "officialMention": false,
+      "selectionBasis": "中游环节代表性映射"
     },
     {
       "id": "company-guodian-nari",
@@ -665,14 +687,19 @@
       ],
       "sourceUrls": [
         "https://www.nea.gov.cn/20260508/4dae97ca01d348e4871bb8654be34b3a/c.html"
-      ]
+      ],
+      "entityType": "上市公司",
+      "listingStatus": "A股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": false,
+      "selectionBasis": "下游环节代表性映射"
     },
     {
-    "id": "company-kehua-data",
-    "name": "科华数据",
-    "ticker": "002335.SZ",
-    "logoDomain": "kehua.com",
-    "platform": "数据中心供配电、UPS、储能和绿色算力基础设施",
+      "id": "company-kehua-data",
+      "name": "科华数据",
+      "ticker": "002335.SZ",
+      "logoDomain": "kehua.com",
+      "platform": "数据中心供配电、UPS、储能和绿色算力基础设施",
       "status": "上市公司/绿色算力基础设施代表",
       "section": "upstream",
       "relation": "beneficiary",
@@ -709,7 +736,12 @@
       ],
       "sourceUrls": [
         "https://www.nea.gov.cn/20260508/4dae97ca01d348e4871bb8654be34b3a/c.html"
-      ]
+      ],
+      "entityType": "上市公司",
+      "listingStatus": "A股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": false,
+      "selectionBasis": "上游环节代表性映射"
     },
     {
       "id": "company-sh-data-exchange",
@@ -750,14 +782,19 @@
       ],
       "sourceUrls": [
         "https://www.nea.gov.cn/20260508/4dae97ca01d348e4871bb8654be34b3a/c.html"
-      ]
+      ],
+      "entityType": "产业平台/公共服务机构",
+      "listingStatus": "非上市主体",
+      "ownershipType": "民营/产业链企业",
+      "officialMention": false,
+      "selectionBasis": "中游环节代表性映射"
     },
     {
-    "id": "company-baidu-ai",
-    "name": "百度集团/百度智能云",
-    "ticker": "BIDU / 9888.HK",
-    "logoDomain": "baidu.com",
-    "platform": "AI云、行业大模型、智能体和模型即服务",
+      "id": "company-baidu-ai",
+      "name": "百度集团/百度智能云",
+      "ticker": "BIDU / 9888.HK",
+      "logoDomain": "baidu.com",
+      "platform": "AI云、行业大模型、智能体和模型即服务",
       "status": "上市公司/AI平台代表",
       "section": "support",
       "relation": "beneficiary",
@@ -794,14 +831,19 @@
       ],
       "sourceUrls": [
         "https://www.nea.gov.cn/20260508/4dae97ca01d348e4871bb8654be34b3a/c.html"
-      ]
+      ],
+      "entityType": "上市平台企业/AI云主体",
+      "listingStatus": "港股/美股上市集团相关主体",
+      "ownershipType": "民营/平台企业",
+      "officialMention": false,
+      "selectionBasis": "相关环节代表性映射"
     },
     {
-    "id": "company-qianxin",
-    "name": "奇安信",
-    "ticker": "688561.SH",
-    "logoDomain": "qianxin.com",
-    "platform": "网络安全、数据安全、关键基础设施安全和安全运营",
+      "id": "company-qianxin",
+      "name": "奇安信",
+      "ticker": "688561.SH",
+      "logoDomain": "qianxin.com",
+      "platform": "网络安全、数据安全、关键基础设施安全和安全运营",
       "status": "上市公司/安全治理代表",
       "section": "support",
       "relation": "constraint_risk",
@@ -838,7 +880,213 @@
       ],
       "sourceUrls": [
         "https://www.nea.gov.cn/20260508/4dae97ca01d348e4871bb8654be34b3a/c.html"
-      ]
+      ],
+      "entityType": "上市公司",
+      "listingStatus": "A股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": false,
+      "selectionBasis": "相关环节代表性映射"
+    },
+    {
+      "evidenceCount": 2,
+      "id": "company-huawei-digital-power",
+      "name": "华为数字能源技术有限公司",
+      "ticker": "未上市",
+      "platform": "绿色算力基础设施、数据中心能源、储能和智能电力电子",
+      "status": "能源AI和绿色算力基础设施代表性观察对象；政策未点名",
+      "section": "midstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 72,
+      "policyRelevance": 78,
+      "evidenceCertainty": 62,
+      "products": [
+        "数据中心能源",
+        "储能",
+        "智能光伏",
+        "绿色算力基础设施"
+      ],
+      "nodeIds": [
+        "node-green-compute",
+        "node-energy-model-hardware"
+      ],
+      "clauseIds": [
+        "clause-green-compute",
+        "clause-energy-model"
+      ],
+      "evidenceIds": [
+        "evidence-green-compute",
+        "evidence-energy-model"
+      ],
+      "reason": "政策强调绿色算力、算电协同和能源模型硬件支撑，华为数字能源是非上市能源数字化与数据中心能源基础设施代表主体。",
+      "uncertainty": "政策未点名该公司，影响取决于能源企业招采、数据中心建设和地方绿色电力规则。",
+      "entityType": "非上市能源数字化企业",
+      "listingStatus": "非上市主体",
+      "ownershipType": "民营/产业链企业",
+      "officialMention": false,
+      "selectionBasis": "绿色算力和能源数字化链条代表性映射"
+    },
+    {
+      "evidenceCount": 2,
+      "id": "company-envision",
+      "name": "远景能源有限公司",
+      "ticker": "未上市",
+      "platform": "新能源资产、储能、虚拟电厂和能源AI应用",
+      "status": "新能源与能源AI场景代表性观察对象；政策未点名",
+      "section": "midstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 69,
+      "policyRelevance": 74,
+      "evidenceCertainty": 58,
+      "products": [
+        "新能源资产管理",
+        "储能",
+        "虚拟电厂",
+        "能源AI"
+      ],
+      "nodeIds": [
+        "node-energy-supply",
+        "node-energy-ai-scenes"
+      ],
+      "clauseIds": [
+        "clause-energy-supply",
+        "clause-energy-scenes"
+      ],
+      "evidenceIds": [
+        "evidence-energy-supply",
+        "evidence-energy-scenes"
+      ],
+      "reason": "政策列出新能源消纳、虚拟电厂、调度优化等能源AI场景，远景能源可作为非上市新能源数字化平台主体观察。",
+      "uncertainty": "未被政策点名，商业机会需要项目、客户和地方试点验证。",
+      "entityType": "非上市新能源数字化企业",
+      "listingStatus": "非上市主体",
+      "ownershipType": "民营/产业链企业",
+      "officialMention": false,
+      "selectionBasis": "新能源消纳和虚拟电厂场景代表性映射"
+    },
+    {
+      "evidenceCount": 3,
+      "id": "company-alibaba-cloud",
+      "name": "阿里云计算有限公司",
+      "ticker": "9988.HK / BABA",
+      "platform": "云计算、AI平台、数据治理和算力服务",
+      "status": "上市集团云平台相关主体；政策未点名",
+      "section": "midstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 68,
+      "policyRelevance": 73,
+      "evidenceCertainty": 57,
+      "products": [
+        "云计算",
+        "AI平台",
+        "算力服务",
+        "数据治理"
+      ],
+      "nodeIds": [
+        "node-green-compute",
+        "node-energy-model-hardware",
+        "node-energy-data"
+      ],
+      "clauseIds": [
+        "clause-green-compute",
+        "clause-energy-model",
+        "clause-energy-data"
+      ],
+      "evidenceIds": [
+        "evidence-green-compute",
+        "evidence-energy-model",
+        "evidence-energy-data"
+      ],
+      "reason": "政策涉及能源数据、算力协同和行业大模型平台，阿里云可作为云计算和AI平台供给侧代表主体观察。",
+      "uncertainty": "政策未点名云厂商，且能源央企可能采用自建或多云方案。",
+      "entityType": "上市集团云平台子公司",
+      "listingStatus": "上市集团相关主体",
+      "ownershipType": "民营/平台企业",
+      "officialMention": false,
+      "selectionBasis": "云计算和能源数据平台方向代表性映射"
+    },
+    {
+      "evidenceCount": 3,
+      "id": "company-tencent-cloud",
+      "name": "腾讯云计算（北京）有限责任公司",
+      "ticker": "0700.HK",
+      "platform": "云计算、行业模型服务、数据安全和能源数字化解决方案",
+      "status": "上市集团云平台相关主体；政策未点名",
+      "section": "midstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 67,
+      "policyRelevance": 72,
+      "evidenceCertainty": 56,
+      "products": [
+        "云计算",
+        "行业模型服务",
+        "数据安全",
+        "能源数字化"
+      ],
+      "nodeIds": [
+        "node-green-compute",
+        "node-energy-model-hardware",
+        "node-security-standards"
+      ],
+      "clauseIds": [
+        "clause-green-compute",
+        "clause-energy-model",
+        "clause-standards-security"
+      ],
+      "evidenceIds": [
+        "evidence-green-compute",
+        "evidence-energy-model",
+        "evidence-security-standard"
+      ],
+      "reason": "能源AI落地需要云平台、模型服务和数据安全能力，腾讯云可作为上市集团云平台子公司代表主体观察。",
+      "uncertainty": "政策没有明确云厂商名单，后续机会取决于能源企业采购与安全准入。",
+      "entityType": "上市集团云平台子公司",
+      "listingStatus": "上市集团相关主体",
+      "ownershipType": "民营/平台企业",
+      "officialMention": false,
+      "selectionBasis": "AI云平台和安全治理方向代表性映射"
+    },
+    {
+      "evidenceCount": 2,
+      "id": "company-cepri",
+      "name": "中国电力科学研究院有限公司",
+      "ticker": "未上市",
+      "platform": "电力系统仿真、标准验证、调度技术和能源AI测试",
+      "status": "电力科研院所/技术验证机构代表性观察对象；政策未点名",
+      "section": "midstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 70,
+      "policyRelevance": 76,
+      "evidenceCertainty": 60,
+      "products": [
+        "电力系统仿真",
+        "标准验证",
+        "调度技术",
+        "能源AI测试"
+      ],
+      "nodeIds": [
+        "node-energy-ai-scenes",
+        "node-security-standards"
+      ],
+      "clauseIds": [
+        "clause-energy-scenes",
+        "clause-standards-security"
+      ],
+      "evidenceIds": [
+        "evidence-energy-scenes",
+        "evidence-security-standard"
+      ],
+      "reason": "政策强调标准、安全和场景验证，电力科研机构是能源AI从试点到规模化应用的重要非上市主体。",
+      "uncertainty": "政策未点名，机构作用更多体现在测试验证和标准支撑，而非直接商业收益。",
+      "entityType": "电力科研院所/技术验证机构",
+      "listingStatus": "非上市机构",
+      "ownershipType": "央企体系科研机构",
+      "officialMention": false,
+      "selectionBasis": "能源AI标准验证和测试支撑代表主体"
     }
   ],
   "evidence": [
@@ -903,7 +1151,8 @@
       "companyIds": [
         "company-state-grid",
         "company-csg",
-        "company-kehua-data"
+        "company-kehua-data",
+        "company-envision"
       ]
     },
     {
@@ -924,7 +1173,10 @@
       ],
       "companyIds": [
         "company-kehua-data",
-        "company-state-grid"
+        "company-state-grid",
+        "company-huawei-digital-power",
+        "company-alibaba-cloud",
+        "company-tencent-cloud"
       ]
     },
     {
@@ -967,7 +1219,9 @@
       ],
       "companyIds": [
         "company-guodian-nari",
-        "company-baidu-ai"
+        "company-baidu-ai",
+        "company-envision",
+        "company-cepri"
       ]
     },
     {
@@ -1011,7 +1265,8 @@
       "companyIds": [
         "company-sh-data-exchange",
         "company-state-grid",
-        "company-qianxin"
+        "company-qianxin",
+        "company-alibaba-cloud"
       ]
     },
     {
@@ -1031,7 +1286,10 @@
         "node-energy-model-hardware"
       ],
       "companyIds": [
-        "company-baidu-ai"
+        "company-baidu-ai",
+        "company-huawei-digital-power",
+        "company-alibaba-cloud",
+        "company-tencent-cloud"
       ]
     },
     {
@@ -1051,7 +1309,9 @@
         "node-security-standards"
       ],
       "companyIds": [
-        "company-qianxin"
+        "company-qianxin",
+        "company-tencent-cloud",
+        "company-cepri"
       ]
     },
     {
@@ -1265,17 +1525,18 @@
     "actionCount": 5,
     "evidenceCount": 11,
     "industryNodeCount": 7,
-    "companyCount": 7,
+    "companyCount": 12,
     "matchedKeywordCount": 21,
     "comparablePolicyCount": 0,
-    "companyImpactConclusion": "已提供代表公司/平台，但所有企业映射均为业务环节相关性判断。政策原文没有点名具体公司，也没有给出订单、补贴额度或项目名单，因此公司影响只作为产业链观察，不构成投资建议。",
+    "companyImpactConclusion": "公司/主体映射扩展到电网央企、云平台、非上市能源数字化企业、科研验证机构和数据安全企业；政策未点名具体公司，所有非点名主体均按能源AI产业链代表性观察处理。",
     "companyImpactReasoning": "强相关主体主要是电网和能源央企平台，因为文件直接要求能源企业和AI相关企业作为实施主体；上市公司层面更多是设备、自动化、AI云、数据交易和安全治理的间接映射，需要后续试点、标准、预算和招标验证。",
     "sourceIntegrityNote": "国家数据局 sourceUrl 与 Supabase full_text 均为发布摘要且附件栏为空；国家数据局页面标注来源为国家能源局，全文使用国家能源局同文号原文核对。未使用媒体解读。",
     "limitations": [
       "公司映射不是投资建议，不代表政策点名、项目中标或业绩弹性。",
       "能源AI场景虽被具体列出，但规模化应用依赖能源企业数据开放、测试验证平台、标准准入和安全审查。",
       "算电协同和绿色算力交易的商业价值取决于地方电力市场规则、绿电直连细则和数据中心负荷可调节能力。",
-      "国家数据局发布页未提供附件链接，全文补足来自其标注来源的国家能源局同文号官方原文。"
+      "国家数据局发布页未提供附件链接，全文补足来自其标注来源的国家能源局同文号官方原文。",
+      "公司/主体映射已扩展至非上市企业、央国企分支机构、科研院所和平台机构；官方未点名主体仍按代表性观察对象处理，不构成投资建议。"
     ]
   },
   "modules": [

@@ -213,6 +213,16 @@ interface CompanyImpactLike {
   exchange?: string;
   platform?: string;
   status?: string;
+  entityType?: string;
+  entity_type?: string;
+  listingStatus?: string;
+  listing_status?: string;
+  ownershipType?: string;
+  ownership_type?: string;
+  officialMention?: boolean;
+  official_mention?: boolean;
+  selectionBasis?: string;
+  selection_basis?: string;
   section?: string;
   relation?: string;
   evidence?: string;
@@ -652,6 +662,11 @@ export function mapCompanyImpacts(items: readonly CompanyImpactLike[] = []): Com
       exchange: item.exchange,
       platform: item.platform ?? "",
       status: item.status ?? "",
+      entityType: item.entityType ?? item.entity_type,
+      listingStatus: item.listingStatus ?? item.listing_status,
+      ownershipType: item.ownershipType ?? item.ownership_type,
+      officialMention: item.officialMention ?? item.official_mention,
+      selectionBasis: item.selectionBasis ?? item.selection_basis,
       section: normalizeIndustrySection(item.section),
       relation: normalizeRelationType(item.relation),
       evidenceLevel: normalizeEvidenceLevel(evidenceLabel),
@@ -1148,6 +1163,11 @@ function mapAppCompanies(items: JsonRecord[]): AppCompanyWithLogo[] {
       ticker: firstString(item.ticker, item.symbol) || "",
       platform: firstString(item.platform, item.business, item.segment) || "",
       status: firstString(item.status) || "",
+      entityType: firstString(item.entityType, item.entity_type),
+      listingStatus: firstString(item.listingStatus, item.listing_status),
+      ownershipType: firstString(item.ownershipType, item.ownership_type),
+      officialMention: Boolean(item.officialMention ?? item.official_mention ?? false),
+      selectionBasis: firstString(item.selectionBasis, item.selection_basis),
       section: normalizeAppIndustrySection(item.section),
       relation: normalizeAppRelation(item.relation),
       evidence: normalizeAppEvidenceLabel(item.evidence, item.evidenceLevel, item.evidence_level),

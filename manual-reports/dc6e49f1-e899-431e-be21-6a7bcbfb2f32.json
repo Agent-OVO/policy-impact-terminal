@@ -10,7 +10,7 @@
     "status": "published",
     "confidence": 87,
     "industryCount": 6,
-    "companyCount": 7,
+    "companyCount": 10,
     "evidenceCount": 7,
     "primarySignal": "年度考核压实生态环境治理与绿色低碳转型责任",
     "category": "生态环境考核"
@@ -348,7 +348,8 @@
       "companyIds": [
         "fpi",
         "sailhero",
-        "sdl"
+        "sdl",
+        "infore-env"
       ],
       "evidenceIds": [
         "e2",
@@ -385,7 +386,10 @@
       "companyIds": [
         "originwater",
         "longking",
-        "high-energy"
+        "high-energy",
+        "cecep",
+        "everbright-env",
+        "infore-env"
       ],
       "evidenceIds": [
         "e2",
@@ -420,7 +424,8 @@
       ],
       "companyIds": [
         "sdl",
-        "fpi"
+        "fpi",
+        "cecep"
       ],
       "evidenceIds": [
         "e3",
@@ -454,7 +459,9 @@
       ],
       "companyIds": [
         "mengcao",
-        "high-energy"
+        "high-energy",
+        "cecep",
+        "everbright-env"
       ],
       "evidenceIds": [
         "e2",
@@ -489,7 +496,9 @@
         "originwater",
         "longking",
         "high-energy",
-        "mengcao"
+        "mengcao",
+        "cecep",
+        "everbright-env"
       ],
       "evidenceIds": [
         "e6"
@@ -522,7 +531,8 @@
       "companyIds": [
         "fpi",
         "sailhero",
-        "sdl"
+        "sdl",
+        "infore-env"
       ],
       "evidenceIds": [
         "e5",
@@ -577,11 +587,11 @@
   ],
   "companies": [
     {
-    "id": "fpi",
-    "name": "聚光科技",
-    "ticker": "300203.SZ",
-    "logoDomain": "fpi-inc.com",
-    "exchange": "深交所",
+      "id": "fpi",
+      "name": "聚光科技",
+      "ticker": "300203.SZ",
+      "logoDomain": "fpi-inc.com",
+      "exchange": "深交所",
       "platform": "环境监测仪器与智慧环保平台",
       "status": "上市公司；代表性受影响主体",
       "section": "upstream",
@@ -621,14 +631,19 @@
       ],
       "sourceUrls": [
         "https://www.gov.cn/zhengce/202605/content_7067978.htm"
-      ]
+      ],
+      "entityType": "上市环境监测企业",
+      "listingStatus": "A股上市",
+      "ownershipType": "民营/产业链企业",
+      "officialMention": false,
+      "selectionBasis": "上游环节代表性映射"
     },
     {
-    "id": "sailhero",
-    "name": "先河环保",
-    "ticker": "300137.SZ",
-    "logoDomain": "sailhero.com",
-    "exchange": "深交所",
+      "id": "sailhero",
+      "name": "先河环保",
+      "ticker": "300137.SZ",
+      "logoDomain": "sailhero.com",
+      "exchange": "深交所",
       "platform": "生态环境监测与智慧环保",
       "status": "上市公司；代表性受影响主体",
       "section": "upstream",
@@ -667,14 +682,19 @@
       ],
       "sourceUrls": [
         "https://www.gov.cn/zhengce/202605/content_7067978.htm"
-      ]
+      ],
+      "entityType": "上市环境监测企业",
+      "listingStatus": "A股上市",
+      "ownershipType": "民营/产业链企业",
+      "officialMention": false,
+      "selectionBasis": "上游环节代表性映射"
     },
     {
-    "id": "sdl",
-    "name": "雪迪龙",
-    "ticker": "002658.SZ",
-    "logoDomain": "chsdl.com",
-    "exchange": "深交所",
+      "id": "sdl",
+      "name": "雪迪龙",
+      "ticker": "002658.SZ",
+      "logoDomain": "chsdl.com",
+      "exchange": "深交所",
       "platform": "环境监测与排放监测设备",
       "status": "上市公司；代表性受影响主体",
       "section": "upstream",
@@ -714,14 +734,19 @@
       ],
       "sourceUrls": [
         "https://www.gov.cn/zhengce/202605/content_7067978.htm"
-      ]
+      ],
+      "entityType": "上市公司",
+      "listingStatus": "A股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": false,
+      "selectionBasis": "上游环节代表性映射"
     },
     {
-    "id": "originwater",
-    "name": "碧水源",
-    "ticker": "300070.SZ",
-    "logoDomain": "originwater.com",
-    "exchange": "深交所",
+      "id": "originwater",
+      "name": "碧水源",
+      "ticker": "300070.SZ",
+      "logoDomain": "originwater.com",
+      "exchange": "深交所",
       "platform": "水处理与膜技术",
       "status": "上市公司；代表性受影响主体",
       "section": "midstream",
@@ -760,14 +785,19 @@
       ],
       "sourceUrls": [
         "https://www.gov.cn/zhengce/202605/content_7067978.htm"
-      ]
+      ],
+      "entityType": "上市公司",
+      "listingStatus": "A股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": false,
+      "selectionBasis": "中游环节代表性映射"
     },
     {
-    "id": "longking",
-    "name": "龙净环保",
-    "ticker": "600388.SH",
-    "logoDomain": "longking.com",
-    "exchange": "上交所",
+      "id": "longking",
+      "name": "龙净环保",
+      "ticker": "600388.SH",
+      "logoDomain": "longking.com",
+      "exchange": "上交所",
       "platform": "大气污染治理与工业环保",
       "status": "上市公司；代表性受影响主体",
       "section": "midstream",
@@ -806,14 +836,19 @@
       ],
       "sourceUrls": [
         "https://www.gov.cn/zhengce/202605/content_7067978.htm"
-      ]
+      ],
+      "entityType": "上市公司",
+      "listingStatus": "A股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": false,
+      "selectionBasis": "中游环节代表性映射"
     },
     {
-    "id": "high-energy",
-    "name": "高能环境",
-    "ticker": "603588.SH",
-    "logoDomain": "bgechina.cn",
-    "exchange": "上交所",
+      "id": "high-energy",
+      "name": "高能环境",
+      "ticker": "603588.SH",
+      "logoDomain": "bgechina.cn",
+      "exchange": "上交所",
       "platform": "固废危废处置与土壤修复",
       "status": "上市公司；代表性受影响主体",
       "section": "midstream",
@@ -853,14 +888,19 @@
       ],
       "sourceUrls": [
         "https://www.gov.cn/zhengce/202605/content_7067978.htm"
-      ]
+      ],
+      "entityType": "上市公司",
+      "listingStatus": "A股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": false,
+      "selectionBasis": "中游环节代表性映射"
     },
     {
-    "id": "mengcao",
-    "name": "蒙草生态",
-    "ticker": "300355.SZ",
-    "logoDomain": "mengcao.com",
-    "exchange": "深交所",
+      "id": "mengcao",
+      "name": "蒙草生态",
+      "ticker": "300355.SZ",
+      "logoDomain": "mengcao.com",
+      "exchange": "深交所",
       "platform": "生态修复与草原生态治理",
       "status": "上市公司；代表性受影响主体",
       "section": "downstream",
@@ -899,7 +939,131 @@
       ],
       "sourceUrls": [
         "https://www.gov.cn/zhengce/202605/content_7067978.htm"
-      ]
+      ],
+      "entityType": "上市公司",
+      "listingStatus": "A股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": false,
+      "selectionBasis": "下游环节代表性映射"
+    },
+    {
+      "evidenceCount": 2,
+      "id": "cecep",
+      "name": "中国节能环保集团有限公司",
+      "ticker": "未上市",
+      "platform": "节能环保综合服务、生态治理和绿色低碳项目组织",
+      "status": "央企环保平台代表性观察对象；政策未点名",
+      "section": "midstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 65,
+      "policyRelevance": 72,
+      "evidenceCertainty": 55,
+      "products": [
+        "生态治理",
+        "节能环保服务",
+        "绿色低碳项目"
+      ],
+      "nodeIds": [
+        "pollution-control",
+        "green-carbon-mrv",
+        "ecological-restoration",
+        "fiscal-performance"
+      ],
+      "clauseIds": [
+        "c3",
+        "c7"
+      ],
+      "evidenceIds": [
+        "e3",
+        "e6"
+      ],
+      "reason": "美丽中国考核会推动生态环境治理、节能环保和绿色低碳项目需求，中国节能环保集团补充非上市央企平台观察对象。",
+      "uncertainty": "政策未点名企业，也未披露项目预算，实际影响取决于地方考核压力和项目落地。",
+      "entityType": "非上市央企环保平台",
+      "listingStatus": "非上市主体",
+      "ownershipType": "中央企业",
+      "officialMention": false,
+      "selectionBasis": "生态治理和绿色低碳项目代表性映射"
+    },
+    {
+      "evidenceCount": 2,
+      "id": "everbright-env",
+      "name": "中国光大环境（集团）有限公司",
+      "ticker": "0257.HK",
+      "platform": "垃圾焚烧、固废处置、水环境和生态环境服务",
+      "status": "环境治理综合服务代表性观察对象；政策未点名",
+      "section": "midstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 64,
+      "policyRelevance": 70,
+      "evidenceCertainty": 54,
+      "products": [
+        "固废处置",
+        "垃圾焚烧",
+        "水环境",
+        "生态环境服务"
+      ],
+      "nodeIds": [
+        "pollution-control",
+        "ecological-restoration",
+        "fiscal-performance"
+      ],
+      "clauseIds": [
+        "c3",
+        "c6"
+      ],
+      "evidenceIds": [
+        "e3",
+        "e5"
+      ],
+      "reason": "考核体系强化污染治理和生态环境质量改善，光大环境可作为环境基础设施运营商代表主体观察。",
+      "uncertainty": "政策没有项目清单，不能推断订单或收入增加。",
+      "entityType": "上市环保运营企业",
+      "listingStatus": "港股上市",
+      "ownershipType": "中央企业体系/上市平台",
+      "officialMention": false,
+      "selectionBasis": "环境治理运营链条代表性映射"
+    },
+    {
+      "evidenceCount": 2,
+      "id": "infore-env",
+      "name": "盈峰环境科技集团股份有限公司",
+      "ticker": "000967.SZ",
+      "platform": "环卫装备、环境服务和城市治理数字化",
+      "status": "环保装备与环境服务代表性观察对象；政策未点名",
+      "section": "midstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 62,
+      "policyRelevance": 68,
+      "evidenceCertainty": 52,
+      "products": [
+        "环卫装备",
+        "环境服务",
+        "城市治理数字化"
+      ],
+      "nodeIds": [
+        "monitoring-data",
+        "pollution-control",
+        "data-integrity"
+      ],
+      "clauseIds": [
+        "c4",
+        "c6"
+      ],
+      "evidenceIds": [
+        "e4",
+        "e5"
+      ],
+      "reason": "美丽中国考核涉及城市环境治理、污染防治和治理能力提升，盈峰环境可作为环保装备与服务供应商观察对象。",
+      "uncertainty": "政策未点名，需求释放依赖地方财政、采购节奏和考核细则。",
+      "entityType": "上市环保装备与服务企业",
+      "listingStatus": "A股上市",
+      "ownershipType": "民营/产业链企业",
+      "officialMention": false,
+      "selectionBasis": "环保装备和城市治理服务代表性映射"
     }
   ],
   "evidence": [
@@ -946,7 +1110,8 @@
         "originwater",
         "longking",
         "high-energy",
-        "mengcao"
+        "mengcao",
+        "sdl"
       ]
     },
     {
@@ -972,7 +1137,9 @@
         "originwater",
         "longking",
         "high-energy",
-        "mengcao"
+        "mengcao",
+        "cecep",
+        "everbright-env"
       ]
     },
     {
@@ -993,7 +1160,8 @@
       ],
       "companyIds": [
         "fpi",
-        "sdl"
+        "sdl",
+        "infore-env"
       ]
     },
     {
@@ -1016,7 +1184,9 @@
       "companyIds": [
         "fpi",
         "sailhero",
-        "sdl"
+        "sdl",
+        "everbright-env",
+        "infore-env"
       ]
     },
     {
@@ -1041,7 +1211,8 @@
         "originwater",
         "longking",
         "high-energy",
-        "mengcao"
+        "mengcao",
+        "cecep"
       ]
     },
     {
@@ -1253,15 +1424,16 @@
     "actionCount": 5,
     "evidenceCount": 7,
     "industryNodeCount": 6,
-    "companyCount": 7,
+    "companyCount": 10,
     "matchedKeywordCount": 24,
     "comparablePolicyCount": 0,
-    "companyImpactConclusion": "存在代表性受影响公司，但政策原文未点名任何企业；本报告仅按环保监测、污染治理、绿色低碳和生态修复等产业链环节映射代表主体，不构成投资建议或业绩预测。",
+    "companyImpactConclusion": "公司页扩展为环保监测、污染治理、生态修复、央企环保平台和环境服务运营商的代表性观察对象；政策未点名企业，映射只说明产业链相关性。",
     "limitations": [
       "证据只使用 Supabase 中的政策全文和中国政府网原文页面，未采用媒体解读。",
       "政策未发布具体评分细则，产业需求强度仍取决于后续考核指标、地方预算和执行力度。",
       "公司映射依据业务方向与政策作用链条的代表性交集，未核验最新订单、财务贡献或估值变化。",
-      "政策影响更偏中长期治理和绩效约束，不能等同于短期采购放量。"
+      "政策影响更偏中长期治理和绩效约束，不能等同于短期采购放量。",
+      "公司/主体映射已扩展至非上市企业、央国企分支机构、科研院所和平台机构；官方未点名主体仍按代表性观察对象处理，不构成投资建议。"
     ]
   },
   "modules": [

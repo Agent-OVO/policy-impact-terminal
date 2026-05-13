@@ -13,7 +13,7 @@
     "status": "published",
     "confidence": 92,
     "industryCount": 6,
-    "companyCount": 7,
+    "companyCount": 11,
     "evidenceCount": 9,
     "primarySignal": "纺织服装品牌培育从单一消费品牌扩展到供应链、产业生态、终端消费三类品牌协同升级",
     "category": "产业政策"
@@ -431,7 +431,8 @@
       "companyIds": [
         "co1",
         "co2",
-        "co7"
+        "co7",
+        "co10"
       ],
       "evidenceIds": [
         "e2",
@@ -459,7 +460,10 @@
       "companyIds": [
         "co3",
         "co4",
-        "co5"
+        "co5",
+        "co8",
+        "co9",
+        "co11"
       ],
       "evidenceIds": [
         "e1",
@@ -485,7 +489,8 @@
       "companyIds": [
         "co1",
         "co2",
-        "co6"
+        "co6",
+        "co10"
       ],
       "evidenceIds": [
         "e5"
@@ -508,7 +513,10 @@
       "companyIds": [
         "co3",
         "co4",
-        "co5"
+        "co5",
+        "co8",
+        "co9",
+        "co11"
       ],
       "evidenceIds": [
         "e7"
@@ -533,7 +541,8 @@
         "co1",
         "co2",
         "co3",
-        "co4"
+        "co4",
+        "co10"
       ],
       "evidenceIds": [
         "e8"
@@ -581,11 +590,11 @@
   ],
   "companies": [
     {
-    "id": "co1",
-    "name": "申洲国际",
-    "ticker": "2313.HK",
-    "logoDomain": "shenzhouintl.com",
-    "platform": "针织服装供应链制造和国际客户协同代表性主体",
+      "id": "co1",
+      "name": "申洲国际",
+      "ticker": "2313.HK",
+      "logoDomain": "shenzhouintl.com",
+      "platform": "针织服装供应链制造和国际客户协同代表性主体",
       "status": "供应链品牌方向代表性观察对象；政策未点名；非投资建议",
       "section": "midstream",
       "relation": "indirect",
@@ -630,14 +639,19 @@
       ],
       "sourceUrls": [
         "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bd0b0deb7f334faf911a7cfcccad2248.html"
-      ]
+      ],
+      "entityType": "上市公司",
+      "listingStatus": "港股上市",
+      "ownershipType": "民营/产业链企业",
+      "officialMention": false,
+      "selectionBasis": "政策未点名，按产业链环节代表性选择"
     },
     {
-    "id": "co2",
-    "name": "华利集团",
-    "ticker": "300979.SZ",
-    "logoDomain": "huali-group.com",
-    "platform": "运动鞋履制造和全球供应链履约代表性主体",
+      "id": "co2",
+      "name": "华利集团",
+      "ticker": "300979.SZ",
+      "logoDomain": "huali-group.com",
+      "platform": "运动鞋履制造和全球供应链履约代表性主体",
       "status": "供应链制造和出海履约方向代表性观察对象；政策未点名；非投资建议",
       "section": "midstream",
       "relation": "indirect",
@@ -679,14 +693,19 @@
       ],
       "sourceUrls": [
         "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bd0b0deb7f334faf911a7cfcccad2248.html"
-      ]
+      ],
+      "entityType": "上市公司",
+      "listingStatus": "A股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": false,
+      "selectionBasis": "政策未点名，按产业链环节代表性选择"
     },
     {
-    "id": "co3",
-    "name": "安踏体育",
-    "ticker": "2020.HK",
-    "logoDomain": "anta.com",
-    "platform": "运动服饰终端消费品牌和多品牌运营代表性主体",
+      "id": "co3",
+      "name": "安踏体育",
+      "ticker": "2020.HK",
+      "logoDomain": "anta.com",
+      "platform": "运动服饰终端消费品牌和多品牌运营代表性主体",
       "status": "终端消费品牌方向代表性观察对象；政策未点名；非投资建议",
       "section": "downstream",
       "relation": "indirect",
@@ -729,14 +748,19 @@
       ],
       "sourceUrls": [
         "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bd0b0deb7f334faf911a7cfcccad2248.html"
-      ]
+      ],
+      "entityType": "上市公司",
+      "listingStatus": "港股上市",
+      "ownershipType": "民营/产业链企业",
+      "officialMention": false,
+      "selectionBasis": "政策未点名，按产业链环节代表性选择"
     },
     {
-    "id": "co4",
-    "name": "波司登",
-    "ticker": "3998.HK",
-    "logoDomain": "bosideng.com",
-    "platform": "羽绒服终端消费品牌和品类聚焦代表性主体",
+      "id": "co4",
+      "name": "波司登",
+      "ticker": "3998.HK",
+      "logoDomain": "bosideng.com",
+      "platform": "羽绒服终端消费品牌和品类聚焦代表性主体",
       "status": "终端消费品牌方向代表性观察对象；政策未点名；非投资建议",
       "section": "downstream",
       "relation": "indirect",
@@ -777,14 +801,19 @@
       ],
       "sourceUrls": [
         "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bd0b0deb7f334faf911a7cfcccad2248.html"
-      ]
+      ],
+      "entityType": "上市公司",
+      "listingStatus": "港股上市",
+      "ownershipType": "民营/产业链企业",
+      "officialMention": false,
+      "selectionBasis": "政策未点名，按产业链环节代表性选择"
     },
     {
-    "id": "co5",
-    "name": "罗莱生活",
-    "ticker": "002293.SZ",
-    "logoDomain": "luolai.com.cn",
-    "platform": "家纺终端消费品牌和智能家纺场景代表性主体",
+      "id": "co5",
+      "name": "罗莱生活",
+      "ticker": "002293.SZ",
+      "logoDomain": "luolai.com.cn",
+      "platform": "家纺终端消费品牌和智能家纺场景代表性主体",
       "status": "终端消费品牌和智能家纺方向代表性观察对象；政策未点名；非投资建议",
       "section": "downstream",
       "relation": "indirect",
@@ -825,14 +854,19 @@
       ],
       "sourceUrls": [
         "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bd0b0deb7f334faf911a7cfcccad2248.html"
-      ]
+      ],
+      "entityType": "上市公司",
+      "listingStatus": "A股上市",
+      "ownershipType": "民营/产业链企业",
+      "officialMention": false,
+      "selectionBasis": "政策未点名，按产业链环节代表性选择"
     },
     {
-    "id": "co6",
-    "name": "鲁泰A",
-    "ticker": "000726.SZ",
-    "logoDomain": "lutai.com",
-    "platform": "纺织面料和服装制造供应链代表性主体",
+      "id": "co6",
+      "name": "鲁泰A",
+      "ticker": "000726.SZ",
+      "logoDomain": "lutai.com",
+      "platform": "纺织面料和服装制造供应链代表性主体",
       "status": "功能面料和供应链品牌方向代表性观察对象；政策未点名；非投资建议",
       "section": "upstream",
       "relation": "indirect",
@@ -871,14 +905,19 @@
       ],
       "sourceUrls": [
         "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bd0b0deb7f334faf911a7cfcccad2248.html"
-      ]
+      ],
+      "entityType": "科研院所/公共支撑机构",
+      "listingStatus": "A股上市",
+      "ownershipType": "民营/产业链企业",
+      "officialMention": false,
+      "selectionBasis": "政策未点名，按产业链环节代表性选择"
     },
     {
-    "id": "co7",
-    "name": "杰克科技",
-    "ticker": "603337.SH",
-    "logoDomain": "jack-sewing.com",
-    "platform": "服装智能制造装备和柔性生产设备代表性主体",
+      "id": "co7",
+      "name": "杰克科技",
+      "ticker": "603337.SH",
+      "logoDomain": "jack-sewing.com",
+      "platform": "服装智能制造装备和柔性生产设备代表性主体",
       "status": "智能制造配套方向代表性观察对象；政策未点名；非投资建议",
       "section": "support",
       "relation": "indirect",
@@ -914,7 +953,167 @@
       ],
       "sourceUrls": [
         "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bd0b0deb7f334faf911a7cfcccad2248.html"
-      ]
+      ],
+      "entityType": "上市公司",
+      "listingStatus": "A股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": false,
+      "selectionBasis": "政策未点名，按产业链环节代表性选择"
+    },
+    {
+      "evidenceCount": 2,
+      "id": "co8",
+      "name": "海澜之家集团股份有限公司",
+      "ticker": "600398.SH",
+      "platform": "大众男装品牌、渠道运营和供应链协同",
+      "status": "终端消费品牌代表性观察对象；政策未点名",
+      "section": "downstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 64,
+      "policyRelevance": 68,
+      "evidenceCertainty": 54,
+      "products": [
+        "服装品牌",
+        "渠道运营",
+        "供应链管理"
+      ],
+      "nodeIds": [
+        "n3",
+        "n5"
+      ],
+      "clauseIds": [
+        "c4",
+        "c8"
+      ],
+      "evidenceIds": [
+        "e4",
+        "e8"
+      ],
+      "reason": "政策强调培育卓越品牌和供应链品牌，海澜之家可作为大众服装终端品牌和渠道管理的代表性观察对象。",
+      "uncertainty": "政策未公布品牌名单，不能认定其入选或获得补贴。",
+      "entityType": "上市服装品牌企业",
+      "listingStatus": "A股上市",
+      "ownershipType": "民营/品牌企业",
+      "officialMention": false,
+      "selectionBasis": "终端消费品牌方向代表性映射"
+    },
+    {
+      "evidenceCount": 2,
+      "id": "co9",
+      "name": "劲霸男装（上海）有限公司",
+      "ticker": "未上市",
+      "platform": "男装品牌、品牌升级和终端零售运营",
+      "status": "非上市终端消费品牌代表性观察对象；政策未点名",
+      "section": "downstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 60,
+      "policyRelevance": 66,
+      "evidenceCertainty": 50,
+      "products": [
+        "男装品牌",
+        "终端零售",
+        "品牌升级"
+      ],
+      "nodeIds": [
+        "n3",
+        "n5"
+      ],
+      "clauseIds": [
+        "c4",
+        "c8"
+      ],
+      "evidenceIds": [
+        "e4",
+        "e8"
+      ],
+      "reason": "卓越品牌培育并不限于上市公司，劲霸男装可作为非上市成熟服装品牌的代表性观察对象。",
+      "uncertainty": "政策没有点名该品牌，后续需等待申报、公示或地方项目结果。",
+      "entityType": "非上市服装品牌企业",
+      "listingStatus": "非上市主体",
+      "ownershipType": "民营/品牌企业",
+      "officialMention": false,
+      "selectionBasis": "非上市终端消费品牌方向代表性映射"
+    },
+    {
+      "evidenceCount": 3,
+      "id": "co10",
+      "name": "溢达集团",
+      "ticker": "未上市",
+      "platform": "纺织服装供应链、绿色制造和全球履约",
+      "status": "非上市供应链品牌代表性观察对象；政策未点名",
+      "section": "midstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 61,
+      "policyRelevance": 67,
+      "evidenceCertainty": 51,
+      "products": [
+        "纺织供应链",
+        "绿色制造",
+        "全球履约"
+      ],
+      "nodeIds": [
+        "n2",
+        "n4",
+        "n6"
+      ],
+      "clauseIds": [
+        "c3",
+        "c6",
+        "c10"
+      ],
+      "evidenceIds": [
+        "e3",
+        "e6",
+        "e9"
+      ],
+      "reason": "政策同时关注供应链品牌、绿色低碳和国际化履约，溢达集团可补充非上市供应链品牌视角。",
+      "uncertainty": "政策未点名企业，无法确认其是否参与卓越品牌培育项目。",
+      "entityType": "非上市纺织供应链企业",
+      "listingStatus": "非上市主体",
+      "ownershipType": "民营/供应链企业",
+      "officialMention": false,
+      "selectionBasis": "供应链品牌与绿色制造方向代表性映射"
+    },
+    {
+      "evidenceCount": 2,
+      "id": "co11",
+      "name": "赢家时尚控股有限公司",
+      "ticker": "3709.HK",
+      "platform": "中高端女装品牌矩阵和零售运营",
+      "status": "终端消费品牌代表性观察对象；政策未点名",
+      "section": "downstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 60,
+      "policyRelevance": 65,
+      "evidenceCertainty": 50,
+      "products": [
+        "女装品牌",
+        "多品牌运营",
+        "终端零售"
+      ],
+      "nodeIds": [
+        "n3",
+        "n5"
+      ],
+      "clauseIds": [
+        "c4",
+        "c8"
+      ],
+      "evidenceIds": [
+        "e4",
+        "e8"
+      ],
+      "reason": "作为多品牌服装集团，赢家时尚可用于观察政策中品牌矩阵、品质升级和终端零售能力建设方向。",
+      "uncertainty": "政策没有点名，实际影响需以后续品牌遴选和地方扶持为准。",
+      "entityType": "上市服装品牌企业",
+      "listingStatus": "港股上市",
+      "ownershipType": "民营/品牌企业",
+      "officialMention": false,
+      "selectionBasis": "终端消费品牌方向代表性映射"
     }
   ],
   "evidence": [
@@ -937,7 +1136,8 @@
       "companyIds": [
         "co3",
         "co4",
-        "co5"
+        "co5",
+        "co1"
       ]
     },
     {
@@ -982,7 +1182,8 @@
       ],
       "companyIds": [
         "co5",
-        "co6"
+        "co6",
+        "co10"
       ]
     },
     {
@@ -1004,7 +1205,10 @@
       "companyIds": [
         "co1",
         "co2",
-        "co7"
+        "co7",
+        "co8",
+        "co9",
+        "co11"
       ]
     },
     {
@@ -1047,7 +1251,8 @@
       ],
       "companyIds": [
         "co1",
-        "co7"
+        "co7",
+        "co10"
       ]
     },
     {
@@ -1096,7 +1301,10 @@
         "co2",
         "co3",
         "co4",
-        "co5"
+        "co5",
+        "co8",
+        "co9",
+        "co11"
       ]
     },
     {
@@ -1116,7 +1324,8 @@
         "n3"
       ],
       "companyIds": [
-        "co3"
+        "co3",
+        "co10"
       ]
     }
   ],
@@ -1317,17 +1526,18 @@
     "actionCount": 6,
     "evidenceCount": 9,
     "industryNodeCount": 6,
-    "companyCount": 7,
+    "companyCount": 11,
     "matchedKeywordCount": 31,
     "comparablePolicyCount": 0,
-    "companyImpactConclusion": "政策未点名任何企业，所有公司均为产业链代表性观察对象。映射依据是供应链品牌、终端消费品牌、功能面料、智能制造、家纺、绿色低碳和出海履约等政策方向，不代表入选卓越品牌、获得补贴、取得订单或构成投资建议。",
+    "companyImpactConclusion": "政策未点名任何企业，公司页扩展为上市品牌、非上市品牌和供应链品牌的代表性观察对象；所有企业均为产业链方向映射，不代表入选卓越品牌、获得补贴或形成订单。",
     "companyImpactReasoning": "企业层面证据弱于行业层面证据。强证据来自官方附件的任务条款，弱化为公司映射时必须经过企业业务位置匹配，并等待后续评价体系、申报遴选、公示名单和地方项目验证。",
     "sourceIntegrityNote": "已阅读工信部官方通知页面和页面嵌入PDF附件全文；未采用媒体评论、市场解读或非官方名单。",
     "limitations": [
       "政策未公布25个卓越品牌名单，因此无法确认任何公司入选。",
       "政策未披露财政补贴额度、具体项目预算或采购清单。",
       "公司映射按业务方向代表性选择，不代表收入弹性、订单确定性或投资建议。",
-      "智能工厂、绿色工厂、碳足迹标准和品牌评价体系仍需后续实施细则和地方申报结果验证。"
+      "智能工厂、绿色工厂、碳足迹标准和品牌评价体系仍需后续实施细则和地方申报结果验证。",
+      "公司/主体映射已扩展至非上市企业、央国企分支机构、科研院所和平台机构；官方未点名主体仍按代表性观察对象处理，不构成投资建议。"
     ]
   },
   "modules": [

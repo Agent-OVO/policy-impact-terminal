@@ -157,7 +157,13 @@ export function CompanyLogo({
 export function CompanyCard({ company, compact }: { company: Company; compact?: boolean }) {
   const companyWithLogo = company as CompanyWithLogo;
   const companyName = getCompanyName(company);
-  const ticker = company.ticker.trim() || "代码未标注";
+  const rawTicker = company.ticker.trim();
+  const ticker = /^(未上市|非上市|未标注|代码未标注|N\/A|无|-)$/i.test(rawTicker) ? "" : rawTicker;
+  const listingStatus = company.listingStatus?.trim() || (ticker ? "上市/挂牌主体" : rawTicker || "非上市或代码未标注");
+  const entityType = company.entityType?.trim() || "企业主体";
+  const identityLine = ticker
+    ? `${ticker} · ${listingStatus} · ${company.platform.trim() || "未标注业务"}`
+    : `${listingStatus} · ${entityType} · ${company.platform.trim() || "未标注业务"}`;
   const platform = company.platform.trim() || "未标注业务";
   const reason = company.reason.trim() || platform;
   const confidence = clampScore(company.confidence);
@@ -170,12 +176,14 @@ export function CompanyCard({ company, compact }: { company: Company; compact?: 
         <CompanyLogo company={companyWithLogo} />
         <div className="company-card-title" style={cardTitleStyle}>
           <strong>{companyName}</strong>
-          <span>{ticker} · {platform}</span>
+          <span>{identityLine}</span>
         </div>
       </header>
       <section className="company-card-tags" style={cardTagsStyle} aria-label="公司影响标签">
         <CompanyTag value={company.relation} small />
         <CompanyTag value={company.evidence} small />
+        <span className="tag small">{listingStatus}</span>
+        {company.officialMention && <span className="tag small positive">官方点名</span>}
       </section>
       <p className="company-card-reason" style={createReasonStyle(compact)}>{reason}</p>
       <footer className="company-card-bottom company-card-metrics">

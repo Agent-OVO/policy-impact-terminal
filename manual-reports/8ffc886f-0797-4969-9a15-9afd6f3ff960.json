@@ -12,7 +12,7 @@
     "status": "published",
     "confidence": 88,
     "industryCount": 4,
-    "companyCount": 5,
+    "companyCount": 10,
     "evidenceCount": 8,
     "primarySignal": "AI伦理审查从试行制度进入重点城市落地验证",
     "category": "人工智能科技伦理治理"
@@ -272,7 +272,10 @@
       "companyIds": [
         "co-baidu",
         "co-alibaba-cloud",
-        "co-tencent"
+        "co-tencent",
+        "co-huawei",
+        "co-zhipu",
+        "co-moonshot"
       ],
       "evidenceIds": [
         "e2",
@@ -324,7 +327,10 @@
         "c4",
         "c5"
       ],
-      "companyIds": [],
+      "companyIds": [
+        "co-shlab",
+        "co-caict"
+      ],
       "evidenceIds": [
         "e1",
         "e4",
@@ -351,7 +357,12 @@
         "co-alibaba-cloud",
         "co-tencent",
         "co-sensetime",
-        "co-hikvision"
+        "co-hikvision",
+        "co-huawei",
+        "co-zhipu",
+        "co-moonshot",
+        "co-shlab",
+        "co-caict"
       ],
       "evidenceIds": [
         "e1",
@@ -387,11 +398,11 @@
   ],
   "companies": [
     {
-    "id": "co-baidu",
-    "name": "百度集团",
-    "ticker": "9888.HK / BIDU",
-    "logoDomain": "baidu.com",
-    "platform": "北京AI基础底座、大模型和智能云等AI科技活动代表主体",
+      "id": "co-baidu",
+      "name": "百度集团",
+      "ticker": "9888.HK / BIDU",
+      "logoDomain": "baidu.com",
+      "platform": "北京AI基础底座、大模型和智能云等AI科技活动代表主体",
       "status": "代表性受影响主体，非投资建议",
       "section": "upstream",
       "relation": "indirect",
@@ -429,14 +440,19 @@
       ],
       "sourceUrls": [
         "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_353d0d2a06ab4cebbfd53f97aec4ae24.html"
-      ]
+      ],
+      "entityType": "上市平台企业/AI云主体",
+      "listingStatus": "港股/美股上市",
+      "ownershipType": "民营/平台企业",
+      "officialMention": false,
+      "selectionBasis": "政策未点名，按AI基础底座和智能云方向代表性选择"
     },
     {
-    "id": "co-alibaba-cloud",
-    "name": "阿里云计算有限公司",
-    "ticker": "9988.HK / BABA",
-    "logoDomain": "aliyun.com",
-    "platform": "浙江AI基础底座、云计算和模型服务代表主体",
+      "id": "co-alibaba-cloud",
+      "name": "阿里云计算有限公司",
+      "ticker": "9988.HK / BABA",
+      "logoDomain": "aliyun.com",
+      "platform": "浙江AI基础底座、云计算和模型服务代表主体",
       "status": "代表性受影响主体，非投资建议",
       "section": "upstream",
       "relation": "indirect",
@@ -473,14 +489,19 @@
       ],
       "sourceUrls": [
         "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_353d0d2a06ab4cebbfd53f97aec4ae24.html"
-      ]
+      ],
+      "entityType": "上市集团AI/云平台相关主体",
+      "listingStatus": "上市集团相关主体",
+      "ownershipType": "民营/平台企业",
+      "officialMention": false,
+      "selectionBasis": "上游环节代表性映射"
     },
     {
-    "id": "co-tencent",
-    "name": "腾讯科技（深圳）有限公司",
-    "ticker": "0700.HK",
-    "logoDomain": "tencent.com",
-    "platform": "广东AI基础底座、云服务和消费互联网AI应用代表主体",
+      "id": "co-tencent",
+      "name": "腾讯科技（深圳）有限公司",
+      "ticker": "0700.HK",
+      "logoDomain": "tencent.com",
+      "platform": "广东AI基础底座、云服务和消费互联网AI应用代表主体",
       "status": "代表性受影响主体，非投资建议",
       "section": "downstream",
       "relation": "indirect",
@@ -520,14 +541,19 @@
       ],
       "sourceUrls": [
         "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_353d0d2a06ab4cebbfd53f97aec4ae24.html"
-      ]
+      ],
+      "entityType": "上市集团AI/云平台相关主体",
+      "listingStatus": "上市集团相关主体",
+      "ownershipType": "民营/平台企业",
+      "officialMention": false,
+      "selectionBasis": "下游环节代表性映射"
     },
     {
-    "id": "co-sensetime",
-    "name": "商汤科技",
-    "ticker": "0020.HK",
-    "logoDomain": "sensetime.com",
-    "platform": "上海AI视觉、生成式AI和行业应用代表主体",
+      "id": "co-sensetime",
+      "name": "商汤科技",
+      "ticker": "0020.HK",
+      "logoDomain": "sensetime.com",
+      "platform": "上海AI视觉、生成式AI和行业应用代表主体",
       "status": "代表性受影响主体，非投资建议",
       "section": "downstream",
       "relation": "indirect",
@@ -566,14 +592,19 @@
       ],
       "sourceUrls": [
         "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_353d0d2a06ab4cebbfd53f97aec4ae24.html"
-      ]
+      ],
+      "entityType": "上市公司",
+      "listingStatus": "港股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": false,
+      "selectionBasis": "下游环节代表性映射"
     },
     {
-    "id": "co-hikvision",
-    "name": "杭州海康威视数字技术股份有限公司",
-    "ticker": "002415.SZ",
-    "logoDomain": "hikvision.com",
-    "platform": "浙江智能物联、视觉AI和制造/行业应用代表主体",
+      "id": "co-hikvision",
+      "name": "杭州海康威视数字技术股份有限公司",
+      "ticker": "002415.SZ",
+      "logoDomain": "hikvision.com",
+      "platform": "浙江智能物联、视觉AI和制造/行业应用代表主体",
       "status": "代表性受影响主体，非投资建议",
       "section": "downstream",
       "relation": "indirect",
@@ -612,7 +643,208 @@
       ],
       "sourceUrls": [
         "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_353d0d2a06ab4cebbfd53f97aec4ae24.html"
-      ]
+      ],
+      "entityType": "上市公司",
+      "listingStatus": "A股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": false,
+      "selectionBasis": "下游环节代表性映射"
+    },
+    {
+      "evidenceCount": 3,
+      "id": "co-huawei",
+      "name": "华为技术有限公司",
+      "ticker": "未上市",
+      "platform": "AI基础设施、行业大模型、昇腾生态和政企AI应用",
+      "status": "非上市AI基础底座代表性观察对象；政策未点名",
+      "section": "upstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 72,
+      "policyRelevance": 78,
+      "evidenceCertainty": 62,
+      "products": [
+        "AI基础设施",
+        "行业大模型",
+        "昇腾生态",
+        "政企AI应用"
+      ],
+      "nodeIds": [
+        "n1",
+        "n4"
+      ],
+      "clauseIds": [
+        "c2",
+        "c5"
+      ],
+      "evidenceIds": [
+        "e2",
+        "e3",
+        "e5"
+      ],
+      "reason": "政策覆盖基础底座、龙头企业和行业应用，华为作为非上市AI基础设施和政企应用代表主体，应纳入公司页而非只看上市公司。",
+      "uncertainty": "政策未点名企业，后续需看试点城市、代表单位清单和具体场景采购。",
+      "entityType": "非上市AI基础设施企业",
+      "listingStatus": "非上市主体",
+      "ownershipType": "民营/平台企业",
+      "officialMention": false,
+      "selectionBasis": "AI基础底座和政企应用方向代表性映射"
+    },
+    {
+      "evidenceCount": 2,
+      "id": "co-zhipu",
+      "name": "北京智谱华章科技有限公司",
+      "ticker": "未上市",
+      "platform": "大模型研发、企业级模型服务和智能体应用",
+      "status": "非上市大模型企业代表性观察对象；政策未点名",
+      "section": "upstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 68,
+      "policyRelevance": 74,
+      "evidenceCertainty": 58,
+      "products": [
+        "大模型",
+        "模型服务",
+        "智能体应用"
+      ],
+      "nodeIds": [
+        "n1",
+        "n4"
+      ],
+      "clauseIds": [
+        "c2",
+        "c5"
+      ],
+      "evidenceIds": [
+        "e2",
+        "e3"
+      ],
+      "reason": "AI伦理治理先导区机制覆盖大模型研发、部署和应用评估，智谱可作为非上市大模型企业代表主体观察。",
+      "uncertainty": "政策未点名，且治理试点参与资格需以后续地方实施方案为准。",
+      "entityType": "非上市大模型企业",
+      "listingStatus": "非上市主体",
+      "ownershipType": "民营/科技企业",
+      "officialMention": false,
+      "selectionBasis": "大模型研发与治理试点方向代表性映射"
+    },
+    {
+      "evidenceCount": 2,
+      "id": "co-moonshot",
+      "name": "北京月之暗面科技有限公司",
+      "ticker": "未上市",
+      "platform": "通用大模型、智能助手和生成式AI应用",
+      "status": "非上市生成式AI企业代表性观察对象；政策未点名",
+      "section": "upstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 66,
+      "policyRelevance": 72,
+      "evidenceCertainty": 56,
+      "products": [
+        "通用大模型",
+        "智能助手",
+        "生成式AI应用"
+      ],
+      "nodeIds": [
+        "n1",
+        "n4"
+      ],
+      "clauseIds": [
+        "c2",
+        "c5"
+      ],
+      "evidenceIds": [
+        "e2",
+        "e3"
+      ],
+      "reason": "政策强调AI伦理治理、科技活动与企业创新主体，月之暗面补充了非上市生成式AI公司在治理先导区中的观察维度。",
+      "uncertainty": "政策未点名，不能推断具体试点资格或商业收益。",
+      "entityType": "非上市生成式AI企业",
+      "listingStatus": "非上市主体",
+      "ownershipType": "民营/科技企业",
+      "officialMention": false,
+      "selectionBasis": "生成式AI治理和应用方向代表性映射"
+    },
+    {
+      "evidenceCount": 3,
+      "id": "co-shlab",
+      "name": "上海人工智能实验室",
+      "ticker": "未上市",
+      "platform": "AI基础研究、开源模型、评测体系和治理研究",
+      "status": "科研平台/实验室代表性观察对象；政策未点名",
+      "section": "midstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 69,
+      "policyRelevance": 74,
+      "evidenceCertainty": 58,
+      "products": [
+        "AI基础研究",
+        "开源模型",
+        "评测体系",
+        "治理研究"
+      ],
+      "nodeIds": [
+        "n3",
+        "n4"
+      ],
+      "clauseIds": [
+        "c4",
+        "c5"
+      ],
+      "evidenceIds": [
+        "e1",
+        "e4",
+        "e5"
+      ],
+      "reason": "政策包含伦理治理、标准评测和先导区机制，科研平台是非上市且非企业化的关键参与主体。",
+      "uncertainty": "该类机构更多承担研究、评测和公共支撑，不应被解读为投资标的。",
+      "entityType": "科研平台/实验室",
+      "listingStatus": "非上市机构",
+      "ownershipType": "科研机构",
+      "officialMention": false,
+      "selectionBasis": "AI治理评测和科研支撑代表主体"
+    },
+    {
+      "evidenceCount": 3,
+      "id": "co-caict",
+      "name": "中国信息通信研究院",
+      "ticker": "未上市",
+      "platform": "AI标准、评测认证、产业研究和治理支撑",
+      "status": "行业研究与标准评测机构代表性观察对象；政策未点名",
+      "section": "midstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 70,
+      "policyRelevance": 75,
+      "evidenceCertainty": 60,
+      "products": [
+        "标准评测",
+        "产业研究",
+        "治理支撑",
+        "认证服务"
+      ],
+      "nodeIds": [
+        "n3",
+        "n4"
+      ],
+      "clauseIds": [
+        "c4",
+        "c5"
+      ],
+      "evidenceIds": [
+        "e1",
+        "e4",
+        "e5"
+      ],
+      "reason": "AI伦理治理先导区需要标准、评测和政策支撑，信通院可作为非上市公共支撑机构代表主体观察。",
+      "uncertainty": "政策未点名，机构角色需以后续标准、评测项目和地方任务分工确认。",
+      "entityType": "行业研究与标准评测机构",
+      "listingStatus": "非上市机构",
+      "ownershipType": "科研事业/公共服务机构",
+      "officialMention": false,
+      "selectionBasis": "标准评测和治理支撑代表主体"
     }
   ],
   "evidence": [
@@ -633,7 +865,10 @@
         "n3",
         "n4"
       ],
-      "companyIds": []
+      "companyIds": [
+        "co-shlab",
+        "co-caict"
+      ]
     },
     {
       "id": "e2",
@@ -657,7 +892,10 @@
         "co-alibaba-cloud",
         "co-tencent",
         "co-sensetime",
-        "co-hikvision"
+        "co-hikvision",
+        "co-huawei",
+        "co-zhipu",
+        "co-moonshot"
       ]
     },
     {
@@ -682,7 +920,10 @@
         "co-alibaba-cloud",
         "co-tencent",
         "co-sensetime",
-        "co-hikvision"
+        "co-hikvision",
+        "co-huawei",
+        "co-zhipu",
+        "co-moonshot"
       ]
     },
     {
@@ -701,7 +942,10 @@
       "nodeIds": [
         "n3"
       ],
-      "companyIds": []
+      "companyIds": [
+        "co-shlab",
+        "co-caict"
+      ]
     },
     {
       "id": "e5",
@@ -726,7 +970,10 @@
         "co-alibaba-cloud",
         "co-tencent",
         "co-sensetime",
-        "co-hikvision"
+        "co-hikvision",
+        "co-huawei",
+        "co-shlab",
+        "co-caict"
       ]
     },
     {
@@ -1001,15 +1248,16 @@
     "actionCount": 4,
     "evidenceCount": 8,
     "industryNodeCount": 4,
-    "companyCount": 5,
+    "companyCount": 10,
     "matchedKeywordCount": 18,
     "comparablePolicyCount": 1,
-    "companyImpactConclusion": "政策未点名任何公司。公司列表仅按政策明确覆盖的地区、基础底座和垂直应用领域，以及“优先选择本地区人工智能龙头企业、兼顾中小企业”的机制，选取代表性受影响主体用于产业映射，不构成投资建议；实际参与需以后续省市实施方案和代表性单位清单为准。",
+    "companyImpactConclusion": "政策未点名任何公司。公司页已扩展为上市平台企业、非上市大模型公司、AI基础设施企业、科研实验室和标准评测机构的代表性观察对象，用于呈现AI伦理治理先导区可能覆盖的真实主体类型。",
     "limitations": [
       "政策原文未公布具体试点城市最终名单，也未公布参与企业名单。",
       "公司映射仅为代表性受影响主体，不代表确定入选、不代表订单、不构成投资建议。",
       "仅使用Supabase入库full_text、工信部官方原文页和官方PDF附件；未采用媒体解读。",
-      "附件PDF文本层按浏览器PDF.js读取，保留主要模板要求，表格版式未做逐格复原。"
+      "附件PDF文本层按浏览器PDF.js读取，保留主要模板要求，表格版式未做逐格复原。",
+      "公司/主体映射已扩展至非上市企业、央国企分支机构、科研院所和平台机构；官方未点名主体仍按代表性观察对象处理，不构成投资建议。"
     ]
   },
   "modules": [

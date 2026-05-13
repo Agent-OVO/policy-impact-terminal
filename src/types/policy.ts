@@ -129,6 +129,11 @@ export interface CompanyImpact {
   ticker: string;
   platform: string;
   status: string;
+  entityType?: string;
+  listingStatus?: string;
+  ownershipType?: string;
+  officialMention?: boolean;
+  selectionBasis?: string;
   section: IndustrySection;
   relation: RelationType;
   evidenceLevel: EvidenceLevel;

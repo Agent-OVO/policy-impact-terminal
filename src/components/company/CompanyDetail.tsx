@@ -24,8 +24,8 @@ const detailIdentityStyle: CSSProperties = {
 };
 const detailTitleStyle: CSSProperties = { display: "grid", gap: 4, minWidth: 0 };
 
-function textOrFallback(value: string, fallback: string) {
-  const normalized = value.trim();
+function textOrFallback(value: string | undefined, fallback: string) {
+  const normalized = value?.trim() ?? "";
   return normalized || fallback;
 }
 
@@ -57,7 +57,16 @@ export function CompanyDetail({
   const companyName = textOrFallback(selectedCompany.name, "未命名公司");
   const platform = textOrFallback(selectedCompany.platform, "未标注业务");
   const status = textOrFallback(selectedCompany.status, "状态未标注");
-  const ticker = textOrFallback(selectedCompany.ticker, "代码未标注");
+  const rawTicker = selectedCompany.ticker.trim();
+  const ticker = /^(未上市|非上市|未标注|代码未标注|N\/A|无|-)$/i.test(rawTicker)
+    ? "代码未标注"
+    : textOrFallback(rawTicker, "代码未标注");
+  const entityType = textOrFallback(selectedCompany.entityType, "企业主体");
+  const listingStatus = textOrFallback(
+    selectedCompany.listingStatus,
+    ticker === "代码未标注" ? rawTicker || "非上市或代码未标注" : "上市/挂牌主体"
+  );
+  const selectionBasis = textOrFallback(selectedCompany.selectionBasis, selectedCompany.officialMention ? "官方文件点名或附件列示" : "按政策产业链关联选择");
   const confidence = clampScore(selectedCompany.confidence);
   const evidenceCount = Number.isFinite(selectedCompany.evidenceCount)
     ? Math.max(0, Math.round(selectedCompany.evidenceCount))
@@ -125,6 +134,9 @@ export function CompanyDetail({
         <div><dt>证据数量</dt><dd style={wrapTextStyle}>{evidenceCount} 条</dd></div>
         <div><dt>政策相关度</dt><dd style={wrapTextStyle}>{clampScore(selectedCompany.policyRelevance)}/100</dd></div>
         <div><dt>证据确定性</dt><dd style={wrapTextStyle}>{clampScore(selectedCompany.evidenceCertainty)}/100</dd></div>
+        <div><dt>主体类型</dt><dd style={wrapTextStyle}>{entityType}</dd></div>
+        <div><dt>上市状态</dt><dd style={wrapTextStyle}>{listingStatus}</dd></div>
+        <div><dt>纳入依据</dt><dd style={wrapTextStyle}>{selectionBasis}</dd></div>
         <div><dt>产业环节</dt><dd style={wrapTextStyle}>{companySectionLabels[selectedCompany.section]}</dd></div>
         <div><dt>主要映射</dt><dd style={wrapTextStyle}>{platform}</dd></div>
       </dl>

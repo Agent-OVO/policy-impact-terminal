@@ -16,7 +16,7 @@
     "status": "published",
     "confidence": 92,
     "industryCount": 6,
-    "companyCount": 8,
+    "companyCount": 14,
     "evidenceCount": 8,
     "primarySignal": "2026-2027年重点高耗能行业能效监察全覆盖，并向新能源装备产业链、算力设施和重点用能设备延伸",
     "category": "工业节能监察与能效监管"
@@ -313,7 +313,8 @@
       "companyIds": [
         "co1",
         "co2",
-        "co3"
+        "co3",
+        "co9"
       ],
       "evidenceIds": [
         "e2",
@@ -334,7 +335,10 @@
       "clauseIds": [
         "c1"
       ],
-      "companyIds": [],
+      "companyIds": [
+        "co10",
+        "co11"
+      ],
       "evidenceIds": [
         "e2"
       ],
@@ -378,7 +382,10 @@
         "c1",
         "c5"
       ],
-      "companyIds": [],
+      "companyIds": [
+        "co12",
+        "co13"
+      ],
       "evidenceIds": [
         "e2",
         "e7"
@@ -401,7 +408,8 @@
       "companyIds": [
         "co6",
         "co7",
-        "co8"
+        "co8",
+        "co14"
       ],
       "evidenceIds": [
         "e4"
@@ -422,7 +430,12 @@
         "c5",
         "c6"
       ],
-      "companyIds": [],
+      "companyIds": [
+        "co10",
+        "co11",
+        "co12",
+        "co14"
+      ],
       "evidenceIds": [
         "e6",
         "e7",
@@ -492,7 +505,12 @@
         "e2"
       ],
       "reason": "政策明示钢铁行业纳入能效监察全覆盖，宝钢股份作为钢铁行业代表性上市公司，可作为合规压力和能效领先优势的观察对象。",
-      "uncertainty": "政策没有点名企业，具体影响取决于地方监察计划、所属产线能效水平和历史整改情况。"
+      "uncertainty": "政策没有点名企业，具体影响取决于地方监察计划、所属产线能效水平和历史整改情况。",
+      "entityType": "上市公司",
+      "listingStatus": "A股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": false,
+      "selectionBasis": "中游环节代表性映射"
     },
     {
       "id": "co2",
@@ -523,7 +541,12 @@
         "e2"
       ],
       "reason": "政策将电解铝列入重点行业领域能效监察，铝产业链企业需要关注能耗限额、设备效率和整改公示风险。",
-      "uncertainty": "企业是否被纳入本年度具体监察任务，需要以地方任务清单和产线能效状态为准。"
+      "uncertainty": "企业是否被纳入本年度具体监察任务，需要以地方任务清单和产线能效状态为准。",
+      "entityType": "上市公司",
+      "listingStatus": "A股/港股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": false,
+      "selectionBasis": "中游环节代表性映射"
     },
     {
       "id": "co3",
@@ -554,7 +577,12 @@
         "e2"
       ],
       "reason": "水泥被列入重点行业领域能效监察，代表性水泥企业需要关注熟料能耗、余热利用、低效设备淘汰和整改约束。",
-      "uncertainty": "政策未披露企业名单和具体产线指标，不能据此判断单家公司业绩影响。"
+      "uncertainty": "政策未披露企业名单和具体产线指标，不能据此判断单家公司业绩影响。",
+      "entityType": "上市公司",
+      "listingStatus": "A股/港股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": false,
+      "selectionBasis": "中游环节代表性映射"
     },
     {
       "id": "co4",
@@ -586,7 +614,12 @@
         "e3"
       ],
       "reason": "政策将光伏组件及相关生产制造环节列入重点产业链能效监察，光伏龙头企业可作为制造能耗和产品能效合规的观察对象。",
-      "uncertainty": "政策未点名公司，也没有披露各企业能耗水平，不能直接推断公司受益或受损。"
+      "uncertainty": "政策未点名公司，也没有披露各企业能耗水平，不能直接推断公司受益或受损。",
+      "entityType": "上市公司",
+      "listingStatus": "A股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": false,
+      "selectionBasis": "中游环节代表性映射"
     },
     {
       "id": "co5",
@@ -618,7 +651,12 @@
         "e3"
       ],
       "reason": "政策将动力和储能电池纳入重点产业链专项监察，电池制造企业需要关注生产过程能耗、主要产品能效和碳足迹数据。",
-      "uncertainty": "政策没有列出企业清单，影响取决于地方监察覆盖和企业既有能效管理水平。"
+      "uncertainty": "政策没有列出企业清单，影响取决于地方监察覆盖和企业既有能效管理水平。",
+      "entityType": "上市公司",
+      "listingStatus": "A股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": false,
+      "selectionBasis": "中游环节代表性映射"
     },
     {
       "id": "co6",
@@ -649,7 +687,12 @@
         "e4"
       ],
       "reason": "政策明确要求监察电机等重点用能设备并淘汰低效设备，高效电机和驱动系统企业可能受益于企业改造需求。",
-      "uncertainty": "政策没有采购目录和项目资金，需求释放要看地方执法强度和企业资本开支。"
+      "uncertainty": "政策没有采购目录和项目资金，需求释放要看地方执法强度和企业资本开支。",
+      "entityType": "上市公司",
+      "listingStatus": "A股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": false,
+      "selectionBasis": "相关环节代表性映射"
     },
     {
       "id": "co7",
@@ -680,7 +723,12 @@
         "e4"
       ],
       "reason": "重点用能设备监察涉及电机、风机、泵、空压机等系统，工业驱动和节能控制方案可能成为企业改造工具。",
-      "uncertainty": "政策只提出设备能效监管要求，未指定技术路线或供应商。"
+      "uncertainty": "政策只提出设备能效监管要求，未指定技术路线或供应商。",
+      "entityType": "上市公司",
+      "listingStatus": "A股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": false,
+      "selectionBasis": "相关环节代表性映射"
     },
     {
       "id": "co8",
@@ -711,7 +759,235 @@
         "e4"
       ],
       "reason": "工业锅炉被列为重点用能设备，锅炉能效提升和余热利用装备可能受企业整改和节能改造需求带动。",
-      "uncertainty": "具体订单需要企业公告、地方改造项目或客户投资计划验证。"
+      "uncertainty": "具体订单需要企业公告、地方改造项目或客户投资计划验证。",
+      "entityType": "上市公司",
+      "listingStatus": "A股上市",
+      "ownershipType": "产业链主体",
+      "officialMention": false,
+      "selectionBasis": "相关环节代表性映射"
+    },
+    {
+      "evidenceCount": 1,
+      "id": "co9",
+      "name": "江苏沙钢集团有限公司",
+      "ticker": "未上市",
+      "platform": "钢铁冶炼、长流程节能监察和能效改造",
+      "status": "重点行业非上市代表性观察对象；政策未点名",
+      "section": "upstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 66,
+      "policyRelevance": 72,
+      "evidenceCertainty": 56,
+      "products": [
+        "钢铁冶炼",
+        "节能监察",
+        "能效改造"
+      ],
+      "nodeIds": [
+        "n1"
+      ],
+      "clauseIds": [
+        "c2"
+      ],
+      "evidenceIds": [
+        "e2"
+      ],
+      "reason": "工业节能监察明确覆盖钢铁等重点行业，沙钢补充了非上市大型钢铁企业在监察和节能改造中的代表性。",
+      "uncertainty": "政策未公布企业名单，不能判断是否被纳入当地监察任务。",
+      "entityType": "非上市钢铁企业",
+      "listingStatus": "非上市主体",
+      "ownershipType": "民营/产业链企业",
+      "officialMention": false,
+      "selectionBasis": "重点行业节能监察代表性映射"
+    },
+    {
+      "evidenceCount": 2,
+      "id": "co10",
+      "name": "万华化学集团股份有限公司",
+      "ticker": "600309.SH",
+      "platform": "化工装置、能效提升和重点用能设备管理",
+      "status": "重点行业代表性观察对象；政策未点名",
+      "section": "upstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 66,
+      "policyRelevance": 71,
+      "evidenceCertainty": 56,
+      "products": [
+        "化工装置",
+        "能效提升",
+        "节能管理"
+      ],
+      "nodeIds": [
+        "n2",
+        "n6"
+      ],
+      "clauseIds": [
+        "c2",
+        "c6"
+      ],
+      "evidenceIds": [
+        "e2",
+        "e6"
+      ],
+      "reason": "政策覆盖石化化工等重点用能行业，万华化学可作为化工龙头在能效监察、节能改造和合规管理上的代表性观察对象。",
+      "uncertainty": "未点名单家公司，具体影响取决于地方监察清单和企业装置能效水平。",
+      "entityType": "上市化工企业",
+      "listingStatus": "A股上市",
+      "ownershipType": "国有控股/产业链企业",
+      "officialMention": false,
+      "selectionBasis": "石化化工节能监察代表性映射"
+    },
+    {
+      "evidenceCount": 2,
+      "id": "co11",
+      "name": "中国石油化工股份有限公司",
+      "ticker": "600028.SH / 00386.HK",
+      "platform": "炼化装置、重点用能设备和节能监察合规",
+      "status": "重点行业央企代表性观察对象；政策未点名",
+      "section": "upstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 67,
+      "policyRelevance": 72,
+      "evidenceCertainty": 56,
+      "products": [
+        "炼化装置",
+        "节能监察",
+        "重点用能设备"
+      ],
+      "nodeIds": [
+        "n2",
+        "n6"
+      ],
+      "clauseIds": [
+        "c2",
+        "c6"
+      ],
+      "evidenceIds": [
+        "e2",
+        "e6"
+      ],
+      "reason": "工业节能监察覆盖重点行业和重点用能设备，中石化可作为央企炼化板块合规和节能改造的代表主体观察。",
+      "uncertainty": "政策未公布单家公司任务，实际影响需看地方监察和集团内部节能计划。",
+      "entityType": "上市央企",
+      "listingStatus": "A股/港股上市",
+      "ownershipType": "中央企业",
+      "officialMention": false,
+      "selectionBasis": "石化炼化重点用能行业代表性映射"
+    },
+    {
+      "evidenceCount": 2,
+      "id": "co12",
+      "name": "万国数据控股有限公司",
+      "ticker": "GDS / 9698.HK",
+      "platform": "数据中心能效、PUE管理和绿色电力采购",
+      "status": "数据中心节能监察代表性观察对象；政策未点名",
+      "section": "midstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 65,
+      "policyRelevance": 70,
+      "evidenceCertainty": 54,
+      "products": [
+        "数据中心",
+        "PUE管理",
+        "绿色电力"
+      ],
+      "nodeIds": [
+        "n4",
+        "n6"
+      ],
+      "clauseIds": [
+        "c3",
+        "c6"
+      ],
+      "evidenceIds": [
+        "e3",
+        "e6"
+      ],
+      "reason": "政策涉及数据中心等用能领域和绿色低碳要求，万国数据可作为第三方数据中心运营商的代表性观察对象。",
+      "uncertainty": "政策未点名具体数据中心，且各地执行尺度和指标口径可能不同。",
+      "entityType": "上市数据中心运营企业",
+      "listingStatus": "美股/港股上市",
+      "ownershipType": "民营/平台企业",
+      "officialMention": false,
+      "selectionBasis": "数据中心能效监察代表性映射"
+    },
+    {
+      "evidenceCount": 1,
+      "id": "co13",
+      "name": "世纪互联集团",
+      "ticker": "VNET",
+      "platform": "数据中心运营、机房能效和节能合规",
+      "status": "数据中心节能监察代表性观察对象；政策未点名",
+      "section": "midstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 63,
+      "policyRelevance": 68,
+      "evidenceCertainty": 52,
+      "products": [
+        "数据中心",
+        "机房能效",
+        "节能合规"
+      ],
+      "nodeIds": [
+        "n4"
+      ],
+      "clauseIds": [
+        "c3"
+      ],
+      "evidenceIds": [
+        "e3"
+      ],
+      "reason": "数据中心能效和节能监察要求会影响机房运营和能耗管理，世纪互联可作为独立数据中心运营商观察对象。",
+      "uncertainty": "政策没有具体项目或企业名单，实际影响取决于地方节能监察对象范围。",
+      "entityType": "上市数据中心运营企业",
+      "listingStatus": "美股上市",
+      "ownershipType": "民营/平台企业",
+      "officialMention": false,
+      "selectionBasis": "数据中心能效监察代表性映射"
+    },
+    {
+      "evidenceCount": 2,
+      "id": "co14",
+      "name": "华为数字能源技术有限公司",
+      "ticker": "未上市",
+      "platform": "工业节能设备、数据中心能源和电力电子解决方案",
+      "status": "节能设备与服务非上市代表性观察对象；政策未点名",
+      "section": "midstream",
+      "relation": "indirect",
+      "evidenceLevel": "indirect",
+      "confidence": 64,
+      "policyRelevance": 70,
+      "evidenceCertainty": 53,
+      "products": [
+        "数据中心能源",
+        "节能设备",
+        "电力电子",
+        "储能"
+      ],
+      "nodeIds": [
+        "n5",
+        "n6"
+      ],
+      "clauseIds": [
+        "c4",
+        "c6"
+      ],
+      "evidenceIds": [
+        "e4",
+        "e6"
+      ],
+      "reason": "节能监察会带动高效电机、能源管理、数据中心能源等配套服务需求，华为数字能源补充非上市设备与解决方案主体视角。",
+      "uncertainty": "政策未点名设备供应商，机会取决于被监察企业整改项目和采购节奏。",
+      "entityType": "非上市节能设备与能源数字化企业",
+      "listingStatus": "非上市主体",
+      "ownershipType": "民营/产业链企业",
+      "officialMention": false,
+      "selectionBasis": "节能设备和能源管理服务代表性映射"
     }
   ],
   "evidence": [
@@ -754,7 +1030,10 @@
       "companyIds": [
         "co1",
         "co2",
-        "co3"
+        "co3",
+        "co9",
+        "co10",
+        "co11"
       ]
     },
     {
@@ -775,7 +1054,9 @@
       ],
       "companyIds": [
         "co4",
-        "co5"
+        "co5",
+        "co12",
+        "co13"
       ]
     },
     {
@@ -797,7 +1078,8 @@
       "companyIds": [
         "co6",
         "co7",
-        "co8"
+        "co8",
+        "co14"
       ]
     },
     {
@@ -834,7 +1116,12 @@
       "nodeIds": [
         "n6"
       ],
-      "companyIds": []
+      "companyIds": [
+        "co10",
+        "co11",
+        "co12",
+        "co14"
+      ]
     },
     {
       "id": "e7",
@@ -1051,16 +1338,17 @@
     "actionCount": 6,
     "evidenceCount": 8,
     "industryNodeCount": 6,
-    "companyCount": 8,
+    "companyCount": 14,
     "matchedKeywordCount": 28,
     "comparablePolicyCount": 2,
-    "companyImpactConclusion": "原文没有点名企业或上市公司，公司部分仅按政策明示行业、重点产业链和设备品类选取代表性观察对象，并全部降级为间接证据。",
+    "companyImpactConclusion": "原文没有点名企业或上市公司，公司页已扩展为重点用能行业、数据中心、节能设备和非上市大型企业的代表性观察对象，并全部按间接证据处理。",
     "companyNoMatchReason": "",
     "limitations": [
       "未取得各地2026年度具体监察任务清单，无法确认单家公司是否被纳入检查。",
       "政策未披露企业能耗水平、整改名单或设备采购计划，不能据此判断公司业绩影响。",
       "公司映射未使用媒体解读，仅按官方文本明示行业与公开可识别业务进行代表性归类。",
-      "后续应跟踪各地工信部门任务公示、违规企业名单和年度总结。"
+      "后续应跟踪各地工信部门任务公示、违规企业名单和年度总结。",
+      "公司/主体映射已扩展至非上市企业、央国企分支机构、科研院所和平台机构；官方未点名主体仍按代表性观察对象处理，不构成投资建议。"
     ]
   },
   "modules": [
