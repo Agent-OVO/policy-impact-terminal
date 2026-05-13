@@ -14,6 +14,7 @@ import {
   CircleHelp,
   ClipboardList,
   Command,
+  Compass,
   Clock,
   Database,
   Download,
@@ -26,14 +27,14 @@ import {
   Layers3,
   LockKeyhole,
   LogOut,
-  Menu,
   Network,
   PanelLeftClose,
   RefreshCw,
   Search,
   ShieldCheck,
   Sparkles,
-  UserRound
+  UserRound,
+  X
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -1083,6 +1084,149 @@ function ReportHeader({
 
 function Tag({ value, small }: { value: string; small?: boolean }) {
   return <span className={cx("tag", small && "small", relationClass[value as RelationType] || "")}>{value}</span>;
+}
+
+function getModuleIcon(moduleId: ModuleId): LucideIcon {
+  if (moduleId === "brief") return Home;
+  if (moduleId === "industry") return Network;
+  if (moduleId === "clauses") return BookOpenText;
+  if (moduleId === "background") return ClipboardList;
+  if (moduleId === "compare") return GitCompareArrows;
+  if (moduleId === "companies") return Building2;
+  if (moduleId === "evidence") return FileText;
+  return Layers3;
+}
+
+function MobileReportNavigator({
+  activeModule,
+  onSelectModule,
+  open,
+  setOpen,
+  onBackToList,
+  onRefresh,
+  refreshing,
+  report
+}: {
+  activeModule: ModuleId;
+  onSelectModule: (module: ModuleId) => void;
+  open: boolean;
+  setOpen: (value: boolean) => void;
+  onBackToList: () => void;
+  onRefresh: () => void;
+  refreshing: boolean;
+  report: PolicyReport | null;
+}) {
+  const currentPolicy = report?.policy;
+  const currentModules = report?.modules ?? [];
+  const currentEvidence = report?.evidence ?? [];
+  const currentModule = currentModules.find((module) => module.id === activeModule) ?? currentModules[0];
+  const policySourceUrl = currentPolicy ? getPolicySourceUrl(currentPolicy) : "";
+  const strongEvidence = currentEvidence.filter((item) => item.confidence >= 85).length;
+  const mediumEvidence = currentEvidence.filter((item) => item.confidence >= 70 && item.confidence < 85).length;
+  const pendingEvidence = currentEvidence.filter((item) => item.confidence < 70).length;
+
+  return (
+    <div className="mobile-report-navigator">
+      <button
+        className="mobile-report-nav-trigger"
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-expanded={open}
+        aria-haspopup="dialog"
+      >
+        <Compass size={18} />
+        <span>章节罗盘</span>
+        <strong>{currentModule ? normalizeModuleLabel(currentModule.id, currentModule.label) : "报表加载中"}</strong>
+      </button>
+
+      {open && (
+        <section className="mobile-nav-sheet" role="dialog" aria-modal="true" aria-label="移动端章节导航">
+          <div className="mobile-nav-handle" aria-hidden="true" />
+          <header className="mobile-nav-sheet-head">
+            <div>
+              <span>当前政策</span>
+              <h2>{currentPolicy?.title ?? "报表加载中"}</h2>
+              <p>
+                {currentPolicy
+                  ? `${currentPolicy.issuer || "发布机构待补充"} · ${currentPolicy.publishDate || "日期待补充"}`
+                  : "正在读取政策元信息"}
+              </p>
+            </div>
+            <button className="icon-button quiet" type="button" onClick={() => setOpen(false)} aria-label="关闭章节罗盘">
+              <X size={18} />
+            </button>
+          </header>
+
+          <div className="mobile-nav-meta">
+            <span>
+              <b>{currentPolicy?.confidence ?? "--"}</b>
+              置信度
+            </span>
+            <span>
+              <b>{currentModules.length || "--"}</b>
+              分析模块
+            </span>
+            <span>
+              <b>{currentEvidence.length || "--"}</b>
+              证据
+            </span>
+          </div>
+
+          <div className="mobile-nav-actions">
+            <button type="button" onClick={onBackToList}>
+              <ArrowLeft size={15} />
+              政策列表
+            </button>
+            <button type="button" onClick={onRefresh} disabled={refreshing}>
+              <RefreshCw size={15} className={cx(refreshing && "spin-icon")} />
+              更新报表
+            </button>
+            {policySourceUrl ? (
+              <a href={policySourceUrl} target="_blank" rel="noreferrer">
+                <ExternalLink size={15} />
+                政策原文
+              </a>
+            ) : (
+              <span>原文链接待补充</span>
+            )}
+          </div>
+
+          <nav className="mobile-nav-grid" aria-label="报表章节">
+            {currentModules.map((module) => {
+              const Icon = getModuleIcon(module.id);
+              return (
+                <button
+                  key={module.id}
+                  className={cx(activeModule === module.id && "active")}
+                  type="button"
+                  onClick={() => {
+                    onSelectModule(module.id);
+                    setOpen(false);
+                  }}
+                >
+                  <Icon size={17} />
+                  <strong>{normalizeModuleLabel(module.id, module.label)}</strong>
+                  {module.badge && <em>{module.badge}</em>}
+                </button>
+              );
+            })}
+          </nav>
+
+          <section className="mobile-nav-confidence" aria-label="证据强度概览">
+            <div>
+              <span>证据强度</span>
+              <strong>{currentEvidence.length ? `${strongEvidence}/${currentEvidence.length}` : "待生成"}</strong>
+            </div>
+            <ul>
+              <li><span className="dot green" />强证据 {strongEvidence}</li>
+              <li><span className="dot blue" />中等证据 {mediumEvidence}</li>
+              <li><span className="dot orange" />待验证 {pendingEvidence}</li>
+            </ul>
+          </section>
+        </section>
+      )}
+    </div>
+  );
 }
 
 function BriefView({
@@ -3271,10 +3415,16 @@ export function App() {
         onOpenAdminAnalytics={openAdminAnalytics}
       />
       {appView === "report" && (
-        <button className="mobile-menu-button" onClick={() => setMobileMenuOpen(true)}>
-          <Menu size={18} />
-          导航
-        </button>
+        <MobileReportNavigator
+          activeModule={activeModule}
+          onSelectModule={(module) => changeModule(module, "mobile_nav")}
+          open={mobileMenuOpen}
+          setOpen={setMobileMenuOpen}
+          onBackToList={openList}
+          onRefresh={refreshCurrentReport}
+          refreshing={reportLoading}
+          report={activeReport}
+        />
       )}
       {appView === "list" && (
         <PolicyListView
