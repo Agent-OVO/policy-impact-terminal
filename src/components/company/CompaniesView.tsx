@@ -29,6 +29,18 @@ function getCompanySearchText(company: Company) {
     .toLowerCase();
 }
 
+const nonListedTickerPattern = /^(未上市|非上市|未标注|代码未标注|N\/A|无|-)$/i;
+
+function getCompanyIdentity(company: Company) {
+  const rawTicker = company.ticker.trim();
+  const ticker = nonListedTickerPattern.test(rawTicker) ? "" : rawTicker;
+  const listingStatus = company.listingStatus?.trim() || (ticker ? "上市/挂牌主体" : rawTicker || "非上市或代码未标注");
+  const entityType = company.entityType?.trim() || "企业主体";
+  const identityLine = ticker ? `${ticker} · ${listingStatus}` : `${listingStatus} · ${entityType}`;
+
+  return { ticker, listingStatus, entityType, identityLine };
+}
+
 export function CompaniesView({
   chainNodes = [],
   clauses = [],
@@ -51,6 +63,7 @@ export function CompaniesView({
     : companies;
   const selected = getCompanyById(selectedCompanyId, companies) || companies[0];
   const activeCompanyId = selected?.id ?? "";
+  const selectedIdentity = selected ? getCompanyIdentity(selected) : null;
   const grouped = companySectionOrder
     .map((section) => ({
       section,
@@ -126,12 +139,15 @@ export function CompaniesView({
               <div>
                 <span>当前样本</span>
                 <h3>{selected.name}</h3>
-                <p>{selected.ticker} · {selected.platform}</p>
+                <p>{selectedIdentity?.identityLine} · {selected.platform}</p>
               </div>
               <div className="mobile-company-focus-meta">
                 <b>{selected.confidence}/100</b>
                 <span>{selected.relation}</span>
                 <span>{selected.evidence}</span>
+                {selectedIdentity && <span>{selectedIdentity.listingStatus}</span>}
+                <span>{selected.entityType || selectedIdentity?.entityType || "企业主体"}</span>
+                {selected.officialMention && <span>官方点名</span>}
               </div>
               <button type="button" onClick={() => setMobileDetailOpen(true)}>
                 查看影响推演 <ChevronRight size={15} />
@@ -163,20 +179,29 @@ export function CompaniesView({
                 <section key={section} className="mobile-company-group">
                   <h3>{companySectionLabels[section]} <span>{items.length} 家</span></h3>
                   <div className="mobile-company-list">
-                    {items.map((company, index) => (
-                      <button
-                        type="button"
-                        className={cx(activeCompanyId === company.id && "active")}
-                        key={company.id || `${section}-${index}`}
-                        onClick={() => openMobileCompany(company.id, "mobile_company_list")}
-                      >
-                        <div>
-                          <strong>{company.name.trim() || `公司 ${index + 1}`}</strong>
-                          <p>{company.platform || "业务映射待补充"}</p>
-                        </div>
-                        <span>{company.confidence}/100</span>
-                      </button>
-                    ))}
+                    {items.map((company, index) => {
+                      const identity = getCompanyIdentity(company);
+
+                      return (
+                        <button
+                          type="button"
+                          className={cx(activeCompanyId === company.id && "active")}
+                          key={company.id || `${section}-${index}`}
+                          onClick={() => openMobileCompany(company.id, "mobile_company_list")}
+                        >
+                          <div>
+                            <strong>{company.name.trim() || `公司 ${index + 1}`}</strong>
+                            <p>{identity.identityLine} · {company.platform || "业务映射待补充"}</p>
+                            <div className="mobile-company-list-tags">
+                              <span>{identity.listingStatus}</span>
+                              <span>{company.entityType || identity.entityType}</span>
+                              {company.officialMention && <span>官方点名</span>}
+                            </div>
+                          </div>
+                          <span>{company.confidence}/100</span>
+                        </button>
+                      );
+                    })}
                   </div>
                 </section>
               ))

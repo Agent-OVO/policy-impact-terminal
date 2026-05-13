@@ -8576,6 +8576,24 @@ a.text-button {
     line-height: 1.45;
   }
 
+  .mobile-company-list-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 8px;
+  }
+
+  .mobile-company-list-tags span {
+    padding: 3px 7px;
+    border: 1px solid rgba(127, 38, 31, 0.13);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.42);
+    color: var(--mobile-cinnabar);
+    font-size: 11px;
+    font-weight: 900;
+    line-height: 1.2;
+  }
+
   .mobile-company-list button > span {
     color: var(--mobile-cinnabar);
     font-size: 12px;
