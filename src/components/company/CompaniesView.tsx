@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Search, X } from "lucide-react";
+import { ChevronRight, Search, X } from "lucide-react";
 import type { ChainNode, Clause, Company, Evidence } from "../../data/policy";
 import { CompanyCard } from "./CompanyCard";
 import { CompanyDetail } from "./CompanyDetail";
@@ -40,6 +40,7 @@ export function CompaniesView({
 }) {
   const [selectedCompanyId, setSelectedCompanyId] = useState(companies[0]?.id ?? "");
   const [query, setQuery] = useState("");
+  const [mobileDetailOpen, setMobileDetailOpen] = useState(false);
   const normalizedQuery = query.trim().toLowerCase();
   const filteredCompanies = normalizedQuery
     ? companies.filter((company) => getCompanySearchText(company).includes(normalizedQuery))
@@ -70,6 +71,11 @@ export function CompaniesView({
     onCompanySelect?.(companyId, source);
   }
 
+  function openMobileCompany(companyId: string, source = "mobile_company_cards") {
+    selectCompany(companyId, source);
+    setMobileDetailOpen(true);
+  }
+
   if (companies.length === 0) {
     return (
       <div className="companies-layout">
@@ -98,7 +104,110 @@ export function CompaniesView({
   }
 
   return (
-    <div className="companies-layout">
+    <>
+      <div className="mobile-companies-view" aria-label="移动端公司影响分析">
+        <section className="mobile-company-section">
+          <div className="mobile-section-head">
+            <span>COMPANY IMPACT</span>
+            <h2>公司影响分析</h2>
+            <p>矩阵、公司清单和详情使用 PC 端同一组公司映射数据。</p>
+          </div>
+          <CompanyMatrix
+            companies={companies}
+            selectedCompanyId={activeCompanyId}
+            setSelectedCompanyId={(id) => selectCompany(id, "mobile_company_matrix")}
+          />
+          {selected && (
+            <article className="mobile-company-focus">
+              <div>
+                <span>当前样本</span>
+                <h3>{selected.name}</h3>
+                <p>{selected.ticker} · {selected.platform}</p>
+              </div>
+              <div className="mobile-company-focus-meta">
+                <b>{selected.confidence}/100</b>
+                <span>{selected.relation}</span>
+                <span>{selected.evidence}</span>
+              </div>
+              <button type="button" onClick={() => setMobileDetailOpen(true)}>
+                查看影响推演 <ChevronRight size={15} />
+              </button>
+            </article>
+          )}
+        </section>
+
+        <section className="mobile-company-section">
+          <div className="mobile-company-search input-shell slim">
+            <Search size={15} />
+            <input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="搜索公司、平台、环节"
+              aria-label="搜索公司映射"
+            />
+            {query && (
+              <button type="button" onClick={() => setQuery("")} aria-label="清除公司搜索">
+                <X size={14} />
+              </button>
+            )}
+          </div>
+          <div className="mobile-company-groups" aria-live="polite">
+            {filteredCompanies.length === 0 ? (
+              <p className="empty-note">没有匹配的公司映射。</p>
+            ) : (
+              grouped.map(({ section, items }) => (
+                <section key={section} className="mobile-company-group">
+                  <h3>{companySectionLabels[section]} <span>{items.length} 家</span></h3>
+                  <div className="mobile-company-list">
+                    {items.map((company, index) => (
+                      <button
+                        type="button"
+                        className={cx(activeCompanyId === company.id && "active")}
+                        key={company.id || `${section}-${index}`}
+                        onClick={() => openMobileCompany(company.id, "mobile_company_list")}
+                      >
+                        <div>
+                          <strong>{company.name.trim() || `公司 ${index + 1}`}</strong>
+                          <p>{company.platform || "业务映射待补充"}</p>
+                        </div>
+                        <span>{company.confidence}/100</span>
+                      </button>
+                    ))}
+                  </div>
+                </section>
+              ))
+            )}
+          </div>
+        </section>
+
+        {selected && mobileDetailOpen && (
+          <>
+            <button className="mobile-company-backdrop" type="button" aria-label="关闭公司详情" onClick={() => setMobileDetailOpen(false)} />
+            <section className="mobile-company-sheet" role="dialog" aria-modal="true" aria-label={`${selected.name} 公司影响详情`}>
+              <div className="mobile-sheet-handle" aria-hidden="true" />
+              <header className="mobile-sheet-head">
+                <div>
+                  <span>公司影响</span>
+                  <h2>{selected.name}</h2>
+                </div>
+                <button className="icon-button quiet" type="button" onClick={() => setMobileDetailOpen(false)} aria-label="关闭">
+                  <X size={18} />
+                </button>
+              </header>
+              <CompanyDetail
+                chainNodes={chainNodes}
+                clauses={clauses}
+                evidence={evidence}
+                companies={companies}
+                selectedCompany={selected}
+                setSelectedCompanyId={(id) => selectCompany(id, "mobile_company_detail")}
+              />
+            </section>
+          </>
+        )}
+      </div>
+
+      <div className="companies-layout">
       <section className="panel company-matrix-panel">
         <div className="panel-head">
           <h2>代表性公司影响分析</h2>
@@ -189,6 +298,7 @@ export function CompaniesView({
         selectedCompany={selected}
         setSelectedCompanyId={(id) => selectCompany(id, "company_detail")}
       />
-    </div>
+      </div>
+    </>
   );
 }

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { KeyboardEvent } from "react";
+import type { KeyboardEvent, ReactNode } from "react";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
 import {
   AlertCircle,
@@ -1097,6 +1097,59 @@ function getModuleIcon(moduleId: ModuleId): LucideIcon {
   return Layers3;
 }
 
+function MobileBottomSheet({
+  open,
+  onClose,
+  eyebrow,
+  title,
+  children,
+  className,
+  modal = true
+}: {
+  open: boolean;
+  onClose: () => void;
+  eyebrow?: string;
+  title: string;
+  children: ReactNode;
+  className?: string;
+  modal?: boolean;
+}) {
+  useEffect(() => {
+    if (!open || !modal) return undefined;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [open, modal]);
+
+  if (!open) return null;
+
+  return (
+    <>
+      {modal && <button className="mobile-sheet-backdrop" type="button" aria-label="关闭浮层" onClick={onClose} />}
+      <section
+        className={cx("mobile-bottom-sheet", !modal && "floating-sheet", className)}
+        role="dialog"
+        aria-modal={modal}
+        aria-label={title}
+      >
+        <div className="mobile-sheet-handle" aria-hidden="true" />
+        <header className="mobile-sheet-head">
+          <div>
+            {eyebrow && <span>{eyebrow}</span>}
+            <h2>{title}</h2>
+          </div>
+          <button className="icon-button quiet" type="button" onClick={onClose} aria-label="关闭">
+            <X size={18} />
+          </button>
+        </header>
+        {children}
+      </section>
+    </>
+  );
+}
+
 function MobileReportNavigator({
   activeModule,
   onSelectModule,
@@ -1128,34 +1181,44 @@ function MobileReportNavigator({
   return (
     <div className="mobile-report-navigator">
       <button
-        className="mobile-report-nav-trigger"
+        className="mobile-compass-fab"
         type="button"
         onClick={() => setOpen(true)}
         aria-expanded={open}
         aria-haspopup="dialog"
+        aria-label="打开章节罗盘"
       >
-        <Compass size={18} />
-        <span>章节罗盘</span>
-        <strong>{currentModule ? normalizeModuleLabel(currentModule.id, currentModule.label) : "报表加载中"}</strong>
+        <Compass size={21} />
       </button>
 
-      {open && (
-        <section className="mobile-nav-sheet" role="dialog" aria-modal="true" aria-label="移动端章节导航">
-          <div className="mobile-nav-handle" aria-hidden="true" />
-          <header className="mobile-nav-sheet-head">
-            <div>
-              <span>当前政策</span>
-              <h2>{currentPolicy?.title ?? "报表加载中"}</h2>
-              <p>
-                {currentPolicy
-                  ? `${currentPolicy.issuer || "发布机构待补充"} · ${currentPolicy.publishDate || "日期待补充"}`
-                  : "正在读取政策元信息"}
-              </p>
-            </div>
-            <button className="icon-button quiet" type="button" onClick={() => setOpen(false)} aria-label="关闭章节罗盘">
-              <X size={18} />
-            </button>
-          </header>
+      <section className="mobile-report-card">
+        <div>
+          <span>当前政策</span>
+          <h1>{currentPolicy?.title ?? "报表加载中"}</h1>
+          <p>
+            {currentPolicy
+              ? `${currentPolicy.issuer || "发布机构待补充"} · ${currentPolicy.publishDate || "日期待补充"}`
+              : "正在读取政策元信息"}
+          </p>
+        </div>
+      </section>
+
+      <MobileBottomSheet
+        open={open}
+        onClose={() => setOpen(false)}
+        eyebrow="章节罗盘"
+        title="导航罗盘 · 章节概览"
+        className="mobile-nav-sheet"
+        modal={false}
+      >
+          <section className="mobile-nav-policy">
+            <h3>{currentPolicy?.title ?? "报表加载中"}</h3>
+            <p>
+              {currentPolicy
+                ? `${currentPolicy.issuer || "发布机构待补充"} · ${currentPolicy.publishDate || "日期待补充"}`
+                : "正在读取政策元信息"}
+            </p>
+          </section>
 
           <div className="mobile-nav-meta">
             <span>
@@ -1223,11 +1286,22 @@ function MobileReportNavigator({
               <li><span className="dot orange" />待验证 {pendingEvidence}</li>
             </ul>
           </section>
-        </section>
-      )}
+      </MobileBottomSheet>
     </div>
   );
 }
+
+type BriefPane = "overview" | "actions" | "logic" | "evidence";
+type BriefSheet = "quick" | "metrics" | "evidence" | null;
+type BriefKpi = [value: string, label: string, note: string];
+type BriefLogicItem = { id: string; title: string; body: string; meta: string; count: string };
+type BriefLogicStage = {
+  id: string;
+  step: string;
+  title: string;
+  summary: string;
+  items: BriefLogicItem[];
+};
 
 function BriefView({
   setActiveModule,
@@ -1251,7 +1325,7 @@ function BriefView({
     : currentClauses.length
     ? currentClauses.slice(0, 4).map((clause) => `${clause.no || "条款"} ${clause.title || "核心内容"}：${clause.excerpt}`)
     : currentActions.slice(0, 4).map((action) => action.body);
-  const kpis = [
+  const kpis: BriefKpi[] = [
     [`${currentClauses.length} 条`, "结构化条款", "来自政策原文分段"],
     [`${currentEvidence.length} 条`, "证据摘录", "可追溯到来源材料"],
     [`${currentChainNodes.length} 个`, "产业影响节点", currentChainNodes.length ? "由政策文本命中生成" : "尚未形成产业映射"],
@@ -1289,7 +1363,7 @@ function BriefView({
     meta: `${formatSourceTypeLabel(item.type, "证据")} · ${formatSourceTypeLabel(item.source, "未标注来源")}`,
     count: `${item.confidence}%`
   }));
-  const logicStages = [
+  const logicStages: BriefLogicStage[] = [
     {
       id: "actions",
       step: "01",
@@ -1329,7 +1403,24 @@ function BriefView({
   ];
 
   return (
-    <div className="content-grid brief-grid">
+    <>
+      <MobileBriefView
+        currentPolicy={currentPolicy}
+        currentActions={currentActions}
+        currentEvidence={currentEvidence}
+        currentClauses={currentClauses}
+        currentChainNodes={currentChainNodes}
+        currentCompanies={currentCompanies}
+        policySourceUrl={policySourceUrl}
+        impactScope={impactScope}
+        quickTake={quickTake}
+        quickItems={quickItems}
+        kpis={kpis}
+        logicStages={logicStages}
+        setActiveModule={setActiveModule}
+      />
+
+      <div className="content-grid brief-grid desktop-brief-grid">
       <section className="panel hero-panel">
         <div>
           <span className="status-badge purple">AI 速读摘要</span>
@@ -1450,6 +1541,352 @@ function BriefView({
 
       <SignalBar actions={currentActions} onShowAll={() => setActiveModule("evidence")} />
     </div>
+    </>
+  );
+}
+
+function MobileBriefView({
+  currentPolicy,
+  currentActions,
+  currentEvidence,
+  currentClauses,
+  currentChainNodes,
+  currentCompanies,
+  policySourceUrl,
+  impactScope,
+  quickTake,
+  quickItems,
+  kpis,
+  logicStages,
+  setActiveModule
+}: {
+  currentPolicy: typeof policy;
+  currentActions: typeof actions;
+  currentEvidence: typeof evidence;
+  currentClauses: typeof clauses;
+  currentChainNodes: typeof chainNodes;
+  currentCompanies: typeof companies;
+  policySourceUrl: string;
+  impactScope: string;
+  quickTake: string;
+  quickItems: string[];
+  kpis: BriefKpi[];
+  logicStages: BriefLogicStage[];
+  setActiveModule: (module: ModuleId) => void;
+}) {
+  const [activePane, setActivePane] = useState<BriefPane>("overview");
+  const [sheet, setSheet] = useState<BriefSheet>(null);
+  const [logicSheet, setLogicSheet] = useState<BriefLogicStage | null>(null);
+  const strongEvidence = currentEvidence.filter((item) => item.confidence >= 85).length;
+  const visibleQuickItems = quickItems.slice(0, 3);
+  const visibleEvidence = currentEvidence.slice(0, 3);
+  const panes: Array<{ id: BriefPane; label: string }> = [
+    { id: "overview", label: "总览" },
+    { id: "actions", label: "措施" },
+    { id: "logic", label: "影响链" },
+    { id: "evidence", label: "依据" }
+  ];
+  const quickMetrics = [
+    { label: "定位", value: currentPolicy.category || "政策文件", icon: Sparkles },
+    { label: "范围", value: impactScope, icon: Network },
+    { label: "生效", value: currentPolicy.effectiveDate || currentPolicy.publishDate, icon: FileText },
+    { label: "置信", value: `${currentPolicy.confidence}/100`, icon: Layers3 }
+  ];
+
+  return (
+    <section className="mobile-brief-view" aria-label="移动端政策速读">
+      <div className="mobile-brief-hero">
+        <div className="mobile-brief-eyebrow">
+          <span>AI 速读摘要</span>
+          <b>{currentPolicy.confidence}/100</b>
+        </div>
+        <h2>一句话判断</h2>
+        <p>{compactText(quickTake, 128)}</p>
+        <button
+          className="mobile-text-link"
+          type="button"
+          onClick={() => {
+            setLogicSheet(null);
+            setSheet((value) => (value === "quick" ? null : "quick"));
+          }}
+        >
+          查看完整判断 <ChevronRight size={15} />
+        </button>
+        <div className="mobile-brief-source">
+          <span>{formatSourceTypeLabel(currentPolicy.source, "官方来源")}</span>
+          {policySourceUrl ? (
+            <a href={policySourceUrl} target="_blank" rel="noreferrer">
+              原文 <ExternalLink size={13} />
+            </a>
+          ) : (
+            <em>原文待补充</em>
+          )}
+        </div>
+      </div>
+
+      <div className="mobile-brief-rail" aria-label="速读关键指标">
+        {quickMetrics.map(({ label, value, icon: Icon }) => (
+          <div className="mobile-brief-chip" key={label}>
+            <Icon size={14} />
+            <span>{label}</span>
+            <strong>{value}</strong>
+          </div>
+        ))}
+      </div>
+
+      <div className="mobile-brief-switcher" role="tablist" aria-label="速读分段">
+        {panes.map((pane) => (
+          <button
+            key={pane.id}
+            className={cx(activePane === pane.id && "active")}
+            type="button"
+            role="tab"
+            aria-selected={activePane === pane.id}
+            onClick={() => {
+              setSheet(null);
+              setLogicSheet(null);
+              setActivePane(pane.id);
+            }}
+          >
+            {pane.label}
+          </button>
+        ))}
+      </div>
+
+      {activePane === "overview" && (
+        <div className="mobile-brief-pane">
+          <section className="mobile-brief-section">
+            <div className="mobile-brief-section-head">
+              <h3>核心要点</h3>
+              <button
+                type="button"
+                onClick={() => {
+                  setLogicSheet(null);
+                  setSheet((value) => (value === "quick" ? null : "quick"));
+                }}
+              >
+                全部
+              </button>
+            </div>
+            <div className="mobile-brief-points">
+              {(visibleQuickItems.length ? visibleQuickItems : ["政策原文已入库，等待后续深度结构化分析。"]).map((item, index) => (
+                <article key={`${item}-${index}`}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <p>{compactText(item, 92)}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="mobile-brief-section">
+            <div className="mobile-brief-section-head">
+              <h3>关键指标</h3>
+              <button
+                type="button"
+                onClick={() => {
+                  setLogicSheet(null);
+                  setSheet((value) => (value === "metrics" ? null : "metrics"));
+                }}
+              >
+                说明
+              </button>
+            </div>
+            <div className="mobile-brief-kpi-grid">
+              {kpis.map(([value, label]) => (
+                <div className="mobile-brief-kpi" key={label}>
+                  <span>{label}</span>
+                  <strong>{value}</strong>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+      )}
+
+      {activePane === "actions" && (
+        <div className="mobile-brief-pane">
+          <section className="mobile-brief-section">
+            <div className="mobile-brief-section-head">
+              <h3>政策动作拆解</h3>
+              <button type="button" onClick={() => setActiveModule("evidence")}>信号</button>
+            </div>
+            <div className="mobile-brief-action-list">
+              {currentActions.length === 0 && <p className="empty-note">暂无政策动作拆解。</p>}
+              {currentActions.map((action) => (
+                <article className="mobile-brief-action" key={action.id}>
+                  <div>
+                    <strong>{action.title}</strong>
+                    <p>{compactText(action.body, 104)}</p>
+                  </div>
+                  <Tag value={action.signal} small />
+                </article>
+              ))}
+            </div>
+          </section>
+        </div>
+      )}
+
+      {activePane === "logic" && (
+        <div className="mobile-brief-pane">
+          <section className="mobile-brief-section">
+            <div className="mobile-brief-section-head">
+              <h3>政策逻辑图谱</h3>
+              <button type="button" onClick={() => setActiveModule("industry")}>产业链</button>
+            </div>
+            <div className="mobile-brief-logic-grid">
+              {logicStages.map((stage) => (
+                <button
+                  type="button"
+                  key={stage.id}
+                  onClick={() => {
+                    setSheet(null);
+                    setLogicSheet((value) => (value?.id === stage.id ? null : stage));
+                  }}
+                >
+                  <span>{stage.step}</span>
+                  <strong>{stage.title}</strong>
+                  <em>{stage.summary}</em>
+                </button>
+              ))}
+            </div>
+          </section>
+        </div>
+      )}
+
+      {activePane === "evidence" && (
+        <div className="mobile-brief-pane">
+          <section className="mobile-brief-section">
+            <div className="mobile-brief-section-head">
+              <h3>关键依据</h3>
+              <button type="button" onClick={() => setActiveModule("evidence")}>证据链</button>
+            </div>
+            <div className="mobile-brief-evidence-meter">
+              <span>强证据 {strongEvidence}</span>
+              <b>{currentEvidence.length ? `${strongEvidence}/${currentEvidence.length}` : "待生成"}</b>
+              <em>本页仅显示摘要，完整证据链在独立模块中查看。</em>
+            </div>
+            <div className="mobile-brief-evidence-list">
+              {visibleEvidence.length === 0 && <p className="empty-note">暂无证据摘录。</p>}
+              {visibleEvidence.map((item, index) => (
+                <article key={item.id}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <p>“{compactText(item.excerpt, 96)}”</p>
+                  <em>{formatSourceTypeLabel(item.type, "证据")} · {item.confidence}%</em>
+                </article>
+              ))}
+            </div>
+            {currentEvidence.length > 3 && (
+              <button
+                className="mobile-secondary-action"
+                type="button"
+                onClick={() => {
+                  setLogicSheet(null);
+                  setSheet((value) => (value === "evidence" ? null : "evidence"));
+                }}
+              >
+                展开本页依据 <ChevronRight size={15} />
+              </button>
+            )}
+          </section>
+        </div>
+      )}
+
+      {sheet === "quick" && (
+        <section className="mobile-inline-detail" aria-label="完整判断与要点">
+          <div className="mobile-inline-detail-head">
+            <div>
+              <span>政策速读</span>
+              <h3>完整判断与要点</h3>
+            </div>
+            <button className="icon-button quiet" type="button" onClick={() => setSheet(null)} aria-label="关闭">
+              <X size={17} />
+            </button>
+          </div>
+          <div className="mobile-brief-sheet-block">
+            <strong>一句话判断</strong>
+            <p>{quickTake}</p>
+          </div>
+          <div className="mobile-brief-sheet-list">
+            {(quickItems.length ? quickItems : ["政策原文已入库，等待后续深度结构化分析。"]).map((item, index) => (
+              <article key={`${item}-${index}`}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <p>{item}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {sheet === "metrics" && (
+        <section className="mobile-inline-detail" aria-label="指标口径说明">
+          <div className="mobile-inline-detail-head">
+            <div>
+              <span>关键指标</span>
+              <h3>指标口径说明</h3>
+            </div>
+            <button className="icon-button quiet" type="button" onClick={() => setSheet(null)} aria-label="关闭">
+              <X size={17} />
+            </button>
+          </div>
+          <div className="mobile-brief-sheet-kpis">
+            {kpis.map(([value, label, note]) => (
+              <article key={label}>
+                <span>{label}</span>
+                <strong>{value}</strong>
+                <p>{note}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {sheet === "evidence" && (
+        <section className="mobile-inline-detail" aria-label="本页依据摘录">
+          <div className="mobile-inline-detail-head">
+            <div>
+              <span>关键依据</span>
+              <h3>本页依据摘录</h3>
+            </div>
+            <button className="icon-button quiet" type="button" onClick={() => setSheet(null)} aria-label="关闭">
+              <X size={17} />
+            </button>
+          </div>
+          <div className="mobile-brief-sheet-list">
+            {currentEvidence.map((item, index) => (
+              <article key={item.id}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <p>“{item.excerpt}”</p>
+                <em>{formatSourceTypeLabel(item.type, "证据")} · {formatSourceTypeLabel(item.source, "未标注来源")} · {item.confidence}%</em>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {logicSheet && (
+        <section className="mobile-inline-detail" aria-label={`${logicSheet.title}明细`}>
+          <div className="mobile-inline-detail-head">
+            <div>
+              <span>政策逻辑</span>
+              <h3>{logicSheet.title}</h3>
+            </div>
+            <button className="icon-button quiet" type="button" onClick={() => setLogicSheet(null)} aria-label="关闭">
+              <X size={17} />
+            </button>
+          </div>
+          <div className="mobile-brief-sheet-list">
+            {logicSheet.items.map((item) => (
+              <article key={item.id}>
+                <span>{item.count}</span>
+                <p>{item.title}</p>
+                <em>{item.body}</em>
+                <small>{item.meta}</small>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+    </section>
   );
 }
 
@@ -1588,6 +2025,16 @@ function IndustryView({
 
   return (
     <div className="industry-layout">
+      <MobileIndustryTimeline
+        nodes={currentChainNodes}
+        edges={currentChainEdges}
+        clauses={currentClauses}
+        companies={currentCompanies}
+        selectedNodeId={selectedNode.id}
+        setSelectedNodeId={setSelectedNodeId}
+        setActiveModule={setActiveModule}
+      />
+
       <section className={cx("panel industry-panel", mapExpanded && "expanded-map")}>
         <div className="panel-head">
           <div>
@@ -1645,6 +2092,148 @@ function IndustryView({
         </div>
       </section>
     </div>
+  );
+}
+
+function MobileIndustryTimeline({
+  nodes,
+  edges,
+  clauses: currentClauses,
+  companies: currentCompanies,
+  selectedNodeId,
+  setSelectedNodeId,
+  setActiveModule
+}: {
+  nodes: ChainNode[];
+  edges: typeof chainEdges;
+  clauses: typeof clauses;
+  companies: Company[];
+  selectedNodeId: string;
+  setSelectedNodeId: (id: string) => void;
+  setActiveModule: (module: ModuleId) => void;
+}) {
+  const [detailOpen, setDetailOpen] = useState(false);
+  const selectedNode = getNode(selectedNodeId, nodes) || nodes[0];
+  const selectedId = selectedNode?.id ?? "";
+  const upstreamEdges = edges.filter((edge) => edge.to === selectedId);
+  const downstreamEdges = edges.filter((edge) => edge.from === selectedId);
+  const activeEdges = edges.filter((edge) => edge.from === selectedId || edge.to === selectedId);
+  const upstreamIds = new Set(upstreamEdges.map((edge) => edge.from));
+  const downstreamIds = new Set(downstreamEdges.map((edge) => edge.to));
+  const relatedIds = new Set([...upstreamIds, ...downstreamIds]);
+  const upstreamNodes = upstreamEdges.map((edge) => getNode(edge.from, nodes)).filter(Boolean) as ChainNode[];
+  const downstreamNodes = downstreamEdges.map((edge) => getNode(edge.to, nodes)).filter(Boolean) as ChainNode[];
+
+  if (nodes.length === 0) {
+    return (
+      <section className="mobile-industry-timeline">
+        <div className="mobile-section-head">
+          <span>VALUE CHAIN</span>
+          <h2>产业链影响</h2>
+          <p>当前政策尚未生成可用产业节点，系统不会回退展示样例产业链。</p>
+        </div>
+        <p className="empty-note">需要后端分析函数补充产业链节点后才能展示地图。</p>
+      </section>
+    );
+  }
+
+  return (
+    <section className="mobile-industry-timeline" aria-label="移动端产业链影响">
+      <div className="mobile-section-head">
+        <span>VALUE CHAIN</span>
+        <h2>产业链影响</h2>
+        <p>按上游、中游、下游和配套保障重排，点击节点查看条款与公司映射。</p>
+      </div>
+      <section className="mobile-chain-link-summary" aria-label="当前产业链关联">
+        <div>
+          <span>当前节点</span>
+          <strong>{selectedNode?.title ?? "未选择节点"}</strong>
+          <p>{activeEdges.length ? `已高亮 ${activeEdges.length} 条上下游关联` : "当前节点暂无上下游关联边"}</p>
+        </div>
+        <div className="mobile-chain-link-groups">
+          <span>
+            <b>上游</b>
+            {upstreamNodes.length ? upstreamNodes.map((node) => node.title).join("、") : "暂无"}
+          </span>
+          <span>
+            <b>下游</b>
+            {downstreamNodes.length ? downstreamNodes.map((node) => node.title).join("、") : "暂无"}
+          </span>
+        </div>
+      </section>
+      <div className="mobile-chain-flow">
+        {sectionOrder.map((section, sectionIndex) => {
+          const sectionNodes = nodes.filter((node) => node.section === section);
+          if (sectionNodes.length === 0) return null;
+          return (
+            <section className="mobile-chain-stage" key={section}>
+              <div className="mobile-chain-stage-head">
+                <span>{String(sectionIndex + 1).padStart(2, "0")}</span>
+                <div>
+                  <h3>{sectionLabels[section]}</h3>
+                  <p>{sectionNodes.length} 个影响节点</p>
+                </div>
+              </div>
+              <div className="mobile-chain-node-list">
+                {sectionNodes.map((node) => {
+                  const active = selectedId === node.id;
+                  const isUpstream = upstreamIds.has(node.id);
+                  const isDownstream = downstreamIds.has(node.id);
+                  const isRelated = relatedIds.has(node.id);
+                  const dimmed = Boolean(selectedId) && !active && !isRelated;
+                  const linkLabel = active ? "当前" : isUpstream ? "上游关联" : isDownstream ? "下游关联" : "未关联";
+                  const relatedCompanies = node.companies
+                    .map((id) => getCompany(id, currentCompanies))
+                    .filter(Boolean) as Company[];
+                  return (
+                    <button
+                      type="button"
+                      className={cx(
+                        "mobile-chain-node",
+                        active && "active",
+                        isUpstream && "upstream",
+                        isDownstream && "downstream",
+                        isRelated && "related",
+                        dimmed && "dim"
+                      )}
+                      key={node.id}
+                      onClick={() => {
+                        setSelectedNodeId(node.id);
+                        setDetailOpen(true);
+                      }}
+                    >
+                      <div>
+                        <strong>{node.title}</strong>
+                        <p>{node.subtitle || compactText(node.description, 52)}</p>
+                      </div>
+                      <div className="mobile-chain-node-meta">
+                        <span className="mobile-chain-link-label">{linkLabel}</span>
+                        <Tag value={node.relation} small />
+                        <span>{node.confidence}/100</span>
+                        <em>{relatedCompanies.length} 公司</em>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </section>
+          );
+        })}
+      </div>
+      <button className="mobile-secondary-action" type="button" onClick={() => setActiveModule("companies")}>
+        查看代表性公司（{currentCompanies.length}） <ChevronRight size={15} />
+      </button>
+      <MobileBottomSheet
+        open={detailOpen && Boolean(selectedNode)}
+        onClose={() => setDetailOpen(false)}
+        eyebrow="产业节点"
+        title={selectedNode?.title ?? "节点详情"}
+        className="mobile-node-sheet"
+        modal={false}
+      >
+        {selectedNode && <NodeDetail node={selectedNode} clauses={currentClauses} companies={currentCompanies} />}
+      </MobileBottomSheet>
+    </section>
   );
 }
 
@@ -2454,6 +3043,66 @@ function CompareView({ report }: { report: PolicyReport | null }) {
   );
 }
 
+function evidenceStrengthLabel(confidence: number) {
+  if (confidence >= 85) return "强证据";
+  if (confidence >= 70) return "中等证据";
+  if (confidence >= 50) return "待验证";
+  return "弱证据";
+}
+
+function MobileEvidenceCards({ evidenceItems }: { evidenceItems: typeof evidence }) {
+  const [filter, setFilter] = useState<"all" | "policy" | "strong">("all");
+  const visibleEvidence = evidenceItems.filter((item) => {
+    if (filter === "policy") return formatSourceTypeLabel(item.type, "").includes("政策原文");
+    if (filter === "strong") return item.confidence >= 85;
+    return true;
+  });
+
+  return (
+    <section className="mobile-evidence-cards" aria-label="移动端证据链">
+      <div className="mobile-section-head">
+        <span>EVIDENCE</span>
+        <h2>证据链总览</h2>
+        <p>保留 PC 端同一组证据来源和置信度，移动端按摘录卡片组织阅读。</p>
+      </div>
+      <div className="mobile-segmented">
+        <button type="button" className={cx(filter === "all" && "active")} onClick={() => setFilter("all")}>
+          全部
+        </button>
+        <button type="button" className={cx(filter === "policy" && "active")} onClick={() => setFilter("policy")}>
+          政策原文
+        </button>
+        <button type="button" className={cx(filter === "strong" && "active")} onClick={() => setFilter("strong")}>
+          强证据
+        </button>
+      </div>
+      <div className="mobile-evidence-list">
+        {visibleEvidence.length === 0 && <p className="empty-note">当前筛选下暂无证据。</p>}
+        {visibleEvidence.map((item, index) => {
+          const linkedCount = (item.clauseIds?.length ?? 0) + (item.nodeIds?.length ?? 0) + (item.companyIds?.length ?? 0);
+          return (
+            <article className="mobile-evidence-card" key={item.id}>
+              <header>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <div>
+                  <strong>{item.title || `${formatSourceTypeLabel(item.type, "证据")}摘录`}</strong>
+                  <p>{formatSourceTypeLabel(item.source, "未标注来源")} · {formatSourceTypeLabel(item.type, "证据")}</p>
+                </div>
+                <em>{evidenceStrengthLabel(item.confidence)}</em>
+              </header>
+              <blockquote>{item.excerpt}</blockquote>
+              <footer>
+                <span>置信度 {item.confidence}/100</span>
+                <span>{linkedCount ? `关联 ${linkedCount} 项分析` : "未标注关联项"}</span>
+              </footer>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 function EvidenceView({ report }: { report: PolicyReport | null }) {
   const currentEvidence = report?.evidence ?? evidence;
   const highEvidence = currentEvidence.filter((item) => item.confidence >= 85).length;
@@ -2472,6 +3121,7 @@ function EvidenceView({ report }: { report: PolicyReport | null }) {
 
   return (
     <div className="evidence-layout">
+      <MobileEvidenceCards evidenceItems={currentEvidence} />
       <section className="panel evidence-main">
         <div className="panel-head">
           <h2>证据链总览</h2>
@@ -2590,6 +3240,44 @@ function PolicyListView({
           <span>{error}</span>
         </section>
       )}
+
+      <section className="mobile-home-hero" aria-label="移动端政策工作台">
+        <div className="mobile-home-title">
+          <div className="mobile-home-kicker">
+            <span>POLICY & INDUSTRY AI</span>
+            <em>{repositoryMode === "supabase" ? "云端数据" : repositoryMode === "mock" ? "本地演示" : "未配置"}</em>
+          </div>
+          <h1>宏观政策终端</h1>
+          <p>已发布政策分析、待分析政策和证据覆盖口径与 PC 端保持一致。</p>
+        </div>
+        <div className="input-shell mobile-home-search">
+          <Search size={16} />
+          <input
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="搜索政策标题、来源或产业方向"
+            aria-label="搜索政策报表"
+          />
+        </div>
+        <div className="mobile-home-stats">
+          <article>
+            <span>已发布分析</span>
+            <strong>{publishedReports.length}</strong>
+          </article>
+          <article>
+            <span>待分析政策</span>
+            <strong>{pendingPolicies.total}</strong>
+          </article>
+          <article>
+            <span>最近发布</span>
+            <strong>{latestPublishedDate}</strong>
+          </article>
+          <article>
+            <span>证据条目</span>
+            <strong>{publishedReports.reduce((sum, item) => sum + item.evidenceCount, 0)}</strong>
+          </article>
+        </div>
+      </section>
 
       <section className="dashboard-stats">
         <article className="panel stat-tile">
@@ -3004,6 +3692,7 @@ export function App() {
   const [activeModule, setActiveModule] = useState<ModuleId>("brief");
   const [selectedNodeId, setSelectedNodeId] = useState("exchange");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [mobileCompassOpen, setMobileCompassOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [workspaceReloadKey, setWorkspaceReloadKey] = useState(0);
   const [reportReloadKey, setReportReloadKey] = useState(0);
@@ -3269,6 +3958,7 @@ export function App() {
     setActiveReport(null);
     setReportError("");
     setActiveModule("brief");
+    setMobileCompassOpen(false);
     setMobileMenuOpen(false);
     setAppView("report");
     window.scrollTo({ top: 0, behavior: "auto" });
@@ -3283,6 +3973,7 @@ export function App() {
       });
     }
     setAppView("list");
+    setMobileCompassOpen(false);
     setMobileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: "auto" });
   }
@@ -3290,6 +3981,7 @@ export function App() {
   function openAdminAnalytics() {
     if (!adminAccess.canAccessAdmin) return;
     setAppView("adminAnalytics");
+    setMobileCompassOpen(false);
     setMobileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: "auto" });
   }
@@ -3418,8 +4110,8 @@ export function App() {
         <MobileReportNavigator
           activeModule={activeModule}
           onSelectModule={(module) => changeModule(module, "mobile_nav")}
-          open={mobileMenuOpen}
-          setOpen={setMobileMenuOpen}
+          open={mobileCompassOpen}
+          setOpen={setMobileCompassOpen}
           onBackToList={openList}
           onRefresh={refreshCurrentReport}
           refreshing={reportLoading}
