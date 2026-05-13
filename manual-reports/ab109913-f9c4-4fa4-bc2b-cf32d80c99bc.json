@@ -1,0 +1,1108 @@
+{
+  "id": "ab109913-f9c4-4fa4-bc2b-cf32d80c99bc",
+  "policyId": "ab109913-f9c4-4fa4-bc2b-cf32d80c99bc",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "generatedAt": "2026-05-14T00:30:00+08:00",
+  "summary": {
+    "id": "ab109913-f9c4-4fa4-bc2b-cf32d80c99bc",
+    "title": "工业和信息化部办公厅关于组织开展2026年度工业节能监察工作的通知",
+    "issuer": "工业和信息化部办公厅",
+    "source": "工业和信息化部 - 政策文件库",
+    "publishDate": "2026-05-13",
+    "status": "published",
+    "confidence": 92,
+    "industryCount": 6,
+    "companyCount": 8,
+    "evidenceCount": 8,
+    "primarySignal": "2026-2027年重点高耗能行业能效监察全覆盖，并向新能源装备产业链、算力设施和重点用能设备延伸",
+    "category": "工业节能监察与能效监管"
+  },
+  "policy": {
+    "title": "工业和信息化部办公厅关于组织开展2026年度工业节能监察工作的通知",
+    "status": "已发布",
+    "issuer": "工业和信息化部办公厅",
+    "publishDate": "2026-05-13",
+    "effectiveDate": "2026-05-11",
+    "source": "工业和信息化部 - 政策文件库",
+    "category": "工业节能监察与能效监管",
+    "level": "部门办公厅通知",
+    "confidence": 92,
+    "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_f9a5343fdb3d4ecab8f963465fc918d5.html",
+    "jurisdiction": "中国",
+    "scope": "各省级工业和信息化主管部门组织实施，覆盖重点高耗能行业、重点产业链、重点用能设备企业及2025年违规企业整改情况。",
+    "impactScope": "钢铁、石化化工、有色、建材、算力设施、光伏组件、风电机组、动力和储能电池、水电解制氢装备，以及高效电机、变压器、风机、泵、空压机、工业锅炉和能碳管理服务。",
+    "tags": [
+      "工业节能监察",
+      "能效标杆",
+      "强制性能耗限额",
+      "重点用能设备",
+      "新能源装备产业链",
+      "算力设施",
+      "碳排放双控",
+      "产品碳足迹"
+    ]
+  },
+  "brief": {
+    "judgement": "这份通知的核心不是新增补贴或投资项目，而是把2026年度工业节能监管从传统高耗能行业扩展到新能源装备产业链、算力设施和重点用能设备，并通过2026-2027年全覆盖、违规整改回头看、在线填报和能碳数据应用，强化企业能效合规的硬约束。短期压力在钢铁、化工、有色、建材等存量产能；中期机会在高效电机、工业节能装备、能碳管理系统和第三方节能诊断服务。",
+    "summary": "通知要求各地依据强制性能耗限额标准、能效标杆水平和基准水平，对钢铁、合成氨、炼油、乙烯、烧碱、纯碱、甲醇、聚氯乙烯、电解铝、工业硅、水泥、平板玻璃、建筑和卫生陶瓷、算力设施等重点行业领域开展节能监察，并在2026-2027年实现相关行业企业全覆盖。政策还把光伏组件、风电机组、动力和储能电池、水电解制氢装备列入重点产业链专项监察，要求核查原材料、生产制造、终端组装等环节的生产过程能耗和产品能效。公司映射只作为产业链代表性观察对象，政策原文没有点名任何上市公司，也没有给出订单、补贴或采购安排。",
+    "keyPoints": [
+      "监管强度的明确增量在于全覆盖时间表：2026-2027年重点行业企业全覆盖，且2026年对电石法聚氯乙烯企业全覆盖。",
+      "政策将节能监察从高耗能原材料行业延伸到光伏、风电、电池、水电解制氢等新能源装备链条，说明先进制造也被纳入能效约束。",
+      "重点用能设备监察直接指向电机、变压器、风机、泵、空压机和工业锅炉，低效设备淘汰将形成设备更新和节能改造需求。",
+      "数字化能碳管理、在线填报、产品碳足迹和碳排放核算被写入结果应用，能效数据的监管价值上升。",
+      "政策没有公司名单，任何公司影响都应按行业环节和代表性业务判断，并降级为间接证据。"
+    ],
+    "methodology": "人工阅读工业和信息化部官方页面正文，按政策明示行业、任务、工作要求和报送时间提取条款；公司映射仅选取与明示行业或设备环节相关的代表性上市主体，全部标注为间接证据，未使用媒体解读或模拟数据。"
+  },
+  "actions": [
+    {
+      "id": "a1",
+      "title": "对重点行业领域开展能效监察并设置全覆盖时间表",
+      "body": "政策要求围绕强制性能耗限额标准、能效标杆水平和基准水平，对钢铁、化工、有色、建材、算力设施等行业领域开展节能监察，2026-2027年实现上述行业企业全覆盖。监管对象从抽查式治理转向更系统的覆盖式合规检查。",
+      "signal": "constraint",
+      "confidence": 95,
+      "clauseIds": [
+        "c1"
+      ],
+      "sortOrder": 1
+    },
+    {
+      "id": "a2",
+      "title": "将新能源装备重点产业链纳入专项节能监察",
+      "body": "通知聚焦光伏组件、风电机组、动力和储能电池、水电解制氢装备，要求核查原材料、生产制造、终端组装环节重点企业的生产过程能耗和主要产品能效。新能源装备制造不再只被视为低碳供给端，也要接受制造过程能效约束。",
+      "signal": "constraint",
+      "confidence": 92,
+      "clauseIds": [
+        "c2"
+      ],
+      "sortOrder": 2
+    },
+    {
+      "id": "a3",
+      "title": "开展重点用能设备能效监察并督促淘汰低效设备",
+      "body": "政策要求在纳入重点行业和重点产业链监察的企业中，同步开展电机、变压器、风机、泵、空压机、工业锅炉等重点用能设备监察，依法督促淘汰不达强制能效限定值的低效设备。这会把企业合规压力转化为设备更新、系统改造和能效运维需求。",
+      "signal": "positive",
+      "confidence": 91,
+      "clauseIds": [
+        "c3"
+      ],
+      "sortOrder": 3
+    },
+    {
+      "id": "a4",
+      "title": "对2025年违规企业整改开展回头看并强化执法公开",
+      "body": "通知要求对2025年监察中发现存在违规行为的企业整改情况进行回头看，对未整改或整改不到位的依法依规处理，并要求公开监察情况、违规企业名单和处理结果。合规失信成本和地方监管压力同步提高。",
+      "signal": "risk",
+      "confidence": 90,
+      "clauseIds": [
+        "c4"
+      ],
+      "sortOrder": 4
+    },
+    {
+      "id": "a5",
+      "title": "推动节能监察结果进入碳排放和产品碳足迹管理",
+      "body": "政策鼓励推广工业企业数字化能碳管理中心、在线填报，并探索将监察结果用于企业碳排放、产品碳足迹核算管理。节能监察数据从执法材料扩展为碳管理基础数据，利好能碳管理、节能诊断和数据治理能力建设。",
+      "signal": "positive",
+      "confidence": 88,
+      "clauseIds": [
+        "c5"
+      ],
+      "sortOrder": 5
+    },
+    {
+      "id": "a6",
+      "title": "明确地方任务报送和年度总结节点",
+      "body": "省级工信部门需制定监察计划，5月29日前报送任务，11月15日前报送年度总结和详细数据。明确时间节点意味着本轮监察具备较强执行性，后续可以跟踪各地任务清单、违规公示和整改结果。",
+      "signal": "constraint",
+      "confidence": 86,
+      "clauseIds": [
+        "c6"
+      ],
+      "sortOrder": 6
+    }
+  ],
+  "clauseGroups": [
+    {
+      "id": "g1",
+      "title": "监察对象",
+      "count": 2,
+      "tone": "blue"
+    },
+    {
+      "id": "g2",
+      "title": "设备与整改",
+      "count": 2,
+      "tone": "orange"
+    },
+    {
+      "id": "g3",
+      "title": "结果应用",
+      "count": 1,
+      "tone": "green"
+    },
+    {
+      "id": "g4",
+      "title": "执行安排",
+      "count": 1,
+      "tone": "neutral"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "c1",
+      "no": "一、工作任务（一）",
+      "title": "重点行业领域能效监察覆盖高耗能行业和算力设施",
+      "group": "g1",
+      "excerpt": "对钢铁、合成氨、炼油、乙烯、烧碱、纯碱、甲醇、聚氯乙烯、电解铝、工业硅、水泥、平板玻璃、建筑和卫生陶瓷、算力设施等开展节能监察。",
+      "fullText": "政策按强制性能耗限额标准、能效标杆水平和基准水平组织监察，并提出2026-2027年对上述行业企业实现全覆盖，2026年对电石法聚氯乙烯企业全覆盖。",
+      "confidence": 96,
+      "keywords": [
+        "重点行业",
+        "能效监察",
+        "强制性能耗限额",
+        "全覆盖",
+        "算力设施"
+      ],
+      "industries": [
+        "钢铁",
+        "石化化工",
+        "有色金属",
+        "建材",
+        "算力设施"
+      ],
+      "sortOrder": 1
+    },
+    {
+      "id": "c2",
+      "no": "一、工作任务（二）",
+      "title": "重点产业链专项监察覆盖新能源装备制造环节",
+      "group": "g1",
+      "excerpt": "聚焦光伏组件、风电机组、动力和储能电池、水电解制氢装备等重点产业链，核查生产过程能耗、主要产品能效等。",
+      "fullText": "政策将监察对象扩展到原材料、生产制造、终端组装环节重点企业，说明新能源装备链条既是低碳转型供给端，也是能耗和产品能效监管对象。",
+      "confidence": 94,
+      "keywords": [
+        "光伏组件",
+        "风电机组",
+        "动力电池",
+        "储能电池",
+        "水电解制氢装备"
+      ],
+      "industries": [
+        "光伏制造",
+        "风电装备",
+        "动力电池",
+        "储能",
+        "氢能装备"
+      ],
+      "sortOrder": 2
+    },
+    {
+      "id": "c3",
+      "no": "一、工作任务（三）",
+      "title": "重点用能设备监察指向低效设备淘汰",
+      "group": "g2",
+      "excerpt": "对电机、变压器、风机、泵、空压机、工业锅炉等重点用能设备开展监察，依法督促淘汰低效设备。",
+      "fullText": "设备能效监察嵌入重点行业和重点产业链企业检查之中，意味着企业不仅要满足单位产品能耗要求，也要核查关键设备是否达到强制能效限定值。",
+      "confidence": 93,
+      "keywords": [
+        "电机",
+        "变压器",
+        "风机",
+        "泵",
+        "空压机",
+        "工业锅炉"
+      ],
+      "industries": [
+        "高效电机",
+        "工业节能设备",
+        "锅炉装备",
+        "节能改造"
+      ],
+      "sortOrder": 3
+    },
+    {
+      "id": "c4",
+      "no": "一、工作任务（四）及二、工作要求（一）",
+      "title": "违规整改回头看与联合惩戒提高失信成本",
+      "group": "g2",
+      "excerpt": "对2025年监察发现违规企业整改情况进行回头看；公开监察情况、违规企业名单及处理结果。",
+      "fullText": "政策要求依法依规处理未按要求整改或整改不到位的企业，并强调规范涉企行政检查、跨部门联动和联合惩戒，形成合规闭环。",
+      "confidence": 91,
+      "keywords": [
+        "回头看",
+        "违规企业名单",
+        "联合惩戒",
+        "规范涉企行政检查"
+      ],
+      "industries": [
+        "工业企业合规",
+        "节能监察执法",
+        "信用监管"
+      ],
+      "sortOrder": 4
+    },
+    {
+      "id": "c5",
+      "no": "二、工作要求（二）（三）",
+      "title": "数字化能碳管理和碳足迹核算成为结果应用方向",
+      "group": "g3",
+      "excerpt": "推广数字化能碳管理中心、工业节能监察结果在线填报，探索将监察结果用于企业碳排放、产品碳足迹核算管理。",
+      "fullText": "政策把培训、在线填报、第三方专业机构支撑、节能诊断服务、重点行业节能降碳改造和碳数据共享放在同一执行链条中，强化节能监察结果的后续使用。",
+      "confidence": 90,
+      "keywords": [
+        "数字化能碳管理",
+        "在线填报",
+        "产品碳足迹",
+        "节能诊断",
+        "数据共享"
+      ],
+      "industries": [
+        "能碳管理软件",
+        "节能服务",
+        "碳核算",
+        "工业数字化"
+      ],
+      "sortOrder": 5
+    },
+    {
+      "id": "c6",
+      "no": "三、工作安排",
+      "title": "地方监察计划和年度总结设置硬节点",
+      "group": "g4",
+      "excerpt": "5月29日前报送监察任务，11月15日前报送年度总结报告和详细监察数据。",
+      "fullText": "省级工业和信息化主管部门需制定监察计划并通过工业节能与绿色发展管理平台报送，后续执行进度可通过地方计划、违规公示和年度总结跟踪。",
+      "confidence": 88,
+      "keywords": [
+        "5月29日",
+        "11月15日",
+        "监察计划",
+        "年度总结",
+        "绿色发展管理平台"
+      ],
+      "industries": [
+        "地方工业监管",
+        "节能监察平台",
+        "企业数据报送"
+      ],
+      "sortOrder": 6
+    }
+  ],
+  "chainNodes": [
+    {
+      "id": "n1",
+      "title": "高耗能工业存量产能",
+      "subtitle": "钢铁、有色、建材等行业进入全覆盖能效监察周期",
+      "section": "midstream",
+      "relation": "constraint_risk",
+      "evidenceLevel": "strong",
+      "confidence": 91,
+      "description": "政策对钢铁、电解铝、水泥、玻璃、陶瓷等行业设置全覆盖监察要求，企业面临能效达标、设备淘汰、整改公示和联合惩戒压力。能效水平领先的企业可能获得相对合规优势，但政策本身不是奖励性文件。",
+      "impactReason": "行业名单和全覆盖时间表由政策正文直接给出。",
+      "clauseIds": [
+        "c1",
+        "c4"
+      ],
+      "companyIds": [
+        "co1",
+        "co2",
+        "co3"
+      ],
+      "evidenceIds": [
+        "e2",
+        "e5"
+      ],
+      "iconKey": "factory"
+    },
+    {
+      "id": "n2",
+      "title": "石化化工与PVC产业链",
+      "subtitle": "炼油、乙烯、氯碱、甲醇、聚氯乙烯等环节能耗约束强化",
+      "section": "midstream",
+      "relation": "constraint_risk",
+      "evidenceLevel": "strong",
+      "confidence": 88,
+      "description": "政策把多个石化化工细分品种列入重点监察，并特别提出2026年对电石法聚氯乙烯企业全覆盖。该节点的核心影响是落后产能整改、能耗核算和低效设备替换压力。",
+      "impactReason": "政策明示石化化工品类和电石法聚氯乙烯全覆盖安排，但未点名具体企业。",
+      "clauseIds": [
+        "c1"
+      ],
+      "companyIds": [],
+      "evidenceIds": [
+        "e2"
+      ],
+      "iconKey": "flask-conical"
+    },
+    {
+      "id": "n3",
+      "title": "新能源装备制造链",
+      "subtitle": "光伏、风电、电池和制氢装备从低碳供给端转为能效监察对象",
+      "section": "midstream",
+      "relation": "constraint_risk",
+      "evidenceLevel": "strong",
+      "confidence": 90,
+      "description": "政策要求对新能源装备产业链原材料、生产制造和终端组装重点企业开展专项能效监察。制造环节能耗、产品能效和碳足迹数据将影响企业合规和客户准入叙事。",
+      "impactReason": "重点产业链品类由政策正文列明，属于直接行业覆盖；具体公司映射为代表性观察。",
+      "clauseIds": [
+        "c2",
+        "c5"
+      ],
+      "companyIds": [
+        "co4",
+        "co5"
+      ],
+      "evidenceIds": [
+        "e3",
+        "e7"
+      ],
+      "iconKey": "battery-charging"
+    },
+    {
+      "id": "n4",
+      "title": "算力设施能效",
+      "subtitle": "算力基础设施被纳入重点行业领域能效监察",
+      "section": "downstream",
+      "relation": "constraint_risk",
+      "evidenceLevel": "strong",
+      "confidence": 84,
+      "description": "政策把算力设施列入重点行业领域监察范围，信号是数据中心和智算基础设施不能只关注算力供给，也要接受能效水平、设备效率和能源管理体系约束。",
+      "impactReason": "政策明确出现算力设施，但未细化到数据中心类型、PUE指标或企业名单。",
+      "clauseIds": [
+        "c1",
+        "c5"
+      ],
+      "companyIds": [],
+      "evidenceIds": [
+        "e2",
+        "e7"
+      ],
+      "iconKey": "server"
+    },
+    {
+      "id": "n5",
+      "title": "高效节能设备和系统改造",
+      "subtitle": "低效电机、锅炉、风机、泵、空压机淘汰带来设备更新需求",
+      "section": "support",
+      "relation": "beneficiary",
+      "evidenceLevel": "indirect",
+      "confidence": 82,
+      "description": "重点用能设备监察会推动企业识别并替换不达强制能效限定值的设备。高效电机、工业驱动、工业锅炉和系统节能改造企业可能获得需求线索，但政策没有列示项目清单或采购预算。",
+      "impactReason": "政策直接要求督促淘汰低效设备，需求传导到具体设备厂商需要地方执法和企业投资计划验证。",
+      "clauseIds": [
+        "c3"
+      ],
+      "companyIds": [
+        "co6",
+        "co7",
+        "co8"
+      ],
+      "evidenceIds": [
+        "e4"
+      ],
+      "iconKey": "settings"
+    },
+    {
+      "id": "n6",
+      "title": "能碳管理和节能服务",
+      "subtitle": "在线填报、数字化能碳中心、碳排放和产品碳足迹核算需求上升",
+      "section": "support",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 86,
+      "description": "政策鼓励数字化能碳管理中心、在线填报、第三方专业机构支撑和节能诊断服务，并探索将监察结果用于碳排放和产品碳足迹管理。该节点更偏软件、咨询、检测认证和数据治理能力。",
+      "impactReason": "政策明示数字化和结果应用方向，但没有点名供应商。",
+      "clauseIds": [
+        "c5",
+        "c6"
+      ],
+      "companyIds": [],
+      "evidenceIds": [
+        "e6",
+        "e7",
+        "e8"
+      ],
+      "iconKey": "line-chart"
+    }
+  ],
+  "chainEdges": [
+    {
+      "from": "n1",
+      "to": "n5",
+      "type": "strong",
+      "confidence": 84,
+      "reason": "高耗能行业全覆盖监察会暴露低效设备和系统能耗问题，形成设备替换和节能改造需求。"
+    },
+    {
+      "from": "n3",
+      "to": "n6",
+      "type": "medium",
+      "confidence": 78,
+      "reason": "新能源装备链条被核查生产过程能耗和产品能效后，需要更强的能耗数据、碳排放和产品碳足迹管理能力。"
+    },
+    {
+      "from": "n4",
+      "to": "n6",
+      "type": "medium",
+      "confidence": 76,
+      "reason": "算力设施纳入监察后，在线填报和能碳管理系统可能成为合规支撑工具。"
+    },
+    {
+      "from": "n6",
+      "to": "n1",
+      "type": "weak",
+      "confidence": 70,
+      "reason": "监察结果进入碳排放和产品碳足迹管理，会反向影响高耗能企业客户准入、披露和整改节奏。"
+    }
+  ],
+  "companies": [
+    {
+      "id": "co1",
+      "name": "宝山钢铁股份有限公司",
+      "ticker": "600019.SH",
+      "exchange": "上交所",
+      "platform": "钢铁制造",
+      "status": "重点行业代表性观察对象",
+      "section": "midstream",
+      "relation": "constraint_risk",
+      "evidenceLevel": "indirect",
+      "confidence": 72,
+      "policyRelevance": 78,
+      "evidenceCertainty": 66,
+      "evidenceCount": 1,
+      "products": [
+        "钢铁板材",
+        "工业用钢",
+        "高耗能制造"
+      ],
+      "nodeIds": [
+        "n1"
+      ],
+      "clauseIds": [
+        "c1",
+        "c4"
+      ],
+      "evidenceIds": [
+        "e2"
+      ],
+      "reason": "政策明示钢铁行业纳入能效监察全覆盖，宝钢股份作为钢铁行业代表性上市公司，可作为合规压力和能效领先优势的观察对象。",
+      "uncertainty": "政策没有点名企业，具体影响取决于地方监察计划、所属产线能效水平和历史整改情况。"
+    },
+    {
+      "id": "co2",
+      "name": "中国铝业股份有限公司",
+      "ticker": "601600.SH / 02600.HK",
+      "exchange": "上交所 / 港交所",
+      "platform": "铝产业链",
+      "status": "重点行业代表性观察对象",
+      "section": "midstream",
+      "relation": "constraint_risk",
+      "evidenceLevel": "indirect",
+      "confidence": 71,
+      "policyRelevance": 77,
+      "evidenceCertainty": 65,
+      "evidenceCount": 1,
+      "products": [
+        "电解铝",
+        "氧化铝",
+        "有色金属"
+      ],
+      "nodeIds": [
+        "n1"
+      ],
+      "clauseIds": [
+        "c1"
+      ],
+      "evidenceIds": [
+        "e2"
+      ],
+      "reason": "政策将电解铝列入重点行业领域能效监察，铝产业链企业需要关注能耗限额、设备效率和整改公示风险。",
+      "uncertainty": "企业是否被纳入本年度具体监察任务，需要以地方任务清单和产线能效状态为准。"
+    },
+    {
+      "id": "co3",
+      "name": "安徽海螺水泥股份有限公司",
+      "ticker": "600585.SH / 00914.HK",
+      "exchange": "上交所 / 港交所",
+      "platform": "水泥建材",
+      "status": "重点行业代表性观察对象",
+      "section": "midstream",
+      "relation": "constraint_risk",
+      "evidenceLevel": "indirect",
+      "confidence": 70,
+      "policyRelevance": 76,
+      "evidenceCertainty": 64,
+      "evidenceCount": 1,
+      "products": [
+        "水泥",
+        "熟料",
+        "建材"
+      ],
+      "nodeIds": [
+        "n1"
+      ],
+      "clauseIds": [
+        "c1"
+      ],
+      "evidenceIds": [
+        "e2"
+      ],
+      "reason": "水泥被列入重点行业领域能效监察，代表性水泥企业需要关注熟料能耗、余热利用、低效设备淘汰和整改约束。",
+      "uncertainty": "政策未披露企业名单和具体产线指标，不能据此判断单家公司业绩影响。"
+    },
+    {
+      "id": "co4",
+      "name": "隆基绿能科技股份有限公司",
+      "ticker": "601012.SH",
+      "exchange": "上交所",
+      "platform": "光伏组件与硅片",
+      "status": "新能源装备链代表性观察对象",
+      "section": "midstream",
+      "relation": "constraint_risk",
+      "evidenceLevel": "indirect",
+      "confidence": 69,
+      "policyRelevance": 76,
+      "evidenceCertainty": 62,
+      "evidenceCount": 1,
+      "products": [
+        "光伏组件",
+        "硅片",
+        "光伏制造"
+      ],
+      "nodeIds": [
+        "n3"
+      ],
+      "clauseIds": [
+        "c2",
+        "c5"
+      ],
+      "evidenceIds": [
+        "e3"
+      ],
+      "reason": "政策将光伏组件及相关生产制造环节列入重点产业链能效监察，光伏龙头企业可作为制造能耗和产品能效合规的观察对象。",
+      "uncertainty": "政策未点名公司，也没有披露各企业能耗水平，不能直接推断公司受益或受损。"
+    },
+    {
+      "id": "co5",
+      "name": "宁德时代新能源科技股份有限公司",
+      "ticker": "300750.SZ",
+      "exchange": "深交所",
+      "platform": "动力与储能电池",
+      "status": "新能源装备链代表性观察对象",
+      "section": "midstream",
+      "relation": "constraint_risk",
+      "evidenceLevel": "indirect",
+      "confidence": 69,
+      "policyRelevance": 76,
+      "evidenceCertainty": 62,
+      "evidenceCount": 1,
+      "products": [
+        "动力电池",
+        "储能电池",
+        "电池制造"
+      ],
+      "nodeIds": [
+        "n3"
+      ],
+      "clauseIds": [
+        "c2",
+        "c5"
+      ],
+      "evidenceIds": [
+        "e3"
+      ],
+      "reason": "政策将动力和储能电池纳入重点产业链专项监察，电池制造企业需要关注生产过程能耗、主要产品能效和碳足迹数据。",
+      "uncertainty": "政策没有列出企业清单，影响取决于地方监察覆盖和企业既有能效管理水平。"
+    },
+    {
+      "id": "co6",
+      "name": "卧龙电气驱动集团股份有限公司",
+      "ticker": "600580.SH",
+      "exchange": "上交所",
+      "platform": "电机与驱动系统",
+      "status": "节能设备代表性观察对象",
+      "section": "support",
+      "relation": "beneficiary",
+      "evidenceLevel": "indirect",
+      "confidence": 68,
+      "policyRelevance": 74,
+      "evidenceCertainty": 61,
+      "evidenceCount": 1,
+      "products": [
+        "电机",
+        "工业驱动",
+        "高效节能设备"
+      ],
+      "nodeIds": [
+        "n5"
+      ],
+      "clauseIds": [
+        "c3"
+      ],
+      "evidenceIds": [
+        "e4"
+      ],
+      "reason": "政策明确要求监察电机等重点用能设备并淘汰低效设备，高效电机和驱动系统企业可能受益于企业改造需求。",
+      "uncertainty": "政策没有采购目录和项目资金，需求释放要看地方执法强度和企业资本开支。"
+    },
+    {
+      "id": "co7",
+      "name": "深圳市汇川技术股份有限公司",
+      "ticker": "300124.SZ",
+      "exchange": "深交所",
+      "platform": "工业自动化与驱动",
+      "status": "节能设备代表性观察对象",
+      "section": "support",
+      "relation": "beneficiary",
+      "evidenceLevel": "indirect",
+      "confidence": 67,
+      "policyRelevance": 73,
+      "evidenceCertainty": 60,
+      "evidenceCount": 1,
+      "products": [
+        "工业自动化",
+        "变频驱动",
+        "节能控制"
+      ],
+      "nodeIds": [
+        "n5"
+      ],
+      "clauseIds": [
+        "c3"
+      ],
+      "evidenceIds": [
+        "e4"
+      ],
+      "reason": "重点用能设备监察涉及电机、风机、泵、空压机等系统，工业驱动和节能控制方案可能成为企业改造工具。",
+      "uncertainty": "政策只提出设备能效监管要求，未指定技术路线或供应商。"
+    },
+    {
+      "id": "co8",
+      "name": "西子清洁能源装备制造股份有限公司",
+      "ticker": "002534.SZ",
+      "exchange": "深交所",
+      "platform": "工业锅炉与余热利用",
+      "status": "节能设备代表性观察对象",
+      "section": "support",
+      "relation": "beneficiary",
+      "evidenceLevel": "indirect",
+      "confidence": 67,
+      "policyRelevance": 73,
+      "evidenceCertainty": 60,
+      "evidenceCount": 1,
+      "products": [
+        "工业锅炉",
+        "余热锅炉",
+        "节能装备"
+      ],
+      "nodeIds": [
+        "n5"
+      ],
+      "clauseIds": [
+        "c3"
+      ],
+      "evidenceIds": [
+        "e4"
+      ],
+      "reason": "工业锅炉被列为重点用能设备，锅炉能效提升和余热利用装备可能受企业整改和节能改造需求带动。",
+      "uncertainty": "具体订单需要企业公告、地方改造项目或客户投资计划验证。"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "e1",
+      "title": "工信部发布2026年度工业节能监察通知",
+      "source": "工业和信息化部",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_f9a5343fdb3d4ecab8f963465fc918d5.html",
+      "url": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_f9a5343fdb3d4ecab8f963465fc918d5.html",
+      "type": "policy_text",
+      "date": "2026-05-13",
+      "excerpt": "发文字号为工信厅节函〔2026〕221号，成文日期为2026年5月11日，发布日期为2026年5月13日。",
+      "confidence": 96,
+      "clauseIds": [
+        "c6"
+      ],
+      "nodeIds": [
+        "n6"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e2",
+      "title": "重点行业领域能效监察行业清单",
+      "source": "工业和信息化部通知正文",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_f9a5343fdb3d4ecab8f963465fc918d5.html",
+      "url": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_f9a5343fdb3d4ecab8f963465fc918d5.html",
+      "type": "policy_text",
+      "date": "2026-05-13",
+      "excerpt": "钢铁、合成氨、炼油、乙烯、烧碱、纯碱、甲醇、聚氯乙烯、电解铝、工业硅、水泥、平板玻璃、建筑和卫生陶瓷、算力设施等被列入监察范围。",
+      "confidence": 96,
+      "clauseIds": [
+        "c1"
+      ],
+      "nodeIds": [
+        "n1",
+        "n2",
+        "n4"
+      ],
+      "companyIds": [
+        "co1",
+        "co2",
+        "co3"
+      ]
+    },
+    {
+      "id": "e3",
+      "title": "重点产业链专项节能监察范围",
+      "source": "工业和信息化部通知正文",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_f9a5343fdb3d4ecab8f963465fc918d5.html",
+      "url": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_f9a5343fdb3d4ecab8f963465fc918d5.html",
+      "type": "policy_text",
+      "date": "2026-05-13",
+      "excerpt": "光伏组件、风电机组、动力和储能电池、水电解制氢装备等重点产业链被要求核查生产过程能耗和主要产品能效。",
+      "confidence": 94,
+      "clauseIds": [
+        "c2"
+      ],
+      "nodeIds": [
+        "n3"
+      ],
+      "companyIds": [
+        "co4",
+        "co5"
+      ]
+    },
+    {
+      "id": "e4",
+      "title": "重点用能设备和低效设备淘汰要求",
+      "source": "工业和信息化部通知正文",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_f9a5343fdb3d4ecab8f963465fc918d5.html",
+      "url": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_f9a5343fdb3d4ecab8f963465fc918d5.html",
+      "type": "policy_text",
+      "date": "2026-05-13",
+      "excerpt": "电机、变压器、风机、泵、空压机、工业锅炉等重点用能设备被纳入监察，企业需依法淘汰不达强制能效限定值的低效设备。",
+      "confidence": 93,
+      "clauseIds": [
+        "c3"
+      ],
+      "nodeIds": [
+        "n5"
+      ],
+      "companyIds": [
+        "co6",
+        "co7",
+        "co8"
+      ]
+    },
+    {
+      "id": "e5",
+      "title": "违规整改回头看和公开处理结果",
+      "source": "工业和信息化部通知正文",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_f9a5343fdb3d4ecab8f963465fc918d5.html",
+      "url": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_f9a5343fdb3d4ecab8f963465fc918d5.html",
+      "type": "policy_text",
+      "date": "2026-05-13",
+      "excerpt": "对2025年监察中发现违规行为企业的整改情况进行回头看，并要求公开监察情况、违规企业名单及处理结果。",
+      "confidence": 91,
+      "clauseIds": [
+        "c4"
+      ],
+      "nodeIds": [
+        "n1"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e6",
+      "title": "数字化能碳管理和在线填报",
+      "source": "工业和信息化部通知正文",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_f9a5343fdb3d4ecab8f963465fc918d5.html",
+      "url": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_f9a5343fdb3d4ecab8f963465fc918d5.html",
+      "type": "policy_text",
+      "date": "2026-05-13",
+      "excerpt": "政策提出推广工业企业数字化能碳管理中心、工业节能监察结果在线填报，并鼓励第三方专业机构支撑。",
+      "confidence": 90,
+      "clauseIds": [
+        "c5"
+      ],
+      "nodeIds": [
+        "n6"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e7",
+      "title": "监察结果用于碳排放和产品碳足迹管理",
+      "source": "工业和信息化部通知正文",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_f9a5343fdb3d4ecab8f963465fc918d5.html",
+      "url": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_f9a5343fdb3d4ecab8f963465fc918d5.html",
+      "type": "policy_text",
+      "date": "2026-05-13",
+      "excerpt": "政策提出探索将监察结果用于企业碳排放、产品碳足迹核算管理，推动数据共享。",
+      "confidence": 89,
+      "clauseIds": [
+        "c5"
+      ],
+      "nodeIds": [
+        "n3",
+        "n4",
+        "n6"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e8",
+      "title": "地方报送节点",
+      "source": "工业和信息化部通知正文",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_f9a5343fdb3d4ecab8f963465fc918d5.html",
+      "url": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_f9a5343fdb3d4ecab8f963465fc918d5.html",
+      "type": "policy_text",
+      "date": "2026-05-13",
+      "excerpt": "省级工信主管部门需于5月29日前报送监察任务，11月15日前报送年度总结报告及详细监察数据。",
+      "confidence": 88,
+      "clauseIds": [
+        "c6"
+      ],
+      "nodeIds": [
+        "n6"
+      ],
+      "companyIds": []
+    }
+  ],
+  "backgroundCards": [
+    {
+      "id": "b1",
+      "title": "政策性质",
+      "body": "这是一份年度工业节能监察组织通知，核心是执法检查、整改、数据报送和结果应用，不是财政补贴、产业投资基金或采购目录。",
+      "evidenceIds": [
+        "e1",
+        "e2"
+      ]
+    },
+    {
+      "id": "b2",
+      "title": "执行节奏",
+      "body": "2026-2027年重点行业企业全覆盖，2026年对电石法聚氯乙烯企业全覆盖；地方任务和年度总结分别设在5月29日和11月15日前。",
+      "evidenceIds": [
+        "e2",
+        "e8"
+      ]
+    },
+    {
+      "id": "b3",
+      "title": "产业链边界",
+      "body": "新能源装备链条被纳入监察，说明低碳产业并非天然豁免能耗监管。对光伏、风电、电池和制氢装备企业的判断应聚焦制造过程能耗和产品能效，而不是简单理解为需求刺激。",
+      "evidenceIds": [
+        "e3",
+        "e7"
+      ]
+    },
+    {
+      "id": "b4",
+      "title": "公司映射边界",
+      "body": "原文没有点名任何企业或上市公司。本报告列出的公司只用于说明相关产业链代表性观察方向，不代表被官方认定违规、受益或获得项目。",
+      "evidenceIds": [
+        "e2",
+        "e3",
+        "e4"
+      ]
+    }
+  ],
+  "compareRows": [
+    {
+      "id": "cr1",
+      "dimension": "监管范围",
+      "values": [
+        "当前政策把高耗能行业、算力设施、新能源装备产业链和重点用能设备放入同一年度监察框架。",
+        "传统节能监察更容易被理解为高耗能行业能耗限额检查。",
+        "差异在于监察对象从行业能耗扩展到产业链、设备和能碳数据应用。"
+      ]
+    },
+    {
+      "id": "cr2",
+      "dimension": "结果应用",
+      "values": [
+        "当前政策提出将监察结果用于碳排放和产品碳足迹核算管理。",
+        "既有节能监察主要形成整改、处罚和年度执法数据。",
+        "差异在于监管数据开始进入碳管理和绿色供应链证明体系。"
+      ]
+    }
+  ],
+  "compareInsights": {
+    "status": "official_text_with_policy_baselines",
+    "basis": "以本通知正文引用的《节约能源法》《工业节能监察办法》、强制性能耗限额标准和2025年违规整改回头看为比较基准。",
+    "method": "人工阅读工信部官方通知，对比其年度任务、监察对象、设备要求和数据应用变化。",
+    "comparableCount": 2,
+    "similarPolicy": {
+      "title": "《工业节能监察办法》及强制性能耗限额标准",
+      "issuer": "工业和信息化领域节能监管制度",
+      "source": "本通知正文引用",
+      "reason": "本通知的执法依据和能效核查口径来自既有节能监察制度与强制性能耗限额标准。"
+    },
+    "differencePolicy": {
+      "title": "2025年工业节能监察违规企业整改回头看",
+      "issuer": "各地工业和信息化主管部门",
+      "source": "本通知正文",
+      "reason": "当前文件把上一年度违规企业整改纳入2026年度任务，形成跨年度监管闭环。"
+    },
+    "similarPolicies": [
+      {
+        "title": "《工业节能监察办法》",
+        "issuer": "工业和信息化部",
+        "source": "政策正文依据",
+        "reason": "规定工业节能监察的基础制度框架。"
+      },
+      {
+        "title": "强制性能耗限额标准和重点用能设备能效标准",
+        "source": "政策正文依据",
+        "reason": "为行业企业和设备能效核查提供判定标准。"
+      }
+    ],
+    "contrastPolicies": [],
+    "similarityPoints": [
+      "仍以强制性能耗限额、设备能效标准和依法整改为基础。",
+      "仍由地方工信主管部门组织实施并向工信部报送年度情况。",
+      "仍强调规范涉企行政检查，避免重复检查和过度检查。"
+    ],
+    "differencePoints": [
+      "新能源装备重点产业链和算力设施被放入年度监察对象，覆盖面比传统高耗能行业更宽。",
+      "设备能效监察与行业监察联动，推动低效设备淘汰从单点设备监管进入产业检查场景。",
+      "监察结果被明确探索用于企业碳排放和产品碳足迹核算，数据价值从执法延伸到碳管理。",
+      "2026-2027年全覆盖和2026年电石法PVC全覆盖使执行节奏更清晰。"
+    ],
+    "rows": [
+      {
+        "id": "ci1",
+        "dimension": "覆盖对象",
+        "current": "钢铁、化工、有色、建材、算力设施以及新能源装备重点产业链均纳入。",
+        "similar": "延续以强制性能耗限额和能效标准为基础的监管逻辑。",
+        "different": "从高耗能行业扩展到战略性制造链条和算力基础设施。",
+        "clauseIds": [
+          "c1",
+          "c2"
+        ],
+        "evidenceIds": [
+          "e2",
+          "e3"
+        ]
+      },
+      {
+        "id": "ci2",
+        "dimension": "监管工具",
+        "current": "行业能效监察、产业链专项监察、重点设备监察和违规整改回头看并行。",
+        "similar": "仍以现场检查、材料核查和整改处理为主要抓手。",
+        "different": "设备淘汰、数字化填报和跨部门联合惩戒被组合使用。",
+        "clauseIds": [
+          "c3",
+          "c4",
+          "c5"
+        ],
+        "evidenceIds": [
+          "e4",
+          "e5",
+          "e6"
+        ]
+      },
+      {
+        "id": "ci3",
+        "dimension": "产业影响",
+        "current": "高耗能行业承担合规压力，节能设备和能碳管理服务获得需求线索。",
+        "similar": "节能监察通常会形成整改、设备更新和管理提升需求。",
+        "different": "本次把碳排放、产品碳足迹和数据共享纳入结果应用，产业影响更偏数字化和碳管理。",
+        "clauseIds": [
+          "c3",
+          "c5"
+        ],
+        "evidenceIds": [
+          "e4",
+          "e7"
+        ]
+      },
+      {
+        "id": "ci4",
+        "dimension": "公司映射",
+        "current": "政策没有点名公司，报告仅列代表性观察对象。",
+        "similar": "多数年度监察通知以行业和设备为对象，不直接生成上市公司名单。",
+        "different": "由于本次覆盖产业链更广，观察公司可从高耗能生产商扩展到新能源制造和节能设备供应商。",
+        "explanation": "公司影响应按间接证据处理，不能解释为确定性受益、处罚或订单。",
+        "clauseIds": [
+          "c1",
+          "c2",
+          "c3"
+        ],
+        "evidenceIds": [
+          "e2",
+          "e3",
+          "e4"
+        ]
+      }
+    ]
+  },
+  "analysisCoverage": {
+    "status": "complete_manual_official_text",
+    "textLength": 2141,
+    "clauseCount": 6,
+    "actionCount": 6,
+    "evidenceCount": 8,
+    "industryNodeCount": 6,
+    "companyCount": 8,
+    "matchedKeywordCount": 28,
+    "comparablePolicyCount": 2,
+    "companyImpactConclusion": "原文没有点名企业或上市公司，公司部分仅按政策明示行业、重点产业链和设备品类选取代表性观察对象，并全部降级为间接证据。",
+    "companyNoMatchReason": "",
+    "limitations": [
+      "未取得各地2026年度具体监察任务清单，无法确认单家公司是否被纳入检查。",
+      "政策未披露企业能耗水平、整改名单或设备采购计划，不能据此判断公司业绩影响。",
+      "公司映射未使用媒体解读，仅按官方文本明示行业与公开可识别业务进行代表性归类。",
+      "后续应跟踪各地工信部门任务公示、违规企业名单和年度总结。"
+    ]
+  },
+  "modules": [
+    {
+      "id": "brief",
+      "label": "政策总览"
+    },
+    {
+      "id": "industry",
+      "label": "产业链影响"
+    },
+    {
+      "id": "clauses",
+      "label": "条款解析"
+    },
+    {
+      "id": "background",
+      "label": "背景与边界"
+    },
+    {
+      "id": "compare",
+      "label": "对比分析"
+    },
+    {
+      "id": "companies",
+      "label": "公司影响"
+    },
+    {
+      "id": "evidence",
+      "label": "证据链"
+    }
+  ],
+  "topTabs": [
+    {
+      "id": "brief",
+      "label": "政策总览"
+    },
+    {
+      "id": "industry",
+      "label": "产业链"
+    },
+    {
+      "id": "companies",
+      "label": "公司影响"
+    },
+    {
+      "id": "evidence",
+      "label": "证据链"
+    }
+  ]
+}

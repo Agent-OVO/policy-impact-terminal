@@ -1,0 +1,1058 @@
+{
+  "id": "2d6943d5-1653-40d9-a148-a98aaf6fca82",
+  "policyId": "2d6943d5-1653-40d9-a148-a98aaf6fca82",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "generatedAt": "2026-05-14T00:35:00+08:00",
+  "summary": {
+    "id": "2d6943d5-1653-40d9-a148-a98aaf6fca82",
+    "title": "工业和信息化部办公厅关于公布2025年先进计算赋能新质生产力典型应用案例名单的通知",
+    "issuer": "工业和信息化部办公厅",
+    "source": "工业和信息化部 - 政策文件库",
+    "publishDate": "2026-05-13",
+    "status": "published",
+    "confidence": 90,
+    "industryCount": 5,
+    "companyCount": 8,
+    "evidenceCount": 7,
+    "primarySignal": "59项先进计算典型应用案例公布，地方支持重点转向技术创新、应用落地和政府服务",
+    "category": "先进计算与新质生产力示范应用"
+  },
+  "policy": {
+    "title": "工业和信息化部办公厅关于公布2025年先进计算赋能新质生产力典型应用案例名单的通知",
+    "status": "已发布",
+    "issuer": "工业和信息化部办公厅",
+    "publishDate": "2026-05-13",
+    "effectiveDate": "2026-05-07",
+    "source": "工业和信息化部 - 政策文件库",
+    "category": "先进计算与新质生产力示范应用",
+    "level": "部门办公厅通知",
+    "confidence": 90,
+    "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_3fae4da242454db483c0290173d1e101.html",
+    "jurisdiction": "中国",
+    "scope": "各省、自治区、直辖市及计划单列市、新疆生产建设兵团工业和信息化主管部门，以及附件列明的59项先进计算典型应用案例。",
+    "impactScope": "先进计算技术底座、智算集群、国产AI芯片和操作系统、行业智能化应用、智慧城市和政府服务、新兴领域计算应用，以及附件中被点名的申报单位。",
+    "tags": [
+      "先进计算",
+      "新质生产力",
+      "典型应用案例",
+      "人工智能",
+      "智算集群",
+      "行业智能化",
+      "规模化应用"
+    ]
+  },
+  "brief": {
+    "judgement": "这份通知不是强制监管文件，也没有直接安排财政资金、采购订单或项目补贴；它的政策含义在于通过工信部官方案例名单，把先进计算从单一算力建设叙事推进到技术底座、行业应用和新兴领域三类可复制场景。对公司影响最确定的是附件点名的申报单位获得示范案例背书；对产业影响则取决于地方能否在技术创新、应用落地和政府服务中推动这些成果规模化。",
+    "summary": "通知依据2025年典型案例征集工作，经地方推荐、专家评审、征求意见和网上公示后，公布59项先进计算赋能新质生产力典型应用案例，并要求各地结合实际，在技术创新、应用落地、政府服务等方面对入选案例加大支持力度。附件把案例分为计算技术底座、赋能行业发展、支撑新兴领域三部分。公司页面只列官方附件直接点名的代表性申报单位；入选不等于获得订单、补贴或排他性资格。",
+    "keyPoints": [
+      "核心事实来自附件名单，不只是网页正文；附件列明59项案例、案例名称、申报单位和推荐地区。",
+      "政策作用机制偏示范推广和地方服务支持，不是审批、罚则、补贴或采购目录。",
+      "计算技术底座案例覆盖AIOS、智算集群、智能网卡、大模型推理、国产TPU、量超融合和算力仓等方向。",
+      "行业应用覆盖汽车研发、危化安全、金融、医药、能源、医疗、水务、轨交、钢铁、油田、家电等场景。",
+      "公司影响需要区分附件直接点名和产业链间接相关，本报告只列附件中直接出现的代表性上市主体。"
+    ],
+    "methodology": "人工阅读工信部官方通知正文，并下载官方PDF附件进行文字抽取，按附件三大分类和申报单位整理产业链、公司和证据。未使用媒体解读，未把入选案例解释为补贴、订单或投资建议。"
+  },
+  "actions": [
+    {
+      "id": "a1",
+      "title": "公布59项先进计算典型应用案例",
+      "body": "政策经地方推荐、专家评审、征求意见和网上公示后，确定59项先进计算赋能新质生产力典型应用案例并予以公布。官方名单形成示范背书，但不等同于项目批复或资金安排。",
+      "signal": "positive",
+      "confidence": 94,
+      "clauseIds": [
+        "c1"
+      ],
+      "sortOrder": 1
+    },
+    {
+      "id": "a2",
+      "title": "要求地方对入选案例加大支持力度",
+      "body": "通知要求各地结合本地区实际，在技术创新、应用落地、政府服务等方面对入选案例加大支持力度，推动优秀成果规模化应用。政策传导主要依靠地方产业服务、场景开放和应用推广。",
+      "signal": "positive",
+      "confidence": 91,
+      "clauseIds": [
+        "c2"
+      ],
+      "sortOrder": 2
+    },
+    {
+      "id": "a3",
+      "title": "形成计算技术底座示范方向",
+      "body": "附件第一部分聚焦计算技术底座，涉及统信AIOS、蓝耘智算集群、翼华智能网卡、燧原万卡集群、上海电信AI Store、浪潮算力仓、中兴通讯和百度赋能南方电网等案例。底层软硬件、智算服务和国产计算架构是政策识别的重点。",
+      "signal": "positive",
+      "confidence": 89,
+      "clauseIds": [
+        "c3"
+      ],
+      "sortOrder": 3
+    },
+    {
+      "id": "a4",
+      "title": "推动先进计算进入行业生产和公共服务场景",
+      "body": "附件第二部分显示，案例覆盖车辆运维、危化安全、智慧城市、整车研发、贸易金融、医保基金、水务、轨交应急、钢铁转型、油田运维、冰箱研发等场景。先进计算的政策重点从算力供给延伸到行业流程重构。",
+      "signal": "positive",
+      "confidence": 88,
+      "clauseIds": [
+        "c4"
+      ],
+      "sortOrder": 4
+    },
+    {
+      "id": "a5",
+      "title": "支撑量子、地理孪生、生物制造、水利和交通等新兴领域",
+      "body": "附件第三部分包含跨境运输、量子经典混合智算、AI工业内窥镜、生物工业智造、玻璃数字孪生、露天矿无人驾驶、水利智能中枢、城轨大模型智能体等案例，显示先进计算正在向更垂直的新兴场景扩散。",
+      "signal": "positive",
+      "confidence": 87,
+      "clauseIds": [
+        "c5"
+      ],
+      "sortOrder": 5
+    },
+    {
+      "id": "a6",
+      "title": "明确示范名单的证据边界",
+      "body": "正文和附件没有列出补贴金额、采购规模、强制推广安排或资本开支计划。因此入选案例适合作为技术路线和场景验证信号，不应被解读为确定订单或业绩贡献。",
+      "signal": "neutral",
+      "confidence": 90,
+      "clauseIds": [
+        "c6"
+      ],
+      "sortOrder": 6
+    }
+  ],
+  "clauseGroups": [
+    {
+      "id": "g1",
+      "title": "公布机制",
+      "count": 2,
+      "tone": "blue"
+    },
+    {
+      "id": "g2",
+      "title": "案例方向",
+      "count": 3,
+      "tone": "green"
+    },
+    {
+      "id": "g3",
+      "title": "边界说明",
+      "count": 1,
+      "tone": "neutral"
+    }
+  ],
+  "clauses": [
+    {
+      "id": "c1",
+      "no": "正文第一段",
+      "title": "经推荐评审公示后确定59项案例",
+      "group": "g1",
+      "excerpt": "经各地工业和信息化主管部门推荐、专家评审、征求意见、网上公示，确定了59项先进计算赋能新质生产力典型应用案例。",
+      "fullText": "该条说明案例名单形成机制和官方确认属性，决定其政策价值是示范认可而不是单纯企业自报材料。",
+      "confidence": 95,
+      "keywords": [
+        "59项",
+        "典型应用案例",
+        "地方推荐",
+        "专家评审",
+        "网上公示"
+      ],
+      "industries": [
+        "先进计算",
+        "人工智能",
+        "智算服务"
+      ],
+      "sortOrder": 1
+    },
+    {
+      "id": "c2",
+      "no": "正文第二段",
+      "title": "地方支持聚焦技术创新、应用落地和政府服务",
+      "group": "g1",
+      "excerpt": "请各地结合本地区实际，在技术创新、应用落地、政府服务等方面对入选案例加大支持力度，推动优秀成果规模化应用。",
+      "fullText": "这是政策传导的核心动作。地方支持并不自动等于资金补贴，可能表现为场景开放、产业服务、供需对接、应用推广和政务服务便利。",
+      "confidence": 93,
+      "keywords": [
+        "技术创新",
+        "应用落地",
+        "政府服务",
+        "规模化应用"
+      ],
+      "industries": [
+        "产业服务",
+        "场景开放",
+        "示范推广"
+      ],
+      "sortOrder": 2
+    },
+    {
+      "id": "c3",
+      "no": "附件（一）",
+      "title": "计算技术底座包含AIOS、智算集群和国产计算架构",
+      "group": "g2",
+      "excerpt": "附件第一部分为计算技术底座，列有统信新一代AIOS、蓝耘智算集群、翼华智能网卡推理、燧原万卡集群、浪潮算力仓、中兴通讯和百度赋能南方电网等案例。",
+      "fullText": "计算技术底座是名单的第一类，强调操作系统、智算集群、智能网卡、国产TPU、算力中心、算力仓和AI Store等基础能力。",
+      "confidence": 91,
+      "keywords": [
+        "计算技术底座",
+        "AIOS",
+        "智算集群",
+        "国产TPU",
+        "算力仓"
+      ],
+      "industries": [
+        "AI基础设施",
+        "服务器",
+        "操作系统",
+        "智能网卡",
+        "智算中心"
+      ],
+      "sortOrder": 3
+    },
+    {
+      "id": "c4",
+      "no": "附件（二）",
+      "title": "赋能行业发展覆盖汽车、金融、能源、医疗、水务和工业制造",
+      "group": "g2",
+      "excerpt": "附件第二部分为赋能行业发展，包含长城汽车智能研发平台、信雅达智能贸易金融平台、神思电子智慧能源、澳柯玛冰箱研发等案例。",
+      "fullText": "该分类显示先进计算正在进入研发设计、生产排程、安全监管、金融风控、医保基金管理、智慧水务、轨道交通、钢铁转型和油田运维等业务流程。",
+      "confidence": 90,
+      "keywords": [
+        "赋能行业发展",
+        "汽车研发",
+        "金融智能体",
+        "智慧能源",
+        "智慧水务",
+        "家电研发"
+      ],
+      "industries": [
+        "汽车",
+        "金融科技",
+        "工业软件",
+        "医疗",
+        "能源",
+        "水务"
+      ],
+      "sortOrder": 4
+    },
+    {
+      "id": "c5",
+      "no": "附件（三）",
+      "title": "支撑新兴领域包含跨境运输、量子、生物制造、数字孪生和水利智能中枢",
+      "group": "g2",
+      "excerpt": "附件第三部分为支撑新兴领域，列有北方国际跨境运输、华恒生物AI赋能平台、中建材玻璃数字孪生、中移物联网水利智能中枢等案例。",
+      "fullText": "该分类将先进计算从已有产业流程扩展到跨境物流、量子计算、工业内窥镜、生物制造、矿山无人驾驶、地理孪生、水利中枢和城轨大模型智能体等新兴场景。",
+      "confidence": 89,
+      "keywords": [
+        "支撑新兴领域",
+        "跨境运输",
+        "量子计算",
+        "生物制造",
+        "数字孪生",
+        "水利智能中枢"
+      ],
+      "industries": [
+        "新兴技术应用",
+        "交通物流",
+        "生物制造",
+        "智慧水利",
+        "量子计算"
+      ],
+      "sortOrder": 5
+    },
+    {
+      "id": "c6",
+      "no": "全文边界",
+      "title": "通知未列资金、采购或强制推广条款",
+      "group": "g3",
+      "excerpt": "正文只要求地方从技术创新、应用落地、政府服务等方面加大支持力度，附件仅列案例名单。",
+      "fullText": "文本没有补贴标准、预算金额、采购清单、招标安排、强制替换要求或上市公司业绩承诺。因此应按示范推广政策分析，而不是按需求订单政策分析。",
+      "confidence": 92,
+      "keywords": [
+        "示范案例",
+        "支持力度",
+        "规模化应用",
+        "证据边界"
+      ],
+      "industries": [
+        "政策示范",
+        "产业推广",
+        "政府服务"
+      ],
+      "sortOrder": 6
+    }
+  ],
+  "chainNodes": [
+    {
+      "id": "n1",
+      "title": "先进计算技术底座",
+      "subtitle": "智算集群、AIOS、国产芯片、算力仓和AI Store成为基础能力示范",
+      "section": "upstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 90,
+      "description": "附件第一类集中展示计算基础设施、国产计算架构、智算服务平台和大模型推理能力。入选案例有助于相关技术路线获得地方推广和场景合作机会。",
+      "impactReason": "附件直接列入计算技术底座分类及相关申报单位。",
+      "clauseIds": [
+        "c3"
+      ],
+      "companyIds": [
+        "co1",
+        "co2"
+      ],
+      "evidenceIds": [
+        "e4"
+      ],
+      "iconKey": "server"
+    },
+    {
+      "id": "n2",
+      "title": "行业智能化应用",
+      "subtitle": "先进计算进入汽车、金融、医疗、能源、水务、交通和制造流程",
+      "section": "midstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 89,
+      "description": "附件第二类显示先进计算的主战场不只是算力建设，而是研发设计、运维、安全、金融、医疗、能源和工业制造流程重构。入选企业的确定性来自名单点名，商业化弹性取决于后续复制推广。",
+      "impactReason": "附件直接列入行业发展案例和申报单位。",
+      "clauseIds": [
+        "c4"
+      ],
+      "companyIds": [
+        "co3",
+        "co4",
+        "co5",
+        "co6"
+      ],
+      "evidenceIds": [
+        "e5"
+      ],
+      "iconKey": "workflow"
+    },
+    {
+      "id": "n3",
+      "title": "国产化与自主可控计算",
+      "subtitle": "案例名单把国产AI芯片、国产计算架构和全栈国产化场景作为重要方向",
+      "section": "upstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 86,
+      "description": "附件出现国产TPU、国产计算架构、全栈国产化智慧医院、智算自主可控等表述，说明先进计算示范与自主可控技术路线结合紧密。",
+      "impactReason": "该节点由附件多个案例名称和分类归纳得出。",
+      "clauseIds": [
+        "c3",
+        "c4"
+      ],
+      "companyIds": [
+        "co1",
+        "co2"
+      ],
+      "evidenceIds": [
+        "e4",
+        "e5"
+      ],
+      "iconKey": "cpu"
+    },
+    {
+      "id": "n4",
+      "title": "地方场景开放和政府服务",
+      "subtitle": "政策要求地方在应用落地和政府服务方面支持入选案例",
+      "section": "support",
+      "relation": "direct",
+      "evidenceLevel": "strong",
+      "confidence": 84,
+      "description": "通知本身并不直接安排项目，而是把地方支持作为规模化应用的执行抓手。地方政府、园区、国企和公共服务场景的开放程度，将决定案例从示范走向复制的速度。",
+      "impactReason": "正文明确要求各地结合实际加大支持力度。",
+      "clauseIds": [
+        "c2",
+        "c6"
+      ],
+      "companyIds": [],
+      "evidenceIds": [
+        "e3"
+      ],
+      "iconKey": "landmark"
+    },
+    {
+      "id": "n5",
+      "title": "新兴领域先进计算应用",
+      "subtitle": "跨境运输、量子、生物制造、数字孪生、水利和城轨场景获得官方示范认可",
+      "section": "downstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 87,
+      "description": "附件第三类把先进计算扩展到更垂直的新兴场景，强调从技术验证进入真实业务流程。对被点名企业，政策意义是案例背书和后续地方推广线索。",
+      "impactReason": "附件第三类直接列示支撑新兴领域案例及申报单位。",
+      "clauseIds": [
+        "c5"
+      ],
+      "companyIds": [
+        "co7",
+        "co8"
+      ],
+      "evidenceIds": [
+        "e6"
+      ],
+      "iconKey": "sparkles"
+    }
+  ],
+  "chainEdges": [
+    {
+      "from": "n1",
+      "to": "n2",
+      "type": "strong",
+      "confidence": 82,
+      "reason": "计算技术底座的价值需要通过行业智能化应用释放，附件分类本身体现从底座到行业场景的传导。"
+    },
+    {
+      "from": "n1",
+      "to": "n3",
+      "type": "medium",
+      "confidence": 78,
+      "reason": "国产计算架构、自主可控和智算集群是技术底座案例中的重要线索。"
+    },
+    {
+      "from": "n4",
+      "to": "n2",
+      "type": "medium",
+      "confidence": 76,
+      "reason": "地方应用落地和政府服务支持会影响行业案例规模化复制。"
+    },
+    {
+      "from": "n2",
+      "to": "n5",
+      "type": "weak",
+      "confidence": 70,
+      "reason": "成熟行业应用经验可能向跨境运输、生物制造、水利、交通等新兴场景迁移，但需要具体项目验证。"
+    }
+  ],
+  "companies": [
+    {
+      "id": "co1",
+      "name": "浪潮电子信息产业股份有限公司",
+      "ticker": "000977.SZ",
+      "exchange": "深交所",
+      "platform": "服务器与算力基础设施",
+      "status": "附件直接点名申报单位",
+      "section": "upstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 86,
+      "policyRelevance": 88,
+      "evidenceCertainty": 86,
+      "evidenceCount": 1,
+      "products": [
+        "算力基础设施",
+        "服务器",
+        "智算中心"
+      ],
+      "nodeIds": [
+        "n1",
+        "n3"
+      ],
+      "clauseIds": [
+        "c3"
+      ],
+      "evidenceIds": [
+        "e4"
+      ],
+      "reason": "附件计算技术底座部分列有浪潮电子信息产业股份有限公司申报的基于高密度智算中心的算力仓典型应用案例。",
+      "uncertainty": "入选案例代表示范认可，不等于新增采购订单或收入确认。"
+    },
+    {
+      "id": "co2",
+      "name": "中兴通讯股份有限公司",
+      "ticker": "000063.SZ / 00763.HK",
+      "exchange": "深交所 / 港交所",
+      "platform": "通信设备与智算基础设施",
+      "status": "附件直接点名申报单位",
+      "section": "upstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 85,
+      "policyRelevance": 87,
+      "evidenceCertainty": 85,
+      "evidenceCount": 1,
+      "products": [
+        "通信设备",
+        "智算基础设施",
+        "自主可控算力"
+      ],
+      "nodeIds": [
+        "n1",
+        "n3"
+      ],
+      "clauseIds": [
+        "c3"
+      ],
+      "evidenceIds": [
+        "e4"
+      ],
+      "reason": "附件计算技术底座部分列有中兴通讯股份有限公司相关的智算自主可控、能源质效双升案例。",
+      "uncertainty": "官方名单没有披露商业合同规模，影响应理解为技术和场景背书。"
+    },
+    {
+      "id": "co3",
+      "name": "长城汽车股份有限公司",
+      "ticker": "601633.SH / 02333.HK",
+      "exchange": "上交所 / 港交所",
+      "platform": "整车与智能研发",
+      "status": "附件直接点名申报单位",
+      "section": "midstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 84,
+      "policyRelevance": 86,
+      "evidenceCertainty": 84,
+      "evidenceCount": 1,
+      "products": [
+        "整车研发",
+        "智能研发平台",
+        "汽车零部件研发"
+      ],
+      "nodeIds": [
+        "n2"
+      ],
+      "clauseIds": [
+        "c4"
+      ],
+      "evidenceIds": [
+        "e5"
+      ],
+      "reason": "附件赋能行业发展部分列有长城汽车“如影”智能研发平台，场景为先进计算技术赋能整车及零部件研发。",
+      "uncertainty": "案例入选不直接改变汽车销售或研发费用，应作为研发数字化能力信号。"
+    },
+    {
+      "id": "co4",
+      "name": "信雅达科技股份有限公司",
+      "ticker": "600571.SH",
+      "exchange": "上交所",
+      "platform": "金融科技与智能平台",
+      "status": "附件直接点名申报单位",
+      "section": "midstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 83,
+      "policyRelevance": 85,
+      "evidenceCertainty": 83,
+      "evidenceCount": 1,
+      "products": [
+        "贸易金融平台",
+        "知识推理",
+        "金融科技"
+      ],
+      "nodeIds": [
+        "n2"
+      ],
+      "clauseIds": [
+        "c4"
+      ],
+      "evidenceIds": [
+        "e5"
+      ],
+      "reason": "附件赋能行业发展部分列有信雅达科技股份有限公司申报的基于大小模型联动与知识推理增强的智能贸易金融平台。",
+      "uncertainty": "政策只确认案例名单，没有明确银行客户扩容或采购安排。"
+    },
+    {
+      "id": "co5",
+      "name": "神思电子技术股份有限公司",
+      "ticker": "300479.SZ",
+      "exchange": "深交所",
+      "platform": "智慧能源与人工智能应用",
+      "status": "附件直接点名申报单位",
+      "section": "midstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 82,
+      "policyRelevance": 84,
+      "evidenceCertainty": 82,
+      "evidenceCount": 1,
+      "products": [
+        "智慧能源",
+        "AI应用",
+        "低碳管理"
+      ],
+      "nodeIds": [
+        "n2"
+      ],
+      "clauseIds": [
+        "c4"
+      ],
+      "evidenceIds": [
+        "e5"
+      ],
+      "reason": "附件赋能行业发展部分列有神思电子技术股份有限公司申报的先进计算赋能安全低碳智慧能源新范式案例。",
+      "uncertainty": "名单没有披露具体项目收入，后续需跟踪公司公告和地方推广。"
+    },
+    {
+      "id": "co6",
+      "name": "澳柯玛股份有限公司",
+      "ticker": "600336.SH",
+      "exchange": "上交所",
+      "platform": "家电研发与制造",
+      "status": "附件直接点名申报单位",
+      "section": "midstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 82,
+      "policyRelevance": 84,
+      "evidenceCertainty": 82,
+      "evidenceCount": 1,
+      "products": [
+        "冰箱",
+        "家电研发",
+        "数智化仿真"
+      ],
+      "nodeIds": [
+        "n2"
+      ],
+      "clauseIds": [
+        "c4"
+      ],
+      "evidenceIds": [
+        "e5"
+      ],
+      "reason": "附件赋能行业发展部分列有澳柯玛股份有限公司申报的基于多物理场精准数智化仿真的新一代家用冰箱研发及应用。",
+      "uncertainty": "政策没有涉及终端产品补贴或销售目标，影响主要体现为研发能力示范。"
+    },
+    {
+      "id": "co7",
+      "name": "北方国际合作股份有限公司",
+      "ticker": "000065.SZ",
+      "exchange": "深交所",
+      "platform": "国际工程与跨境运输",
+      "status": "附件直接点名申报单位",
+      "section": "downstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 82,
+      "policyRelevance": 84,
+      "evidenceCertainty": 82,
+      "evidenceCount": 1,
+      "products": [
+        "跨境运输",
+        "国际工程",
+        "数智物流"
+      ],
+      "nodeIds": [
+        "n5"
+      ],
+      "clauseIds": [
+        "c5"
+      ],
+      "evidenceIds": [
+        "e6"
+      ],
+      "reason": "附件支撑新兴领域部分列有北方国际合作股份有限公司申报的数智赋能中蒙跨境运输案例。",
+      "uncertainty": "示范案例不等于跨境运输业务新增合同，需结合后续项目公告验证。"
+    },
+    {
+      "id": "co8",
+      "name": "安徽华恒生物科技股份有限公司",
+      "ticker": "688639.SH",
+      "exchange": "上交所科创板",
+      "platform": "生物制造",
+      "status": "附件直接点名申报单位",
+      "section": "downstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 82,
+      "policyRelevance": 84,
+      "evidenceCertainty": 82,
+      "evidenceCount": 1,
+      "products": [
+        "生物制造",
+        "分子设计",
+        "AI赋能平台"
+      ],
+      "nodeIds": [
+        "n5"
+      ],
+      "clauseIds": [
+        "c5"
+      ],
+      "evidenceIds": [
+        "e6"
+      ],
+      "reason": "附件支撑新兴领域部分列有安徽华恒生物科技股份有限公司申报的从分子设计到生物工业智造的全链条AI赋能平台。",
+      "uncertainty": "政策没有提供项目金额或客户清单，应视为技术示范和场景推广信号。"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "e1",
+      "title": "工信部发布先进计算典型应用案例名单通知",
+      "source": "工业和信息化部",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_3fae4da242454db483c0290173d1e101.html",
+      "url": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_3fae4da242454db483c0290173d1e101.html",
+      "type": "policy_text",
+      "date": "2026-05-13",
+      "excerpt": "发文字号为工信厅电子函〔2026〕209号，成文日期为2026年5月7日，发布日期为2026年5月13日。",
+      "confidence": 96,
+      "clauseIds": [
+        "c1"
+      ],
+      "nodeIds": [
+        "n4"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e2",
+      "title": "59项案例形成机制",
+      "source": "工业和信息化部通知正文",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_3fae4da242454db483c0290173d1e101.html",
+      "url": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_3fae4da242454db483c0290173d1e101.html",
+      "type": "policy_text",
+      "date": "2026-05-13",
+      "excerpt": "经各地工业和信息化主管部门推荐、专家评审、征求意见、网上公示，确定59项先进计算赋能新质生产力典型应用案例。",
+      "confidence": 95,
+      "clauseIds": [
+        "c1"
+      ],
+      "nodeIds": [
+        "n1",
+        "n2",
+        "n5"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e3",
+      "title": "地方支持和规模化应用要求",
+      "source": "工业和信息化部通知正文",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_3fae4da242454db483c0290173d1e101.html",
+      "url": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_3fae4da242454db483c0290173d1e101.html",
+      "type": "policy_text",
+      "date": "2026-05-13",
+      "excerpt": "各地需在技术创新、应用落地、政府服务等方面对入选案例加大支持力度，推动优秀成果规模化应用。",
+      "confidence": 93,
+      "clauseIds": [
+        "c2",
+        "c6"
+      ],
+      "nodeIds": [
+        "n4"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e4",
+      "title": "附件计算技术底座代表案例",
+      "source": "工信部官方PDF附件",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/a48beae1cbd34bd5addc764621951b61.pdf",
+      "url": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/a48beae1cbd34bd5addc764621951b61.pdf",
+      "type": "official_attachment",
+      "date": "2026-05-13",
+      "excerpt": "附件计算技术底座部分列有浪潮电子信息产业股份有限公司的算力仓典型应用案例、中兴通讯股份有限公司相关智算自主可控案例等。",
+      "confidence": 91,
+      "clauseIds": [
+        "c3"
+      ],
+      "nodeIds": [
+        "n1",
+        "n3"
+      ],
+      "companyIds": [
+        "co1",
+        "co2"
+      ]
+    },
+    {
+      "id": "e5",
+      "title": "附件赋能行业发展代表案例",
+      "source": "工信部官方PDF附件",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/a48beae1cbd34bd5addc764621951b61.pdf",
+      "url": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/a48beae1cbd34bd5addc764621951b61.pdf",
+      "type": "official_attachment",
+      "date": "2026-05-13",
+      "excerpt": "附件赋能行业发展部分列有长城汽车智能研发平台、信雅达智能贸易金融平台、神思电子智慧能源、澳柯玛家用冰箱研发等案例。",
+      "confidence": 90,
+      "clauseIds": [
+        "c4"
+      ],
+      "nodeIds": [
+        "n2",
+        "n3"
+      ],
+      "companyIds": [
+        "co3",
+        "co4",
+        "co5",
+        "co6"
+      ]
+    },
+    {
+      "id": "e6",
+      "title": "附件支撑新兴领域代表案例",
+      "source": "工信部官方PDF附件",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/a48beae1cbd34bd5addc764621951b61.pdf",
+      "url": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/a48beae1cbd34bd5addc764621951b61.pdf",
+      "type": "official_attachment",
+      "date": "2026-05-13",
+      "excerpt": "附件支撑新兴领域部分列有北方国际中蒙跨境运输、安徽华恒生物全链条AI赋能平台等案例。",
+      "confidence": 89,
+      "clauseIds": [
+        "c5"
+      ],
+      "nodeIds": [
+        "n5"
+      ],
+      "companyIds": [
+        "co7",
+        "co8"
+      ]
+    },
+    {
+      "id": "e7",
+      "title": "官方附件为名单分析的核心依据",
+      "source": "工信部官方PDF附件",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/a48beae1cbd34bd5addc764621951b61.pdf",
+      "url": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/a48beae1cbd34bd5addc764621951b61.pdf",
+      "type": "official_attachment",
+      "date": "2026-05-13",
+      "excerpt": "附件标题为2025年先进计算赋能新质生产力典型应用案例名单，列明案例名称、申报单位和推荐地区。",
+      "confidence": 92,
+      "clauseIds": [
+        "c3",
+        "c4",
+        "c5",
+        "c6"
+      ],
+      "nodeIds": [
+        "n1",
+        "n2",
+        "n5"
+      ],
+      "companyIds": []
+    }
+  ],
+  "backgroundCards": [
+    {
+      "id": "b1",
+      "title": "政策性质",
+      "body": "本文件是典型应用案例名单公布通知，主要发挥示范认可和推广引导作用，不是强制监管、资金补贴或采购目录。",
+      "evidenceIds": [
+        "e1",
+        "e2",
+        "e3"
+      ]
+    },
+    {
+      "id": "b2",
+      "title": "名单结构",
+      "body": "附件把59项案例分为计算技术底座、赋能行业发展、支撑新兴领域三类，说明政策希望先进计算同时服务底层技术能力和真实行业流程。",
+      "evidenceIds": [
+        "e4",
+        "e5",
+        "e6",
+        "e7"
+      ]
+    },
+    {
+      "id": "b3",
+      "title": "公司映射边界",
+      "body": "公司页只列附件直接点名且可识别的代表性上市申报单位。入选名单不等于项目中标、财政资金或业绩承诺。",
+      "evidenceIds": [
+        "e4",
+        "e5",
+        "e6"
+      ]
+    },
+    {
+      "id": "b4",
+      "title": "后续观察点",
+      "body": "后续应跟踪地方工信部门是否发布配套支持、场景开放、供需对接、示范推广活动，以及入选企业是否公告相关项目落地。",
+      "evidenceIds": [
+        "e3"
+      ]
+    }
+  ],
+  "compareRows": [
+    {
+      "id": "cr1",
+      "dimension": "文件阶段",
+      "values": [
+        "当前文件是案例名单公布阶段。",
+        "前置文件是典型案例征集工作通知。",
+        "差异在于当前已经形成59项官方名单，可用于后续推广。"
+      ]
+    },
+    {
+      "id": "cr2",
+      "dimension": "政策工具",
+      "values": [
+        "当前工具是示范认可和地方推广。",
+        "并非审批、补贴、罚则或采购。",
+        "差异在于影响更多体现在产业声誉、场景复制和地方服务。"
+      ]
+    }
+  ],
+  "compareInsights": {
+    "status": "official_text_with_attachment_list",
+    "basis": "以正文引用的《工业和信息化部办公厅关于集中组织开展典型案例征集工作的通知》（工信厅办函〔2025〕476号）和本次公布名单作比较。",
+    "method": "人工阅读通知正文和官方PDF附件，按文件阶段、政策工具、产业范围和公司证据边界比较。",
+    "comparableCount": 1,
+    "similarPolicy": {
+      "title": "工业和信息化部办公厅关于集中组织开展典型案例征集工作的通知",
+      "issuer": "工业和信息化部办公厅",
+      "source": "本通知正文引用",
+      "reason": "本次名单公布以该征集通知为前置依据。"
+    },
+    "differencePolicy": null,
+    "similarPolicies": [
+      {
+        "title": "工信厅办函〔2025〕476号典型案例征集通知",
+        "issuer": "工业和信息化部办公厅",
+        "source": "本通知正文引用",
+        "reason": "解释本次名单形成的前置流程。"
+      }
+    ],
+    "contrastPolicies": [],
+    "similarityPoints": [
+      "均围绕先进计算赋能新质生产力和典型案例组织展开。",
+      "均依赖地方工业和信息化主管部门推荐或支持。",
+      "政策目标均指向技术创新、应用落地和优秀成果推广。"
+    ],
+    "differencePoints": [
+      "征集阶段强调申报和遴选，本文件已经公布59项入选名单。",
+      "本文件的关键新增信息在附件，包含案例名称、申报单位和推荐地区。",
+      "本文件提出地方要对入选案例加大支持力度，政策从筛选进入推广阶段。",
+      "文件没有新增补贴、采购或监管罚则，影响应按示范推广而非订单政策理解。"
+    ],
+    "rows": [
+      {
+        "id": "ci1",
+        "dimension": "文件阶段",
+        "current": "公布59项先进计算赋能新质生产力典型应用案例名单。",
+        "similar": "前置征集通知同样服务于典型案例组织工作。",
+        "different": "当前已经从征集评审进入官方名单发布和推广阶段。",
+        "clauseIds": [
+          "c1"
+        ],
+        "evidenceIds": [
+          "e2"
+        ]
+      },
+      {
+        "id": "ci2",
+        "dimension": "产业范围",
+        "current": "附件分为计算技术底座、赋能行业发展、支撑新兴领域三类。",
+        "similar": "仍围绕先进计算与新质生产力展开。",
+        "different": "当前名单提供了具体场景和申报单位，可观察底座到行业应用的传导路径。",
+        "clauseIds": [
+          "c3",
+          "c4",
+          "c5"
+        ],
+        "evidenceIds": [
+          "e4",
+          "e5",
+          "e6"
+        ]
+      },
+      {
+        "id": "ci3",
+        "dimension": "地方作用",
+        "current": "要求各地在技术创新、应用落地、政府服务方面支持入选案例。",
+        "similar": "地方工信部门仍是组织和推广的重要节点。",
+        "different": "地方职责从推荐案例延伸到支持规模化应用。",
+        "clauseIds": [
+          "c2"
+        ],
+        "evidenceIds": [
+          "e3"
+        ]
+      },
+      {
+        "id": "ci4",
+        "dimension": "公司含义",
+        "current": "附件直接列出申报单位，部分上市公司可被明确识别为入选案例申报主体。",
+        "similar": "典型案例政策通常给企业带来示范背书。",
+        "different": "本文件未承诺资金、采购或订单，因此公司影响应限定为示范认可和推广线索。",
+        "explanation": "公司页的强证据来自附件点名，不来自产业链联想。",
+        "clauseIds": [
+          "c3",
+          "c4",
+          "c5",
+          "c6"
+        ],
+        "evidenceIds": [
+          "e4",
+          "e5",
+          "e6",
+          "e7"
+        ]
+      }
+    ]
+  },
+  "analysisCoverage": {
+    "status": "complete_manual_official_text_and_pdf_attachment",
+    "textLength": 584,
+    "attachmentReview": "已下载并抽取工信部官方PDF附件，附件列明59项案例名称、申报单位和推荐地区。",
+    "clauseCount": 6,
+    "actionCount": 6,
+    "evidenceCount": 7,
+    "industryNodeCount": 5,
+    "companyCount": 8,
+    "matchedKeywordCount": 24,
+    "comparablePolicyCount": 1,
+    "companyImpactConclusion": "本报告只列附件直接点名且可识别的代表性上市申报单位；未直接出现在附件中的公司不纳入公司页，避免把产业链联想写成公司影响。",
+    "companyNoMatchReason": "",
+    "limitations": [
+      "附件为案例名单而非项目合同，未披露金额、客户、收入、利润或实施周期。",
+      "部分申报单位为非上市公司、事业单位、地方国企或上市公司子公司，本报告只选取可较清晰识别的代表性上市主体。",
+      "地方支持方式尚未细化，需跟踪各地工信部门后续配套政策和企业公告。",
+      "案例入选不能直接解释为市场份额提升或订单落地。"
+    ]
+  },
+  "modules": [
+    {
+      "id": "brief",
+      "label": "政策总览"
+    },
+    {
+      "id": "industry",
+      "label": "产业链影响"
+    },
+    {
+      "id": "clauses",
+      "label": "条款解析"
+    },
+    {
+      "id": "background",
+      "label": "背景与边界"
+    },
+    {
+      "id": "compare",
+      "label": "对比分析"
+    },
+    {
+      "id": "companies",
+      "label": "公司影响"
+    },
+    {
+      "id": "evidence",
+      "label": "证据链"
+    }
+  ],
+  "topTabs": [
+    {
+      "id": "brief",
+      "label": "政策总览"
+    },
+    {
+      "id": "industry",
+      "label": "产业链"
+    },
+    {
+      "id": "companies",
+      "label": "公司影响"
+    },
+    {
+      "id": "evidence",
+      "label": "证据链"
+    }
+  ]
+}
