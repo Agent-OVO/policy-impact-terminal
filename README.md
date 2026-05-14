@@ -7,7 +7,7 @@
 - 登录/注册壳，支持本地演示登录
 - 登录后的政策列表工作台，可查看已发布报表和后台处理状态
 - 普通用户只读使用，不能创建新的政策分析任务
-- GitHub Actions 定时抓取 2026-05-01 以后政策原文并入库；分析由 Codex 对话手动触发并写回发布
+- GitHub Actions 定时抓取 2026-05-01 以后政策原文并入库；分析结果经人工审核后写回发布
 - 政策速读、政策条款、政策背景、对比分析、产业链影响、公司影响分析、证据总览
 - 可点击产业链影响图，右侧节点详情联动
 - 代表性公司影响卡片、影响矩阵、公司详情
@@ -82,9 +82,9 @@ npm run crawl:sources -- --ingest
 
 注意：`SUPABASE_ACCESS_TOKEN` 必须是管理员用户 JWT，不能使用 service role key。抓取流程只入库政策原文，不写回 `reportPayload`；普通用户不能通过前端或 Edge Function 创建任务。
 
-## Codex 手动政策分析
+## 人工审核政策分析
 
-定时抓取完成后，由 Codex 对话手动触发分析。`scripts/manual-policy-analysis.mjs` 通过 `analyze` Edge Function 完成待分析列表、全文读取和人工分析结果写回：
+定时抓取完成后，由授权分析流程读取政策原文并写回审核后的结构化报告。`scripts/manual-policy-analysis.mjs` 通过 `analyze` Edge Function 完成待分析列表、全文读取和人工分析结果写回：
 
 ```powershell
 npm run manual:policies -- list --limit=10
@@ -92,8 +92,8 @@ npm run manual:policies -- get --policyId=<policy-uuid>
 npm run manual:policies -- apply --policyId=<policy-uuid> --file=artifacts/manual-report-payload.json
 ```
 
-- `list` 默认只列出 `publish_date >= 2026-05-01` 且尚未完成 `codex-manual-v1` 分析的政策。
-- `get` 返回政策元数据和 `policies.full_text`，供 Codex 在对话中完成分析。
+- `list` 默认只列出 `publish_date >= 2026-05-01` 且尚未完成当前人工审核分析版本的政策。
+- `get` 返回政策元数据和 `policies.full_text`，供授权分析流程读取原文并形成结构化报告。
 - `apply` 写回手动整理的 `reportPayload`，把政策标记为 `published`，前端随后只展示这些已发布分析。
 - 如果本地没有 Supabase 函数密钥，可把审核后的 JSON 放在 `manual-reports/*.json`，然后手动触发 `.github/workflows/apply-manual-analysis.yml` 写回。
 
@@ -105,7 +105,7 @@ GitHub Pages 只负责托管静态前端。政策抓取通过 GitHub Actions 定
 - 周六、周日按北京时间每 12 小时运行一次，分别在 00:00 和 12:00。
 - 每次运行 `scripts/crawl-policy-sources.mjs --ingest`，抓取 2026-05-01 以后政策原文并写入 Supabase。
 - 前端部署工作流在 `.github/workflows/deploy-pages.yml`。GitHub Pages 的发布源应设置为 GitHub Actions。
-- 报告分析不由 GitHub Actions 定时执行；由 Codex 对话运行 `npm run manual:policies -- list/get/apply` 完成读取、分析和写回。
+- 报告分析不由 GitHub Actions 定时执行；由授权分析流程运行 `npm run manual:policies -- list/get/apply` 完成读取、分析和写回。
 
 GitHub 仓库需要配置 Actions Secrets：
 

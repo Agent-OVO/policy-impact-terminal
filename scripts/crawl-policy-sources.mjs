@@ -57,7 +57,7 @@ const collected = [];
 const errors = [];
 
 if (args.autoPublishRequested) {
-  throw new Error("--auto-publish is disabled. The crawler only ingests original policy text; Codex manual analysis must publish reports.");
+  throw new Error("--auto-publish is disabled. The crawler only ingests original policy text; reviewed manual analysis must publish reports.");
 }
 
 for (const source of selectedSources) {
@@ -156,7 +156,7 @@ Options:
   --out=<path>                JSON output path. Default: artifacts/policy-candidates.json.
   --include-interpretations   Keep policy interpretation pages.
   --ingest                    Call Supabase Edge Function ingest for unique candidates.
-  --auto-publish              Disabled. Use Codex manual analysis after ingest.
+  --auto-publish              Disabled. Use reviewed manual analysis after ingest.
   --preflight                 Verify Supabase function auth, crawler owner, and source seed.
 
 Ingest environment:

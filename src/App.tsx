@@ -962,7 +962,7 @@ function TopBar({
           {noticeOpen && (
             <div className="top-popover notice-popover">
               <strong>系统通知</strong>
-              <p>当前为只读工作台。政策由后台定时抓取，分析由 Codex 手动审核后发布。</p>
+              <p>当前为只读工作台。政策由后台定时抓取，分析结果经人工审核后发布。</p>
               <p>暂无新的个人通知。</p>
             </div>
           )}
@@ -1420,7 +1420,7 @@ function BriefView({
   const officialPublishDisplay = formatPolicyOfficialPublish(currentPolicy);
   const impactScope = inferPolicyScope(currentPolicy);
   const policyTags = getPolicyTags(currentPolicy);
-  const quickTake = report?.brief?.judgement ?? "该政策尚未完成人工大模型归纳，请在待分析队列中触发 Codex 分析后查看。";
+  const quickTake = report?.brief?.judgement ?? "该政策尚未完成结构化归纳，请等待后台分析流程完成后查看。";
   const quickItems = report?.brief?.keyPoints?.length
     ? report.brief.keyPoints
     : currentClauses.length
@@ -3402,7 +3402,7 @@ function PolicyListView({
           <div>
             <span className="status-badge blue">定时抓取入库</span>
             <h2>已爬取但未分析的政策</h2>
-            <p>这里展示抓取任务已入库、但尚未完成 Codex 手动分析与发布的政策。普通用户只能查看清单，不能创建分析任务。</p>
+            <p>这里展示抓取任务已入库、但尚未完成人工审核分析与发布的政策。普通用户只能查看清单，不能创建分析任务。</p>
           </div>
           <div className="pending-policy-count">
             <strong>{pendingPolicies.total}</strong>
@@ -3489,7 +3489,7 @@ function PolicyListView({
         <div className="panel-head">
           <div>
             <h2>后台运行状态</h2>
-            <p>政策由后台定时抓取，分析由 Codex 手动审核后发布。普通用户只查看已发布报表，不能创建新的政策分析任务。</p>
+            <p>政策由后台定时抓取，分析结果经人工审核后发布。普通用户只查看已发布报表，不能创建新的政策分析任务。</p>
           </div>
         </div>
         <div className="job-list">

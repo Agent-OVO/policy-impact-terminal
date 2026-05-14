@@ -183,7 +183,7 @@ const FALLBACK_ISSUER = "未知机构";
 const FALLBACK_SOURCE = "未知来源";
 const FALLBACK_POLICY_TITLE = "未命名政策";
 const FALLBACK_SOURCE_NAME = "手动提交";
-const QUEUED_STEP = "政策原文已入库，等待 Codex 手动分析";
+const QUEUED_STEP = "政策原文已入库，等待人工审核分析";
 const POLICY_MIN_PUBLISH_DATE = "2026-05-01";
 const MANUAL_ANALYSIS_VERSION = "codex-manual-v1";
 const PENDING_POLICY_LIMIT = 20;
@@ -502,7 +502,7 @@ const supabaseReportRepository: ReportRepository = {
     }
 
     if (row.analysis_version !== MANUAL_ANALYSIS_VERSION) {
-      throw new ReportRepositoryError("getPolicyReport", `Report "${reportId}" has not completed Codex manual analysis.`);
+      throw new ReportRepositoryError("getPolicyReport", `Report "${reportId}" has not completed manual review analysis.`);
     }
 
     const metadata = isJsonRecord(row.metadata) ? row.metadata : {};
