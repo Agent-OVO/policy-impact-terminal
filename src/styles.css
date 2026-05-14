@@ -573,6 +573,13 @@ input:focus-visible {
   font-weight: 800;
 }
 
+.user-chip span {
+  max-width: 152px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .top-popover {
   position: absolute;
   top: calc(100% + 10px);
@@ -588,6 +595,25 @@ input:focus-visible {
 
 .profile-popover {
   right: 42px;
+}
+
+.avatar-upload-input {
+  display: none;
+}
+
+.profile-avatar-actions {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.profile-avatar-actions button {
+  margin-top: 0;
+}
+
+.profile-avatar-message {
+  color: var(--blue) !important;
+  font-weight: 800;
 }
 
 .top-popover strong {
@@ -643,6 +669,20 @@ input:focus-visible {
   color: #fff;
   font-size: 13px;
   font-weight: 900;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+
+.avatar.has-image {
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgba(198, 209, 255, 0.72);
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
 }
 
 .workspace {
@@ -5916,7 +5956,8 @@ a.text-button {
   }
 
   .user-chip span {
-    display: none;
+    display: inline-block;
+    max-width: 96px;
   }
 
   .workspace {
@@ -6657,6 +6698,16 @@ a.text-button {
 
   .top-actions {
     gap: 6px;
+  }
+
+  .user-chip {
+    gap: 6px;
+    padding-inline: 8px;
+  }
+
+  .user-chip span {
+    max-width: 72px;
+    font-size: 12px;
   }
 
   .icon-button {

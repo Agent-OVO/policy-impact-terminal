@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { KeyboardEvent, ReactNode } from "react";
+import type { ChangeEvent, KeyboardEvent, ReactNode } from "react";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
 import {
   AlertCircle,
@@ -33,6 +33,8 @@ import {
   Search,
   ShieldCheck,
   Sparkles,
+  Trash2,
+  Upload,
   UserRound,
   X
 } from "lucide-react";
@@ -121,6 +123,7 @@ type SessionUser = {
   id?: string;
   email: string;
   name: string;
+  avatarUrl?: string;
 };
 
 type AppView = "list" | "report" | "adminAnalytics";
@@ -160,6 +163,51 @@ type RelatedTimelineItem = {
 
 function cx(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(" ");
+}
+
+const STORED_USER_KEY = "policy-terminal-user";
+const AVATAR_STORAGE_PREFIX = "policy-terminal-avatar:";
+
+function getUserStorageIdentity(user: SessionUser) {
+  return (user.id || user.email || user.name || "anonymous").trim();
+}
+
+function getAvatarStorageKey(user: SessionUser) {
+  return `${AVATAR_STORAGE_PREFIX}${getUserStorageIdentity(user)}`;
+}
+
+function readStoredAvatarUrl(user: SessionUser): string {
+  try {
+    return window.localStorage.getItem(getAvatarStorageKey(user)) || "";
+  } catch {
+    return "";
+  }
+}
+
+function persistStoredAvatarUrl(user: SessionUser, avatarUrl?: string) {
+  try {
+    const storageKey = getAvatarStorageKey(user);
+    if (avatarUrl) {
+      window.localStorage.setItem(storageKey, avatarUrl);
+    } else {
+      window.localStorage.removeItem(storageKey);
+    }
+  } catch {
+    // Local avatar persistence is best effort; account access must not depend on it.
+  }
+}
+
+function withStoredAvatar(user: SessionUser): SessionUser {
+  return { ...user, avatarUrl: user.avatarUrl || readStoredAvatarUrl(user) || undefined };
+}
+
+function persistStoredUser(user: SessionUser) {
+  const storedUser: SessionUser = {
+    email: user.email,
+    name: user.name
+  };
+  if (user.id) storedUser.id = user.id;
+  window.localStorage.setItem(STORED_USER_KEY, JSON.stringify(storedUser));
 }
 
 type PolicyPublishTimingTarget = {
@@ -700,7 +748,7 @@ function AuthScreen({ onLogin }: { onLogin: (user: SessionUser) => void }) {
         return;
       }
 
-      onLogin({ email: username, name: "研究员" });
+      onLogin({ email: username, name: username });
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "登录失败，请稍后重试。");
     } finally {
@@ -822,7 +870,8 @@ function TopBar({
   activeView,
   canOpenAdmin,
   adminAccessLoading,
-  onOpenAdminAnalytics
+  onOpenAdminAnalytics,
+  onUserUpdate
 }: {
   user: SessionUser;
   onLogout: () => void;
@@ -833,13 +882,18 @@ function TopBar({
   canOpenAdmin: boolean;
   adminAccessLoading: boolean;
   onOpenAdminAnalytics: () => void;
+  onUserUpdate: (user: SessionUser) => void;
 }) {
   const [noticeOpen, setNoticeOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [avatarMessage, setAvatarMessage] = useState("");
   const menuRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const userInitial = "账";
+  const avatarInputRef = useRef<HTMLInputElement>(null);
+  const displayName = user.name || user.email || "账户";
+  const avatarUrl = user.avatarUrl || "";
+  const userInitial = displayName.trim().charAt(0).toUpperCase() || "账";
   const normalizedSearch = searchQuery.trim().toLowerCase();
   const searchMatches = normalizedSearch
     ? reports
@@ -886,6 +940,42 @@ function TopBar({
     if (event.key !== "Enter" || searchMatches.length === 0) return;
     event.preventDefault();
     openSearchResult(searchMatches[0].id);
+  }
+
+  function handleAvatarUpload(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      setAvatarMessage("请选择图片文件。");
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+      setAvatarMessage("图片需小于 2MB。");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const nextAvatarUrl = typeof reader.result === "string" ? reader.result : "";
+      if (!nextAvatarUrl) {
+        setAvatarMessage("头像读取失败，请重试。");
+        return;
+      }
+      persistStoredAvatarUrl(user, nextAvatarUrl);
+      onUserUpdate({ ...user, avatarUrl: nextAvatarUrl });
+      setAvatarMessage("头像已更新。");
+    };
+    reader.onerror = () => setAvatarMessage("头像读取失败，请重试。");
+    reader.readAsDataURL(file);
+  }
+
+  function removeAvatar() {
+    persistStoredAvatarUrl(user);
+    onUserUpdate({ ...user, avatarUrl: undefined });
+    setAvatarMessage("头像已移除。");
   }
 
   return (
@@ -970,20 +1060,43 @@ function TopBar({
         <button
           className="user-chip"
           type="button"
+          aria-label={`账户：${displayName}`}
           aria-expanded={profileOpen}
           onClick={() => {
             setProfileOpen((value) => !value);
             setNoticeOpen(false);
           }}
         >
-          <div className="avatar">{userInitial}</div>
-          <span>账户中心</span>
+          <div className={cx("avatar", avatarUrl && "has-image")}>
+            {avatarUrl ? <img src={avatarUrl} alt={`${displayName}头像`} /> : userInitial}
+          </div>
+          <span>{displayName}</span>
           <ChevronDown size={14} />
         </button>
         {profileOpen && (
           <div className="top-popover profile-popover">
-            <strong>账户中心</strong>
+            <strong>{displayName}</strong>
             <p>当前账户已登录，可查看已发布政策分析报表。</p>
+            <input
+              ref={avatarInputRef}
+              className="avatar-upload-input"
+              type="file"
+              accept="image/png,image/jpeg,image/webp,image/gif"
+              onChange={handleAvatarUpload}
+            />
+            <div className="profile-avatar-actions">
+              <button type="button" onClick={() => avatarInputRef.current?.click()}>
+                <Upload size={15} />
+                上传头像
+              </button>
+              {avatarUrl && (
+                <button type="button" onClick={removeAvatar}>
+                  <Trash2 size={15} />
+                  移除头像
+                </button>
+              )}
+            </div>
+            {avatarMessage && <p className="profile-avatar-message">{avatarMessage}</p>}
             {canOpenAdmin && (
               <button
                 type="button"
@@ -3616,13 +3729,13 @@ function ReportUnavailableState({
 function readStoredUser(): SessionUser | null {
   if (isSupabaseConfigured) return null;
 
-  const stored = window.localStorage.getItem("policy-terminal-user");
+  const stored = window.localStorage.getItem(STORED_USER_KEY);
   if (!stored) return null;
 
   try {
-    return JSON.parse(stored) as SessionUser;
+    return withStoredAvatar(JSON.parse(stored) as SessionUser);
   } catch {
-    window.localStorage.removeItem("policy-terminal-user");
+    window.localStorage.removeItem(STORED_USER_KEY);
     return null;
   }
 }
@@ -3767,13 +3880,22 @@ function toSessionUser(user: SupabaseUser): SessionUser {
         : typeof metadata.display_name === "string"
           ? metadata.display_name
           : "";
+  const metadataAvatarUrl =
+    typeof metadata.avatar_url === "string"
+      ? metadata.avatar_url
+      : typeof metadata.avatarUrl === "string"
+        ? metadata.avatarUrl
+        : typeof metadata.picture === "string"
+          ? metadata.picture
+          : "";
   const email = user.email ?? "";
 
-  return {
+  return withStoredAvatar({
     id: user.id,
     email,
-    name: metadataName || email.split("@")[0] || "研究员"
-  };
+    name: metadataName || email.split("@")[0] || "研究员",
+    avatarUrl: metadataAvatarUrl || undefined
+  });
 }
 
 export function App() {
@@ -4039,9 +4161,17 @@ export function App() {
   }, [appView, reportReloadKey, selectedReportId, user]);
 
   function handleLogin(nextUser: SessionUser) {
+    const userWithAvatar = withStoredAvatar(nextUser);
+    setUser(userWithAvatar);
+    if (!isSupabaseConfigured) {
+      persistStoredUser(userWithAvatar);
+    }
+  }
+
+  function updateCurrentUser(nextUser: SessionUser) {
     setUser(nextUser);
     if (!isSupabaseConfigured) {
-      window.localStorage.setItem("policy-terminal-user", JSON.stringify(nextUser));
+      persistStoredUser(nextUser);
     }
   }
 
@@ -4160,7 +4290,7 @@ export function App() {
     setActiveReport(null);
     setWorkspaceError("");
     setReportError("");
-    window.localStorage.removeItem("policy-terminal-user");
+    window.localStorage.removeItem(STORED_USER_KEY);
   }
 
   function logout() {
@@ -4208,6 +4338,7 @@ export function App() {
         canOpenAdmin={adminAccess.canAccessAdmin}
         adminAccessLoading={adminAccessLoading}
         onOpenAdminAnalytics={openAdminAnalytics}
+        onUserUpdate={updateCurrentUser}
       />
       {appView === "report" && (
         <MobileReportNavigator
