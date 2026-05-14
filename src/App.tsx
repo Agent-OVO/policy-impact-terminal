@@ -722,7 +722,7 @@ function AuthScreen({ onLogin }: { onLogin: (user: SessionUser) => void }) {
         <div className="auth-hero">
           <p className="eyebrow">政策智能分析终端</p>
           <h1>政策原文驱动的产业影响分析终端</h1>
-          <p>普通用户注册后即可查看已发布报表，政策抓取和分析由后台定时完成。</p>
+          <p>普通用户注册后即可查看已发布报表，政策原文同步与分析由后台流程完成。</p>
         </div>
 
         <form className="auth-form" onSubmit={submit}>
@@ -801,7 +801,7 @@ function AuthScreen({ onLogin }: { onLogin: (user: SessionUser) => void }) {
         <div className="preview-orbit" />
         <div className="mini-report">
           <span>政策分析已发布</span>
-          <strong>定时抓取政策原文，人工生成产业影响报告</strong>
+          <strong>定时同步政策原文，人工生成产业影响报告</strong>
           <div className="mini-lines">
             <i />
             <i />
@@ -839,7 +839,7 @@ function TopBar({
   const [searchQuery, setSearchQuery] = useState("");
   const menuRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const userInitial = (user.name || user.email || "用").slice(0, 1).toUpperCase();
+  const userInitial = "账";
   const normalizedSearch = searchQuery.trim().toLowerCase();
   const searchMatches = normalizedSearch
     ? reports
@@ -851,7 +851,7 @@ function TopBar({
         )
         .slice(0, 6)
     : [];
-  const monitorLabel = repositoryMode === "supabase" ? "定时抓取" : repositoryMode === "mock" ? "本地演示" : "未配置";
+  const monitorLabel = repositoryMode === "supabase" ? "定时同步" : repositoryMode === "mock" ? "本地演示" : "未配置";
   const monitorStatus = repositoryMode === "supabase" ? "已连接" : repositoryMode === "mock" ? "未连云端" : "需配置";
   const monitorCount = repositoryMode === "supabase" ? `${reports.length}篇` : repositoryMode === "mock" ? "演示" : "0篇";
 
@@ -962,7 +962,7 @@ function TopBar({
           {noticeOpen && (
             <div className="top-popover notice-popover">
               <strong>系统通知</strong>
-              <p>当前为只读工作台。政策由后台定时抓取，分析结果经人工审核后发布。</p>
+              <p>当前为只读工作台。政策由后台定时同步，分析结果经人工审核后发布。</p>
               <p>暂无新的个人通知。</p>
             </div>
           )}
@@ -3278,7 +3278,7 @@ function reportStatusLabel(status: ReportStatus) {
 function jobStatusLabel(status: JobStatus) {
   const labels: Record<JobStatus, string> = {
     queued: "排队中",
-    fetching: "抓取中",
+    fetching: "同步中",
     extracting: "抽取中",
     analyzing: "分析中",
     published: "已发布",
@@ -3400,9 +3400,9 @@ function PolicyListView({
       <section className="panel pending-policy-panel">
         <div className="pending-policy-head">
           <div>
-            <span className="status-badge blue">定时抓取入库</span>
-            <h2>已爬取但未分析的政策</h2>
-            <p>这里展示抓取任务已入库、但尚未完成人工审核分析与发布的政策。普通用户只能查看清单，不能创建分析任务。</p>
+            <span className="status-badge blue">定时同步入库</span>
+            <h2>已入库但未分析的政策</h2>
+            <p>这里展示政策原文已入库、但尚未完成人工审核分析与发布的政策。普通用户只能查看清单，不能创建分析任务。</p>
           </div>
           <div className="pending-policy-count">
             <strong>{pendingPolicies.total}</strong>
@@ -3416,7 +3416,7 @@ function PolicyListView({
           </div>
         )}
         {!pendingPolicyError && pendingPolicies.rows.length === 0 && (
-          <p className="empty-note">当前没有待分析政策。已爬取政策均已完成分析，或尚无 2026-05-01 之后的新政策入库。</p>
+          <p className="empty-note">当前没有待分析政策。已入库政策均已完成分析，或尚无 2026-05-01 之后的新政策入库。</p>
         )}
         {pendingPolicies.rows.length > 0 && (
           <div className="pending-policy-list">
@@ -3459,7 +3459,7 @@ function PolicyListView({
           </div>
         </div>
         <div className="report-list">
-          {publishedReports.length === 0 && <p className="empty-note">暂无可访问报表。请等待定时抓取完成，或检查 Supabase 发布数据与权限配置。</p>}
+          {publishedReports.length === 0 && <p className="empty-note">暂无可访问报表。请等待定时同步完成，或检查 Supabase 发布数据与权限配置。</p>}
           {publishedReports.length > 0 && visibleReports.length === 0 && <p className="empty-note">没有匹配的政策报表。</p>}
           {visibleReports.map((item) => (
             <button key={item.id} onClick={() => onOpenReport(item.id)}>
@@ -3489,7 +3489,7 @@ function PolicyListView({
         <div className="panel-head">
           <div>
             <h2>后台运行状态</h2>
-            <p>政策由后台定时抓取，分析结果经人工审核后发布。普通用户只查看已发布报表，不能创建新的政策分析任务。</p>
+            <p>政策由后台定时同步，分析结果经人工审核后发布。普通用户只查看已发布报表，不能创建新的政策分析任务。</p>
           </div>
         </div>
         <div className="job-list">
@@ -3500,7 +3500,7 @@ function PolicyListView({
               </span>
               <strong>
                 {repositoryMode === "supabase"
-                  ? "定时抓取与人工分析发布已接入云端数据源"
+                  ? "定时同步与人工分析发布已接入云端数据源"
                   : repositoryMode === "mock"
                     ? "当前使用显式本地演示数据"
                     : "当前缺少 Supabase 前端配置"}

@@ -343,7 +343,7 @@ const mockReportRepository: ReportRepository = {
           id: "pending-demo-001",
           title: "关于加快数字基础设施协同发展的政策文件",
           issuer: "示例机构",
-          source: "定时抓取",
+          source: "定时同步",
           sourceUrl: "",
           publishDate: "2026-05-10",
           status: "draft",
@@ -355,7 +355,7 @@ const mockReportRepository: ReportRepository = {
           id: "pending-demo-002",
           title: "关于促进重点行业数据流通应用的通知",
           issuer: "示例机构",
-          source: "定时抓取",
+          source: "定时同步",
           sourceUrl: "",
           publishDate: "2026-05-09",
           status: "reviewing",
@@ -414,7 +414,7 @@ function buildMockReportFromSummary(summary: PolicySummary): PolicyReport {
     title: index === 0 ? `${topic}政策信号` : action.title,
     body:
       index === 0
-        ? `系统演示报表围绕“${topic}”展示产业影响结构；真实部署后会由定时抓取的政策原文和人工分析结果生成。`
+        ? `系统演示报表围绕“${topic}”展示产业影响结构；真实部署后会由定时同步的政策原文和人工分析结果生成。`
         : action.body
   }));
   const derivedClauses = clauses.map((clause, index) => ({

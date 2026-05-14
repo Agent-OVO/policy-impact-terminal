@@ -57,7 +57,6 @@ export function AdminAccessGuard({
           <section className="admin-analytics-access admin-analytics-access-denied" role="status" aria-live="polite">
             <h2 className="admin-analytics-access-title">{title}</h2>
             <p className="admin-analytics-access-description">{description}</p>
-            {user?.email && <p className="admin-analytics-access-account">{user.email}</p>}
           </section>
         )}
       </>
