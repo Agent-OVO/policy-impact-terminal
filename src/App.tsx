@@ -977,13 +977,13 @@ function TopBar({
           }}
         >
           <div className="avatar">{userInitial}</div>
-          <span>{user.name}</span>
+          <span>账户中心</span>
           <ChevronDown size={14} />
         </button>
         {profileOpen && (
           <div className="top-popover profile-popover">
-            <strong>{user.name}</strong>
-            <p>{user.email}</p>
+            <strong>账户中心</strong>
+            <p>当前账户已登录，可查看已发布政策分析报表。</p>
             {canOpenAdmin && (
               <button
                 type="button"
