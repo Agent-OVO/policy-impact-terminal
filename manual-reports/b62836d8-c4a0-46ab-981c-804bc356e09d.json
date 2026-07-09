@@ -1,0 +1,640 @@
+{
+  "id": "b62836d8-c4a0-46ab-981c-804bc356e09d",
+  "policyId": "b62836d8-c4a0-46ab-981c-804bc356e09d",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "generatedAt": "2026-07-09T20:10:00+09:00",
+  "summary": {
+    "id": "b62836d8-c4a0-46ab-981c-804bc356e09d",
+    "title": "国务院关于印发《“十五五”碳达峰行动方案》的通知",
+    "issuer": "国务院",
+    "source": "中国政府网 - 最新政策",
+    "publishDate": "2026-07-09",
+    "status": "published",
+    "confidence": 92,
+    "industryCount": 6,
+    "companyCount": 10,
+    "evidenceCount": 9,
+    "primarySignal": "2030碳达峰进入目标兑现期，能源、工业、交通、建筑、碳市场和绿色金融同步进入强约束推进阶段",
+    "category": "碳达峰与绿色低碳转型"
+  },
+  "policy": {
+    "title": "国务院关于印发《“十五五”碳达峰行动方案》的通知",
+    "status": "已发布",
+    "issuer": "国务院",
+    "publishDate": "2026-07-09",
+    "effectiveDate": "2026-07-05",
+    "source": "中国政府网 - 最新政策",
+    "category": "碳达峰与绿色低碳转型",
+    "level": "国务院行动方案",
+    "confidence": 92,
+    "sourceUrl": "https://www.gov.cn/zhengce/content/202607/content_7074826.htm",
+    "scope": "全国各地区、国务院有关部门，以及能源、工业、建筑、交通、公共机构、碳市场和绿色金融等相关领域",
+    "impactScope": "非化石能源供给、电力系统调节、煤电低碳化、重点行业节能降碳、零碳园区和工厂、绿色算力、建筑交通低碳转型、碳市场与绿色金融",
+    "jurisdiction": "中国",
+    "tags": [
+      "十五五",
+      "碳达峰",
+      "非化石能源",
+      "新能源消纳",
+      "节能降碳",
+      "零碳园区",
+      "绿色算力",
+      "碳市场",
+      "绿色金融"
+    ]
+  },
+  "brief": {
+    "judgement": "这份方案不是单一环保文件，而是把2030年碳达峰目标拆解为能源供给、电力系统、工业改造、建筑交通、碳核算、价格机制、碳市场和绿色金融的综合执行框架。对产业端而言，确定性最高的是非化石能源扩张、电网调节能力、储能和虚拟电厂、重点行业节能降碳改造、零碳园区与绿色算力；对传统高耗能行业则形成更强的能耗、碳排放、标准和市场成本约束。",
+    "summary": "方案明确到2030年单位国内生产总值二氧化碳排放比2025年降低17%、非化石能源消费占比达到25%，并提出风电和太阳能发电总装机容量达到28亿千瓦以上、新型储能装机容量力争达到3亿千瓦、建设100个左右国家级零碳园区和500个左右零碳工厂等量化目标。产业链影响从能源端向用能端传导：新能源、电网、储能、虚拟电厂和绿电直连是直接建设方向；钢铁、水泥、煤化工等重点行业面临节能降碳改造和两高项目约束；建筑、交通、算力设施、碳足迹、碳市场和绿色金融形成后续配套需求。",
+    "keyPoints": [
+      "目标层面，2030年碳强度、非化石能源占比和重点装机目标被明确写入方案，提升政策约束的可考核性。",
+      "能源端不是只增加新能源装机，而是同步强调跨省跨区输电、抽水蓄能、新型储能、虚拟电厂和需求响应。",
+      "工业端既支持绿色能源、新能源汽车、动力电池、氢能和绿色燃料，也对两高项目、落后产能、重点行业改造提出约束。",
+      "园区、工厂和算力设施成为低碳转型的具体载体，后续项目、标准、示范和财政金融工具可能围绕这些场景展开。",
+      "公司映射只代表产业链相关性和观察方向，政策并未点名上市公司，也不构成投资建议。"
+    ],
+    "methodology": "人工阅读中国政府网公开政策正文，按政策条款中直接出现的目标、建设方向、约束机制和市场化工具拆分为产业链节点。公司层面仅做代表性业务映射，并按照直接受益、间接受益、约束转型、待验证四类降低证据强度。"
+  },
+  "actions": [
+    {
+      "id": "a1",
+      "title": "明确2030年碳达峰核心量化目标",
+      "body": "方案把单位GDP二氧化碳排放、非化石能源消费占比等目标与2030年碳达峰绑定，为后续地方行动方案、行业标准、考核评价和项目调度提供总约束。",
+      "signal": "constraint",
+      "confidence": 96,
+      "clauseIds": ["c1"],
+      "sortOrder": 1
+    },
+    {
+      "id": "a2",
+      "title": "扩大非化石能源有效供给",
+      "body": "政策要求更大力度发展新能源，建设风光水核等清洁能源基地，并明确风电、太阳能、水电、核电等装机目标，直接拉动新能源开发、设备、工程和运营链条。",
+      "signal": "beneficiary",
+      "confidence": 94,
+      "clauseIds": ["c2"],
+      "sortOrder": 2
+    },
+    {
+      "id": "a3",
+      "title": "补强新能源消纳和电力系统调节能力",
+      "body": "方案将特高压外送、绿电直连、源网荷储、抽水蓄能、新型储能、虚拟电厂和需求响应作为新能源消纳配套，提示单纯装机逻辑转向系统调节能力建设。",
+      "signal": "beneficiary",
+      "confidence": 94,
+      "clauseIds": ["c3"],
+      "sortOrder": 3
+    },
+    {
+      "id": "a4",
+      "title": "推进重点行业节能降碳改造和两高约束",
+      "body": "方案要求依法依规淘汰落后低效产能，严格节能降碳审查评价，并提出规模以上工业碳排放、能耗和节能量目标，传统产业将面对改造投资与合规成本双重压力。",
+      "signal": "constraint",
+      "confidence": 92,
+      "clauseIds": ["c4", "c5"],
+      "sortOrder": 4
+    },
+    {
+      "id": "a5",
+      "title": "建设零碳园区、零碳工厂和绿色算力设施",
+      "body": "方案提出约100个国家级零碳园区、约500个零碳工厂，并推动算力设施主要使用非化石能源电力，园区微电网、能碳管理、绿电直供和绿色数据中心成为可落地场景。",
+      "signal": "beneficiary",
+      "confidence": 91,
+      "clauseIds": ["c6", "c7"],
+      "sortOrder": 5
+    },
+    {
+      "id": "a6",
+      "title": "完善碳核算、价格、碳市场和绿色金融工具",
+      "body": "方案将碳排放统计核算、碳足迹、碳市场、绿证绿电、绿色金融和国家低碳转型基金纳入支撑体系，意味着后续会从行政任务走向数据、价格和资本约束并行。",
+      "signal": "market",
+      "confidence": 90,
+      "clauseIds": ["c8", "c9"],
+      "sortOrder": 6
+    }
+  ],
+  "clauseGroups": [
+    {"id": "g1", "title": "目标约束", "count": 1, "tone": "blue"},
+    {"id": "g2", "title": "能源转型", "count": 2, "tone": "green"},
+    {"id": "g3", "title": "产业改造", "count": 3, "tone": "orange"},
+    {"id": "g4", "title": "重点领域", "count": 1, "tone": "purple"},
+    {"id": "g5", "title": "支撑机制", "count": 2, "tone": "neutral"}
+  ],
+  "clauses": [
+    {
+      "id": "c1",
+      "no": "总体要求",
+      "title": "2030年碳达峰目标和核心指标",
+      "group": "g1",
+      "excerpt": "到2030年，我国单位国内生产总值二氧化碳排放比2025年降低17%，非化石能源消费占比达到25%，确保如期实现碳达峰目标。",
+      "fullText": "该条将2030年碳达峰目标拆解为碳强度和非化石能源占比指标，是后续地方、行业和企业政策执行的总锚。",
+      "confidence": 96,
+      "keywords": ["2030年", "碳达峰", "二氧化碳排放", "非化石能源"],
+      "industries": ["能源", "工业", "建筑", "交通", "绿色金融"],
+      "sortOrder": 1
+    },
+    {
+      "id": "c2",
+      "no": "第二部分第一项",
+      "title": "大力推进非化石能源开发",
+      "group": "g2",
+      "excerpt": "建设“三北”风电光伏、西南水风光一体化、沿海核电、海上风电等清洁能源基地。",
+      "fullText": "该条直接对应新能源基地、分布式能源、海上风电、核电、生物质、地热、绿氢氨醇等供给侧建设方向。",
+      "confidence": 94,
+      "keywords": ["风电光伏", "清洁能源基地", "海上风电", "核电"],
+      "industries": ["光伏", "风电", "核电", "清洁能源工程"],
+      "sortOrder": 2
+    },
+    {
+      "id": "c3",
+      "no": "第二部分第二项",
+      "title": "新能源消纳和电力系统调节能力",
+      "group": "g2",
+      "excerpt": "加快特高压外送通道建设，支持新能源就地消纳，积极发展绿电直连、源网荷储一体化，推动新型储能规模化发展，加快虚拟电厂发展。",
+      "fullText": "政策不只强调新增装机，也强调电网、储能、需求响应、虚拟电厂和绿电直供，使系统调节成为新能源扩张的前置条件。",
+      "confidence": 95,
+      "keywords": ["特高压", "绿电直连", "源网荷储", "新型储能", "虚拟电厂"],
+      "industries": ["电网设备", "储能", "电力信息化", "虚拟电厂"],
+      "sortOrder": 3
+    },
+    {
+      "id": "c4",
+      "no": "第三部分第五项",
+      "title": "产业结构绿色低碳转型",
+      "group": "g3",
+      "excerpt": "有力有效管控“两高”项目，严格节能降碳审查评价，落实新（改、扩）建“两高”工业项目实施碳排放等量或减量置换要求。",
+      "fullText": "该条对高耗能行业形成准入和扩产约束，同时支持绿色能源、绿色制造、绿色服务、新能源汽车、动力电池、氢能和绿色燃料。",
+      "confidence": 93,
+      "keywords": ["两高项目", "碳排放等量或减量置换", "绿色制造", "动力电池"],
+      "industries": ["钢铁", "水泥", "煤化工", "新能源汽车", "动力电池"],
+      "sortOrder": 4
+    },
+    {
+      "id": "c5",
+      "no": "第三部分第六项",
+      "title": "传统产业节能降碳改造",
+      "group": "g3",
+      "excerpt": "全面实施节能降碳改造，大力推广应用节能低碳技术和装备，强化低碳工艺革新和数字化转型。",
+      "fullText": "该条把传统产业改造目标量化，提出规模以上工业单位增加值二氧化碳排放降低17%以上、能耗降低10%以上。",
+      "confidence": 92,
+      "keywords": ["节能降碳改造", "低碳工艺", "数字化转型", "节能监察"],
+      "industries": ["节能装备", "工业软件", "合同能源管理", "碳管理服务"],
+      "sortOrder": 5
+    },
+    {
+      "id": "c6",
+      "no": "第三部分第七项",
+      "title": "零碳园区和零碳工厂建设",
+      "group": "g3",
+      "excerpt": "“十五五”期间，建设100个左右国家级零碳园区和500个左右零碳工厂。",
+      "fullText": "零碳园区和零碳工厂把抽象碳目标转为园区、企业和项目载体，绿电直连、工业绿色微电网、数字化能碳管理中心是关键配套。",
+      "confidence": 94,
+      "keywords": ["零碳园区", "零碳工厂", "绿电直连", "能碳管理中心"],
+      "industries": ["园区能源", "工业微电网", "能碳管理", "分布式能源"],
+      "sortOrder": 6
+    },
+    {
+      "id": "c7",
+      "no": "第三部分第八项",
+      "title": "绿色算力设施",
+      "group": "g4",
+      "excerpt": "强化算力设施与可再生能源协同布局，支持开展绿电直供，推动新建算力设施主要使用非化石能源电力。",
+      "fullText": "该条将数据中心和算力设施纳入碳达峰执行体系，绿色电力、储能、备用电源、能效改造和零碳算力设施成为重点。",
+      "confidence": 91,
+      "keywords": ["算力设施", "绿电直供", "非化石能源电力", "绿色算力"],
+      "industries": ["数据中心", "绿色算力", "储能", "电力交易"],
+      "sortOrder": 7
+    },
+    {
+      "id": "c8",
+      "no": "第五部分第十五项",
+      "title": "碳排放统计核算和数据系统",
+      "group": "g5",
+      "excerpt": "建设国家碳排放数据综合管理系统，加快建设国家温室气体排放因子数据库、碳足迹背景数据库。",
+      "fullText": "碳排放数据、碳足迹背景库和因子数据库将支撑考核、披露、交易和金融工具，相关数字化系统具备长期建设属性。",
+      "confidence": 91,
+      "keywords": ["碳排放数据", "排放因子数据库", "碳足迹", "统计核算"],
+      "industries": ["碳数据", "企业ESG", "碳核算软件", "监管科技"],
+      "sortOrder": 8
+    },
+    {
+      "id": "c9",
+      "no": "第五部分第十七至十九项",
+      "title": "绿色金融、价格政策和碳市场",
+      "group": "g5",
+      "excerpt": "设立国家低碳转型基金；加强全国碳排放权交易市场建设；高质量建设绿证市场，拓展绿证应用场景。",
+      "fullText": "资金、价格和市场机制共同把碳目标转化为投资收益约束、能源价格信号、配额成本和绿证绿电交易需求。",
+      "confidence": 90,
+      "keywords": ["低碳转型基金", "绿色金融", "碳市场", "绿证", "绿电交易"],
+      "industries": ["绿色金融", "碳交易", "电力市场", "能源管理"],
+      "sortOrder": 9
+    }
+  ],
+  "chainNodes": [
+    {
+      "id": "n1",
+      "title": "非化石能源供给扩张",
+      "subtitle": "风光水核和绿色燃料构成碳达峰能源底座",
+      "section": "upstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 92,
+      "description": "方案明确清洁能源基地和风光水核装机目标，新能源开发、设备、工程和运营链条处于最直接受益环节。",
+      "clauseIds": ["c1", "c2"],
+      "companyIds": ["co1", "co2", "co3", "co8"],
+      "evidenceIds": ["e1", "e2"],
+      "impactReason": "政策直接列出非化石能源开发和具体装机目标。",
+      "iconKey": "sun"
+    },
+    {
+      "id": "n2",
+      "title": "电力系统调节与消纳",
+      "subtitle": "特高压、储能、虚拟电厂和需求响应承接新能源增长",
+      "section": "midstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 93,
+      "description": "新能源占比提升要求电网外送、就地消纳、储能和需求响应同步增强，电网自动化、特高压设备、储能系统和虚拟电厂平台具备政策支撑。",
+      "clauseIds": ["c3"],
+      "companyIds": ["co2", "co4", "co6", "co7", "co8"],
+      "evidenceIds": ["e3", "e4"],
+      "impactReason": "政策对特高压、新型储能、抽水蓄能、虚拟电厂给出明确方向和量化目标。",
+      "iconKey": "grid"
+    },
+    {
+      "id": "n3",
+      "title": "传统产业节能降碳改造",
+      "subtitle": "两高约束和能耗碳排目标倒逼工业设备与工艺升级",
+      "section": "midstream",
+      "relation": "constraint",
+      "evidenceLevel": "strong",
+      "confidence": 89,
+      "description": "钢铁、水泥、煤化工等行业面临节能审查、碳排放置换、能效诊断和监察压力，同时带动节能装备、工业软件、合同能源管理和低碳工艺服务需求。",
+      "clauseIds": ["c4", "c5"],
+      "companyIds": ["co9", "co10"],
+      "evidenceIds": ["e5", "e6"],
+      "impactReason": "政策同时提出两高管控和传统产业节能降碳改造量化目标。",
+      "iconKey": "factory"
+    },
+    {
+      "id": "n4",
+      "title": "零碳园区、零碳工厂与绿色算力",
+      "subtitle": "低碳目标进入园区、工厂、数据中心等可项目化场景",
+      "section": "downstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 88,
+      "description": "零碳园区、零碳工厂和绿色算力设施具有明确数量目标和建设方向，可能形成园区能源、分布式光伏、储能、能碳管理和数据中心节能改造需求。",
+      "clauseIds": ["c6", "c7"],
+      "companyIds": ["co2", "co4", "co6", "co8"],
+      "evidenceIds": ["e7", "e8"],
+      "impactReason": "政策给出约100个国家级零碳园区、约500个零碳工厂，并要求绿色算力设施。",
+      "iconKey": "server"
+    },
+    {
+      "id": "n5",
+      "title": "交通与建筑低碳转型",
+      "subtitle": "新能源汽车、补能设施、绿色建筑和供热改造形成应用端需求",
+      "section": "downstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "indirect",
+      "confidence": 82,
+      "description": "交通和建筑领域是重点用能端。新能源汽车、充换电、绿色氢氨醇加注、建筑光伏一体化、集中供热管网改造等方向会随地方配套和项目预算落地。",
+      "clauseIds": ["c1", "c4"],
+      "companyIds": ["co5", "co1", "co2"],
+      "evidenceIds": ["e5"],
+      "impactReason": "政策列入建筑和交通低碳转型，但公司影响需等待地方项目、采购和价格机制验证。",
+      "iconKey": "truck"
+    },
+    {
+      "id": "n6",
+      "title": "碳数据、碳市场与绿色金融",
+      "subtitle": "从行政目标转向数据、价格和资本市场约束",
+      "section": "support",
+      "relation": "market",
+      "evidenceLevel": "strong",
+      "confidence": 87,
+      "description": "国家碳排放数据系统、碳足迹数据库、低碳转型基金、碳市场、绿证和绿电交易将支撑政策执行，利好碳核算、能源管理、ESG披露和绿色金融服务。",
+      "clauseIds": ["c8", "c9"],
+      "companyIds": ["co6"],
+      "evidenceIds": ["e8", "e9"],
+      "impactReason": "政策明确建设数据系统并完善市场化机制，后续影响取决于配套制度细则。",
+      "iconKey": "bar-chart"
+    }
+  ],
+  "chainEdges": [
+    {"id": "edge1", "from": "n1", "to": "n2", "type": "strong", "label": "装机增长要求消纳和调节能力同步建设"},
+    {"id": "edge2", "from": "n2", "to": "n4", "type": "medium", "label": "绿电直连和源网荷储支撑零碳园区与绿色算力"},
+    {"id": "edge3", "from": "n3", "to": "n6", "type": "medium", "label": "工业改造需要碳数据、标准和金融工具支撑"},
+    {"id": "edge4", "from": "n1", "to": "n5", "type": "medium", "label": "清洁电力供给支撑交通和建筑终端电气化"}
+  ],
+  "companies": [
+    {
+      "id": "co1",
+      "name": "隆基绿能",
+      "ticker": "601012.SH",
+      "section": "upstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "indirect",
+      "confidence": 78,
+      "reason": "政策明确扩大分布式光伏、清洁能源基地和建筑光伏一体化，光伏制造企业具备产业链相关性，但文件未点名公司或订单。",
+      "nodeIds": ["n1", "n5"],
+      "clauseIds": ["c2"],
+      "evidenceIds": ["e2"],
+      "riskNote": "光伏环节仍受价格、产能、出口和技术路线影响。"
+    },
+    {
+      "id": "co2",
+      "name": "阳光电源",
+      "ticker": "300274.SZ",
+      "section": "midstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "indirect",
+      "confidence": 80,
+      "reason": "政策强调新型储能规模化、源网荷储、绿电直连和零碳园区，逆变器与储能系统相关性较高。",
+      "nodeIds": ["n1", "n2", "n4", "n5"],
+      "clauseIds": ["c3", "c6"],
+      "evidenceIds": ["e3", "e7"],
+      "riskNote": "储能收益率依赖电力市场规则、峰谷价差和项目并网消纳。"
+    },
+    {
+      "id": "co3",
+      "name": "金风科技",
+      "ticker": "002202.SZ",
+      "section": "upstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "indirect",
+      "confidence": 76,
+      "reason": "方案提出建设三北风电光伏、海上风电等清洁能源基地，风电整机和风电服务链条具备相关性。",
+      "nodeIds": ["n1"],
+      "clauseIds": ["c2"],
+      "evidenceIds": ["e2"],
+      "riskNote": "风电盈利受招标价格、海风审批、零部件成本和并网节奏影响。"
+    },
+    {
+      "id": "co4",
+      "name": "宁德时代",
+      "ticker": "300750.SZ",
+      "section": "midstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "indirect",
+      "confidence": 79,
+      "reason": "政策同时强调新型储能规模化和新能源汽车保有量提升，动力电池和储能电池均处于相关链条。",
+      "nodeIds": ["n2", "n4"],
+      "clauseIds": ["c3", "c4"],
+      "evidenceIds": ["e3", "e5"],
+      "riskNote": "电池环节受材料价格、竞争格局、海外政策和技术替代影响。"
+    },
+    {
+      "id": "co5",
+      "name": "比亚迪",
+      "ticker": "002594.SZ",
+      "section": "downstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "indirect",
+      "confidence": 77,
+      "reason": "交通领域提出新能源汽车保有量占比目标和公共领域车辆电动化，整车和电池龙头具备政策方向相关性。",
+      "nodeIds": ["n5"],
+      "clauseIds": ["c4"],
+      "evidenceIds": ["e5"],
+      "riskNote": "终端销量还取决于消费需求、价格竞争、出口环境和车型周期。"
+    },
+    {
+      "id": "co6",
+      "name": "国电南瑞",
+      "ticker": "600406.SH",
+      "section": "support",
+      "relation": "beneficiary",
+      "evidenceLevel": "indirect",
+      "confidence": 82,
+      "reason": "新能源消纳、虚拟电厂、需求响应、国家碳排放数据系统和能碳管理都需要电力自动化与数字化平台支撑。",
+      "nodeIds": ["n2", "n4", "n6"],
+      "clauseIds": ["c3", "c8", "c9"],
+      "evidenceIds": ["e4", "e8", "e9"],
+      "riskNote": "订单落地依赖电网投资节奏和具体信息化项目招标。"
+    },
+    {
+      "id": "co7",
+      "name": "中国西电",
+      "ticker": "601179.SH",
+      "section": "midstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "indirect",
+      "confidence": 76,
+      "reason": "方案明确加快特高压外送通道建设，输变电设备企业具备相关性。",
+      "nodeIds": ["n2"],
+      "clauseIds": ["c3"],
+      "evidenceIds": ["e3"],
+      "riskNote": "特高压设备需求取决于线路核准、招标节奏和竞争格局。"
+    },
+    {
+      "id": "co8",
+      "name": "中国电建",
+      "ticker": "601669.SH",
+      "section": "upstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "indirect",
+      "confidence": 78,
+      "reason": "清洁能源基地、抽水蓄能、源网荷储和园区低碳改造均涉及工程设计、建设和综合能源服务。",
+      "nodeIds": ["n1", "n2", "n4"],
+      "clauseIds": ["c2", "c3", "c6"],
+      "evidenceIds": ["e2", "e3", "e7"],
+      "riskNote": "工程类公司盈利受项目回款、资本开支和地方财政约束影响。"
+    },
+    {
+      "id": "co9",
+      "name": "宝钢股份",
+      "ticker": "600019.SH",
+      "section": "midstream",
+      "relation": "constraint",
+      "evidenceLevel": "indirect",
+      "confidence": 72,
+      "reason": "钢铁等重点用能行业将面对节能降碳改造、碳排放约束和碳市场扩围压力，龙头企业既有改造成本也可能有低碳产品机会。",
+      "nodeIds": ["n3"],
+      "clauseIds": ["c4", "c5", "c9"],
+      "evidenceIds": ["e5", "e6", "e9"],
+      "riskNote": "这是约束转型逻辑，不应被理解为直接利好。"
+    },
+    {
+      "id": "co10",
+      "name": "中材国际",
+      "ticker": "600970.SH",
+      "section": "midstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "indirect",
+      "confidence": 74,
+      "reason": "方案要求加强水泥产能规范管理和传统产业节能降碳改造，水泥工程、节能改造和绿色生产线服务存在相关性。",
+      "nodeIds": ["n3"],
+      "clauseIds": ["c4", "c5"],
+      "evidenceIds": ["e5", "e6"],
+      "riskNote": "水泥行业需求仍受地产、基建和海外工程节奏影响。"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "e1",
+      "type": "policy_text",
+      "source": "中国政府网",
+      "title": "2030年碳达峰总目标",
+      "excerpt": "到2030年，我国单位国内生产总值二氧化碳排放比2025年降低17%，非化石能源消费占比达到25%。",
+      "confidence": 96,
+      "clauseIds": ["c1"],
+      "nodeIds": ["n1"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c1"], "nodeIds": ["n1"]}
+    },
+    {
+      "id": "e2",
+      "type": "policy_text",
+      "source": "中国政府网",
+      "title": "非化石能源开发和装机目标",
+      "excerpt": "建设“三北”风电光伏、西南水风光一体化、沿海核电、海上风电等清洁能源基地；到2030年，风电和太阳能发电总装机容量达到28亿千瓦以上。",
+      "confidence": 95,
+      "clauseIds": ["c2"],
+      "nodeIds": ["n1"],
+      "companyIds": ["co1", "co3", "co8"],
+      "links": {"clauseIds": ["c2"], "nodeIds": ["n1"], "companyIds": ["co1", "co3", "co8"]}
+    },
+    {
+      "id": "e3",
+      "type": "policy_text",
+      "source": "中国政府网",
+      "title": "消纳和调节能力建设",
+      "excerpt": "加快特高压外送通道建设；支持新能源就地消纳，积极发展绿电直连、源网荷储一体化；推动新型储能规模化发展。",
+      "confidence": 94,
+      "clauseIds": ["c3"],
+      "nodeIds": ["n2"],
+      "companyIds": ["co2", "co4", "co7", "co8"],
+      "links": {"clauseIds": ["c3"], "nodeIds": ["n2"], "companyIds": ["co2", "co4", "co7", "co8"]}
+    },
+    {
+      "id": "e4",
+      "type": "policy_text",
+      "source": "中国政府网",
+      "title": "虚拟电厂和需求响应",
+      "excerpt": "加快虚拟电厂发展，推动可调节负荷等各类分散资源参与系统调节；电力需求响应能力达到最大用电负荷的5%以上。",
+      "confidence": 93,
+      "clauseIds": ["c3"],
+      "nodeIds": ["n2", "n6"],
+      "companyIds": ["co6"],
+      "links": {"clauseIds": ["c3"], "nodeIds": ["n2", "n6"], "companyIds": ["co6"]}
+    },
+    {
+      "id": "e5",
+      "type": "policy_text",
+      "source": "中国政府网",
+      "title": "两高项目约束和绿色产业支持",
+      "excerpt": "有力有效管控“两高”项目，严格节能降碳审查评价；加快发展绿色能源、绿色制造、绿色服务等绿色低碳产业。",
+      "confidence": 92,
+      "clauseIds": ["c4"],
+      "nodeIds": ["n3", "n5"],
+      "companyIds": ["co4", "co5", "co9", "co10"],
+      "links": {"clauseIds": ["c4"], "nodeIds": ["n3", "n5"], "companyIds": ["co4", "co5", "co9", "co10"]}
+    },
+    {
+      "id": "e6",
+      "type": "policy_text",
+      "source": "中国政府网",
+      "title": "工业节能降碳改造目标",
+      "excerpt": "规模以上工业单位增加值二氧化碳排放降低17%以上，规模以上工业单位增加值能耗降低10%以上。",
+      "confidence": 92,
+      "clauseIds": ["c5"],
+      "nodeIds": ["n3"],
+      "companyIds": ["co9", "co10"],
+      "links": {"clauseIds": ["c5"], "nodeIds": ["n3"], "companyIds": ["co9", "co10"]}
+    },
+    {
+      "id": "e7",
+      "type": "policy_text",
+      "source": "中国政府网",
+      "title": "零碳园区和零碳工厂数量目标",
+      "excerpt": "“十五五”期间，建设100个左右国家级零碳园区和500个左右零碳工厂。",
+      "confidence": 94,
+      "clauseIds": ["c6"],
+      "nodeIds": ["n4"],
+      "companyIds": ["co2", "co8"],
+      "links": {"clauseIds": ["c6"], "nodeIds": ["n4"], "companyIds": ["co2", "co8"]}
+    },
+    {
+      "id": "e8",
+      "type": "policy_text",
+      "source": "中国政府网",
+      "title": "绿色算力和碳数据系统",
+      "excerpt": "推动新建算力设施主要使用非化石能源电力；建设国家碳排放数据综合管理系统。",
+      "confidence": 91,
+      "clauseIds": ["c7", "c8"],
+      "nodeIds": ["n4", "n6"],
+      "companyIds": ["co6"],
+      "links": {"clauseIds": ["c7", "c8"], "nodeIds": ["n4", "n6"], "companyIds": ["co6"]}
+    },
+    {
+      "id": "e9",
+      "type": "policy_text",
+      "source": "中国政府网",
+      "title": "低碳转型基金、碳市场和绿证市场",
+      "excerpt": "设立国家低碳转型基金；加强全国碳排放权交易市场建设；高质量建设绿证市场，拓展绿证应用场景。",
+      "confidence": 90,
+      "clauseIds": ["c9"],
+      "nodeIds": ["n6"],
+      "companyIds": ["co6", "co9"],
+      "links": {"clauseIds": ["c9"], "nodeIds": ["n6"], "companyIds": ["co6", "co9"]}
+    }
+  ],
+  "backgroundCards": [
+    {
+      "id": "bg1",
+      "title": "时间窗口：十五五是碳达峰关键期",
+      "body": "政策开篇将“十五五”定义为实现碳达峰的关键期、攻坚期，说明本方案的核心不是远期愿景，而是2030年前目标兑现。",
+      "evidenceIds": ["e1"]
+    },
+    {
+      "id": "bg2",
+      "title": "能源端：装机目标和系统调节同步推进",
+      "body": "风光水核装机目标与储能、抽水蓄能、虚拟电厂、需求响应目标同时出现，意味着能源投资不能只看装机，还要看消纳能力。",
+      "evidenceIds": ["e2", "e3", "e4"]
+    },
+    {
+      "id": "bg3",
+      "title": "工业端：绿色产业支持与两高约束并存",
+      "body": "政策既支持新能源、新能源汽车、动力电池、氢能、绿色燃料，也对两高项目和传统产业改造提出硬约束。",
+      "evidenceIds": ["e5", "e6"]
+    },
+    {
+      "id": "bg4",
+      "title": "项目载体：园区、工厂、算力设施",
+      "body": "零碳园区、零碳工厂和绿色算力将成为后续政策、标准、财政金融和项目建设承接平台。",
+      "evidenceIds": ["e7", "e8"]
+    },
+    {
+      "id": "bg5",
+      "title": "市场机制：碳数据、绿证绿电和绿色金融",
+      "body": "碳排放数据系统、低碳转型基金、碳市场、绿证和绿电交易共同构成支撑机制，后续应跟踪配套细则。",
+      "evidenceIds": ["e8", "e9"]
+    }
+  ],
+  "compareInsights": {
+    "comparableCount": 0,
+    "similarPolicies": [],
+    "contrastPolicies": [],
+    "insights": [
+      "本报告仅基于当前政策正文做首轮结构化分析，尚未调用已发布政策库进行横向对比。",
+      "后续可与绿色电力消费、绿电直连、节能降碳改造、绿色算力等专项政策建立对比关系。"
+    ],
+    "limitations": [
+      "公司映射为产业链相关性观察，不代表政策点名或订单确认。",
+      "部分目标需要地方十五五行动方案、行业标准、价格机制和项目清单进一步验证。"
+    ]
+  },
+  "analysisCoverage": {
+    "status": "matched",
+    "analysisMethod": "codex-manual-v1",
+    "evidenceCount": 9,
+    "industryNodeCount": 6,
+    "companyCount": 10,
+    "companyImpactConclusion": "本政策具有较强公司映射价值，但公司影响均为产业链相关性观察；政策没有点名上市公司，也没有形成采购、补贴、订单或业绩承诺。",
+    "limitations": [
+      "政策正文含有宏观目标和方向性任务，具体项目投资额、地区分配、企业名单仍需后续政策和招标公告验证。",
+      "新能源、储能、电网、节能改造等方向存在政策支持，但也可能面临产能、价格、并网、回款和竞争风险。",
+      "传统高耗能行业更多体现约束和转型压力，不宜简单解读为利好。"
+    ]
+  }
+}

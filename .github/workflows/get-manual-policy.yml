@@ -1,0 +1,56 @@
+name: Get manual policy source
+
+on:
+  workflow_dispatch:
+    inputs:
+      policy_id:
+        description: "Policy UUID to fetch for manual analysis"
+        required: true
+      output_name:
+        description: "Optional artifact file stem"
+        required: false
+        default: "manual-policy-source"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: get-manual-policy-source-${{ github.event.inputs.policy_id }}
+  cancel-in-progress: false
+
+jobs:
+  get:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch policy source for manual analysis
+        env:
+          SUPABASE_URL: https://qxzspsofhmfjceuaulhu.supabase.co
+          SUPABASE_FUNCTION_JWT: ${{ secrets.SUPABASE_FUNCTION_JWT }}
+          SUPABASE_CRAWLER_SECRET: ${{ secrets.SUPABASE_CRAWLER_SECRET }}
+          POLICY_ID: ${{ github.event.inputs.policy_id }}
+          OUTPUT_NAME: ${{ github.event.inputs.output_name || 'manual-policy-source' }}
+        run: |
+          mkdir -p artifacts/manual-analysis
+          node scripts/manual-policy-analysis.mjs get --policyId="${POLICY_ID}" \
+            | tee "artifacts/manual-analysis/${OUTPUT_NAME}-${POLICY_ID}.json"
+
+      - name: Upload manual policy source artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: manual-policy-source-${{ github.event.inputs.policy_id }}
+          path: artifacts/manual-analysis/*.json
+          if-no-files-found: error

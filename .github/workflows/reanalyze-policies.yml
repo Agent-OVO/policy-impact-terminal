@@ -44,4 +44,16 @@ jobs:
           SUPABASE_CRAWLER_SECRET: ${{ secrets.SUPABASE_CRAWLER_SECRET }}
           MANUAL_ANALYSIS_LIMIT: ${{ github.event.inputs.limit || '20' }}
           MANUAL_ANALYSIS_SINCE: ${{ github.event.inputs.since || '2026-05-01' }}
-        run: node scripts/manual-policy-analysis.mjs list --limit="${MANUAL_ANALYSIS_LIMIT}" --since="${MANUAL_ANALYSIS_SINCE}"
+        run: |
+          mkdir -p artifacts/manual-analysis
+          node scripts/manual-policy-analysis.mjs list \
+            --limit="${MANUAL_ANALYSIS_LIMIT}" \
+            --since="${MANUAL_ANALYSIS_SINCE}" \
+            | tee artifacts/manual-analysis/pending-manual-analysis.json
+
+      - name: Upload pending manual analysis artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pending-manual-analysis
+          path: artifacts/manual-analysis/pending-manual-analysis.json
+          if-no-files-found: error
