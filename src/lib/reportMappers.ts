@@ -1154,9 +1154,29 @@ function mapAppChainEdges(items: JsonRecord[]): AppChainEdge[] {
   }));
 }
 
+function deriveCompanyPolicyRelevance(evidence: AppCompanyWithLogo["evidence"], confidence: number): number {
+  if (evidence === "强证据") return confidence || 85;
+  if (evidence === "间接证据") return clampScore(Math.min(82, confidence || 68));
+  return clampScore(Math.min(60, confidence || 45));
+}
+
+function deriveCompanyEvidenceCertainty(evidence: AppCompanyWithLogo["evidence"], confidence: number): number {
+  if (evidence === "强证据") return clampScore(Math.min(90, confidence || 85));
+  if (evidence === "间接证据") return clampScore(Math.min(60, confidence || 52));
+  return clampScore(Math.min(45, confidence || 38));
+}
+
+function defaultCompanyUncertainty(evidence: AppCompanyWithLogo["evidence"], officialMention: boolean): string {
+  if (officialMention && evidence === "强证据") return "";
+  if (evidence === "待验证") return "当前仅为低置信观察线索，未见政策点名、订单、采购、补贴或业绩影响证据。";
+  return "当前仅为产业链相关观察，未见政策点名、订单、采购、补贴或业绩影响证据。";
+}
+
 function mapAppCompanies(items: JsonRecord[]): AppCompanyWithLogo[] {
   return items.map((item, index) => {
     const confidence = firstNumber(item.confidence);
+    const officialMention = Boolean(item.officialMention ?? item.official_mention ?? false);
+    const evidence = normalizeAppEvidenceLabel(item.evidence, item.evidenceLevel, item.evidence_level);
     return {
       id: firstString(item.id, item.company_key) || `company-${index + 1}`,
       name: firstString(item.name, item.companyName, item.company_name) || "",
@@ -1166,14 +1186,14 @@ function mapAppCompanies(items: JsonRecord[]): AppCompanyWithLogo[] {
       entityType: firstString(item.entityType, item.entity_type),
       listingStatus: firstString(item.listingStatus, item.listing_status),
       ownershipType: firstString(item.ownershipType, item.ownership_type),
-      officialMention: Boolean(item.officialMention ?? item.official_mention ?? false),
+      officialMention,
       selectionBasis: firstString(item.selectionBasis, item.selection_basis),
       section: normalizeAppIndustrySection(item.section),
       relation: normalizeAppRelation(item.relation),
-      evidence: normalizeAppEvidenceLabel(item.evidence, item.evidenceLevel, item.evidence_level),
+      evidence,
       confidence,
-      policyRelevance: firstNumber(item.policyRelevance, item.policy_relevance, confidence),
-      evidenceCertainty: firstNumber(item.evidenceCertainty, item.evidence_certainty, confidence),
+      policyRelevance: firstNumberOrUndefined(item.policyRelevance, item.policy_relevance) ?? deriveCompanyPolicyRelevance(evidence, confidence),
+      evidenceCertainty: firstNumberOrUndefined(item.evidenceCertainty, item.evidence_certainty) ?? deriveCompanyEvidenceCertainty(evidence, confidence),
       evidenceCount: firstPlainNumber(
         item.evidenceCount,
         item.evidence_count,
@@ -1184,7 +1204,7 @@ function mapAppCompanies(items: JsonRecord[]): AppCompanyWithLogo[] {
       clauseIds: toStringList(item.clauseIds, item.clause_ids, item.clauses),
       evidenceIds: toStringList(item.evidenceIds, item.evidence_ids, item.evidenceRefs, item.evidence_refs),
       reason: firstString(item.reason, item.description) || "",
-      uncertainty: firstString(item.uncertainty, item.risk_note, item.riskNote) || "",
+      uncertainty: firstString(item.uncertainty, item.risk_note, item.riskNote) || defaultCompanyUncertainty(evidence, officialMention),
       logoUrl: firstString(item.logoUrl, item.logo_url),
       logoDomain: firstString(
         item.logoDomain,

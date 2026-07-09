@@ -51,6 +51,7 @@ const cardHeaderStyle: CSSProperties = {
 
 const cardTitleStyle: CSSProperties = { minWidth: 0, overflowWrap: "anywhere" };
 const cardTagsStyle: CSSProperties = { display: "flex", flexWrap: "wrap", gap: 6, minWidth: 0 };
+const boundaryTagStyle: CSSProperties = { opacity: 0.92, borderStyle: "dashed" };
 
 function createReasonStyle(compact?: boolean): CSSProperties {
   return {
@@ -60,6 +61,15 @@ function createReasonStyle(compact?: boolean): CSSProperties {
     WebkitLineClamp: compact ? 3 : 4,
     overflow: "hidden"
   };
+}
+
+function getCompanyBoundaryTags(company: Company) {
+  const tags: string[] = [];
+  if (!company.officialMention) tags.push("未点名");
+  if (company.evidence === "间接证据") tags.push("间接证据");
+  if (company.evidence === "待验证") tags.push("待验证");
+  if (!company.officialMention && company.evidence !== "强证据") tags.push("无订单证据");
+  return [...new Set(tags)].slice(0, 3);
 }
 
 export function CompanyLogo({
@@ -168,7 +178,9 @@ export function CompanyCard({ company, compact }: { company: Company; compact?: 
   const reason = company.reason.trim() || platform;
   const confidence = clampScore(company.confidence);
   const policyRelevance = clampScore(company.policyRelevance);
+  const evidenceCertainty = clampScore(company.evidenceCertainty);
   const evidenceCount = Number.isFinite(company.evidenceCount) ? Math.max(0, Math.round(company.evidenceCount)) : 0;
+  const boundaryTags = getCompanyBoundaryTags(company);
 
   return (
     <article className={cx("company-card", "company-card-stable", compact && "compact")} style={cardShellStyle}>
@@ -182,6 +194,7 @@ export function CompanyCard({ company, compact }: { company: Company; compact?: 
       <section className="company-card-tags" style={cardTagsStyle} aria-label="公司影响标签">
         <CompanyTag value={company.relation} small />
         <CompanyTag value={company.evidence} small />
+        {boundaryTags.map((tag) => <span key={tag} className="tag small" style={boundaryTagStyle}>{tag}</span>)}
         <span className="tag small">{listingStatus}</span>
         {company.officialMention && <span className="tag small positive">官方点名</span>}
       </section>
@@ -189,6 +202,7 @@ export function CompanyCard({ company, compact }: { company: Company; compact?: 
       <footer className="company-card-bottom company-card-metrics">
         <span className="company-card-evidence">证据 {evidenceCount} 条</span>
         <span className="company-card-relevance">相关 {policyRelevance}</span>
+        <span className="company-card-relevance">确定 {evidenceCertainty}</span>
         <b className="company-card-score">{confidence}/100</b>
       </footer>
     </article>

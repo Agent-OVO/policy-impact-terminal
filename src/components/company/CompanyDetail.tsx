@@ -23,10 +23,28 @@ const detailIdentityStyle: CSSProperties = {
   minWidth: 0
 };
 const detailTitleStyle: CSSProperties = { display: "grid", gap: 4, minWidth: 0 };
+const boundaryNoticeStyle: CSSProperties = {
+  marginTop: 12,
+  padding: "10px 12px",
+  border: "1px dashed rgba(245, 158, 11, 0.55)",
+  borderRadius: 12,
+  background: "rgba(245, 158, 11, 0.08)",
+  color: "inherit"
+};
 
 function textOrFallback(value: string | undefined, fallback: string) {
   const normalized = value?.trim() ?? "";
   return normalized || fallback;
+}
+
+function buildBoundaryNotice(company: Company) {
+  if (company.officialMention && company.evidence === "强证据") {
+    return "该主体与政策文本存在较强对应关系，但仍需结合后续项目、采购、预算或经营数据验证实际影响。";
+  }
+  if (company.evidence === "待验证") {
+    return "该主体当前仅作为低置信观察线索，政策未点名，暂未形成订单、采购、补贴或业绩影响证据。";
+  }
+  return "该主体未被政策点名，当前仅为产业链相关观察；具体影响需等待地方项目、预算、招投标或配套细则验证。";
 }
 
 export function CompanyDetail({
@@ -68,6 +86,7 @@ export function CompanyDetail({
   );
   const selectionBasis = textOrFallback(selectedCompany.selectionBasis, selectedCompany.officialMention ? "官方文件点名或附件列示" : "按政策产业链关联选择");
   const confidence = clampScore(selectedCompany.confidence);
+  const boundaryNotice = buildBoundaryNotice(selectedCompany);
   const evidenceCount = Number.isFinite(selectedCompany.evidenceCount)
     ? Math.max(0, Math.round(selectedCompany.evidenceCount))
     : selectedEvidence.length;
@@ -128,6 +147,11 @@ export function CompanyDetail({
         <div className="tag-row">
           <CompanyTag value={selectedCompany.relation} />
           <CompanyTag value={selectedCompany.evidence} />
+          {!selectedCompany.officialMention && <span className="tag">未被政策点名</span>}
+        </div>
+        <div style={boundaryNoticeStyle}>
+          <strong>映射边界：</strong>
+          <span style={wrapTextStyle}>{boundaryNotice}</span>
         </div>
       </div>
       <dl className="company-facts">

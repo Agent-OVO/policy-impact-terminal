@@ -1,0 +1,106 @@
+{
+  "id": "<policy-uuid>",
+  "policyId": "<policy-uuid>",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "qualityProfile": "policy-analysis-quality-v1.1",
+  "policyType": "规划 | 实施意见 | 通知 | 公告 | 目录 | 批复 | 条例 | 办法",
+  "policyStrength": "high | medium | low",
+  "policyTransmission": "planning_guidance | direct_build | rule_constraint | funding_support | market_mechanism | information_signal",
+  "generatedAt": "YYYY-MM-DDTHH:mm:ss+08:00",
+  "summary": {
+    "id": "<policy-uuid>",
+    "title": "政策标题",
+    "issuer": "发布机关",
+    "source": "来源名称",
+    "publishDate": "YYYY-MM-DD",
+    "status": "published",
+    "confidence": 0,
+    "industryCount": 0,
+    "companyCount": 0,
+    "evidenceCount": 0,
+    "primarySignal": "一句话概括政策产业影响，不写投资结论",
+    "category": "政策分类"
+  },
+  "policy": {
+    "title": "政策标题",
+    "status": "已发布",
+    "issuer": "发布机关",
+    "publishDate": "YYYY-MM-DD",
+    "source": "来源名称",
+    "category": "政策分类",
+    "level": "政策层级",
+    "confidence": 0,
+    "sourceUrl": "https://...",
+    "scope": "适用范围",
+    "impactScope": "影响范围",
+    "jurisdiction": "中国",
+    "tags": []
+  },
+  "brief": {
+    "judgement": "综合判断：只讲政策影响，不讲买卖，不把产业链相关写成确定受益。",
+    "summary": "摘要。",
+    "keyPoints": [],
+    "methodology": "说明人工阅读、证据边界、公司映射原则。"
+  },
+  "actions": [],
+  "clauses": [],
+  "chainNodes": [],
+  "chainEdges": [],
+  "companies": [
+    {
+      "id": "co1",
+      "name": "公司名称",
+      "ticker": "证券代码或空",
+      "section": "upstream | midstream | downstream | support",
+      "relation": "direct | indirect | beneficiary | constraint_risk | pending",
+      "evidenceLevel": "strong | indirect | pending",
+      "mappingLevel": "policy_named | direct_industry | indirect_industry | thematic_only | watch_only",
+      "officialMention": false,
+      "hasOrderEvidence": false,
+      "hasSubsidyEvidence": false,
+      "hasProcurementEvidence": false,
+      "confidence": 0,
+      "policyRelevance": 0,
+      "evidenceCertainty": 0,
+      "businessExposure": 0,
+      "implementationDependency": "地方项目库/招投标/预算/配套细则",
+      "notInvestmentSignal": true,
+      "reason": "为什么纳入，必须说明证据边界。",
+      "riskNote": "未被政策点名，未见订单、采购、补贴或业绩影响证据。",
+      "nodeIds": [],
+      "clauseIds": [],
+      "evidenceIds": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "e1",
+      "type": "policy_text",
+      "source": "官方来源",
+      "title": "证据标题",
+      "excerpt": "尽量接近政策原文的短摘",
+      "interpretation": "人工解释放这里，不要放在 excerpt 冒充原文",
+      "sourceLocation": "章节/条款位置",
+      "confidence": 0,
+      "clauseIds": [],
+      "nodeIds": [],
+      "companyIds": []
+    }
+  ],
+  "backgroundCards": [],
+  "compareInsights": {
+    "comparableCount": 0,
+    "similarPolicies": [],
+    "contrastPolicies": [],
+    "insights": ["未启用横向对比时，必须明确说明仅基于当前政策文本。"],
+    "limitations": []
+  },
+  "followUpSignals": ["地方实施方案", "项目库", "预算", "招投标", "试点名单", "配套细则"],
+  "analysisCoverage": {
+    "status": "matched | no_company_mapping",
+    "analysisMethod": "codex-manual-v1",
+    "companyImpactConclusion": "公司映射只是政策链条相关性，不代表点名、订单、补贴、采购或业绩影响。",
+    "limitations": []
+  }
+}

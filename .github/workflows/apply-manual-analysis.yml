@@ -51,6 +51,7 @@ jobs:
       - name: Validate manual report payload
         env:
           REPORT_FILE: ${{ github.event.inputs.report_file }}
+          MANUAL_QUALITY_STRICT: "true"
         run: npm run manual:validate -- "$REPORT_FILE"
 
       - name: Apply manual analysis
