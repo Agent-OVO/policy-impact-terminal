@@ -4,9 +4,17 @@
   "analyzerVersion": "codex-manual-v1",
   "analysisMethod": "codex-manual-v1",
   "qualityProfile": "policy-analysis-quality-v1.1",
-  "policyType": "规划 | 实施意见 | 通知 | 公告 | 目录 | 批复 | 条例 | 办法",
-  "policyStrength": "high | medium | low",
+  "methodologyVersion": "policy-decomposition-methodology-v1.0.1",
+  "documentShellType": "通知 | 批复 | 公告 | 意见 | 办法 | 条例 | 规划 | 方案",
+  "substantivePolicyType": "规划 | 行动方案 | 实施意见 | 申报通知 | 名单目录 | 监管约束 | 资金支持 | 试点示范",
+  "primaryActionType": "目标设定 | 任务部署 | 项目建设 | 资金支持 | 试点示范 | 标准约束 | 市场机制 | 名单认定 | 监管处罚 | 数据平台 | 地方责任",
+  "policyType": "兼容旧字段：规划 | 实施意见 | 通知 | 公告 | 目录 | 批复 | 条例 | 办法",
+  "policySignalStrength": "high | medium | low",
+  "implementationCertainty": "high | medium | low",
+  "policyStrength": "兼容旧字段：high | medium | low",
   "policyTransmission": "planning_guidance | direct_build | rule_constraint | funding_support | market_mechanism | information_signal",
+  "analysisDepth": "L0 | L1 | L2 | L3 | L4 | L5",
+  "analysisDepthReason": "说明为什么本政策适合进入该分析深度，尤其说明是否适合公司映射。",
   "generatedAt": "YYYY-MM-DDTHH:mm:ss+08:00",
   "summary": {
     "id": "<policy-uuid>",
@@ -41,11 +49,41 @@
     "judgement": "综合判断：只讲政策影响，不讲买卖，不把产业链相关写成确定受益。",
     "summary": "摘要。",
     "keyPoints": [],
-    "methodology": "说明人工阅读、证据边界、公司映射原则。"
+    "methodology": "说明人工阅读、政策类型、分析深度、证据边界、公司映射原则。"
   },
-  "actions": [],
+  "actions": [
+    {
+      "id": "a1",
+      "title": "政策动作标题",
+      "actionType": "目标设定 | 任务部署 | 项目建设 | 资金支持 | 试点示范 | 标准约束 | 市场机制 | 名单认定 | 监管处罚 | 数据平台 | 地方责任",
+      "actionEvidenceLevel": "strong | indirect | pending",
+      "body": "说明政策动作，不写公司受益。",
+      "implementationDependency": "地方实施方案/项目库/预算/招投标/配套细则",
+      "signal": "beneficiary | constraint | risk | market | pending",
+      "confidence": 0,
+      "clauseIds": [],
+      "sortOrder": 1
+    }
+  ],
   "clauses": [],
-  "chainNodes": [],
+  "chainNodes": [
+    {
+      "id": "n1",
+      "title": "产业节点",
+      "subtitle": "节点说明",
+      "section": "upstream | midstream | downstream | support",
+      "relation": "beneficiary | constraint | market | pending",
+      "evidenceLevel": "strong | indirect | pending",
+      "industryNodeEvidenceLevel": "strong | indirect | pending",
+      "confidence": 0,
+      "description": "说明政策如何支撑该产业节点。",
+      "clauseIds": [],
+      "companyIds": [],
+      "evidenceIds": [],
+      "impactReason": "节点影响原因",
+      "verificationSignals": ["后续验证文件或项目"]
+    }
+  ],
   "chainEdges": [],
   "companies": [
     {
@@ -55,7 +93,9 @@
       "section": "upstream | midstream | downstream | support",
       "relation": "direct | indirect | beneficiary | constraint_risk | pending",
       "evidenceLevel": "strong | indirect | pending",
+      "companyMappingEvidenceLevel": "strong | indirect | pending",
       "mappingLevel": "policy_named | direct_industry | indirect_industry | thematic_only | watch_only",
+      "regulatoryRole": "constraint_exposed | compliance_provider | mixed | not_applicable",
       "officialMention": false,
       "hasOrderEvidence": false,
       "hasSubsidyEvidence": false,
@@ -83,6 +123,7 @@
       "interpretation": "人工解释放这里，不要放在 excerpt 冒充原文",
       "sourceLocation": "章节/条款位置",
       "confidence": 0,
+      "evidenceObject": "policy_action | industry_node | company_mapping | background",
       "clauseIds": [],
       "nodeIds": [],
       "companyIds": []
@@ -98,7 +139,7 @@
   },
   "followUpSignals": ["地方实施方案", "项目库", "预算", "招投标", "试点名单", "配套细则"],
   "analysisCoverage": {
-    "status": "matched | no_company_mapping",
+    "status": "matched | no_company_mapping | summary_only",
     "analysisMethod": "codex-manual-v1",
     "companyImpactConclusion": "公司映射只是政策链条相关性，不代表点名、订单、补贴、采购或业绩影响。",
     "limitations": []
