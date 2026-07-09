@@ -1141,6 +1141,12 @@ function PolicySidebar({
   const currentPolicy = report?.policy;
   const currentModules = report?.modules ?? [];
   const currentEvidence = report?.evidence ?? [];
+  const methodologyTags = [
+    report?.substantivePolicyType && `实质：${report.substantivePolicyType}`,
+    report?.analysisDepth && `深度：${report.analysisDepth}`,
+    report?.policySignalStrength && `信号：${report.policySignalStrength}`,
+    report?.implementationCertainty && `落地：${report.implementationCertainty}`
+  ].filter(Boolean) as string[];
   const [starred, setStarred] = useState(false);
 
   useEffect(() => {
@@ -1208,7 +1214,25 @@ function PolicySidebar({
               <dt>政策层级</dt>
               <dd>{currentPolicy.level}</dd>
             </div>
+            {report?.documentShellType && (
+              <div>
+                <dt>文档外壳</dt>
+                <dd>{report.documentShellType}</dd>
+              </div>
+            )}
+            {report?.primaryActionType && (
+              <div>
+                <dt>主要动作</dt>
+                <dd>{report.primaryActionType}</dd>
+              </div>
+            )}
           </dl>
+          {methodologyTags.length > 0 && (
+            <div className="tag-row" aria-label="方法论拆解标签">
+              {methodologyTags.map((tag) => <span key={tag}>{tag}</span>)}
+            </div>
+          )}
+          {report?.analysisDepthReason && <p className="empty-note">拆解深度：{report.analysisDepthReason}</p>}
           <div className="policy-illustration">
             <ShieldCheck size={42} />
           </div>

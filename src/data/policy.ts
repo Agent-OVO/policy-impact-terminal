@@ -47,12 +47,20 @@ export interface PolicyMeta {
   tags?: string[];
 }
 
+export type AnalysisDepth = "L0" | "L1" | "L2" | "L3" | "L4" | "L5";
+export type StrengthLevel = "high" | "medium" | "low";
+export type MappingLevel = "policy_named" | "direct_industry" | "indirect_industry" | "thematic_only" | "watch_only";
+export type RegulatoryRole = "constraint_exposed" | "compliance_provider" | "mixed" | "not_applicable";
+
 export interface PolicyAction {
   id: string;
   title: string;
   body: string;
   signal: Signal;
   confidence: number;
+  actionType?: string;
+  actionEvidenceLevel?: "strong" | "indirect" | "pending";
+  implementationDependency?: string;
 }
 
 export interface PolicyBrief {
@@ -93,6 +101,8 @@ export interface ChainNode {
   companies: string[];
   evidenceIds?: string[];
   impactReason?: string;
+  industryNodeEvidenceLevel?: "strong" | "indirect" | "pending";
+  verificationSignals?: string[];
   icon: LucideIcon;
 }
 
@@ -115,6 +125,15 @@ export interface Company {
   ownershipType?: string;
   officialMention?: boolean;
   selectionBasis?: string;
+  mappingLevel?: MappingLevel;
+  regulatoryRole?: RegulatoryRole;
+  companyMappingEvidenceLevel?: "strong" | "indirect" | "pending";
+  hasOrderEvidence?: boolean;
+  hasSubsidyEvidence?: boolean;
+  hasProcurementEvidence?: boolean;
+  notInvestmentSignal?: boolean;
+  implementationDependency?: string;
+  businessExposure?: number;
   section: ChainNode["section"];
   relation: RelationType;
   evidence: EvidenceLevel;
@@ -140,6 +159,9 @@ export interface Evidence {
   type: string;
   date: string;
   excerpt: string;
+  interpretation?: string;
+  sourceLocation?: string;
+  evidenceObject?: "policy_action" | "industry_node" | "company_mapping" | "background";
   confidence: number;
   url?: string;
   clauseIds?: string[];

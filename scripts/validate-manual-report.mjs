@@ -87,7 +87,7 @@ async function validateFile(file) {
   }
 
   validateReferences(errors, warnings, { clauses, chainNodes, chainEdges, companies, evidence });
-  validateQualityDiscipline(errors, warnings, { report, policy, summary, companies, evidence, clauses, chainNodes, backgroundCards });
+  validateQualityDiscipline(errors, warnings, { report, policy, summary, actions, companies, evidence, clauses, chainNodes, backgroundCards });
 
   const sourceUrl = stringField(policy, "sourceUrl") ?? stringField(policy, "source_url") ?? stringField(report, "sourceUrl");
   if (!sourceUrl || !/^https?:\/\//i.test(sourceUrl)) {
@@ -167,7 +167,7 @@ function validateReferences(errors, warnings, { clauses, chainNodes, chainEdges,
   }
 }
 
-function validateQualityDiscipline(errors, warnings, { report, policy, summary, companies, evidence, clauses, chainNodes, backgroundCards }) {
+function validateQualityDiscipline(errors, warnings, { report, policy, summary, actions, companies, evidence, clauses, chainNodes, backgroundCards }) {
   const qualityIssues = QUALITY_STRICT ? errors : warnings;
   const qualityPrefix = QUALITY_STRICT ? "quality error" : "quality warning";
   const title = stringField(policy, "title") || stringField(summary, "title") || "untitled policy";
@@ -183,6 +183,8 @@ function validateQualityDiscipline(errors, warnings, { report, policy, summary, 
   if (backgroundCards.length < 3) {
     warnings.push(`quality warning: backgroundCards has fewer than 3 items`);
   }
+
+  validateMethodologyDiscipline(errors, warnings, { report, actions, chainNodes, companies, evidence });
 
   const compareInsight = recordField(report, "compareInsights") ?? recordField(report, "compare_insights");
   if (compareInsight) {
@@ -217,6 +219,58 @@ function validateQualityDiscipline(errors, warnings, { report, policy, summary, 
     const interpretation = stringField(item, "interpretation") || stringField(item, "analysis") || stringField(item, "commentary");
     if (looksLikeInterpretiveExcerpt(excerpt) && interpretation.length < 10) {
       qualityIssues.push(`${qualityPrefix}: evidence[${index}].excerpt looks interpretive; move analysis to interpretation and keep excerpt close to source text`);
+    }
+  }
+}
+
+function validateMethodologyDiscipline(errors, warnings, { report, actions, chainNodes, companies, evidence }) {
+  const methodologyVersion = stringField(report, "methodologyVersion") || stringField(report, "methodology_version");
+  const isV101 = /policy-decomposition-methodology-v1\.0\.1|v1\.0\.1/i.test(methodologyVersion);
+  const issues = QUALITY_STRICT && isV101 ? errors : warnings;
+  const prefix = isV101 && QUALITY_STRICT ? "methodology error" : "methodology warning";
+
+  const requiredTopFields = [
+    ["documentShellType", "document_shell_type"],
+    ["substantivePolicyType", "substantive_policy_type"],
+    ["primaryActionType", "primary_action_type"],
+    ["policySignalStrength", "policy_signal_strength"],
+    ["implementationCertainty", "implementation_certainty"],
+    ["analysisDepth", "analysis_depth"],
+    ["analysisDepthReason", "analysis_depth_reason"]
+  ];
+  for (const keys of requiredTopFields) {
+    if (!stringField(report, keys[0]) && !stringField(report, keys[1])) {
+      issues.push(`${prefix}: report must include ${keys[0]} for methodology v1.0.1`);
+    }
+  }
+
+  const signalStrength = normalizeToken(stringField(report, "policySignalStrength") || stringField(report, "policy_signal_strength"));
+  const implementationCertainty = normalizeToken(stringField(report, "implementationCertainty") || stringField(report, "implementation_certainty"));
+  if (signalStrength && !["high", "medium", "low"].includes(signalStrength)) {
+    issues.push(`${prefix}: policySignalStrength must be high, medium, or low`);
+  }
+  if (implementationCertainty && !["high", "medium", "low"].includes(implementationCertainty)) {
+    issues.push(`${prefix}: implementationCertainty must be high, medium, or low`);
+  }
+  const analysisDepth = normalizeToken(stringField(report, "analysisDepth") || stringField(report, "analysis_depth")).toUpperCase();
+  if (analysisDepth && !["L0", "L1", "L2", "L3", "L4", "L5"].includes(analysisDepth)) {
+    issues.push(`${prefix}: analysisDepth must be L0-L5`);
+  }
+
+  if (isV101) {
+    for (const [index, action] of actions.entries()) {
+      if (!stringField(action, "actionType") && !stringField(action, "action_type")) issues.push(`${prefix}: actions[${index}] must include actionType`);
+      if (!stringField(action, "actionEvidenceLevel") && !stringField(action, "action_evidence_level")) issues.push(`${prefix}: actions[${index}] must include actionEvidenceLevel`);
+    }
+    for (const [index, node] of chainNodes.entries()) {
+      if (!stringField(node, "industryNodeEvidenceLevel") && !stringField(node, "industry_node_evidence_level")) issues.push(`${prefix}: chainNodes[${index}] must include industryNodeEvidenceLevel`);
+    }
+    for (const [index, company] of companies.entries()) {
+      if (!stringField(company, "companyMappingEvidenceLevel") && !stringField(company, "company_mapping_evidence_level")) issues.push(`${prefix}: companies[${index}] must include companyMappingEvidenceLevel`);
+      if (!stringField(company, "mappingLevel") && !stringField(company, "mapping_level")) issues.push(`${prefix}: companies[${index}] must include mappingLevel`);
+    }
+    for (const [index, item] of evidence.entries()) {
+      if (!stringField(item, "evidenceObject") && !stringField(item, "evidence_object")) issues.push(`${prefix}: evidence[${index}] should include evidenceObject`);
     }
   }
 }

@@ -68,6 +68,15 @@ export interface AppPolicyReport {
     keyPoints?: string[];
     methodology?: string;
   };
+  methodologyVersion?: string;
+  documentShellType?: string;
+  substantivePolicyType?: string;
+  primaryActionType?: string;
+  policySignalStrength?: "high" | "medium" | "low";
+  implementationCertainty?: "high" | "medium" | "low";
+  analysisDepth?: "L0" | "L1" | "L2" | "L3" | "L4" | "L5";
+  analysisDepthReason?: string;
+  followUpSignals?: string[];
   policy: AppPolicyMeta;
   actions: AppPolicyAction[];
   clauseGroups: AppClauseGroup[];
@@ -139,6 +148,12 @@ interface PolicyActionLike {
   body?: string;
   signal?: string;
   confidence?: number;
+  actionType?: string;
+  action_type?: string;
+  actionEvidenceLevel?: string;
+  action_evidence_level?: string;
+  implementationDependency?: string;
+  implementation_dependency?: string;
   clauses?: readonly string[];
   clauseIds?: readonly string[];
   sortOrder?: number;
@@ -191,6 +206,10 @@ interface IndustryNodeLike {
   evidence_ids?: readonly string[];
   impactReason?: string;
   impact_reason?: string;
+  industryNodeEvidenceLevel?: string;
+  industry_node_evidence_level?: string;
+  verificationSignals?: readonly string[];
+  verification_signals?: readonly string[];
   iconKey?: string;
 }
 
@@ -228,6 +247,24 @@ interface CompanyImpactLike {
   evidence?: string;
   evidenceLevel?: string;
   evidence_level?: string;
+  companyMappingEvidenceLevel?: string;
+  company_mapping_evidence_level?: string;
+  mappingLevel?: string;
+  mapping_level?: string;
+  regulatoryRole?: string;
+  regulatory_role?: string;
+  hasOrderEvidence?: boolean;
+  has_order_evidence?: boolean;
+  hasSubsidyEvidence?: boolean;
+  has_subsidy_evidence?: boolean;
+  hasProcurementEvidence?: boolean;
+  has_procurement_evidence?: boolean;
+  notInvestmentSignal?: boolean;
+  not_investment_signal?: boolean;
+  implementationDependency?: string;
+  implementation_dependency?: string;
+  businessExposure?: number;
+  business_exposure?: number;
   confidence?: number;
   evidenceCount?: number;
   evidence_count?: number;
@@ -256,6 +293,11 @@ interface EvidenceItemLike {
   date?: string;
   published_at?: string;
   excerpt?: string;
+  interpretation?: string;
+  sourceLocation?: string;
+  source_location?: string;
+  evidenceObject?: string;
+  evidence_object?: string;
   confidence?: number;
   url?: string;
   clauseIds?: readonly string[];
@@ -293,6 +335,24 @@ interface PolicyBriefLike {
 
 export interface PolicyReportLike {
   id?: string;
+  methodologyVersion?: string;
+  methodology_version?: string;
+  documentShellType?: string;
+  document_shell_type?: string;
+  substantivePolicyType?: string;
+  substantive_policy_type?: string;
+  primaryActionType?: string;
+  primary_action_type?: string;
+  policySignalStrength?: string;
+  policy_signal_strength?: string;
+  implementationCertainty?: string;
+  implementation_certainty?: string;
+  analysisDepth?: string;
+  analysis_depth?: string;
+  analysisDepthReason?: string;
+  analysis_depth_reason?: string;
+  followUpSignals?: readonly string[];
+  follow_up_signals?: readonly string[];
   summary?: Partial<PolicySummary>;
   brief?: PolicyBriefLike;
   policyBrief?: PolicyBriefLike;
@@ -459,6 +519,66 @@ function toStringArray(value: readonly string[] | undefined): string[] {
   return Array.isArray(value) ? [...value] : [];
 }
 
+function normalizeStrengthLevelValue(...values: unknown[]): "high" | "medium" | "low" | undefined {
+  for (const value of values) {
+    const token = normalizeToken(toMaybeString(value));
+    if (token === "high" || token === "medium" || token === "low") return token;
+  }
+  return undefined;
+}
+
+function normalizeAnalysisDepthValue(...values: unknown[]): "L0" | "L1" | "L2" | "L3" | "L4" | "L5" | undefined {
+  for (const value of values) {
+    const text = toMaybeString(value)?.trim().toUpperCase();
+    if (text === "L0" || text === "L1" || text === "L2" || text === "L3" || text === "L4" || text === "L5") return text;
+  }
+  return undefined;
+}
+
+function normalizeMappingLevelValue(...values: unknown[]): AppCompany["mappingLevel"] {
+  for (const value of values) {
+    const token = normalizeToken(toMaybeString(value));
+    if (token === "policy_named" || token === "direct_industry" || token === "indirect_industry" || token === "thematic_only" || token === "watch_only") return token;
+  }
+  return undefined;
+}
+
+function normalizeRegulatoryRoleValue(...values: unknown[]): AppCompany["regulatoryRole"] {
+  for (const value of values) {
+    const token = normalizeToken(toMaybeString(value));
+    if (token === "constraint_exposed" || token === "compliance_provider" || token === "mixed" || token === "not_applicable") return token;
+  }
+  return undefined;
+}
+
+function normalizeEvidenceObject(value: unknown): AppEvidence["evidenceObject"] {
+  const token = normalizeToken(toMaybeString(value));
+  if (token === "policy_action" || token === "industry_node" || token === "company_mapping" || token === "background") return token;
+  return undefined;
+}
+
+function normalizeEvidenceObjectLevel(...values: unknown[]): "strong" | "indirect" | "pending" | undefined {
+  for (const value of values) {
+    const token = normalizeToken(toMaybeString(value));
+    if (token === "strong" || token === "high" || token === "强证据") return "strong";
+    if (token === "indirect" || token === "medium" || token === "间接证据") return "indirect";
+    if (token === "pending" || token === "low" || token === "unknown" || token === "待验证") return "pending";
+  }
+  return undefined;
+}
+
+function firstBoolean(...values: unknown[]): boolean | undefined {
+  for (const value of values) {
+    if (typeof value === "boolean") return value;
+    if (typeof value === "string") {
+      const token = value.trim().toLowerCase();
+      if (token === "true" || token === "1" || token === "yes") return true;
+      if (token === "false" || token === "0" || token === "no") return false;
+    }
+  }
+  return undefined;
+}
+
 function isComparisonTuple(row: readonly string[] | PolicyComparisonRow): row is readonly string[] {
   return Array.isArray(row);
 }
@@ -591,6 +711,9 @@ export function mapPolicyActions(items: readonly PolicyActionLike[] = []): Polic
     signal: normalizePolicySignal(item.signal),
     displaySignal: item.signal,
     confidence: clampScore(item.confidence),
+    actionType: item.actionType ?? item.action_type,
+    actionEvidenceLevel: normalizeEvidenceLevel(item.actionEvidenceLevel ?? item.action_evidence_level),
+    implementationDependency: item.implementationDependency ?? item.implementation_dependency,
     clauseIds: toStringArray(item.clauseIds ?? item.clauses),
     sortOrder: item.sortOrder ?? item.sort_order ?? index
   }));
@@ -636,6 +759,8 @@ export function mapIndustryNodes(items: readonly IndustryNodeLike[] = []): Indus
       clauseIds: toStringArray(item.clauseIds ?? item.clause_refs ?? item.clauses),
       companyIds: toStringArray(item.companyIds ?? item.company_refs ?? item.companies),
       iconKey: item.iconKey,
+      industryNodeEvidenceLevel: normalizeEvidenceLevel(item.industryNodeEvidenceLevel ?? item.industry_node_evidence_level ?? evidenceLabel),
+      verificationSignals: toStringArray(item.verificationSignals ?? item.verification_signals),
       displayRelation: item.relation,
       displayEvidenceLevel: evidenceLabel
     };
@@ -667,6 +792,15 @@ export function mapCompanyImpacts(items: readonly CompanyImpactLike[] = []): Com
       ownershipType: item.ownershipType ?? item.ownership_type,
       officialMention: item.officialMention ?? item.official_mention,
       selectionBasis: item.selectionBasis ?? item.selection_basis,
+      mappingLevel: normalizeMappingLevelValue(item.mappingLevel, item.mapping_level),
+      regulatoryRole: normalizeRegulatoryRoleValue(item.regulatoryRole, item.regulatory_role),
+      companyMappingEvidenceLevel: normalizeEvidenceLevel(item.companyMappingEvidenceLevel ?? item.company_mapping_evidence_level ?? evidenceLabel),
+      hasOrderEvidence: item.hasOrderEvidence ?? item.has_order_evidence,
+      hasSubsidyEvidence: item.hasSubsidyEvidence ?? item.has_subsidy_evidence,
+      hasProcurementEvidence: item.hasProcurementEvidence ?? item.has_procurement_evidence,
+      notInvestmentSignal: item.notInvestmentSignal ?? item.not_investment_signal,
+      implementationDependency: item.implementationDependency ?? item.implementation_dependency,
+      businessExposure: item.businessExposure ?? item.business_exposure,
       section: normalizeIndustrySection(item.section),
       relation: normalizeRelationType(item.relation),
       evidenceLevel: normalizeEvidenceLevel(evidenceLabel),
@@ -692,6 +826,9 @@ export function mapEvidenceItems(items: readonly EvidenceItemLike[] = []): Evide
     type: formatSourceTypeLabel(item.type ?? item.evidence_type, ""),
     date: item.date ?? item.published_at ?? "",
     excerpt: item.excerpt ?? "",
+    interpretation: item.interpretation,
+    sourceLocation: item.sourceLocation ?? item.source_location,
+    evidenceObject: normalizeEvidenceObject(item.evidenceObject ?? item.evidence_object),
     confidence: clampScore(item.confidence),
     url: item.url,
     links: {
@@ -759,6 +896,15 @@ export function mapPolicyReport(input: PolicyReportLike): PolicyReport {
 
   return {
     id,
+    methodologyVersion: input.methodologyVersion ?? input.methodology_version,
+    documentShellType: input.documentShellType ?? input.document_shell_type,
+    substantivePolicyType: input.substantivePolicyType ?? input.substantive_policy_type,
+    primaryActionType: input.primaryActionType ?? input.primary_action_type,
+    policySignalStrength: normalizeStrengthLevelValue(input.policySignalStrength, input.policy_signal_strength),
+    implementationCertainty: normalizeStrengthLevelValue(input.implementationCertainty, input.implementation_certainty),
+    analysisDepth: normalizeAnalysisDepthValue(input.analysisDepth, input.analysis_depth),
+    analysisDepthReason: input.analysisDepthReason ?? input.analysis_depth_reason,
+    followUpSignals: toStringArray(input.followUpSignals ?? input.follow_up_signals),
     summary: {
       ...createPolicySummary(reportForSummary),
       ...input.summary,
@@ -995,6 +1141,15 @@ export function mapPolicyReportPayloadForApp(
 
   return {
     id,
+    methodologyVersion: firstString(input.methodologyVersion, input.methodology_version),
+    documentShellType: firstString(input.documentShellType, input.document_shell_type),
+    substantivePolicyType: firstString(input.substantivePolicyType, input.substantive_policy_type),
+    primaryActionType: firstString(input.primaryActionType, input.primary_action_type),
+    policySignalStrength: normalizeStrengthLevelValue(input.policySignalStrength, input.policy_signal_strength),
+    implementationCertainty: normalizeStrengthLevelValue(input.implementationCertainty, input.implementation_certainty),
+    analysisDepth: normalizeAnalysisDepthValue(input.analysisDepth, input.analysis_depth),
+    analysisDepthReason: firstString(input.analysisDepthReason, input.analysis_depth_reason),
+    followUpSignals: toStringList(input.followUpSignals, input.follow_up_signals),
     summary: {
       ...fallbackSummary,
       ...readSummary(summaryInput),
@@ -1097,7 +1252,10 @@ function mapAppPolicyActions(items: JsonRecord[]): AppPolicyAction[] {
     title: firstString(item.title) || "",
     body: firstString(item.body, item.description) || "",
     signal: normalizeAppSignal(item.signal),
-    confidence: firstNumber(item.confidence)
+    confidence: firstNumber(item.confidence),
+    actionType: firstString(item.actionType, item.action_type),
+    actionEvidenceLevel: normalizeEvidenceObjectLevel(item.actionEvidenceLevel, item.action_evidence_level),
+    implementationDependency: firstString(item.implementationDependency, item.implementation_dependency)
   }));
 }
 
@@ -1139,6 +1297,8 @@ function mapAppChainNodes(items: JsonRecord[]): AppChainNode[] {
       companies: toStringList(item.companies, item.companyIds, item.company_ids, item.company_refs),
       evidenceIds: toStringList(item.evidenceIds, item.evidence_ids, item.evidence_refs),
       impactReason: firstString(item.impactReason, item.impact_reason),
+      industryNodeEvidenceLevel: normalizeEvidenceObjectLevel(item.industryNodeEvidenceLevel, item.industry_node_evidence_level, item.evidenceLevel, item.evidence_level, item.evidence),
+      verificationSignals: toStringList(item.verificationSignals, item.verification_signals),
       icon: resolveIcon(item, section)
     };
   });
@@ -1192,6 +1352,15 @@ function mapAppCompanies(items: JsonRecord[]): AppCompanyWithLogo[] {
       relation: normalizeAppRelation(item.relation),
       evidence,
       confidence,
+      mappingLevel: normalizeMappingLevelValue(item.mappingLevel, item.mapping_level),
+      regulatoryRole: normalizeRegulatoryRoleValue(item.regulatoryRole, item.regulatory_role),
+      companyMappingEvidenceLevel: normalizeEvidenceObjectLevel(item.companyMappingEvidenceLevel, item.company_mapping_evidence_level, item.evidenceLevel, item.evidence_level, item.evidence),
+      hasOrderEvidence: firstBoolean(item.hasOrderEvidence, item.has_order_evidence),
+      hasSubsidyEvidence: firstBoolean(item.hasSubsidyEvidence, item.has_subsidy_evidence),
+      hasProcurementEvidence: firstBoolean(item.hasProcurementEvidence, item.has_procurement_evidence),
+      notInvestmentSignal: firstBoolean(item.notInvestmentSignal, item.not_investment_signal),
+      implementationDependency: firstString(item.implementationDependency, item.implementation_dependency),
+      businessExposure: firstNumberOrUndefined(item.businessExposure, item.business_exposure),
       policyRelevance: firstNumberOrUndefined(item.policyRelevance, item.policy_relevance) ?? deriveCompanyPolicyRelevance(evidence, confidence),
       evidenceCertainty: firstNumberOrUndefined(item.evidenceCertainty, item.evidence_certainty) ?? deriveCompanyEvidenceCertainty(evidence, confidence),
       evidenceCount: firstPlainNumber(
@@ -1231,6 +1400,9 @@ function mapAppEvidence(items: JsonRecord[]): AppEvidence[] {
       type: formatSourceTypeLabel(firstString(item.type, item.evidence_type), ""),
       date: firstString(item.date, item.published_at, item.publish_date) || "",
       excerpt: firstString(item.excerpt, item.summary, item.body) || "",
+      interpretation: firstString(item.interpretation),
+      sourceLocation: firstString(item.sourceLocation, item.source_location),
+      evidenceObject: normalizeEvidenceObject(item.evidenceObject ?? item.evidence_object),
       confidence: firstNumber(item.confidence),
       url: firstString(item.url, item.sourceUrl, item.source_url),
       clauseIds: toStringList(item.clauseIds, item.clause_ids, links?.clauseIds, links?.clause_ids),

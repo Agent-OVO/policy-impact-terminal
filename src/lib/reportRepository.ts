@@ -90,6 +90,15 @@ export interface PolicyReport {
   id: string;
   summary: PolicySummary;
   brief?: PolicyBrief;
+  methodologyVersion?: string;
+  documentShellType?: string;
+  substantivePolicyType?: string;
+  primaryActionType?: string;
+  policySignalStrength?: "high" | "medium" | "low";
+  implementationCertainty?: "high" | "medium" | "low";
+  analysisDepth?: "L0" | "L1" | "L2" | "L3" | "L4" | "L5";
+  analysisDepthReason?: string;
+  followUpSignals?: string[];
   policy: typeof policy;
   actions: typeof actions;
   clauseGroups: typeof clauseGroups;

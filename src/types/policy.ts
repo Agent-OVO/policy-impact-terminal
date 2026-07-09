@@ -28,6 +28,10 @@ export type PolicySignal =
   | "neutral";
 
 export type EvidenceLevel = "strong" | "indirect" | "pending";
+export type AnalysisDepth = "L0" | "L1" | "L2" | "L3" | "L4" | "L5";
+export type StrengthLevel = "high" | "medium" | "low";
+export type MappingLevel = "policy_named" | "direct_industry" | "indirect_industry" | "thematic_only" | "watch_only";
+export type RegulatoryRole = "constraint_exposed" | "compliance_provider" | "mixed" | "not_applicable";
 
 export type RelationType =
   | "direct"
@@ -75,6 +79,9 @@ export interface PolicyAction {
   body: string;
   signal: PolicySignal;
   confidence: ConfidenceScore;
+  actionType?: string;
+  actionEvidenceLevel?: EvidenceLevel;
+  implementationDependency?: string;
   displaySignal?: string;
   clauseIds?: EntityId[];
   sortOrder?: number;
@@ -112,6 +119,8 @@ export interface IndustryNode {
   clauseIds: EntityId[];
   companyIds: EntityId[];
   iconKey?: string;
+  industryNodeEvidenceLevel?: EvidenceLevel;
+  verificationSignals?: string[];
   displayRelation?: string;
   displayEvidenceLevel?: string;
 }
@@ -134,6 +143,15 @@ export interface CompanyImpact {
   ownershipType?: string;
   officialMention?: boolean;
   selectionBasis?: string;
+  mappingLevel?: MappingLevel;
+  regulatoryRole?: RegulatoryRole;
+  companyMappingEvidenceLevel?: EvidenceLevel;
+  hasOrderEvidence?: boolean;
+  hasSubsidyEvidence?: boolean;
+  hasProcurementEvidence?: boolean;
+  notInvestmentSignal?: boolean;
+  implementationDependency?: string;
+  businessExposure?: number;
   section: IndustrySection;
   relation: RelationType;
   evidenceLevel: EvidenceLevel;
@@ -163,6 +181,9 @@ export interface EvidenceItem {
   type: string;
   date: ISODateString;
   excerpt: string;
+  interpretation?: string;
+  sourceLocation?: string;
+  evidenceObject?: "policy_action" | "industry_node" | "company_mapping" | "background";
   confidence: ConfidenceScore;
   url?: string;
   links?: EvidenceLinks;
@@ -282,6 +303,15 @@ export interface PolicyReport {
   id: EntityId;
   summary: PolicySummary;
   brief?: PolicyBrief;
+  methodologyVersion?: string;
+  documentShellType?: string;
+  substantivePolicyType?: string;
+  primaryActionType?: string;
+  policySignalStrength?: StrengthLevel;
+  implementationCertainty?: StrengthLevel;
+  analysisDepth?: AnalysisDepth;
+  analysisDepthReason?: string;
+  followUpSignals?: string[];
   policy: PolicyMeta;
   actions: PolicyAction[];
   clauseGroups: ClauseGroup[];
