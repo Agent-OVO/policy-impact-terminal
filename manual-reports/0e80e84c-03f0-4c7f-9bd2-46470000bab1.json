@@ -1,0 +1,48 @@
+{
+  "id": "0e80e84c-03f0-4c7f-9bd2-46470000bab1",
+  "policyId": "0e80e84c-03f0-4c7f-9bd2-46470000bab1",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "generatedAt": "2026-07-09T21:45:00+09:00",
+  "summary": {"id": "0e80e84c-03f0-4c7f-9bd2-46470000bab1", "title": "国务院关于印发《实施就业优先战略“十五五”规划》的通知", "issuer": "国务院", "source": "中国政府网 - 最新政策", "publishDate": "2026-06-17", "status": "published", "confidence": 91, "industryCount": 5, "companyCount": 6, "evidenceCount": 5, "primarySignal": "就业优先从宏观政策口径进入公共就业服务、职业技能培训、重点群体帮扶、就业监测和人力资源市场建设的系统工程", "category": "就业优先与人力资源服务"},
+  "policy": {"title": "国务院关于印发《实施就业优先战略“十五五”规划》的通知", "status": "已发布", "issuer": "国务院", "publishDate": "2026-06-17", "effectiveDate": "2026-06-17", "source": "中国政府网 - 最新政策", "category": "就业优先与人力资源服务", "level": "国务院规划", "confidence": 91, "sourceUrl": "https://www.gov.cn/zhengce/content/202606/content_7072481.htm", "scope": "就业优先宏观调控、公共就业服务、职业技能培训、重点群体就业、灵活就业、人力资源市场和就业监测", "impactScope": "公共就业服务平台、招聘和人力资源服务、职业技能培训、就业数据监测、社保和劳动关系服务、就业援助和创业服务", "jurisdiction": "中国", "tags": ["就业优先", "十五五", "公共就业服务", "职业技能培训", "人力资源服务", "就业监测", "灵活就业"]},
+  "brief": {"judgement": "这份规划的核心是把就业优先战略制度化、体系化，而不是单纯增加招聘活动。产业影响主要集中在公共就业服务平台、职业技能培训、人力资源服务、就业数据监测、社保劳动关系服务和重点群体就业帮扶。对企业侧而言，更值得观察的是与政府就业服务、职业技能、灵活就业和人力资源数字化相关的服务商；但政策目标以稳就业和公共服务为主，商业机构只能作为配套参与方观察。", "summary": "规划围绕就业优先宏观政策、就业容量扩展、重点群体就业、职业技能培训、公共就业服务、创业带动就业、灵活就业和就业权益保障展开。可产业化拆解为就业服务平台、人力资源服务、职业培训、就业监测和社保劳动关系数字化五条主线。", "keyPoints": ["就业优先战略强调宏观政策和公共服务协同。", "职业技能培训和人才供需匹配是提升就业质量的重要抓手。", "公共就业服务和就业监测需要数字平台和数据能力。", "人力资源服务机构有参与空间，但政策并非直接商业化利好。"], "methodology": "按公共就业、职业培训、人力资源服务、就业监测和权益保障拆分产业链；公司映射选取人服、招聘、社保人社软件和AI就业服务相关主体。"},
+  "actions": [
+    {"id": "a1", "title": "强化就业优先宏观政策导向", "body": "规划要求把就业优先纳入经济社会发展政策协同，扩大就业容量并稳定重点行业和重点群体就业。", "signal": "constraint", "confidence": 92, "clauseIds": ["c1"], "sortOrder": 1},
+    {"id": "a2", "title": "提升公共就业服务和就业监测", "body": "公共就业服务平台、岗位信息归集、就业运行监测和重点群体服务将成为数字化建设重点。", "signal": "beneficiary", "confidence": 90, "clauseIds": ["c2"], "sortOrder": 2},
+    {"id": "a3", "title": "加强职业技能培训和人才供需匹配", "body": "规划强调职业技能提升、培训评价和岗位需求对接，职业培训、在线学习和人力资源服务具备政策相关性。", "signal": "beneficiary", "confidence": 88, "clauseIds": ["c3"], "sortOrder": 3},
+    {"id": "a4", "title": "规范灵活就业和劳动权益保障", "body": "灵活就业和新就业形态权益保障会推动社保、劳动关系、用工合规和人服平台治理能力建设。", "signal": "constraint", "confidence": 87, "clauseIds": ["c4"], "sortOrder": 4}
+  ],
+  "clauses": [
+    {"id": "c1", "no": "就业优先宏观政策相关任务", "title": "扩大就业容量和稳定就业", "excerpt": "规划围绕实施就业优先战略，强化经济社会政策与就业政策协同。", "body": "就业优先作为宏观政策目标，会影响产业、财政、投资、教育和社会保障政策协同。", "confidence": 92, "keywords": ["就业优先", "就业容量", "宏观政策"], "industries": ["公共服务", "人力资源", "职业培训"], "sortOrder": 1},
+    {"id": "c2", "no": "公共就业服务相关任务", "title": "公共就业服务和监测", "excerpt": "规划强调公共就业服务、岗位信息、就业监测和重点群体服务。", "body": "该条对应就业服务平台、岗位数据库、就业监测系统和重点群体精准帮扶。", "confidence": 90, "keywords": ["公共就业服务", "就业监测", "重点群体"], "industries": ["就业平台", "政务信息化", "数据监测"], "sortOrder": 2},
+    {"id": "c3", "no": "技能培训相关任务", "title": "职业技能和人才供需匹配", "excerpt": "规划加强职业技能培训，推动劳动者技能提升和岗位需求匹配。", "body": "职业培训、技能评价、数字培训和产教融合是提升就业质量的关键环节。", "confidence": 88, "keywords": ["职业技能", "培训", "岗位需求"], "industries": ["职业培训", "在线学习", "人力资源服务"], "sortOrder": 3},
+    {"id": "c4", "no": "灵活就业和权益保障相关任务", "title": "灵活就业和劳动权益保障", "excerpt": "规划关注灵活就业、新就业形态和劳动权益保障。", "body": "灵活就业规范治理会带动社保、劳动关系、用工合规和平台治理需求。", "confidence": 87, "keywords": ["灵活就业", "劳动权益", "新就业形态"], "industries": ["社保服务", "劳动关系", "平台治理"], "sortOrder": 4}
+  ],
+  "chainNodes": [
+    {"id": "n1", "title": "公共就业服务平台", "subtitle": "岗位信息、求职招聘和重点群体服务", "section": "upstream", "relation": "beneficiary", "evidenceLevel": "strong", "confidence": 88, "description": "就业服务平台承接岗位归集、求职匹配、重点群体服务和就业政策申领。", "clauseIds": ["c2"], "companyIds": ["co1", "co2", "co3"], "evidenceIds": ["e2"], "impactReason": "政策强调公共就业服务和就业监测。", "iconKey": "users"},
+    {"id": "n2", "title": "职业技能培训和评价", "subtitle": "技能提升、岗位需求和培训评价闭环", "section": "midstream", "relation": "beneficiary", "evidenceLevel": "strong", "confidence": 86, "description": "职业技能培训和岗位需求匹配会带动课程内容、在线培训、评价认证和实训服务。", "clauseIds": ["c3"], "companyIds": ["co4", "co5"], "evidenceIds": ["e3"], "impactReason": "规划强调技能提升和人才供需匹配。", "iconKey": "graduation-cap"},
+    {"id": "n3", "title": "人力资源服务市场", "subtitle": "招聘、外包、灵活用工和人才服务", "section": "downstream", "relation": "market", "evidenceLevel": "indirect", "confidence": 82, "description": "人力资源服务机构可能参与招聘匹配、人才服务、灵活用工和职业服务，但公共服务属性较强。", "clauseIds": ["c2", "c3"], "companyIds": ["co1", "co2", "co6"], "evidenceIds": ["e2", "e3"], "impactReason": "政策强调就业服务和人才供需匹配。", "iconKey": "briefcase"},
+    {"id": "n4", "title": "就业数据监测和AI匹配", "subtitle": "就业运行监测、岗位画像和供需匹配模型", "section": "support", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 80, "description": "就业数据监测和AI匹配可提升公共就业服务效率，对数据平台和模型服务形成需求。", "clauseIds": ["c2"], "companyIds": ["co3"], "evidenceIds": ["e4"], "impactReason": "政策强调就业监测和精准服务。", "iconKey": "bar-chart"},
+    {"id": "n5", "title": "权益保障和用工合规", "subtitle": "灵活就业、新就业形态和劳动关系治理", "section": "support", "relation": "constraint", "evidenceLevel": "strong", "confidence": 83, "description": "灵活就业和新就业形态会带来社保、劳动权益、用工合规和平台治理需求。", "clauseIds": ["c4"], "companyIds": ["co2"], "evidenceIds": ["e5"], "impactReason": "规划关注劳动权益和新就业形态。", "iconKey": "scale"}
+  ],
+  "chainEdges": [{"id": "edge1", "from": "n1", "to": "n4", "type": "medium", "label": "公共就业服务平台沉淀就业监测数据"}, {"id": "edge2", "from": "n2", "to": "n3", "type": "strong", "label": "技能培训提升人才供需匹配效率"}, {"id": "edge3", "from": "n5", "to": "n3", "type": "risk", "label": "权益保障约束灵活用工商业模式"}],
+  "companies": [
+    {"id": "co1", "name": "科锐国际", "ticker": "300662.SZ", "section": "downstream", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 75, "reason": "招聘、灵活用工和人力资源服务与人才供需匹配和就业服务相关。", "nodeIds": ["n1", "n3"], "clauseIds": ["c2", "c3"], "evidenceIds": ["e2", "e3"], "riskNote": "市场需求和企业招聘周期影响较大。"},
+    {"id": "co2", "name": "北京人力", "ticker": "600861.SH", "section": "downstream", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 72, "reason": "人力资源服务、外包和就业服务与政策方向相关。", "nodeIds": ["n1", "n3", "n5"], "clauseIds": ["c2", "c4"], "evidenceIds": ["e2", "e5"], "riskNote": "政策以公共服务为主，商业转化需项目验证。"},
+    {"id": "co3", "name": "科大讯飞", "ticker": "002230.SZ", "section": "support", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 68, "reason": "AI匹配、知识图谱和智能服务可用于就业服务和岗位匹配场景。", "nodeIds": ["n1", "n4"], "clauseIds": ["c2"], "evidenceIds": ["e4"], "riskNote": "映射较宽，需具体项目补证。"},
+    {"id": "co4", "name": "传智教育", "ticker": "003032.SZ", "section": "midstream", "relation": "beneficiary", "evidenceLevel": "pending", "confidence": 62, "reason": "数字技能培训与职业技能提升存在相关性，但政策并不直接指向校外培训。", "nodeIds": ["n2"], "clauseIds": ["c3"], "evidenceIds": ["e3"], "riskNote": "低置信观察。"},
+    {"id": "co5", "name": "中公教育", "ticker": "002607.SZ", "section": "midstream", "relation": "constraint", "evidenceLevel": "pending", "confidence": 55, "reason": "职业培训和就业考试服务存在弱相关性，但行业监管和商业模式压力较大。", "nodeIds": ["n2"], "clauseIds": ["c3"], "evidenceIds": ["e3"], "riskNote": "不应视为直接利好。"},
+    {"id": "co6", "name": "用友网络", "ticker": "600588.SH", "section": "support", "relation": "beneficiary", "evidenceLevel": "pending", "confidence": 60, "reason": "企业人力资源数字化和用工管理系统与人力资源服务市场存在间接相关性。", "nodeIds": ["n3"], "clauseIds": ["c2"], "evidenceIds": ["e2"], "riskNote": "企业端HR SaaS与公共就业政策关联较弱。"}
+  ],
+  "evidence": [
+    {"id": "e1", "type": "policy_text", "source": "中国政府网", "title": "就业优先战略", "excerpt": "规划围绕实施就业优先战略，强化经济社会政策与就业政策协同。", "confidence": 92, "clauseIds": ["c1"], "nodeIds": ["n1"], "companyIds": [], "links": {"clauseIds": ["c1"], "nodeIds": ["n1"]}},
+    {"id": "e2", "type": "policy_text", "source": "中国政府网", "title": "公共就业服务", "excerpt": "规划强调公共就业服务、岗位信息、就业监测和重点群体服务。", "confidence": 90, "clauseIds": ["c2"], "nodeIds": ["n1", "n3"], "companyIds": ["co1", "co2"], "links": {"clauseIds": ["c2"], "nodeIds": ["n1", "n3"], "companyIds": ["co1", "co2"]}},
+    {"id": "e3", "type": "policy_text", "source": "中国政府网", "title": "职业技能", "excerpt": "规划加强职业技能培训，推动劳动者技能提升和岗位需求匹配。", "confidence": 88, "clauseIds": ["c3"], "nodeIds": ["n2", "n3"], "companyIds": ["co1", "co4", "co5"], "links": {"clauseIds": ["c3"], "nodeIds": ["n2", "n3"], "companyIds": ["co1", "co4", "co5"]}},
+    {"id": "e4", "type": "policy_text", "source": "中国政府网", "title": "就业监测", "excerpt": "就业服务和就业监测需要数据平台、岗位画像和供需匹配能力。", "confidence": 84, "clauseIds": ["c2"], "nodeIds": ["n4"], "companyIds": ["co3"], "links": {"clauseIds": ["c2"], "nodeIds": ["n4"], "companyIds": ["co3"]}},
+    {"id": "e5", "type": "policy_text", "source": "中国政府网", "title": "权益保障", "excerpt": "规划关注灵活就业、新就业形态和劳动权益保障。", "confidence": 87, "clauseIds": ["c4"], "nodeIds": ["n5"], "companyIds": ["co2"], "links": {"clauseIds": ["c4"], "nodeIds": ["n5"], "companyIds": ["co2"]}}
+  ],
+  "backgroundCards": [{"id": "bg1", "title": "就业优先进入系统工程", "body": "规划把就业从单项民生任务提升为宏观政策和公共服务协同工程。", "evidenceIds": ["e1"]}, {"id": "bg2", "title": "公共就业服务数字化", "body": "岗位信息、重点群体服务和就业监测需要平台化、数据化能力。", "evidenceIds": ["e2", "e4"]}, {"id": "bg3", "title": "技能培训与权益保障并重", "body": "技能提升打开服务空间，但灵活就业和劳动权益也会形成合规约束。", "evidenceIds": ["e3", "e5"]}],
+  "compareInsights": {"comparableCount": 0, "similarPolicies": [], "contrastPolicies": [], "insights": ["后续可与人工智能+人社、职业教育规划和人力资源服务行业政策做横向对比。"], "limitations": ["政策以公共服务和稳就业为主，不是商业招聘平台专项扶持。", "就业市场高度受经济周期影响。"]},
+  "analysisCoverage": {"status": "matched", "analysisMethod": "codex-manual-v1", "evidenceCount": 5, "industryNodeCount": 5, "companyCount": 6, "companyImpactConclusion": "本政策适合做人力资源服务、职业培训和就业平台方向映射，但商业兑现需谨慎。", "limitations": ["公共服务属性强，商业机构参与空间取决于政府采购和合作模式。", "职业培训公司受监管和就业周期影响。", "灵活用工会同时面对合规约束。"]}
+}

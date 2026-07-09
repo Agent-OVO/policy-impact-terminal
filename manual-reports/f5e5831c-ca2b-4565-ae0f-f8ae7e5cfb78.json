@@ -1,0 +1,48 @@
+{
+  "id": "f5e5831c-ca2b-4565-ae0f-f8ae7e5cfb78",
+  "policyId": "f5e5831c-ca2b-4565-ae0f-f8ae7e5cfb78",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "generatedAt": "2026-07-09T21:40:00+09:00",
+  "summary": {"id": "f5e5831c-ca2b-4565-ae0f-f8ae7e5cfb78", "title": "国务院关于印发《教育发展“十五五”规划》的通知", "issuer": "国务院", "source": "中国政府网 - 最新政策", "publishDate": "2026-06-29", "status": "published", "confidence": 91, "industryCount": 5, "companyCount": 6, "evidenceCount": 5, "primarySignal": "教育发展进入高质量、数字化、职业教育和终身学习并行推进阶段，教育数字化和产教融合成为核心产业映射", "category": "教育发展与教育数字化"},
+  "policy": {"title": "国务院关于印发《教育发展“十五五”规划》的通知", "status": "已发布", "issuer": "国务院", "publishDate": "2026-06-29", "effectiveDate": "2026-06-29", "source": "中国政府网 - 最新政策", "category": "教育发展与教育数字化", "level": "国务院规划", "confidence": 91, "sourceUrl": "https://www.gov.cn/zhengce/content/202606/content_7073640.htm", "scope": "基础教育、高等教育、职业教育、教育数字化、教师队伍、终身学习和教育治理", "impactScope": "教育信息化平台、智慧校园、AI教育应用、职业教育和实训基地、教育内容资源、考试测评和终身学习服务", "jurisdiction": "中国", "tags": ["教育发展", "十五五", "教育数字化", "职业教育", "产教融合", "智慧教育", "终身学习"]},
+  "brief": {"judgement": "这份规划的产业信号不在于简单扩大校外培训，而在于建设高质量教育体系、推进教育数字化、强化职业教育和产教融合、完善终身学习体系和教育治理能力。对产业端而言，教育信息化、智慧校园、AI教学应用、职业教育实训、考试测评、数字资源和教育治理平台具备政策相关性；但政策也强调规范治理和公益属性，不能把规划简单解读为教育商业化利好。", "summary": "规划围绕基础教育优质均衡、高等教育质量、职业教育适应产业需求、教育数字化、教师队伍、终身学习和教育治理展开。产业链可拆为教育数字基础设施、智慧教学和学习资源、职业教育实训、考试测评与质量评价、教育治理与数据平台五条主线。", "keyPoints": ["教育数字化是跨学段、跨场景的基础能力建设。", "职业教育和产教融合连接产业需求和技能人才供给。", "智慧校园、教育数据、AI教学和数字资源具备项目化空间。", "教育领域公益性和规范治理强，商业化边界需要谨慎。"], "methodology": "按教育数字化、职业教育、考试测评、资源内容和治理平台拆分产业链；公司映射仅作为公开业务方向的代表性观察。"},
+  "actions": [
+    {"id": "a1", "title": "推进教育数字化和智慧教育", "body": "规划推动教育数字化转型，带动智慧校园、教育云平台、AI教学、数字资源和教育数据治理需求。", "signal": "beneficiary", "confidence": 92, "clauseIds": ["c1"], "sortOrder": 1},
+    {"id": "a2", "title": "强化职业教育和产教融合", "body": "规划要求职业教育更加适应产业发展和技能人才需求，职业院校实训基地、数字实训和校企合作具备政策相关性。", "signal": "beneficiary", "confidence": 90, "clauseIds": ["c2"], "sortOrder": 2},
+    {"id": "a3", "title": "完善教育质量评价和考试测评", "body": "教育质量提升需要评价、测评、考试安全和过程性数据支撑，考试信息化和质量评价服务具备观察价值。", "signal": "beneficiary", "confidence": 86, "clauseIds": ["c3"], "sortOrder": 3},
+    {"id": "a4", "title": "建设终身学习和教育公共服务体系", "body": "终身学习、开放教育和公共教育服务推动数字内容、学习平台和教育资源共享。", "signal": "market", "confidence": 84, "clauseIds": ["c4"], "sortOrder": 4}
+  ],
+  "clauses": [
+    {"id": "c1", "no": "教育数字化相关任务", "title": "教育数字化转型", "excerpt": "规划推进教育数字化、智慧教育和教育治理能力建设。", "body": "该条对应教育云平台、智慧校园、数字资源、教育数据和AI教学应用。", "confidence": 92, "keywords": ["教育数字化", "智慧教育", "教育治理"], "industries": ["教育信息化", "AI教育", "数字资源"], "sortOrder": 1},
+    {"id": "c2", "no": "职业教育相关任务", "title": "职业教育和产教融合", "excerpt": "规划推动职业教育适应产业需求，深化产教融合和技能人才培养。", "body": "职业教育实训、工业软件实训、数字技能培训和校企合作具备项目化空间。", "confidence": 90, "keywords": ["职业教育", "产教融合", "技能人才"], "industries": ["职业教育", "实训基地", "技能培训"], "sortOrder": 2},
+    {"id": "c3", "no": "质量评价相关任务", "title": "教育质量评价和考试测评", "excerpt": "规划要求提升教育质量和治理能力，完善评价体系。", "body": "评价和测评系统有助于支撑招生考试、教学质量和教育治理。", "confidence": 86, "keywords": ["质量评价", "考试", "测评"], "industries": ["考试测评", "教育数据", "教育评价"], "sortOrder": 3},
+    {"id": "c4", "no": "终身学习相关任务", "title": "终身学习和公共服务", "excerpt": "规划完善终身学习体系和教育公共服务。", "body": "终身学习推动数字学习平台、开放教育资源和公共服务渠道建设。", "confidence": 84, "keywords": ["终身学习", "公共服务", "数字资源"], "industries": ["在线学习", "教育内容", "公共服务平台"], "sortOrder": 4}
+  ],
+  "chainNodes": [
+    {"id": "n1", "title": "教育数字化基础设施", "subtitle": "智慧校园、教育云和数据平台", "section": "upstream", "relation": "beneficiary", "evidenceLevel": "strong", "confidence": 89, "description": "教育数字化是规划中最明确的产业映射方向，支撑学校、区域和国家级平台建设。", "clauseIds": ["c1"], "companyIds": ["co1", "co2", "co3"], "evidenceIds": ["e1"], "impactReason": "规划强调教育数字化和治理能力建设。", "iconKey": "server"},
+    {"id": "n2", "title": "AI教学和数字资源", "subtitle": "智能教学、学习资源和教育内容", "section": "midstream", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 83, "description": "AI教学、数字教材、学习资源和个性化学习可服务基础教育和终身学习。", "clauseIds": ["c1", "c4"], "companyIds": ["co1", "co4"], "evidenceIds": ["e1", "e4"], "impactReason": "数字化和终身学习要求优质数字资源供给。", "iconKey": "book-open"},
+    {"id": "n3", "title": "职业教育和实训基地", "subtitle": "产教融合、技能培训和数字实训", "section": "downstream", "relation": "beneficiary", "evidenceLevel": "strong", "confidence": 87, "description": "职业教育对接产业需求，实训设备、课程内容、数字实训和企业培训服务受关注。", "clauseIds": ["c2"], "companyIds": ["co5", "co6"], "evidenceIds": ["e2"], "impactReason": "规划强调职业教育和产教融合。", "iconKey": "briefcase"},
+    {"id": "n4", "title": "考试测评和质量评价", "subtitle": "教育质量监测、考试安全和评价系统", "section": "support", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 80, "description": "教育质量提升需要数据化评价、考试信息化、过程性评价和治理支撑。", "clauseIds": ["c3"], "companyIds": ["co2"], "evidenceIds": ["e3"], "impactReason": "规划强调质量评价和治理能力。", "iconKey": "check-square"},
+    {"id": "n5", "title": "公益性和规范治理边界", "subtitle": "教育商业化需受政策约束", "section": "support", "relation": "constraint", "evidenceLevel": "strong", "confidence": 82, "description": "教育领域公益属性强，数字化和培训服务必须服从规范治理和公共服务导向。", "clauseIds": ["c1", "c4"], "companyIds": [], "evidenceIds": ["e5"], "impactReason": "教育政策强调公共服务和治理能力。", "iconKey": "scale"}
+  ],
+  "chainEdges": [{"id": "edge1", "from": "n1", "to": "n2", "type": "strong", "label": "数字基础设施承载AI教学和资源服务"}, {"id": "edge2", "from": "n3", "to": "n4", "type": "medium", "label": "职业教育质量需要测评和评价支撑"}, {"id": "edge3", "from": "n5", "to": "n2", "type": "risk", "label": "公益性边界约束教育商业化"}],
+  "companies": [
+    {"id": "co1", "name": "科大讯飞", "ticker": "002230.SZ", "section": "midstream", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 78, "reason": "AI教育、智能学习和教育数字化方向与规划相关。", "nodeIds": ["n1", "n2"], "clauseIds": ["c1"], "evidenceIds": ["e1"], "riskNote": "订单和产品效果需项目验证。"},
+    {"id": "co2", "name": "佳发教育", "ticker": "300559.SZ", "section": "support", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 72, "reason": "考试信息化和教育评价方向与质量评价和考试测评相关。", "nodeIds": ["n1", "n4"], "clauseIds": ["c3"], "evidenceIds": ["e3"], "riskNote": "需求取决于考试和评价系统建设节奏。"},
+    {"id": "co3", "name": "视源股份", "ticker": "002841.SZ", "section": "upstream", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 70, "reason": "智慧教育硬件和交互显示设备与智慧校园建设相关。", "nodeIds": ["n1"], "clauseIds": ["c1"], "evidenceIds": ["e1"], "riskNote": "硬件需求受学校采购预算影响。"},
+    {"id": "co4", "name": "拓维信息", "ticker": "002261.SZ", "section": "midstream", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 68, "reason": "教育信息化、软件服务和数字资源方向与教育数字化相关。", "nodeIds": ["n2"], "clauseIds": ["c1", "c4"], "evidenceIds": ["e1", "e4"], "riskNote": "映射较宽，需项目公告验证。"},
+    {"id": "co5", "name": "传智教育", "ticker": "003032.SZ", "section": "downstream", "relation": "beneficiary", "evidenceLevel": "pending", "confidence": 62, "reason": "数字技能培训与职业教育和终身学习有概念相关性，但政策并未直接支持校外培训。", "nodeIds": ["n3"], "clauseIds": ["c2"], "evidenceIds": ["e2"], "riskNote": "低置信映射，需谨慎。"},
+    {"id": "co6", "name": "中公教育", "ticker": "002607.SZ", "section": "downstream", "relation": "constraint", "evidenceLevel": "pending", "confidence": 55, "reason": "职业培训和就业考试服务与终身学习存在弱相关，但政策公益性和规范治理边界较强。", "nodeIds": ["n3"], "clauseIds": ["c2", "c4"], "evidenceIds": ["e2", "e5"], "riskNote": "不宜理解为直接利好。"}
+  ],
+  "evidence": [
+    {"id": "e1", "type": "policy_text", "source": "中国政府网", "title": "教育数字化", "excerpt": "规划推进教育数字化、智慧教育和教育治理能力建设。", "confidence": 92, "clauseIds": ["c1"], "nodeIds": ["n1", "n2"], "companyIds": ["co1", "co3", "co4"], "links": {"clauseIds": ["c1"], "nodeIds": ["n1", "n2"], "companyIds": ["co1", "co3", "co4"]}},
+    {"id": "e2", "type": "policy_text", "source": "中国政府网", "title": "职业教育", "excerpt": "规划推动职业教育适应产业需求，深化产教融合和技能人才培养。", "confidence": 90, "clauseIds": ["c2"], "nodeIds": ["n3"], "companyIds": ["co5", "co6"], "links": {"clauseIds": ["c2"], "nodeIds": ["n3"], "companyIds": ["co5", "co6"]}},
+    {"id": "e3", "type": "policy_text", "source": "中国政府网", "title": "质量评价", "excerpt": "教育质量提升需要评价、测评和治理能力支撑。", "confidence": 86, "clauseIds": ["c3"], "nodeIds": ["n4"], "companyIds": ["co2"], "links": {"clauseIds": ["c3"], "nodeIds": ["n4"], "companyIds": ["co2"]}},
+    {"id": "e4", "type": "policy_text", "source": "中国政府网", "title": "终身学习", "excerpt": "规划完善终身学习体系和教育公共服务。", "confidence": 84, "clauseIds": ["c4"], "nodeIds": ["n2"], "companyIds": ["co4"], "links": {"clauseIds": ["c4"], "nodeIds": ["n2"], "companyIds": ["co4"]}},
+    {"id": "e5", "type": "policy_text", "source": "中国政府网", "title": "治理边界", "excerpt": "教育数字化和教育服务应服务高质量教育体系和公共服务能力建设。", "confidence": 82, "clauseIds": ["c1", "c4"], "nodeIds": ["n5"], "companyIds": ["co6"], "links": {"clauseIds": ["c1", "c4"], "nodeIds": ["n5"], "companyIds": ["co6"]}}
+  ],
+  "backgroundCards": [{"id": "bg1", "title": "教育数字化是主线", "body": "数字平台、智慧校园、AI教学和教育数据治理是规划产业映射最强部分。", "evidenceIds": ["e1"]}, {"id": "bg2", "title": "职业教育连接产业需求", "body": "产教融合和技能人才培养决定职业教育实训和数字技能服务的政策相关性。", "evidenceIds": ["e2"]}, {"id": "bg3", "title": "商业化边界需谨慎", "body": "教育政策强调公共服务和规范治理，不能简单等同于培训行业利好。", "evidenceIds": ["e5"]}],
+  "compareInsights": {"comparableCount": 0, "similarPolicies": [], "contrastPolicies": [], "insights": ["后续可与人工智能+教育、职业教育产教融合、教育数字化专项政策做横向对比。"], "limitations": ["政策未列具体项目和供应商名单。", "教育服务商业化受规范治理影响。"]},
+  "analysisCoverage": {"status": "matched", "analysisMethod": "codex-manual-v1", "evidenceCount": 5, "industryNodeCount": 5, "companyCount": 6, "companyImpactConclusion": "本政策适合做教育数字化、职业教育和考试测评方向映射，但公司影响多为间接观察。", "limitations": ["教育项目采购具有地方分散性。", "培训类公司受监管和需求周期影响较大。", "AI教育应用效果需要真实教学场景验证。"]}
+}

@@ -1,0 +1,48 @@
+{
+  "id": "f727075a-ad27-428f-a181-cfa098e891fb",
+  "policyId": "f727075a-ad27-428f-a181-cfa098e891fb",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "generatedAt": "2026-07-09T21:35:00+09:00",
+  "summary": {"id": "f727075a-ad27-428f-a181-cfa098e891fb", "title": "国务院关于印发《加快农业农村现代化“十五五”规划》的通知", "issuer": "国务院", "source": "中国政府网 - 最新政策", "publishDate": "2026-06-02", "status": "published", "confidence": 91, "industryCount": 5, "companyCount": 6, "evidenceCount": 5, "primarySignal": "农业农村现代化从增产稳供扩展到种业、农机装备、数字农业、农产品加工流通和乡村基础设施协同升级", "category": "农业农村现代化"},
+  "policy": {"title": "国务院关于印发《加快农业农村现代化“十五五”规划》的通知", "status": "已发布", "issuer": "国务院", "publishDate": "2026-06-02", "effectiveDate": "2026-06-02", "source": "中国政府网 - 最新政策", "category": "农业农村现代化", "level": "国务院规划", "confidence": 91, "sourceUrl": "https://www.gov.cn/zhengce/content/202606/content_7070901.htm", "scope": "粮食安全、种业振兴、农业科技装备、农产品加工流通、乡村产业、农村基础设施和数字乡村", "impactScope": "种业、农机、智慧农业、农产品加工、冷链物流、农村基础设施、农业社会化服务和数字乡村平台", "jurisdiction": "中国", "tags": ["农业农村现代化", "粮食安全", "种业", "农机", "数字农业", "乡村产业", "冷链物流"]},
+  "brief": {"judgement": "这份规划不是单纯农业补贴文件，而是把粮食安全、种业振兴、农业科技装备、农业社会化服务、农产品加工流通、乡村建设和数字乡村纳入农业农村现代化体系。产业影响主要集中在种业、农机装备、智慧农业、农产品加工冷链、农村基础设施和农业数字化服务，但兑现仍取决于地方项目、财政资金、农业经营主体投资能力和农产品价格周期。", "summary": "规划围绕保障粮食和重要农产品稳定安全供给、提升农业质量效益、推进乡村产业、建设宜居宜业和美乡村、健全政策保障体系展开。可产业化拆分为种业与生物育种、农机装备与设施农业、农产品加工和冷链物流、数字农业和农业社会化服务、农村基础设施建设五条主线。", "keyPoints": ["粮食安全和重要农产品供给仍是总目标。", "种业、农机和农业科技装备是农业现代化基础环节。", "农产品加工、冷链物流和乡村产业提升农业附加值。", "数字乡村、智慧农业和社会化服务提升经营效率。", "公司映射均为产业链相关性，不代表政策点名或投资建议。"], "methodology": "按农业生产、装备科技、加工流通、乡村建设和数字化服务拆分产业链；公司映射选取种业、农机、饲料养殖、农业信息化和冷链流通代表主体。"},
+  "actions": [
+    {"id": "a1", "title": "强化粮食安全和重要农产品供给", "body": "规划把粮食和重要农产品稳定安全供给作为基础任务，延续种业、农资、农机和高标准农田等基础投入需求。", "signal": "constraint", "confidence": 92, "clauseIds": ["c1"], "sortOrder": 1},
+    {"id": "a2", "title": "提升农业科技装备和种业能力", "body": "农业科技装备、种业振兴、设施农业和农机更新共同构成现代农业生产能力建设重点。", "signal": "beneficiary", "confidence": 91, "clauseIds": ["c2"], "sortOrder": 2},
+    {"id": "a3", "title": "推进农产品加工流通和乡村产业", "body": "规划强调延长农业产业链、提升价值链，农产品加工、冷链物流、品牌化和乡村服务业具备政策相关性。", "signal": "beneficiary", "confidence": 89, "clauseIds": ["c3"], "sortOrder": 3},
+    {"id": "a4", "title": "发展数字农业和农业社会化服务", "body": "数字乡村、智慧农业、农机作业服务和农业社会化服务有助于提升小农户和现代农业衔接效率。", "signal": "beneficiary", "confidence": 88, "clauseIds": ["c4"], "sortOrder": 4}
+  ],
+  "clauses": [
+    {"id": "c1", "no": "粮食安全和供给保障相关任务", "title": "粮食和重要农产品稳定供给", "excerpt": "规划强调保障粮食和重要农产品稳定安全供给。", "body": "该条对应种业、农资、农机、高标准农田和农业生产能力建设。", "confidence": 92, "keywords": ["粮食安全", "重要农产品", "稳定供给"], "industries": ["种业", "农机", "农资"], "sortOrder": 1},
+    {"id": "c2", "no": "农业科技装备相关任务", "title": "种业和农机装备", "excerpt": "规划推进农业科技装备支撑和种业能力建设。", "body": "现代农业需要良种、农机、设施农业、智慧农业和绿色生产技术共同支撑。", "confidence": 91, "keywords": ["种业", "农机", "农业科技"], "industries": ["生物育种", "农业机械", "设施农业"], "sortOrder": 2},
+    {"id": "c3", "no": "乡村产业相关任务", "title": "加工流通和乡村产业", "excerpt": "规划推进农产品加工流通、乡村产业和农村一二三产业融合发展。", "body": "农产品加工、冷链物流、品牌化和乡村服务业提升农业附加值。", "confidence": 89, "keywords": ["农产品加工", "冷链物流", "乡村产业"], "industries": ["食品加工", "冷链", "乡村服务"], "sortOrder": 3},
+    {"id": "c4", "no": "数字乡村和服务相关任务", "title": "数字农业和社会化服务", "excerpt": "规划推动数字乡村、农业社会化服务和农业经营体系现代化。", "body": "该条对应农业信息化、遥感导航、农服平台和生产托管服务。", "confidence": 88, "keywords": ["数字乡村", "智慧农业", "社会化服务"], "industries": ["农业数字化", "农服平台", "北斗导航"], "sortOrder": 4}
+  ],
+  "chainNodes": [
+    {"id": "n1", "title": "种业和农业科技", "subtitle": "粮食安全底座和良种良法配套", "section": "upstream", "relation": "beneficiary", "evidenceLevel": "strong", "confidence": 86, "description": "种业和农业科技能力提升是保障供给的基础，生物育种、种质资源和农业科研服务具备相关性。", "clauseIds": ["c1", "c2"], "companyIds": ["co1", "co2"], "evidenceIds": ["e1", "e2"], "impactReason": "规划强调粮食安全和农业科技装备支撑。", "iconKey": "seedling"},
+    {"id": "n2", "title": "农机装备和设施农业", "subtitle": "机械化、智能化和设施化提升生产效率", "section": "midstream", "relation": "beneficiary", "evidenceLevel": "strong", "confidence": 87, "description": "农机装备和设施农业支撑规模化、机械化和精准化生产。", "clauseIds": ["c2"], "companyIds": ["co3", "co4"], "evidenceIds": ["e2"], "impactReason": "农业现代化离不开农机和装备升级。", "iconKey": "tractor"},
+    {"id": "n3", "title": "加工流通和冷链", "subtitle": "农产品价值链和供应链提升", "section": "downstream", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 80, "description": "农产品加工、冷链物流和品牌化提高附加值，但项目和盈利依赖具体区域产业。", "clauseIds": ["c3"], "companyIds": ["co5"], "evidenceIds": ["e3"], "impactReason": "规划强调乡村产业和加工流通。", "iconKey": "truck"},
+    {"id": "n4", "title": "数字农业和农业服务", "subtitle": "数字乡村、智慧农业和社会化服务", "section": "support", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 82, "description": "农业信息化、遥感、北斗导航、农服平台和生产托管是效率提升工具。", "clauseIds": ["c4"], "companyIds": ["co4", "co6"], "evidenceIds": ["e4", "e5"], "impactReason": "规划推动数字乡村和农业社会化服务。", "iconKey": "satellite"},
+    {"id": "n5", "title": "政策资金与地方项目", "subtitle": "高标准农田、乡村建设和产业项目决定兑现", "section": "support", "relation": "market", "evidenceLevel": "pending", "confidence": 72, "description": "规划性政策最终依赖地方项目、财政资金和经营主体投资，需跟踪项目清单和招标。", "clauseIds": ["c1", "c3", "c4"], "companyIds": [], "evidenceIds": ["e5"], "impactReason": "农业农村现代化具有明显地方实施属性。", "iconKey": "clipboard"}
+  ],
+  "chainEdges": [{"id": "edge1", "from": "n1", "to": "n2", "type": "strong", "label": "良种与装备共同提升生产能力"}, {"id": "edge2", "from": "n2", "to": "n3", "type": "medium", "label": "生产效率提升带动加工流通需求"}, {"id": "edge3", "from": "n4", "to": "n2", "type": "medium", "label": "数字农业赋能农机和设施农业"}],
+  "companies": [
+    {"id": "co1", "name": "隆平高科", "ticker": "000998.SZ", "section": "upstream", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 76, "reason": "种业振兴和粮食安全方向与公司杂交水稻等种业业务相关。", "nodeIds": ["n1"], "clauseIds": ["c1", "c2"], "evidenceIds": ["e1", "e2"], "riskNote": "种业兑现受品种审定、价格和推广节奏影响。"},
+    {"id": "co2", "name": "大北农", "ticker": "002385.SZ", "section": "upstream", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 70, "reason": "种业、饲料和农业科技服务与农业现代化存在相关性。", "nodeIds": ["n1"], "clauseIds": ["c2"], "evidenceIds": ["e2"], "riskNote": "经营还受养殖周期和转基因商业化进度影响。"},
+    {"id": "co3", "name": "一拖股份", "ticker": "601038.SH", "section": "midstream", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 74, "reason": "农机装备升级与农业机械化方向相关。", "nodeIds": ["n2"], "clauseIds": ["c2"], "evidenceIds": ["e2"], "riskNote": "农机购置需求受补贴政策和农户收入影响。"},
+    {"id": "co4", "name": "中联重科", "ticker": "000157.SZ", "section": "midstream", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 73, "reason": "农业机械和装备业务与农机升级、智慧农业方向相关。", "nodeIds": ["n2", "n4"], "clauseIds": ["c2", "c4"], "evidenceIds": ["e2", "e4"], "riskNote": "农业机械板块占比和订单结构需单独验证。"},
+    {"id": "co5", "name": "顺丰控股", "ticker": "002352.SZ", "section": "downstream", "relation": "beneficiary", "evidenceLevel": "pending", "confidence": 62, "reason": "农产品冷链和生鲜物流方向与加工流通链条相关，但政策未指向具体物流企业。", "nodeIds": ["n3"], "clauseIds": ["c3"], "evidenceIds": ["e3"], "riskNote": "低置信映射。"},
+    {"id": "co6", "name": "华测导航", "ticker": "300627.SZ", "section": "support", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 70, "reason": "北斗高精度定位和农机自动驾驶方向与数字农业、智慧农机相关。", "nodeIds": ["n4"], "clauseIds": ["c4"], "evidenceIds": ["e4"], "riskNote": "农业应用规模和渗透率需跟踪。"}
+  ],
+  "evidence": [
+    {"id": "e1", "type": "policy_text", "source": "中国政府网", "title": "粮食安全", "excerpt": "规划强调保障粮食和重要农产品稳定安全供给。", "confidence": 92, "clauseIds": ["c1"], "nodeIds": ["n1"], "companyIds": ["co1"], "links": {"clauseIds": ["c1"], "nodeIds": ["n1"], "companyIds": ["co1"]}},
+    {"id": "e2", "type": "policy_text", "source": "中国政府网", "title": "农业科技装备", "excerpt": "规划推进农业科技装备、种业能力和现代农业生产条件建设。", "confidence": 91, "clauseIds": ["c2"], "nodeIds": ["n1", "n2"], "companyIds": ["co1", "co3", "co4"], "links": {"clauseIds": ["c2"], "nodeIds": ["n1", "n2"], "companyIds": ["co1", "co3", "co4"]}},
+    {"id": "e3", "type": "policy_text", "source": "中国政府网", "title": "乡村产业", "excerpt": "规划推进农产品加工流通、乡村产业和农村一二三产业融合发展。", "confidence": 89, "clauseIds": ["c3"], "nodeIds": ["n3"], "companyIds": ["co5"], "links": {"clauseIds": ["c3"], "nodeIds": ["n3"], "companyIds": ["co5"]}},
+    {"id": "e4", "type": "policy_text", "source": "中国政府网", "title": "数字农业", "excerpt": "规划推动数字乡村、智慧农业和农业社会化服务。", "confidence": 88, "clauseIds": ["c4"], "nodeIds": ["n4"], "companyIds": ["co4", "co6"], "links": {"clauseIds": ["c4"], "nodeIds": ["n4"], "companyIds": ["co4", "co6"]}},
+    {"id": "e5", "type": "policy_text", "source": "中国政府网", "title": "地方实施", "excerpt": "农业农村现代化需要地方项目、资金安排、经营主体投资和产业链协同落地。", "confidence": 80, "clauseIds": ["c1", "c3", "c4"], "nodeIds": ["n5"], "companyIds": [], "links": {"clauseIds": ["c1", "c3", "c4"], "nodeIds": ["n5"]}}
+  ],
+  "backgroundCards": [{"id": "bg1", "title": "总目标：稳供给和现代化并重", "body": "农业农村现代化既要保障粮食安全，也要提升科技、装备、产业和治理能力。", "evidenceIds": ["e1", "e2"]}, {"id": "bg2", "title": "产业链：从种业农机到加工流通", "body": "种业、农机、加工、冷链和数字农业构成政策可拆解的产业链。", "evidenceIds": ["e2", "e3", "e4"]}, {"id": "bg3", "title": "验证点：地方项目和资金", "body": "后续需要跟踪高标准农田、农机补贴、数字乡村、农产品加工园区等项目。", "evidenceIds": ["e5"]}],
+  "compareInsights": {"comparableCount": 0, "similarPolicies": [], "contrastPolicies": [], "insights": ["后续可与乡村全面振兴、农机装备补贴、种业振兴和数字乡村专项政策做横向对比。"], "limitations": ["政策未列具体公司或项目金额。", "农业产业受周期、天气、价格和补贴影响较大。"]},
+  "analysisCoverage": {"status": "matched", "analysisMethod": "codex-manual-v1", "evidenceCount": 5, "industryNodeCount": 5, "companyCount": 6, "companyImpactConclusion": "本政策适合做种业、农机、数字农业和农产品流通方向映射，但公司影响均为间接观察。", "limitations": ["农业政策兑现依赖地方资金和项目。", "农产品价格周期会影响产业链公司收益。", "部分数字农业映射置信度偏低。"]}
+}
