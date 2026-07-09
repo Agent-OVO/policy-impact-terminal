@@ -1,0 +1,100 @@
+{
+  "id": "4e45255c-dc48-4526-8ca3-3f313e68780a",
+  "policyId": "4e45255c-dc48-4526-8ca3-3f313e68780a",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "generatedAt": "2026-07-09T20:35:00+09:00",
+  "summary": {
+    "id": "4e45255c-dc48-4526-8ca3-3f313e68780a",
+    "title": "人力资源社会保障部 国家发展改革委 工业和信息化部 国家数据局关于加快推进“人工智能＋人社”应用发展的实施意见",
+    "issuer": "人力资源社会保障部、国家发展改革委、工业和信息化部、国家数据局",
+    "source": "国家数据局 - 政策发布",
+    "publishDate": "2026-07-08",
+    "status": "published",
+    "confidence": 92,
+    "industryCount": 5,
+    "companyCount": 6,
+    "evidenceCount": 7,
+    "primarySignal": "人社行业从信息化系统建设进入大模型、智能体、行业数据集和高价值场景落地阶段",
+    "category": "人工智能与政务服务"
+  },
+  "policy": {
+    "title": "人力资源社会保障部 国家发展改革委 工业和信息化部 国家数据局关于加快推进“人工智能＋人社”应用发展的实施意见",
+    "status": "已发布",
+    "issuer": "人力资源社会保障部、国家发展改革委、工业和信息化部、国家数据局",
+    "publishDate": "2026-07-08",
+    "effectiveDate": "2026-07-08",
+    "source": "国家数据局 - 政策发布",
+    "category": "人工智能与政务服务",
+    "level": "多部门实施意见",
+    "confidence": 92,
+    "sourceUrl": "https://www.nda.gov.cn/sjj/zwgk/zcfb/0708/20260708133949899211227_pc.html",
+    "scope": "就业、社保、人才、劳动关系、人力资源服务、人社治理等人社行业应用场景",
+    "impactScope": "人社大模型、智能体、知识图谱、行业高质量数据集、语料库、算法模型、政务服务平台、安全治理和资金人才保障",
+    "jurisdiction": "中国",
+    "tags": ["人工智能+", "人社", "就业服务", "社会保险", "大模型", "智能体", "高质量数据集", "政务服务"]
+  },
+  "brief": {
+    "judgement": "这份实施意见把“人工智能＋人社”从概念推进到行业场景、数据集、模型和平台的执行层面。它不是单一采购文件，而是为就业、社保、人才、劳动关系、人力资源服务和治理能力现代化建立AI应用路线图；产业影响主要落在政务AI平台、人社行业软件、知识图谱、行业数据集、智能客服与风控、模型安全和数据治理服务。",
+    "summary": "文件提出到2026年人社行业人工智能应用体系、标准体系、保障体系初步成形，打造20个左右基于人社行业大模型的应用场景及相应高质量数据集；到2027年普及一批人社行业大模型和智能体，探索50个左右高价值应用场景；到2030年形成人社行业领域人工智能普遍应用的创新局面。六大场景覆盖就业、社保、人才、劳动关系、人力资源服务和人社治理，基础设施则包括应用平台、数据集和语料库、算法模型、制度标准和发展生态。",
+    "keyPoints": ["政策明确20个左右大模型应用场景及数据集、50个左右高价值应用场景路径，具备可执行性。", "就业服务、社保经办、人才供给、劳动权益保障和人力资源服务均被列为重大场景。", "行业高质量数据集、人工智能语料库和人社行业算法模型是基础设施重点。", "资金方面提出财政资金引导、多元社会资本参与，并发挥国家人工智能产业基金引领作用。", "安全保障是刚性边界，公司映射不得理解为直接订单或投资建议。"],
+    "methodology": "人工阅读国家数据局公开政策正文，按目标、场景、基础设施和保障措施拆分条款。公司映射仅选取政务信息化、AI模型、人社社保软件和人力资源服务相关主体作为代表性观察。"
+  },
+  "actions": [
+    {"id": "a1", "title": "设定人社AI应用阶段目标", "body": "文件将2026、2027、2030三个节点与大模型、智能体、应用场景和数据集建设绑定，提升人社行业AI建设的可调度性。", "signal": "beneficiary", "confidence": 95, "clauseIds": ["c1"], "sortOrder": 1},
+    {"id": "a2", "title": "打造六类人工智能重大场景", "body": "就业、社保、人才、劳动关系、人力资源服务和治理能力现代化构成场景矩阵，意味着AI建设会深入业务流程而非停留在门户问答。", "signal": "beneficiary", "confidence": 93, "clauseIds": ["c2"], "sortOrder": 2},
+    {"id": "a3", "title": "建设平台、数据集、语料库和算法模型", "body": "文件明确搭建人工智能应用平台，建设行业高质量数据集和人工智能语料库，建设人社行业算法模型，直接支撑软件、数据和模型服务需求。", "signal": "beneficiary", "confidence": 94, "clauseIds": ["c3"], "sortOrder": 3},
+    {"id": "a4", "title": "引入资金人才和市场化建设运行模式", "body": "文件提出财政资金引导、多元社会资本参与、国家人工智能产业基金引领，为行业AI生态提供资金和人才保障。", "signal": "market", "confidence": 88, "clauseIds": ["c4"], "sortOrder": 4},
+    {"id": "a5", "title": "强化数据和模型安全治理", "body": "人社数据高度敏感，文件强调安全稳妥可持续和安全保障，后续建设会更加重视数据权限、隐私保护、模型可控和审计。", "signal": "constraint", "confidence": 89, "clauseIds": ["c5"], "sortOrder": 5}
+  ],
+  "clauseGroups": [
+    {"id": "g1", "title": "目标节点", "count": 1, "tone": "blue"},
+    {"id": "g2", "title": "应用场景", "count": 1, "tone": "green"},
+    {"id": "g3", "title": "基础设施", "count": 1, "tone": "purple"},
+    {"id": "g4", "title": "组织保障", "count": 2, "tone": "orange"}
+  ],
+  "clauses": [
+    {"id": "c1", "no": "第一部分工作目标", "title": "2026、2027、2030分阶段目标", "group": "g1", "excerpt": "打造20个左右基于人社行业大模型建设的应用场景及相应高质量数据集；到2027年探索50个左右高价值应用场景赋能路径。", "fullText": "分阶段目标把场景、大模型、智能体和数据集联动起来，为地方和行业建设提供数量化牵引。", "confidence": 96, "keywords": ["20个左右", "50个左右", "大模型", "智能体"], "industries": ["政务AI", "行业软件", "数据集"], "sortOrder": 1},
+    {"id": "c2", "no": "第二部分", "title": "六类人工智能重大场景", "group": "g2", "excerpt": "发展数智就业，深化智慧社会保险，加强人才精准培养使用，深化智慧劳动关系，开拓智慧人力资源服务，构建人社智慧治理模式。", "fullText": "场景覆盖人社核心业务闭环，提示AI项目将围绕业务流程、经办服务、风控和治理管理展开。", "confidence": 94, "keywords": ["数智就业", "智慧社会保险", "智慧劳动关系", "人社智慧治理"], "industries": ["人社信息化", "政务服务", "人力资源服务"], "sortOrder": 2},
+    {"id": "c3", "no": "第三部分", "title": "人社AI基础设施", "group": "g3", "excerpt": "搭建人工智能应用平台，建设行业高质量数据集和人工智能语料库，建设人社行业算法模型。", "fullText": "平台、数据、语料库和算法模型是人社AI落地的基础设施，也是产业链最直接的建设对象。", "confidence": 95, "keywords": ["应用平台", "高质量数据集", "语料库", "算法模型"], "industries": ["AI平台", "数据治理", "模型服务"], "sortOrder": 3},
+    {"id": "c4", "no": "第四部分第二项", "title": "资金和人才保障", "group": "g4", "excerpt": "建立以财政资金引导、多元社会资本参与的市场化建设运行模式。发挥国家人工智能产业基金引领作用。", "fullText": "资金保障说明人社AI不完全依赖部门自建，可能引入市场化建设运行和社会资本参与。", "confidence": 90, "keywords": ["财政资金", "社会资本", "人工智能产业基金"], "industries": ["AI产业", "政务服务", "系统集成"], "sortOrder": 4},
+    {"id": "c5", "no": "第四部分第四项", "title": "安全保障", "group": "g4", "excerpt": "强化安全保障，构建安全稳妥可持续的人工智能建设运行机制。", "fullText": "人社领域涉及就业、社保、人才和劳动关系等敏感数据，安全合规是系统建设的前提。", "confidence": 89, "keywords": ["安全保障", "可持续", "人工智能"], "industries": ["数据安全", "隐私计算", "模型治理"], "sortOrder": 5}
+  ],
+  "chainNodes": [
+    {"id": "n1", "title": "人社大模型和智能体", "subtitle": "面向就业、社保、人才和治理的行业模型", "section": "upstream", "relation": "beneficiary", "evidenceLevel": "strong", "confidence": 91, "description": "政策明确培育人社行业大模型和智能体应用，AI模型厂商与行业方案商具备直接相关性。", "clauseIds": ["c1", "c3"], "companyIds": ["co1", "co2"], "evidenceIds": ["e1", "e3"], "impactReason": "文件直接提出大模型和智能体目标。", "iconKey": "bot"},
+    {"id": "n2", "title": "人社信息化和政务服务平台", "subtitle": "社保经办、就业服务、治理平台智能化", "section": "midstream", "relation": "beneficiary", "evidenceLevel": "strong", "confidence": 90, "description": "人社信息化厂商可能承接原有系统智能化升级、智能经办、风控和业务协同平台建设。", "clauseIds": ["c2", "c3"], "companyIds": ["co3", "co4", "co5"], "evidenceIds": ["e2", "e3"], "impactReason": "六类场景均需接入业务系统和服务平台。", "iconKey": "workflow"},
+    {"id": "n3", "title": "行业数据集和语料库", "subtitle": "职业分类、岗位技能、社保经办和劳动关系语料", "section": "support", "relation": "beneficiary", "evidenceLevel": "strong", "confidence": 89, "description": "高质量数据集和语料库是模型落地前置条件，数据治理、标注、知识图谱和语料加工需求明确。", "clauseIds": ["c1", "c3"], "companyIds": ["co1", "co6"], "evidenceIds": ["e1", "e3"], "impactReason": "政策直接提出相应高质量数据集和行业语料库。", "iconKey": "database"},
+    {"id": "n4", "title": "人力资源服务智能化", "subtitle": "招聘匹配、技能培训、人才供需和人服生态", "section": "downstream", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 80, "description": "智慧人力资源服务和人才精准培养使用可能带动招聘匹配、职业培训和企业人服系统智能化。", "clauseIds": ["c2"], "companyIds": ["co6"], "evidenceIds": ["e2"], "impactReason": "文件提出开拓智慧人力资源服务和人才智能供给机制。", "iconKey": "users"},
+    {"id": "n5", "title": "数据安全和模型治理", "subtitle": "敏感人社数据要求安全可控", "section": "support", "relation": "constraint", "evidenceLevel": "strong", "confidence": 86, "description": "人社数据敏感，系统建设必须满足安全、权限、审计和模型治理要求，安全厂商和合规服务存在配套需求。", "clauseIds": ["c5"], "companyIds": ["co2"], "evidenceIds": ["e5"], "impactReason": "政策将安全保障作为组织实施要求。", "iconKey": "shield"}
+  ],
+  "chainEdges": [
+    {"id": "edge1", "from": "n3", "to": "n1", "type": "strong", "label": "数据集和语料库支撑人社大模型训练应用"},
+    {"id": "edge2", "from": "n1", "to": "n2", "type": "strong", "label": "模型和智能体嵌入人社政务服务平台"},
+    {"id": "edge3", "from": "n2", "to": "n4", "type": "medium", "label": "人社平台能力外溢到人力资源服务生态"},
+    {"id": "edge4", "from": "n5", "to": "n1", "type": "risk", "label": "安全约束决定模型部署边界"}
+  ],
+  "companies": [
+    {"id": "co1", "name": "科大讯飞", "ticker": "002230.SZ", "section": "upstream", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 78, "reason": "大模型、语音语义、知识图谱和政务AI方向与人社大模型和智能体建设具备相关性。", "nodeIds": ["n1", "n3"], "clauseIds": ["c1", "c3"], "evidenceIds": ["e1", "e3"], "riskNote": "政策未点名公司，具体订单需招标验证。"},
+    {"id": "co2", "name": "拓尔思", "ticker": "300229.SZ", "section": "upstream", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 74, "reason": "语义智能、政务数据、知识工程和模型治理方向与行业语料库和政务AI场景相关。", "nodeIds": ["n1", "n5"], "clauseIds": ["c3", "c5"], "evidenceIds": ["e3", "e5"], "riskNote": "需要验证其在人社领域项目覆盖。"},
+    {"id": "co3", "name": "久远银海", "ticker": "002777.SZ", "section": "midstream", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 80, "reason": "医保、人社、社保和民生信息化方向与智慧社保、就业服务、人社治理平台高度相关。", "nodeIds": ["n2"], "clauseIds": ["c2", "c3"], "evidenceIds": ["e2", "e3"], "riskNote": "影响取决于地方人社系统预算和项目节奏。"},
+    {"id": "co4", "name": "东软集团", "ticker": "600718.SH", "section": "midstream", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 73, "reason": "政务信息化、社保医疗和行业软件能力与智慧社保和人社平台改造方向相关。", "nodeIds": ["n2"], "clauseIds": ["c2"], "evidenceIds": ["e2"], "riskNote": "项目落地仍需地方采购验证。"},
+    {"id": "co5", "name": "万达信息", "ticker": "300168.SZ", "section": "midstream", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 70, "reason": "民生政务、社保医保和城市公共服务信息化与人社智慧治理具备业务相关性。", "nodeIds": ["n2"], "clauseIds": ["c2"], "evidenceIds": ["e2"], "riskNote": "公司经营和回款情况需另行评估。"},
+    {"id": "co6", "name": "用友网络", "ticker": "600588.SH", "section": "downstream", "relation": "beneficiary", "evidenceLevel": "pending", "confidence": 66, "reason": "人力资源服务生态、企业人事管理和AI应用平台存在概念相关性，但政策主要面向公共人社系统。", "nodeIds": ["n3", "n4"], "clauseIds": ["c2", "c3"], "evidenceIds": ["e2", "e3"], "riskNote": "该映射为低置信观察。"}
+  ],
+  "evidence": [
+    {"id": "e1", "type": "policy_text", "source": "国家数据局", "title": "阶段目标", "excerpt": "打造20个左右基于人社行业大模型建设的应用场景及相应高质量数据集；到2027年探索50个左右高价值应用场景赋能路径。", "confidence": 96, "clauseIds": ["c1"], "nodeIds": ["n1", "n3"], "companyIds": ["co1"], "links": {"clauseIds": ["c1"], "nodeIds": ["n1", "n3"], "companyIds": ["co1"]}},
+    {"id": "e2", "type": "policy_text", "source": "国家数据局", "title": "六类场景", "excerpt": "发展数智就业，深化智慧社会保险，加强人才精准培养使用，深化智慧劳动关系，开拓智慧人力资源服务，构建人社智慧治理模式。", "confidence": 94, "clauseIds": ["c2"], "nodeIds": ["n2", "n4"], "companyIds": ["co3", "co4", "co5", "co6"], "links": {"clauseIds": ["c2"], "nodeIds": ["n2", "n4"], "companyIds": ["co3", "co4", "co5", "co6"]}},
+    {"id": "e3", "type": "policy_text", "source": "国家数据局", "title": "平台和数据基础设施", "excerpt": "搭建人工智能应用平台，建设行业高质量数据集和人工智能语料库，建设人社行业算法模型。", "confidence": 95, "clauseIds": ["c3"], "nodeIds": ["n1", "n2", "n3"], "companyIds": ["co1", "co2", "co3"], "links": {"clauseIds": ["c3"], "nodeIds": ["n1", "n2", "n3"], "companyIds": ["co1", "co2", "co3"]}},
+    {"id": "e4", "type": "policy_text", "source": "国家数据局", "title": "资金和人才保障", "excerpt": "积极拓宽资金支持渠道，建立以财政资金引导、多元社会资本参与的市场化建设运行模式。", "confidence": 90, "clauseIds": ["c4"], "nodeIds": ["n2"], "companyIds": [], "links": {"clauseIds": ["c4"], "nodeIds": ["n2"]}},
+    {"id": "e5", "type": "policy_text", "source": "国家数据局", "title": "安全保障", "excerpt": "强化安全保障，构建安全稳妥可持续的人工智能建设运行机制。", "confidence": 89, "clauseIds": ["c5"], "nodeIds": ["n5"], "companyIds": ["co2"], "links": {"clauseIds": ["c5"], "nodeIds": ["n5"], "companyIds": ["co2"]}},
+    {"id": "e6", "type": "policy_text", "source": "国家数据局", "title": "智慧就业", "excerpt": "构建职业分类知识图谱和求职招聘模型，探索智慧就业运行监测。", "confidence": 88, "clauseIds": ["c2"], "nodeIds": ["n4"], "companyIds": ["co6"], "links": {"clauseIds": ["c2"], "nodeIds": ["n4"], "companyIds": ["co6"]}},
+    {"id": "e7", "type": "policy_text", "source": "国家数据局", "title": "模型成熟目标", "excerpt": "到2030年，行业高质量数据集有效供给，人社行业大模型成熟完备，人工智能应用体系基本健全。", "confidence": 93, "clauseIds": ["c1"], "nodeIds": ["n1", "n3"], "companyIds": [], "links": {"clauseIds": ["c1"], "nodeIds": ["n1", "n3"]}}
+  ],
+  "backgroundCards": [
+    {"id": "bg1", "title": "目标明确：20个场景与50个路径", "body": "政策用数量化目标把人社AI推进从试点概念转为可调度的建设任务。", "evidenceIds": ["e1", "e7"]},
+    {"id": "bg2", "title": "场景完整：覆盖人社核心业务链", "body": "就业、社保、人才、劳动关系、人力资源服务和治理模式构成人社AI场景矩阵。", "evidenceIds": ["e2", "e6"]},
+    {"id": "bg3", "title": "基础设施：数据和模型先行", "body": "平台、数据集、语料库和算法模型是后续项目落地的核心支撑。", "evidenceIds": ["e3"]}
+  ],
+  "compareInsights": {"comparableCount": 0, "similarPolicies": [], "contrastPolicies": [], "insights": ["后续可与行业高质量数据集建设实施方案、人工智能+信息通信政策和地方政务AI项目做横向对比。"], "limitations": ["政策未列具体采购项目和供应商名单。", "人社数据安全和地方预算是落地约束。"]},
+  "analysisCoverage": {"status": "matched", "analysisMethod": "codex-manual-v1", "evidenceCount": 7, "industryNodeCount": 5, "companyCount": 6, "companyImpactConclusion": "本政策公司映射价值较高，但所有公司均为产业链相关性观察，不代表点名受益。", "limitations": ["政策偏实施意见，具体项目需等待地方方案和招标。", "人社系统数据敏感，安全合规可能提高实施门槛。", "大模型应用效果需真实业务场景验证。"]}
+}

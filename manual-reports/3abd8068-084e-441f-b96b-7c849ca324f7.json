@@ -1,0 +1,114 @@
+{
+  "id": "3abd8068-084e-441f-b96b-7c849ca324f7",
+  "policyId": "3abd8068-084e-441f-b96b-7c849ca324f7",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "generatedAt": "2026-07-09T20:30:00+09:00",
+  "summary": {
+    "id": "3abd8068-084e-441f-b96b-7c849ca324f7",
+    "title": "国务院关于印发《美丽中国建设“十五五”规划》的通知",
+    "issuer": "国务院",
+    "source": "中国政府网 - 最新政策",
+    "publishDate": "2026-07-03",
+    "status": "published",
+    "confidence": 91,
+    "industryCount": 5,
+    "companyCount": 7,
+    "evidenceCount": 7,
+    "primarySignal": "美丽中国建设从污染防治扩展到固废、新污染物、碳市场、监测数字化和绿色金融的综合治理框架",
+    "category": "生态环境与绿色治理"
+  },
+  "policy": {
+    "title": "国务院关于印发《美丽中国建设“十五五”规划》的通知",
+    "status": "已发布",
+    "issuer": "国务院",
+    "publishDate": "2026-07-03",
+    "effectiveDate": "2026-07-03",
+    "source": "中国政府网 - 最新政策",
+    "category": "生态环境与绿色治理",
+    "level": "国务院规划",
+    "confidence": 91,
+    "sourceUrl": "https://www.gov.cn/zhengce/content/202607/content_7074199.htm",
+    "scope": "全国生态环境治理、污染防治、固体废物、新污染物、生态修复、碳市场、环境监测和绿色金融相关领域",
+    "impactScope": "环保治理、固废危废、新污染物监测、生态修复、碳市场、绿色金融、生态环境数字化和环境监测装备",
+    "jurisdiction": "中国",
+    "tags": ["美丽中国", "污染防治", "固体废物", "新污染物", "生态修复", "碳市场", "环境监测", "绿色金融"]
+  },
+  "brief": {
+    "judgement": "这份规划的重点不只是延续蓝天、碧水、净土保卫战，而是把污染治理、固废和新污染物、生态系统修复、气候变化、碳市场、监测现代化和绿色金融统一纳入美丽中国建设的执行体系。对产业端而言，确定性较高的是环境监测、固废危废治理、水环境治理、生态修复、碳市场服务和环保数字化；但具体公司影响仍需要后续项目库、地方实施方案、财政资金和招投标来验证。",
+    "summary": "规划明确到2030年生态环境质量全面改善，美丽中国建设取得新的重大进展，并围绕蓝天碧水净土、固体废物和新污染物、生态系统优化、气候变化、绿色生产生活方式、安全底线和保障体系展开任务。产业链影响主要体现在污染治理需求延续、固废综合治理和新污染物监管扩容、生态修复工程推进、全国碳市场扩围、生态环境监测现代化和绿色金融项目库建设。",
+    "keyPoints": ["2030年目标为生态环境质量全面改善，美丽中国建设取得新的重大进展。", "规划提出全面实施固体废物和新污染物治理行动，提升固废综合治理能力。", "全国碳市场扩围、碳定价机制、温室气体自愿减排市场被纳入气候变化章节。", "监测现代化、人工智能等数智技术应用和生态环境信息化工程是治理能力建设的重要抓手。", "公司映射仅代表产业链相关性，不代表政策点名、订单确认或投资建议。"],
+    "methodology": "人工阅读中国政府网公开政策正文，按任务章节提取政策动作、条款证据和产业影响节点；公司映射以环保、水务、固废、监测、碳服务和生态修复相关公开业务为代表性观察，不直接推断业绩影响。"
+  },
+  "actions": [
+    {"id": "a1", "title": "明确2030年美丽中国建设阶段目标", "body": "规划提出到2030年生态环境质量全面改善、绿色生产生活方式基本形成、碳达峰目标如期实现，为后续考核评估和地方任务分解提供总目标。", "signal": "constraint", "confidence": 94, "clauseIds": ["c1"], "sortOrder": 1},
+    {"id": "a2", "title": "持续推进蓝天碧水净土和农村环境治理", "body": "规划继续把空气、水、海洋、土壤、地下水、农村环境作为基础任务，环境治理和监测需求具有持续性。", "signal": "beneficiary", "confidence": 90, "clauseIds": ["c2"], "sortOrder": 2},
+    {"id": "a3", "title": "实施固体废物和新污染物治理行动", "body": "规划专章部署固废综合治理、重金属污染防治和新污染物治理，推动固废处置、危废监管、资源化利用和污染物检测需求扩容。", "signal": "beneficiary", "confidence": 91, "clauseIds": ["c3"], "sortOrder": 3},
+    {"id": "a4", "title": "发展全国碳市场和气候适应能力", "body": "规划要求积极稳妥推进碳达峰，加快发展全国碳市场，并提升气候变化基础能力，碳交易、碳核算和气候韧性基础设施成为支撑环节。", "signal": "market", "confidence": 89, "clauseIds": ["c4"], "sortOrder": 4},
+    {"id": "a5", "title": "提升监测现代化和绿色金融支持", "body": "规划将监测现代化、生态环境信息化、人工智能应用、绿色金融产品和项目库建设纳入保障体系，提示治理能力向数字化和资本工具延伸。", "signal": "market", "confidence": 88, "clauseIds": ["c5"], "sortOrder": 5}
+  ],
+  "clauseGroups": [
+    {"id": "g1", "title": "目标任务", "count": 2, "tone": "blue"},
+    {"id": "g2", "title": "治理行动", "count": 1, "tone": "green"},
+    {"id": "g3", "title": "气候与市场", "count": 1, "tone": "purple"},
+    {"id": "g4", "title": "保障机制", "count": 1, "tone": "orange"}
+  ],
+  "clauses": [
+    {"id": "c1", "no": "总体要求", "title": "2030年美丽中国建设阶段目标", "group": "g1", "excerpt": "到2030年，生态环境质量全面改善，美丽中国建设取得新的重大进展。", "fullText": "该目标将生态环境质量、绿色生产生活方式、碳达峰、污染物排放、固废治理、城乡人居环境和生态安全纳入同一阶段性评价框架。", "confidence": 95, "keywords": ["2030年", "生态环境质量", "美丽中国"], "industries": ["环保治理", "环境监测", "生态修复"], "sortOrder": 1},
+    {"id": "c2", "no": "第二部分", "title": "深入打好蓝天碧水净土保卫战", "group": "g1", "excerpt": "推动空气质量持续改善，强化水生态环境保护，深化海洋生态环境保护，加强土壤、地下水和农村生态环境保护。", "fullText": "蓝天碧水净土任务决定传统环保工程、在线监测、污水处理、土壤修复和农村环境治理仍是基础需求。", "confidence": 91, "keywords": ["空气质量", "水生态", "土壤", "农村生态环境"], "industries": ["水务", "大气治理", "土壤修复"], "sortOrder": 2},
+    {"id": "c3", "no": "第三部分", "title": "固体废物和新污染物治理", "group": "g2", "excerpt": "全面实施固体废物和新污染物治理行动，实施固体废物综合治理，深化新污染物治理。", "fullText": "固废、新污染物和重金属防治任务会提升危废处置、资源化利用、检测评估和监管系统需求。", "confidence": 92, "keywords": ["固体废物", "新污染物", "重金属"], "industries": ["固废处理", "危废处理", "环境检测"], "sortOrder": 3},
+    {"id": "c4", "no": "第五部分", "title": "积极应对气候变化和发展碳市场", "group": "g3", "excerpt": "加快发展全国碳市场，有序扩大全国碳排放权交易市场覆盖行业范围、扩展参与主体。", "fullText": "全国碳市场扩围、碳定价机制和温室气体自愿减排交易市场共同构成气候治理的市场化支撑。", "confidence": 90, "keywords": ["碳市场", "碳定价", "自愿减排"], "industries": ["碳交易", "碳核算", "绿色金融"], "sortOrder": 4},
+    {"id": "c5", "no": "第八部分", "title": "监测现代化、数智技术和经济激励", "group": "g4", "excerpt": "提升监测现代化水平，深化人工智能等新技术应用；鼓励建立金融支持美丽中国建设项目库。", "fullText": "保障体系把环境监测、信息化、人工智能、绿色金融和项目库结合起来，利于数字化治理和绿色金融服务。", "confidence": 89, "keywords": ["监测现代化", "人工智能", "绿色金融", "项目库"], "industries": ["环境监测", "环保信息化", "绿色金融"], "sortOrder": 5}
+  ],
+  "chainNodes": [
+    {"id": "n1", "title": "污染防治与环境治理", "subtitle": "空气、水、土壤和农村环境治理持续推进", "section": "upstream", "relation": "beneficiary", "evidenceLevel": "strong", "confidence": 88, "description": "蓝天碧水净土保卫战延续了传统环保需求，水处理、大气治理、土壤修复和农村环境整治仍是基础链条。", "clauseIds": ["c2"], "companyIds": ["co1", "co2", "co3"], "evidenceIds": ["e2"], "impactReason": "政策直接列出空气、水、土壤、地下水和农村生态环境保护任务。", "iconKey": "water"},
+    {"id": "n2", "title": "固废危废与新污染物治理", "subtitle": "固废综合治理、重金属和新污染物监管扩容", "section": "midstream", "relation": "beneficiary", "evidenceLevel": "strong", "confidence": 90, "description": "固体废物和新污染物单列为行动，固废处置、危废管理、资源化利用和检测服务具备较强政策相关性。", "clauseIds": ["c3"], "companyIds": ["co2", "co4"], "evidenceIds": ["e3"], "impactReason": "政策设置专章部署固废和新污染物治理。", "iconKey": "recycle"},
+    {"id": "n3", "title": "生态修复与生物多样性", "subtitle": "生态保护修复、自然保护地和碳汇能力建设", "section": "downstream", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 80, "description": "生态系统优化涉及生态保护修复、生物多样性和生态监管，相关工程和咨询监测需求取决于地方项目清单。", "clauseIds": ["c1"], "companyIds": ["co5"], "evidenceIds": ["e1"], "impactReason": "总体目标要求生态系统多样性稳定性持续性提升。", "iconKey": "leaf"},
+    {"id": "n4", "title": "碳市场与绿色金融", "subtitle": "碳交易、碳金融和项目库承接绿色转型", "section": "support", "relation": "market", "evidenceLevel": "strong", "confidence": 86, "description": "全国碳市场扩围和绿色金融项目库建设将推动碳核算、碳资产管理、绿色金融和气候投融资服务。", "clauseIds": ["c4", "c5"], "companyIds": ["co6"], "evidenceIds": ["e4", "e6"], "impactReason": "政策明确发展全国碳市场并建立金融支持项目库。", "iconKey": "bar-chart"},
+    {"id": "n5", "title": "生态环境数字化与监测", "subtitle": "监测现代化、信息化工程和人工智能应用", "section": "support", "relation": "beneficiary", "evidenceLevel": "strong", "confidence": 87, "description": "监测现代化和生态环境信息化将推动环境监测设备、数据平台、执法监管系统和AI辅助治理需求。", "clauseIds": ["c5"], "companyIds": ["co7"], "evidenceIds": ["e5"], "impactReason": "政策将监测现代化和人工智能应用写入保障体系。", "iconKey": "radar"}
+  ],
+  "chainEdges": [
+    {"id": "edge1", "from": "n1", "to": "n5", "type": "medium", "label": "污染治理任务需要监测和数据平台支撑"},
+    {"id": "edge2", "from": "n2", "to": "n5", "type": "medium", "label": "固废和新污染物治理依赖检测监管能力"},
+    {"id": "edge3", "from": "n3", "to": "n4", "type": "weak", "label": "生态产品价值和气候投融资形成资金支撑"}
+  ],
+  "companies": [
+    {"id": "co1", "name": "首创环保", "ticker": "600008.SH", "section": "upstream", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 73, "reason": "水生态环境保护、污水处理和城乡环境治理方向与公司水务环保业务存在产业链相关性。", "nodeIds": ["n1"], "clauseIds": ["c2"], "evidenceIds": ["e2"], "riskNote": "具体影响取决于地方水务项目和回款安排。"},
+    {"id": "co2", "name": "瀚蓝环境", "ticker": "600323.SH", "section": "midstream", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 74, "reason": "固废综合治理、垃圾处理和资源化利用方向与公司固废和环境服务业务相关。", "nodeIds": ["n1", "n2"], "clauseIds": ["c3"], "evidenceIds": ["e3"], "riskNote": "固废项目盈利受地方财政、处理费和产能利用率影响。"},
+    {"id": "co3", "name": "碧水源", "ticker": "300070.SZ", "section": "upstream", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 70, "reason": "水生态保护、污水资源化和农村环境治理与膜处理和水务技术方向相关。", "nodeIds": ["n1"], "clauseIds": ["c2"], "evidenceIds": ["e2"], "riskNote": "项目落地、回款和技术竞争仍需验证。"},
+    {"id": "co4", "name": "高能环境", "ticker": "603588.SH", "section": "midstream", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 73, "reason": "固废、危废、土壤修复和资源化利用方向与公司业务具有较强相关性。", "nodeIds": ["n2"], "clauseIds": ["c3"], "evidenceIds": ["e3"], "riskNote": "危废行业供需、处置价格和资本开支可能影响兑现。"},
+    {"id": "co5", "name": "东方园林", "ticker": "002310.SZ", "section": "downstream", "relation": "beneficiary", "evidenceLevel": "pending", "confidence": 62, "reason": "生态修复和城乡人居环境改善方向具备概念相关性，但公司层面财务和项目兑现不确定性较高。", "nodeIds": ["n3"], "clauseIds": ["c1"], "evidenceIds": ["e1"], "riskNote": "该映射仅保留低置信观察，不应视为受益判断。"},
+    {"id": "co6", "name": "国检集团", "ticker": "603060.SH", "section": "support", "relation": "market", "evidenceLevel": "indirect", "confidence": 68, "reason": "碳市场、绿色低碳标准、检测认证和碳核算需求与检测认证服务具备相关性。", "nodeIds": ["n4"], "clauseIds": ["c4", "c5"], "evidenceIds": ["e4", "e6"], "riskNote": "碳相关检测认证需求仍需制度细则和客户预算验证。"},
+    {"id": "co7", "name": "聚光科技", "ticker": "300203.SZ", "section": "support", "relation": "beneficiary", "evidenceLevel": "indirect", "confidence": 72, "reason": "监测现代化、环境信息化和新污染物监管会带动环境监测设备和系统需求。", "nodeIds": ["n5"], "clauseIds": ["c5"], "evidenceIds": ["e5"], "riskNote": "设备订单受政府采购节奏和行业竞争影响。"}
+  ],
+  "evidence": [
+    {"id": "e1", "type": "policy_text", "source": "中国政府网", "title": "2030年阶段目标", "excerpt": "到2030年，生态环境质量全面改善，美丽中国建设取得新的重大进展。", "confidence": 95, "clauseIds": ["c1"], "nodeIds": ["n3"], "companyIds": [], "links": {"clauseIds": ["c1"], "nodeIds": ["n3"]}},
+    {"id": "e2", "type": "policy_text", "source": "中国政府网", "title": "蓝天碧水净土任务", "excerpt": "推动空气质量持续改善，强化水生态环境保护，加强土壤、地下水和农村生态环境保护。", "confidence": 91, "clauseIds": ["c2"], "nodeIds": ["n1"], "companyIds": ["co1", "co3"], "links": {"clauseIds": ["c2"], "nodeIds": ["n1"], "companyIds": ["co1", "co3"]}},
+    {"id": "e3", "type": "policy_text", "source": "中国政府网", "title": "固废和新污染物治理", "excerpt": "全面实施固体废物和新污染物治理行动，实施固体废物综合治理，深化新污染物治理。", "confidence": 92, "clauseIds": ["c3"], "nodeIds": ["n2"], "companyIds": ["co2", "co4"], "links": {"clauseIds": ["c3"], "nodeIds": ["n2"], "companyIds": ["co2", "co4"]}},
+    {"id": "e4", "type": "policy_text", "source": "中国政府网", "title": "全国碳市场", "excerpt": "有序扩大全国碳排放权交易市场覆盖行业范围、扩展参与主体，完善以全国碳排放权交易市场为主体的碳定价机制。", "confidence": 90, "clauseIds": ["c4"], "nodeIds": ["n4"], "companyIds": ["co6"], "links": {"clauseIds": ["c4"], "nodeIds": ["n4"], "companyIds": ["co6"]}},
+    {"id": "e5", "type": "policy_text", "source": "中国政府网", "title": "监测和人工智能", "excerpt": "拓展数智技术应用场景，实施生态环境信息化工程，深化人工智能等新技术应用。", "confidence": 89, "clauseIds": ["c5"], "nodeIds": ["n5"], "companyIds": ["co7"], "links": {"clauseIds": ["c5"], "nodeIds": ["n5"], "companyIds": ["co7"]}},
+    {"id": "e6", "type": "policy_text", "source": "中国政府网", "title": "绿色金融和项目库", "excerpt": "鼓励建立金融支持美丽中国建设项目库，完善政银融资协调与项目推介机制，丰富绿色金融产品和服务。", "confidence": 88, "clauseIds": ["c5"], "nodeIds": ["n4"], "companyIds": ["co6"], "links": {"clauseIds": ["c5"], "nodeIds": ["n4"], "companyIds": ["co6"]}},
+    {"id": "e7", "type": "policy_text", "source": "中国政府网", "title": "实施机制", "excerpt": "健全美丽中国建设重大工程实施机制，细化项目清单，做好资金和要素保障。", "confidence": 87, "clauseIds": ["c5"], "nodeIds": ["n1", "n2", "n3"], "companyIds": [], "links": {"clauseIds": ["c5"], "nodeIds": ["n1", "n2", "n3"]}}
+  ],
+  "backgroundCards": [
+    {"id": "bg1", "title": "目标窗口：2030年取得新的重大进展", "body": "规划把2030年作为阶段目标，覆盖生态环境质量、碳达峰、固废治理、城乡人居环境、生态安全和治理体系。", "evidenceIds": ["e1"]},
+    {"id": "bg2", "title": "治理扩容：从传统污染防治扩展到新污染物", "body": "固体废物、重金属和新污染物被列为专门行动，意味着检测、处置、监管和资源化利用需求可能增加。", "evidenceIds": ["e3"]},
+    {"id": "bg3", "title": "能力建设：监测、AI与绿色金融", "body": "规划将监测现代化、AI应用和绿色金融项目库纳入保障体系，显示治理模式从工程建设扩展到数据和金融工具。", "evidenceIds": ["e5", "e6"]}
+  ],
+  "compareInsights": {
+    "comparableCount": 0,
+    "similarPolicies": [],
+    "contrastPolicies": [],
+    "insights": ["本报告为首轮结构化分析，后续可与碳达峰行动方案、节能降碳改造专项政策和绿色金融政策做横向对比。"],
+    "limitations": ["公司映射只代表产业链相关性，不代表政策点名或业绩兑现。", "地方项目库、资金安排和招投标是后续验证重点。"]
+  },
+  "analysisCoverage": {
+    "status": "matched",
+    "analysisMethod": "codex-manual-v1",
+    "evidenceCount": 7,
+    "industryNodeCount": 5,
+    "companyCount": 7,
+    "companyImpactConclusion": "本政策适合做环保治理、固废危废、环境监测、碳市场和绿色金融方向的代表性公司映射，但公司影响均为间接产业链观察。",
+    "limitations": ["政策以规划性任务为主，缺少具体项目金额和企业名单。", "环保产业兑现依赖地方财政、收费机制和项目回款。", "碳市场与绿色金融需要配套细则继续验证。"]
+  }
+}
