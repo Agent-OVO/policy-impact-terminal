@@ -175,13 +175,13 @@ function validateQualityDiscipline(errors, warnings, { report, policy, summary, 
   const isPlanningPolicy = /规划|行动方案/.test(title) || /规划|planning/i.test(policyType);
 
   if (isPlanningPolicy && companies.length > 8) {
-    warnings.push(`${qualityPrefix}: planning policy has ${companies.length} company mappings; consider reducing or grouping them`);
+    warnings.push(`quality warning: planning policy has ${companies.length} company mappings; consider reducing or grouping them`);
   }
   if (isPlanningPolicy && clauses.length < 5 && title.length > 0) {
-    warnings.push(`${qualityPrefix}: planning policy has only ${clauses.length} clauses; clause granularity may be too coarse`);
+    warnings.push(`quality warning: planning policy has only ${clauses.length} clauses; clause granularity may be too coarse`);
   }
   if (backgroundCards.length < 3) {
-    warnings.push(`${qualityPrefix}: backgroundCards has fewer than 3 items`);
+    warnings.push(`quality warning: backgroundCards has fewer than 3 items`);
   }
 
   const compareInsight = recordField(report, "compareInsights") ?? recordField(report, "compare_insights");
