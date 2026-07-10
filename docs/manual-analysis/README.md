@@ -47,6 +47,7 @@
 - `production-operations-runbook-v1.0.md`
 - `evidence-update-policy-v1.0.md`
 - `visual-qa-report-v1.0.md`
+- `authenticated-production-qa-report-v1.0.md`
 
 ### 第二步：再读政策拆分方法论
 

@@ -229,6 +229,41 @@ async function cleanupQaUser(options) {
   if (!ok) process.exitCode = 1;
 }
 
+async function auditQaUsers() {
+  const { admin } = getClients(getProjectRef());
+  const managedEphemeralUsers = [];
+  const legacyTestCandidates = [];
+  let page = 1;
+
+  while (true) {
+    const { data, error } = await admin.auth.admin.listUsers({ page, perPage: 1000 });
+    if (error) throw error;
+    for (const user of data.users ?? []) {
+      const localPart = user.email?.split("@")[0]?.toLowerCase() ?? "";
+      const row = { id: user.id, email: user.email, createdAt: user.created_at };
+      if (
+        user.user_metadata?.purpose === "ephemeral-production-qa" ||
+        (user.email?.endsWith(`@${AUTH_DOMAIN}`) && localPart.startsWith("qa_"))
+      ) {
+        managedEphemeralUsers.push(row);
+      } else if (user.email?.endsWith(`@${AUTH_DOMAIN}`) && localPart.startsWith("codexqa")) {
+        legacyTestCandidates.push(row);
+      }
+    }
+    if ((data.users ?? []).length < 1000) break;
+    page += 1;
+  }
+
+  const result = {
+    ok: managedEphemeralUsers.length === 0,
+    count: managedEphemeralUsers.length,
+    users: managedEphemeralUsers,
+    legacyTestCandidates
+  };
+  console.log(JSON.stringify(result));
+  if (!result.ok) process.exitCode = 1;
+}
+
 async function verifyQaUser(options) {
   if (!options.context || options.context === true) throw new Error("verify requires --context <path>.");
   const context = JSON.parse(fs.readFileSync(path.resolve(String(options.context)), "utf8"));
@@ -253,8 +288,9 @@ try {
   if (command === "create") await createQaUser(options);
   else if (command === "cleanup") await cleanupQaUser(options);
   else if (command === "verify") await verifyQaUser(options);
+  else if (command === "audit") await auditQaUsers();
   else {
-    console.error("Usage: node scripts/manage-production-qa-user.mjs <create|verify|cleanup> [--origin URL] [--context PATH]");
+    console.error("Usage: node scripts/manage-production-qa-user.mjs <create|verify|cleanup|audit> [--origin URL] [--context PATH]");
     process.exitCode = 2;
   }
 } catch (error) {

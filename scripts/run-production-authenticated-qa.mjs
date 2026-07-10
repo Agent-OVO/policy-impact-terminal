@@ -7,7 +7,7 @@ import { execFileSync } from "node:child_process";
 
 const DEFAULT_ORIGIN = "https://agent-ovo.github.io";
 const qaUserScript = path.resolve("scripts", "manage-production-qa-user.mjs");
-const qaBrowserScript = path.resolve("scripts", "production-authenticated-qa.playwright.js");
+const qaBrowserScript = "scripts/production-authenticated-qa.playwright.js";
 
 function parseArgs(argv) {
   const options = {};
@@ -21,9 +21,18 @@ function parseArgs(argv) {
   return options;
 }
 
-function quoteCmdArg(value) {
-  if (/^[A-Za-z0-9_./:=@-]+$/.test(value)) return value;
-  return `"${String(value).replace(/(["^&|<>%])/g, "^$1")}"`;
+function quoteBashArg(value) {
+  return `'${String(value).replace(/'/g, `'"'"'`)}'`;
+}
+
+function findWindowsGitBash() {
+  const candidates = [
+    process.env.BASH,
+    process.env.ProgramFiles ? path.join(process.env.ProgramFiles, "Git", "bin", "bash.exe") : "",
+    process.env.ProgramFiles ? path.join(process.env.ProgramFiles, "Git", "usr", "bin", "bash.exe") : "",
+    process.env["ProgramFiles(x86)"] ? path.join(process.env["ProgramFiles(x86)"], "Git", "bin", "bash.exe") : ""
+  ].filter(Boolean);
+  return candidates.find((candidate) => fs.existsSync(candidate));
 }
 
 function run(command, args, { quiet = false } = {}) {
@@ -41,7 +50,10 @@ function run(command, args, { quiet = false } = {}) {
 
 function runNpx(args, options) {
   if (process.platform !== "win32") return run("npx", args, options);
-  return run("cmd.exe", ["/d", "/s", "/c", ["npx", ...args].map(quoteCmdArg).join(" ")], options);
+  const bash = findWindowsGitBash();
+  if (!bash) throw new Error("Git Bash is required to run authenticated production QA on Windows.");
+  const command = ["npx", ...args].map(quoteBashArg).join(" ");
+  return run(bash, ["-lc", command], options);
 }
 
 function runPlaywright(sessionName, args, options) {
@@ -56,11 +68,30 @@ function runPlaywright(sessionName, args, options) {
 }
 
 function readJsonOutput(output, label) {
-  try {
-    return JSON.parse(output.trim());
-  } catch {
-    throw new Error(`${label} did not return valid JSON.`);
+  const text = output.replace(/\u001b\[[0-9;]*m/g, "").trim();
+  const candidates = [
+    text,
+    ...text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean).reverse()
+  ];
+  const firstBrace = text.indexOf("{");
+  const lastBrace = text.lastIndexOf("}");
+  if (firstBrace >= 0 && lastBrace > firstBrace) {
+    candidates.push(text.slice(firstBrace, lastBrace + 1));
   }
+
+  for (const candidate of candidates) {
+    try {
+      return JSON.parse(candidate);
+    } catch {
+      // Try the next representation.
+    }
+  }
+  const diagnostic = {
+    length: text.length,
+    start: text.slice(0, 160),
+    end: text.slice(-160)
+  };
+  throw new Error(`${label} did not return valid JSON: ${JSON.stringify(diagnostic)}`);
 }
 
 const options = parseArgs(process.argv.slice(2));
@@ -79,8 +110,9 @@ try {
     throw new Error("QA user creation did not return a usable context.");
   }
 
+  const playwrightStorageStatePath = String(context.storageStatePath).replace(/\\/g, "/");
   runPlaywright(sessionName, ["open", "about:blank"], { quiet: true });
-  runPlaywright(sessionName, ["state-load", context.storageStatePath], { quiet: true });
+  runPlaywright(sessionName, ["state-load", playwrightStorageStatePath], { quiet: true });
   const qaOutput = runNpx([
     "--yes",
     "--package",

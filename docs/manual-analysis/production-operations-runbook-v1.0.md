@@ -137,16 +137,40 @@ npm run manual:metrics -- --json
 
 ### 认证后生产检查
 
-需要专门测试账号或安全复用的测试Cookie，检查：
+使用已验证的一次性账号流程：
 
-- 新写回报告是否可打开；
-- 首屏公司排序；
-- 关系和监管角色标签；
-- 政策网络来源；
-- 长文本换行和移动端；
-- 旧报告无空白模块。
+```bash
+npm run qa:production:authenticated
+node scripts/manage-production-qa-user.mjs audit
+```
 
-没有安全测试账号时，不得通过创建不可清理的临时生产账号规避限制，应在视觉报告中明确记录待补项。
+可通过`--output <path>`保存详细JSON：
+
+```bash
+npm run qa:production:authenticated -- --output <path>
+```
+
+自动检查：
+
+- 20份报告是否全部可打开；
+- 每份报告是否有7个章节入口；
+- 17份完整报告是否展示投资方向观察和政策网络；
+- 公司卡数量是否等于权威`companyMap`计数；
+- 关系、证据和监管角色标签是否存在；
+- 桌面端和390px移动端是否横向溢出；
+- 控制台、页面异常和失败网络请求；
+- 3份C类轻量报告是否保持兼容。
+
+账号流程：
+
+```text
+创建带ephemeral-production-qa标记的临时账号
+→ 运行QA
+→ finally删除Auth用户
+→ 验证profiles、user_events、analysis_jobs均无残留
+```
+
+`audit`只把本工具创建的`qa_`账号作为阻断项。普通账号和早期`codexqa*`候选记录不会被自动删除。
 
 ## 六、故障处置
 
