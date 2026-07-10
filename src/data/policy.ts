@@ -103,6 +103,7 @@ export interface CompanyMapItem {
   chainNodeId?: string;
   relationship: MappingLevel;
   policyEvidence: "strong" | "indirect" | "pending";
+  regulatoryRole?: RegulatoryRole;
   businessExposure: string;
   investmentUse: string;
   watchSignals?: string[];

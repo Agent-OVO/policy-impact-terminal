@@ -84,6 +84,7 @@ export interface CompanyMapItem {
   chainNodeId?: EntityId;
   relationship: MappingLevel;
   policyEvidence: EvidenceLevel;
+  regulatoryRole?: RegulatoryRole;
   businessExposure: string;
   investmentUse: string;
   watchSignals?: string[];

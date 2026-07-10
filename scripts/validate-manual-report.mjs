@@ -364,17 +364,38 @@ function validateMethodologyDiscipline(errors, warnings, {
     }
   }
 
+  const regulatoryPolicyText = [
+    stringField(report, "substantivePolicyType") || stringField(report, "substantive_policy_type"),
+    stringField(report, "primaryActionType") || stringField(report, "primary_action_type")
+  ].filter(Boolean).join(" ");
+  const requiresRegulatoryRoles = /监管|监察|执法|处罚|标准约束/.test(regulatoryPolicyText);
+
   for (const [index, item] of companyMap.entries()) {
     const companyId = stringField(item, "companyId") || stringField(item, "company_id");
     const chainNodeId = stringField(item, "chainNodeId") || stringField(item, "chain_node_id");
     const relationship = stringField(item, "relationship") || stringField(item, "mappingLevel") || stringField(item, "mapping_level");
     const policyEvidence = stringField(item, "policyEvidence") || stringField(item, "policy_evidence");
+    const regulatoryRole = normalizeToken(stringField(item, "regulatoryRole") || stringField(item, "regulatory_role"));
     if (!companyId || !companyIds.has(companyId)) issues.push(`${prefix}: companyMap[${index}].companyId must match an existing companies id`);
     if (!chainNodeId || !nodeIds.has(chainNodeId)) issues.push(`${prefix}: companyMap[${index}].chainNodeId must match an existing chainNodes id`);
     if (!relationship) issues.push(`${prefix}: companyMap[${index}].relationship is required`);
     if (!policyEvidence) issues.push(`${prefix}: companyMap[${index}].policyEvidence is required`);
     if (!stringField(item, "businessExposure") && !stringField(item, "business_exposure")) issues.push(`${prefix}: companyMap[${index}].businessExposure is required`);
     if (!stringField(item, "investmentUse") && !stringField(item, "investment_use")) issues.push(`${prefix}: companyMap[${index}].investmentUse is required`);
+    if (requiresRegulatoryRoles && !regulatoryRole) {
+      issues.push(`${prefix}: companyMap[${index}].regulatoryRole is required for regulatory policies`);
+    }
+    if (regulatoryRole && !["constraint_exposed", "compliance_provider", "mixed", "not_applicable"].includes(regulatoryRole)) {
+      issues.push(`${prefix}: companyMap[${index}].regulatoryRole is invalid`);
+    }
+    const regulatoryRisks = stringArray(item, "keyRisks", "key_risks", "risks");
+    const regulatorySignals = stringArray(item, "watchSignals", "watch_signals");
+    if (["constraint_exposed", "mixed"].includes(regulatoryRole) && regulatoryRisks.length < 1) {
+      issues.push(`${prefix}: companyMap[${index}] ${regulatoryRole} role requires keyRisks`);
+    }
+    if (["compliance_provider", "mixed"].includes(regulatoryRole) && regulatorySignals.length < 1) {
+      issues.push(`${prefix}: companyMap[${index}] ${regulatoryRole} role requires watchSignals`);
+    }
 
     const sourceCompany = companies.find((company) => stringField(company, "id") === companyId);
     const legacyMappingLevel = stringField(sourceCompany, "mappingLevel") || stringField(sourceCompany, "mapping_level");

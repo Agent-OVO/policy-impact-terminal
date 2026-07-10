@@ -1575,6 +1575,13 @@ const companyRelationshipLabels: Record<CompanyMapItem["relationship"], string> 
   watch_only: "观察线索"
 };
 
+const companyRegulatoryRoleLabels: Record<NonNullable<CompanyMapItem["regulatoryRole"]>, string> = {
+  constraint_exposed: "受监管约束",
+  compliance_provider: "合规改造服务",
+  mixed: "双重角色",
+  not_applicable: "非监管角色"
+};
+
 const policyNetworkRelationshipLabels: Record<PolicyNetworkItem["relationship"], string> = {
   upstream_guidance: "上位指导",
   downstream_implementation: "下游落实",
@@ -1710,7 +1717,10 @@ function InvestmentObservationPanel({
                       <strong>{item.company}{item.ticker ? ` · ${item.ticker}` : ""}</strong>
                       <span>{item.chainNode}</span>
                     </div>
-                    <em>{companyRelationshipLabels[item.relationship]}</em>
+                    <em>
+                      {item.regulatoryRole ? `${companyRegulatoryRoleLabels[item.regulatoryRole]} · ` : ""}
+                      {companyRelationshipLabels[item.relationship]}
+                    </em>
                     <p>{item.investmentUse}</p>
                   </article>
                 ))}
@@ -1795,7 +1805,10 @@ function MobileInvestmentObservation({
       {representativeCompanies.length > 0 && (
         <div className="mobile-investment-companies">
           {representativeCompanies.map((item) => (
-            <span key={item.id}>{item.company} · {item.chainNode}</span>
+            <span key={item.id}>
+              {item.company} · {item.chainNode}
+              {item.regulatoryRole ? ` · ${companyRegulatoryRoleLabels[item.regulatoryRole]}` : ""}
+            </span>
           ))}
         </div>
       )}

@@ -96,6 +96,7 @@
       "chainNodeId": "n1",
       "relationship": "policy_named | direct_industry | indirect_industry | thematic_only | watch_only",
       "policyEvidence": "strong | indirect | pending",
+      "regulatoryRole": "constraint_exposed | compliance_provider | mixed | not_applicable；监管类政策必填",
       "businessExposure": "公司在该环节的业务暴露",
       "investmentUse": "纳入何种投资方向观察，不得写交易建议",
       "watchSignals": [],

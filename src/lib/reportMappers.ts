@@ -988,6 +988,7 @@ function mapCompanyMap(items: readonly JsonRecord[] = []): CompanyMapItem[] {
     chainNodeId: firstString(item.chainNodeId, item.chain_node_id, item.nodeId, item.node_id),
     relationship: normalizeMappingLevelValue(item.relationship, item.mappingLevel, item.mapping_level) ?? "watch_only",
     policyEvidence: normalizeEvidenceObjectLevel(item.policyEvidence, item.policy_evidence, item.evidenceLevel, item.evidence_level) ?? "pending",
+    regulatoryRole: normalizeRegulatoryRoleValue(item.regulatoryRole, item.regulatory_role),
     businessExposure: firstString(item.businessExposure, item.business_exposure, item.exposure) || "",
     investmentUse: firstString(item.investmentUse, item.investment_use, item.use) || "",
     watchSignals: toStringList(item.watchSignals, item.watch_signals),

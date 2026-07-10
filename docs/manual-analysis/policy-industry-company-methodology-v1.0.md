@@ -193,6 +193,7 @@
   "chainNodeId": "data-labeling",
   "relationship": "policy_named | direct_industry | indirect_industry | thematic_only | watch_only",
   "policyEvidence": "strong | indirect | pending",
+  "regulatoryRole": "constraint_exposed | compliance_provider | mixed | not_applicable",
   "businessExposure": "训练数据与数据标注服务",
   "investmentUse": "纳入数据标注方向观察，不等于确定受益",
   "watchSignals": [],
@@ -220,6 +221,15 @@
 - 公司业务暴露不清；
 - 需要多层传导；
 - 只适合作为观察线索。
+
+监管、执法和标准约束类政策还应区分公司角色：
+
+- `constraint_exposed`：处于被监管、被检查或承担合规成本的环节；
+- `compliance_provider`：提供设备更新、检测认证、节能改造、合规软件或专业服务；
+- `mixed`：同时存在监管暴露和服务供给；
+- `not_applicable`：不需要监管角色区分。
+
+不得把受监管对象与合规服务商统一写成正向影响。受监管对象必须说明整改、资本开支、停产或处罚风险；合规服务商必须等待采购、合同或项目证据验证需求兑现。
 
 ## 七、核心模块四：policyNetwork
 

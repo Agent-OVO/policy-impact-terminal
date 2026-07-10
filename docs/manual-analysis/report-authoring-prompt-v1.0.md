@@ -137,7 +137,9 @@ companyMap.relationship 和 policyEvidence 是公司投资映射的权威关系�
 如果 companies 已填写 mappingLevel，则不得与 companyMap.relationship 矛盾
 ```
 
-兼容期内，`companies.mappingLevel` 和 `companyMappingEvidenceLevel` 仍需填写；凡主体进入 `companyMap`，两处关系和证据等级必须一致。完整主体名单与上市公司投资映射应当分层表达，但不得在两处独立编造相互矛盾的关系事实。
+兼容期内，`companies.mappingLevel` 和 `companyMappingEvidenceLevel` 可以作为旧页面镜像字段保留，但新方法论不要求重复填写；如果已经填写，凡主体进入 `companyMap`，两处关系和证据等级必须一致。完整主体名单与上市公司投资映射应当分层表达，但不得在两处独立编造相互矛盾的关系事实。
+
+监管、执法、监察、处罚或标准约束类政策必须填写 `regulatoryRole`：`constraint_exposed` 表示受监管约束，`compliance_provider` 表示提供设备更新或合规服务，`mixed` 表示双重角色，`not_applicable` 表示不适用。不得把受监管对象和合规服务商合并写成同一种正向影响；受监管对象必须写明风险，合规服务商必须列出可验证的项目或订单信号，双重角色必须同时满足两项要求。
 
 每条必须包含：
 
@@ -148,6 +150,7 @@ companyMap.relationship 和 policyEvidence 是公司投资映射的权威关系�
   "chainNode": "产业链环节",
   "relationship": "policy_named | direct_industry | indirect_industry | thematic_only | watch_only",
   "policyEvidence": "strong | indirect | pending",
+  "regulatoryRole": "constraint_exposed | compliance_provider | mixed | not_applicable",
   "businessExposure": "公司在该环节的业务暴露",
   "investmentUse": "纳入何种投资方向观察，不得写交易建议",
   "watchSignals": [],
