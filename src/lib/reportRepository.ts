@@ -12,8 +12,16 @@ import {
   policy,
   topTabs
 } from "../data/policy";
-import type { AnalysisCoverage, CompareInsights } from "../data/policy";
-import type { PolicyBrief } from "../data/policy";
+import type {
+  AnalysisCoverage,
+  CompareInsights,
+  CompanyMapItem,
+  IndustryChainItem,
+  InvestmentDirection,
+  PolicyBrief,
+  PolicyIndustryMapItem,
+  PolicyNetworkItem
+} from "../data/policy";
 import { extractPolicyReportPayload, mapPolicyReportPayloadForApp } from "./reportMappers";
 import { isSupabaseConfigured, supabase } from "./supabase";
 
@@ -99,6 +107,11 @@ export interface PolicyReport {
   analysisDepth?: "L0" | "L1" | "L2" | "L3" | "L4" | "L5";
   analysisDepthReason?: string;
   followUpSignals?: string[];
+  policyIndustryMap?: PolicyIndustryMapItem[];
+  industryChain?: IndustryChainItem[];
+  companyMap?: CompanyMapItem[];
+  policyNetwork?: PolicyNetworkItem[];
+  investmentDirection?: InvestmentDirection;
   policy: typeof policy;
   actions: typeof actions;
   clauseGroups: typeof clauseGroups;

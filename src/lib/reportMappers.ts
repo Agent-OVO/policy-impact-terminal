@@ -18,12 +18,17 @@ import type {
   Clause as AppClause,
   ClauseGroup as AppClauseGroup,
   Company as AppCompany,
+  CompanyMapItem as AppCompanyMapItem,
   AnalysisCoverage as AppAnalysisCoverage,
   CompareInsights as AppCompareInsights,
   Evidence as AppEvidence,
+  IndustryChainItem as AppIndustryChainItem,
+  InvestmentDirection as AppInvestmentDirection,
   ModuleId as AppModuleId,
   PolicyAction as AppPolicyAction,
+  PolicyIndustryMapItem as AppPolicyIndustryMapItem,
   PolicyMeta as AppPolicyMeta,
+  PolicyNetworkItem as AppPolicyNetworkItem,
   Signal as AppSignal
 } from "../data/policy";
 import type {
@@ -34,14 +39,18 @@ import type {
   ClauseGroup,
   ClauseTone,
   CompanyImpact,
+  CompanyMapItem,
   EvidenceItem,
   EvidenceLevel,
+  IndustryChainItem,
   IndustryEdge,
   IndustryNode,
   IndustrySection,
+  InvestmentDirection,
   PolicyAction,
   PolicyBackgroundCard,
   PolicyClause,
+  PolicyIndustryMapItem,
   PolicyComparisonRow,
   PolicyMeta,
   PolicyReport,
@@ -49,6 +58,7 @@ import type {
   PolicySummary,
   PolicySummaryCounts,
   PolicySummaryRow,
+  PolicyNetworkItem,
   RelationType,
   ReportNavItem,
   ReportStatus
@@ -77,6 +87,11 @@ export interface AppPolicyReport {
   analysisDepth?: "L0" | "L1" | "L2" | "L3" | "L4" | "L5";
   analysisDepthReason?: string;
   followUpSignals?: string[];
+  policyIndustryMap?: AppPolicyIndustryMapItem[];
+  industryChain?: AppIndustryChainItem[];
+  companyMap?: AppCompanyMapItem[];
+  policyNetwork?: AppPolicyNetworkItem[];
+  investmentDirection?: AppInvestmentDirection;
   policy: AppPolicyMeta;
   actions: AppPolicyAction[];
   clauseGroups: AppClauseGroup[];
@@ -353,6 +368,16 @@ export interface PolicyReportLike {
   analysis_depth_reason?: string;
   followUpSignals?: readonly string[];
   follow_up_signals?: readonly string[];
+  policyIndustryMap?: readonly JsonRecord[];
+  policy_industry_map?: readonly JsonRecord[];
+  industryChain?: readonly JsonRecord[];
+  industry_chain?: readonly JsonRecord[];
+  companyMap?: readonly JsonRecord[];
+  company_map?: readonly JsonRecord[];
+  policyNetwork?: readonly JsonRecord[];
+  policy_network?: readonly JsonRecord[];
+  investmentDirection?: JsonRecord;
+  investment_direction?: JsonRecord;
   summary?: Partial<PolicySummary>;
   brief?: PolicyBriefLike;
   policyBrief?: PolicyBriefLike;
@@ -873,6 +898,131 @@ export function mapReportNavItems(items: readonly ReportNavItemLike[] = []): Rep
   }));
 }
 
+function normalizeImpactDirection(value: unknown): "positive" | "constraint" | "mixed" | "pending" {
+  const token = normalizeToken(toMaybeString(value));
+  if (["positive", "beneficiary", "benefit", "利好", "正向"].includes(token)) return "positive";
+  if (["constraint", "risk", "约束", "风险"].includes(token)) return "constraint";
+  if (["mixed", "both", "双向", "混合"].includes(token)) return "mixed";
+  return "pending";
+}
+
+function normalizePolicyCloseness(value: unknown): "direct" | "indirect" | "thematic" | undefined {
+  const token = normalizeToken(toMaybeString(value));
+  if (["direct", "直接"].includes(token)) return "direct";
+  if (["indirect", "间接"].includes(token)) return "indirect";
+  if (["thematic", "theme", "主题"].includes(token)) return "thematic";
+  return undefined;
+}
+
+function normalizeSensitivity(value: unknown): "high" | "medium" | "low" {
+  return normalizeStrengthLevelValue(value) ?? "medium";
+}
+
+function normalizeNetworkRelationship(value: unknown): PolicyNetworkItem["relationship"] {
+  const token = normalizeToken(toMaybeString(value));
+  if (token === "upstream_guidance" || token === "downstream_implementation" || token === "supporting_rule" || token === "prior_policy" || token === "follow_up_catalyst" || token === "local_rollout" || token === "contrast_policy") return token;
+  return "prior_policy";
+}
+
+function normalizeDirectionStrength(value: unknown): InvestmentDirection["directionStrength"] {
+  const token = normalizeToken(toMaybeString(value));
+  if (token === "high" || token === "medium" || token === "low" || token === "pending") return token;
+  return "pending";
+}
+
+function normalizeTimeHorizon(value: unknown): InvestmentDirection["timeHorizon"] {
+  const token = normalizeToken(toMaybeString(value));
+  if (token === "short_term" || token === "medium_term" || token === "long_term" || token === "uncertain") return token;
+  return "uncertain";
+}
+
+function mapPolicyIndustryMap(items: readonly JsonRecord[] = []): PolicyIndustryMapItem[] {
+  return items.map((item, index) => ({
+    id: firstString(item.id) || `policy-industry-${index + 1}`,
+    industry: firstString(item.industry, item.name) || "",
+    policyAction: firstString(item.policyAction, item.policy_action, item.action) || "",
+    impactType: firstString(item.impactType, item.impact_type) || "sentiment_signal",
+    impactDirection: normalizeImpactDirection(item.impactDirection ?? item.impact_direction),
+    evidenceLevel: normalizeEvidenceObjectLevel(item.evidenceLevel, item.evidence_level) ?? "pending",
+    policyCloseness: normalizePolicyCloseness(item.policyCloseness ?? item.policy_closeness),
+    reason: firstString(item.reason, item.description) || "",
+    relatedClauseIds: toStringList(item.relatedClauseIds, item.related_clause_ids, item.clauseIds, item.clause_ids),
+    relatedNodeIds: toStringList(item.relatedNodeIds, item.related_node_ids, item.nodeIds, item.node_ids),
+    watchSignals: toStringList(item.watchSignals, item.watch_signals)
+  }));
+}
+
+function mapIndustryChain(items: readonly JsonRecord[] = []): IndustryChainItem[] {
+  return items.map((item, index) => ({
+    id: firstString(item.id) || `industry-chain-${index + 1}`,
+    chainName: firstString(item.chainName, item.chain_name, item.name) || "",
+    policyRole: firstString(item.policyRole, item.policy_role, item.description) || "",
+    nodes: toRecordArray(item.nodes).map((node, nodeIndex) => ({
+      id: firstString(node.id) || `chain-node-${index + 1}-${nodeIndex + 1}`,
+      name: firstString(node.name, node.title) || "",
+      position: normalizeAppIndustrySection(node.position ?? node.section),
+      policySensitivity: normalizeSensitivity(node.policySensitivity ?? node.policy_sensitivity),
+      evidenceLevel: normalizeEvidenceObjectLevel(node.evidenceLevel, node.evidence_level) ?? "pending",
+      description: firstString(node.description, node.body) || "",
+      companyIds: toStringList(node.companyIds, node.company_ids, node.companies),
+      watchSignals: toStringList(node.watchSignals, node.watch_signals)
+    })),
+    edges: toRecordArray(item.edges).map((edge) => ({
+      from: firstString(edge.from) || "",
+      to: firstString(edge.to) || "",
+      relation: firstString(edge.relation, edge.type) || "demand_flow",
+      description: firstString(edge.description, edge.reason) || ""
+    }))
+  }));
+}
+
+function mapCompanyMap(items: readonly JsonRecord[] = []): CompanyMapItem[] {
+  return items.map((item, index) => ({
+    id: firstString(item.id) || `company-map-${index + 1}`,
+    companyId: firstString(item.companyId, item.company_id),
+    company: firstString(item.company, item.name, item.companyName, item.company_name) || "",
+    ticker: firstString(item.ticker, item.symbol),
+    chainNode: firstString(item.chainNode, item.chain_node, item.node) || "",
+    chainNodeId: firstString(item.chainNodeId, item.chain_node_id, item.nodeId, item.node_id),
+    relationship: normalizeMappingLevelValue(item.relationship, item.mappingLevel, item.mapping_level) ?? "watch_only",
+    policyEvidence: normalizeEvidenceObjectLevel(item.policyEvidence, item.policy_evidence, item.evidenceLevel, item.evidence_level) ?? "pending",
+    businessExposure: firstString(item.businessExposure, item.business_exposure, item.exposure) || "",
+    investmentUse: firstString(item.investmentUse, item.investment_use, item.use) || "",
+    watchSignals: toStringList(item.watchSignals, item.watch_signals),
+    keyRisks: toStringList(item.keyRisks, item.key_risks, item.risks),
+    doNotOverread: toStringList(item.doNotOverread, item.do_not_overread)
+  }));
+}
+
+function mapPolicyNetwork(items: readonly JsonRecord[] = []): PolicyNetworkItem[] {
+  return items.map((item, index) => ({
+    id: firstString(item.id) || `policy-network-${index + 1}`,
+    relatedPolicy: firstString(item.relatedPolicy, item.related_policy, item.title) || "",
+    relationship: normalizeNetworkRelationship(item.relationship ?? item.relation),
+    meaning: firstString(item.meaning, item.reason, item.description) || "",
+    evidenceLevel: normalizeEvidenceObjectLevel(item.evidenceLevel, item.evidence_level) ?? "pending",
+    watchSignals: toStringList(item.watchSignals, item.watch_signals)
+  }));
+}
+
+function mapInvestmentDirection(input?: JsonRecord | null): InvestmentDirection | undefined {
+  if (!input) return undefined;
+  return {
+    primaryDirection: firstString(input.primaryDirection, input.primary_direction) || "",
+    directionStrength: normalizeDirectionStrength(input.directionStrength ?? input.direction_strength),
+    timeHorizon: normalizeTimeHorizon(input.timeHorizon ?? input.time_horizon),
+    watchIndustries: toStringList(input.watchIndustries, input.watch_industries),
+    watchChainNodes: toStringList(input.watchChainNodes, input.watch_chain_nodes),
+    watchCompanyTypes: toStringList(input.watchCompanyTypes, input.watch_company_types),
+    watchCompanies: toStringList(input.watchCompanies, input.watch_companies),
+    nearTermCatalysts: toStringList(input.nearTermCatalysts, input.near_term_catalysts),
+    keyRisks: toStringList(input.keyRisks, input.key_risks),
+    minimumEvidenceNeeded: toStringList(input.minimumEvidenceNeeded, input.minimum_evidence_needed),
+    doNotOverread: toStringList(input.doNotOverread, input.do_not_overread),
+    summary: firstString(input.summary, input.body) || ""
+  };
+}
+
 export function mapPolicyReport(input: PolicyReportLike): PolicyReport {
   const id = input.id ?? input.summary?.id ?? "policy-report";
   const brief = mapPolicyBrief(input.brief ?? input.policyBrief ?? input.policy_brief);
@@ -905,6 +1055,11 @@ export function mapPolicyReport(input: PolicyReportLike): PolicyReport {
     analysisDepth: normalizeAnalysisDepthValue(input.analysisDepth, input.analysis_depth),
     analysisDepthReason: input.analysisDepthReason ?? input.analysis_depth_reason,
     followUpSignals: toStringArray(input.followUpSignals ?? input.follow_up_signals),
+    policyIndustryMap: mapPolicyIndustryMap(input.policyIndustryMap ?? input.policy_industry_map),
+    industryChain: mapIndustryChain(input.industryChain ?? input.industry_chain),
+    companyMap: mapCompanyMap(input.companyMap ?? input.company_map),
+    policyNetwork: mapPolicyNetwork(input.policyNetwork ?? input.policy_network),
+    investmentDirection: mapInvestmentDirection(input.investmentDirection ?? input.investment_direction),
     summary: {
       ...createPolicySummary(reportForSummary),
       ...input.summary,
@@ -1150,6 +1305,11 @@ export function mapPolicyReportPayloadForApp(
     analysisDepth: normalizeAnalysisDepthValue(input.analysisDepth, input.analysis_depth),
     analysisDepthReason: firstString(input.analysisDepthReason, input.analysis_depth_reason),
     followUpSignals: toStringList(input.followUpSignals, input.follow_up_signals),
+    policyIndustryMap: mapPolicyIndustryMap(toRecordArray(input.policyIndustryMap ?? input.policy_industry_map)),
+    industryChain: mapIndustryChain(toRecordArray(input.industryChain ?? input.industry_chain)),
+    companyMap: mapCompanyMap(toRecordArray(input.companyMap ?? input.company_map)),
+    policyNetwork: mapPolicyNetwork(toRecordArray(input.policyNetwork ?? input.policy_network)),
+    investmentDirection: mapInvestmentDirection(asJsonRecord(input.investmentDirection ?? input.investment_direction)),
     summary: {
       ...fallbackSummary,
       ...readSummary(summaryInput),

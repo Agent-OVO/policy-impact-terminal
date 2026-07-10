@@ -32,6 +32,88 @@ export type AnalysisDepth = "L0" | "L1" | "L2" | "L3" | "L4" | "L5";
 export type StrengthLevel = "high" | "medium" | "low";
 export type MappingLevel = "policy_named" | "direct_industry" | "indirect_industry" | "thematic_only" | "watch_only";
 export type RegulatoryRole = "constraint_exposed" | "compliance_provider" | "mixed" | "not_applicable";
+export type InvestmentDirectionStrength = "high" | "medium" | "low" | "pending";
+export type InvestmentTimeHorizon = "short_term" | "medium_term" | "long_term" | "uncertain";
+
+export interface PolicyIndustryMapItem {
+  id: EntityId;
+  industry: string;
+  policyAction: string;
+  impactType: string;
+  impactDirection: "positive" | "constraint" | "mixed" | "pending";
+  evidenceLevel: EvidenceLevel;
+  policyCloseness?: "direct" | "indirect" | "thematic";
+  reason: string;
+  relatedClauseIds?: EntityId[];
+  relatedNodeIds?: EntityId[];
+  watchSignals?: string[];
+}
+
+export interface IndustryChainNodeItem {
+  id: EntityId;
+  name: string;
+  position: IndustrySection;
+  policySensitivity: "high" | "medium" | "low";
+  evidenceLevel: EvidenceLevel;
+  description: string;
+  companyIds?: EntityId[];
+  watchSignals?: string[];
+}
+
+export interface IndustryChainEdgeItem {
+  from: EntityId;
+  to: EntityId;
+  relation: string;
+  description: string;
+}
+
+export interface IndustryChainItem {
+  id: EntityId;
+  chainName: string;
+  policyRole: string;
+  nodes: IndustryChainNodeItem[];
+  edges?: IndustryChainEdgeItem[];
+}
+
+export interface CompanyMapItem {
+  id: EntityId;
+  companyId?: EntityId;
+  company: string;
+  ticker?: string;
+  chainNode: string;
+  chainNodeId?: EntityId;
+  relationship: MappingLevel;
+  policyEvidence: EvidenceLevel;
+  businessExposure: string;
+  investmentUse: string;
+  watchSignals?: string[];
+  keyRisks?: string[];
+  doNotOverread?: string[];
+}
+
+export interface PolicyNetworkItem {
+  id: EntityId;
+  relatedPolicy: string;
+  relationship: "upstream_guidance" | "downstream_implementation" | "supporting_rule" | "prior_policy" | "follow_up_catalyst" | "local_rollout" | "contrast_policy";
+  meaning: string;
+  evidenceLevel: EvidenceLevel;
+  watchSignals?: string[];
+}
+
+export interface InvestmentDirection {
+  primaryDirection: string;
+  directionStrength: InvestmentDirectionStrength;
+  timeHorizon: InvestmentTimeHorizon;
+  watchIndustries: string[];
+  watchChainNodes: string[];
+  watchCompanyTypes: string[];
+  watchCompanies: string[];
+  nearTermCatalysts: string[];
+  keyRisks: string[];
+  minimumEvidenceNeeded: string[];
+  doNotOverread: string[];
+  summary: string;
+}
 
 export type RelationType =
   | "direct"
@@ -312,6 +394,11 @@ export interface PolicyReport {
   analysisDepth?: AnalysisDepth;
   analysisDepthReason?: string;
   followUpSignals?: string[];
+  policyIndustryMap?: PolicyIndustryMapItem[];
+  industryChain?: IndustryChainItem[];
+  companyMap?: CompanyMapItem[];
+  policyNetwork?: PolicyNetworkItem[];
+  investmentDirection?: InvestmentDirection;
   policy: PolicyMeta;
   actions: PolicyAction[];
   clauseGroups: ClauseGroup[];

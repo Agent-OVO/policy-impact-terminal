@@ -3,7 +3,7 @@
   "policyId": "eaf74ff3-c21f-4a77-b402-57f8be41f866",
   "analyzerVersion": "codex-manual-v1",
   "analysisMethod": "codex-manual-v1",
-  "methodologyVersion": "policy-decomposition-methodology-v1.0.1",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
   "documentShellType": "通知",
   "substantivePolicyType": "行动方案",
   "primaryActionType": "数据平台",
@@ -16,6 +16,60 @@
   "summary": {"id": "eaf74ff3-c21f-4a77-b402-57f8be41f866", "title": "国家数据局关于印发《关于推进行业高质量数据集建设行动的实施方案》的通知", "issuer": "国家数据局", "source": "国家数据局 - 政策发布", "publishDate": "2026-06-08", "status": "published", "confidence": 93, "industryCount": 6, "companyCount": 7, "evidenceCount": 7, "primarySignal": "行业高质量数据集被确立为人工智能落地的关键基础设施，数据标注、数据治理、质量测评和数据资产化进入政策加速期", "category": "数据要素与人工智能基础设施"},
   "policy": {"title": "国家数据局关于印发《关于推进行业高质量数据集建设行动的实施方案》的通知", "status": "已发布", "issuer": "国家数据局", "publishDate": "2026-06-08", "effectiveDate": "2026-06-03", "source": "国家数据局 - 政策发布", "category": "数据要素与人工智能基础设施", "level": "部门实施方案", "confidence": 93, "sourceUrl": "https://www.nda.gov.cn/sjj/zwgk/zcfb/0608/20260608172117399715004_pc.html", "scope": "重点行业、战略性新兴产业、行业高质量数据集、数据标注、数据基础设施、数据资产化和AI应用场景", "impactScope": "数据集建设、数据标注、行业语料、多模态数据、质量测评、数据基础设施、数据资产化、数据付费和人工智能应用闭环", "jurisdiction": "中国", "tags": ["高质量数据集", "人工智能+", "数据标注", "数据治理", "数据飞轮", "数据资产化", "质量测评", "数据基础设施"]},
   "brief": {"judgement": "这份方案把行业高质量数据集明确为人工智能落地的基础性、关键性资源，政策重点不是简单收集数据，而是围绕强基扩容、标注攻坚、提质增效、应用赋能、管理服务和价值释放形成数据集建设闭环。产业端最直接受益的是数据采集治理、数据标注、行业知识库、多模态数据集、质量测评、数据基础设施和数据资产化服务；但数据合规、伦理、公平普惠和安全治理会成为商业化边界。", "summary": "方案提出聚焦重点行业和战略性新兴产业，围绕行业高质量数据集供给、流通、应用等关键环节，实施六个专项行动，形成“场景牵引数据、数据驱动模型、模型赋能应用、应用创造价值”的数据飞轮。其政策价值在于把数据集从训练材料提升为AI产业基础设施，推动数据标注转型、质量标准体系、数据集全生命周期管理和数据资产化创新。", "keyPoints": ["行业高质量数据集被定义为可直接用于开发和训练人工智能模型、提升模型性能的行业数据集合。", "六个专项行动覆盖强基扩容、标注攻坚、提质增效、应用赋能、管理服务和价值释放。", "数据飞轮强调场景、数据、模型和应用之间的闭环，而不是孤立建设数据仓库。", "数据安全、伦理和公平普惠构成硬约束，防范数据投毒、污染和泄露。", "公司映射仅为产业链相关性，不代表政策点名或订单。"], "methodology": "人工阅读国家数据局公开政策正文，按六项行动拆分政策动作和产业链节点。公司映射围绕数据标注、语料、数据治理、AI模型、数据资产运营和安全合规选取代表主体。"},
+  "policyIndustryMap": [
+    {"id": "pi1", "industry": "行业数据资源与采集治理", "policyAction": "强基扩容行动", "impactType": "infrastructure_build", "impactDirection": "positive", "evidenceLevel": "strong", "policyCloseness": "direct", "reason": "政策要求聚焦重点行业和战略性新兴产业扩大高质量数据集供给，并与数据基础设施建设联动，最先传导到行业数据汇聚、清洗、治理和合规处理。", "relatedClauseIds": ["c1", "c2"], "relatedNodeIds": ["n1"], "watchSignals": ["行业高质量数据集清单", "行业数据集建设项目", "地方实施方案"]},
+    {"id": "pi2", "industry": "数据标注与知识工程", "policyAction": "标注攻坚行动", "impactType": "demand_creation", "impactDirection": "positive", "evidenceLevel": "strong", "policyCloseness": "direct", "reason": "政策将数据标注明确为知识和经验注入训练数据的过程，并提出转型升级和先行先试，直接提高专业标注、行业语料加工和知识注入的重要性。", "relatedClauseIds": ["c3"], "relatedNodeIds": ["n2"], "watchSignals": ["数据标注项目", "训练数据采购", "行业标注标准"]},
+    {"id": "pi3", "industry": "数据质量测评与标准认证", "policyAction": "提质增效行动", "impactType": "standard_constraint", "impactDirection": "mixed", "evidenceLevel": "strong", "policyCloseness": "direct", "reason": "政策提出结构完整性、内容多样性、标注准确性、模型适配和测评互认要求，一方面形成测评服务需求，另一方面提高数据集进入模型训练和应用的质量门槛。", "relatedClauseIds": ["c4"], "relatedNodeIds": ["n3"], "watchSignals": ["质量测评标准", "结果互认机制", "评测机构或项目名单"]},
+    {"id": "pi4", "industry": "行业模型与人工智能应用", "policyAction": "应用赋能行动", "impactType": "demand_creation", "impactDirection": "positive", "evidenceLevel": "strong", "policyCloseness": "direct", "reason": "政策要求以模引数、用数促建并打造数据飞轮、行业标杆和典型案例，数据集建设将更多与行业模型和应用场景共同立项。", "relatedClauseIds": ["c5"], "relatedNodeIds": ["n4"], "watchSignals": ["行业应用标杆", "典型案例名单", "数据飞轮项目"]},
+    {"id": "pi5", "industry": "数据资产运营与交易", "policyAction": "价值释放行动", "impactType": "market_mechanism", "impactDirection": "positive", "evidenceLevel": "strong", "policyCloseness": "direct", "reason": "政策提出创新数据集商业模式、探索资产化路径和培育付费共识，直接指向数据集计价、运营、流通和交易机制，但收入兑现仍依赖规则与真实付费场景。", "relatedClauseIds": ["c6"], "relatedNodeIds": ["n5"], "watchSignals": ["数据集资产化规则", "定价交易案例", "数据付费合同"]},
+    {"id": "pi6", "industry": "数据安全与伦理治理", "policyAction": "管理服务和安全保障", "impactType": "regulatory_constraint", "impactDirection": "mixed", "evidenceLevel": "strong", "policyCloseness": "direct", "reason": "政策要求建立全流程安全治理机制并防范投毒、污染和泄露，安全合规既是数据流通和模型训练的约束，也是安全治理服务的需求来源。", "relatedClauseIds": ["c4"], "relatedNodeIds": ["n6"], "watchSignals": ["数据安全治理规范", "安全合规项目", "数据污染与投毒防控要求"]}
+  ],
+  "industryChain": [
+    {"id": "chain1", "chainName": "行业高质量数据集—行业模型—应用价值链", "policyRole": "政策同时推动数据供给扩容、专业标注、质量测评、行业模型应用和价值释放，并以安全合规约束整个链条。", "nodes": [
+      {"id": "n1", "name": "行业数据采集与治理", "position": "upstream", "policySensitivity": "high", "evidenceLevel": "strong", "description": "承担行业原始数据汇聚、清洗、治理、权属和合规处理，是数据集扩容的起点。", "companyIds": ["co1", "co4"], "watchSignals": ["行业数据集建设项目", "数据基础设施联动方案"]},
+      {"id": "n2", "name": "数据标注和知识注入", "position": "midstream", "policySensitivity": "high", "evidenceLevel": "strong", "description": "把行业知识、专家经验和多模态标记转化为可训练数据，是本政策最直接的专业服务环节之一。", "companyIds": ["co2", "co3"], "watchSignals": ["数据标注采购", "专业语料项目", "标注标准"]},
+      {"id": "n3", "name": "质量测评和标准认证", "position": "support", "policySensitivity": "high", "evidenceLevel": "strong", "description": "验证数据集完整性、准确性、多样性和模型适配性，并形成结果互认和准入门槛。", "companyIds": ["co5"], "watchSignals": ["测评标准", "互认规则", "评测项目"]},
+      {"id": "n4", "name": "行业模型和数据飞轮应用", "position": "downstream", "policySensitivity": "high", "evidenceLevel": "strong", "description": "通过行业模型、智能体和场景应用消耗数据，并将应用反馈反哺数据集迭代。", "companyIds": ["co1", "co3", "co6"], "watchSignals": ["行业模型项目", "典型案例", "应用标杆"]},
+      {"id": "n5", "name": "数据资产化和交易运营", "position": "support", "policySensitivity": "medium", "evidenceLevel": "strong", "description": "围绕数据集定价、付费、资产化和运营形成商业闭环，兑现节奏依赖配套制度和真实交易。", "companyIds": ["co4", "co7"], "watchSignals": ["资产化规则", "数据交易案例", "付费合同"]},
+      {"id": "n6", "name": "数据安全和伦理治理", "position": "support", "policySensitivity": "high", "evidenceLevel": "strong", "description": "贯穿数据采集、标注、训练、流通和应用全过程，决定数据可用边界和项目合规成本。", "companyIds": ["co6"], "watchSignals": ["安全治理规范", "合规采购", "投毒污染防控要求"]}
+    ], "edges": [
+      {"from": "n1", "to": "n2", "relation": "data_flow", "description": "治理后的行业数据进入标注、知识注入和训练语料加工。"},
+      {"from": "n2", "to": "n3", "relation": "compliance_flow", "description": "标注结果需要质量测评、标准和互认机制验证。"},
+      {"from": "n3", "to": "n4", "relation": "application_flow", "description": "达到质量要求的数据集进入行业模型训练和场景应用。"},
+      {"from": "n4", "to": "n1", "relation": "data_flow", "description": "应用反馈产生新数据和纠错需求，形成数据飞轮。"},
+      {"from": "n4", "to": "n5", "relation": "demand_flow", "description": "应用价值和实际使用需求为数据集定价、付费和资产运营提供基础。"},
+      {"from": "n6", "to": "n1", "relation": "compliance_flow", "description": "安全和伦理要求约束数据采集、治理及后续流通使用。"}
+    ]}
+  ],
+  "companyMap": [
+    {"id": "cm1", "companyId": "co1", "company": "科大讯飞", "ticker": "002230.SZ", "chainNode": "行业模型和数据飞轮应用", "chainNodeId": "n4", "relationship": "direct_industry", "policyEvidence": "indirect", "businessExposure": "大模型、行业人工智能应用及语料数据需求位于数据集下游应用和反馈环节。", "investmentUse": "作为行业模型和应用侧代表进入后续项目观察，需单独核验高质量数据集项目对收入和订单的实际贡献。", "watchSignals": ["行业模型项目", "数据集联合建设", "应用标杆名单"], "keyRisks": ["政策未点名公司", "缺少本政策对应订单证据", "模型商业化和算力投入压力需独立评估"], "doNotOverread": ["产业链位置不等同于政策资金直接流向公司"]},
+    {"id": "cm2", "companyId": "co2", "company": "海天瑞声", "ticker": "688787.SH", "chainNode": "数据标注和知识注入", "chainNodeId": "n2", "relationship": "direct_industry", "policyEvidence": "indirect", "businessExposure": "训练数据、语音语料和数据标注服务与标注攻坚、专业语料加工直接同环节。", "investmentUse": "作为数据标注专业服务代表跟踪真实采购、客户预算和项目单价，不由政策文本直接推导业绩。", "watchSignals": ["数据标注项目", "训练数据采购", "行业客户合同"], "keyRisks": ["政策未点名公司", "需求兑现依赖客户预算", "行业竞争和自动化标注可能压低服务价格"], "doNotOverread": ["环节直接不代表公司获得项目"]},
+    {"id": "cm3", "companyId": "co3", "company": "云从科技", "ticker": "688327.SH", "chainNode": "行业模型和数据飞轮应用", "chainNodeId": "n4", "relationship": "indirect_industry", "policyEvidence": "indirect", "businessExposure": "多模态人工智能和行业模型需要高质量训练数据，但公司业务并非单一数据集建设服务。", "investmentUse": "仅作为多模态模型与应用侧观察样本，需验证其是否参与具体数据集建设或行业应用项目。", "watchSignals": ["多模态数据集项目", "行业模型合同", "典型应用案例"], "keyRisks": ["传导层级较多", "缺少对应采购证据", "项目商业化和盈利能力需独立判断"], "doNotOverread": ["主题相关不能替代项目证据"]},
+    {"id": "cm4", "companyId": "co4", "company": "易华录", "ticker": "300212.SZ", "chainNode": "数据资产化和交易运营", "chainNodeId": "n5", "relationship": "indirect_industry", "policyEvidence": "indirect", "businessExposure": "数据基础设施、数据运营和数据要素业务与数据集治理、资产化和运营方向相关。", "investmentUse": "作为数据基础设施和资产运营侧观察样本，重点核验地方项目、规则落地、回款与现金流。", "watchSignals": ["地方数据基础设施项目", "数据资产运营合同", "回款公告"], "keyRisks": ["政策未点名公司", "资产化制度与付费市场仍在形成", "项目回款和财务风险需重点核验"], "doNotOverread": ["政策方向不能替代公司经营质量分析"]},
+    {"id": "cm5", "companyId": "co5", "company": "国检集团", "ticker": "603060.SH", "chainNode": "质量测评和标准认证", "chainNodeId": "n3", "relationship": "watch_only", "policyEvidence": "pending", "businessExposure": "公司具备检测认证业务基础，但是否实际进入高质量数据集测评尚缺少项目和业务披露。", "investmentUse": "仅保留为测评认证公司类型线索，出现数据集测评资质、标准参与或项目公告前不作重点公司映射。", "watchSignals": ["数据集测评资质", "标准参编", "测评项目中标"], "keyRisks": ["当前缺少直接业务证据", "检测认证能力未必可迁移到数据集测评", "业务规模可能较小"], "doNotOverread": ["行业服务逻辑不能替代公司业务暴露证据"]},
+    {"id": "cm6", "companyId": "co6", "company": "拓尔思", "ticker": "300229.SZ", "chainNode": "行业模型和数据飞轮应用", "chainNodeId": "n4", "relationship": "direct_industry", "policyEvidence": "indirect", "businessExposure": "知识工程、行业语料、语义智能和数据治理能力位于数据集加工与行业应用交界处。", "investmentUse": "作为行业语料和知识工程公司类型观察，重点等待数据集、语料库和行业模型项目披露。", "watchSignals": ["行业语料库项目", "知识工程采购", "数据治理合同"], "keyRisks": ["政策未点名公司", "缺少对应订单证据", "业务收入暴露和项目毛利需核验"], "doNotOverread": ["业务能力相关不等同于政策项目落地"]},
+    {"id": "cm7", "companyId": "co7", "company": "人民网", "ticker": "603000.SH", "chainNode": "数据资产化和交易运营", "chainNodeId": "n5", "relationship": "watch_only", "policyEvidence": "pending", "businessExposure": "内容数据、版权和数据确权具备潜在数据资产运营场景，但与行业高质量数据集建设的直接业务连接尚不清晰。", "investmentUse": "仅作为内容数据资产化线索保留，需等待具体数据集产品、交易或付费合同。", "watchSignals": ["内容数据集产品", "数据交易合同", "资产化披露"], "keyRisks": ["政策未点名公司", "业务连接偏主题化", "缺少数据集资产化收入证据"], "doNotOverread": ["内容资源不自动转化为可交易数据资产"]}
+  ],
+  "policyNetwork": [
+    {"id": "pn1", "relatedPolicy": "《关于促进数据标注产业高质量发展的实施意见》", "relationship": "prior_policy", "meaning": "此前政策已单独部署数据标注产业发展，本方案进一步把标注嵌入行业高质量数据集建设闭环，强化专业标注和知识注入的连续政策逻辑。", "evidenceLevel": "strong", "watchSignals": ["数据标注基地建设", "行业标注标准", "标注项目采购"]},
+    {"id": "pn2", "relatedPolicy": "《可信数据空间发展行动计划（2024—2028年）》", "relationship": "upstream_guidance", "meaning": "可信数据空间为跨主体数据流通、授权使用和价值共创提供基础环境，高质量数据集可成为其中面向模型训练和行业应用的重要数据产品。", "evidenceLevel": "strong", "watchSignals": ["可信数据空间试点", "行业数据空间项目", "数据产品流通案例"]},
+    {"id": "pn3", "relatedPolicy": "《国家数据基础设施建设指引》", "relationship": "upstream_guidance", "meaning": "国家数据基础设施为数据汇聚、流通、利用和安全提供底座，本方案要求与数据基础设施有机联动，构成从底座到数据集产品的政策衔接。", "evidenceLevel": "strong", "watchSignals": ["国家数据基础设施试点", "地方节点建设", "数据流通设施采购"]},
+    {"id": "pn4", "relatedPolicy": "重点行业高质量数据集建设任务、行业及地方实施方案", "relationship": "follow_up_catalyst", "meaning": "本方案仍以行动部署为主，真正影响项目和公司研究的下一步信号将来自行业任务、地方方案、项目清单、名单、预算和采购。", "evidenceLevel": "pending", "watchSignals": ["行业任务部署", "地方实施方案", "项目清单", "财政预算", "招投标公告"]}
+  ],
+  "investmentDirection": {
+    "primaryDirection": "行业高质量数据集与人工智能数据基础设施",
+    "directionStrength": "medium",
+    "timeHorizon": "medium_term",
+    "watchIndustries": ["行业数据资源与治理", "数据标注与知识工程", "数据质量测评", "行业模型与AI应用", "数据资产运营", "数据安全治理"],
+    "watchChainNodes": ["数据标注和知识注入", "行业数据采集与治理", "质量测评和标准认证", "行业模型和数据飞轮应用"],
+    "watchCompanyTypes": ["专业训练数据与标注服务商", "行业语料和知识工程服务商", "数据治理与基础设施运营商", "行业模型与AI应用厂商", "数据质量测评和安全合规服务商"],
+    "watchCompanies": ["海天瑞声", "科大讯飞", "拓尔思", "易华录", "云从科技"],
+    "nearTermCatalysts": ["重点行业高质量数据集任务和名单", "地方或行业实施方案", "数据标注及语料采购", "质量测评标准和互认规则", "行业应用标杆与典型案例", "数据集资产化和付费合同"],
+    "keyRisks": ["政策尚未给出企业名单、项目清单和资金规模", "多数公司关系仅来自产业链位置，缺少本政策对应订单", "数据合规、权属、伦理和安全要求可能延长项目周期", "数据集商业模式和客户付费意愿仍需验证", "部分公司自身盈利、现金流和估值风险与政策逻辑相互独立"],
+    "minimumEvidenceNeeded": ["公司年报或公告确认相关业务收入暴露", "本政策对应项目、中标、采购或合作公告", "行业或地方项目清单及资金来源", "质量标准、测评资质或互认机制", "数据集产品的真实付费和续费案例"],
+    "doNotOverread": ["政策建立的是产业方向和项目预期，不直接对应单家公司业绩", "产业链环节靠近政策动作不代表收入立即兑现", "公司名单用于后续研究排队，不构成交易结论", "质量测评和内容数据资产化公司目前仅属低置信线索"],
+    "summary": "政策把高质量数据集从一般数据资源提升为人工智能落地基础设施，最直接的研究环节是行业数据治理、专业标注、质量测评和与场景绑定的行业模型应用。当前方向强度评为中等，原因是政策动作明确但企业、项目、资金和订单证据尚未出现；后续应以行业任务、地方方案、名单、标准、采购和公司公告逐层验证。"
+  },
   "actions": [
     {"id": "a1", "title": "明确行业高质量数据集的AI基础设施定位", "actionType": "目标设定", "actionEvidenceLevel": "strong", "body": "方案把高质量数据集定义为可用于开发和训练人工智能模型的行业数据集合，强调其对人工智能+千行百业的基础作用。", "implementationDependency": "后续需观察行业数据集清单、标准体系和典型案例是否落地。", "signal": "beneficiary", "confidence": 96, "clauseIds": ["c1"], "sortOrder": 1},
     {"id": "a2", "title": "实施强基扩容和标注攻坚", "actionType": "项目建设", "actionEvidenceLevel": "strong", "body": "方案要求聚焦行业领域推进数据集建设，并推动数据标注转型升级、先行先试和人才供给。", "implementationDependency": "需要等待具体行业数据集建设项目、数据标注任务、试点单位或采购公告验证。", "signal": "beneficiary", "confidence": 94, "clauseIds": ["c2", "c3"], "sortOrder": 2},

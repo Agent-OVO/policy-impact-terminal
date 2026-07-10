@@ -59,9 +59,14 @@ import {
   policy,
   type ChainNode,
   type Company,
+  type CompanyMapItem,
   type CompareBaselinePolicy,
   type CompareInsightRow,
+  type IndustryChainItem,
+  type InvestmentDirection,
   type ModuleId,
+  type PolicyIndustryMapItem,
+  type PolicyNetworkItem,
   type RelationType
 } from "./data/policy";
 import { isSupabaseConfigured, supabase } from "./lib/supabase";
@@ -1540,6 +1545,236 @@ type BriefLogicStage = {
   items: BriefLogicItem[];
 };
 
+type InvestmentObservationProps = {
+  investmentDirection?: InvestmentDirection;
+  policyIndustryMap: PolicyIndustryMapItem[];
+  industryChain: IndustryChainItem[];
+  companyMap: CompanyMapItem[];
+  policyNetwork: PolicyNetworkItem[];
+};
+
+const investmentStrengthLabels: Record<InvestmentDirection["directionStrength"], string> = {
+  high: "较强",
+  medium: "中等",
+  low: "较弱",
+  pending: "待验证"
+};
+
+const investmentHorizonLabels: Record<InvestmentDirection["timeHorizon"], string> = {
+  short_term: "短期",
+  medium_term: "中期",
+  long_term: "长期",
+  uncertain: "周期待定"
+};
+
+const companyRelationshipLabels: Record<CompanyMapItem["relationship"], string> = {
+  policy_named: "政策点名",
+  direct_industry: "直接产业关系",
+  indirect_industry: "间接产业关系",
+  thematic_only: "主题相关",
+  watch_only: "观察线索"
+};
+
+const policyNetworkRelationshipLabels: Record<PolicyNetworkItem["relationship"], string> = {
+  upstream_guidance: "上位指导",
+  downstream_implementation: "下游落实",
+  supporting_rule: "配套规则",
+  prior_policy: "前序政策",
+  follow_up_catalyst: "后续催化",
+  local_rollout: "地方落地",
+  contrast_policy: "对比政策"
+};
+
+function uniqueTextList(items: Array<string | undefined>, limit = 8) {
+  return Array.from(new Set(items.map((item) => item?.trim()).filter((item): item is string => Boolean(item)))).slice(0, limit);
+}
+
+function InvestmentObservationPanel({
+  investmentDirection,
+  policyIndustryMap,
+  industryChain,
+  companyMap,
+  policyNetwork
+}: InvestmentObservationProps) {
+  if (!investmentDirection?.primaryDirection && !investmentDirection?.summary) return null;
+
+  const industries = uniqueTextList([
+    ...investmentDirection.watchIndustries,
+    ...policyIndustryMap.map((item) => item.industry)
+  ]);
+  const chainNodes = uniqueTextList([
+    ...investmentDirection.watchChainNodes,
+    ...industryChain.flatMap((chain) => chain.nodes.filter((node) => node.policySensitivity === "high").map((node) => node.name))
+  ]);
+  const companyTargets = uniqueTextList([
+    ...investmentDirection.watchCompanyTypes,
+    ...investmentDirection.watchCompanies
+  ]);
+  const visibleCompanies = companyMap
+    .filter((item) => !["thematic_only", "watch_only"].includes(item.relationship))
+    .slice(0, 4);
+  const visiblePolicies = policyNetwork.slice(0, 4);
+
+  return (
+    <section className="panel investment-observation-panel" aria-label="投资方向观察">
+      <div className="investment-observation-head">
+        <div className="investment-observation-title">
+          <span className="investment-observation-icon"><Compass size={20} /></span>
+          <div>
+            <span className="status-badge purple">投资方向观察</span>
+            <h2>{investmentDirection.primaryDirection || "方向待补充"}</h2>
+            <p>{investmentDirection.summary}</p>
+          </div>
+        </div>
+        <div className="investment-observation-badges" aria-label="方向强度与观察周期">
+          <span>方向强度：{investmentStrengthLabels[investmentDirection.directionStrength]}</span>
+          <span>观察周期：{investmentHorizonLabels[investmentDirection.timeHorizon]}</span>
+        </div>
+      </div>
+
+      <div className="investment-observation-axis">
+        <article>
+          <span>政策影响产业</span>
+          <div className="investment-tag-list">
+            {industries.length ? industries.map((item) => <b key={item}>{item}</b>) : <em>等待产业映射</em>}
+          </div>
+        </article>
+        <article>
+          <span>核心产业链环节</span>
+          <div className="investment-tag-list">
+            {chainNodes.length ? chainNodes.map((item) => <b key={item}>{item}</b>) : <em>等待节点映射</em>}
+          </div>
+        </article>
+        <article>
+          <span>公司与主体观察</span>
+          <div className="investment-tag-list">
+            {companyTargets.length ? companyTargets.map((item) => <b key={item}>{item}</b>) : <em>暂不映射具体公司</em>}
+          </div>
+        </article>
+      </div>
+
+      <div className="investment-observation-triad">
+        <article>
+          <h3><Clock size={16} />近期催化</h3>
+          <ul>{investmentDirection.nearTermCatalysts.slice(0, 5).map((item) => <li key={item}>{item}</li>)}</ul>
+        </article>
+        <article>
+          <h3><ShieldCheck size={16} />主要风险与反证</h3>
+          <ul>{investmentDirection.keyRisks.slice(0, 5).map((item) => <li key={item}>{item}</li>)}</ul>
+        </article>
+        <article>
+          <h3><AlertCircle size={16} />不能过度解读</h3>
+          <ul>{investmentDirection.doNotOverread.slice(0, 5).map((item) => <li key={item}>{item}</li>)}</ul>
+        </article>
+      </div>
+
+      {(visibleCompanies.length > 0 || visiblePolicies.length > 0) && (
+        <div className="investment-observation-relations">
+          {visibleCompanies.length > 0 && (
+            <section>
+              <div className="investment-relation-head">
+                <Building2 size={17} />
+                <h3>代表性公司关系</h3>
+              </div>
+              <div className="investment-company-list">
+                {visibleCompanies.map((item) => (
+                  <article key={item.id}>
+                    <div>
+                      <strong>{item.company}{item.ticker ? ` · ${item.ticker}` : ""}</strong>
+                      <span>{item.chainNode}</span>
+                    </div>
+                    <em>{companyRelationshipLabels[item.relationship]}</em>
+                    <p>{item.investmentUse}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+          )}
+          {visiblePolicies.length > 0 && (
+            <section>
+              <div className="investment-relation-head">
+                <Network size={17} />
+                <h3>相关政策网络</h3>
+              </div>
+              <div className="investment-policy-list">
+                {visiblePolicies.map((item) => (
+                  <article key={item.id}>
+                    <span>{policyNetworkRelationshipLabels[item.relationship]}</span>
+                    <strong>{item.relatedPolicy}</strong>
+                    <p>{item.meaning}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
+      )}
+    </section>
+  );
+}
+
+function MobileInvestmentObservation({
+  investmentDirection,
+  policyIndustryMap,
+  industryChain,
+  companyMap,
+  policyNetwork
+}: InvestmentObservationProps) {
+  if (!investmentDirection?.primaryDirection && !investmentDirection?.summary) return null;
+
+  const tags = uniqueTextList([
+    ...investmentDirection.watchIndustries,
+    ...investmentDirection.watchChainNodes,
+    ...investmentDirection.watchCompanyTypes,
+    ...policyIndustryMap.map((item) => item.industry),
+    ...industryChain.flatMap((chain) => chain.nodes.filter((node) => node.policySensitivity === "high").map((node) => node.name))
+  ], 7);
+  const representativeCompanies = companyMap
+    .filter((item) => !["thematic_only", "watch_only"].includes(item.relationship))
+    .slice(0, 3);
+
+  return (
+    <section className="mobile-brief-section mobile-investment-observation" aria-label="投资方向观察">
+      <div className="mobile-investment-head">
+        <div>
+          <span>投资方向观察</span>
+          <h3>{investmentDirection.primaryDirection}</h3>
+        </div>
+        <b>{investmentStrengthLabels[investmentDirection.directionStrength]} · {investmentHorizonLabels[investmentDirection.timeHorizon]}</b>
+      </div>
+      <p>{compactText(investmentDirection.summary, 160)}</p>
+      <div className="mobile-investment-tags">
+        {tags.map((item) => <span key={item}>{item}</span>)}
+      </div>
+      <div className="mobile-investment-signals">
+        <article>
+          <strong>后续催化</strong>
+          {investmentDirection.nearTermCatalysts.slice(0, 3).map((item) => <p key={item}>• {compactText(item, 62)}</p>)}
+        </article>
+        <article>
+          <strong>风险反证</strong>
+          {investmentDirection.keyRisks.slice(0, 3).map((item) => <p key={item}>• {compactText(item, 62)}</p>)}
+        </article>
+      </div>
+      {representativeCompanies.length > 0 && (
+        <div className="mobile-investment-companies">
+          {representativeCompanies.map((item) => (
+            <span key={item.id}>{item.company} · {item.chainNode}</span>
+          ))}
+        </div>
+      )}
+      {policyNetwork.length > 0 && (
+        <div className="mobile-investment-policy-network">
+          <strong>政策网络</strong>
+          {policyNetwork.slice(0, 2).map((item) => (
+            <p key={item.id}>{policyNetworkRelationshipLabels[item.relationship]}：{compactText(item.relatedPolicy, 42)}</p>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+
 function BriefView({
   setActiveModule,
   report
@@ -1553,6 +1788,11 @@ function BriefView({
   const currentEvidence = report?.evidence ?? evidence;
   const currentChainNodes = report?.chainNodes ?? chainNodes;
   const currentCompanies = report?.companies ?? companies;
+  const currentPolicyIndustryMap = report?.policyIndustryMap ?? [];
+  const currentIndustryChain = report?.industryChain ?? [];
+  const currentCompanyMap = report?.companyMap ?? [];
+  const currentPolicyNetwork = report?.policyNetwork ?? [];
+  const currentInvestmentDirection = report?.investmentDirection;
   const policySourceUrl = getPolicySourceUrl(currentPolicy);
   const officialPublishDisplay = formatPolicyOfficialPublish(currentPolicy);
   const impactScope = inferPolicyScope(currentPolicy);
@@ -1567,8 +1807,8 @@ function BriefView({
     [officialPublishDisplay, "官网发布时间", "按政策官网披露的北京时间"],
     [`${currentClauses.length} 条`, "结构化条款", "来自政策原文分段"],
     [`${currentEvidence.length} 条`, "证据摘录", "可追溯到来源材料"],
-    [`${currentChainNodes.length} 个`, "产业影响节点", currentChainNodes.length ? "由政策文本命中生成" : "尚未形成产业映射"],
-    [currentCompanies.length ? `${currentCompanies.length} 家` : "未生成", "代表性公司", currentCompanies.length ? "仅服务本政策分析" : "不使用样例公司填充"],
+    [`${currentIndustryChain.flatMap((item) => item.nodes).length || currentChainNodes.length} 个`, "产业影响节点", currentIndustryChain.length || currentChainNodes.length ? "由政策动作与产业链关系生成" : "尚未形成产业映射"],
+    [(currentCompanyMap.length || currentCompanies.length) ? `${currentCompanyMap.length || currentCompanies.length} 家` : "未生成", "代表性公司", currentCompanyMap.length || currentCompanies.length ? "仅服务本政策分析" : "不使用样例公司填充"],
     [`${currentPolicy.confidence}/100`, "整体置信度", policySourceUrl ? "含政策来源链接" : "等待来源链接"]
   ];
   const logicActionItems = currentActions.slice(0, 4).map((action, index) => ({
@@ -1650,6 +1890,11 @@ function BriefView({
         currentClauses={currentClauses}
         currentChainNodes={currentChainNodes}
         currentCompanies={currentCompanies}
+        investmentDirection={currentInvestmentDirection}
+        policyIndustryMap={currentPolicyIndustryMap}
+        industryChain={currentIndustryChain}
+        companyMap={currentCompanyMap}
+        policyNetwork={currentPolicyNetwork}
         policySourceUrl={policySourceUrl}
         impactScope={impactScope}
         quickTake={quickTake}
@@ -1702,6 +1947,14 @@ function BriefView({
         <Accordion title="核心要点速览" items={quickItems.length ? quickItems : ["政策原文已入库，等待后续深度结构化分析。"]} />
         <EvidenceSnippets evidenceItems={currentEvidence} compact />
       </section>
+
+      <InvestmentObservationPanel
+        investmentDirection={currentInvestmentDirection}
+        policyIndustryMap={currentPolicyIndustryMap}
+        industryChain={currentIndustryChain}
+        companyMap={currentCompanyMap}
+        policyNetwork={currentPolicyNetwork}
+      />
 
       <section className="panel">
         <div className="panel-head">
@@ -1791,6 +2044,11 @@ function MobileBriefView({
   currentClauses,
   currentChainNodes,
   currentCompanies,
+  investmentDirection,
+  policyIndustryMap,
+  industryChain,
+  companyMap,
+  policyNetwork,
   policySourceUrl,
   impactScope,
   quickTake,
@@ -1805,6 +2063,11 @@ function MobileBriefView({
   currentClauses: typeof clauses;
   currentChainNodes: typeof chainNodes;
   currentCompanies: typeof companies;
+  investmentDirection?: InvestmentDirection;
+  policyIndustryMap: PolicyIndustryMapItem[];
+  industryChain: IndustryChainItem[];
+  companyMap: CompanyMapItem[];
+  policyNetwork: PolicyNetworkItem[];
   policySourceUrl: string;
   impactScope: string;
   quickTake: string;
@@ -1895,6 +2158,14 @@ function MobileBriefView({
 
       {activePane === "overview" && (
         <div className="mobile-brief-pane">
+          <MobileInvestmentObservation
+            investmentDirection={investmentDirection}
+            policyIndustryMap={policyIndustryMap}
+            industryChain={industryChain}
+            companyMap={companyMap}
+            policyNetwork={policyNetwork}
+          />
+
           <section className="mobile-brief-section">
             <div className="mobile-brief-section-head">
               <h3>核心要点</h3>

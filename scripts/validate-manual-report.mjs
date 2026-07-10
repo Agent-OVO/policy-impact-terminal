@@ -49,6 +49,11 @@ async function validateFile(file) {
   const chainNodes = arrayField(report, "chainNodes", "chain_nodes");
   const chainEdges = arrayField(report, "chainEdges", "chain_edges");
   const companies = arrayField(report, "companies");
+  const policyIndustryMap = arrayField(report, "policyIndustryMap", "policy_industry_map");
+  const industryChain = arrayField(report, "industryChain", "industry_chain");
+  const companyMap = arrayField(report, "companyMap", "company_map");
+  const policyNetwork = arrayField(report, "policyNetwork", "policy_network");
+  const investmentDirection = recordField(report, "investmentDirection") ?? recordField(report, "investment_direction");
   const evidence = arrayField(report, "evidence");
   const backgroundCards = arrayField(report, "backgroundCards", "background_cards");
   const judgement = stringField(brief, "judgement") ?? stringField(brief, "judgment") ?? stringField(brief, "oneLine") ?? "";
@@ -87,7 +92,22 @@ async function validateFile(file) {
   }
 
   validateReferences(errors, warnings, { clauses, chainNodes, chainEdges, companies, evidence });
-  validateQualityDiscipline(errors, warnings, { report, policy, summary, actions, companies, evidence, clauses, chainNodes, backgroundCards });
+  validateQualityDiscipline(errors, warnings, {
+    report,
+    policy,
+    summary,
+    actions,
+    companies,
+    policyIndustryMap,
+    industryChain,
+    companyMap,
+    policyNetwork,
+    investmentDirection,
+    evidence,
+    clauses,
+    chainNodes,
+    backgroundCards
+  });
 
   const sourceUrl = stringField(policy, "sourceUrl") ?? stringField(policy, "source_url") ?? stringField(report, "sourceUrl");
   if (!sourceUrl || !/^https?:\/\//i.test(sourceUrl)) {
@@ -167,7 +187,22 @@ function validateReferences(errors, warnings, { clauses, chainNodes, chainEdges,
   }
 }
 
-function validateQualityDiscipline(errors, warnings, { report, policy, summary, actions, companies, evidence, clauses, chainNodes, backgroundCards }) {
+function validateQualityDiscipline(errors, warnings, {
+  report,
+  policy,
+  summary,
+  actions,
+  companies,
+  policyIndustryMap,
+  industryChain,
+  companyMap,
+  policyNetwork,
+  investmentDirection,
+  evidence,
+  clauses,
+  chainNodes,
+  backgroundCards
+}) {
   const qualityIssues = QUALITY_STRICT ? errors : warnings;
   const qualityPrefix = QUALITY_STRICT ? "quality error" : "quality warning";
   const title = stringField(policy, "title") || stringField(summary, "title") || "untitled policy";
@@ -184,7 +219,19 @@ function validateQualityDiscipline(errors, warnings, { report, policy, summary, 
     warnings.push(`quality warning: backgroundCards has fewer than 3 items`);
   }
 
-  validateMethodologyDiscipline(errors, warnings, { report, actions, chainNodes, companies, evidence });
+  validateMethodologyDiscipline(errors, warnings, {
+    report,
+    actions,
+    chainNodes,
+    companies,
+    policyIndustryMap,
+    industryChain,
+    companyMap,
+    policyNetwork,
+    investmentDirection,
+    evidence,
+    clauses
+  });
 
   const compareInsight = recordField(report, "compareInsights") ?? recordField(report, "compare_insights");
   if (compareInsight) {
@@ -223,11 +270,24 @@ function validateQualityDiscipline(errors, warnings, { report, policy, summary, 
   }
 }
 
-function validateMethodologyDiscipline(errors, warnings, { report, actions, chainNodes, companies, evidence }) {
+function validateMethodologyDiscipline(errors, warnings, {
+  report,
+  actions,
+  chainNodes,
+  companies,
+  policyIndustryMap,
+  industryChain,
+  companyMap,
+  policyNetwork,
+  investmentDirection,
+  evidence
+}) {
   const methodologyVersion = stringField(report, "methodologyVersion") || stringField(report, "methodology_version");
   const isV101 = /policy-decomposition-methodology-v1\.0\.1|v1\.0\.1/i.test(methodologyVersion);
-  const issues = QUALITY_STRICT && isV101 ? errors : warnings;
-  const prefix = isV101 && QUALITY_STRICT ? "methodology error" : "methodology warning";
+  const isIndustryCompanyV1 = /policy-industry-company-methodology-v1\.0/i.test(methodologyVersion);
+  const requiresEvidenceDiscipline = isV101 || isIndustryCompanyV1;
+  const issues = QUALITY_STRICT && requiresEvidenceDiscipline ? errors : warnings;
+  const prefix = requiresEvidenceDiscipline && QUALITY_STRICT ? "methodology error" : "methodology warning";
 
   const requiredTopFields = [
     ["documentShellType", "document_shell_type"],
@@ -240,7 +300,7 @@ function validateMethodologyDiscipline(errors, warnings, { report, actions, chai
   ];
   for (const keys of requiredTopFields) {
     if (!stringField(report, keys[0]) && !stringField(report, keys[1])) {
-      issues.push(`${prefix}: report must include ${keys[0]} for methodology v1.0.1`);
+      issues.push(`${prefix}: report must include ${keys[0]} for the declared methodology`);
     }
   }
 
@@ -257,7 +317,7 @@ function validateMethodologyDiscipline(errors, warnings, { report, actions, chai
     issues.push(`${prefix}: analysisDepth must be L0-L5`);
   }
 
-  if (isV101) {
+  if (requiresEvidenceDiscipline) {
     for (const [index, action] of actions.entries()) {
       if (!stringField(action, "actionType") && !stringField(action, "action_type")) issues.push(`${prefix}: actions[${index}] must include actionType`);
       if (!stringField(action, "actionEvidenceLevel") && !stringField(action, "action_evidence_level")) issues.push(`${prefix}: actions[${index}] must include actionEvidenceLevel`);
@@ -272,6 +332,57 @@ function validateMethodologyDiscipline(errors, warnings, { report, actions, chai
     for (const [index, item] of evidence.entries()) {
       if (!stringField(item, "evidenceObject") && !stringField(item, "evidence_object")) issues.push(`${prefix}: evidence[${index}] should include evidenceObject`);
     }
+  }
+
+  if (!isIndustryCompanyV1) return;
+
+  if (policyIndustryMap.length < 1) issues.push(`${prefix}: policyIndustryMap must include at least 1 industry relationship`);
+  if (industryChain.length < 1) issues.push(`${prefix}: industryChain must include at least 1 chain`);
+  if (!investmentDirection) issues.push(`${prefix}: investmentDirection is required`);
+  if (companies.length > 0 && companyMap.length < 1) issues.push(`${prefix}: companyMap is required when companies are present`);
+
+  const nodeIds = idSet(chainNodes);
+  const companyIds = idSet(companies);
+
+  for (const [index, item] of policyIndustryMap.entries()) {
+    if (!stringField(item, "industry")) issues.push(`${prefix}: policyIndustryMap[${index}].industry is required`);
+    if (!stringField(item, "reason")) issues.push(`${prefix}: policyIndustryMap[${index}].reason is required`);
+    checkRefs(issues, warnings, `policyIndustryMap[${index}].relatedNodeIds`, stringArray(item, "relatedNodeIds", "related_node_ids"), nodeIds);
+  }
+
+  for (const [chainIndex, chain] of industryChain.entries()) {
+    const nodes = arrayField(chain, "nodes");
+    if (!stringField(chain, "chainName") && !stringField(chain, "chain_name")) issues.push(`${prefix}: industryChain[${chainIndex}].chainName is required`);
+    if (nodes.length < 1) issues.push(`${prefix}: industryChain[${chainIndex}].nodes must include at least 1 node`);
+    for (const [nodeIndex, node] of nodes.entries()) {
+      const nodeId = stringField(node, "id");
+      if (!nodeId || !nodeIds.has(nodeId)) issues.push(`${prefix}: industryChain[${chainIndex}].nodes[${nodeIndex}].id must match an existing chainNodes id`);
+      checkRefs(issues, warnings, `industryChain[${chainIndex}].nodes[${nodeIndex}].companyIds`, stringArray(node, "companyIds", "company_ids"), companyIds, { warnIfEmptySet: true });
+    }
+  }
+
+  for (const [index, item] of companyMap.entries()) {
+    const companyId = stringField(item, "companyId") || stringField(item, "company_id");
+    const chainNodeId = stringField(item, "chainNodeId") || stringField(item, "chain_node_id");
+    if (!companyId || !companyIds.has(companyId)) issues.push(`${prefix}: companyMap[${index}].companyId must match an existing companies id`);
+    if (!chainNodeId || !nodeIds.has(chainNodeId)) issues.push(`${prefix}: companyMap[${index}].chainNodeId must match an existing chainNodes id`);
+    if (!stringField(item, "businessExposure") && !stringField(item, "business_exposure")) issues.push(`${prefix}: companyMap[${index}].businessExposure is required`);
+    if (!stringField(item, "investmentUse") && !stringField(item, "investment_use")) issues.push(`${prefix}: companyMap[${index}].investmentUse is required`);
+  }
+
+  for (const [index, item] of policyNetwork.entries()) {
+    if (!stringField(item, "relatedPolicy") && !stringField(item, "related_policy")) issues.push(`${prefix}: policyNetwork[${index}].relatedPolicy is required`);
+    if (!stringField(item, "meaning")) issues.push(`${prefix}: policyNetwork[${index}].meaning is required`);
+  }
+
+  if (investmentDirection) {
+    if (!stringField(investmentDirection, "primaryDirection") && !stringField(investmentDirection, "primary_direction")) issues.push(`${prefix}: investmentDirection.primaryDirection is required`);
+    if (!stringField(investmentDirection, "summary")) issues.push(`${prefix}: investmentDirection.summary is required`);
+  }
+
+  const investmentText = JSON.stringify({ companyMap, investmentDirection });
+  if (containsMisleadingInvestmentLanguage(investmentText)) {
+    issues.push(`${prefix}: investment observation fields contain prohibited trading or certainty language`);
   }
 }
 

@@ -4,7 +4,7 @@
   "analyzerVersion": "codex-manual-v1",
   "analysisMethod": "codex-manual-v1",
   "qualityProfile": "policy-analysis-quality-v1.1",
-  "methodologyVersion": "policy-decomposition-methodology-v1.0.1",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
   "documentShellType": "通知 | 批复 | 公告 | 意见 | 办法 | 条例 | 规划 | 方案",
   "substantivePolicyType": "规划 | 行动方案 | 实施意见 | 申报通知 | 名单目录 | 监管约束 | 资金支持 | 试点示范",
   "primaryActionType": "目标设定 | 任务部署 | 项目建设 | 资金支持 | 试点示范 | 标准约束 | 市场机制 | 名单认定 | 监管处罚 | 数据平台 | 地方责任",
@@ -14,7 +14,7 @@
   "policyStrength": "兼容旧字段：high | medium | low",
   "policyTransmission": "planning_guidance | direct_build | rule_constraint | funding_support | market_mechanism | information_signal",
   "analysisDepth": "L0 | L1 | L2 | L3 | L4 | L5",
-  "analysisDepthReason": "说明为什么本政策适合进入该分析深度，尤其说明是否适合公司映射。",
+  "analysisDepthReason": "说明为什么本政策适合进入该分析深度，尤其说明是否适合产业链和公司映射。",
   "generatedAt": "YYYY-MM-DDTHH:mm:ss+08:00",
   "summary": {
     "id": "<policy-uuid>",
@@ -27,7 +27,7 @@
     "industryCount": 0,
     "companyCount": 0,
     "evidenceCount": 0,
-    "primarySignal": "一句话概括政策产业影响，不写投资结论",
+    "primarySignal": "一句话概括政策产业链影响和投资方向观察，不写交易结论",
     "category": "政策分类"
   },
   "policy": {
@@ -46,10 +46,86 @@
     "tags": []
   },
   "brief": {
-    "judgement": "综合判断：只讲政策影响，不讲买卖，不把产业链相关写成确定受益。",
+    "judgement": "综合判断：先讲政策影响的产业链和公司关系，不讲买卖，不把产业链相关写成确定受益。",
     "summary": "摘要。",
     "keyPoints": [],
-    "methodology": "说明人工阅读、政策类型、分析深度、证据边界、公司映射原则。"
+    "methodology": "说明人工阅读、政策—产业链—公司映射、政策网络、证据边界和投资观察原则。"
+  },
+  "policyIndustryMap": [
+    {
+      "id": "pi1",
+      "industry": "产业名称",
+      "policyAction": "对应政策动作",
+      "impactType": "demand_creation | funding_support | standard_constraint | market_mechanism | regulatory_constraint | infrastructure_build | sentiment_signal",
+      "impactDirection": "positive | constraint | mixed | pending",
+      "evidenceLevel": "strong | indirect | pending",
+      "policyCloseness": "direct | indirect | thematic",
+      "reason": "政策为什么影响该产业",
+      "relatedClauseIds": [],
+      "relatedNodeIds": [],
+      "watchSignals": []
+    }
+  ],
+  "industryChain": [
+    {
+      "id": "chain1",
+      "chainName": "产业链名称",
+      "policyRole": "政策在这条产业链中的作用",
+      "nodes": [
+        {
+          "id": "n1",
+          "name": "产业链环节",
+          "position": "upstream | midstream | downstream | support",
+          "policySensitivity": "high | medium | low",
+          "evidenceLevel": "strong | indirect | pending",
+          "description": "该环节如何受政策影响",
+          "companyIds": [],
+          "watchSignals": []
+        }
+      ],
+      "edges": []
+    }
+  ],
+  "companyMap": [
+    {
+      "id": "cm1",
+      "companyId": "co1",
+      "company": "公司名称",
+      "ticker": "证券代码或空",
+      "chainNode": "产业链环节",
+      "chainNodeId": "n1",
+      "relationship": "policy_named | direct_industry | indirect_industry | thematic_only | watch_only",
+      "policyEvidence": "strong | indirect | pending",
+      "businessExposure": "公司在该环节的业务暴露",
+      "investmentUse": "纳入何种投资方向观察，不得写交易建议",
+      "watchSignals": [],
+      "keyRisks": [],
+      "doNotOverread": []
+    }
+  ],
+  "policyNetwork": [
+    {
+      "id": "pn1",
+      "relatedPolicy": "相关政策名称",
+      "relationship": "upstream_guidance | downstream_implementation | supporting_rule | prior_policy | follow_up_catalyst | local_rollout | contrast_policy",
+      "meaning": "该政策关系对投资观察有什么意义",
+      "evidenceLevel": "strong | indirect | pending",
+      "watchSignals": []
+    }
+  ],
+  "investmentDirection": {
+    "primaryDirection": "主线投资观察方向",
+    "directionStrength": "high | medium | low | pending",
+    "timeHorizon": "short_term | medium_term | long_term | uncertain",
+    "watchIndustries": [],
+    "watchChainNodes": [],
+    "watchCompanyTypes": [],
+    "watchCompanies": [],
+    "nearTermCatalysts": [],
+    "keyRisks": [],
+    "minimumEvidenceNeeded": [],
+    "doNotOverread": [],
+    "summary": "方向性投资观察，不写交易建议"
   },
   "actions": [
     {
@@ -78,7 +154,7 @@
       "confidence": 0,
       "description": "说明政策如何支撑该产业节点。",
       "clauseIds": [],
-      "companyIds": [],
+      "companyIds": ["co1"],
       "evidenceIds": [],
       "impactReason": "节点影响原因",
       "verificationSignals": ["后续验证文件或项目"]
@@ -106,7 +182,7 @@
       "businessExposure": 0,
       "implementationDependency": "地方项目库/招投标/预算/配套细则",
       "notInvestmentSignal": true,
-      "reason": "为什么纳入，必须说明证据边界。",
+      "reason": "为什么纳入，必须说明产业链位置和证据边界。",
       "riskNote": "未被政策点名，未见订单、采购、补贴或业绩影响证据。",
       "nodeIds": [],
       "clauseIds": [],
