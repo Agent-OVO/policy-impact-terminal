@@ -7,7 +7,9 @@ on:
       - "scripts/validate-manual-report.mjs"
       - "scripts/test-manual-report-validation.mjs"
       - "scripts/report-quality-metrics.mjs"
+      - "scripts/check-bundle-budget.mjs"
       - "src/lib/reportMappers.ts"
+      - "vite.config.ts"
       - "docs/manual-analysis/report-governance-registry-v1.0.json"
       - "package.json"
       - "package-lock.json"
@@ -23,16 +25,19 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: "22"
           cache: npm
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Audit dependencies
+        run: npm run security:audit
 
       - name: Validate all manual reports
         env:
@@ -47,3 +52,6 @@ jobs:
 
       - name: Build frontend
         run: npm run build
+
+      - name: Check bundle budgets
+        run: npm run build:budget

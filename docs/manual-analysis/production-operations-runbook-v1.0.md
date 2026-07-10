@@ -23,10 +23,12 @@
 ### 2. 本地质量门
 
 ```bash
+npm run security:audit
 MANUAL_QUALITY_STRICT=true npm run manual:validate -- manual-reports/<policy_id>.json
 npm run manual:test
 npm run manual:metrics
 npm run build
+npm run build:budget
 ```
 
 任何命令失败均不得写回或发布。
@@ -64,12 +66,14 @@ git diff --stat
 
 ### 5. Pages发布
 
-Pages工作流在构建前执行：
+Pages工作流在部署前执行：
 
-1. 全量20份严格校验；
-2. 回归测试；
-3. 治理指标检查；
-4. 前端生产构建。
+1. 依赖安全审计；
+2. 全量20份严格校验；
+3. 回归测试；
+4. 治理指标检查；
+5. 前端生产构建；
+6. 构建体积预算检查。
 
 任一质量门失败时，静态站点不得部署。
 

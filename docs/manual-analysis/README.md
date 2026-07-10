@@ -37,6 +37,7 @@
 - `next-stage-roadmap-v2.0.md`
 - `phase-1-2-completion-report-v1.0.md`
 - `phase-3-4-completion-report-v1.0.md`
+- `stage-5-technical-debt-report-v1.0.md`
 - `report-migration-backlog-v1.0.md`
 
 生产治理和质量状态见：
