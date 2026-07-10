@@ -5,8 +5,10 @@ import {
   jsonResponse,
   optionalString,
   requirePost,
-  readJsonObject
+  readJsonObject,
+  toJson
 } from "../_shared/http.ts";
+import type { TableInsert } from "../_shared/database.types.ts";
 import {
   createSupabaseAdminClient,
   requireCrawlerOrAdminUser
@@ -14,22 +16,7 @@ import {
 
 type SupabaseAdminClient = ReturnType<typeof createSupabaseAdminClient>;
 
-type PolicyInsertValues = {
-  owner_id: string;
-  title: string;
-  status: "draft";
-  source_id?: string | null;
-  source_url: string | null;
-  source_name: string;
-  issuer?: string | null;
-  publish_date?: string | null;
-  policy_no?: string | null;
-  canonical_source_url?: string | null;
-  dedupe_key?: string | null;
-  content_hash?: string | null;
-  full_text?: string | null;
-  metadata: Record<string, unknown>;
-};
+type PolicyInsertValues = TableInsert<"policies">;
 
 type ExistingPolicyRecord = {
   id: string;
@@ -172,7 +159,7 @@ Deno.serve(async (req) => {
       dedupe_key: dedupeKey,
       content_hash: contentHash,
       full_text: fullText,
-      metadata: {
+      metadata: toJson({
         ingestionStatus: "queued",
         ingestionRequestedAt: now,
         ingestVersion: "v0.3",
@@ -200,7 +187,7 @@ Deno.serve(async (req) => {
               external_id: externalId
             }
           : {})
-      }
+      }, "policy ingest metadata")
     };
 
     const existingPolicy = await findExistingPolicy(supabase, dedupeKey, contentHash);

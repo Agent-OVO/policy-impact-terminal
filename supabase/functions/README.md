@@ -1,6 +1,6 @@
 # Supabase Edge Functions
 
-This directory contains the deployable MVP function boundary for moving the mock prototype toward a real Supabase job flow. The current production path separates collection from analysis: scheduled crawls only ingest original policy text published on or after 2026-05-01, and Codex-driven manual analysis writes the final report payload back through `analyze`.
+This directory contains the Edge Function boundary for policy collection, the current manual report compatibility path, and the Stage 8 revision/token governance candidates. Production still separates collection from analysis: scheduled crawls ingest original policy text, and Codex-driven manual analysis currently writes the reviewed report payload through `analyze`. The new `revision-lifecycle` and `model-budget` functions are repository-complete but must not be deployed before the Stage 7/8 migrations pass Supabase staging acceptance.
 
 ## Auth Contract
 
@@ -11,6 +11,8 @@ This directory contains the deployable MVP function boundary for moving the mock
 - The function runtime uses `SUPABASE_SERVICE_ROLE_KEY` only server-side, after checking the caller. Never expose the service role key to Vite, browser code, or manual client calls.
 - `ingest`, `analyze`, and `publish` are privileged write operations. Normal authenticated users are read-only and only browse published analyses.
 - The scheduled crawler calls `ingest` only. Codex manual analysis uses the `analyze` manual `list/get/apply` operations.
+- `revision-lifecycle` and `model-budget` require a real active admin JWT. They do not accept the crawler secret as an alternative identity and never accept a client-supplied actor ID.
+- Both Stage 8 functions call service-role-only database RPCs after admin verification; browser clients cannot invoke those RPCs directly.
 
 ## Functions
 
@@ -116,7 +118,130 @@ Behavior:
 
 The function stores the Codex-reviewed result; it does not derive production reports during scheduled crawling. Legacy rules-analysis request shapes are disabled in production unless the Edge Function has `ALLOW_RULES_ANALYSIS=true` set server-side and the request also explicitly opts in. Do not enable that for normal operation.
 
-### `publish`
+### `revision-lifecycle` — Stage 8 candidate, not deployed
+
+Input examples:
+
+```json
+{
+  "action": "publish",
+  "policyId": "policy-uuid",
+  "revisionId": "approved-revision-uuid",
+  "idempotencyKey": "publish:policy:revision:request-001",
+  "expectedCurrentRevisionId": "current-revision-uuid"
+}
+```
+
+```json
+{
+  "action": "rollback",
+  "policyId": "policy-uuid",
+  "revisionId": "superseded-revision-uuid",
+  "idempotencyKey": "rollback:policy:revision:request-001",
+  "expectedCurrentRevisionId": "current-revision-uuid"
+}
+```
+
+Behavior:
+
+- Requires an active admin JWT; crawler-secret authentication is not allowed.
+- Derives `actor_id` from the verified session and ignores no client actor field because none is accepted.
+- Calls the service-role-only `publish_report_revision` or `rollback_report_revision` RPC.
+- The RPC locks the policy row, checks optimistic current revision, validates projection state, writes immutable command/event audit records, and performs publication or rollback atomically.
+- Idempotent replay returns the existing result; a reused key with different parameters is rejected.
+
+### `model-budget` — Stage 8 candidate, not deployed
+
+Reserve input:
+
+```json
+{
+  "action": "reserve",
+  "policyId": "optional-policy-uuid",
+  "revisionId": "optional-revision-uuid",
+  "operationType": "policy_analysis",
+  "provider": "openai",
+  "model": "model-name",
+  "promptVersion": "prompt-v1",
+  "requestHash": "64-character-sha256",
+  "budgetClass": "L2",
+  "triggerReason": "high-value policy analysis",
+  "plannedInputTokens": 7000,
+  "plannedOutputTokens": 2000,
+  "metadata": {}
+}
+```
+
+Finalize input:
+
+```json
+{
+  "action": "finalize",
+  "usageId": "usage-ledger-uuid",
+  "inputTokens": 6500,
+  "outputTokens": 1600,
+  "cachedTokens": 500,
+  "status": "succeeded",
+  "metadata": {}
+}
+```
+
+Behavior:
+
+- Requires an active admin JWT and calls only service-role-only budget RPCs.
+- Does not call a model. It only reserves or finalizes auditable budget usage.
+- L0/L1 are blocked with zero tokens; L2/L3 enforce per-call hard limits and monthly reservation; exception calls require a reason.
+- Finalization releases reservations, records actual/cache/effective tokens, and forces an actual hard-limit overrun to `failed`.
+
+### `account-governance` — Stage 8 candidate, not deployed
+
+Supported actions:
+
+```json
+{
+  "action": "suspend",
+  "targetUserId": "user-uuid",
+  "reason": "access revoked by administrator"
+}
+```
+
+```json
+{
+  "action": "reactivate",
+  "targetUserId": "user-uuid",
+  "reason": "access restored after review"
+}
+```
+
+```json
+{
+  "action": "purgeEvents",
+  "referenceTime": "2026-07-10T00:00:00Z"
+}
+```
+
+```json
+{
+  "action": "delete",
+  "targetUserId": "user-uuid",
+  "requestKey": "delete:user-uuid:request-001",
+  "reason": "approved account deletion",
+  "confirmation": "DELETE:user-uuid"
+}
+```
+
+Behavior:
+
+- Requires an active admin JWT and derives the actor from the verified session.
+- Calls only service-role-only account-governance RPCs.
+- Suspended and invited profiles cannot read published reports even if an old session token still exists.
+- Administrators cannot suspend themselves; audit events are immutable.
+- User behavior events use the active retention configuration, initially 90 days.
+- Hard deletion uses a two-phase workflow. Phase one creates an idempotent request, locks the profile in `deleted` status, blocks reads, and records immutable audit. The Edge function then deletes the Auth user. Phase two records success only after the Auth foreign key has been removed; an Auth failure restores the prior profile status and records `deletion_failed`.
+- The request requires an exact `DELETE:<targetUserId>` confirmation, a unique request key, and a reason. Self-deletion and deletion of the last active administrator are rejected.
+- If the Auth user was deleted but finalization was interrupted, repeating the same request safely detects the missing Auth user and completes the existing prepared request.
+
+### `publish` — legacy compatibility
 
 The current scheduled/manual architecture does not call `publish` after crawling. `applyManualAnalysis` publishes the policy when it writes the reviewed Codex report payload. The standalone `publish` function is locked down: it only accepts jobs whose linked policy already has `analysis_version = 'codex-manual-v1'` and `publish_date >= 2026-05-01`.
 
@@ -143,6 +268,11 @@ Behavior:
 supabase functions deploy ingest
 supabase functions deploy analyze
 supabase functions deploy publish
+
+# Only after Stage 7/8 migrations and Supabase staging acceptance:
+supabase functions deploy revision-lifecycle
+supabase functions deploy model-budget
+supabase functions deploy account-governance
 ```
 
 Required secrets:
@@ -154,7 +284,17 @@ supabase secrets set CRAWLER_INGEST_SECRET=strong-random-shared-secret
 supabase secrets set CRAWLER_OWNER_ID=admin-profile-user-uuid
 ```
 
-Never expose `SUPABASE_SERVICE_ROLE_KEY` to Vite or browser code.
+Never expose `SUPABASE_SERVICE_ROLE_KEY` to Vite or browser code. Do not deploy the Stage 8 functions before their RPCs exist in the target database; otherwise they intentionally return an unavailable RPC error rather than falling back to non-transactional writes.
+
+## Type and Boundary Checks
+
+```powershell
+npm run edge:typecheck
+npm run edge:test
+npm run stage7:migration-test
+```
+
+The database type baseline in `_shared/database.types.ts` reflects the production schema before Stage 7 deployment and covers the tables used by current functions. After staging migration, regenerate the complete Supabase type file and replace the provisional Stage 8 RPC type extension.
 
 ## Manual Calls
 

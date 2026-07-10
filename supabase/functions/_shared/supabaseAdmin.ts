@@ -1,31 +1,40 @@
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2.75.1";
+import {
+  createClient,
+  type SupabaseClient
+} from "https://esm.sh/@supabase/supabase-js@2.75.1";
+import type { Database, TableRow } from "./database.types.ts";
 import { HttpError } from "./http.ts";
 
-type SupabaseAdminClient = ReturnType<typeof createClient>;
+export type SupabaseAdminClient = SupabaseClient<Database>;
 
 export type AuthenticatedUser = {
   id: string;
   email?: string;
 };
 
-export type AnalysisJobRecord = {
-  id: string;
-  owner_id: string;
-  policy_id: string | null;
-  title: string;
-  source_url: string | null;
-  source_name: string | null;
-  status: string;
-  input_payload: Record<string, unknown>;
-  output_payload: Record<string, unknown>;
-};
+export type AnalysisJobRecord = Pick<
+  TableRow<"analysis_jobs">,
+  | "id"
+  | "owner_id"
+  | "policy_id"
+  | "title"
+  | "source_url"
+  | "source_name"
+  | "status"
+  | "input_payload"
+  | "output_payload"
+>;
 
 export type PrivilegedFunctionUser = AuthenticatedUser & {
   role: "admin";
   source: "admin" | "crawler";
 };
 
-export function createSupabaseAdminClient(): SupabaseAdminClient {
+export function createSupabaseAdminClient(): SupabaseAdminClient;
+export function createSupabaseAdminClient<TDatabase>(): SupabaseClient<TDatabase>;
+export function createSupabaseAdminClient<
+  TDatabase = Database
+>(): SupabaseClient<TDatabase> {
   const supabaseUrl = Deno.env.get("SUPABASE_URL");
   const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
 
@@ -33,7 +42,7 @@ export function createSupabaseAdminClient(): SupabaseAdminClient {
     throw new HttpError(500, "SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are required.");
   }
 
-  return createClient(supabaseUrl, serviceRoleKey, {
+  return createClient<TDatabase>(supabaseUrl, serviceRoleKey, {
     auth: {
       autoRefreshToken: false,
       persistSession: false

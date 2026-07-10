@@ -7,18 +7,57 @@ on:
       - "scripts/validate-manual-report.mjs"
       - "scripts/test-manual-report-validation.mjs"
       - "scripts/report-quality-metrics.mjs"
+      - "scripts/lib/report-revision-core.mjs"
+      - "scripts/lib/official-policy-source.mjs"
+      - "scripts/lib/stage7-shadow-database-loader.mjs"
+      - "scripts/lib/zero-cost-backup-crypto.mjs"
+      - "scripts/lib/manual-quality-workflow.mjs"
+      - "scripts/build-report-revision-shadow.mjs"
+      - "scripts/diff-report-revisions.mjs"
+      - "scripts/export-stage7-source-documents.mjs"
+      - "scripts/fetch-stage7-official-source-documents.mjs"
+      - "scripts/audit-stage7-source-evidence.mjs"
+      - "scripts/crosscheck-stage7-source-documents.mjs"
+      - "scripts/apply-stage7-shadow-database.mjs"
+      - "scripts/run-stage7-shadow-database-load.mjs"
+      - "scripts/extract-official-attachment-text.py"
+      - "scripts/test-stage7-data-core.mjs"
+      - "scripts/test-stage7-db-load-guards.mjs"
+      - "scripts/test-stage7-migration-pglite.mjs"
+      - "scripts/test-auth-boundary.mjs"
+      - "scripts/test-workflow-contracts.mjs"
+      - "scripts/check-generated-workflows.mjs"
+      - "scripts/audit-zero-cost-production-readiness.mjs"
+      - "scripts/test-production-setup-guard.mjs"
+      - "scripts/create-zero-cost-production-backup.mjs"
+      - "scripts/test-zero-cost-backup-guard.mjs"
+      - "scripts/test-zero-cost-backup-crypto.mjs"
+      - "scripts/run-production-source-export.mjs"
+      - "scripts/test-production-source-export-guard.mjs"
+      - "scripts/configure-production.mjs"
+      - "scripts/run-stage7-migration-pglite.mjs"
+      - "scripts/clean-build-output.mjs"
       - "scripts/check-bundle-budget.mjs"
       - "scripts/manage-production-qa-user.mjs"
       - "scripts/run-production-authenticated-qa.mjs"
       - "scripts/production-authenticated-qa.playwright.js"
+      - "src/types/reportRevision.ts"
+      - "src/types/index.ts"
       - "src/App.tsx"
       - "src/lib/reportMappers.ts"
-      - "supabase/functions/analyze/index.ts"
-      - "vite.config.ts"
+      - "supabase/migrations/**"
+      - "supabase/functions/**"
+      - "supabase/config.toml"
+      - "docs/architecture/**"
       - "docs/manual-analysis/report-governance-registry-v1.0.json"
+      - "docs/manual-analysis/source-evidence-audit-v1.0.md"
+      - "vite.config.ts"
       - "package.json"
       - "package-lock.json"
+      - "deno.lock"
       - ".github/workflows/manual-quality.yml"
+      - ".github/workflows/deploy-pages.yml"
+      - ".github/workflows/apply-manual-analysis.yml"
   workflow_dispatch:
 
 permissions:
@@ -44,11 +83,35 @@ jobs:
       - name: Audit dependencies
         run: npm run security:audit
 
-      - name: Check production QA tooling syntax
+      - name: Check tooling syntax
         run: |
           node --check scripts/manage-production-qa-user.mjs
           node --check scripts/run-production-authenticated-qa.mjs
           node --check scripts/production-authenticated-qa.playwright.js
+          node --check scripts/build-report-revision-shadow.mjs
+          node --check scripts/diff-report-revisions.mjs
+          node --check scripts/export-stage7-source-documents.mjs
+          node --check scripts/fetch-stage7-official-source-documents.mjs
+          node --check scripts/audit-stage7-source-evidence.mjs
+          node --check scripts/crosscheck-stage7-source-documents.mjs
+          node --check scripts/apply-stage7-shadow-database.mjs
+          node --check scripts/run-stage7-shadow-database-load.mjs
+          node --check scripts/test-stage7-data-core.mjs
+          node --check scripts/test-stage7-db-load-guards.mjs
+          node --check scripts/test-stage7-migration-pglite.mjs
+          node --check scripts/test-auth-boundary.mjs
+          node --check scripts/test-workflow-contracts.mjs
+          node --check scripts/check-generated-workflows.mjs
+          node --check scripts/audit-zero-cost-production-readiness.mjs
+          node --check scripts/test-production-setup-guard.mjs
+          node --check scripts/create-zero-cost-production-backup.mjs
+          node --check scripts/test-zero-cost-backup-guard.mjs
+          node --check scripts/test-zero-cost-backup-crypto.mjs
+          node --check scripts/run-production-source-export.mjs
+          node --check scripts/test-production-source-export-guard.mjs
+          node --check scripts/configure-production.mjs
+          node --check scripts/run-stage7-migration-pglite.mjs
+          python -c "compile(open('scripts/extract-official-attachment-text.py', encoding='utf-8').read(), 'scripts/extract-official-attachment-text.py', 'exec')"
 
       - name: Validate all manual reports
         env:
@@ -60,6 +123,39 @@ jobs:
 
       - name: Check governance registry and metrics
         run: npm run manual:metrics
+
+      - name: Validate revision and projection core
+        run: npm run stage7:test
+
+      - name: Execute revision lifecycle migrations in temporary PostgreSQL WASM
+        run: npm run stage7:migration-test
+
+      - name: Check invite-only authentication boundary
+        run: npm run auth:test
+
+      - name: Check workflow contracts
+        run: npm run workflow:test
+
+      - name: Check generated workflow consistency
+        run: npm run workflow:generated-check
+
+      - name: Check production mutation guards
+        run: npm run production:guard:test
+
+      - name: Check zero-cost backup guards
+        run: npm run backup:guard:test
+
+      - name: Check zero-cost backup cryptography
+        run: npm run backup:crypto:test
+
+      - name: Check production source export guards
+        run: npm run production:source-guard:test
+
+      - name: Type-check Edge Functions
+        run: npm run edge:typecheck
+
+      - name: Test Edge Function shared boundaries
+        run: npm run edge:test
 
       - name: Build frontend
         run: npm run build

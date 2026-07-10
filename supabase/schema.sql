@@ -1,5 +1,7 @@
--- Supabase schema draft for the Policy Impact Terminal.
--- Run this file in the Supabase SQL Editor or through the Supabase CLI.
+-- Historical consolidated schema snapshot for the Policy Impact Terminal.
+-- The authoritative deployable database history is supabase/migrations/.
+-- Stage 7 and later objects intentionally live in versioned migrations until this snapshot is regenerated from a verified database.
+-- Do not deploy this file alone to create or upgrade production.
 
 create extension if not exists "pgcrypto";
 

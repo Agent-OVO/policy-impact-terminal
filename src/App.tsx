@@ -694,16 +694,10 @@ function usernameToAuthEmail(value: string) {
 }
 
 function AuthScreen({ onLogin }: { onLogin: (user: SessionUser) => void }) {
-  const [mode, setMode] = useState<"login" | "register">("login");
   const [username, setUsername] = useState(() => (isSupabaseConfigured ? "" : "researcher"));
   const [password, setPassword] = useState(() => (isSupabaseConfigured ? "" : "demo123456"));
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  useEffect(() => {
-    if (!isSupabaseConfigured && mode === "register") setMode("login");
-  }, [mode]);
 
   async function submit(event: React.FormEvent) {
     event.preventDefault();
@@ -719,25 +713,11 @@ function AuthScreen({ onLogin }: { onLogin: (user: SessionUser) => void }) {
           return;
         }
 
-        if (mode === "register" && password !== confirmPassword) {
-          setMessage("两次输入的密码不一致。");
-          return;
-        }
-
         const authEmail = usernameToAuthEmail(normalizedUsername);
-        const response =
-          mode === "login"
-            ? await supabase.auth.signInWithPassword({ email: authEmail, password })
-            : await supabase.auth.signUp({
-                email: authEmail,
-                password,
-                options: {
-                  data: {
-                    name: normalizedUsername,
-                    username: normalizedUsername
-                  }
-                }
-              });
+        const response = await supabase.auth.signInWithPassword({
+          email: authEmail,
+          password
+        });
 
         if (response.error) {
           setMessage(response.error.message);
@@ -749,7 +729,7 @@ function AuthScreen({ onLogin }: { onLogin: (user: SessionUser) => void }) {
           return;
         }
 
-        setMessage(mode === "register" ? "账号已创建，请直接登录。" : "登录失败，请重新输入。");
+        setMessage("登录失败，请重新输入。");
         return;
       }
 
@@ -775,19 +755,14 @@ function AuthScreen({ onLogin }: { onLogin: (user: SessionUser) => void }) {
         <div className="auth-hero">
           <p className="eyebrow">政策智能分析终端</p>
           <h1>政策原文驱动的产业影响分析终端</h1>
-          <p>普通用户注册后即可查看已发布报表，政策原文同步与分析由后台流程完成。</p>
+          <p>本系统仅向内部邀请账号开放。政策原文同步与分析由受控后台流程完成。</p>
         </div>
 
         <form className="auth-form" onSubmit={submit}>
           <div className="auth-switch">
-            <button type="button" className={cx(mode === "login" && "active")} onClick={() => setMode("login")}>
+            <button type="button" className="active" aria-current="page">
               登录
             </button>
-            {isSupabaseConfigured && (
-              <button type="button" className={cx(mode === "register" && "active")} onClick={() => setMode("register")}>
-                注册
-              </button>
-            )}
           </div>
 
           <label>
@@ -813,38 +788,21 @@ function AuthScreen({ onLogin }: { onLogin: (user: SessionUser) => void }) {
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
                 type="password"
-                autoComplete={mode === "login" ? "current-password" : "new-password"}
+                autoComplete="current-password"
                 minLength={6}
                 required
               />
             </div>
           </label>
 
-          {mode === "register" && (
-            <label>
-              <span>确认密码</span>
-              <div className="input-shell">
-                <LockKeyhole size={16} />
-                <input
-                  value={confirmPassword}
-                  onChange={(event) => setConfirmPassword(event.target.value)}
-                  type="password"
-                  autoComplete="new-password"
-                  minLength={6}
-                  required
-                />
-              </div>
-            </label>
-          )}
-
           {message && <p className="auth-error">{message}</p>}
           <button className="primary-button" disabled={isSubmitting} type="submit">
-            {isSubmitting ? "正在验证..." : mode === "login" ? "进入终端" : "创建账号"}
+            {isSubmitting ? "正在验证..." : "进入终端"}
             <ChevronRight size={16} />
           </button>
           <p className="auth-note">
             {isSupabaseConfigured
-              ? "注册无需邮箱确认；账号仅用于访问已发布政策分析。"
+              ? "仅限已获授权的内部账号登录；新账号由管理员创建。"
               : "当前未配置 Supabase，使用本地演示会话。"}
           </p>
         </form>

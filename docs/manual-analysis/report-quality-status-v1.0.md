@@ -38,6 +38,21 @@ C类轻量报告不强制补五模块和证据对象，因此全部报告口径�
 
 完整报告的`companies`保留主体事实和兼容记录，`companyMap`是投资观察、公司排序、关系标签、证据等级和统计数量的权威来源。没有`companyMap`的轻量报告继续回退`companies`。
 
+### 官方原文与摘录审计
+
+| 指标 | 当前值 |
+|---|---:|
+| 官方网页及附件复合原文 | 20/20 |
+| 官方附件 | 7/7成功提取 |
+| 标为政策原文的摘录 | 103 |
+| 逐字匹配 | 41 |
+| 可验证压缩摘录 | 27 |
+| 仅语义相关 | 11 |
+| 无法稳定定位 | 24 |
+| 低于60%定位率的报告 | 7 |
+
+官方原文事实源已经完整，但7份历史报告存在`excerpt`与`interpretation`边界不清的问题。该问题不通过迁移自动改写，按`source-evidence-audit-v1.0.md`在后续单份增量修订中治理。
+
 ## 三、自动质量门
 
 当前自动执行：
@@ -47,6 +62,9 @@ C类轻量报告不强制补五模块和证据对象，因此全部报告口径�
 → 全量严格校验
 → 回归测试
 → 治理注册表与指标检查
+→ revision内容哈希与确定性投影检查
+→ 邀请制登录边界检查
+→ Edge Function Deno类型与JSON边界检查
 → TypeScript/Vite构建
 → 构建体积预算
 ```
@@ -58,6 +76,10 @@ npm run security:audit
 MANUAL_QUALITY_STRICT=true npm run manual:validate -- manual-reports/*.json
 npm run manual:test
 npm run manual:metrics
+npm run stage7:test
+npm run auth:test
+npm run edge:typecheck
+npm run edge:test
 npm run build
 npm run build:budget
 ```
@@ -73,9 +95,9 @@ npm run build:budget
 
 ## 四、CI与发布
 
-- PR：`Manual report quality`工作流执行全量质量门。
-- GitHub Pages：部署前执行安全审计、全量质量门和构建预算。
-- 人工写回：单份严格校验后，再执行回归测试和治理指标检查。
+- PR：`Manual report quality`工作流执行全量质量门；涉及阶段七、八DDL、装载器、修订契约或Token预算时，还在临时PostgreSQL中实际执行迁移、发布、回滚、预算阻断和20份批量装载。
+- GitHub Pages：部署前执行安全审计、全量质量门、revision投影、事务迁移、Edge类型检查和构建预算。
+- 人工写回：单份严格校验后，再执行回归测试、治理指标、revision投影、事务迁移和Edge类型检查。
 - 新增报告未登记治理注册表时，`manual:metrics`直接失败。
 - Edge Function `analyze`按`companyMap`派生公司统计。
 
@@ -114,9 +136,10 @@ node scripts/manage-production-qa-user.mjs audit
 
 ## 六、下一轮质量重点
 
-1. 优先给高关注公司映射补充年报、公告、合同和项目证据；
-2. 不以提高覆盖率为理由伪造公司证据或删除合理的待验证主体；
-3. 对年度报告更新只更新业务事实，不自动上调政策关系；
-4. 新政策发布或前端重大改动后运行认证态生产QA；
-5. C类报告保持轻量，不为统一数字强制补产业链或公司；
-6. 两条早期`codexqa*`候选账号仅作人工治理评估，不由自动工具删除。
+1. 对`source-evidence-audit-v1.0.md`登记的7份报告，在下一次单份修订时将概括性`excerpt`移入`interpretation`或补成可定位原文；
+2. 优先给高关注公司映射补充年报、公告、合同和项目证据；
+3. 不以提高覆盖率为理由伪造公司证据或删除合理的待验证主体；
+4. 对年度报告更新只更新业务事实，不自动上调政策关系；
+5. 新政策发布或前端重大改动后运行认证态生产QA；
+6. C类报告保持轻量，不为统一数字强制补产业链或公司；
+7. 两条早期`codexqa*`候选账号仅作人工治理评估，不由自动工具删除。

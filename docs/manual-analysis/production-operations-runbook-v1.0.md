@@ -2,6 +2,8 @@
 
 ## 一、生产对象
 
+> 过渡说明：本手册描述当前`metadata.reportPayload`生产路径。阶段七、八已经完成零费用仓库级封板，但新链路尚未部署Supabase生产或切换读写路径，因此本手册继续有效。用户不接受任何新增费用，不创建Preview Branch或付费暂存资源。目标架构、零费用验证策略、当前生产阻断和发布生命周期见`docs/architecture/`。迁移完成前不得同时建立可独立编辑的第二写入路径。
+
 生产流程包括：
 
 - 报告JSON编写与回炉；
@@ -27,11 +29,26 @@ npm run security:audit
 MANUAL_QUALITY_STRICT=true npm run manual:validate -- manual-reports/<policy_id>.json
 npm run manual:test
 npm run manual:metrics
+npm run stage7:test
+npm run auth:test
+npm run workflow:test
+npm run workflow:generated-check
+npm run production:guard:test
+npm run backup:guard:test
+npm run production:source-guard:test
+npm run edge:typecheck
+npm run edge:test
 npm run build
 npm run build:budget
 ```
 
-任何命令失败均不得写回或发布。
+任何命令失败均不得写回或发布。修改阶段七、八DDL、装载器、修订生命周期或Token预算时，还必须运行：
+
+```bash
+npm run stage7:migration-test
+```
+
+新建或实质修改政策原文证据时，应重新取得官方网页及附件并执行`npm run stage7:evidence-audit`；历史7份低匹配报告按`source-evidence-audit-v1.0.md`在单份增量修订中治理，不在普通迁移中批量改写。
 
 ### 3. 提交范围审查
 
@@ -55,7 +72,8 @@ git diff --stat
 1. 单份严格校验；
 2. 全量回归测试；
 3. 治理注册表和质量指标检查；
-4. Supabase写回。
+4. revision与投影确定性检查；
+5. Supabase兼容路径写回。
 
 日志必须出现：
 
@@ -72,10 +90,40 @@ Pages工作流在部署前执行：
 2. 全量20份严格校验；
 3. 回归测试；
 4. 治理指标检查；
-5. 前端生产构建；
-6. 构建体积预算检查。
+5. revision与投影确定性检查；
+6. 前端生产构建；
+7. 构建体积预算检查。
 
 任一质量门失败时，静态站点不得部署。
+
+### 6. 生产数据库与Edge变更边界
+
+日常人工报告发布不执行阶段七、八生产迁移。生产就绪只读审计入口：
+
+```bash
+npm run production:readiness:audit
+```
+
+当前只有报告满足以下条件，生产配置脚本才可能继续：
+
+```text
+productionWriteReady=true
+blockers=[]
+项目ref与目标一致
+零新增费用约束为false/禁止付费资源
+报告生成时间不超过24小时
+```
+
+`scripts/configure-production.mjs`还要求`--apply-production`和精确项目确认词；否则在读取API密钥之前失败。
+
+生产原文导出和备份也默认只验证、不连接：
+
+```bash
+npm run production:source-export
+npm run backup:production
+```
+
+只有临时凭据、精确目标和显式只读确认齐全后才执行。备份使用AES-256-GCM加密，明文SQL只存在于系统临时目录并在结束时删除。当前PITR关闭、物理备份列表为空，因此任何生产数据库写入仍被阻断。
 
 ## 三、治理注册表
 

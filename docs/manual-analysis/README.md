@@ -2,6 +2,8 @@
 
 本目录保存政策产业影响终端的人工分析方法、质量规则、标准作业流程、报告模板和发布前检查清单。
 
+系统级产品边界、事实源、报告修订、来源白名单、Token治理和前端重构决策已独立存放在`docs/architecture/`。人工分析文档继续负责报告内容与质量，不承担系统架构事实源。
+
 ## 1. 必读顺序
 
 ### 第一步：先读投资观察上位方法论
@@ -39,12 +41,14 @@
 - `phase-3-4-completion-report-v1.0.md`
 - `stage-5-technical-debt-report-v1.0.md`
 - `system-wide-audit-v1.0.md`
+- `../architecture/stage-7-revision-projection-core-report-v1.0.md`
 - `report-migration-backlog-v1.0.md`
 
 生产治理和质量状态见：
 
 - `report-governance-registry-v1.0.json`
 - `report-quality-status-v1.0.md`
+- `source-evidence-audit-v1.0.md`
 - `production-operations-runbook-v1.0.md`
 - `evidence-update-policy-v1.0.md`
 - `visual-qa-report-v1.0.md`
@@ -137,13 +141,14 @@ npm run manual:validate -- manual-reports/<policy-id>.json
 MANUAL_QUALITY_STRICT=true npm run manual:validate -- manual-reports/<policy-id>.json
 ```
 
-验证器回归测试：
+验证器和revision投影回归测试：
 
 ```bash
 npm run manual:test
+npm run stage7:test
 ```
 
-回归测试覆盖旧报告、三份异质样板、精简派生字段报告和多类故意错误。GitHub Actions 发布流程已启用严格校验。不能通过严格校验的报告不得写回 Supabase。
+`manual:test`覆盖旧报告、三份异质样板、精简派生字段报告和多类故意错误；`stage7:test`验证报告内容哈希、确定性投影、引用完整性和数据库迁移契约。GitHub Actions发布与人工写回流程已启用两类校验。任一失败均不得写回Supabase。
 
 ## 3. 新报告生成前检查
 
@@ -210,8 +215,10 @@ npm run manual:test
 
 ## 6. 当前下一步建议
 
-1. 新增报告全部按 `policy-industry-company-methodology-v1.0.md` 生成，并优先使用可派生身份字段的精简写法；
-2. 旧报告按 `report-migration-backlog-v1.0.md` 的 A/B/C 分类处理，不做机械批量迁移；
-3. A 类完整回炉，B 类优先补产业方向和政策网络，C 类保持轻量；
-4. 每次发布前同时运行严格校验和 `npm run manual:test`；
-5. 外部搜索只服务产业链验证、公司业务暴露、政策网络、催化信号和反证搜索。
+内容迁移和生产认证已完成，后续不再以继续回炉现有20份报告为主线。
+
+1. 新增报告继续按现有方法论和质量门逐份生产，不机械追求数量；
+2. 阶段七已完成不可变修订、自动关系投影、20份官方复合原文、真实影子包和临时PostgreSQL全量迁移；下一步关闭真实Supabase暂存、生产旧原文差异、备份恢复和受控部署门禁；
+3. 20份存量报告已经完成零正文变化影子迁移和数据库批量装载验证，生产迁移仍按`docs/architecture/existing-20-report-migration-acceptance-plan-v1.0.md`验收；
+4. 在修订体系正式部署和读写切换前，现有人工写回路径继续有效，发布前必须同时运行严格校验、`npm run manual:test`、`npm run stage7:test`和`npm run stage7:migration-test`；
+5. 外部搜索只服务产业链验证、公司业务暴露、政策网络、催化信号和反证搜索；临时来源不得自动加入定时爬虫。

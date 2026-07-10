@@ -1,53 +1,103 @@
 # 政策产业影响终端
 
-这是把 UI 预览图转成真实系统的第一版前端工程。当前版本先使用本地 mock 数据跑通产品形态，并预留 Supabase 登录与后端数据接入。
+政策产业影响终端是一个邀请制、内部使用的政策驱动投资研究辅助系统。当前系统已经完成可靠的单政策结构化分析、证据治理、产业链映射、公司关系映射、人工审核发布和生产展示基线，正在从“单政策报告系统”升级为“跨政策、跨产业、跨公司、持续变化追踪的投资观察终端”。
 
-## 已实现
+## 当前能力
 
-- 登录/注册壳，支持本地演示登录
-- 登录后的政策列表工作台，可查看已发布报表和后台处理状态
-- 普通用户只读使用，不能创建新的政策分析任务
-- GitHub Actions 定时抓取 2026-05-01 以后政策原文并入库；分析结果经人工审核后写回发布
-- 政策速读、政策条款、政策背景、对比分析、产业链影响、公司影响分析、证据总览
-- 可点击产业链影响图，右侧节点详情联动
-- 代表性公司影响卡片、影响矩阵、公司详情
-- PC、平板、手机响应式布局
-- Supabase client 配置入口
-- Supabase 表结构、RLS 与 Edge Function 接入说明草案
+- 20份人工政策报告全部通过严格校验；
+- 17份完整五模块报告，3份C类轻量报告；
+- 政策原文、产业证据和公司业务证据分层；
+- `companyMap`作为现有报告公司关系权威映射；
+- Supabase认证、只读生产访问和人工审核写回；
+- 仓库候选已关闭公共注册，并对邀请态、暂停态账户实施数据库读取阻断；
+- GitHub Actions质量门、Pages发布和生产认证态QA；
+- 依赖高危漏洞为0，现有20份报告桌面与移动端生产QA通过。
 
-## 运行
+阶段七已经完成不可变报告版本、原文版本、跨政策投影、公司证据卡、Token账本和集中配置的仓库实现。20份官方网页及附件复合原文全部验证，真实影子包达到`deploymentReady=true`，并在临时PostgreSQL中完成20份全量装载和幂等性测试。阶段八已完成Edge Function生产Schema类型基线、JSON写入边界、事务发布与回滚、Token预算硬门、邀请制登录边界、暂停/恢复与90天行为事件保留，以及可失败恢复的两阶段账号硬删除候选流程；对应`revision-lifecycle`、`model-budget`和`account-governance`入口只接受真实管理员JWT。上述阶段七、八能力均尚未部署Supabase，当前线上仍使用原`metadata.reportPayload`兼容路径。
+
+## 架构入口
+
+系统级架构决策见：
+
+- `docs/architecture/README.md`
+- `docs/architecture/stage-6-design-review-v1.0.md`
+- `docs/architecture/stage-7-revision-projection-core-report-v1.0.md`
+- `docs/architecture/stage-8-transactional-lifecycle-and-edge-types-v1.0.md`
+- `docs/architecture/stage-8-final-regression-report-v1.0.md`
+- `docs/architecture/zero-cost-validation-and-deployment-strategy-v1.0.md`
+- `docs/architecture/zero-cost-production-readiness-audit-v1.0.md`
+- `docs/architecture/stage-7-to-13-roadmap-v1.0.md`
+
+人工政策分析方法、报告质量和生产运行材料见：
+
+- `docs/manual-analysis/README.md`
+- `docs/manual-analysis/production-operations-runbook-v1.0.md`
+- `docs/manual-analysis/report-quality-status-v1.0.md`
+
+## 当前架构边界
+
+现有生产实现仍从`policies.metadata`读取完整报告JSON，并兼容历史字段。阶段六已经决定：
+
+- 政策原文进入不可变原文版本；
+- 完整报告进入不可变`report_revisions.payload`，并保留可读取的发布历史；
+- 当前原文变化不会覆盖旧报告，而是通过`isSourceCurrent`标记待复核；
+- 公司、产业、政策网络、证据和信号表作为按修订自动生成的可重建投影；
+- 禁止报告JSON和关系表独立人工双写；
+- 旧前端冻结维护，最后整体重构。
+
+阶段六完成设计封板；阶段七、八已形成可执行迁移、20份官方原文版本、真实影子包、批量装载器、事务发布、Token预算和专用Edge候选入口，并通过临时PostgreSQL、表级RLS角色测试、Deno和工作流封板检查。用户明确不接受新增费用，因此不创建Supabase Preview Branch或其他付费暂存资源。当前尚未执行生产迁移，也未部署或切换新Edge写入链；`metadata`路径继续作为唯一线上兼容路径。
+
+## 本地运行
 
 ```powershell
 npm install
 npm run dev
 ```
 
-然后访问：
+默认访问：
 
 ```text
-http://127.0.0.1:5173/
+http://127.0.0.1:5174/
 ```
 
-## Supabase 接入
-
-复制 `.env.example` 为 `.env.local`，填入：
+生产使用Supabase。复制`.env.example`为`.env.local`并填写：
 
 ```text
 VITE_SUPABASE_URL=
 VITE_SUPABASE_ANON_KEY=
+VITE_ANALYSIS_JOB_MODE=disabled
 ```
 
-当前 UI 会在没有 Supabase 配置时使用本地演示账号流程。后续可把 mock 数据替换为 Supabase 表：
+本地UI演示可显式设置：
 
-- `policies`
-- `policy_actions`
-- `policy_clauses`
-- `industry_nodes`
-- `industry_edges`
-- `companies`
-- `evidence`
+```text
+VITE_ENABLE_MOCK=true
+```
 
-数据库草案在 `supabase/schema.sql`，接入说明在 `supabase/README.md`。当前前端已经通过 `src/lib/reportRepository.ts` 建立了列表、任务和后续报表加载的服务边界。
+生产构建不得启用Mock。
+
+## 质量检查
+
+```bash
+npm run security:audit
+MANUAL_QUALITY_STRICT=true npm run manual:validate -- manual-reports/*.json
+npm run manual:test
+npm run manual:metrics
+npm run stage7:test
+npm run stage7:migration-test
+npm run auth:test
+npm run workflow:test
+npm run workflow:generated-check
+npm run production:guard:test
+npm run backup:guard:test
+npm run production:source-guard:test
+npm run edge:typecheck
+npm run edge:test
+npm run build
+npm run build:budget
+```
+
+任何质量门失败均不得写回或发布。`npm run build`会先执行受路径保护的显式`dist`清理，避免历史构建文件污染预算。涉及Edge Function、revision生命周期或Token预算的修改，还必须通过Deno和临时PostgreSQL测试。阶段七可通过`npm run stage7:source-fetch -- --require-all`重建官方网页及附件复合原文，通过`npm run stage7:evidence-audit`审计证据摘录，并使用`npm run stage7:shadow -- --source-documents=artifacts/stage7/official-source-documents.json --require-deployment-ready`生成真实影子包。`npm run stage7:migration-test -- --shadow-package=artifacts/stage7/report-revision-shadow.json`会实际执行阶段七、八迁移、表级RLS、20份装载和幂等性检查。`tmp/`、`成果截图/`和本地生成脚本默认禁入提交。
 
 ## 政策来源抓取
 
@@ -82,49 +132,22 @@ npm run crawl:sources -- --ingest
 
 注意：`SUPABASE_ACCESS_TOKEN` 必须是管理员用户 JWT，不能使用 service role key。抓取流程只入库政策原文，不写回 `reportPayload`；普通用户不能通过前端或 Edge Function 创建任务。
 
-## 人工审核政策分析
-
-定时抓取完成后，由授权分析流程读取政策原文并写回审核后的结构化报告。`scripts/manual-policy-analysis.mjs` 通过 `analyze` Edge Function 完成待分析列表、全文读取和人工分析结果写回：
+## 人工分析与发布
 
 ```powershell
 npm run manual:policies -- list --limit=10
 npm run manual:policies -- get --policyId=<policy-uuid>
-npm run manual:policies -- apply --policyId=<policy-uuid> --file=artifacts/manual-report-payload.json
+npm run manual:policies -- apply --policyId=<policy-uuid> --file=manual-reports/<policy-id>.json
 ```
 
-- `list` 默认只列出 `publish_date >= 2026-05-01` 且尚未完成当前人工审核分析版本的政策。
-- `get` 返回政策元数据和 `policies.full_text`，供授权分析流程读取原文并形成结构化报告。
-- `apply` 写回手动整理的 `reportPayload`，把政策标记为 `published`，前端随后只展示这些已发布分析。
-- 如果本地没有 Supabase 函数密钥，可把审核后的 JSON 放在 `manual-reports/*.json`，然后手动触发 `.github/workflows/apply-manual-analysis.yml` 写回。
+当前写回仍使用`analyze` Edge Function和`metadata.reportPayload`。该路径在报告修订体系完成迁移前继续作为生产兼容路径，已发布报告不得绕过严格校验。
 
-## GitHub Pages 与定时抓取
+## 部署
 
-GitHub Pages 只负责托管静态前端。政策抓取通过 GitHub Actions 定时任务执行，工作流在 `.github/workflows/crawl-policies.yml`：
-
-- 工作日按北京时间每小时运行一次。
-- 周六、周日按北京时间每 12 小时运行一次，分别在 00:00 和 12:00。
-- 每次运行 `scripts/crawl-policy-sources.mjs --ingest`，抓取 2026-05-01 以后政策原文并写入 Supabase。
-- 前端部署工作流在 `.github/workflows/deploy-pages.yml`。GitHub Pages 的发布源应设置为 GitHub Actions。
-- 报告分析不由 GitHub Actions 定时执行；由授权分析流程运行 `npm run manual:policies -- list/get/apply` 完成读取、分析和写回。
-
-GitHub 仓库需要配置 Actions Secrets：
+生产站点：
 
 ```text
-SUPABASE_URL=https://your-project-ref.supabase.co
-SUPABASE_FUNCTION_JWT=your-supabase-anon-key-or-function-jwt
-SUPABASE_CRAWLER_SECRET=strong-random-shared-secret
-VITE_SUPABASE_URL=https://your-project-ref.supabase.co
-VITE_SUPABASE_ANON_KEY=your-anon-key
+https://agent-ovo.github.io/policy-impact-terminal/
 ```
 
-Supabase Edge Function 侧需要配置同一个爬虫密钥，以及用于归属定时抓取数据的管理员用户 ID：
-
-```powershell
-supabase secrets set CRAWLER_INGEST_SECRET=strong-random-shared-secret
-supabase secrets set CRAWLER_OWNER_ID=admin-profile-user-uuid
-supabase functions deploy ingest
-supabase functions deploy analyze
-supabase functions deploy publish
-```
-
-`CRAWLER_OWNER_ID` 必须对应 `profiles` 表中 `status = active` 且 `role = admin` 的用户。普通用户登录访问网站不会触发抓取或分析；登录只负责访问前端和读取已发布的手动分析结果。
+GitHub Pages只托管静态前端。政策抓取和人工写回由独立工作流执行。生产配置、数据库初始化和Edge Function部署见`supabase/README.md`。

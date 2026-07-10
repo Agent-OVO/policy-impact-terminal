@@ -7,7 +7,8 @@ import {
   optionalString,
   readJsonObject,
   requirePost,
-  requireString
+  requireString,
+  toJson
 } from "../_shared/http.ts";
 import {
   createSupabaseAdminClient,
@@ -1119,7 +1120,7 @@ async function updatePolicyManualAnalysisMetadata(
       confidence: readRecordNumber(summary, "confidence") ?? readRecordNumber(policyMeta, "confidence") ?? policy.confidence,
       category: readRecordString(policyMeta, "category") ?? policy.category,
       summary: readRecordString(isRecord(reportPayload.brief) ? reportPayload.brief : null, "judgement") ?? policy.summary,
-      metadata: {
+      metadata: toJson({
         ...existingPolicyMetadata,
         analysisMethod: MANUAL_ANALYSIS_VERSION,
         analysis_method: MANUAL_ANALYSIS_VERSION,
@@ -1133,7 +1134,7 @@ async function updatePolicyManualAnalysisMetadata(
           evidenceCount: arrayField(reportPayload.evidence).length,
           primarySignal: readRecordString(summary, "primarySignal") ?? readRecordString(isRecord(reportPayload.brief) ? reportPayload.brief : null, "judgement") ?? "已完成人工智能大模型分析"
         }
-      }
+      }, "manual report policy metadata")
     })
     .eq("id", policy.id);
 
@@ -1173,14 +1174,14 @@ async function markLatestAnalysisJobPublished(
       progress: 100,
       current_step: "Manual Codex analysis published",
       finished_at: now,
-      output_payload: {
+      output_payload: toJson({
         ...existingOutput,
         analysisStub: analysisOutput,
         analysis: analysisOutput,
         reportPayload: analysisOutput.reportPayload,
         publishedAt: now,
         publishedPolicyId: policyId
-      },
+      }, "published analysis job output"),
       error_message: null
     })
     .eq("id", data.id);

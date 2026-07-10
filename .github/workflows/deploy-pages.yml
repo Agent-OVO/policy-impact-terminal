@@ -46,6 +46,39 @@ jobs:
       - name: Check governance registry and metrics
         run: npm run manual:metrics
 
+      - name: Validate revision and projection core
+        run: npm run stage7:test
+
+      - name: Execute revision lifecycle migrations in temporary PostgreSQL WASM
+        run: npm run stage7:migration-test
+
+      - name: Check invite-only authentication boundary
+        run: npm run auth:test
+
+      - name: Check workflow contracts
+        run: npm run workflow:test
+
+      - name: Check generated workflow consistency
+        run: npm run workflow:generated-check
+
+      - name: Check production mutation guards
+        run: npm run production:guard:test
+
+      - name: Check zero-cost backup guards
+        run: npm run backup:guard:test
+
+      - name: Check zero-cost backup cryptography
+        run: npm run backup:crypto:test
+
+      - name: Check production source export guards
+        run: npm run production:source-guard:test
+
+      - name: Type-check Edge Functions
+        run: npm run edge:typecheck
+
+      - name: Test Edge Function shared boundaries
+        run: npm run edge:test
+
       - name: Validate Supabase frontend secrets
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}

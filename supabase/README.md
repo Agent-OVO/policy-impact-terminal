@@ -2,6 +2,8 @@
 
 This folder holds the database schema and Edge Function boundary for the Policy Impact Terminal. The production frontend reads Supabase only; local mock data is available only when `VITE_ENABLE_MOCK=true` is set explicitly.
 
+> Architecture transition: the current production contract still stores the full report in `policies.metadata.reportPayload`. Stage 7 has completed immutable source/revision/projection infrastructure and a deployment-ready 20-report shadow package. Stage 8 has added typed Edge boundaries, transactional publish/rollback, immutable command/event audit, model-token reservation/finalization, and two admin-only Edge candidates. None of the Stage 7/8 migrations or new functions has been deployed to Supabase production, and no live read/write path has switched. Until staging and production acceptance are complete, the remainder of this README continues to describe the live compatibility path.
+
 ## 1. Apply Schema
 
 Run the versioned migrations:
@@ -10,8 +12,43 @@ Run the versioned migrations:
 supabase db push
 ```
 
-The initial schema is checked in as `supabase/migrations/20260510000000_initial_schema.sql`. Keep `supabase/schema.sql` as the editable declarative reference, then generate or update migrations before deploying a new database.
+The authoritative deployable database history is the ordered set under `supabase/migrations/`. The initial schema is `20260510000000_initial_schema.sql`; Stage 7 adds `20260710010000_stage7_revision_projection_core.sql`; Stage 8 adds `20260710020000_stage8_transactional_revision_lifecycle.sql`, `20260710021000_stage8_model_budget_enforcement.sql`, `20260710022000_stage8_invite_account_governance.sql`, and `20260710023000_stage8_account_deletion_workflow.sql`. `supabase/schema.sql` is a historical consolidated snapshot and must not be deployed alone or manually maintained as a second schema source.
+
 The official source seed is checked in as `supabase/migrations/20260510001000_seed_policy_sources.sql`, so a fresh database receives the crawler source registry during `supabase db push`.
+
+Before any Stage 7 production push, run:
+
+```powershell
+npm run stage7:test
+npm run stage7:source-fetch -- --require-all
+npm run stage7:evidence-audit
+npm run stage7:shadow -- --source-documents=artifacts/stage7/official-source-documents.json --require-deployment-ready
+npm run stage7:migration-test
+npm run stage7:migration-test -- --shadow-package=artifacts/stage7/report-revision-shadow.json
+npm run auth:test
+npm run workflow:test
+npm run workflow:generated-check
+npm run production:guard:test
+npm run backup:guard:test
+npm run backup:crypto:test
+npm run production:source-guard:test
+npm run edge:typecheck
+npm run edge:test
+npm run stage7:diff -- --before=<old.json> --after=<new.json>
+```
+
+Official source documents, source-evidence audit files, and the shadow package are ignored local artifacts. The verified source is the official page plus its directly mounted official attachments; the legacy production `full_text` is a migration comparison input and must not silently replace a more complete official composite source. The current 20-report package passes source, payload, projection, table-level RLS roles, PostgreSQL execution, bulk-load, rollback and idempotence tests. The user does not permit any additional paid resources, so no Preview Branch or paid staging project may be created. Before `supabase db push`, the existing production project must pass read-only source comparison, encrypted logical backup plus restore verification, production readiness audit, exact-target confirmation and explicit deployment approval.
+
+Protected database-load validation:
+
+```powershell
+npm run production:readiness:audit
+npm run production:source-export
+npm run backup:production
+npm run stage7:db-load -- --actor-id=<admin-uuid> --target=production
+```
+
+All commands above default to validation-only behavior. The source export and backup require separate read-only confirmations and transient credentials. The database loader and `setup:production` remain blocked until the 24-hour readiness report has `productionWriteReady=true` and no blockers. Exact-host checks, backup encryption, restore requirements, confirmation phrases and postflight checks are defined in `docs/architecture/stage-7-supabase-deployment-runbook-v1.0.md` and `docs/architecture/zero-cost-production-readiness-audit-v1.0.md`.
 
 After the schema is applied, seed the first official policy source pool:
 
@@ -32,9 +69,18 @@ The core tables are:
 - `policies`: top-level policy/report metadata.
 - `policy_sources`: official source registry with crawl and dedupe priority.
 - `analysis_jobs`: async job queue for ingest/analyze/publish.
-- `policy_actions`, `policy_clauses`, `industry_nodes`, `industry_edges`, `companies`, `evidence`: future hydrated report data.
+- `policy_actions`, `policy_clauses`, `industry_nodes`, `industry_edges`, `companies`, `evidence`: legacy normalized-table draft retained for the current production compatibility path.
+- `policy_source_documents`, `policy_source_segments`: immutable original-text versions and deterministic source segments.
+- `report_revisions`: immutable complete report payloads with content, source, schema, analysis, and projection hashes; published and superseded history remains readable through controlled RPCs.
+- `report_policy_actions`, `report_industry_nodes`, `report_industry_edges`, `report_company_relations`, `report_policy_network_relations`, `report_evidence_refs`, `report_signals`: revision-scoped rebuildable projections, never independent report facts.
+- `company_evidence_cards`: demand-driven reusable company fact evidence, not a full-market company database.
+- `model_usage_ledger`, `model_budget_periods`, `system_config_versions`: auditable Token use, hard budget reservation/settlement, and versioned non-secret architecture configuration.
+- `report_revision_commands`, `report_revision_events`: immutable idempotency and audit history for transactional publication and rollback.
+- `account_lifecycle_events`, `account_deletion_requests`: immutable suspension/reactivation/retention audit and recoverable two-phase hard-deletion workflow; invited, suspended and deletion-prepared profiles are denied report reads.
 
-RLS is enabled. Normal browser clients use the anon key and authenticated user session, and are read-only for published policy reports. Policy/job writes are reserved for active admins, the scheduled crawler ingest path, and Codex manual analysis writeback. Edge Functions use the service role key server-side only after verifying an active admin JWT or the crawler secret.
+RLS is enabled. Normal browser clients use the anon key and authenticated user session. Under the Stage 7 target contract, browsers receive read access only to published/superseded projection tables and client-visible config; full revision payloads and history metadata are returned by security-definer RPCs. Original source versions, projection runs, company evidence cards, Token ledger, and every Stage 7 write remain server-side. Edge Functions use the service role key only after verifying an active admin JWT or the crawler secret.
+
+The current source document may be newer than the current published report. This is a valid stale-report state: revision reads return `isSourceCurrent=false` instead of blocking source ingestion or overwriting the old report. The Stage 8 repository contract provides controlled transactional publication, rollback and Token preflight, but production reanalysis orchestration is not yet switched.
 
 ### Report Payload Contract
 

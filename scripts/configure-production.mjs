@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 import { execFileSync } from "node:child_process";
 import crypto from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
 import { createClient } from "@supabase/supabase-js";
 
 const PROJECT_REF = process.env.SUPABASE_PROJECT_REF || "qxzspsofhmfjceuaulhu";
@@ -16,6 +18,12 @@ const skipFunctions = args.has("--skip-functions");
 const skipGithubSecrets = args.has("--skip-github-secrets");
 const skipSupabaseSecrets = args.has("--skip-supabase-secrets");
 const skipDatabase = args.has("--skip-db");
+const applyProduction = args.has("--apply-production");
+const readinessArg = process.argv.slice(2).find((value) => value.startsWith("--readiness-report="));
+const readinessReportPath = path.resolve(
+  readinessArg?.slice("--readiness-report=".length) ||
+  "artifacts/stage8/zero-cost-production-readiness.json"
+);
 
 function run(command, commandArgs, { input, quiet = false } = {}) {
   const label = [command, ...commandArgs].join(" ");
@@ -237,9 +245,50 @@ function triggerWorkflows() {
   ]);
 }
 
+function requireProductionReadiness() {
+  if (!applyProduction) {
+    throw new Error(
+      "Production mutation is disabled by default. Run `npm run production:readiness:audit`, resolve every blocker, then pass --apply-production."
+    );
+  }
+
+  const expectedConfirmation = `APPLY:${PROJECT_REF}`;
+  if (process.env.PRODUCTION_CONFIRMATION !== expectedConfirmation) {
+    throw new Error(
+      `Set PRODUCTION_CONFIRMATION=${expectedConfirmation} only after reviewing the zero-cost readiness report.`
+    );
+  }
+
+  if (!fs.existsSync(readinessReportPath)) {
+    throw new Error(`Production readiness report not found: ${readinessReportPath}`);
+  }
+
+  const report = JSON.parse(fs.readFileSync(readinessReportPath, "utf8"));
+  if (report.projectRef !== PROJECT_REF || report.project?.ref !== PROJECT_REF) {
+    throw new Error("Production readiness report target does not match SUPABASE_PROJECT_REF.");
+  }
+  if (report.costPolicy?.additionalPaidResourcesAllowed !== false) {
+    throw new Error("Production readiness report does not enforce the zero-additional-cost policy.");
+  }
+  if (report.productionWriteReady !== true || !Array.isArray(report.blockers) || report.blockers.length !== 0) {
+    throw new Error(
+      `Production readiness gate is closed: ${Array.isArray(report.blockers) ? report.blockers.join(",") : "invalid_report"}`
+    );
+  }
+
+  const generatedAt = Date.parse(report.generatedAt);
+  if (!Number.isFinite(generatedAt) || Date.now() - generatedAt > 24 * 60 * 60 * 1000) {
+    throw new Error("Production readiness report must be valid and generated within the last 24 hours.");
+  }
+
+  console.log(`[gate] Production readiness approved by ${readinessReportPath}`);
+}
+
 async function main() {
   console.log(`Configuring production for ${GITHUB_REPO}`);
   console.log(`Supabase project: ${PROJECT_REF}`);
+
+  requireProductionReadiness();
 
   const { anonKey, serviceRoleKey } = getApiKeys();
   console.log("[ok] Supabase API keys loaded");

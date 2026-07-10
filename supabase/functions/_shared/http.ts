@@ -1,3 +1,5 @@
+import type { Json } from "./database.types.ts";
+
 export const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-crawler-secret",
@@ -69,6 +71,49 @@ export function optionalString(body: Record<string, unknown>, key: string): stri
 
 export function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+export function toJson(value: unknown, label = "value"): Json {
+  return toJsonInternal(value, label, new WeakSet<object>());
+}
+
+function toJsonInternal(value: unknown, label: string, seen: WeakSet<object>): Json {
+  if (value === null || typeof value === "string" || typeof value === "boolean") {
+    return value;
+  }
+
+  if (typeof value === "number") {
+    if (!Number.isFinite(value)) {
+      throw new HttpError(500, `${label} contains a non-finite number.`);
+    }
+    return value;
+  }
+
+  if (Array.isArray(value)) {
+    if (seen.has(value)) {
+      throw new HttpError(500, `${label} contains a circular array.`);
+    }
+    seen.add(value);
+    const result = value.map((item, index) => toJsonInternal(item, `${label}[${index}]`, seen));
+    seen.delete(value);
+    return result;
+  }
+
+  if (isRecord(value)) {
+    if (seen.has(value)) {
+      throw new HttpError(500, `${label} contains a circular object.`);
+    }
+    seen.add(value);
+    const result: { [key: string]: Json | undefined } = {};
+    for (const [key, item] of Object.entries(value)) {
+      if (item === undefined) continue;
+      result[key] = toJsonInternal(item, `${label}.${key}`, seen);
+    }
+    seen.delete(value);
+    return result;
+  }
+
+  throw new HttpError(500, `${label} contains a non-JSON value of type ${typeof value}.`);
 }
 
 export function errorResponse(error: unknown): Response {
