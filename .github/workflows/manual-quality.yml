@@ -1,0 +1,49 @@
+name: Manual report quality
+
+on:
+  pull_request:
+    paths:
+      - "manual-reports/**"
+      - "scripts/validate-manual-report.mjs"
+      - "scripts/test-manual-report-validation.mjs"
+      - "scripts/report-quality-metrics.mjs"
+      - "src/lib/reportMappers.ts"
+      - "docs/manual-analysis/report-governance-registry-v1.0.json"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/manual-quality.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate all manual reports
+        env:
+          MANUAL_QUALITY_STRICT: "true"
+        run: npm run manual:validate -- manual-reports/*.json
+
+      - name: Run validation regression suite
+        run: npm run manual:test
+
+      - name: Check governance registry and metrics
+        run: npm run manual:metrics
+
+      - name: Build frontend
+        run: npm run build

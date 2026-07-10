@@ -54,6 +54,12 @@ jobs:
           MANUAL_QUALITY_STRICT: "true"
         run: npm run manual:validate -- "$REPORT_FILE"
 
+      - name: Run validation regression suite
+        run: npm run manual:test
+
+      - name: Check governance registry and metrics
+        run: npm run manual:metrics
+
       - name: Apply manual analysis
         env:
           SUPABASE_URL: https://qxzspsofhmfjceuaulhu.supabase.co

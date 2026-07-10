@@ -4,6 +4,7 @@ dist/
 dev-server*.log
 artifacts/
 qa-*.png
+.playwright-cli/
 vite.config.js
 vite.config.d.ts
 .env.local

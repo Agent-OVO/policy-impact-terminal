@@ -107,6 +107,8 @@ const knownDomainLogoUrls = new Map<string, string[]>([
   ["sensetime.com", ["https://static.sensetime.com/images/st_logo_ico.png"]]
 ]);
 
+const allowExternalCompanyLogos = import.meta.env.VITE_ENABLE_EXTERNAL_COMPANY_LOGOS === "true";
+
 const companyLogoSourceByKey = new Map<string, CompanyLogoSource>();
 
 knownCompanyLogoSources.forEach((source) => {
@@ -148,6 +150,8 @@ export function getCompanyName(company: Pick<Company, "name" | "ticker">, fallba
 }
 
 export function getCompanyLogoCandidates(company: CompanyWithLogo) {
+  if (!allowExternalCompanyLogos) return [];
+
   const mappedSources = getMappedCompanyLogoSources(company);
   const mappedUrls = mappedSources.flatMap((source) => source.urls ?? []).map(normalizeLogoUrl);
   const mappedDomainUrls = mappedSources.flatMap((source) => source.domains ?? []).flatMap(getDomainLogoCandidates);

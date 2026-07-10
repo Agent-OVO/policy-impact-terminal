@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "updatedAt": "2026-07-10",
+  "reports": [
+    {"policyId":"209014c2-561d-4421-a82b-b9e16f537d3f","category":"A","migrationStatus":"full","title":"南水北调中线干线工程供水价格"},
+    {"policyId":"2d6943d5-1653-40d9-a148-a98aaf6fca82","category":"A","migrationStatus":"full","title":"先进计算赋能新质生产力典型应用案例名单"},
+    {"policyId":"4e45255c-dc48-4526-8ca3-3f313e68780a","category":"A","migrationStatus":"full","title":"人工智能＋人社应用发展实施意见"},
+    {"policyId":"560837e2-0eaf-4782-8c93-44751864d1a7","category":"A","migrationStatus":"full","title":"机动车产品及两类税收优惠目录"},
+    {"policyId":"5ed40988-906c-463d-88b5-dd0c70003535","category":"A","migrationStatus":"full","title":"纺织服装卓越品牌培育行动方案"},
+    {"policyId":"8b35e8fa-77e2-4ea8-9b9b-1672d4c162b9","category":"A","migrationStatus":"full","title":"人工智能与能源双向赋能行动方案"},
+    {"policyId":"8ffc886f-0797-4969-9a15-9afd6f3ff960","category":"A","migrationStatus":"full","title":"人工智能科技伦理审查与服务先导计划"},
+    {"policyId":"ab109913-f9c4-4fa4-bc2b-cf32d80c99bc","category":"A","migrationStatus":"full","title":"2026年度工业节能监察"},
+    {"policyId":"b62836d8-c4a0-46ab-981c-804bc356e09d","category":"A","migrationStatus":"full","title":"十五五碳达峰行动方案"},
+    {"policyId":"d18444d2-2ed2-4a2e-a5a0-051168b4bc7b","category":"A","migrationStatus":"full","title":"城市更新十五五规划"},
+    {"policyId":"dc6e49f1-e899-431e-be21-6a7bcbfb2f32","category":"A","migrationStatus":"full","title":"美丽中国建设成效考核办法"},
+    {"policyId":"eaf74ff3-c21f-4a77-b402-57f8be41f866","category":"A","migrationStatus":"full","title":"行业高质量数据集建设行动"},
+    {"policyId":"0e80e84c-03f0-4c7f-9bd2-46470000bab1","category":"B","migrationStatus":"full","title":"就业优先战略十五五规划"},
+    {"policyId":"3abd8068-084e-441f-b96b-7c849ca324f7","category":"B","migrationStatus":"full","title":"美丽中国建设十五五规划"},
+    {"policyId":"95eae56e-f1d2-4312-8437-b6cab8b7019f","category":"B","migrationStatus":"full","title":"现代化应急体系建设十五五规划"},
+    {"policyId":"f5e5831c-ca2b-4565-ae0f-f8ae7e5cfb78","category":"B","migrationStatus":"full","title":"教育发展十五五规划"},
+    {"policyId":"f727075a-ad27-428f-a181-cfa098e891fb","category":"B","migrationStatus":"full","title":"农业农村现代化十五五规划"},
+    {"policyId":"4ce9cfc5-f9ca-48bb-a265-3ee7fdc9c39d","category":"C","migrationStatus":"light","title":"上海市暂时调整实施有关行政法规规定的批复"},
+    {"policyId":"712467e3-0b35-4dfb-b4cb-0f686a2b42d3","category":"C","migrationStatus":"light","title":"国务院2026年度立法工作计划"},
+    {"policyId":"7d457090-64b4-4985-94f3-87f72f6ee3cb","category":"C","migrationStatus":"light","title":"行政复议法实施条例"}
+  ]
+}

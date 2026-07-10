@@ -32,10 +32,20 @@
 
 - `report-migration-backlog-v1.0.md`
 
-完成七份异质报告回炉后的阶段化执行路线见：
+阶段化执行路线和完成记录见：
 
 - `next-stage-roadmap-v2.0.md`
 - `phase-1-2-completion-report-v1.0.md`
+- `phase-3-4-completion-report-v1.0.md`
+- `report-migration-backlog-v1.0.md`
+
+生产治理和质量状态见：
+
+- `report-governance-registry-v1.0.json`
+- `report-quality-status-v1.0.md`
+- `production-operations-runbook-v1.0.md`
+- `evidence-update-policy-v1.0.md`
+- `visual-qa-report-v1.0.md`
 
 ### 第二步：再读政策拆分方法论
 

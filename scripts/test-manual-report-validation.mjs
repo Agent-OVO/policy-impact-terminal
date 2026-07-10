@@ -11,7 +11,8 @@ import { buildSync } from "esbuild";
 const root = process.cwd();
 const validator = path.join(root, "scripts", "validate-manual-report.mjs");
 const reports = {
-  legacy: path.join(root, "manual-reports", "0e80e84c-03f0-4c7f-9bd2-46470000bab1.json"),
+  legacy: path.join(root, "manual-reports", "4ce9cfc5-f9ca-48bb-a265-3ee7fdc9c39d.json"),
+  employment: path.join(root, "manual-reports", "0e80e84c-03f0-4c7f-9bd2-46470000bab1.json"),
   industry: path.join(root, "manual-reports", "eaf74ff3-c21f-4a77-b402-57f8be41f866.json"),
   named: path.join(root, "manual-reports", "2d6943d5-1653-40d9-a148-a98aaf6fca82.json"),
   regulatory: path.join(root, "manual-reports", "ab109913-f9c4-4fa4-bc2b-cf32d80c99bc.json"),
@@ -26,7 +27,8 @@ const reports = {
   emergencyPlan: path.join(root, "manual-reports", "95eae56e-f1d2-4312-8437-b6cab8b7019f.json"),
   agriculturePlan: path.join(root, "manual-reports", "f727075a-ad27-428f-a181-cfa098e891fb.json"),
   carbonPeak: path.join(root, "manual-reports", "b62836d8-c4a0-46ab-981c-804bc356e09d.json"),
-  urbanRenewal: path.join(root, "manual-reports", "d18444d2-2ed2-4a2e-a5a0-051168b4bc7b.json")
+  urbanRenewal: path.join(root, "manual-reports", "d18444d2-2ed2-4a2e-a5a0-051168b4bc7b.json"),
+  education: path.join(root, "manual-reports", "f5e5831c-ca2b-4565-ae0f-f8ae7e5cfb78.json")
 };
 
 const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "policy-report-validation-"));
@@ -103,6 +105,7 @@ async function testMapperDerivation(compactFile) {
 
 try {
   runCase("valid legacy report", reports.legacy, true);
+  runCase("valid employment plan report", reports.employment, true);
   runCase("valid industry-company report", reports.industry, true);
   runCase("valid policy-named report", reports.named, true);
   runCase("valid regulatory report", reports.regulatory, true);
@@ -118,6 +121,7 @@ try {
   runCase("valid agriculture plan report", reports.agriculturePlan, true);
   runCase("valid carbon peak report", reports.carbonPeak, true);
   runCase("valid urban renewal report", reports.urbanRenewal, true);
+  runCase("valid education plan report", reports.education, true);
 
   const compact = writeVariant("valid-compact-derived-identities", reports.industry, (report) => {
     for (const chain of report.industryChain ?? []) {
