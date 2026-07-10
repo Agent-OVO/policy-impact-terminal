@@ -17,7 +17,8 @@ const reports = {
   regulatory: path.join(root, "manual-reports", "ab109913-f9c4-4fa4-bc2b-cf32d80c99bc.json"),
   catalog: path.join(root, "manual-reports", "560837e2-0eaf-4782-8c93-44751864d1a7.json"),
   ethics: path.join(root, "manual-reports", "8ffc886f-0797-4969-9a15-9afd6f3ff960.json"),
-  hrAi: path.join(root, "manual-reports", "4e45255c-dc48-4526-8ca3-3f313e68780a.json")
+  hrAi: path.join(root, "manual-reports", "4e45255c-dc48-4526-8ca3-3f313e68780a.json"),
+  waterPrice: path.join(root, "manual-reports", "209014c2-561d-4421-a82b-b9e16f537d3f.json")
 };
 
 const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "policy-report-validation-"));
@@ -100,6 +101,7 @@ try {
   runCase("valid vehicle catalog report", reports.catalog, true);
   runCase("valid AI ethics pilot report", reports.ethics, true);
   runCase("valid AI plus HR report", reports.hrAi, true);
+  runCase("valid South-to-North water price report", reports.waterPrice, true);
 
   const compact = writeVariant("valid-compact-derived-identities", reports.industry, (report) => {
     for (const chain of report.industryChain ?? []) {

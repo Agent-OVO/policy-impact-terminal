@@ -32,6 +32,10 @@
 
 - `report-migration-backlog-v1.0.md`
 
+完成七份异质报告回炉后的阶段化执行路线见：
+
+- `next-stage-roadmap-v2.0.md`
+
 ### 第二步：再读政策拆分方法论
 
 - `policy-decomposition-methodology-v1.0.1.md`

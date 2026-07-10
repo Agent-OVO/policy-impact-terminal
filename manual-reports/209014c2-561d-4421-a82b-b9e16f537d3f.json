@@ -3,7 +3,22 @@
   "policyId": "209014c2-561d-4421-a82b-b9e16f537d3f",
   "analyzerVersion": "codex-manual-v1",
   "analysisMethod": "codex-manual-v1",
-  "generatedAt": "2026-05-12T00:00:00+08:00",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "通知",
+  "substantivePolicyType": "水利工程供水价格核定",
+  "primaryActionType": "价格机制",
+  "policySignalStrength": "high",
+  "implementationCertainty": "high",
+  "analysisDepth": "L4",
+  "analysisDepthReason": "政策明确分区段价格、基本水费与计量水费计算方式、执行日期、工程运营主体和受水区责任，可拆解原水结算、地方价格传导和节水效率链条；但地方终端水价方案、具体取水量及上市公司合同影响尚未披露。",
+  "followUpSignals": [
+    "2026年6月1日后中线工程水费结算执行情况",
+    "北京、天津、河北、河南城镇供水价格改革文件",
+    "地方供水成本监审和价格听证方案",
+    "受水区水费足额缴纳与财政安排",
+    "供水管网降损、再生水和高品质供水项目"
+  ],
+  "generatedAt": "2026-07-10T14:35:00+09:00",
   "summary": {
     "id": "209014c2-561d-4421-a82b-b9e16f537d3f",
     "title": "关于核定南水北调中线干线工程供水价格的通知(发改价格〔2026〕630号)",
@@ -14,7 +29,7 @@
     "confidence": 91,
     "industryCount": 5,
     "companyCount": 8,
-    "evidenceCount": 6,
+    "evidenceCount": 9,
     "primarySignal": "中线工程两部制水价分区段重核，受水区水费纪律和城镇供水价格改革压力上升",
     "category": "水利工程供水价格"
   },
@@ -50,62 +65,121 @@
       "政策同时约束供水方和受水方：南水北调集团要控成本提效率，受水区要按时足额交费并推进城镇供水价格改革。",
       "公司映射只代表产业链相关性，政策未公布补贴、采购、订单或上市公司名单，不构成投资建议。"
     ],
-    "methodology": "人工阅读国家发展改革委官方页面正文，并用其官方PDF附件核对各区段供水价格；未采用媒体解读。公司映射按政策明示的供水工程、受水区城镇供水、节水和水处理传导链条做代表性归类，并在公司层面降级处理证据强度。"
+    "methodology": "人工阅读国家发展改革委官方页面正文，并用其官方PDF附件核对各区段供水价格；另读取首创环保、天津创业环保和碧水源2025年年度报告验证供水、再生水和水处理业务。政策证据与公司业务证据分层维护，除中国南水北调集团外不把任何公司解释为政策点名主体。"
+  },
+  "policyIndustryMap": [
+    {"id": "pi1", "industry": "跨流域调水与干线供水运营", "policyAction": "核定分区段供水价格并继续两部制结算", "impactType": "market_mechanism", "impactDirection": "mixed", "evidenceLevel": "strong", "policyCloseness": "direct", "reason": "基本水费承担规划分水量对应的固定责任，计量水费按实际用水量结算，为工程收费和成本回收提供明确依据，同时要求运营主体加强成本约束。", "relatedClauseIds": ["c1", "c2", "c3"], "relatedNodeIds": ["n1"], "watchSignals": ["水费回收", "实际取水量", "运营成本和效率"]},
+    {"id": "pi2", "industry": "受水区城市供水与地方水价机制", "policyAction": "要求受水区足额交费并推进城镇供水价格改革", "impactType": "market_mechanism", "impactDirection": "mixed", "evidenceLevel": "strong", "policyCloseness": "direct", "reason": "北京、天津、河北和河南承担口门水费责任，但工程水价如何传导到城市供水企业和终端用户仍需地方成本监审、财政补贴和价格程序承接。", "relatedClauseIds": ["c4", "c5"], "relatedNodeIds": ["n2"], "watchSignals": ["地方水价文件", "成本监审", "价格听证和阶梯水价"]},
+    {"id": "pi3", "industry": "城乡供水运营与管网效率", "policyAction": "以价格和支付纪律强化供水成本管理", "impactType": "regulatory_constraint", "impactDirection": "mixed", "evidenceLevel": "indirect", "policyCloseness": "indirect", "reason": "地方供水运营主体可能面临原水成本、管网漏损、调价周期和回款安排变化；政策没有直接点名城市水务企业。", "relatedClauseIds": ["c3", "c4"], "relatedNodeIds": ["n2", "n4"], "watchSignals": ["供水企业调价", "产销差率", "特许经营协议变化"]},
+    {"id": "pi4", "industry": "节水、再生水与水资源效率服务", "policyAction": "发挥水价杠杆促进节约用水", "impactType": "demand_creation", "impactDirection": "positive", "evidenceLevel": "indirect", "policyCloseness": "indirect", "reason": "价格改革可能提高管网降损、再生水替代、高品质供水和工业水循环的经济性，但通知没有项目清单或采购预算。", "relatedClauseIds": ["c4"], "relatedNodeIds": ["n3", "n4"], "watchSignals": ["再生水项目", "供水管网改造", "高品质供水和节水合同"]}
+  ],
+  "industryChain": [
+    {
+      "id": "chain1",
+      "chainName": "干线原水价格—受水区结算—城市供水传导—节水效率链",
+      "policyRole": "国家核定干线口门价格和两部制结算，受水区承担支付责任并通过地方价格改革、财政安排和供水运营效率承接成本；节水与再生水需求处于更后端的间接传导。",
+      "nodes": [
+        {"id": "n1", "policySensitivity": "high", "description": "分区段口门价格、两部制结算和成本约束直接作用于中线工程运营主体。"},
+        {"id": "n2", "policySensitivity": "high", "description": "受水区需足额缴费并决定是否通过地方城镇供水价格、财政补贴和水务合同传导。"},
+        {"id": "n3", "policySensitivity": "medium", "description": "水价杠杆可能提升节水、漏损控制和再生水替代的价值，但项目需求需要地方文件和预算验证。"},
+        {"id": "n4", "policySensitivity": "low", "description": "水处理与高品质供水属于后续效率改造环节，不能由口门价格直接推导订单。"}
+      ],
+      "edges": [
+        {"from": "n1", "to": "n2", "relation": "funding_flow", "description": "干线口门价格和规划分水量形成受水区持续水费责任。"},
+        {"from": "n2", "to": "n3", "relation": "demand_flow", "description": "地方水价和支付压力可能推动节水、漏损控制与替代水源需求。"},
+        {"from": "n2", "to": "n4", "relation": "application_flow", "description": "供水成本和质量管理可能带动管网、供水处理和运营效率改造，但传导较弱。"}
+      ]
+    }
+  ],
+  "companyMap": [
+    {"id": "cm1", "companyId": "co1", "chainNodeId": "n1", "relationship": "policy_named", "policyEvidence": "strong", "businessExposure": "中国南水北调集团是中线工程运营和跨区域供水结算主体，通知直接要求其执行价格、控制成本和提高经营效率。", "investmentUse": "作为政策作用和价格机制的非上市锚点，用于判断水费回收与成本约束，不作为可交易标的。", "watchSignals": ["水费回收", "实际调水量", "成本和经营效率"], "keyRisks": ["价格核定不等于利润保证", "受水区支付与工程调度影响现金回收"], "doNotOverread": ["非上市主体不能直接转化为上市公司机会"]},
+    {"id": "cm2", "companyId": "co2", "chainNodeId": "n4", "relationship": "watch_only", "policyEvidence": "pending", "businessExposure": "现有事实层将其归为综合水务运营主体，但本轮未取得可直接核验的2025年报业务摘录，也未确认其项目与中线受水区的具体重合。", "investmentUse": "仅作为综合水务行业备查对象，不进入首屏代表公司。", "watchSignals": ["受水区供水项目", "地方水价调整", "公司年报业务地域和合同"], "keyRisks": ["项目区域与中线受水区匹配度未知", "污水处理与原水价格机制不同"], "doNotOverread": ["水务行业龙头身份不等于受本通知直接影响"]},
+    {"id": "cm3", "companyId": "co3", "chainNodeId": "n2", "relationship": "direct_industry", "policyEvidence": "indirect", "businessExposure": "2025年报披露公司提供城乡供水、污水处理及再生水、供排水一体化和管网运维服务，并在河北、河南等地拥有供水业务。", "investmentUse": "作为上市综合供水运营商观察地方水价传导、产销差率和管网降损，仍需核验具体项目是否承接中线原水。", "watchSignals": ["河北河南供水项目调价", "自来水均价和产销差率", "供水管网改造合同"], "keyRisks": ["项目并非全部位于中线受水区", "调价周期可能滞后成本变化", "地方财政和合同机制差异"], "doNotOverread": ["供水业务存在不等于本通知形成新增收入"]},
+    {"id": "cm4", "companyId": "co4", "chainNodeId": "n3", "relationship": "indirect_industry", "policyEvidence": "indirect", "businessExposure": "2025年报显示基础业务以污水处理为主，同时包含供水和再生水；供水规模31.5万立方米/日、再生水规模53万立方米/日。", "investmentUse": "作为天津区域再生水和水务效率观察对象，重点区分原水、城市供水、污水处理和再生水的不同价格机制。", "watchSignals": ["天津地方水价改革", "再生水管网项目", "供水和再生水业务收入"], "keyRisks": ["公司主业偏污水处理", "污水处理服务费不等于口门供水价格", "地方回款和项目资本开支压力"], "doNotOverread": ["天津区段价格较高不代表公司直接受益"]},
+    {"id": "cm5", "companyId": "co5", "chainNodeId": "n3", "relationship": "indirect_industry", "policyEvidence": "indirect", "businessExposure": "2025年报披露公司围绕污水资源化、高品质供水、膜技术和再生水利用开展业务，并拥有面向城乡供水和地表水净化提标的智能一体化供水设备。", "investmentUse": "作为高品质供水、再生水和水资源效率技术观察对象，必须等待受水区具体节水和供水改造项目。", "watchSignals": ["京津冀高品质供水项目", "再生水和膜设备合同", "地方节水改造预算"], "keyRisks": ["本通知没有技术采购安排", "项目制业务受预算、验收和回款影响"], "doNotOverread": ["促进节约用水不等于指定膜技术或供应商"]},
+    {"id": "cm6", "companyId": "co6", "chainNodeId": "n2", "relationship": "direct_industry", "policyEvidence": "indirect", "businessExposure": "北京市城市供水运营主体，位于中线原水进入城市供水和终端价格传导的直接环节。", "investmentUse": "作为非上市的北京终端供水传导锚点，跟踪成本监审、听证和终端水价方案。", "watchSignals": ["北京供水价格文件", "成本监审", "终端水价听证"], "keyRisks": ["通知未点名该公司", "终端水价需地方程序确认"], "doNotOverread": ["北京口门价格不等于居民水价立即调整"]},
+    {"id": "cm7", "companyId": "co7", "chainNodeId": "n2", "relationship": "direct_industry", "policyEvidence": "indirect", "businessExposure": "天津受水区城市供水和水务资产运营主体，可能承接口门原水成本与地方供水价格之间的传导。", "investmentUse": "作为非上市的天津地方水务传导锚点，跟踪结算、财政安排和终端水价机制。", "watchSignals": ["天津供水价格文件", "原水成本结算", "财政补贴和水务合同"], "keyRisks": ["政策未披露天津具体执行方案", "收入与利润影响未知"], "doNotOverread": ["天津口门计量水价较高不等于水务主体盈利提高"]},
+    {"id": "cm8", "companyId": "co8", "chainNodeId": "n1", "relationship": "indirect_industry", "policyEvidence": "indirect", "businessExposure": "河南区域水利投融资和供水工程运营平台，可能参与地方水资源配置和水费结算，但通知未点名该主体。", "investmentUse": "作为非上市区域水利平台观察河南分区段价格与地方工程结算，不进入上市公司排序。", "watchSignals": ["河南水费结算", "地方供水工程安排", "成本监审和财政支付"], "keyRisks": ["具体合同和运营边界未披露", "价格较低区段的财务弹性未知"], "doNotOverread": ["区域水利平台身份不等于政策直接点名"]}
+  ],
+  "policyNetwork": [
+    {"id": "pn1", "relatedPolicy": "水利工程供水价格管理有关规定", "relationship": "upstream_guidance", "meaning": "本通知明确依据水利工程供水价格管理有关规定核定中线工程价格，说明其属于成本约束和工程供水价格制度的具体执行。", "evidenceLevel": "strong", "sourceDate": "2026-05-11", "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202605/t20260511_1405152.html", "watchSignals": ["成本监审", "供水价格执行", "两部制结算"]},
+    {"id": "pn2", "relatedPolicy": "北京、天津、河北、河南城镇供水价格改革文件", "relationship": "local_rollout", "meaning": "口门价格是否影响城市供水企业和终端用户，需要由四省市后续价格文件、财政安排和供水合同承接。", "evidenceLevel": "pending", "watchSignals": ["地方价格通知", "成本监审", "听证方案"]},
+    {"id": "pn3", "relatedPolicy": "受水区供水成本监审、阶梯水价与财政补贴方案", "relationship": "follow_up_catalyst", "meaning": "地方如何在社会承受能力、供水企业成本回收和节水目标之间分配压力，将决定上市水务公司的实际影响。", "evidenceLevel": "pending", "watchSignals": ["成本监审报告", "居民和非居民水价", "财政补贴"]},
+    {"id": "pn4", "relatedPolicy": "节水、再生水和供水管网降损配套项目", "relationship": "follow_up_catalyst", "meaning": "只有当水价改革进一步形成节水、再生水、高品质供水或管网改造项目时，设备与环保服务需求才可能兑现。", "evidenceLevel": "pending", "watchSignals": ["项目清单", "招标采购", "合同和回款"]}
+  ],
+  "investmentDirection": {
+    "primaryDirection": "跨区域原水结算纪律 + 受水区供水价格传导与节水效率",
+    "directionStrength": "medium",
+    "timeHorizon": "medium_term",
+    "watchIndustries": ["跨流域调水运营", "城乡供水运营", "地方供水价格改革", "管网降损和智慧水务", "再生水和高品质供水"],
+    "watchChainNodes": ["中线工程供水与收费", "受水区城镇供水价格改革", "水资源效率和节水服务", "水处理与供水保障配套"],
+    "watchCompanyTypes": ["受水区城市供水运营商", "具备供水业务的综合水务上市公司", "再生水和高品质供水技术服务商", "区域水利投融资平台"],
+    "watchCompanies": ["首创环保", "天津创业环保股份", "碧水源", "北控水务集团"],
+    "nearTermCatalysts": ["2026年6月1日后实际水费结算", "四省市城镇供水价格改革文件", "地方成本监审和价格听证", "供水企业调价或特许经营协议调整", "再生水和供水管网降损项目"],
+    "keyRisks": ["口门供水价格不是居民或工商终端水价", "上市公司均未被政策点名", "污水处理和再生水价格机制与原水供水不同", "地方水价改革受社会承受能力和财政安排约束", "项目改造存在资本开支、验收和回款风险"],
+    "minimumEvidenceNeeded": ["四省市终端供水价格文件", "具体供水企业原水成本和调价安排", "中线水费结算与实际取水量", "上市公司受水区项目清单及业务占比", "节水、再生水和管网改造合同"],
+    "doNotOverread": ["北京和天津口门价格较高不等于终端水价立即上涨", "水价核定不等于南水北调集团利润保证", "综合水务公司业务存在不等于直接承接中线原水", "促进节约用水不等于形成指定技术采购", "公司排序只用于研究排队，不构成交易结论"],
+    "summary": "政策最确定的影响是南水北调中线工程的收费依据、成本约束和受水区支付责任；上市公司影响需要经过地方水价、供水合同和项目区域三重验证。首创环保因披露供水业务和河北、河南项目可作为较直接的上市观察对象，天津创业环保和碧水源分别对应区域再生水与高品质供水的二级传导，北控水务暂仅保留待验证。"
   },
   "actions": [
     {
       "id": "a1",
       "title": "延续中线工程分区段供水价格",
+      "actionType": "价格机制",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "各供用水单位需自2026年6月1日起按附件区段价格执行和结算。",
       "body": "政策将中线工程水价继续按区段制定，附件明确各区段基本水价和计量水价。价格差异体现跨区域调水工程的距离、成本和受水区差异，给水费结算提供统一依据。",
       "signal": "constraint",
       "confidence": 93,
-      "clauseIds": [
-        "c1"
-      ],
+      "clauseIds": ["c1"],
       "sortOrder": 1
     },
     {
       "id": "a2",
       "title": "继续执行两部制水价结算",
-      "body": "基本水费按规划分配的分水口门净水量计算，计量水费按实际口门用水量计算。对供水工程而言，这提高固定资产和基础运维成本回收的稳定性；对受水区而言，即使实际取水波动，也需承担规划分配水量对应的基本水费。",
+      "actionType": "价格机制",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "需要规划分配净水量、实际口门用水量和水费结算数据持续执行。",
+      "body": "基本水费按基本水价乘以规划分配的分水口门净水量计算，计量水费按计量水价乘以实际口门用水量计算。对供水工程而言，这提高固定资产和基础运维成本回收的稳定性；对受水区而言，即使实际取水波动，也需承担规划分配水量对应的基本水费。",
       "signal": "constraint",
       "confidence": 94,
-      "clauseIds": [
-        "c2"
-      ],
+      "clauseIds": ["c2"],
       "sortOrder": 2
     },
     {
       "id": "a3",
       "title": "强化南水北调集团成本约束和经营效率",
+      "actionType": "监管约束",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "运营主体需要以成本、效率、水费回收和支出管理数据验证执行效果。",
       "body": "通知没有简单允许供水方通过涨价消化成本，而是同步要求中国南水北调集团加强成本约束、提高经营效率、加强水费支出管理。工程运营管理、预算控制和收费纪律的重要性上升。",
       "signal": "constraint",
       "confidence": 90,
-      "clauseIds": [
-        "c3"
-      ],
+      "clauseIds": ["c3"],
       "sortOrder": 3
     },
     {
       "id": "a4",
       "title": "推动受水区足额交费和城镇供水价格改革",
+      "actionType": "地方责任",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "需要四省市后续成本监审、价格听证、财政安排和供水价格文件承接。",
       "body": "受水区既要按时足额交纳水费，也要发挥水价杠杆作用、稳妥推进城镇供水价格改革。政策影响可能从工程水价传导到地方水务财政安排、居民和非居民水价结构、阶梯水价及节水激励。",
       "signal": "positive",
       "confidence": 88,
-      "clauseIds": [
-        "c4"
-      ],
+      "clauseIds": ["c4"],
       "sortOrder": 4
     },
     {
       "id": "a5",
       "title": "把节约用水作为价格改革的约束目标",
+      "actionType": "市场机制",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "节水需求是否形成项目，需要地方水价、管网降损、再生水和高品质供水安排验证。",
       "body": "通知明确将水价杠杆与促进节约用水相连，说明后续地方改革不应只做成本转嫁，还会关注用水效率、漏损控制、再生水替代和节水服务等需求。",
       "signal": "positive",
       "confidence": 84,
-      "clauseIds": [
-        "c4"
-      ],
+      "clauseIds": ["c4"],
       "sortOrder": 5
     }
   ],
@@ -245,6 +319,8 @@
       "section": "upstream",
       "relation": "direct",
       "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["水费回收", "实际取水量", "成本和经营效率"],
       "confidence": 92,
       "description": "政策直接核定南水北调中线工程各口门供水价格，并要求中国南水北调集团控成本、提效率、管好水费支出。最直接的影响对象是工程供水运营和跨区域水费结算。",
       "clauseIds": [
@@ -271,6 +347,8 @@
       "section": "midstream",
       "relation": "direct",
       "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["地方水价文件", "成本监审", "价格听证和财政安排"],
       "confidence": 88,
       "description": "北京、天津、河北、河南受水区需要按时足额交费，并稳妥推进城镇供水价格改革。水务企业是否受影响，取决于地方具体水价听证、财政补贴、成本监审和供水合同安排。",
       "clauseIds": [
@@ -298,6 +376,8 @@
       "section": "support",
       "relation": "beneficiary",
       "evidenceLevel": "indirect",
+      "industryNodeEvidenceLevel": "indirect",
+      "verificationSignals": ["管网降损项目", "再生水替代", "节水合同"],
       "confidence": 76,
       "description": "通知把水价杠杆与促进节约用水联系起来。节水服务、智慧水务、管网漏损治理、再生水和工业用水效率提升可能受益，但需要地方配套政策和项目预算验证。",
       "clauseIds": [
@@ -321,6 +401,8 @@
       "section": "downstream",
       "relation": "indirect",
       "evidenceLevel": "indirect",
+      "industryNodeEvidenceLevel": "indirect",
+      "verificationSignals": ["高品质供水项目", "供水处理提标", "地方采购和合同"],
       "confidence": 70,
       "description": "水价改革可能提升地方对供水质量、再生水替代和水处理效率的重视，但该通知本身不是水处理采购或工程建设文件，对水处理公司只能形成间接观察意义。",
       "clauseIds": [
@@ -378,7 +460,7 @@
       "evidenceLevel": "strong",
       "confidence": 91,
       "policyRelevance": 95,
-      "evidenceCertainty": 94,
+      "evidenceCertainty": 90,
       "evidenceCount": 3,
       "products": [
         "跨流域调水",
@@ -429,7 +511,7 @@
       "confidence": 62,
       "policyRelevance": 70,
       "evidenceCertainty": 56,
-      "evidenceCount": 2,
+      "evidenceCount": 0,
       "products": [
         "城镇供水",
         "污水处理",
@@ -444,10 +526,7 @@
         "c4",
         "c5"
       ],
-      "evidenceIds": [
-        "e3",
-        "e5"
-      ],
+      "evidenceIds": [],
       "reason": "政策要求受水区推进城镇供水价格改革并促进节约用水，水务运营企业可能受到地方水价、特许经营和成本传导机制影响。",
       "uncertainty": "通知未列明任何城市水务企业，是否影响公司需看其项目所在区域、合同模式和地方水价改革落地。",
       "opportunity": "若地方改革强化成本监审、节水和漏损控制，水务运营和智慧水务能力可能更受重视。",
@@ -478,7 +557,7 @@
       "confidence": 60,
       "policyRelevance": 68,
       "evidenceCertainty": 54,
-      "evidenceCount": 2,
+      "evidenceCount": 1,
       "products": [
         "供水和污水运营",
         "水环境治理",
@@ -494,8 +573,7 @@
         "c5"
       ],
       "evidenceIds": [
-        "e3",
-        "e5"
+        "e7"
       ],
       "reason": "作为水务环保运营类公司，可作为受水区城镇供水价格改革和水资源效率提升的代表性观察对象，但政策没有给出项目或订单。",
       "uncertainty": "水价改革对公司项目的具体影响取决于项目合同、水价听证、财政补贴和本地监管安排。",
@@ -527,7 +605,7 @@
       "confidence": 59,
       "policyRelevance": 69,
       "evidenceCertainty": 53,
-      "evidenceCount": 2,
+      "evidenceCount": 1,
       "products": [
         "污水处理",
         "再生水",
@@ -542,8 +620,7 @@
         "c5"
       ],
       "evidenceIds": [
-        "e3",
-        "e5"
+        "e8"
       ],
       "reason": "天津市被列入附件价格区段且计量水价较高，天津区域水务环保公司可作为地方水价改革和水资源效率政策传导的代表性观察对象。",
       "uncertainty": "公司并非政策对象，且主营污水处理等业务与中线口门供水价格并不等同；需要地方具体水价和项目安排验证。",
@@ -590,7 +667,7 @@
         "c4"
       ],
       "evidenceIds": [
-        "e3"
+        "e9"
       ],
       "reason": "通知强调发挥水价杠杆、促进节约用水，再生水和节水替代技术与该方向存在业务相关性。",
       "uncertainty": "该政策没有提出再生水专项投资或采购清单，公司层面影响仅为间接行业逻辑。",
@@ -610,7 +687,7 @@
       "selectionBasis": "政策未点名，按产业链环节代表性选择"
     },
     {
-      "evidenceCount": 2,
+      "evidenceCount": 0,
       "id": "co6",
       "name": "北京市自来水集团有限责任公司",
       "ticker": "未上市",
@@ -635,10 +712,7 @@
         "c4",
         "c5"
       ],
-      "evidenceIds": [
-        "e3",
-        "e5"
-      ],
+      "evidenceIds": [],
       "reason": "南水北调中线水价调整最终需要通过受水区供水体系向终端用户传导，北京市自来水集团是受水区城市供水运营的代表性非上市主体。",
       "uncertainty": "政策未点名该公司，且终端水价调整需地方价格机制和听证程序确认。",
       "entityType": "非上市水务运营企业",
@@ -648,7 +722,7 @@
       "selectionBasis": "受水区城市供水价格传导链条代表主体"
     },
     {
-      "evidenceCount": 2,
+      "evidenceCount": 0,
       "id": "co7",
       "name": "天津水务集团有限公司",
       "ticker": "未上市",
@@ -673,10 +747,7 @@
         "c4",
         "c5"
       ],
-      "evidenceIds": [
-        "e3",
-        "e5"
-      ],
+      "evidenceIds": [],
       "reason": "天津属于南水北调受水区，口门供水价格和两部制结算变化会通过地方水务体系形成成本约束和价格传导压力。",
       "uncertainty": "政策未披露天津终端执行方案，不能据此判断收入或利润变化。",
       "entityType": "非上市水务运营企业",
@@ -686,7 +757,7 @@
       "selectionBasis": "受水区地方水务集团代表主体"
     },
     {
-      "evidenceCount": 2,
+      "evidenceCount": 0,
       "id": "co8",
       "name": "河南水利投资集团有限公司",
       "ticker": "未上市",
@@ -711,10 +782,7 @@
         "c2",
         "c4"
       ],
-      "evidenceIds": [
-        "e2",
-        "e5"
-      ],
+      "evidenceIds": [],
       "reason": "河南处于南水北调中线重要受水区域，区域水利投融资和供水工程运营主体需要关注口门价格、成本监审和结算机制变化。",
       "uncertainty": "政策文本没有点名地方平台公司，实际影响取决于地方水价改革和工程运营安排。",
       "entityType": "区域水利投融资平台",
@@ -734,6 +802,8 @@
       "type": "policy_text",
       "date": "2026-05-11",
       "excerpt": "中线工程水价继续分区段制定，各区段基本水价、计量水价（含税）详见附件。",
+      "evidenceObject": "policy_action",
+      "sourceLocation": "第一条",
       "confidence": 97,
       "clauseIds": [
         "c1"
@@ -754,6 +824,8 @@
       "type": "policy_text",
       "date": "2026-05-11",
       "excerpt": "中线工程继续实行两部制水价，基本水费按基本水价乘以规划分配的分水口门净水量计算，计量水费按计量水价乘以实际口门用水量计算。",
+      "evidenceObject": "policy_action",
+      "sourceLocation": "第二条",
       "confidence": 97,
       "clauseIds": [
         "c2"
@@ -762,8 +834,7 @@
         "n1"
       ],
       "companyIds": [
-        "co1",
-        "co8"
+        "co1"
       ]
     },
     {
@@ -775,6 +846,8 @@
       "type": "policy_text",
       "date": "2026-05-11",
       "excerpt": "中国南水北调集团要加强成本约束，提高经营效率，加强水费支出管理。受水区要按时足额交纳水费，同时积极发挥水价杠杆作用，稳妥推进城镇供水价格改革，促进节约用水。",
+      "evidenceObject": "policy_action",
+      "sourceLocation": "第三条",
       "confidence": 98,
       "clauseIds": [
         "c3",
@@ -787,13 +860,7 @@
         "n4"
       ],
       "companyIds": [
-        "co1",
-        "co2",
-        "co3",
-        "co4",
-        "co5",
-        "co6",
-        "co7"
+        "co1"
       ]
     },
     {
@@ -805,6 +872,8 @@
       "type": "policy_text",
       "date": "2026-05-11",
       "excerpt": "北京市、天津市、河北省、河南省发展改革委，中国南水北调集团；本通知自2026年6月1日起执行。",
+      "evidenceObject": "policy_action",
+      "sourceLocation": "通知抬头及第四条",
       "confidence": 95,
       "clauseIds": [
         "c3"
@@ -826,6 +895,8 @@
       "type": "official_attachment",
       "date": "2026-05-11",
       "excerpt": "天津市基本水价1.04、计量水价1.12；北京市基本水价1.12、计量水价1.21，单位为元/立方米。",
+      "evidenceObject": "background",
+      "sourceLocation": "附件价格表",
       "confidence": 96,
       "clauseIds": [
         "c5"
@@ -834,14 +905,7 @@
         "n2",
         "n4"
       ],
-      "companyIds": [
-        "co2",
-        "co3",
-        "co4",
-        "co6",
-        "co7",
-        "co8"
-      ]
+      "companyIds": []
     },
     {
       "id": "e6",
@@ -852,6 +916,8 @@
       "type": "official_attachment",
       "date": "2026-05-11",
       "excerpt": "河南省南阳段基本水价0.09、计量水价0.09；河北省基本水价0.47、计量水价0.52，单位为元/立方米。",
+      "evidenceObject": "background",
+      "sourceLocation": "附件价格表",
       "confidence": 96,
       "clauseIds": [
         "c5"
@@ -860,6 +926,57 @@
         "n2"
       ],
       "companyIds": []
+    },
+    {
+      "id": "e7",
+      "title": "首创环保具备城乡供水和管网运营业务",
+      "source": "首创环保2025年年度报告",
+      "sourceUrl": "https://pdf.dfcfw.com/pdf/H2_AN202604101821124002_1.pdf",
+      "url": "https://pdf.dfcfw.com/pdf/H2_AN202604101821124002_1.pdf",
+      "type": "annual_report",
+      "date": "2026-04-11",
+      "excerpt": "公司提供城乡供水、污水处理及再生水、供排水一体化、管网运维等服务；供水水处理业务实现主营业务收入34.02亿元。",
+      "interpretation": "年报证明公司确有供水和管网运营业务，并在河北、河南等地拥有供水项目；是否承接中线原水及具体成本传导仍需项目和地方水价文件验证。",
+      "evidenceObject": "company_mapping",
+      "sourceLocation": "第10、16—17页",
+      "confidence": 94,
+      "clauseIds": ["c4"],
+      "nodeIds": ["n2", "n3", "n4"],
+      "companyIds": ["co3"]
+    },
+    {
+      "id": "e8",
+      "title": "天津创业环保以污水处理为主并覆盖供水和再生水",
+      "source": "天津创业环保2025年年度报告",
+      "sourceUrl": "https://pdf.dfcfw.com/pdf/H2_AN202603251820745626_1.pdf",
+      "url": "https://pdf.dfcfw.com/pdf/H2_AN202603251820745626_1.pdf",
+      "type": "annual_report",
+      "date": "2026-03-26",
+      "excerpt": "基础业务包括市政污水处理、供水、再生水等；报告期末供水业务规模31.5万立方米/日、再生水业务规模53万立方米/日。",
+      "interpretation": "年报确认公司在天津及全国具有供水和再生水业务，但主营仍偏污水处理，不能把中线口门原水价格直接等同其服务价格。",
+      "evidenceObject": "company_mapping",
+      "sourceLocation": "第10页",
+      "confidence": 94,
+      "clauseIds": ["c4", "c5"],
+      "nodeIds": ["n3", "n4"],
+      "companyIds": ["co4"]
+    },
+    {
+      "id": "e9",
+      "title": "碧水源覆盖再生水、高品质供水和膜技术",
+      "source": "碧水源2025年年度报告",
+      "sourceUrl": "https://pdf.dfcfw.com/pdf/H2_AN202604131821160468_1.pdf",
+      "url": "https://pdf.dfcfw.com/pdf/H2_AN202604131821160468_1.pdf",
+      "type": "annual_report",
+      "date": "2026-04-14",
+      "excerpt": "公司围绕污水资源化、高品质供水和再生水利用开展业务，智能一体化供水设备主要用于城乡集中与分散供水、地表水净化提标等场景。",
+      "interpretation": "年报证明公司具有高品质供水、再生水和水资源效率技术能力；本通知未安排相关采购，仍需等待受水区具体项目。",
+      "evidenceObject": "company_mapping",
+      "sourceLocation": "第6、41页",
+      "confidence": 94,
+      "clauseIds": ["c4"],
+      "nodeIds": ["n3", "n4"],
+      "companyIds": ["co5"]
     }
   ],
   "backgroundCards": [
@@ -925,7 +1042,7 @@
   ],
   "compareInsights": {
     "status": "manual_official_text_with_conceptual_baselines",
-    "basis": "基于国家发展改革委正文和官方PDF附件，不使用媒体评论或市场解读。",
+    "basis": "本报告未做横向对比；仅以国家发展改革委正文、官方PDF附件和公用事业价格机制作为概念基准，不使用媒体评论或市场解读。",
     "method": "将政策拆分为定价机制、价格水平、成本约束、受水区支付和价格改革五个传导环节。",
     "comparableCount": 0,
     "conceptualBaselines": [
@@ -1020,25 +1137,26 @@
     ]
   },
   "analysisCoverage": {
-    "status": "manual_complete_official_page_and_attachment",
+    "status": "manual_complete_official_page_attachment_and_company_reports",
     "textLength": 405,
     "attachmentTextLength": 238,
     "clauseCount": 5,
     "actionCount": 5,
-    "evidenceCount": 6,
+    "evidenceCount": 9,
     "industryNodeCount": 4,
     "companyCount": 8,
+    "listedCompanyMapCount": 4,
     "matchedKeywordCount": 18,
     "comparablePolicyCount": 0,
-    "companyImpactConclusion": "政策只点名中国南水北调集团这一工程运营主体；其他上市公司均为按城镇供水价格改革、节水、再生水和水处理效率链条选择的代表性观察对象，不代表被政策选定、获得补贴、形成订单或具备投资价值。",
-    "companyImpactReasoning": "强证据停留在口门供水价格、两部制结算、成本约束和受水区水价改革；上市水务公司处于地方传导和配套服务环节，因此证据等级统一降为间接。",
-    "sourceIntegrityNote": "已阅读国家发展改革委官方页面正文和页面链接的PDF附件；未采用媒体解读。",
+    "companyImpactConclusion": "政策只点名中国南水北调集团这一非上市工程运营主体。首创环保、天津创业环保、碧水源和北控水务为上市观察对象，其中前三家已用2025年报核验业务存在，北控水务仍为待验证；均不代表被政策选定、获得补贴或形成订单。",
+    "companyImpactReasoning": "强政策证据停留在口门供水价格、两部制结算、成本约束和受水区水价改革；公司业务证据由年报单独支撑。首创环保具备较直接的供水运营暴露，天津创业环保和碧水源位于再生水与高品质供水的二级传导环节。",
+    "sourceIntegrityNote": "已阅读国家发展改革委官方页面正文和PDF附件，并读取首创环保、天津创业环保、碧水源2025年年度报告；未采用媒体解读。",
     "limitations": [
       "附件列示的是中线工程口门供水价格，不是居民或工商业终端水价。",
       "地方城镇供水价格改革需要后续成本监审、听证、地方文件和执行节奏确认。",
       "除中国南水北调集团外，公司映射仅为产业链代表性观察，不构成投资建议。",
       "政策没有披露具体水量、收入影响、财政补贴或项目采购安排。",
-      "公司/主体映射已扩展至非上市企业、央国企分支机构、科研院所和平台机构；官方未点名主体仍按代表性观察对象处理，不构成投资建议。"
+      "污水处理、再生水和原水供水采用不同价格与合同机制，不能将天津区段价格直接映射为环保企业盈利变化。"
     ]
   },
   "modules": [
