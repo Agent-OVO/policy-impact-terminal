@@ -2,7 +2,24 @@
   "id": "8ffc886f-0797-4969-9a15-9afd6f3ff960",
   "analyzerVersion": "codex-manual-v1",
   "analysisMethod": "manual_reading_official_text_and_attachment",
-  "generatedAt": "2026-05-12T10:50:00+08:00",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "通知",
+  "substantivePolicyType": "人工智能伦理审查先导计划",
+  "primaryActionType": "监管治理",
+  "policySignalStrength": "high",
+  "implementationCertainty": "medium",
+  "analysisDepth": "L4",
+  "analysisDepthReason": "政策明确省份范围、必选基础底座、垂直领域、创新主体数量、伦理委员会、服务中心、专家复核、标准认证和风险监测任务；但最终城市、创新主体和服务机构名单尚未公布，公司只能做间接观察。",
+  "followUpSignals": [
+    "最终先导城市名单",
+    "城市实施方案和参与主体清单",
+    "伦理审查与服务中心承建机构",
+    "高风险AI专家复核案例",
+    "伦理标准和管理体系认证",
+    "风险监测网络和技术工具项目",
+    "期满评估及后续资金倾斜"
+  ],
+  "generatedAt": "2026-07-10T14:30:00+09:00",
   "summary": {
     "id": "8ffc886f-0797-4969-9a15-9afd6f3ff960",
     "title": "工业和信息化部办公厅关于实施人工智能科技伦理审查与服务先导计划的通知",
@@ -12,7 +29,7 @@
     "status": "published",
     "confidence": 88,
     "industryCount": 4,
-    "companyCount": 10,
+    "companyCount": 5,
     "evidenceCount": 8,
     "primarySignal": "AI伦理审查从试行制度进入重点城市落地验证",
     "category": "人工智能科技伦理治理"
@@ -48,12 +65,73 @@
       "高风险AI科技活动需要专家复核，专项行动期间至少开展3次以上复核。",
       "政策对公司影响是合规和示范双重属性，实际参与名单取决于省市后续实施方案。"
     ],
-    "methodology": "仅读取Supabase中该政策full_text，并从工信部官方原文页及其官方PDF附件补充附件模板信息；未采用媒体解读。公司仅按政策明确的地区、领域和主体类型映射为代表性受影响主体，不构成投资建议。"
+    "methodology": "读取工信部官方通知正文，并使用既有官方附件模板核验结果。公司仅按政策明确的地区、领域和主体类型映射为候选观察：AI企业属于潜在受审查主体，科研评测机构属于潜在服务类型，均未被政策点名。"
+  },
+  "policyIndustryMap": [
+    {"id": "pi1", "industry": "基础模型、数据、算法与AI平台", "policyAction": "将人工智能基础底座设为必选伦理审查领域", "impactType": "regulatory_constraint", "impactDirection": "constraint", "evidenceLevel": "strong", "policyCloseness": "direct", "reason": "每个参与城市都必须在数据、算法、模型等基础底座领域开展伦理审查，相关创新主体将承担委员会建设、风险评估和审查程序要求。", "relatedClauseIds": ["c2", "c3", "c5"], "relatedNodeIds": ["n1"], "watchSignals": ["参与主体名单", "伦理委员会登记", "高风险活动复核"]},
+    {"id": "pi2", "industry": "制造、医疗、金融、消费等行业AI应用", "policyAction": "每城选择3个以上垂直领域开展伦理审查", "impactType": "regulatory_constraint", "impactDirection": "mixed", "evidenceLevel": "strong", "policyCloseness": "direct", "reason": "行业AI应用需要接受数据使用、用户影响、场景风险和高风险活动识别等审查，同时合规能力可能成为项目准入和客户信任条件。", "relatedClauseIds": ["c2", "c3", "c5"], "relatedNodeIds": ["n2"], "watchSignals": ["城市重点领域", "企业参与清单", "行业审查案例"]},
+    {"id": "pi3", "industry": "伦理委员会、审查咨询与培训服务", "policyAction": "建设伦理委员会和审查与服务中心", "impactType": "demand_creation", "impactDirection": "positive", "evidenceLevel": "strong", "policyCloseness": "direct", "reason": "政策明确要求创新主体建设伦理委员会，并依托高校、科研、医疗和第三方机构提供审查、复核、培训和咨询服务。", "relatedClauseIds": ["c4"], "relatedNodeIds": ["n3"], "watchSignals": ["服务中心名单", "审查咨询项目", "伦理培训采购"]},
+    {"id": "pi4", "industry": "AI伦理标准、评测与管理体系认证", "policyAction": "开展专家复核并把实践经验转化为标准和认证", "impactType": "standard_constraint", "impactDirection": "mixed", "evidenceLevel": "strong", "policyCloseness": "direct", "reason": "高风险活动需专家复核，地方还要参与标准研制、验证和管理体系认证，形成合规门槛与专业服务需求。", "relatedClauseIds": ["c5"], "relatedNodeIds": ["n3"], "watchSignals": ["标准发布", "认证项目", "专家复核案例"]},
+    {"id": "pi5", "industry": "AI风险监测、治理工具与监管科技", "policyAction": "建设风险监测网络、案例库和技术工具", "impactType": "infrastructure_build", "impactDirection": "positive", "evidenceLevel": "strong", "policyCloseness": "direct", "reason": "政策要求风险信息报送、监测预警、案例库、工具方法和伦理课堂，形成持续治理和数字化监管需求。", "relatedClauseIds": ["c1", "c6"], "relatedNodeIds": ["n4"], "watchSignals": ["风险监测平台", "技术工具项目", "案例库和教材建设"]}
+  ],
+  "industryChain": [
+    {
+      "id": "chain1",
+      "chainName": "AI创新活动—伦理审查—标准认证—风险监测治理链",
+      "policyRole": "先导计划先选择城市、领域和创新主体，再通过内部委员会、外部服务中心、专家复核、标准认证和风险报送形成闭环；企业是否直接受影响取决于地方最终名单。",
+      "nodes": [
+        {"id": "n1", "policySensitivity": "high", "description": "数据、算法和模型属于每个城市必选领域，基础模型与AI平台首先承担审查程序和内部治理建设要求。"},
+        {"id": "n2", "policySensitivity": "high", "description": "制造、医疗、金融、消费等垂直AI应用需按地方选择的重点领域进入场景化伦理审查。"},
+        {"id": "n3", "policySensitivity": "high", "description": "伦理委员会、服务中心、专家复核、培训咨询、标准验证和认证构成专业服务供给。"},
+        {"id": "n4", "policySensitivity": "medium", "description": "风险线索、突发事件、案例库和监测预警形成持续治理网络与工具需求。"}
+      ],
+      "edges": [
+        {"from": "n1", "to": "n3", "relation": "compliance_flow", "description": "基础模型和平台被纳入试点后，需要内部委员会或外部服务中心完成审查与复核。"},
+        {"from": "n2", "to": "n3", "relation": "compliance_flow", "description": "行业AI应用的场景风险需要伦理审查、专家复核和标准认证支撑。"},
+        {"from": "n3", "to": "n4", "relation": "data_flow", "description": "审查和复核结果将进入风险报送、案例库和监测预警网络。"},
+        {"from": "n4", "to": "n1", "relation": "feedback_flow", "description": "风险监测和案例经验反向更新模型、算法和数据治理要求。"}
+      ]
+    }
+  ],
+  "companyMap": [
+    {"id": "cm1", "companyId": "co-baidu", "chainNodeId": "n1", "relationship": "indirect_industry", "policyEvidence": "indirect", "regulatoryRole": "constraint_exposed", "businessExposure": "北京在实施范围内，基础底座为必选领域，百度是本地模型与AI平台代表，但政策未公布参与主体名单。", "investmentUse": "作为潜在受审查AI平台观察内部伦理治理、地方入选和高风险活动复核，不视为已入选。", "watchSignals": ["北京实施方案", "参与主体名单", "伦理委员会登记"], "keyRisks": ["可能增加审查流程和合规成本", "政策未点名公司"], "doNotOverread": ["地区和龙头属性不能替代最终遴选名单"]},
+    {"id": "cm2", "companyId": "co-alibaba-cloud", "chainNodeId": "n1", "relationship": "indirect_industry", "policyEvidence": "indirect", "regulatoryRole": "constraint_exposed", "businessExposure": "浙江在实施范围内，阿里云属于数据、算法、模型和云平台代表；上市映射到阿里巴巴集团。", "investmentUse": "观察浙江先导城市和阿里云是否进入创新主体名单，并核验对集团业务的实际影响。", "watchSignals": ["浙江城市方案", "主体名单", "审查与认证进展"], "keyRisks": ["生产经营主体与上市集团存在法人层级", "合规建设不等于订单机会"], "doNotOverread": ["云平台符合领域条件不代表已被政策选中"]},
+    {"id": "cm3", "companyId": "co-tencent", "chainNodeId": "n1", "relationship": "indirect_industry", "policyEvidence": "indirect", "regulatoryRole": "constraint_exposed", "businessExposure": "广东在实施范围内，腾讯同时涉及模型平台和多类垂直AI应用，但政策未点名具体企业。", "investmentUse": "作为潜在多场景受审查主体，跟踪广东实施方案、重点领域和内部治理披露。", "watchSignals": ["广东实施方案", "重点领域清单", "企业伦理委员会"], "keyRisks": ["多场景业务增加审查复杂度", "具体入选状态未知"], "doNotOverread": ["业务覆盖广不等于获得示范或资金支持"]},
+    {"id": "cm4", "companyId": "co-sensetime", "chainNodeId": "n2", "relationship": "indirect_industry", "policyEvidence": "indirect", "regulatoryRole": "constraint_exposed", "businessExposure": "上海在实施范围内，商汤覆盖生成式AI和行业应用，属于潜在垂直领域创新主体。", "investmentUse": "观察上海最终城市方案、行业选择和商汤是否参与审查实践。", "watchSignals": ["上海实施方案", "参与企业名单", "生成式AI审查案例"], "keyRisks": ["伦理审查可能增加产品上线流程", "未获政策直接点名"], "doNotOverread": ["地域和业务相关性不等于确定入选"]},
+    {"id": "cm5", "companyId": "co-hikvision", "chainNodeId": "n2", "relationship": "indirect_industry", "policyEvidence": "indirect", "regulatoryRole": "constraint_exposed", "businessExposure": "浙江在实施范围内，海康威视的智能物联和行业AI应用符合制造、科技、消费等场景类型。", "investmentUse": "作为行业AI应用合规观察对象，等待城市领域选择和企业参与清单。", "watchSignals": ["浙江重点领域", "参与主体名单", "行业AI伦理案例"], "keyRisks": ["场景风险和数据治理要求提升", "政策未点名公司"], "doNotOverread": ["行业AI业务不能替代试点名单证据"]},
+    {"id": "cm6", "companyId": "co-huawei", "chainNodeId": "n1", "relationship": "indirect_industry", "policyEvidence": "indirect", "regulatoryRole": "constraint_exposed", "businessExposure": "广东在实施范围内，华为属于AI基础设施、模型和政企应用代表，但为非上市主体。", "investmentUse": "作为非上市基础底座主体观察伦理审查制度对产业链的影响，不作为直接交易标的。", "watchSignals": ["广东参与名单", "内部伦理治理", "标准验证"], "keyRisks": ["非上市主体", "具体参与状态未知"], "doNotOverread": ["产业代表性不代表已承担先导任务"]},
+    {"id": "cm7", "companyId": "co-zhipu", "chainNodeId": "n1", "relationship": "indirect_industry", "policyEvidence": "indirect", "regulatoryRole": "constraint_exposed", "businessExposure": "智谱位于北京并从事基础模型研发，符合基础底座和创新主体类型，但未被政策点名。", "investmentUse": "作为非上市大模型企业观察高风险活动审查和内部委员会建设要求。", "watchSignals": ["北京主体名单", "专家复核案例", "伦理委员会建设"], "keyRisks": ["审查可能增加研发和上线流程", "非上市且未确认入选"], "doNotOverread": ["大模型企业身份不是政策名单证据"]},
+    {"id": "cm8", "companyId": "co-moonshot", "chainNodeId": "n1", "relationship": "indirect_industry", "policyEvidence": "indirect", "regulatoryRole": "constraint_exposed", "businessExposure": "月之暗面位于北京并提供生成式AI服务，符合基础模型和创新主体类型。", "investmentUse": "作为非上市生成式AI主体观察伦理审查和风险报送要求。", "watchSignals": ["北京参与名单", "生成式AI审查", "风险报送案例"], "keyRisks": ["具体入选未知", "非上市主体"], "doNotOverread": ["产品知名度不代表进入先导计划"]},
+    {"id": "cm9", "companyId": "co-shlab", "chainNodeId": "n3", "relationship": "watch_only", "policyEvidence": "pending", "regulatoryRole": "compliance_provider", "businessExposure": "政策允许依托高校、科研机构和第三方机构建设服务中心，上海人工智能实验室仅作为科研服务类型样本。", "investmentUse": "用于理解审查、评测和标准服务的公共支撑主体，不作为投资标的或已获项目机构。", "watchSignals": ["服务中心名单", "标准验证任务", "审查服务项目"], "keyRisks": ["政策未点名机构", "公共服务角色难形成上市公司收入映射"], "doNotOverread": ["科研能力不等于已被指定承建服务中心"]},
+    {"id": "cm10", "companyId": "co-caict", "chainNodeId": "n3", "relationship": "watch_only", "policyEvidence": "pending", "regulatoryRole": "compliance_provider", "businessExposure": "信通院具备标准评测和治理研究能力，但通知没有指定其承担服务中心、认证或监测项目。", "investmentUse": "作为标准评测和公共治理服务类型样本，等待具体任务分工。", "watchSignals": ["标准研制名单", "评测认证项目", "风险监测网络分工"], "keyRisks": ["政策未点名", "非上市公共服务机构"], "doNotOverread": ["行业地位不能替代项目委托证据"]}
+  ],
+  "policyNetwork": [
+    {"id": "pn1", "relatedPolicy": "《人工智能科技伦理审查与服务办法（试行）》", "relationship": "upstream_guidance", "meaning": "本通知围绕实施该办法组织城市先导计划，具体审查义务和程序仍以上位办法及配套指南为基础。", "evidenceLevel": "indirect", "sourceDate": "2026-05-09", "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_353d0d2a06ab4cebbfd53f97aec4ae24.html", "watchSignals": ["办法实施细则", "风险评估指南", "高风险清单"]},
+    {"id": "pn2", "relatedPolicy": "国家人工智能产业创新应用先导区相关政策", "relationship": "prior_policy", "meaning": "先导计划优先在既有人工智能产业创新应用先导区所在省份实施，产业基础和地方治理能力影响城市遴选。", "evidenceLevel": "indirect", "sourceDate": "2026-05-09", "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_353d0d2a06ab4cebbfd53f97aec4ae24.html", "watchSignals": ["推荐城市", "地方产业基础", "治理工作基础"]},
+    {"id": "pn3", "relatedPolicy": "各省市人工智能科技伦理审查配套办法和先导计划实施方案", "relationship": "local_rollout", "meaning": "最终城市、重点领域、创新主体和服务中心均需由地方方案明确，是公司影响从行业相关转向直接触达的关键。", "evidenceLevel": "pending", "watchSignals": ["城市名单", "重点领域", "创新主体清单", "服务中心名单"]},
+    {"id": "pn4", "relatedPolicy": "先导计划总结评估、示范推广及后续政策和资金倾斜", "relationship": "follow_up_catalyst", "meaning": "2026年11月行动期满后的评估结果、典型应用和资金倾斜将检验制度是否进入常态化推广。", "evidenceLevel": "pending", "watchSignals": ["总结评估", "表扬城市", "典型示范", "后续资金安排"]}
+  ],
+  "investmentDirection": {
+    "primaryDirection": "AI伦理合规约束与审查评测、风险治理服务",
+    "directionStrength": "medium",
+    "timeHorizon": "medium_term",
+    "watchIndustries": ["基础模型与AI平台合规", "行业AI伦理审查", "伦理审查与咨询培训", "标准评测和管理体系认证", "AI风险监测与监管科技"],
+    "watchChainNodes": ["AI基础底座", "垂直行业AI应用", "伦理审查服务与标准认证", "风险监测与敏捷治理工具"],
+    "watchCompanyTypes": ["可能进入地方名单的AI平台和行业应用企业", "伦理审查与服务中心承建机构", "标准评测认证机构", "风险监测和治理工具服务商"],
+    "watchCompanies": ["百度集团", "阿里云计算有限公司", "腾讯科技（深圳）有限公司", "商汤科技", "杭州海康威视数字技术股份有限公司"],
+    "nearTermCatalysts": ["省市公布先导城市和实施方案", "创新主体和重点领域名单发布", "伦理审查服务中心和专家库建设", "高风险活动专家复核案例", "标准、认证和风险监测工具项目"],
+    "keyRisks": ["政策未公布最终城市和企业名单", "AI企业首先承担合规流程和治理成本", "审查服务可能主要由高校、科研院所和公共机构承接", "资金倾斜需要等待期满评估，当前不是直接补贴", "上市公司业务收入与伦理服务需求之间传导较弱"],
+    "minimumEvidenceNeeded": ["地方实施方案和主体清单", "公司参与先导计划或建设伦理委员会的公告", "服务中心承建和审查咨询项目", "标准研制、认证和工具采购信息", "风险监测网络的具体建设主体和预算"],
+    "doNotOverread": ["地区覆盖和龙头优先不等于公司被政策点名", "潜在受审查主体不等于政策受益企业", "科研和评测机构不等于已获得服务中心项目", "后续资金倾斜不等于当前已有财政补贴", "公司排序只用于研究排队，不构成交易结论"],
+    "summary": "该政策的核心是把AI伦理审查制度放入城市和创新主体中实测。基础模型、AI平台和行业应用企业主要承担合规约束，只有进入地方名单后才形成直接政策触达；伦理审查、培训咨询、标准认证和风险监测工具可能形成服务需求，但承接方更可能包括高校、科研院所和公共机构，上市公司机会必须等待具体项目和采购证据。"
   },
   "actions": [
     {
       "id": "a1",
       "title": "地方要建立AI伦理治理和协同审查机制",
+      "actionType": "监管治理",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "需要各省市出台配套办法、职责分工和实施方案后形成实际监管触达。",
       "body": "相关省级工信主管部门需要细化《办法》的配套制度，城市层面还要组织工信、教育、科技、文化、卫健、金融等部门形成运行管理、监督指导和协作流程。",
       "signal": "constraint",
       "confidence": 91,
@@ -66,6 +144,9 @@
     {
       "id": "a2",
       "title": "创新主体要建设伦理委员会或接入服务中心",
+      "actionType": "合规义务",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "具体义务落到哪些企业取决于地方最终创新主体名单和机构建设安排。",
       "body": "参与先导计划的企业、高校、科研机构、医疗卫生机构等，需要参照规范建立可独立工作的人工智能科技伦理委员会；暂未建立的主体要依托地方审查与服务中心开展审查。",
       "signal": "constraint",
       "confidence": 90,
@@ -79,6 +160,9 @@
     {
       "id": "a3",
       "title": "高风险AI活动进入专家复核和标准验证闭环",
+      "actionType": "标准约束",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "需要高风险活动清单、专家复核案例、标准研制和认证项目验证。",
       "body": "各省要建立专家复核程序，对清单内高风险AI科技活动及时复核，并把伦理风险评估、委员会建设等实践经验转化为标准规范和管理体系认证。",
       "signal": "constraint",
       "confidence": 89,
@@ -90,6 +174,9 @@
     {
       "id": "a4",
       "title": "风险监测、培训、工具和示范应用获得政策牵引",
+      "actionType": "基础设施建设",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "风险监测网络、技术工具和培训服务需要具体承建主体、预算和采购信息兑现。",
       "body": "先导计划要求建设风险案例库、研发工具和方法、设立全国风险监测服务网络、开设伦理课堂，并对成效显著地区在后续政策配套和资金安排上倾斜。",
       "signal": "positive",
       "confidence": 84,
@@ -262,6 +349,8 @@
       "section": "upstream",
       "relation": "direct",
       "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["城市实施方案", "创新主体清单", "伦理委员会登记"],
       "confidence": 88,
       "description": "政策把人工智能基础底座列为每个参与城市的必选领域，因此基础模型、算法平台、数据治理和智能云相关AI科技活动最可能率先纳入伦理审查实践。",
       "clauseIds": [
@@ -292,6 +381,8 @@
       "section": "downstream",
       "relation": "direct",
       "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["城市重点领域", "行业参与主体", "伦理审查案例"],
       "confidence": 83,
       "description": "参与城市必须在多个垂直应用领域开展伦理审查，行业AI产品会面对数据使用、场景风险、用户影响和高风险活动识别等合规要求。",
       "clauseIds": [
@@ -320,6 +411,8 @@
       "section": "support",
       "relation": "beneficiary",
       "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["服务中心名单", "专家复核项目", "标准和认证任务"],
       "confidence": 86,
       "description": "地方将依托高校、科研机构、医疗卫生机构和第三方专业服务机构提供审查、复核、培训、咨询服务，并推动标准研制验证和管理体系认证。",
       "clauseIds": [
@@ -346,6 +439,8 @@
       "section": "support",
       "relation": "beneficiary",
       "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["风险监测网络", "技术工具项目", "案例库和培训采购"],
       "confidence": 82,
       "description": "全国人工智能科技伦理风险监测服务网络、风险案例库和技术工具研发将带动AI安全治理、风险识别、审查流程管理和报送工具需求。",
       "clauseIds": [
@@ -662,7 +757,7 @@
       "evidenceLevel": "indirect",
       "confidence": 72,
       "policyRelevance": 78,
-      "evidenceCertainty": 62,
+      "evidenceCertainty": 60,
       "products": [
         "AI基础设施",
         "行业大模型",
@@ -857,6 +952,9 @@
       "type": "policy_text",
       "date": "2026-05-09",
       "excerpt": "验证并制定5项以上相关标准，基本建成人工智能科技伦理风险案例库，研发一批技术工具和方法。",
+      "interpretation": "政策明确标准、案例库和工具建设方向，但没有指定承建机构或形成采购订单。",
+      "evidenceObject": "policy_action",
+      "sourceLocation": "一、工作目标",
       "confidence": 94,
       "clauseIds": [
         "c1"
@@ -865,10 +963,7 @@
         "n3",
         "n4"
       ],
-      "companyIds": [
-        "co-shlab",
-        "co-caict"
-      ]
+      "companyIds": []
     },
     {
       "id": "e2",
@@ -879,6 +974,9 @@
       "type": "policy_text",
       "date": "2026-05-09",
       "excerpt": "人工智能基础底座领域（必选，如数据、算法、模型），以及制造、教育、科技、文化、医疗、金融等垂直应用领域。",
+      "interpretation": "这是行业和活动类型证据，只能证明哪些领域可能纳入审查，不能证明任何具体公司入选。",
+      "evidenceObject": "industry_node",
+      "sourceLocation": "二、实施范围（二）",
       "confidence": 94,
       "clauseIds": [
         "c2"
@@ -887,16 +985,7 @@
         "n1",
         "n2"
       ],
-      "companyIds": [
-        "co-baidu",
-        "co-alibaba-cloud",
-        "co-tencent",
-        "co-sensetime",
-        "co-hikvision",
-        "co-huawei",
-        "co-zhipu",
-        "co-moonshot"
-      ]
+      "companyIds": []
     },
     {
       "id": "e3",
@@ -907,6 +996,9 @@
       "type": "policy_text",
       "date": "2026-05-09",
       "excerpt": "每个领域选取5家左右创新主体参与，总数在20家以上。鼓励覆盖各类型的创新主体，优先选择本地区人工智能龙头企业。",
+      "interpretation": "该条规定遴选原则和数量，并未公布最终城市或创新主体名单。",
+      "evidenceObject": "background",
+      "sourceLocation": "二、实施范围（三）",
       "confidence": 95,
       "clauseIds": [
         "c3"
@@ -915,16 +1007,7 @@
         "n1",
         "n2"
       ],
-      "companyIds": [
-        "co-baidu",
-        "co-alibaba-cloud",
-        "co-tencent",
-        "co-sensetime",
-        "co-hikvision",
-        "co-huawei",
-        "co-zhipu",
-        "co-moonshot"
-      ]
+      "companyIds": []
     },
     {
       "id": "e4",
@@ -935,6 +1018,9 @@
       "type": "policy_text",
       "date": "2026-05-09",
       "excerpt": "建立本单位可独立开展工作的人工智能科技伦理委员会；依托高等学校、科研机构等提供审查、复核、培训、咨询等服务。",
+      "interpretation": "政策明确服务类型和机构类型，但没有点名上海人工智能实验室、信通院或其他具体机构。",
+      "evidenceObject": "industry_node",
+      "sourceLocation": "三、重点任务（二）",
       "confidence": 93,
       "clauseIds": [
         "c4"
@@ -942,10 +1028,7 @@
       "nodeIds": [
         "n3"
       ],
-      "companyIds": [
-        "co-shlab",
-        "co-caict"
-      ]
+      "companyIds": []
     },
     {
       "id": "e5",
@@ -956,6 +1039,9 @@
       "type": "policy_text",
       "date": "2026-05-09",
       "excerpt": "专项行动期间至少开展3次以上专家复核；及时将成熟经验转化为标准规范。",
+      "interpretation": "高风险复核和标准转化属于明确任务，但企业、专家和认证机构需等待地方分工。",
+      "evidenceObject": "policy_action",
+      "sourceLocation": "三、重点任务（三）",
       "confidence": 94,
       "clauseIds": [
         "c5"
@@ -965,16 +1051,7 @@
         "n2",
         "n3"
       ],
-      "companyIds": [
-        "co-baidu",
-        "co-alibaba-cloud",
-        "co-tencent",
-        "co-sensetime",
-        "co-hikvision",
-        "co-huawei",
-        "co-shlab",
-        "co-caict"
-      ]
+      "companyIds": []
     },
     {
       "id": "e6",
@@ -985,6 +1062,9 @@
       "type": "policy_text",
       "date": "2026-05-09",
       "excerpt": "及时报送有关风险线索与突发事件；建立人工智能科技伦理风险监测预警能力。",
+      "interpretation": "风险监测网络和工具需求具有政策依据，但当前没有供应商、平台或项目名单。",
+      "evidenceObject": "industry_node",
+      "sourceLocation": "三、重点任务（四）",
       "confidence": 92,
       "clauseIds": [
         "c6"
@@ -992,13 +1072,7 @@
       "nodeIds": [
         "n4"
       ],
-      "companyIds": [
-        "co-baidu",
-        "co-alibaba-cloud",
-        "co-tencent",
-        "co-sensetime",
-        "co-hikvision"
-      ]
+      "companyIds": []
     },
     {
       "id": "e7",
@@ -1009,6 +1083,9 @@
       "type": "policy_text",
       "date": "2026-05-09",
       "excerpt": "2026年5月20日前报送工业和信息化部；先导计划实施周期为2026年6月1日至11月30日。",
+      "interpretation": "时间窗口提高执行确定性，但不代表最终城市和企业名单已经公开。",
+      "evidenceObject": "policy_action",
+      "sourceLocation": "四、工作程序（一）",
       "confidence": 95,
       "clauseIds": [
         "c6"
@@ -1027,6 +1104,9 @@
       "type": "official_attachment",
       "date": "2026-05-09",
       "excerpt": "初步计划参与的代表性单位清单，请以清单方式列出拟参与该计划的代表性单位清单。",
+      "interpretation": "附件要求申报城市自行填写拟参与单位，说明中央附件是空白模板而非已确定名单。",
+      "evidenceObject": "background",
+      "sourceLocation": "附件实施方案模板",
       "confidence": 88,
       "clauseIds": [
         "c3"
@@ -1035,13 +1115,7 @@
         "n1",
         "n2"
       ],
-      "companyIds": [
-        "co-baidu",
-        "co-alibaba-cloud",
-        "co-tencent",
-        "co-sensetime",
-        "co-hikvision"
-      ]
+      "companyIds": []
     }
   ],
   "backgroundCards": [
@@ -1066,7 +1140,7 @@
     {
       "id": "b3",
       "title": "附件信息",
-      "body": "官方PDF附件为行动实施方案模板，要求申报城市填报已有工作基础、目标、职责分工、重点工作路径、工作计划、预期成效及拟参与代表性单位清单。",
+      "body": "官方PDF附件为行动实施方案模板，要求申报城市自行填报拟参与代表性单位清单。附件没有预填任何城市、企业或服务机构，因此不能据此建立政策点名公司。",
       "evidenceIds": [
         "e8"
       ]
@@ -1249,15 +1323,16 @@
     "evidenceCount": 8,
     "industryNodeCount": 4,
     "companyCount": 10,
+    "listedCompanyMapCount": 5,
     "matchedKeywordCount": 18,
     "comparablePolicyCount": 1,
-    "companyImpactConclusion": "政策未点名任何公司。公司页已扩展为上市平台企业、非上市大模型公司、AI基础设施企业、科研实验室和标准评测机构的代表性观察对象，用于呈现AI伦理治理先导区可能覆盖的真实主体类型。",
+    "companyImpactConclusion": "政策未点名任何公司、城市或服务机构。companies保留10个代表性主体类型，companyMap中5个上市映射仅作为潜在受审查企业观察，5个非上市企业和公共机构用于说明产业与服务角色；均不代表确定入选或获得项目。",
     "limitations": [
       "政策原文未公布具体试点城市最终名单，也未公布参与企业名单。",
-      "公司映射仅为代表性受影响主体，不代表确定入选、不代表订单、不构成投资建议。",
+      "公司映射仅为地区、领域和主体类型的间接观察，不代表确定入选、订单或资金支持。",
       "仅使用Supabase入库full_text、工信部官方原文页和官方PDF附件；未采用媒体解读。",
       "附件PDF文本层按浏览器PDF.js读取，保留主要模板要求，表格版式未做逐格复原。",
-      "公司/主体映射已扩展至非上市企业、央国企分支机构、科研院所和平台机构；官方未点名主体仍按代表性观察对象处理，不构成投资建议。"
+      "伦理审查与服务中心可能由高校、科研院所、医疗机构或第三方机构承接，上市公司收入映射较弱。"
     ]
   },
   "modules": [
