@@ -128,13 +128,16 @@ industryChain.edges 的 from/to = chainEdges 的 from/to
 
 如果报告生成 `companies`，必须同步生成 `companyMap`。
 
-`companyMap` 用于说明公司在产业链中的位置，而不是简单列公司。`companyMap` 是对既有 `companies` 的关系解释，不替代 `companies`；必须保证：
+`companyMap` 用于说明可进入投资研究的公司在产业链中的位置，而不是简单复制全部主体名单。`companies` 可以保留政策点名的完整主体事实，包括未上市企业、科研院所、分支机构和平台机构；`companyMap` 可以只选择其中适合做上市公司观察或需要重点解释的主体。必须保证：
 
 ```text
 companyMap.companyId = companies.id
 companyMap.chainNodeId 对应 industryChain.nodes/chainNodes 中的真实节点
-companyMap.relationship 与 companies.mappingLevel 不得矛盾
+companyMap.relationship 和 policyEvidence 是公司投资映射的权威关系字段
+如果 companies 已填写 mappingLevel，则不得与 companyMap.relationship 矛盾
 ```
+
+兼容期内，`companies.mappingLevel` 和 `companyMappingEvidenceLevel` 仍需填写；凡主体进入 `companyMap`，两处关系和证据等级必须一致。完整主体名单与上市公司投资映射应当分层表达，但不得在两处独立编造相互矛盾的关系事实。
 
 每条必须包含：
 

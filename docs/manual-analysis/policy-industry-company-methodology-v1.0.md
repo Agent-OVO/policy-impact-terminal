@@ -93,9 +93,11 @@
 - `industryChain.edges` 与既有 `chainEdges` 必须表达同一组传导关系；
 - `companyMap.companyId` 必须对应既有 `companies.id`；
 - `companyMap.chainNodeId` 必须对应真实产业链节点；
+- `companyMap.relationship` 与 `policyEvidence` 是投资映射的权威关系字段；
+- 如果既有 `companies` 已填写 `mappingLevel`，不得与 `companyMap.relationship` 矛盾；
 - 新旧字段不得出现产业位置、证据等级或公司关系相互矛盾的情况。
 
-既有 `chainNodes`、`chainEdges`、`companies` 暂时继续承担产业链地图和公司页面的运行兼容；五个新模块负责首屏投资观察、政策网络和关系解释。后续如迁移，应先统一前端数据源，再删除兼容字段，不能长期维护两套不同事实。
+既有 `chainNodes`、`chainEdges`、`companies` 暂时继续承担产业链地图、完整主体事实和公司页面的运行兼容；五个新模块负责首屏投资观察、政策网络和关系解释。名单型政策中，`companies` 可以保留未上市企业、科研院所、分支机构等全部官方点名主体，`companyMap` 只选择适合进入上市公司投资观察或需要重点解释的主体，不要求两者数量相等。兼容期内，`companies.mappingLevel` 与 `companyMappingEvidenceLevel` 可以作为运行镜像字段继续保留，但凡主体进入 `companyMap`，两边关系和证据等级必须一致，不得被独立编辑成两套事实。后续如迁移，应先统一前端数据源，再删除兼容字段。
 
 ## 四、核心模块一：policyIndustryMap
 

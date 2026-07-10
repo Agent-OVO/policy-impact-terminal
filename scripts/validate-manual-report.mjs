@@ -325,12 +325,15 @@ function validateMethodologyDiscipline(errors, warnings, {
     for (const [index, node] of chainNodes.entries()) {
       if (!stringField(node, "industryNodeEvidenceLevel") && !stringField(node, "industry_node_evidence_level")) issues.push(`${prefix}: chainNodes[${index}] must include industryNodeEvidenceLevel`);
     }
+    for (const [index, item] of evidence.entries()) {
+      if (!stringField(item, "evidenceObject") && !stringField(item, "evidence_object")) issues.push(`${prefix}: evidence[${index}] should include evidenceObject`);
+    }
+  }
+
+  if (isV101) {
     for (const [index, company] of companies.entries()) {
       if (!stringField(company, "companyMappingEvidenceLevel") && !stringField(company, "company_mapping_evidence_level")) issues.push(`${prefix}: companies[${index}] must include companyMappingEvidenceLevel`);
       if (!stringField(company, "mappingLevel") && !stringField(company, "mapping_level")) issues.push(`${prefix}: companies[${index}] must include mappingLevel`);
-    }
-    for (const [index, item] of evidence.entries()) {
-      if (!stringField(item, "evidenceObject") && !stringField(item, "evidence_object")) issues.push(`${prefix}: evidence[${index}] should include evidenceObject`);
     }
   }
 
@@ -364,10 +367,24 @@ function validateMethodologyDiscipline(errors, warnings, {
   for (const [index, item] of companyMap.entries()) {
     const companyId = stringField(item, "companyId") || stringField(item, "company_id");
     const chainNodeId = stringField(item, "chainNodeId") || stringField(item, "chain_node_id");
+    const relationship = stringField(item, "relationship") || stringField(item, "mappingLevel") || stringField(item, "mapping_level");
+    const policyEvidence = stringField(item, "policyEvidence") || stringField(item, "policy_evidence");
     if (!companyId || !companyIds.has(companyId)) issues.push(`${prefix}: companyMap[${index}].companyId must match an existing companies id`);
     if (!chainNodeId || !nodeIds.has(chainNodeId)) issues.push(`${prefix}: companyMap[${index}].chainNodeId must match an existing chainNodes id`);
+    if (!relationship) issues.push(`${prefix}: companyMap[${index}].relationship is required`);
+    if (!policyEvidence) issues.push(`${prefix}: companyMap[${index}].policyEvidence is required`);
     if (!stringField(item, "businessExposure") && !stringField(item, "business_exposure")) issues.push(`${prefix}: companyMap[${index}].businessExposure is required`);
     if (!stringField(item, "investmentUse") && !stringField(item, "investment_use")) issues.push(`${prefix}: companyMap[${index}].investmentUse is required`);
+
+    const sourceCompany = companies.find((company) => stringField(company, "id") === companyId);
+    const legacyMappingLevel = stringField(sourceCompany, "mappingLevel") || stringField(sourceCompany, "mapping_level");
+    const legacyPolicyEvidence = stringField(sourceCompany, "companyMappingEvidenceLevel") || stringField(sourceCompany, "company_mapping_evidence_level");
+    if (legacyMappingLevel && relationship && normalizeToken(legacyMappingLevel) !== normalizeToken(relationship)) {
+      issues.push(`${prefix}: companyMap[${index}].relationship conflicts with companies mappingLevel for '${companyId}'`);
+    }
+    if (legacyPolicyEvidence && policyEvidence && normalizeQualityEvidenceLevel(legacyPolicyEvidence) !== normalizeQualityEvidenceLevel(policyEvidence)) {
+      issues.push(`${prefix}: companyMap[${index}].policyEvidence conflicts with companies companyMappingEvidenceLevel for '${companyId}'`);
+    }
   }
 
   for (const [index, item] of policyNetwork.entries()) {
