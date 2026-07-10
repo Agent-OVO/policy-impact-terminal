@@ -78,13 +78,17 @@ async function testMapperDerivation(compactFile) {
     logLevel: "silent"
   });
 
-  const { mapPolicyReport } = await import(`${pathToFileURL(bundleFile).href}?test=${Date.now()}`);
-  const mapped = mapPolicyReport(readJson(compactFile));
+  const { mapPolicyReport, mapPolicyReportPayloadForApp, selectAuthoritativeCompanies } = await import(`${pathToFileURL(bundleFile).href}?test=${Date.now()}`);
+  const compactPayload = readJson(compactFile);
+  const mapped = mapPolicyReport(compactPayload);
+  const appMapped = mapPolicyReportPayloadForApp(compactPayload);
   const sourceNode = mapped.chainNodes.find((item) => item.id === mapped.industryChain[0].nodes[0].id);
   const relationNode = mapped.industryChain[0].nodes[0];
   const relationCompany = mapped.companyMap[0];
   const sourceCompany = mapped.companies.find((item) => item.id === relationCompany.companyId);
   const sourceCompanyNode = mapped.chainNodes.find((item) => item.id === relationCompany.chainNodeId);
+  const authoritativeCompanies = selectAuthoritativeCompanies(mapped.companies, mapped.companyMap, mapped.chainNodes);
+  const appAuthoritativeCompanies = selectAuthoritativeCompanies(appMapped.companies, appMapped.companyMap, appMapped.chainNodes);
 
   const checks = [
     relationNode.name === sourceNode?.title,
@@ -92,7 +96,16 @@ async function testMapperDerivation(compactFile) {
     JSON.stringify(relationNode.companyIds) === JSON.stringify(sourceNode?.companyIds),
     relationCompany.company === sourceCompany?.name,
     relationCompany.ticker === sourceCompany?.ticker,
-    relationCompany.chainNode === sourceCompanyNode?.title
+    relationCompany.chainNode === sourceCompanyNode?.title,
+    mapped.summary.companyCount === mapped.companyMap.length,
+    authoritativeCompanies.length === mapped.companyMap.length,
+    JSON.stringify(authoritativeCompanies.map((item) => item.id)) === JSON.stringify(mapped.companyMap.map((item) => item.companyId)),
+    appMapped.summary.companyCount === appMapped.companyMap.length,
+    appAuthoritativeCompanies.length === appMapped.companyMap.length,
+    JSON.stringify(appAuthoritativeCompanies.map((item) => item.id)) === JSON.stringify(appMapped.companyMap.map((item) => item.companyId)),
+    appAuthoritativeCompanies[0]?.mappingLevel === appMapped.companyMap[0]?.relationship,
+    appAuthoritativeCompanies[0]?.companyMappingEvidenceLevel === appMapped.companyMap[0]?.policyEvidence,
+    appAuthoritativeCompanies[0]?.platform === appMapped.companyMap[0]?.chainNode
   ];
 
   if (checks.some((value) => !value)) {
@@ -141,6 +154,11 @@ try {
   });
   runCase("valid compact report with derived identities", compact, true);
   await testMapperDerivation(compact);
+
+  const staleCompanyCount = writeVariant("invalid-authoritative-company-count", reports.employment, (report) => {
+    report.summary.companyCount = report.companyMap.length + 1;
+  });
+  runCase("invalid stale authoritative company count", staleCompanyCount, false);
 
   const missingNode = writeVariant("invalid-missing-node-reference", reports.industry, (report) => {
     report.companyMap[0].chainNodeId = "missing-node";

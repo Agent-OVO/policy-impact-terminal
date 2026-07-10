@@ -12,6 +12,7 @@
     "manual:validate": "node scripts/validate-manual-report.mjs",
     "manual:test": "node scripts/test-manual-report-validation.mjs",
     "manual:metrics": "node scripts/report-quality-metrics.mjs",
+    "qa:production:authenticated": "node scripts/run-production-authenticated-qa.mjs",
     "security:audit": "npm audit --audit-level=high",
     "setup:production": "node scripts/configure-production.mjs",
     "preview": "vite preview --host 127.0.0.1"

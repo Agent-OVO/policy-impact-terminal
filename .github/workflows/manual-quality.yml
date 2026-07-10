@@ -8,7 +8,12 @@ on:
       - "scripts/test-manual-report-validation.mjs"
       - "scripts/report-quality-metrics.mjs"
       - "scripts/check-bundle-budget.mjs"
+      - "scripts/manage-production-qa-user.mjs"
+      - "scripts/run-production-authenticated-qa.mjs"
+      - "scripts/production-authenticated-qa.playwright.js"
+      - "src/App.tsx"
       - "src/lib/reportMappers.ts"
+      - "supabase/functions/analyze/index.ts"
       - "vite.config.ts"
       - "docs/manual-analysis/report-governance-registry-v1.0.json"
       - "package.json"
@@ -38,6 +43,12 @@ jobs:
 
       - name: Audit dependencies
         run: npm run security:audit
+
+      - name: Check production QA tooling syntax
+        run: |
+          node --check scripts/manage-production-qa-user.mjs
+          node --check scripts/run-production-authenticated-qa.mjs
+          node --check scripts/production-authenticated-qa.playwright.js
 
       - name: Validate all manual reports
         env:

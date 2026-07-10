@@ -81,6 +81,16 @@ async function validateFile(file) {
   if (companies.length < 1 && companyNoMatchReason.trim().length < 30) {
     errors.push("companies must include representative entities, or analysisCoverage must explain why no company mapping is applicable");
   }
+  if (companyMap.length > 0) {
+    const summaryCompanyCount = numberField(summary, "companyCount", "company_count");
+    const coverageCompanyCount = numberField(coverage, "companyCount", "company_count");
+    if (summaryCompanyCount !== companyMap.length) {
+      errors.push(`summary.companyCount must equal authoritative companyMap length ${companyMap.length}`);
+    }
+    if (coverageCompanyCount !== companyMap.length) {
+      errors.push(`analysisCoverage.companyCount must equal authoritative companyMap length ${companyMap.length}`);
+    }
+  }
 
   requireTextItems(errors, actions, "actions", ["title", "body", "description"], ["title"]);
   requireTextItems(errors, clauses, "clauses", ["title", "excerpt", "body", "summary"], ["id"]);

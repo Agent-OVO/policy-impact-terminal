@@ -12,7 +12,7 @@
   "implementationCertainty": "medium",
   "analysisDepth": "L3",
   "analysisDepthReason": "风险监测、指挥通信和装备能力方向明确，但地方项目库、预算和采购尚未形成，适合方向化迁移。",
-  "summary": {"id": "95eae56e-f1d2-4312-8437-b6cab8b7019f", "title": "国务院关于印发《现代化应急体系建设“十五五”规划》的通知", "issuer": "国务院", "source": "中国政府网 - 最新政策", "publishDate": "2026-06-08", "status": "published", "confidence": 91, "industryCount": 4, "companyCount": 5, "evidenceCount": 5, "primarySignal": "应急体系建设从灾后处置转向风险监测、预警指挥、基层能力、应急装备和数字化平台的全链条现代化", "category": "应急管理与安全韧性"},
+  "summary": {"id": "95eae56e-f1d2-4312-8437-b6cab8b7019f", "title": "国务院关于印发《现代化应急体系建设“十五五”规划》的通知", "issuer": "国务院", "source": "中国政府网 - 最新政策", "publishDate": "2026-06-08", "status": "published", "confidence": 91, "industryCount": 4, "companyCount": 4, "evidenceCount": 5, "primarySignal": "应急体系建设从灾后处置转向风险监测、预警指挥、基层能力、应急装备和数字化平台的全链条现代化", "category": "应急管理与安全韧性"},
   "policy": {"title": "国务院关于印发《现代化应急体系建设“十五五”规划》的通知", "status": "已发布", "issuer": "国务院", "publishDate": "2026-06-08", "effectiveDate": "2026-06-08", "source": "中国政府网 - 最新政策", "category": "应急管理与安全韧性", "level": "国务院规划", "confidence": 91, "sourceUrl": "https://www.gov.cn/zhengce/content/202606/content_7071451.htm", "scope": "国家和地方应急管理体系、灾害事故风险防控、监测预警、指挥救援、基层应急、应急装备和应急产业", "impactScope": "监测预警平台、应急通信、指挥调度、消防救援装备、城市生命线安全、基层应急能力和安全韧性基础设施", "jurisdiction": "中国", "tags": ["现代化应急体系", "十五五", "监测预警", "应急指挥", "应急装备", "城市安全", "基层应急"]},
   "brief": {"judgement": "这份规划的核心不是单纯增加救援装备，而是把应急体系从事后救援推向风险识别、实时监测、精准预警、统一指挥、基层响应和装备保障的全链条现代化。产业影响主要落在应急通信、监测预警、城市生命线安全、应急指挥平台、消防救援装备和基层应急能力建设，但具体公司影响仍需地方项目库、预算安排和招投标公告验证。", "summary": "规划围绕灾害事故风险防控、监测预警、应急指挥、救援力量、基层基础和应急产业展开。前端展示上最有价值的链条是“风险源监测—预警研判—指挥调度—救援装备—基层处置”。该政策既对应公共安全数字化，也对应装备和基础设施补短板。", "keyPoints": ["应急体系建设强调风险防控前移，不只是灾后救援。", "监测预警、指挥平台和通信保障是数字化主线。", "基层应急能力和城市安全韧性会推动地方项目化建设。", "应急装备和消防救援装备具备明确产业链映射，但不等于点名受益。"], "methodology": "基于中国政府网政策正文，按应急体系关键能力拆分为监测预警、指挥通信、救援装备和基层治理节点；公司映射仅做代表性产业链观察。"},
   "policyIndustryMap": [
@@ -77,5 +77,5 @@
   ],
   "backgroundCards": [{"id": "bg1", "title": "从事后救援转向风险防控", "body": "现代化应急体系强调风险识别、监测预警和源头治理，前端感知和平台能力的重要性提升。", "evidenceIds": ["e1", "e2"]}, {"id": "bg2", "title": "数字化中枢是指挥通信", "body": "应急指挥和通信保障决定跨部门协同效率，是系统建设的关键环节。", "evidenceIds": ["e3"]}, {"id": "bg3", "title": "装备落地依赖地方项目", "body": "救援装备和基层能力建设需要项目清单、预算和采购公告进一步验证。", "evidenceIds": ["e4", "e5"]}],
   "compareInsights": {"comparableCount": 0, "similarPolicies": [], "contrastPolicies": [], "insights": ["本报告未启用横向对比，仅基于当前规划文本完成方向化分析；后续可与城市生命线、防汛抗旱和地方应急项目对比。"], "limitations": ["政策以规划为主，不含企业名单和采购金额。", "公司影响需招投标和项目预算补证。"]},
-  "analysisCoverage": {"status": "matched", "analysisMethod": "codex-manual-v1", "evidenceCount": 5, "industryNodeCount": 4, "companyCount": 5, "companyImpactConclusion": "本政策适合映射应急平台、监测感知、通信保障和装备链条，但均为间接产业链观察。", "limitations": ["地方实施方案和财政预算决定落地速度。", "应急装备需求可能分散且周期不稳定。", "宽口径智慧城市公司映射置信度较低。"]}
+  "analysisCoverage": {"status": "matched", "analysisMethod": "codex-manual-v1", "evidenceCount": 5, "industryNodeCount": 4, "companyCount": 4, "companyImpactConclusion": "本政策适合映射应急平台、监测感知、通信保障和装备链条，但均为间接产业链观察。", "limitations": ["地方实施方案和财政预算决定落地速度。", "应急装备需求可能分散且周期不稳定。", "宽口径智慧城市公司映射置信度较低。"]}
 }

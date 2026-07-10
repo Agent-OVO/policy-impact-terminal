@@ -1038,8 +1038,10 @@ function normalizeManualReportPayload(
   const clauses = arrayField(input.clauses);
   const chainNodes = arrayField(input.chainNodes ?? input.chain_nodes);
   const companies = arrayField(input.companies);
+  const companyMap = arrayField(input.companyMap ?? input.company_map);
   const evidence = arrayField(input.evidence);
   const actions = arrayField(input.actions);
+  const authoritativeCompanyCount = companyMap.length > 0 ? companyMap.length : companies.length;
   const confidence = clampScoreValue(readRecordNumber(summaryInput, "confidence") ?? readRecordNumber(policyInput, "confidence") ?? policy.confidence ?? 80);
   const category = readRecordString(policyInput, "category") ?? policy.category ?? inferCategory(buildPolicyAnalysisText(policy));
 
@@ -1059,7 +1061,7 @@ function normalizeManualReportPayload(
       status: "published",
       confidence,
       industryCount: chainNodes.length,
-      companyCount: companies.length,
+      companyCount: authoritativeCompanyCount,
       evidenceCount: evidence.length,
       primarySignal: readRecordString(summaryInput, "primarySignal") ?? readRecordString(isRecord(input.brief) ? input.brief : null, "judgement") ?? "已完成人工智能大模型分析",
       category
@@ -1089,7 +1091,11 @@ function normalizeManualReportPayload(
     backgroundCards: arrayField(input.backgroundCards ?? input.background_cards),
     compareRows: arrayField(input.compareRows ?? input.compare_rows),
     compareInsights: isRecord(input.compareInsights) ? input.compareInsights : isRecord(input.compare_insights) ? input.compare_insights : undefined,
-    analysisCoverage: isRecord(input.analysisCoverage) ? input.analysisCoverage : isRecord(input.analysis_coverage) ? input.analysis_coverage : undefined,
+    analysisCoverage: isRecord(input.analysisCoverage)
+      ? { ...input.analysisCoverage, companyCount: authoritativeCompanyCount }
+      : isRecord(input.analysis_coverage)
+        ? { ...input.analysis_coverage, companyCount: authoritativeCompanyCount }
+        : undefined,
     modules: arrayField(input.modules).length ? arrayField(input.modules) : defaultModules(),
     topTabs: arrayField(input.topTabs ?? input.top_tabs).length ? arrayField(input.topTabs ?? input.top_tabs) : defaultTopTabs()
   };
@@ -1123,7 +1129,7 @@ async function updatePolicyManualAnalysisMetadata(
         policyReport: reportPayload,
         counts: {
           industryCount: arrayField(reportPayload.chainNodes ?? reportPayload.chain_nodes).length,
-          companyCount: arrayField(reportPayload.companies).length,
+          companyCount: arrayField(reportPayload.companyMap ?? reportPayload.company_map).length || arrayField(reportPayload.companies).length,
           evidenceCount: arrayField(reportPayload.evidence).length,
           primarySignal: readRecordString(summary, "primarySignal") ?? readRecordString(isRecord(reportPayload.brief) ? reportPayload.brief : null, "judgement") ?? "已完成人工智能大模型分析"
         }

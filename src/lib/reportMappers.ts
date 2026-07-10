@@ -69,6 +69,67 @@ import { createPolicySummary } from "../utils/reportStats";
 type JsonRecord = Record<string, unknown>;
 type AppCompanyWithLogo = AppCompany & Pick<CompanyImpact, "logoUrl" | "logoDomain">;
 
+const authoritativeRelationLabels: Record<AppCompanyMapItem["relationship"], AppCompany["relation"]> = {
+  policy_named: "直接相关",
+  direct_industry: "直接相关",
+  indirect_industry: "间接相关",
+  thematic_only: "潜在受益",
+  watch_only: "待验证"
+};
+
+const authoritativeEvidenceLabels: Record<AppCompanyMapItem["policyEvidence"], AppCompany["evidence"]> = {
+  strong: "强证据",
+  indirect: "间接证据",
+  pending: "待验证"
+};
+
+export function selectAuthoritativeCompanies(
+  companies: readonly AppCompanyWithLogo[] = [],
+  companyMap: readonly AppCompanyMapItem[] = [],
+  chainNodes: readonly Pick<AppChainNode, "id" | "section" | "title">[] = []
+): AppCompanyWithLogo[] {
+  if (companyMap.length === 0) return [...companies];
+
+  const byId = new Map(companies.map((company) => [company.id, company]));
+  const byName = new Map(companies.map((company) => [company.name.trim(), company]));
+  const byTicker = new Map(companies.map((company) => [company.ticker.trim(), company]));
+  const nodeById = new Map(chainNodes.map((node) => [node.id, node]));
+  const selected: AppCompanyWithLogo[] = [];
+  const seen = new Set<string>();
+
+  for (const mapping of companyMap) {
+    const company =
+      (mapping.companyId ? byId.get(mapping.companyId) : undefined) ??
+      (mapping.company ? byName.get(mapping.company.trim()) : undefined) ??
+      (mapping.ticker ? byTicker.get(mapping.ticker.trim()) : undefined);
+    if (!company || seen.has(company.id)) continue;
+    seen.add(company.id);
+
+    const mappedNode = mapping.chainNodeId ? nodeById.get(mapping.chainNodeId) : undefined;
+    const keyRisks = mapping.keyRisks ?? [];
+    const doNotOverread = mapping.doNotOverread ?? [];
+    selected.push({
+      ...company,
+      platform: mapping.chainNode || mappedNode?.title || company.platform,
+      section: mappedNode?.section ?? company.section,
+      relation: authoritativeRelationLabels[mapping.relationship],
+      evidence: authoritativeEvidenceLabels[mapping.policyEvidence],
+      mappingLevel: mapping.relationship,
+      regulatoryRole: mapping.regulatoryRole,
+      companyMappingEvidenceLevel: mapping.policyEvidence,
+      officialMention: mapping.relationship === "policy_named",
+      selectionBasis: "companyMap权威映射",
+      reason: mapping.investmentUse || company.reason,
+      uncertainty: [...keyRisks, ...doNotOverread].join("；") || company.uncertainty,
+      riskFactors: keyRisks.length > 0 ? keyRisks : company.riskFactors,
+      nodeIds: mapping.chainNodeId ? [mapping.chainNodeId] : company.nodeIds,
+      notInvestmentSignal: true
+    });
+  }
+
+  return selected.length > 0 ? selected : [...companies];
+}
+
 export interface AppPolicyReport {
   id: string;
   summary: PolicySummary;
@@ -997,8 +1058,8 @@ function mapIndustryChain(
 
 function mapCompanyMap(
   items: readonly JsonRecord[] = [],
-  canonicalCompanies: readonly CompanyImpact[] = [],
-  canonicalNodes: readonly IndustryNode[] = []
+  canonicalCompanies: readonly Pick<CompanyImpact, "id" | "name" | "ticker">[] = [],
+  canonicalNodes: readonly Pick<IndustryNode, "id" | "title">[] = []
 ): CompanyMapItem[] {
   const companyById = new Map(canonicalCompanies.map((company) => [company.id, company]));
   const nodeById = new Map(canonicalNodes.map((node) => [node.id, node]));
@@ -1069,7 +1130,9 @@ export function mapPolicyReport(input: PolicyReportLike): PolicyReport {
   const chainNodes = mapIndustryNodes(input.chainNodes ?? input.chain_nodes);
   const chainEdges = mapIndustryEdges(input.chainEdges ?? input.chain_edges);
   const companies = mapCompanyImpacts(input.companies);
+  const companyMap = mapCompanyMap(input.companyMap ?? input.company_map, companies, chainNodes);
   const evidence = mapEvidenceItems(input.evidence);
+  const authoritativeCompanyCount = companyMap.length > 0 ? companyMap.length : companies.length;
 
   const reportForSummary = {
     id,
@@ -1093,13 +1156,14 @@ export function mapPolicyReport(input: PolicyReportLike): PolicyReport {
     followUpSignals: toStringArray(input.followUpSignals ?? input.follow_up_signals),
     policyIndustryMap: mapPolicyIndustryMap(input.policyIndustryMap ?? input.policy_industry_map),
     industryChain: mapIndustryChain(input.industryChain ?? input.industry_chain, chainNodes),
-    companyMap: mapCompanyMap(input.companyMap ?? input.company_map, companies, chainNodes),
+    companyMap,
     policyNetwork: mapPolicyNetwork(input.policyNetwork ?? input.policy_network),
     investmentDirection: mapInvestmentDirection(input.investmentDirection ?? input.investment_direction),
     summary: {
       ...createPolicySummary(reportForSummary),
       ...input.summary,
-      id
+      id,
+      companyCount: authoritativeCompanyCount
     },
     brief,
     policy,
@@ -1301,7 +1365,13 @@ export function mapPolicyReportPayloadForApp(
   const chainNodes = mapAppChainNodes(toRecordArray(input.chainNodes ?? input.chain_nodes));
   const chainEdges = mapAppChainEdges(toRecordArray(input.chainEdges ?? input.chain_edges));
   const companies = mapAppCompanies(toRecordArray(input.companies));
+  const companyMap = mapCompanyMap(
+    toRecordArray(input.companyMap ?? input.company_map),
+    companies,
+    chainNodes
+  );
   const evidence = mapAppEvidence(toRecordArray(input.evidence));
+  const authoritativeCompanyCount = companyMap.length > 0 ? companyMap.length : companies.length;
   const backgroundCards = normalizeAppBackgroundCards(
     mapAppBackgroundCards(toRecordArray(input.backgroundCards ?? input.background_cards)),
     policy
@@ -1324,7 +1394,7 @@ export function mapPolicyReportPayloadForApp(
     status: normalizeReportStatus(firstString(context.status, summaryInput?.status)),
     confidence: policy.confidence,
     industryCount: chainNodes.length,
-    companyCount: companies.length,
+    companyCount: authoritativeCompanyCount,
     evidenceCount: evidence.length,
     primarySignal: chainNodes[0]?.title ?? "",
     category: policy.category
@@ -1343,14 +1413,15 @@ export function mapPolicyReportPayloadForApp(
     followUpSignals: toStringList(input.followUpSignals, input.follow_up_signals),
     policyIndustryMap: mapPolicyIndustryMap(toRecordArray(input.policyIndustryMap ?? input.policy_industry_map)),
     industryChain: mapIndustryChain(toRecordArray(input.industryChain ?? input.industry_chain)),
-    companyMap: mapCompanyMap(toRecordArray(input.companyMap ?? input.company_map)),
+    companyMap,
     policyNetwork: mapPolicyNetwork(toRecordArray(input.policyNetwork ?? input.policy_network)),
     investmentDirection: mapInvestmentDirection(asJsonRecord(input.investmentDirection ?? input.investment_direction)),
     summary: {
       ...fallbackSummary,
       ...readSummary(summaryInput),
       ...context.summary,
-      id
+      id,
+      companyCount: authoritativeCompanyCount
     },
     brief,
     policy,

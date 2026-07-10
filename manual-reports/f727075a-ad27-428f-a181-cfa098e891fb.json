@@ -12,7 +12,7 @@
   "implementationCertainty": "medium",
   "analysisDepth": "L3",
   "analysisDepthReason": "种业、农机、加工流通和数字农业方向明确，但地方项目、补贴、经营主体投资和农业周期决定实际兑现。",
-  "summary": {"id": "f727075a-ad27-428f-a181-cfa098e891fb", "title": "国务院关于印发《加快农业农村现代化“十五五”规划》的通知", "issuer": "国务院", "source": "中国政府网 - 最新政策", "publishDate": "2026-06-02", "status": "published", "confidence": 91, "industryCount": 5, "companyCount": 6, "evidenceCount": 5, "primarySignal": "农业农村现代化从增产稳供扩展到种业、农机装备、数字农业、农产品加工流通和乡村基础设施协同升级", "category": "农业农村现代化"},
+  "summary": {"id": "f727075a-ad27-428f-a181-cfa098e891fb", "title": "国务院关于印发《加快农业农村现代化“十五五”规划》的通知", "issuer": "国务院", "source": "中国政府网 - 最新政策", "publishDate": "2026-06-02", "status": "published", "confidence": 91, "industryCount": 5, "companyCount": 4, "evidenceCount": 5, "primarySignal": "农业农村现代化从增产稳供扩展到种业、农机装备、数字农业、农产品加工流通和乡村基础设施协同升级", "category": "农业农村现代化"},
   "policy": {"title": "国务院关于印发《加快农业农村现代化“十五五”规划》的通知", "status": "已发布", "issuer": "国务院", "publishDate": "2026-06-02", "effectiveDate": "2026-06-02", "source": "中国政府网 - 最新政策", "category": "农业农村现代化", "level": "国务院规划", "confidence": 91, "sourceUrl": "https://www.gov.cn/zhengce/content/202606/content_7070901.htm", "scope": "粮食安全、种业振兴、农业科技装备、农产品加工流通、乡村产业、农村基础设施和数字乡村", "impactScope": "种业、农机、智慧农业、农产品加工、冷链物流、农村基础设施、农业社会化服务和数字乡村平台", "jurisdiction": "中国", "tags": ["农业农村现代化", "粮食安全", "种业", "农机", "数字农业", "乡村产业", "冷链物流"]},
   "brief": {"judgement": "这份规划不是单纯农业补贴文件，而是把粮食安全、种业振兴、农业科技装备、农业社会化服务、农产品加工流通、乡村建设和数字乡村纳入农业农村现代化体系。产业影响主要集中在种业、农机装备、智慧农业、农产品加工冷链、农村基础设施和农业数字化服务，但兑现仍取决于地方项目、财政资金、农业经营主体投资能力和农产品价格周期。", "summary": "规划围绕保障粮食和重要农产品稳定安全供给、提升农业质量效益、推进乡村产业、建设宜居宜业和美乡村、健全政策保障体系展开。可产业化拆分为种业与生物育种、农机装备与设施农业、农产品加工和冷链物流、数字农业和农业社会化服务、农村基础设施建设五条主线。", "keyPoints": ["粮食安全和重要农产品供给仍是总目标。", "种业、农机和农业科技装备是农业现代化基础环节。", "农产品加工、冷链物流和乡村产业提升农业附加值。", "数字乡村、智慧农业和社会化服务提升经营效率。", "公司映射均为产业链相关性，不代表政策点名或投资建议。"], "methodology": "按农业生产、装备科技、加工流通、乡村建设和数字化服务拆分产业链；公司映射选取种业、农机、饲料养殖、农业信息化和冷链流通代表主体。"},
   "policyIndustryMap": [
@@ -84,5 +84,5 @@
   ],
   "backgroundCards": [{"id": "bg1", "title": "总目标：稳供给和现代化并重", "body": "农业农村现代化既要保障粮食安全，也要提升科技、装备、产业和治理能力。", "evidenceIds": ["e1", "e2"]}, {"id": "bg2", "title": "产业链：从种业农机到加工流通", "body": "种业、农机、加工、冷链和数字农业构成政策可拆解的产业链。", "evidenceIds": ["e2", "e3", "e4"]}, {"id": "bg3", "title": "验证点：地方项目和资金", "body": "后续需要跟踪高标准农田、农机补贴、数字乡村、农产品加工园区等项目。", "evidenceIds": ["e5"]}],
   "compareInsights": {"comparableCount": 0, "similarPolicies": [], "contrastPolicies": [], "insights": ["本报告未启用横向对比，仅基于当前规划文本完成方向化分析；后续可与种业、农机补贴和数字乡村专项政策对比。"], "limitations": ["政策未列具体公司或项目金额。", "农业产业受周期、天气、价格和补贴影响较大。"]},
-  "analysisCoverage": {"status": "matched", "analysisMethod": "codex-manual-v1", "evidenceCount": 5, "industryNodeCount": 5, "companyCount": 6, "companyImpactConclusion": "本政策适合做种业、农机、数字农业和农产品流通方向映射，但公司影响均为间接观察。", "limitations": ["农业政策兑现依赖地方资金和项目。", "农产品价格周期会影响产业链公司收益。", "部分数字农业映射置信度偏低。"]}
+  "analysisCoverage": {"status": "matched", "analysisMethod": "codex-manual-v1", "evidenceCount": 5, "industryNodeCount": 5, "companyCount": 4, "companyImpactConclusion": "本政策适合做种业、农机、数字农业和农产品流通方向映射，但公司影响均为间接观察。", "limitations": ["农业政策兑现依赖地方资金和项目。", "农产品价格周期会影响产业链公司收益。", "部分数字农业映射置信度偏低。"]}
 }

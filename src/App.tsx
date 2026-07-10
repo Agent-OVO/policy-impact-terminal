@@ -77,7 +77,7 @@ import {
   fetchAdminBehaviorList,
   fetchAdminBehaviorOverview
 } from "./lib/adminAnalytics";
-import { formatSourceTypeLabel } from "./lib/reportMappers";
+import { formatSourceTypeLabel, selectAuthoritativeCompanies } from "./lib/reportMappers";
 import {
   getPolicyReport,
   getReportRepositoryMode,
@@ -4004,11 +4004,16 @@ function ModuleContent({
   if (activeModule === "background") return <BackgroundView report={report} />;
   if (activeModule === "compare") return <CompareView report={report} />;
   if (activeModule === "companies") {
+    const authoritativeCompanies = selectAuthoritativeCompanies(
+      report?.companies ?? [],
+      report?.companyMap ?? [],
+      report?.chainNodes ?? []
+    );
     return (
       <CompaniesView
         chainNodes={report?.chainNodes ?? []}
         clauses={report?.clauses ?? []}
-        companies={report?.companies ?? []}
+        companies={authoritativeCompanies}
         evidence={report?.evidence ?? []}
         onCompanySelect={onCompanySelect}
       />
