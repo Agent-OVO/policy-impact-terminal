@@ -236,6 +236,8 @@
   "relationship": "upstream_guidance | downstream_implementation | supporting_rule | prior_policy | follow_up_catalyst | local_rollout | contrast_policy",
   "meaning": "该政策关系对投资观察有什么意义",
   "evidenceLevel": "strong | indirect | pending",
+  "sourceDate": "YYYY-MM-DD",
+  "sourceUrl": "https://官方政策来源",
   "watchSignals": []
 }
 ```
@@ -249,6 +251,8 @@
 - follow_up_catalyst：后续催化政策；
 - local_rollout：地方落地；
 - contrast_policy：对比政策。
+
+强政策关系必须能够回到官方原文，并填写 `sourceDate` 和 `sourceUrl`。如果只知道可能存在某项配套政策、行业任务或地方方案，但尚未找到官方文件，应使用 `pending`，把它放入后续催化观察，不能写成已经成立的政策关系。
 
 ## 八、核心模块五：investmentDirection
 

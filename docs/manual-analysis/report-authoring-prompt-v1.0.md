@@ -177,9 +177,13 @@ companyMap.relationship 与 companies.mappingLevel 不得矛盾
   "relationship": "upstream_guidance | downstream_implementation | supporting_rule | prior_policy | follow_up_catalyst | local_rollout | contrast_policy",
   "meaning": "该政策关系对投资观察有什么意义",
   "evidenceLevel": "strong | indirect | pending",
+  "sourceDate": "YYYY-MM-DD",
+  "sourceUrl": "https://官方来源",
   "watchSignals": []
 }
 ```
+
+其中，`evidenceLevel=strong` 时必须填写 `sourceDate` 和可直接打开的官方 `sourceUrl`。不能仅凭政策名称、媒体转述或模糊记忆建立强政策关系；尚未发布的后续政策应使用 `pending`，不得伪造来源链接。
 
 ### 九、必须生成 investmentDirection
 

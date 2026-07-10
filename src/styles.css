@@ -1650,6 +1650,18 @@ a.text-button {
   overflow-wrap: anywhere;
 }
 
+.investment-policy-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.investment-policy-list a:hover strong {
+  color: var(--blue);
+}
+
 .investment-company-list article div span,
 .investment-company-list article > em,
 .investment-policy-list article > span {
@@ -8078,11 +8090,17 @@ a.text-button {
   }
 
   .mobile-investment-signals p,
-  .mobile-investment-policy-network p {
+  .mobile-investment-policy-network p,
+  .mobile-investment-policy-network a {
     margin: 5px 0 0;
     color: var(--mobile-muted);
     font-size: 11px;
     line-height: 1.5;
+  }
+
+  .mobile-investment-policy-network a {
+    display: block;
+    text-decoration: none;
   }
 
   .mobile-brief-section-head h3 {

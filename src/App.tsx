@@ -1589,6 +1589,31 @@ function uniqueTextList(items: Array<string | undefined>, limit = 8) {
   return Array.from(new Set(items.map((item) => item?.trim()).filter((item): item is string => Boolean(item)))).slice(0, limit);
 }
 
+function selectRepresentativeCompanies(
+  watchCompanies: readonly string[],
+  companyMap: readonly CompanyMapItem[],
+  limit: number
+) {
+  const eligible = companyMap.filter((item) => !["thematic_only", "watch_only"].includes(item.relationship));
+  const selectedIds = new Set<string>();
+  const ordered = watchCompanies
+    .map((company) => eligible.find((item) => item.company === company || item.ticker === company))
+    .filter((item): item is CompanyMapItem => Boolean(item))
+    .filter((item) => {
+      if (selectedIds.has(item.id)) return false;
+      selectedIds.add(item.id);
+      return true;
+    });
+
+  for (const item of eligible) {
+    if (selectedIds.has(item.id)) continue;
+    selectedIds.add(item.id);
+    ordered.push(item);
+  }
+
+  return ordered.slice(0, limit);
+}
+
 function InvestmentObservationPanel({
   investmentDirection,
   policyIndustryMap,
@@ -1610,9 +1635,11 @@ function InvestmentObservationPanel({
     ...investmentDirection.watchCompanyTypes,
     ...investmentDirection.watchCompanies
   ]);
-  const visibleCompanies = companyMap
-    .filter((item) => !["thematic_only", "watch_only"].includes(item.relationship))
-    .slice(0, 4);
+  const visibleCompanies = selectRepresentativeCompanies(
+    investmentDirection.watchCompanies,
+    companyMap,
+    4
+  );
   const visiblePolicies = policyNetwork.slice(0, 4);
 
   return (
@@ -1699,8 +1726,15 @@ function InvestmentObservationPanel({
               <div className="investment-policy-list">
                 {visiblePolicies.map((item) => (
                   <article key={item.id}>
-                    <span>{policyNetworkRelationshipLabels[item.relationship]}</span>
-                    <strong>{item.relatedPolicy}</strong>
+                    <span>{policyNetworkRelationshipLabels[item.relationship]}{item.sourceDate ? ` · ${item.sourceDate}` : ""}</span>
+                    {item.sourceUrl ? (
+                      <a href={item.sourceUrl} target="_blank" rel="noreferrer">
+                        <strong>{item.relatedPolicy}</strong>
+                        <ExternalLink size={13} />
+                      </a>
+                    ) : (
+                      <strong>{item.relatedPolicy}</strong>
+                    )}
                     <p>{item.meaning}</p>
                   </article>
                 ))}
@@ -1729,9 +1763,11 @@ function MobileInvestmentObservation({
     ...policyIndustryMap.map((item) => item.industry),
     ...industryChain.flatMap((chain) => chain.nodes.filter((node) => node.policySensitivity === "high").map((node) => node.name))
   ], 7);
-  const representativeCompanies = companyMap
-    .filter((item) => !["thematic_only", "watch_only"].includes(item.relationship))
-    .slice(0, 3);
+  const representativeCompanies = selectRepresentativeCompanies(
+    investmentDirection.watchCompanies,
+    companyMap,
+    3
+  );
 
   return (
     <section className="mobile-brief-section mobile-investment-observation" aria-label="投资方向观察">
@@ -1767,7 +1803,13 @@ function MobileInvestmentObservation({
         <div className="mobile-investment-policy-network">
           <strong>政策网络</strong>
           {policyNetwork.slice(0, 2).map((item) => (
-            <p key={item.id}>{policyNetworkRelationshipLabels[item.relationship]}：{compactText(item.relatedPolicy, 42)}</p>
+            item.sourceUrl ? (
+              <a key={item.id} href={item.sourceUrl} target="_blank" rel="noreferrer">
+                {policyNetworkRelationshipLabels[item.relationship]}：{compactText(item.relatedPolicy, 42)}
+              </a>
+            ) : (
+              <p key={item.id}>{policyNetworkRelationshipLabels[item.relationship]}：{compactText(item.relatedPolicy, 42)}</p>
+            )
           ))}
         </div>
       )}

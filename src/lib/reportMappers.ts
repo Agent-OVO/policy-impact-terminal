@@ -507,6 +507,8 @@ const SOURCE_TYPE_LABELS: Record<string, string> = {
   news: "新闻资讯",
   media_report: "媒体报道",
   external_evidence: "外部证据",
+  annual_report: "上市公司年报",
+  company_announcement: "上市公司公告",
   industry_report: "行业报告",
   research_report: "研究报告",
   institution_report: "机构研究",
@@ -1001,6 +1003,8 @@ function mapPolicyNetwork(items: readonly JsonRecord[] = []): PolicyNetworkItem[
     relationship: normalizeNetworkRelationship(item.relationship ?? item.relation),
     meaning: firstString(item.meaning, item.reason, item.description) || "",
     evidenceLevel: normalizeEvidenceObjectLevel(item.evidenceLevel, item.evidence_level) ?? "pending",
+    sourceDate: firstString(item.sourceDate, item.source_date, item.date),
+    sourceUrl: firstString(item.sourceUrl, item.source_url, item.url),
     watchSignals: toStringList(item.watchSignals, item.watch_signals)
   }));
 }

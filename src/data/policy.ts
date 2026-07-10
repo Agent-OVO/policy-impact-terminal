@@ -116,6 +116,8 @@ export interface PolicyNetworkItem {
   relationship: "upstream_guidance" | "downstream_implementation" | "supporting_rule" | "prior_policy" | "follow_up_catalyst" | "local_rollout" | "contrast_policy";
   meaning: string;
   evidenceLevel: "strong" | "indirect" | "pending";
+  sourceDate?: string;
+  sourceUrl?: string;
   watchSignals?: string[];
 }
 

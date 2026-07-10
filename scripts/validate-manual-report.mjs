@@ -373,6 +373,13 @@ function validateMethodologyDiscipline(errors, warnings, {
   for (const [index, item] of policyNetwork.entries()) {
     if (!stringField(item, "relatedPolicy") && !stringField(item, "related_policy")) issues.push(`${prefix}: policyNetwork[${index}].relatedPolicy is required`);
     if (!stringField(item, "meaning")) issues.push(`${prefix}: policyNetwork[${index}].meaning is required`);
+
+    const evidenceLevel = normalizeQualityEvidenceLevel(stringField(item, "evidenceLevel") || stringField(item, "evidence_level"));
+    const sourceDate = stringField(item, "sourceDate") || stringField(item, "source_date");
+    const sourceUrl = stringField(item, "sourceUrl") || stringField(item, "source_url") || stringField(item, "url");
+    if (evidenceLevel === "strong" && !sourceDate) issues.push(`${prefix}: policyNetwork[${index}].sourceDate is required for strong relationships`);
+    if (evidenceLevel === "strong" && !sourceUrl) issues.push(`${prefix}: policyNetwork[${index}].sourceUrl is required for strong relationships`);
+    if (sourceUrl && !/^https?:\/\//i.test(sourceUrl)) issues.push(`${prefix}: policyNetwork[${index}].sourceUrl must be an absolute HTTP URL`);
   }
 
   if (investmentDirection) {

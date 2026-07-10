@@ -110,6 +110,8 @@
       "relationship": "upstream_guidance | downstream_implementation | supporting_rule | prior_policy | follow_up_catalyst | local_rollout | contrast_policy",
       "meaning": "该政策关系对投资观察有什么意义",
       "evidenceLevel": "strong | indirect | pending",
+      "sourceDate": "YYYY-MM-DD；strong 时必填",
+      "sourceUrl": "https://...；strong 时必须指向官方来源",
       "watchSignals": []
     }
   ],
