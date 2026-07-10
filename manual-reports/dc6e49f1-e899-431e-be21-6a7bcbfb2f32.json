@@ -1,6 +1,16 @@
 {
   "id": "dc6e49f1-e899-431e-be21-6a7bcbfb2f32",
   "policyId": "dc6e49f1-e899-431e-be21-6a7bcbfb2f32",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "manual-official-source-only",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "考核办法",
+  "substantivePolicyType": "生态环境成效考核与责任约束",
+  "primaryActionType": "考核评价与结果运用",
+  "policySignalStrength": "high",
+  "implementationCertainty": "high",
+  "analysisDepth": "L4",
+  "analysisDepthReason": "年度考核、干部评价、财政资金和数据真实性问责构成明确执行闭环，但企业需求仍通过地方任务、预算和采购间接传导。",
   "summary": {
     "id": "dc6e49f1-e899-431e-be21-6a7bcbfb2f32",
     "title": "中共中央办公厅 国务院办公厅印发《美丽中国建设成效考核办法》",
@@ -49,9 +59,46 @@
       "环境监测"
     ]
   },
+  "policyIndustryMap": [
+    {"id":"pi1","industry":"生态环境监测与数据核证","policyAction":"用年度目标、核实核证和数据真实性支撑省级考核","impactType":"regulatory_constraint","impactDirection":"positive","evidenceLevel":"strong","policyCloseness":"direct","reason":"考核需要持续、可核证且可追溯的数据，监测质控和核证能力的重要性上升。","relatedNodeIds":["monitoring-data","data-integrity"],"watchSignals":["年度指标细则","监测平台升级","第三方核证采购"]},
+    {"id":"pi2","industry":"污染治理与长期运维","policyAction":"把多介质环境质量改善和重点任务纳入年度考核","impactType":"regulatory_constraint","impactDirection":"mixed","evidenceLevel":"strong","policyCloseness":"direct","reason":"地方政府需持续改善大气、水、土壤和固废指标，治理项目更重视长期达标和运维绩效。","relatedNodeIds":["pollution-control"],"watchSignals":["地方整改任务","运营服务采购","绩效付费"]},
+    {"id":"pi3","industry":"碳MRV与绿色低碳评价","policyAction":"将绿色低碳和双碳综合评价嵌入美丽中国考核","impactType":"standard_constraint","impactDirection":"positive","evidenceLevel":"strong","policyCloseness":"direct","reason":"碳核算、报告、核证和减排成效需要与生态环境考核协同。","relatedNodeIds":["green-carbon-mrv"],"watchSignals":["碳MRV标准","地方核证项目"]},
+    {"id":"pi4","industry":"生态修复与生态质量提升","policyAction":"考核生态系统质量、保护修复和长期成效","impactType":"demand_creation","impactDirection":"mixed","evidenceLevel":"strong","policyCloseness":"direct","reason":"生态修复从一次性工程转向长期质量改善和可核证绩效。","relatedNodeIds":["ecological-restoration"],"watchSignals":["生态修复项目库","长期监测和验收"]},
+    {"id":"pi5","industry":"环保财政绩效与项目治理","policyAction":"将考核结果用于财政资金安排和责任追究","impactType":"funding_support","impactDirection":"mixed","evidenceLevel":"strong","policyCloseness":"direct","reason":"资金更可能向可证明成效的项目集中，回款和绩效考核同时增强。","relatedNodeIds":["fiscal-performance"],"watchSignals":["专项资金分配","绩效评价结果","地方预算"]}
+  ],
+  "industryChain": [{"id":"chain1","chainName":"监测核证—治理运维—生态修复—财政绩效闭环","policyRole":"年度考核通过数据、整改、财政和问责把生态环境治理转为持续绩效机制。","nodes":[
+    {"id":"monitoring-data","policySensitivity":"high","description":"监测数据是年度评分、问题核实和整改验收的基础。"},
+    {"id":"data-integrity","policySensitivity":"high","description":"数据失真追责提高质控、防篡改和过程留痕要求。"},
+    {"id":"pollution-control","policySensitivity":"high","description":"污染治理需求更偏长期达标、运营和效果付费。"},
+    {"id":"green-carbon-mrv","policySensitivity":"medium","description":"双碳评价嵌入综合考核，增加碳MRV协同需求。"},
+    {"id":"ecological-restoration","policySensitivity":"medium","description":"生态修复需要持续证明生态质量改善。"},
+    {"id":"fiscal-performance","policySensitivity":"high","description":"财政资金和项目绩效决定治理需求的兑现与回款。"}
+  ],"edges":[
+    {"from":"data-integrity","to":"monitoring-data","relation":"compliance_flow","description":"数据真实性要求约束监测和报送。"},
+    {"from":"monitoring-data","to":"pollution-control","relation":"evidence_flow","description":"监测结果触发治理、整改和运维。"},
+    {"from":"monitoring-data","to":"green-carbon-mrv","relation":"data_flow","description":"环境和碳数据支撑综合评价。"},
+    {"from":"fiscal-performance","to":"pollution-control","relation":"funding_flow","description":"财政绩效筛选治理项目。"},
+    {"from":"fiscal-performance","to":"ecological-restoration","relation":"funding_flow","description":"生态修复需以长期成效获得资金支持。"}
+  ]}],
+  "companyMap": [
+    {"id":"cm1","companyId":"fpi","chainNodeId":"monitoring-data","relationship":"direct_industry","policyEvidence":"indirect","regulatoryRole":"compliance_provider","businessExposure":"环境监测、实验室分析和数据平台","investmentUse":"作为监测核证能力样本，等待地方平台和设备采购。","watchSignals":["监测平台招标","设备更新和运维合同"],"keyRisks":["地方预算和回款压力","政策未点名公司"],"doNotOverread":["考核强化不等于设备订单立即增长"]},
+    {"id":"cm2","companyId":"sailhero","chainNodeId":"data-integrity","relationship":"direct_industry","policyEvidence":"indirect","regulatoryRole":"compliance_provider","businessExposure":"环境监测、数据质控和智慧环保","investmentUse":"观察数据真实性和监测质控需求。","watchSignals":["质控平台项目","防篡改和监测运维采购"],"keyRisks":["公司经营和项目回款风险"],"doNotOverread":["数据问责不等于指定供应商"]},
+    {"id":"cm3","companyId":"sdl","chainNodeId":"green-carbon-mrv","relationship":"direct_industry","policyEvidence":"indirect","regulatoryRole":"compliance_provider","businessExposure":"环境监测、碳监测和核算服务","investmentUse":"观察碳MRV和多介质监测协同项目。","watchSignals":["碳监测标准","核证和监测合同"],"keyRisks":["MRV商业模式和地方预算不确定"],"doNotOverread":["双碳评价不等于公司直接获得项目"]},
+    {"id":"cm4","companyId":"originwater","chainNodeId":"pollution-control","relationship":"indirect_industry","policyEvidence":"pending","regulatoryRole":"compliance_provider","businessExposure":"水处理、再生水和水环境治理","investmentUse":"仅作水环境治理和长期运营观察。","watchSignals":["地方水治理项目","运营服务合同"],"keyRisks":["政策传导链长","项目回款和资本开支压力"],"doNotOverread":["综合考核不等于新增水务订单"]},
+    {"id":"cm5","companyId":"high-energy","chainNodeId":"ecological-restoration","relationship":"indirect_industry","policyEvidence":"pending","regulatoryRole":"compliance_provider","businessExposure":"固危废治理、环境修复和运营服务","investmentUse":"观察固废、修复和长期绩效项目。","watchSignals":["固废和修复项目库","绩效付费合同"],"keyRisks":["项目收益和回款不确定"],"doNotOverread":["责任考核不等于项目落地"]},
+    {"id":"cm6","companyId":"mengcao","chainNodeId":"ecological-restoration","relationship":"indirect_industry","policyEvidence":"pending","regulatoryRole":"compliance_provider","businessExposure":"生态修复、种质资源和生态数据服务","investmentUse":"观察长期生态质量修复需求。","watchSignals":["生态修复项目","长期监测和验收"],"keyRisks":["地方财政和项目周期较长"],"doNotOverread":["生态指标不等于公司合同"]}
+  ],
+  "policyNetwork": [
+    {"id":"pn1","relatedPolicy":"美丽中国建设“十五五”规划","relationship":"upstream_guidance","meaning":"规划确定污染治理、生态修复、绿色低碳和监测现代化任务，本办法将其转化为年度考核。","evidenceLevel":"strong","sourceDate":"2026-07-03","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7074199.htm","watchSignals":["年度目标分解"]},
+    {"id":"pn2","relatedPolicy":"“十五五”碳达峰行动方案","relationship":"supporting_rule","meaning":"双碳评价和碳MRV与美丽中国综合考核形成交叉约束。","evidenceLevel":"strong","sourceDate":"2026-07-09","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7074826.htm","watchSignals":["碳核算和评价细则"]},
+    {"id":"pn3","relatedPolicy":"各省年度美丽中国建设目标、财政安排和整改方案","relationship":"local_rollout","meaning":"企业层需求必须等待地方指标、预算、项目库和采购确认。","evidenceLevel":"pending","watchSignals":["省级年度任务","专项资金","招标公告"]}
+  ],
+  "investmentDirection": {"primaryDirection":"优先观察监测质控、数据真实性和长期治理运维，生态修复与碳MRV等待地方项目验证。","directionStrength":"medium","timeHorizon":"medium_term","watchIndustries":["环境监测","智慧环保与数据质控","污染治理运维","碳MRV","生态修复"],"watchChainNodes":["生态环境监测与核证数据","数据真实性与防篡改治理","污染治理与长期运维","绿色低碳转型与碳 MRV"],"watchCompanyTypes":["监测设备与运维服务商","环境数据平台与质控服务商","长期治理运营商","碳核算核证机构"],"watchCompanies":["聚光科技","先河环保","雪迪龙"],"nearTermCatalysts":["省级年度目标分解","监测和质控平台采购","专项资金安排","整改项目库"],"keyRisks":["地方财政和回款压力","考核指标可能由现有系统承接","政策未点名公司","生态修复和治理项目周期长"],"minimumEvidenceNeeded":["地方年度任务和预算","招标与合同","项目验收和绩效付费","公司相关业务收入和回款"],"doNotOverread":["考核压力不等于上市公司订单","财政结果运用不等于直接补贴企业","政策相关性不能替代公司经营质量"],"summary":"制度确定性高于公司确定性。研究优先级应放在可核证监测、数据真实性和长期运维，具体公司关系以地方预算、采购和合同升级。"},
   "actions": [
     {
       "id": "a1",
+      "actionType": "考核评价",
+      "actionEvidenceLevel": "strong",
       "title": "建立省级年度考核闭环",
       "body": "对各省级党委和政府每年开展美丽中国建设成效考核，形成自评、核实核证、综合评价、结果反馈和问题整改的年度循环，使生态环境治理由阶段性部署转向可持续追踪。",
       "signal": "constraint",
@@ -64,6 +111,8 @@
     },
     {
       "id": "a2",
+      "actionType": "目标约束",
+      "actionEvidenceLevel": "strong",
       "title": "把多介质环境质量纳入主要目标",
       "body": "年度主要目标覆盖大气、水和海洋、土壤、固体废物污染防治和生态质量状况，要求地方用可核证数据证明环境质量改善，增强监测设备、数据平台和第三方核证需求。",
       "signal": "positive",
@@ -75,6 +124,8 @@
     },
     {
       "id": "a3",
+      "actionType": "重点任务",
+      "actionEvidenceLevel": "strong",
       "title": "强化绿色低碳、污染治理和生态系统任务",
       "body": "年度重点任务同时考核发展方式绿色低碳转型、污染治理、生态系统多样性稳定性持续性提升和生态环境安全，推动治理项目从末端治理扩展到低碳转型和生态修复组合。",
       "signal": "positive",
@@ -87,6 +138,8 @@
     },
     {
       "id": "a4",
+      "actionType": "结果运用",
+      "actionEvidenceLevel": "strong",
       "title": "将考核结果用于干部评价和财政资金分配",
       "body": "考核结果既作为领导班子和领导干部综合考核评价、奖惩任免的重要参考，也作为生态环境保护相关财政资金分配的参考依据，地方治理支出会更重视可量化绩效。",
       "signal": "constraint",
@@ -98,6 +151,8 @@
     },
     {
       "id": "a5",
+      "actionType": "数据问责",
+      "actionEvidenceLevel": "strong",
       "title": "提高数据真实性和资料完整性要求",
       "body": "对谎报瞒报、篡改数据、伪造资料等直接给出“不合格”和追责安排，倒逼监测数据留痕、质控、校准、核证和防篡改能力成为环保项目的基础条件。",
       "signal": "constraint",
@@ -322,6 +377,8 @@
   "chainNodes": [
     {
       "id": "monitoring-data",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["监测平台项目", "第三方核证采购"],
       "title": "生态环境监测与核证数据",
       "subtitle": "空气、水海洋、土壤、固废、生态质量连续监测",
       "section": "upstream",
@@ -360,6 +417,8 @@
     },
     {
       "id": "pollution-control",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["地方整改任务", "运营服务合同"],
       "title": "污染治理与长期运维",
       "subtitle": "水、大气、固废、土壤治理从工程交付转向绩效结果",
       "section": "midstream",
@@ -400,6 +459,8 @@
     },
     {
       "id": "green-carbon-mrv",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["碳MRV标准", "核证项目"],
       "title": "绿色低碳转型与碳 MRV",
       "subtitle": "碳核算、碳监测、节能降碳和减污降碳协同",
       "section": "support",
@@ -435,6 +496,8 @@
     },
     {
       "id": "ecological-restoration",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["生态修复项目库", "长期监测验收"],
       "title": "生态修复与生态质量提升",
       "subtitle": "生态系统多样性、稳定性、持续性和生态质量状况",
       "section": "downstream",
@@ -472,6 +535,8 @@
     },
     {
       "id": "fiscal-performance",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["财政资金分配", "绩效评价结果"],
       "title": "生态环保财政资金绩效管理",
       "subtitle": "资金使用绩效、结果运用和整改压力",
       "section": "support",
@@ -507,6 +572,8 @@
     },
     {
       "id": "data-integrity",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["数据质控平台", "防篡改和审计项目"],
       "title": "数据真实性与防篡改治理",
       "subtitle": "监测数据留痕、质控、第三方检测和责任追溯",
       "section": "support",
@@ -597,9 +664,9 @@
       "section": "upstream",
       "relation": "beneficiary",
       "evidenceLevel": "indirect",
-      "confidence": 76,
+      "confidence": 74,
       "policyRelevance": 82,
-      "evidenceCertainty": 66,
+      "evidenceCertainty": 60,
       "evidenceCount": 3,
       "products": [
         "环境监测仪器",
@@ -651,7 +718,7 @@
       "evidenceLevel": "indirect",
       "confidence": 74,
       "policyRelevance": 81,
-      "evidenceCertainty": 63,
+      "evidenceCertainty": 60,
       "evidenceCount": 3,
       "products": [
         "空气质量监测",
@@ -702,7 +769,7 @@
       "evidenceLevel": "indirect",
       "confidence": 72,
       "policyRelevance": 78,
-      "evidenceCertainty": 62,
+      "evidenceCertainty": 60,
       "evidenceCount": 3,
       "products": [
         "污染源在线监测",
@@ -805,7 +872,7 @@
       "evidenceLevel": "indirect",
       "confidence": 71,
       "policyRelevance": 76,
-      "evidenceCertainty": 61,
+      "evidenceCertainty": 60,
       "evidenceCount": 2,
       "products": [
         "烟气治理",
@@ -856,7 +923,7 @@
       "evidenceLevel": "indirect",
       "confidence": 73,
       "policyRelevance": 79,
-      "evidenceCertainty": 62,
+      "evidenceCertainty": 60,
       "evidenceCount": 3,
       "products": [
         "固废危废处置",
@@ -1069,6 +1136,7 @@
   "evidence": [
     {
       "id": "e1",
+      "evidenceObject": "policy_action",
       "title": "政策原文：制定目的",
       "source": "中国政府网（新华社稿）",
       "sourceUrl": "https://www.gov.cn/zhengce/202605/content_7067978.htm",
@@ -1088,6 +1156,7 @@
     },
     {
       "id": "e2",
+      "evidenceObject": "industry_node",
       "title": "政策原文：年度主要目标范围",
       "source": "中国政府网（新华社稿）",
       "sourceUrl": "https://www.gov.cn/zhengce/202605/content_7067978.htm",
@@ -1116,6 +1185,7 @@
     },
     {
       "id": "e3",
+      "evidenceObject": "industry_node",
       "title": "政策原文：年度重点任务方向",
       "source": "中国政府网（新华社稿）",
       "sourceUrl": "https://www.gov.cn/zhengce/202605/content_7067978.htm",
@@ -1144,6 +1214,7 @@
     },
     {
       "id": "e4",
+      "evidenceObject": "industry_node",
       "title": "政策原文：绿色低碳考核与双碳衔接",
       "source": "中国政府网（新华社稿）",
       "sourceUrl": "https://www.gov.cn/zhengce/202605/content_7067978.htm",
@@ -1166,6 +1237,7 @@
     },
     {
       "id": "e5",
+      "evidenceObject": "policy_action",
       "title": "政策原文：年度核实核证流程",
       "source": "中国政府网（新华社稿）",
       "sourceUrl": "https://www.gov.cn/zhengce/202605/content_7067978.htm",
@@ -1191,6 +1263,7 @@
     },
     {
       "id": "e6",
+      "evidenceObject": "policy_action",
       "title": "政策原文：结果运用和财政资金",
       "source": "中国政府网（新华社稿）",
       "sourceUrl": "https://www.gov.cn/zhengce/202605/content_7067978.htm",
@@ -1217,6 +1290,7 @@
     },
     {
       "id": "e7",
+      "evidenceObject": "policy_action",
       "title": "政策原文：数据失真失实惩戒",
       "source": "中国政府网（新华社稿）",
       "sourceUrl": "https://www.gov.cn/zhengce/202605/content_7067978.htm",
@@ -1311,7 +1385,7 @@
   ],
   "compareInsights": {
     "status": "manual_official_text_with_historical_baselines",
-    "basis": "本次人工分析仅使用该政策原文和中国政府网来源页面；比较采用历史政策参照和执行方式基准，不冒充已存具体可比报告。",
+    "basis": "本报告未启用横向对比，仅使用该政策原文和中国政府网来源页面，并采用概念基准说明执行逻辑。",
     "method": "将政策拆分为考核对象、指标体系、核实核证、结果运用、数据真实性和产业传导六类，并与生态环境督察、污染防治、双碳评价和财政绩效逻辑做概念对照。",
     "comparableCount": 0,
     "conceptualBaselines": [

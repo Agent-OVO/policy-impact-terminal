@@ -18,7 +18,15 @@ const reports = {
   catalog: path.join(root, "manual-reports", "560837e2-0eaf-4782-8c93-44751864d1a7.json"),
   ethics: path.join(root, "manual-reports", "8ffc886f-0797-4969-9a15-9afd6f3ff960.json"),
   hrAi: path.join(root, "manual-reports", "4e45255c-dc48-4526-8ca3-3f313e68780a.json"),
-  waterPrice: path.join(root, "manual-reports", "209014c2-561d-4421-a82b-b9e16f537d3f.json")
+  waterPrice: path.join(root, "manual-reports", "209014c2-561d-4421-a82b-b9e16f537d3f.json"),
+  energyAi: path.join(root, "manual-reports", "8b35e8fa-77e2-4ea8-9b9b-1672d4c162b9.json"),
+  beautyAssessment: path.join(root, "manual-reports", "dc6e49f1-e899-431e-be21-6a7bcbfb2f32.json"),
+  textileBrand: path.join(root, "manual-reports", "5ed40988-906c-463d-88b5-dd0c70003535.json"),
+  beautyPlan: path.join(root, "manual-reports", "3abd8068-084e-441f-b96b-7c849ca324f7.json"),
+  emergencyPlan: path.join(root, "manual-reports", "95eae56e-f1d2-4312-8437-b6cab8b7019f.json"),
+  agriculturePlan: path.join(root, "manual-reports", "f727075a-ad27-428f-a181-cfa098e891fb.json"),
+  carbonPeak: path.join(root, "manual-reports", "b62836d8-c4a0-46ab-981c-804bc356e09d.json"),
+  urbanRenewal: path.join(root, "manual-reports", "d18444d2-2ed2-4a2e-a5a0-051168b4bc7b.json")
 };
 
 const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "policy-report-validation-"));
@@ -102,6 +110,14 @@ try {
   runCase("valid AI ethics pilot report", reports.ethics, true);
   runCase("valid AI plus HR report", reports.hrAi, true);
   runCase("valid South-to-North water price report", reports.waterPrice, true);
+  runCase("valid energy AI report", reports.energyAi, true);
+  runCase("valid Beautiful China assessment report", reports.beautyAssessment, true);
+  runCase("valid textile brand report", reports.textileBrand, true);
+  runCase("valid Beautiful China plan report", reports.beautyPlan, true);
+  runCase("valid emergency plan report", reports.emergencyPlan, true);
+  runCase("valid agriculture plan report", reports.agriculturePlan, true);
+  runCase("valid carbon peak report", reports.carbonPeak, true);
+  runCase("valid urban renewal report", reports.urbanRenewal, true);
 
   const compact = writeVariant("valid-compact-derived-identities", reports.industry, (report) => {
     for (const chain of report.industryChain ?? []) {

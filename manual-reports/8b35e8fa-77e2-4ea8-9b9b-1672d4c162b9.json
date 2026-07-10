@@ -2,6 +2,14 @@
   "id": "8b35e8fa-77e2-4ea8-9b9b-1672d4c162b9",
   "analyzerVersion": "codex-manual-v1",
   "analysisMethod": "manual-official-text-review",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "行动方案",
+  "substantivePolicyType": "能源与人工智能双向协同建设",
+  "primaryActionType": "产业协同建设",
+  "policySignalStrength": "high",
+  "implementationCertainty": "medium",
+  "analysisDepth": "L4",
+  "analysisDepthReason": "政策任务颗粒度高，覆盖算力供能、绿电、市场交易、数据、模型和安全，但具体试点、预算、采购和合同仍需后续验证。",
   "brief": {
     "judgement": "该行动方案的核心不是单向鼓励能源行业使用AI，而是把算力用能、绿电消纳、电力市场、能源数据、专业模型和安全治理打成一条双向产业链：短期更确定的是算力设施供能、绿电交易、能源场景开放和数据治理需求，中长期取决于试点、标准、预算和能源企业真实采购节奏。",
     "summary": "政策以“能源支撑人工智能发展、人工智能赋能能源转型”为主线，29项任务覆盖算力设施能源供给、绿色低碳、算电协同、高价值场景、能源数据、能源专业模型、标准安全和资金保障。对产业链的影响会先落在电网/能源央企平台、绿色数据中心供配电、储能与电力市场服务、能源数据空间、能源AI模型和安全治理，再向设备运维、调度仿真、煤油气智能化等应用扩散。",
@@ -53,9 +61,51 @@
     "primarySignal": "算电协同与能源AI场景开放",
     "category": "行动方案"
   },
+  "policyIndustryMap": [
+    {"id":"pi1","industry":"算力能源供给与电网接入","policyAction":"统筹新能源基地、算力枢纽和配套能源系统","impactType":"infrastructure_build","impactDirection":"mixed","evidenceLevel":"strong","policyCloseness":"direct","reason":"政策直接要求能源供给与大型算力设施协同规划，电网接入、储能和供电可靠性同时形成建设需求和约束。","relatedNodeIds":["node-energy-supply"],"watchSignals":["百万千瓦级试点","接网方案","配套储能"]},
+    {"id":"pi2","industry":"绿色算力与节能降碳","policyAction":"提高绿电占比并强化能效碳效约束","impactType":"standard_constraint","impactDirection":"mixed","evidenceLevel":"strong","policyCloseness":"direct","reason":"绿电、能效、碳核算和节能审查直接影响数据中心建设门槛，也带动供配电、冷却和储能改造。","relatedNodeIds":["node-green-compute"],"watchSignals":["绿电直连细则","PUE与碳效标准","节能审查"]},
+    {"id":"pi3","industry":"电力市场与需求响应","policyAction":"推动算力负荷参与电能量、辅助服务和需求响应","impactType":"market_mechanism","impactDirection":"positive","evidenceLevel":"strong","policyCloseness":"direct","reason":"算力设施被纳入可调节负荷和市场交易资源，增加调度、负荷聚合和交易系统需求。","relatedNodeIds":["node-compute-power-market"],"watchSignals":["需求响应规则","辅助服务交易","绿色算力交易"]},
+    {"id":"pi4","industry":"能源AI场景应用","policyAction":"开放电网、发电、煤炭、油气、储能等高价值场景","impactType":"demand_creation","impactDirection":"positive","evidenceLevel":"strong","policyCloseness":"direct","reason":"文件明确场景图谱、测试验证和融合试点，项目机会取决于能源企业开放场景和采购节奏。","relatedNodeIds":["node-energy-ai-scenes"],"watchSignals":["试点名单","测试验证平台","采购公告"]},
+    {"id":"pi5","industry":"能源数据与可信数据空间","policyAction":"建设高质量数据集、可信数据空间和数据运营机制","impactType":"infrastructure_build","impactDirection":"mixed","evidenceLevel":"strong","policyCloseness":"direct","reason":"能源数据既是模型训练基础，也受到分类分级、安全审查和收益分配约束。","relatedNodeIds":["node-energy-data"],"watchSignals":["数据空间试点","数据运营主体","数据授权规则"]},
+    {"id":"pi6","industry":"能源专业模型与AI底座","policyAction":"发展专业模型、模型即服务和自主可控软硬件","impactType":"demand_creation","impactDirection":"positive","evidenceLevel":"strong","policyCloseness":"direct","reason":"政策要求通用能力与能源知识、仿真和控制系统融合，实际兑现需等待模型评测和场景合同。","relatedNodeIds":["node-energy-model-hardware"],"watchSignals":["模型评测","软硬件适配","能源智能体项目"]},
+    {"id":"pi7","industry":"能源AI安全与标准","policyAction":"建立标准体系和安全治理机制","impactType":"regulatory_constraint","impactDirection":"mixed","evidenceLevel":"strong","policyCloseness":"direct","reason":"能源属于关键基础设施，安全、可信、审计和标准认证是规模化应用前置条件。","relatedNodeIds":["node-security-standards"],"watchSignals":["标准发布","安全测评","认证项目"]}
+  ],
+  "industryChain": [{"id":"chain1","chainName":"算力—能源—数据—模型—场景双向赋能链","policyRole":"政策把算力设施纳入能源规划和电力市场，同时用数据、模型、安全和试点机制推动能源AI应用。","nodes":[
+    {"id":"node-energy-supply","policySensitivity":"high","description":"能源供给、接网和储能决定大型算力设施能否落地。"},
+    {"id":"node-green-compute","policySensitivity":"high","description":"绿电、能效和碳核算构成算力扩张的硬约束。"},
+    {"id":"node-compute-power-market","policySensitivity":"high","description":"算力负荷参与需求响应和市场交易，形成算电协同机制。"},
+    {"id":"node-energy-ai-scenes","policySensitivity":"high","description":"能源企业开放场景和测试验证平台决定AI应用商业化。"},
+    {"id":"node-energy-data","policySensitivity":"high","description":"高质量能源数据和可信流通是模型训练与调度优化基础。"},
+    {"id":"node-energy-model-hardware","policySensitivity":"medium","description":"专业模型和自主软硬件需要通过能源场景评测。"},
+    {"id":"node-security-standards","policySensitivity":"high","description":"安全标准和审计决定数据开放及模型上线边界。"}
+  ],"edges":[
+    {"from":"node-energy-supply","to":"node-green-compute","relation":"energy_flow","description":"供能方案决定绿色算力建设条件。"},
+    {"from":"node-green-compute","to":"node-compute-power-market","relation":"market_flow","description":"绿电合同和可调负荷进入电力市场。"},
+    {"from":"node-energy-data","to":"node-energy-model-hardware","relation":"data_flow","description":"数据集和数据空间支撑专业模型。"},
+    {"from":"node-energy-model-hardware","to":"node-energy-ai-scenes","relation":"application_flow","description":"模型和智能体进入具体能源场景。"},
+    {"from":"node-security-standards","to":"node-energy-data","relation":"compliance_flow","description":"安全和标准约束数据开放与模型使用。"}
+  ]}],
+  "companyMap": [
+    {"id":"cm1","companyId":"company-state-grid","chainNodeId":"node-compute-power-market","relationship":"direct_industry","policyEvidence":"indirect","regulatoryRole":"mixed","businessExposure":"电网调度、电力市场、能源数据和算电协同平台","investmentUse":"作为非上市实施主体锚点，观察试点和场景开放，不作为交易标的。","watchSignals":["试点名单","需求响应交易","数据空间建设"],"keyRisks":["政策未点名具体实施单位","投资和采购节奏不确定"],"doNotOverread":["能源央企相关不等于本方案项目已落地"]},
+    {"id":"cm2","companyId":"company-csg","chainNodeId":"node-energy-ai-scenes","relationship":"direct_industry","policyEvidence":"indirect","regulatoryRole":"mixed","businessExposure":"电网运营、数字化平台和能源AI场景","investmentUse":"作为非上市场景开放主体观察。","watchSignals":["融合试点","场景开放平台"],"keyRisks":["采购主体和预算未公布"],"doNotOverread":["业务相关不等于政策点名"]},
+    {"id":"cm3","companyId":"company-guodian-nari","chainNodeId":"node-compute-power-market","relationship":"direct_industry","policyEvidence":"indirect","regulatoryRole":"compliance_provider","businessExposure":"电网自动化、调度控制和电力市场技术","investmentUse":"观察算电协同、调度和能源AI项目，不推导确定订单。","watchSignals":["电网AI招标","调度系统合同","虚拟电厂项目"],"keyRisks":["能源央企可能自建或采用其他供应商"],"doNotOverread":["政策场景不等于公司收入"]},
+    {"id":"cm4","companyId":"company-kehua-data","chainNodeId":"node-green-compute","relationship":"direct_industry","policyEvidence":"indirect","regulatoryRole":"compliance_provider","businessExposure":"数据中心供配电、储能和绿色算力基础设施","investmentUse":"观察绿电、能效和供配电改造需求。","watchSignals":["绿色数据中心项目","储能和供配电订单"],"keyRisks":["价格竞争和项目资本开支波动"],"doNotOverread":["绿色算力政策不等于公司必然中标"]},
+    {"id":"cm5","companyId":"company-baidu-ai","chainNodeId":"node-energy-model-hardware","relationship":"indirect_industry","policyEvidence":"pending","regulatoryRole":"compliance_provider","businessExposure":"通用大模型、智能云和行业智能体能力","investmentUse":"仅作能源专业模型潜在服务商观察。","watchSignals":["能源模型合同","测试验证结果"],"keyRisks":["缺少本方案项目证据"],"doNotOverread":["通用AI能力不等于能源场景份额"]},
+    {"id":"cm6","companyId":"company-qianxin","chainNodeId":"node-security-standards","relationship":"indirect_industry","policyEvidence":"pending","regulatoryRole":"compliance_provider","businessExposure":"关键信息基础设施和数据安全服务","investmentUse":"观察能源AI安全测评和治理需求。","watchSignals":["能源安全测评","标准认证项目"],"keyRisks":["项目可能由既有能源安全体系承接"],"doNotOverread":["安全要求不等于新增采购"]},
+    {"id":"cm7","companyId":"company-alibaba-cloud","chainNodeId":"node-energy-data","relationship":"indirect_industry","policyEvidence":"pending","regulatoryRole":"compliance_provider","businessExposure":"云平台、数据治理和AI模型服务","investmentUse":"观察能源数据空间和模型平台合作。","watchSignals":["能源云合同","数据空间项目"],"keyRisks":["能源数据开放受安全限制"],"doNotOverread":["云能力不等于能源数据运营资格"]},
+    {"id":"cm8","companyId":"company-tencent-cloud","chainNodeId":"node-security-standards","relationship":"indirect_industry","policyEvidence":"pending","regulatoryRole":"compliance_provider","businessExposure":"云、AI和安全治理能力","investmentUse":"观察能源AI平台与安全服务合作。","watchSignals":["能源行业合同","安全认证"],"keyRisks":["缺少直接项目证据"],"doNotOverread":["主题相关不等于项目落地"]}
+  ],
+  "policyNetwork": [
+    {"id":"pn1","relatedPolicy":"关于推进行业高质量数据集建设行动的实施方案","relationship":"supporting_rule","meaning":"为能源高质量数据集、可信数据空间和模型训练提供通用数据制度接口。","evidenceLevel":"strong","sourceDate":"2026-06-08","sourceUrl":"https://www.nda.gov.cn/sjj/zwgk/zcfb/0608/20260608172117399715004_pc.html","watchSignals":["能源数据集试点"]},
+    {"id":"pn2","relatedPolicy":"“十五五”碳达峰行动方案","relationship":"supporting_rule","meaning":"绿电、储能、电网调节和绿色算力任务与本方案形成能源低碳政策协同。","evidenceLevel":"strong","sourceDate":"2026-07-09","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7074826.htm","watchSignals":["绿电直连","储能和虚拟电厂项目"]},
+    {"id":"pn3","relatedPolicy":"能源AI融合试点、标准和地方实施细则","relationship":"follow_up_catalyst","meaning":"具体公司关系必须等待试点名单、标准、采购和合同确认。","evidenceLevel":"pending","watchSignals":["试点名单","标准发布","采购公告"]}
+  ],
+  "investmentDirection": {"primaryDirection":"优先观察算电协同、绿色算力基础设施和能源数据治理，能源通用AI服务商保持待验证。","directionStrength":"medium","timeHorizon":"medium_term","watchIndustries":["电网自动化","绿色数据中心","储能与需求响应","能源数据空间","能源AI安全"],"watchChainNodes":["算电协同与电力市场服务","绿色算力设施与节能降碳","能源数据集、可信数据空间与数据运营","能源AI高价值场景应用"],"watchCompanyTypes":["电网和能源场景主体","电网自动化与调度服务商","绿色算力基础设施商","数据治理与安全服务商"],"watchCompanies":["国电南瑞","科华数据","奇安信"],"nearTermCatalysts":["融合试点名单","能源企业采购","绿电直连和需求响应规则","能源数据空间项目"],"keyRisks":["政策未点名企业","试点和采购周期较长","能源数据安全限制","算力投资和电力市场规则存在地区差异"],"minimumEvidenceNeeded":["试点名单","招标与合同","项目验收和收入贡献","能源模型评测结果"],"doNotOverread":["能源AI场景不等于上市公司订单","绿电要求同时是成本约束","通用云和大模型公司不自动获得能源份额"],"summary":"政策确定性集中在制度和产业链方向，首屏应优先展示电网、绿色算力和数据安全，具体公司需要试点、采购和合同证据升级。"},
   "actions": [
     {
       "id": "action-energy-supply",
+      "actionType": "基础设施建设",
+      "actionEvidenceLevel": "strong",
       "title": "把能源供给纳入算力基础设施规划",
       "body": "统筹新能源基地、国家算力枢纽、互联网骨干直联点和百万千瓦级人工智能算力设施试点，政策信号会推高算力园区前期能源接入、供电质量、储能配置和风险预警要求。",
       "signal": "positive",
@@ -67,6 +117,8 @@
     },
     {
       "id": "action-green-compute",
+      "actionType": "标准约束",
+      "actionEvidenceLevel": "strong",
       "title": "以绿电、能效和碳核算约束算力扩张",
       "body": "绿电占比、PUE/能效、余热利用、碳足迹、绿电直连和节能降碳审查成为算力设施建设的重要约束，也形成高效供配电、冷却、储能、绿证绿电和认证服务需求。",
       "signal": "constraint",
@@ -78,6 +130,8 @@
     },
     {
       "id": "action-compute-power-market",
+      "actionType": "市场机制",
+      "actionEvidenceLevel": "strong",
       "title": "推动算力负荷参与电力市场和需求响应",
       "body": "文件鼓励算力设施作为负荷侧灵活资源参与电网运行、电能量、辅助服务和需求响应交易，可能改变数据中心用电成本管理和电网调节资源组织方式。",
       "signal": "positive",
@@ -89,6 +143,8 @@
     },
     {
       "id": "action-energy-ai-scenarios",
+      "actionType": "场景开放",
+      "actionEvidenceLevel": "strong",
       "title": "开放能源高价值场景并推动规模化应用",
       "body": "政策要求形成能源AI场景图谱、开放共享平台、测试验证平台和融合试点，并列出电网、发电、煤炭、油气、新型储能、虚拟电厂、绿氢等场景，应用边界较清晰。",
       "signal": "positive",
@@ -100,6 +156,8 @@
     },
     {
       "id": "action-data-model-security",
+      "actionType": "能力底座建设",
+      "actionEvidenceLevel": "strong",
       "title": "补齐能源数据、专业模型和安全标准底座",
       "body": "高质量能源数据集、可信数据空间、能源专业大模型、自主可控软硬件、标准体系和AI安全治理共同构成落地底座，相关投入会更偏平台化、长期化和合规化。",
       "signal": "positive",
@@ -321,6 +379,8 @@
   "chainNodes": [
     {
       "id": "node-energy-supply",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["算力能源协同试点", "电网接入和配套储能项目"],
       "title": "算力能源供给与电网接入",
       "subtitle": "新能源基地、算力枢纽、供电质量、构网型储能",
       "section": "upstream",
@@ -346,6 +406,8 @@
     },
     {
       "id": "node-green-compute",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["绿色数据中心项目", "绿电直连和节能审查"],
       "title": "绿色算力设施与节能降碳",
       "subtitle": "绿电占比、PUE/能效、冷却、供电架构、碳足迹",
       "section": "upstream",
@@ -371,6 +433,8 @@
     },
     {
       "id": "node-compute-power-market",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["需求响应规则", "辅助服务和绿色算力交易"],
       "title": "算电协同与电力市场服务",
       "subtitle": "需求响应、辅助服务、绿色算力交易、跨区调度",
       "section": "midstream",
@@ -394,6 +458,8 @@
     },
     {
       "id": "node-energy-ai-scenes",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["融合试点名单", "能源企业AI采购和验收"],
       "title": "能源AI高价值场景应用",
       "subtitle": "电网、发电、煤炭、油气、储能、虚拟电厂",
       "section": "downstream",
@@ -420,6 +486,8 @@
     },
     {
       "id": "node-energy-data",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["能源数据空间试点", "数据运营授权"],
       "title": "能源数据集、可信数据空间与数据运营",
       "subtitle": "高质量数据集、分类分级、可信流通、收益分配",
       "section": "midstream",
@@ -444,6 +512,8 @@
     },
     {
       "id": "node-energy-model-hardware",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["能源模型评测", "软硬件适配和合同"],
       "title": "能源专业模型与AI软硬件底座",
       "subtitle": "行业大模型、智能体、模型即服务、自主可控",
       "section": "support",
@@ -468,6 +538,8 @@
     },
     {
       "id": "node-security-standards",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["安全标准发布", "测评认证和安全采购"],
       "title": "能源AI安全治理与标准认证",
       "subtitle": "数据安全、模型安全、应用准入、测评认证",
       "section": "support",
@@ -655,9 +727,9 @@
       "section": "downstream",
       "relation": "beneficiary",
       "evidenceLevel": "indirect",
-      "confidence": 75,
+      "confidence": 74,
       "policyRelevance": 82,
-      "evidenceCertainty": 66,
+      "evidenceCertainty": 60,
       "evidenceCount": 3,
       "products": [
         "电网调度自动化",
@@ -706,7 +778,7 @@
       "evidenceLevel": "indirect",
       "confidence": 72,
       "policyRelevance": 80,
-      "evidenceCertainty": 63,
+      "evidenceCertainty": 60,
       "evidenceCount": 3,
       "products": [
         "高性能供电架构",
@@ -755,7 +827,7 @@
       "evidenceLevel": "indirect",
       "confidence": 70,
       "policyRelevance": 78,
-      "evidenceCertainty": 62,
+      "evidenceCertainty": 60,
       "evidenceCount": 2,
       "products": [
         "数据产品",
@@ -821,7 +893,7 @@
         "evidence-energy-model",
         "evidence-energy-scenes"
       ],
-      "reason": "政策鼓励能源专业模型、模型即服务、智能体和AI技术服务商，但能源行业落地需要行业数据、场景验证和安全准入，通用AI平台是潜在参与者而非确定受益者。",
+      "reason": "政策鼓励能源专业模型、模型即服务、智能体和AI技术服务商，但能源行业落地需要行业数据、场景验证和安全准入，通用AI平台只能作为待验证的潜在参与者。",
       "uncertainty": "能源专业模型未必由通用云厂商主导，央企自研、联合体和专用模型厂商均可能竞争；公司映射不构成投资建议。",
       "opportunity": "可通过能源行业大模型、智能体和MaaS参与能源企业AI项目。",
       "riskFactors": [
@@ -850,7 +922,7 @@
       "evidenceLevel": "indirect",
       "confidence": 69,
       "policyRelevance": 76,
-      "evidenceCertainty": 61,
+      "evidenceCertainty": 60,
       "evidenceCount": 2,
       "products": [
         "数据安全",
@@ -899,7 +971,7 @@
       "evidenceLevel": "indirect",
       "confidence": 72,
       "policyRelevance": 78,
-      "evidenceCertainty": 62,
+      "evidenceCertainty": 60,
       "products": [
         "数据中心能源",
         "储能",
@@ -1092,6 +1164,7 @@
   "evidence": [
     {
       "id": "evidence-nda-release",
+      "evidenceObject": "background",
       "title": "国家数据局发布页确认政策主线和29项任务",
       "source": "国家数据局 - 政策发布",
       "sourceUrl": "https://www.nda.gov.cn/sjj/zwgk/zcfb/0508/20260508194112925527578_pc.html",
@@ -1115,6 +1188,7 @@
     },
     {
       "id": "evidence-goal",
+      "evidenceObject": "policy_action",
       "title": "总体目标提出2027和2030两个时间节点",
       "source": "国家能源局 - 原文通知",
       "sourceUrl": "https://www.nea.gov.cn/20260508/4dae97ca01d348e4871bb8654be34b3a/c.html",
@@ -1134,6 +1208,7 @@
     },
     {
       "id": "evidence-energy-supply",
+      "evidenceObject": "industry_node",
       "title": "算力布局与新能源基地、配套能源系统协同",
       "source": "国家能源局 - 原文通知",
       "sourceUrl": "https://www.nea.gov.cn/20260508/4dae97ca01d348e4871bb8654be34b3a/c.html",
@@ -1157,6 +1232,7 @@
     },
     {
       "id": "evidence-green-compute",
+      "evidenceObject": "industry_node",
       "title": "绿色算力的绿电、能效、供电架构和碳核算要求",
       "source": "国家能源局 - 原文通知",
       "sourceUrl": "https://www.nea.gov.cn/20260508/4dae97ca01d348e4871bb8654be34b3a/c.html",
@@ -1181,6 +1257,7 @@
     },
     {
       "id": "evidence-compute-power-market",
+      "evidenceObject": "industry_node",
       "title": "算力设施参与电网运行和市场交易",
       "source": "国家能源局 - 原文通知",
       "sourceUrl": "https://www.nea.gov.cn/20260508/4dae97ca01d348e4871bb8654be34b3a/c.html",
@@ -1203,6 +1280,7 @@
     },
     {
       "id": "evidence-energy-scenes",
+      "evidenceObject": "industry_node",
       "title": "能源AI场景开放、测试验证和融合试点",
       "source": "国家能源局 - 原文通知",
       "sourceUrl": "https://www.nea.gov.cn/20260508/4dae97ca01d348e4871bb8654be34b3a/c.html",
@@ -1226,6 +1304,7 @@
     },
     {
       "id": "evidence-scene-column",
+      "evidenceObject": "industry_node",
       "title": "专栏列出电网、煤炭、油气、储能和虚拟电厂等应用",
       "source": "国家能源局 - 原文通知",
       "sourceUrl": "https://www.nea.gov.cn/20260508/4dae97ca01d348e4871bb8654be34b3a/c.html",
@@ -1248,6 +1327,7 @@
     },
     {
       "id": "evidence-energy-data",
+      "evidenceObject": "industry_node",
       "title": "能源数据集、可信数据空间和数据运营主体",
       "source": "国家能源局 - 原文通知",
       "sourceUrl": "https://www.nea.gov.cn/20260508/4dae97ca01d348e4871bb8654be34b3a/c.html",
@@ -1271,6 +1351,7 @@
     },
     {
       "id": "evidence-energy-model",
+      "evidenceObject": "industry_node",
       "title": "能源专业大模型、模型即服务和自主可控软硬件",
       "source": "国家能源局 - 原文通知",
       "sourceUrl": "https://www.nea.gov.cn/20260508/4dae97ca01d348e4871bb8654be34b3a/c.html",
@@ -1294,6 +1375,7 @@
     },
     {
       "id": "evidence-security-standard",
+      "evidenceObject": "industry_node",
       "title": "能源AI标准体系和安全治理",
       "source": "国家能源局 - 原文通知",
       "sourceUrl": "https://www.nea.gov.cn/20260508/4dae97ca01d348e4871bb8654be34b3a/c.html",
@@ -1316,6 +1398,7 @@
     },
     {
       "id": "evidence-implementation",
+      "evidenceObject": "policy_action",
       "title": "能源和AI企业被定位为实施主体",
       "source": "国家能源局 - 原文通知",
       "sourceUrl": "https://www.nea.gov.cn/20260508/4dae97ca01d348e4871bb8654be34b3a/c.html",
@@ -1400,7 +1483,7 @@
   ],
   "compareInsights": {
     "status": "manual_contextual_with_energy_ai_baselines",
-    "basis": "基于官方原文中的任务结构和政策动作做文本比较，不引入市场或媒体解读。",
+    "basis": "本报告未启用横向对比，仅基于官方原文中的任务结构和概念基准比较，不引入市场或媒体解读。",
     "method": "将政策任务拆分为算力能源供给、绿色低碳、算电协同、场景开放、数据价值、模型创新、标准安全和资金组织八类，再判断产业链传导。",
     "comparableCount": 0,
     "conceptualBaselines": [
