@@ -954,21 +954,38 @@ function mapPolicyIndustryMap(items: readonly JsonRecord[] = []): PolicyIndustry
   }));
 }
 
-function mapIndustryChain(items: readonly JsonRecord[] = []): IndustryChainItem[] {
+function mapIndustryChain(
+  items: readonly JsonRecord[] = [],
+  canonicalNodes: readonly IndustryNode[] = []
+): IndustryChainItem[] {
+  const nodeById = new Map(canonicalNodes.map((node) => [node.id, node]));
+
   return items.map((item, index) => ({
     id: firstString(item.id) || `industry-chain-${index + 1}`,
     chainName: firstString(item.chainName, item.chain_name, item.name) || "",
     policyRole: firstString(item.policyRole, item.policy_role, item.description) || "",
-    nodes: toRecordArray(item.nodes).map((node, nodeIndex) => ({
-      id: firstString(node.id) || `chain-node-${index + 1}-${nodeIndex + 1}`,
-      name: firstString(node.name, node.title) || "",
-      position: normalizeAppIndustrySection(node.position ?? node.section),
-      policySensitivity: normalizeSensitivity(node.policySensitivity ?? node.policy_sensitivity),
-      evidenceLevel: normalizeEvidenceObjectLevel(node.evidenceLevel, node.evidence_level) ?? "pending",
-      description: firstString(node.description, node.body) || "",
-      companyIds: toStringList(node.companyIds, node.company_ids, node.companies),
-      watchSignals: toStringList(node.watchSignals, node.watch_signals)
-    })),
+    nodes: toRecordArray(item.nodes).map((node, nodeIndex) => {
+      const id = firstString(node.id) || `chain-node-${index + 1}-${nodeIndex + 1}`;
+      const canonical = nodeById.get(id);
+      const companyIds = toStringList(node.companyIds, node.company_ids, node.companies);
+      const watchSignals = toStringList(node.watchSignals, node.watch_signals);
+
+      return {
+        id,
+        name: firstString(node.name, node.title) || canonical?.title || "",
+        position: normalizeAppIndustrySection(node.position ?? node.section ?? canonical?.section),
+        policySensitivity: normalizeSensitivity(node.policySensitivity ?? node.policy_sensitivity),
+        evidenceLevel: normalizeEvidenceObjectLevel(
+          node.evidenceLevel,
+          node.evidence_level,
+          canonical?.industryNodeEvidenceLevel,
+          canonical?.evidenceLevel
+        ) ?? "pending",
+        description: firstString(node.description, node.body) || canonical?.description || "",
+        companyIds: companyIds.length > 0 ? companyIds : [...(canonical?.companyIds ?? [])],
+        watchSignals: watchSignals.length > 0 ? watchSignals : [...(canonical?.verificationSignals ?? [])]
+      };
+    }),
     edges: toRecordArray(item.edges).map((edge) => ({
       from: firstString(edge.from) || "",
       to: firstString(edge.to) || "",
@@ -978,23 +995,37 @@ function mapIndustryChain(items: readonly JsonRecord[] = []): IndustryChainItem[
   }));
 }
 
-function mapCompanyMap(items: readonly JsonRecord[] = []): CompanyMapItem[] {
-  return items.map((item, index) => ({
-    id: firstString(item.id) || `company-map-${index + 1}`,
-    companyId: firstString(item.companyId, item.company_id),
-    company: firstString(item.company, item.name, item.companyName, item.company_name) || "",
-    ticker: firstString(item.ticker, item.symbol),
-    chainNode: firstString(item.chainNode, item.chain_node, item.node) || "",
-    chainNodeId: firstString(item.chainNodeId, item.chain_node_id, item.nodeId, item.node_id),
-    relationship: normalizeMappingLevelValue(item.relationship, item.mappingLevel, item.mapping_level) ?? "watch_only",
-    policyEvidence: normalizeEvidenceObjectLevel(item.policyEvidence, item.policy_evidence, item.evidenceLevel, item.evidence_level) ?? "pending",
-    regulatoryRole: normalizeRegulatoryRoleValue(item.regulatoryRole, item.regulatory_role),
-    businessExposure: firstString(item.businessExposure, item.business_exposure, item.exposure) || "",
-    investmentUse: firstString(item.investmentUse, item.investment_use, item.use) || "",
-    watchSignals: toStringList(item.watchSignals, item.watch_signals),
-    keyRisks: toStringList(item.keyRisks, item.key_risks, item.risks),
-    doNotOverread: toStringList(item.doNotOverread, item.do_not_overread)
-  }));
+function mapCompanyMap(
+  items: readonly JsonRecord[] = [],
+  canonicalCompanies: readonly CompanyImpact[] = [],
+  canonicalNodes: readonly IndustryNode[] = []
+): CompanyMapItem[] {
+  const companyById = new Map(canonicalCompanies.map((company) => [company.id, company]));
+  const nodeById = new Map(canonicalNodes.map((node) => [node.id, node]));
+
+  return items.map((item, index) => {
+    const companyId = firstString(item.companyId, item.company_id);
+    const chainNodeId = firstString(item.chainNodeId, item.chain_node_id, item.nodeId, item.node_id);
+    const canonicalCompany = companyId ? companyById.get(companyId) : undefined;
+    const canonicalNode = chainNodeId ? nodeById.get(chainNodeId) : undefined;
+
+    return {
+      id: firstString(item.id) || `company-map-${index + 1}`,
+      companyId,
+      company: firstString(item.company, item.name, item.companyName, item.company_name) || canonicalCompany?.name || "",
+      ticker: firstString(item.ticker, item.symbol) || canonicalCompany?.ticker || undefined,
+      chainNode: firstString(item.chainNode, item.chain_node, item.node) || canonicalNode?.title || "",
+      chainNodeId,
+      relationship: normalizeMappingLevelValue(item.relationship, item.mappingLevel, item.mapping_level) ?? "watch_only",
+      policyEvidence: normalizeEvidenceObjectLevel(item.policyEvidence, item.policy_evidence, item.evidenceLevel, item.evidence_level) ?? "pending",
+      regulatoryRole: normalizeRegulatoryRoleValue(item.regulatoryRole, item.regulatory_role),
+      businessExposure: firstString(item.businessExposure, item.business_exposure, item.exposure) || "",
+      investmentUse: firstString(item.investmentUse, item.investment_use, item.use) || "",
+      watchSignals: toStringList(item.watchSignals, item.watch_signals),
+      keyRisks: toStringList(item.keyRisks, item.key_risks, item.risks),
+      doNotOverread: toStringList(item.doNotOverread, item.do_not_overread)
+    };
+  });
 }
 
 function mapPolicyNetwork(items: readonly JsonRecord[] = []): PolicyNetworkItem[] {
@@ -1061,8 +1092,8 @@ export function mapPolicyReport(input: PolicyReportLike): PolicyReport {
     analysisDepthReason: input.analysisDepthReason ?? input.analysis_depth_reason,
     followUpSignals: toStringArray(input.followUpSignals ?? input.follow_up_signals),
     policyIndustryMap: mapPolicyIndustryMap(input.policyIndustryMap ?? input.policy_industry_map),
-    industryChain: mapIndustryChain(input.industryChain ?? input.industry_chain),
-    companyMap: mapCompanyMap(input.companyMap ?? input.company_map),
+    industryChain: mapIndustryChain(input.industryChain ?? input.industry_chain, chainNodes),
+    companyMap: mapCompanyMap(input.companyMap ?? input.company_map, companies, chainNodes),
     policyNetwork: mapPolicyNetwork(input.policyNetwork ?? input.policy_network),
     investmentDirection: mapInvestmentDirection(input.investmentDirection ?? input.investment_direction),
     summary: {

@@ -9,6 +9,7 @@
     "crawl:sources": "node scripts/crawl-policy-sources.mjs",
     "manual:policies": "node scripts/manual-policy-analysis.mjs",
     "manual:validate": "node scripts/validate-manual-report.mjs",
+    "manual:test": "node scripts/test-manual-report-validation.mjs",
     "setup:production": "node scripts/configure-production.mjs",
     "preview": "vite preview --host 127.0.0.1"
   },

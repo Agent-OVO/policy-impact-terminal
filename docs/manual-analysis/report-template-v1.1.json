@@ -74,13 +74,8 @@
       "nodes": [
         {
           "id": "n1",
-          "name": "产业链环节",
-          "position": "upstream | midstream | downstream | support",
           "policySensitivity": "high | medium | low",
-          "evidenceLevel": "strong | indirect | pending",
-          "description": "该环节如何受政策影响",
-          "companyIds": [],
-          "watchSignals": []
+          "description": "该环节如何受政策影响；名称、位置、证据和公司引用默认从chainNodes派生"
         }
       ],
       "edges": []
@@ -90,9 +85,6 @@
     {
       "id": "cm1",
       "companyId": "co1",
-      "company": "公司名称",
-      "ticker": "证券代码或空",
-      "chainNode": "产业链环节",
       "chainNodeId": "n1",
       "relationship": "policy_named | direct_industry | indirect_industry | thematic_only | watch_only",
       "policyEvidence": "strong | indirect | pending",

@@ -360,7 +360,26 @@ function validateMethodologyDiscipline(errors, warnings, {
     for (const [nodeIndex, node] of nodes.entries()) {
       const nodeId = stringField(node, "id");
       if (!nodeId || !nodeIds.has(nodeId)) issues.push(`${prefix}: industryChain[${chainIndex}].nodes[${nodeIndex}].id must match an existing chainNodes id`);
-      checkRefs(issues, warnings, `industryChain[${chainIndex}].nodes[${nodeIndex}].companyIds`, stringArray(node, "companyIds", "company_ids"), companyIds, { warnIfEmptySet: true });
+      if (!stringField(node, "policySensitivity") && !stringField(node, "policy_sensitivity")) issues.push(`${prefix}: industryChain[${chainIndex}].nodes[${nodeIndex}].policySensitivity is required`);
+      if (!stringField(node, "description") && !stringField(node, "body")) issues.push(`${prefix}: industryChain[${chainIndex}].nodes[${nodeIndex}].description is required`);
+      const relationCompanyIds = stringArray(node, "companyIds", "company_ids");
+      checkRefs(issues, warnings, `industryChain[${chainIndex}].nodes[${nodeIndex}].companyIds`, relationCompanyIds, companyIds, { warnIfEmptySet: true });
+
+      const sourceNode = chainNodes.find((candidate) => stringField(candidate, "id") === nodeId);
+      const relationPosition = stringField(node, "position") || stringField(node, "section");
+      const sourcePosition = stringField(sourceNode, "section");
+      if (relationPosition && sourcePosition && normalizeToken(relationPosition) !== normalizeToken(sourcePosition)) {
+        issues.push(`${prefix}: industryChain[${chainIndex}].nodes[${nodeIndex}].position conflicts with chainNodes section for '${nodeId}'`);
+      }
+      const relationEvidence = stringField(node, "evidenceLevel") || stringField(node, "evidence_level");
+      const sourceEvidence = stringField(sourceNode, "industryNodeEvidenceLevel") || stringField(sourceNode, "industry_node_evidence_level") || stringField(sourceNode, "evidenceLevel") || stringField(sourceNode, "evidence_level");
+      if (relationEvidence && sourceEvidence && normalizeQualityEvidenceLevel(relationEvidence) !== normalizeQualityEvidenceLevel(sourceEvidence)) {
+        issues.push(`${prefix}: industryChain[${chainIndex}].nodes[${nodeIndex}].evidenceLevel conflicts with chainNodes evidence for '${nodeId}'`);
+      }
+      const sourceCompanyIds = stringArray(sourceNode, "companyIds", "company_ids");
+      if (relationCompanyIds.length > 0 && sourceCompanyIds.length > 0 && !sameStringSet(relationCompanyIds, sourceCompanyIds)) {
+        issues.push(`${prefix}: industryChain[${chainIndex}].nodes[${nodeIndex}].companyIds conflicts with chainNodes companyIds for '${nodeId}'`);
+      }
     }
   }
 
@@ -398,6 +417,16 @@ function validateMethodologyDiscipline(errors, warnings, {
     }
 
     const sourceCompany = companies.find((company) => stringField(company, "id") === companyId);
+    const relationCompanyName = stringField(item, "company") || stringField(item, "name") || stringField(item, "companyName") || stringField(item, "company_name");
+    const sourceCompanyName = stringField(sourceCompany, "name");
+    if (relationCompanyName && sourceCompanyName && relationCompanyName.trim() !== sourceCompanyName.trim()) {
+      issues.push(`${prefix}: companyMap[${index}].company conflicts with companies name for '${companyId}'`);
+    }
+    const relationTicker = stringField(item, "ticker") || stringField(item, "symbol");
+    const sourceTicker = stringField(sourceCompany, "ticker");
+    if (relationTicker && sourceTicker && relationTicker.trim() !== sourceTicker.trim()) {
+      issues.push(`${prefix}: companyMap[${index}].ticker conflicts with companies ticker for '${companyId}'`);
+    }
     const legacyMappingLevel = stringField(sourceCompany, "mappingLevel") || stringField(sourceCompany, "mapping_level");
     const legacyPolicyEvidence = stringField(sourceCompany, "companyMappingEvidenceLevel") || stringField(sourceCompany, "company_mapping_evidence_level");
     if (legacyMappingLevel && relationship && normalizeToken(legacyMappingLevel) !== normalizeToken(relationship)) {
@@ -571,6 +600,11 @@ function requireTextItems(errors, items, label, textKeys, requiredKeys = []) {
 
 function idSet(items) {
   return new Set(items.map((item) => stringField(item, "id")).filter(Boolean));
+}
+
+function sameStringSet(left, right) {
+  const normalize = (items) => [...new Set(items.map((item) => String(item).trim()).filter(Boolean))].sort();
+  return JSON.stringify(normalize(left)) === JSON.stringify(normalize(right));
 }
 
 function arrayField(record, ...keys) {

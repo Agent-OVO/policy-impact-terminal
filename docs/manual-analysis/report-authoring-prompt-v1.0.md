@@ -107,22 +107,22 @@ policyId
 
 ```text
 industryChain.nodes[].id = chainNodes[].id
-industryChain.edges 的 from/to = chainEdges 的 from/to
-两组字段的产业位置、关系方向和证据等级不得矛盾
+industryChain.edges 的 from/to 使用真实 chainNodes ID
+chainNodes 是节点名称、产业位置、完整主体引用和基础证据的事实源
+industryChain 只补充政策敏感度、政策传导解释和关系层观察信号
 ```
 
-每个产业链节点必须说明：
+每个产业链节点最低只需填写：
 
 ```json
 {
-  "name": "产业链环节",
-  "position": "upstream | midstream | downstream | support",
+  "id": "对应 chainNodes.id",
   "policySensitivity": "high | medium | low",
-  "evidenceLevel": "strong | indirect | pending",
-  "description": "该环节如何受政策影响",
-  "watchSignals": []
+  "description": "该环节如何受政策影响"
 }
 ```
+
+`name`、`position`、`evidenceLevel`、`companyIds`、`watchSignals` 可由对应 `chainNodes` 自动补全。需要展示别名或补充关系层观察信号时可以显式填写，但产业位置、证据等级和公司引用不得与 `chainNodes` 冲突。
 
 ### 七、必须生成 companyMap
 
@@ -141,13 +141,12 @@ companyMap.relationship 和 policyEvidence 是公司投资映射的权威关系�
 
 监管、执法、监察、处罚或标准约束类政策必须填写 `regulatoryRole`：`constraint_exposed` 表示受监管约束，`compliance_provider` 表示提供设备更新或合规服务，`mixed` 表示双重角色，`not_applicable` 表示不适用。不得把受监管对象和合规服务商合并写成同一种正向影响；受监管对象必须写明风险，合规服务商必须列出可验证的项目或订单信号，双重角色必须同时满足两项要求。
 
-每条必须包含：
+每条最低必须包含：
 
 ```json
 {
-  "company": "公司名称",
-  "ticker": "证券代码或空",
-  "chainNode": "产业链环节",
+  "companyId": "对应 companies.id",
+  "chainNodeId": "对应 chainNodes.id",
   "relationship": "policy_named | direct_industry | indirect_industry | thematic_only | watch_only",
   "policyEvidence": "strong | indirect | pending",
   "regulatoryRole": "constraint_exposed | compliance_provider | mixed | not_applicable",
@@ -158,6 +157,8 @@ companyMap.relationship 和 policyEvidence 是公司投资映射的权威关系�
   "doNotOverread": []
 }
 ```
+
+`company`、`ticker`、`chainNode` 可由 `companyId` 与 `chainNodeId` 自动补全，不应在新报告中重复维护。若为了人工可读性显式填写，必须与 `companies.name`、`companies.ticker` 和节点事实一致。
 
 ### 八、必须生成 policyNetwork
 

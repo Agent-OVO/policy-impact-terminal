@@ -24,6 +24,14 @@
 
 该文件是当前上位规则。系统目标不是写政策摘要，而是服务个人投资研究：看清政策影响什么产业链、产业链中有哪些上市公司、政策之间是否形成连续催化，以及这些信息给投资方向带来什么提示。
 
+三类异质政策的验证结果和字段收敛结论见：
+
+- `three-sample-convergence-audit-v1.0.md`
+
+旧报告分级回炉顺序见：
+
+- `report-migration-backlog-v1.0.md`
+
 ### 第二步：再读政策拆分方法论
 
 - `policy-decomposition-methodology-v1.0.1.md`
@@ -111,7 +119,13 @@ npm run manual:validate -- manual-reports/<policy-id>.json
 MANUAL_QUALITY_STRICT=true npm run manual:validate -- manual-reports/<policy-id>.json
 ```
 
-GitHub Actions 发布流程已启用严格校验。不能通过严格校验的报告不得写回 Supabase。
+验证器回归测试：
+
+```bash
+npm run manual:test
+```
+
+回归测试覆盖旧报告、三份异质样板、精简派生字段报告和多类故意错误。GitHub Actions 发布流程已启用严格校验。不能通过严格校验的报告不得写回 Supabase。
 
 ## 3. 新报告生成前检查
 
@@ -178,7 +192,8 @@ GitHub Actions 发布流程已启用严格校验。不能通过严格校验的�
 
 ## 6. 当前下一步建议
 
-1. 新增报告全部按 `policy-industry-company-methodology-v1.0.md` 生成；
-2. 旧报告逐步补齐政策—产业链—公司—政策网络—投资方向字段；
-3. 前端优先展示投资方向摘要、政策影响产业、产业链公司地图和政策网络；
-4. 外部搜索只服务产业链验证、公司业务暴露、政策网络、催化信号和反证搜索。
+1. 新增报告全部按 `policy-industry-company-methodology-v1.0.md` 生成，并优先使用可派生身份字段的精简写法；
+2. 旧报告按 `report-migration-backlog-v1.0.md` 的 A/B/C 分类处理，不做机械批量迁移；
+3. A 类完整回炉，B 类优先补产业方向和政策网络，C 类保持轻量；
+4. 每次发布前同时运行严格校验和 `npm run manual:test`；
+5. 外部搜索只服务产业链验证、公司业务暴露、政策网络、催化信号和反证搜索。

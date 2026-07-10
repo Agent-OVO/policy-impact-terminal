@@ -99,6 +99,35 @@
 
 既有 `chainNodes`、`chainEdges`、`companies` 暂时继续承担产业链地图、完整主体事实和公司页面的运行兼容；五个新模块负责首屏投资观察、政策网络和关系解释。名单型政策中，`companies` 可以保留未上市企业、科研院所、分支机构等全部官方点名主体，`companyMap` 只选择适合进入上市公司投资观察或需要重点解释的主体，不要求两者数量相等。兼容期内，`companies.mappingLevel` 与 `companyMappingEvidenceLevel` 可以作为运行镜像字段继续保留，但凡主体进入 `companyMap`，两边关系和证据等级必须一致，不得被独立编辑成两套事实。后续如迁移，应先统一前端数据源，再删除兼容字段。
 
+### 收敛后的字段职责
+
+```text
+chainNodes
+= 产业节点事实源：节点 ID、标准名称、产业位置、基础描述、完整主体引用、基础证据
+
+chainEdges
+= 产业地图兼容层：节点间拓扑、显示强度和置信度
+
+industryChain
+= 政策传导关系层：链条主题、政策作用、节点政策敏感度、传导解释和观察信号
+
+companies
+= 主体事实源：主体 ID、名称、证券代码、上市状态、主体类型和完整名单事实
+
+companyMap
+= 投资映射关系层：政策关系、政策证据、监管角色、业务暴露、研究用途、催化和风险
+
+policyIndustryMap / policyNetwork / investmentDirection
+= 政策到产业、政策到政策以及最终投资观察的综合层
+```
+
+新报告不得手工重复维护可由 ID 唯一确定的身份字段：
+
+- `industryChain.nodes` 只要填写 `id`、`policySensitivity` 和政策传导 `description`；`name`、`position`、`evidenceLevel`、`companyIds`、`watchSignals` 可由对应 `chainNodes` 自动补全，只有需要展示别名或新增关系层信号时才显式填写；
+- `companyMap` 只要填写 `companyId`、`chainNodeId` 及关系解释字段；`company`、`ticker`、`chainNode` 可由 `companies` 与 `chainNodes` 自动补全；
+- 已显式填写的镜像字段必须与事实源一致，严格校验会拦截公司名称、证券代码、产业位置、证据等级和节点主体引用冲突；
+- `industryChain.nodes.description` 与 `companyMap.businessExposure/investmentUse` 不是重复字段，它们分别解释政策如何作用到节点、公司为何值得进入研究，因此必须保留。
+
 ## 四、核心模块一：policyIndustryMap
 
 `policyIndustryMap` 回答：
@@ -149,13 +178,8 @@
   "nodes": [
     {
       "id": "data-labeling",
-      "name": "数据标注",
-      "position": "upstream | midstream | downstream | support",
       "policySensitivity": "high | medium | low",
-      "evidenceLevel": "strong | indirect | pending",
-      "description": "该环节如何受政策影响",
-      "companyIds": [],
-      "watchSignals": []
+      "description": "该环节如何受政策影响"
     }
   ],
   "edges": [
@@ -187,9 +211,6 @@
 {
   "id": "cm1",
   "companyId": "co1",
-  "company": "海天瑞声",
-  "ticker": "688787.SH",
-  "chainNode": "数据标注",
   "chainNodeId": "data-labeling",
   "relationship": "policy_named | direct_industry | indirect_industry | thematic_only | watch_only",
   "policyEvidence": "strong | indirect | pending",
