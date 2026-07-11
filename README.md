@@ -140,6 +140,27 @@ npm run stage9:first-six:queue -- list immediate_analysis
 
 四份新增报告只保存在研究批次目录，两份既有报告按引用复用；本批次不自动写入`manual-reports/`或生产数据库。
 
+## 跨政策投资观察内核
+
+阶段十已把阶段九六政策专用查询升级为覆盖20份正式报告和4份阶段九本地候选的通用本地索引。入口：
+
+```text
+research-index/README.md
+```
+
+构建、查询和验收：
+
+```powershell
+npm run research:index -- build
+npm run research:query -- company 万华化学
+npm run research:query -- industry 人工智能
+npm run research:query -- policy-tool 价格
+npm run research:timeline -- industry 电网
+npm run research:watchlist -- validate
+```
+
+索引、关系变化和观察池均为本地研究工具，不输出交易指令。
+
 ## 人工分析与发布
 
 ```powershell

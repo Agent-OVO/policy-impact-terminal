@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "1.0",
+  "description": "阶段十离线产业名称规范化字典。仅作检索聚合，始终保留原始产业名称；多重命中进入 normalizationReview。",
+  "aliases": [
+    {
+      "canonicalName": "人工智能",
+      "matchMode": "contains",
+      "aliases": ["人工智能", "AI", "AI应用", "行业AI", "生成式AI", "生成式人工智能", "大模型", "基础模型", "行业模型", "专业模型", "智能体", "政务AI"]
+    },
+    {
+      "canonicalName": "电网",
+      "matchMode": "contains",
+      "aliases": ["电网", "输配电", "输变电", "跨区输电", "供配电", "电力交易", "电力市场"]
+    },
+    {
+      "canonicalName": "数据要素与高质量数据集",
+      "matchMode": "contains",
+      "aliases": ["高质量数据集", "行业数据", "数据集", "数据标注", "知识工程", "数据质控", "数据质量", "数据资产", "数据交易"]
+    },
+    {
+      "canonicalName": "精细化工与化工新材料",
+      "matchMode": "contains",
+      "aliases": ["精细化工", "化工新材料", "特种化学品", "高端聚氨酯", "特种异氰酸酯", "精细化学品"]
+    },
+    {
+      "canonicalName": "农业机器人",
+      "matchMode": "contains",
+      "aliases": ["农业机器人", "农机机器人", "农用机器人", "种植机器人", "养殖机器人", "机器人系统集成与AI感知"]
+    },
+    {
+      "canonicalName": "生态环境治理",
+      "matchMode": "contains",
+      "aliases": ["生态环境", "环境治理", "污染治理", "环境监测", "固废", "危废", "生态修复", "智慧环保"]
+    },
+    {
+      "canonicalName": "能源转型",
+      "matchMode": "contains",
+      "aliases": ["能源转型", "新能源", "清洁能源", "光伏", "风电", "储能", "氢能", "非化石能源"]
+    },
+    {
+      "canonicalName": "碳管理与绿色低碳",
+      "matchMode": "contains",
+      "aliases": ["碳管理", "碳核算", "碳监测", "碳交易", "碳市场", "碳足迹", "绿色低碳", "节能降碳", "能碳管理"]
+    },
+    {
+      "canonicalName": "城市更新",
+      "matchMode": "contains",
+      "aliases": ["城市更新", "城市体检", "地下管网", "城市生命线", "海绵城市", "住宅与社区更新"]
+    },
+    {
+      "canonicalName": "水务与水资源",
+      "matchMode": "contains",
+      "aliases": ["水务", "供水", "水价", "水资源", "调水", "再生水", "智慧水利"]
+    },
+    {
+      "canonicalName": "教育与职业培训",
+      "matchMode": "contains",
+      "aliases": ["教育", "职业培训", "技能培训", "职业技能", "考试测评", "产教融合"]
+    },
+    {
+      "canonicalName": "应急与安全",
+      "matchMode": "contains",
+      "aliases": ["应急", "安全生产", "城市安全", "消防", "救援", "风险监测"]
+    }
+  ]
+}

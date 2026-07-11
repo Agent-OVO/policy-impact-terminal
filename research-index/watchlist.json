@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "1.0",
+  "capacity": 200,
+  "allowedStatuses": ["立即研究", "持续观察", "等待证据", "降级低频", "移出观察"],
+  "objects": [
+    {
+      "objectType": "company",
+      "objectId": "ticker:600309.SH",
+      "displayName": "万华化学",
+      "attentionLevel": "high",
+      "reasons": ["在精细化工揭榜名单和行业标准计划两份政策附件中被官方点名。", "点名仅证明任务或标准参与，仍需技术进度、客户认证与销售证据。"],
+      "evidenceState": "officially_named_no_order_evidence",
+      "triggerRules": [
+        {"eventTypes": ["evaluation_acceptance", "company_validation"], "keywords": ["优胜测评", "客户认证", "订单", "首批次"], "requiredEvidence": "official_or_company_disclosure"}
+      ],
+      "invalidationRules": [
+        {"eventTypes": ["named_list_removed", "expected_order_not_observed", "business_exit"], "keywords": ["移出名单", "攻关失败", "业务退出"]}
+      ],
+      "nextReviewDate": "2026-09-30",
+      "status": "立即研究"
+    },
+    {
+      "objectType": "industry",
+      "objectId": "industry:人工智能",
+      "displayName": "人工智能",
+      "attentionLevel": "medium",
+      "reasons": ["多份政策覆盖行业应用、标准、安全治理和高质量数据集。", "覆盖次数不代表订单、收入增量或投资价值。"],
+      "evidenceState": "multi_policy_mixed_tools",
+      "triggerRules": [
+        {"eventTypes": ["list_announcement", "standard_cycle", "company_validation"], "keywords": ["试点名单", "标准正式发布", "项目采购"], "requiredEvidence": "official_source"}
+      ],
+      "invalidationRules": [
+        {"eventTypes": ["implementation_delayed", "policy_invalidated"], "keywords": ["延期", "废止"]}
+      ],
+      "nextReviewDate": "2026-08-31",
+      "status": "持续观察"
+    },
+    {
+      "objectType": "industry",
+      "objectId": "industry:电网",
+      "displayName": "电网",
+      "attentionLevel": "medium",
+      "reasons": ["输配电价已执行，但设备和数字化公司传导仍依赖资本开支、招标和订单。"],
+      "evidenceState": "policy_effective_company_transmission_pending",
+      "triggerRules": [
+        {"eventTypes": ["price_execution", "company_validation"], "keywords": ["省级执行文件", "投资计划", "集中招标", "订单"], "requiredEvidence": "official_or_company_disclosure"}
+      ],
+      "invalidationRules": [
+        {"eventTypes": ["expected_order_not_observed", "implementation_delayed"], "keywords": ["资本开支下调", "项目延期"]}
+      ],
+      "nextReviewDate": "2026-08-15",
+      "status": "等待证据"
+    },
+    {
+      "objectType": "policy_theme",
+      "objectId": "policy:8f74d5a1-12e0-4de2-8f6a-202606090269",
+      "displayName": "农业机器人典型应用场景遴选",
+      "attentionLevel": "medium",
+      "reasons": ["当前报告保持零公司映射，企业关系必须等待正式入选名单和后续订单。"],
+      "evidenceState": "scenario_map_available_named_entities_pending",
+      "triggerRules": [
+        {"eventTypes": ["list_announcement", "company_validation"], "keywords": ["典型应用场景名单", "联合申报主体", "采购", "订单"], "requiredEvidence": "official_source"}
+      ],
+      "invalidationRules": [
+        {"eventTypes": ["implementation_delayed", "policy_invalidated"], "keywords": ["延期", "取消"]}
+      ],
+      "nextReviewDate": "2026-09-30",
+      "status": "等待证据"
+    },
+    {
+      "objectType": "policy_tool",
+      "objectId": "policy-tool:standard_project_plan",
+      "displayName": "标准制修订计划",
+      "attentionLevel": "low",
+      "reasons": ["计划阶段只证明参与和时间表，不证明标准已发布或进入采购。"],
+      "evidenceState": "plan_published_standard_pending",
+      "triggerRules": [
+        {"eventTypes": ["standard_cycle", "company_validation"], "keywords": ["标准正式发布", "认证", "采购引用"], "requiredEvidence": "official_source"}
+      ],
+      "invalidationRules": [
+        {"eventTypes": ["implementation_delayed", "named_list_removed"], "keywords": ["计划延期", "项目撤销"]}
+      ],
+      "nextReviewDate": "2026-12-31",
+      "status": "降级低频"
+    }
+  ]
+}

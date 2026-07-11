@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "1.0",
+  "allowedChangeTypes": [
+    "relationship_added",
+    "evidence_upgrade",
+    "evidence_downgrade",
+    "policy_invalidated",
+    "source_updated",
+    "named_list_added",
+    "named_list_removed",
+    "business_exit",
+    "order_confirmed",
+    "expected_order_not_observed",
+    "regulatory_penalty",
+    "implementation_delayed"
+  ],
+  "events": [
+    {
+      "eventId": "rel-evt-kdxf-standard-named-20260707",
+      "companyKey": "ticker:002230.SZ",
+      "companyName": "科大讯飞股份有限公司",
+      "ticker": "002230.SZ",
+      "policyId": "6b23a2d4-8d2a-4f80-9f84-202607070805",
+      "changeType": "evidence_upgrade",
+      "fromLevel": "watch_only",
+      "toLevel": "policy_named",
+      "effectiveAt": "2026-07-07",
+      "recordedAt": "2026-07-11T12:00:00+08:00",
+      "reason": "阶段九附件审计在行业标准计划附件第64页确认科大讯飞被直接列为企业级软件智能化分级标准项目参与单位，关系由未核验观察态升级为官方点名。",
+      "evidenceIds": ["6b23a2d4-8d2a-4f80-9f84-202607070805:e5"],
+      "source": "research-batches/stage9-first-six/reports/6b23a2d4-8d2a-4f80-9f84-202607070805.json",
+      "oppositeEvidence": ["参与标准制定不等于产品领先、采购订单或收入增量。"],
+      "status": "confirmed",
+      "origin": "stage10_initial_calibration"
+    },
+    {
+      "eventId": "rel-evt-xj-grid-watch-only-20260710",
+      "companyKey": "ticker:000400.SZ",
+      "companyName": "许继电气股份有限公司",
+      "ticker": "000400.SZ",
+      "policyId": "1c9d4a56-5f1e-4c16-8b2a-202607101077",
+      "changeType": "evidence_downgrade",
+      "fromLevel": "direct_industry",
+      "toLevel": "watch_only",
+      "effectiveAt": "2026-07-10",
+      "recordedAt": "2026-07-11T12:00:00+08:00",
+      "reason": "阶段十初始校准确认输配电价文件没有设备采购或工程清单，许继电气仅存在条件性的电网资本开支传导，缺少点名、招标或订单证据。",
+      "evidenceIds": ["1c9d4a56-5f1e-4c16-8b2a-202607101077:e7"],
+      "source": "research-batches/stage9-first-six/reports/1c9d4a56-5f1e-4c16-8b2a-202607101077.json",
+      "oppositeEvidence": ["后续直流输电项目、主配网招标或合同公告可以触发重新评估。"],
+      "status": "confirmed",
+      "origin": "stage10_initial_calibration"
+    }
+  ]
+}
