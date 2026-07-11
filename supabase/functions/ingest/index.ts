@@ -27,10 +27,12 @@ type ExistingPolicyRecord = {
   source_name?: string | null;
   dedupe_key?: string | null;
   content_hash?: string | null;
+  metadata?: unknown;
 };
 
 const POLICY_MIN_PUBLISH_DATE = "2026-05-01";
 const MIN_POLICY_FULL_TEXT_LENGTH = 280;
+const MAX_PENDING_POLICY_REVIEW_QUEUE = 8;
 
 Deno.serve(async (req) => {
   const options = handleOptions(req);
@@ -128,6 +130,37 @@ Deno.serve(async (req) => {
       optionalString(body, "external_id") ??
       optionalString(inputPayload, "externalId") ??
       optionalString(inputPayload, "external_id");
+    const analysisDepth = normalizeAnalysisDepth(
+      optionalString(body, "analysisDepth") ??
+      optionalString(body, "analysis_depth") ??
+      optionalString(inputPayload, "analysisDepth") ??
+      optionalString(inputPayload, "analysis_depth")
+    );
+    const reviewPriority = normalizeReviewPriority(
+      body.reviewPriority ?? body.review_priority ?? inputPayload.reviewPriority ?? inputPayload.review_priority
+    );
+    const triageReasons = normalizeStringList(
+      body.triageReasons ?? body.triage_reasons ?? inputPayload.triageReasons ?? inputPayload.triage_reasons
+    );
+    const triageSignals = normalizeStringList(
+      body.triageSignals ?? body.triage_signals ?? inputPayload.triageSignals ?? inputPayload.triage_signals
+    );
+    const explicitManualEligibility = normalizeOptionalBoolean(
+      body.manualAnalysisEligible ?? body.manual_analysis_eligible ??
+      inputPayload.manualAnalysisEligible ?? inputPayload.manual_analysis_eligible
+    );
+    const manualAnalysisEligible = explicitManualEligibility ??
+      (analysisDepth ? analysisDepth === "L2" || analysisDepth === "L3" : true);
+    const explicitPendingReview = normalizeOptionalBoolean(
+      body.requiresManualAnalysis ?? body.requires_manual_analysis ??
+      inputPayload.requiresManualAnalysis ?? inputPayload.requires_manual_analysis
+    );
+    let requiresManualAnalysis = explicitPendingReview ?? manualAnalysisEligible;
+    const explicitQueueSelection = normalizeOptionalBoolean(
+      body.analysisQueueSelected ?? body.analysis_queue_selected ??
+      inputPayload.analysisQueueSelected ?? inputPayload.analysis_queue_selected
+    );
+    let analysisQueueSelected = explicitQueueSelection ?? requiresManualAnalysis;
 
     if (!sourceUrl && title === "Untitled policy") {
       return jsonResponse({ error: "Provide at least sourceUrl or title." }, 400);
@@ -144,6 +177,15 @@ Deno.serve(async (req) => {
         error: `Policy ingest requires original policy full_text with at least ${MIN_POLICY_FULL_TEXT_LENGTH} characters.`
       }, 409);
     }
+
+    const existingPolicy = await findExistingPolicy(supabase, dedupeKey, contentHash);
+    const queueDecision = await enforcePolicyReviewQueueCapacity(supabase, existingPolicy, {
+      manualAnalysisEligible,
+      requiresManualAnalysis,
+      analysisQueueSelected
+    });
+    requiresManualAnalysis = queueDecision.requiresManualAnalysis;
+    analysisQueueSelected = queueDecision.analysisQueueSelected;
 
     const policyValues = {
       owner_id: user.id,
@@ -186,23 +228,70 @@ Deno.serve(async (req) => {
               externalId,
               external_id: externalId
             }
-          : {})
+          : {}),
+        ...(analysisDepth
+          ? {
+              analysisDepth,
+              analysis_depth: analysisDepth
+            }
+          : {}),
+        reviewPriority,
+        review_priority: reviewPriority,
+        manualAnalysisEligible,
+        manual_analysis_eligible: manualAnalysisEligible,
+        requiresManualAnalysis,
+        requires_manual_analysis: requiresManualAnalysis,
+        analysisQueueSelected,
+        analysis_queue_selected: analysisQueueSelected,
+        queueDeferred: queueDecision.queueDeferred,
+        queue_deferred: queueDecision.queueDeferred,
+        triageReasons,
+        triage_reasons: triageReasons,
+        triageSignals,
+        triage_signals: triageSignals
       }, "policy ingest metadata")
     };
 
-    const existingPolicy = await findExistingPolicy(supabase, dedupeKey, contentHash);
     if (existingPolicy) {
-      const job = await createDuplicateLinkJob(supabase, {
-        userId: user.id,
-        existingPolicy,
-        title,
-        sourceUrl,
-        sourceName,
-        inputPayload,
-        now,
-        dedupeKey,
-        contentHash
+      const mergedTriage = await mergeExistingPolicyTriage(supabase, existingPolicy, {
+        analysisDepth,
+        reviewPriority,
+        manualAnalysisEligible,
+        requiresManualAnalysis,
+        analysisQueueSelected,
+        triageReasons,
+        triageSignals,
+        queueDeferred: queueDecision.queueDeferred
       });
+      const job = existingPolicy.status !== "published" && mergedTriage.analysisQueueSelected
+        ? await createDuplicateLinkJob(supabase, {
+            userId: user.id,
+            existingPolicy,
+            title,
+            sourceUrl,
+            sourceName,
+            inputPayload: {
+              ...inputPayload,
+              analysisDepth: mergedTriage.analysisDepth,
+              analysis_depth: mergedTriage.analysisDepth,
+              reviewPriority: mergedTriage.reviewPriority,
+              review_priority: mergedTriage.reviewPriority,
+              manualAnalysisEligible: mergedTriage.manualAnalysisEligible,
+              manual_analysis_eligible: mergedTriage.manualAnalysisEligible,
+              requiresManualAnalysis: mergedTriage.requiresManualAnalysis,
+              requires_manual_analysis: mergedTriage.requiresManualAnalysis,
+              analysisQueueSelected: mergedTriage.analysisQueueSelected,
+              analysis_queue_selected: mergedTriage.analysisQueueSelected,
+              triageReasons: mergedTriage.triageReasons,
+              triage_reasons: mergedTriage.triageReasons,
+              triageSignals: mergedTriage.triageSignals,
+              triage_signals: mergedTriage.triageSignals
+            },
+            now,
+            dedupeKey,
+            contentHash
+          })
+        : null;
 
       return jsonResponse({
         duplicate: true,
@@ -216,9 +305,13 @@ Deno.serve(async (req) => {
           dedupeKey,
           contentHash
         },
-        policy: existingPolicy,
+        policy: {
+          ...existingPolicy,
+          metadata: mergedTriage.metadata
+        },
+        triage: mergedTriage,
         job,
-        next: []
+        next: job && isOpenAnalysisJob(job) ? ["analyze"] : []
       }, 200);
     }
 
@@ -234,6 +327,27 @@ Deno.serve(async (req) => {
     }
 
     const policyExternalId = getString(policy, "external_id") ?? externalId;
+
+    if (!analysisQueueSelected) {
+      return jsonResponse({
+        policyId,
+        policyExternalId,
+        policyRef: {
+          id: policyId,
+          externalId: policyExternalId,
+          external_id: policyExternalId,
+          externalIdColumnWritten
+        },
+        policy,
+        job: null,
+        next: [],
+        archivedWithoutAnalysis: !manualAnalysisEligible,
+        queuedForManualReview: requiresManualAnalysis,
+        deferredManualAnalysis: manualAnalysisEligible && !requiresManualAnalysis,
+        analysisDepth,
+        reviewPriority
+      }, 201);
+    }
 
     const { data: job, error: jobError } = await supabase
       .from("analysis_jobs")
@@ -282,6 +396,20 @@ Deno.serve(async (req) => {
           policyExternalId,
           externalId: policyExternalId,
           external_id: policyExternalId,
+          analysisDepth,
+          analysis_depth: analysisDepth,
+          reviewPriority,
+          review_priority: reviewPriority,
+          manualAnalysisEligible,
+          manual_analysis_eligible: manualAnalysisEligible,
+          requiresManualAnalysis,
+          requires_manual_analysis: requiresManualAnalysis,
+          analysisQueueSelected,
+          analysis_queue_selected: analysisQueueSelected,
+          triageReasons,
+          triage_reasons: triageReasons,
+          triageSignals,
+          triage_signals: triageSignals,
           requestedBy: user.id,
           requestedAt: now
         }
@@ -446,7 +574,7 @@ async function findExistingPolicy(
   dedupeKey: string | null,
   contentHash: string | null
 ): Promise<ExistingPolicyRecord | null> {
-  const select = "id,external_id,title,status,source_url,source_name,dedupe_key,content_hash";
+  const select = "id,external_id,title,status,source_url,source_name,dedupe_key,content_hash,metadata";
 
   if (dedupeKey) {
     const { data, error } = await supabase
@@ -487,6 +615,184 @@ async function findExistingPolicy(
   return null;
 }
 
+type QueueCapacityDecision = {
+  requiresManualAnalysis: boolean;
+  analysisQueueSelected: boolean;
+  queueDeferred: boolean;
+};
+
+async function enforcePolicyReviewQueueCapacity(
+  supabase: SupabaseAdminClient,
+  existingPolicy: ExistingPolicyRecord | null,
+  requested: {
+    manualAnalysisEligible: boolean;
+    requiresManualAnalysis: boolean;
+    analysisQueueSelected: boolean;
+  }
+): Promise<QueueCapacityDecision> {
+  if (!requested.manualAnalysisEligible || !requested.requiresManualAnalysis) {
+    return {
+      requiresManualAnalysis: false,
+      analysisQueueSelected: false,
+      queueDeferred: requested.manualAnalysisEligible
+    };
+  }
+
+  const existingMetadata = existingPolicy && isRecord(existingPolicy.metadata)
+    ? existingPolicy.metadata
+    : {};
+  const existingRequiresManualAnalysis = normalizeOptionalBoolean(
+    existingMetadata.requiresManualAnalysis ?? existingMetadata.requires_manual_analysis
+  );
+  const existingDepth = normalizeAnalysisDepth(
+    getMetadataString(existingMetadata, "analysisDepth", "analysis_depth")
+  );
+  const legacyOrImplicitPending = Boolean(
+    existingPolicy &&
+    existingPolicy.status !== "published" &&
+    existingPolicy.status !== "archived" &&
+    existingRequiresManualAnalysis === null &&
+    (existingDepth === null || existingDepth === "L2" || existingDepth === "L3")
+  );
+  const alreadyPending = Boolean(
+    existingRequiresManualAnalysis ||
+    normalizeOptionalBoolean(
+      existingMetadata.analysisQueueSelected ?? existingMetadata.analysis_queue_selected
+    ) ||
+    legacyOrImplicitPending
+  );
+
+  if (alreadyPending) {
+    return {
+      requiresManualAnalysis: true,
+      analysisQueueSelected: requested.analysisQueueSelected,
+      queueDeferred: false
+    };
+  }
+
+  const { data, error } = await supabase.rpc("list_pending_policy_analysis", {
+    limit_count: MAX_PENDING_POLICY_REVIEW_QUEUE
+  });
+
+  if (error) {
+    throw error;
+  }
+
+  const total = isRecord(data) && typeof data.total === "number"
+    ? data.total
+    : Number.NaN;
+  if (!Number.isFinite(total) || total < 0) {
+    throw new Error("Pending policy review queue returned an invalid total.");
+  }
+
+  if (total >= MAX_PENDING_POLICY_REVIEW_QUEUE) {
+    return {
+      requiresManualAnalysis: false,
+      analysisQueueSelected: false,
+      queueDeferred: true
+    };
+  }
+
+  return {
+    requiresManualAnalysis: true,
+    analysisQueueSelected: requested.analysisQueueSelected,
+    queueDeferred: false
+  };
+}
+
+type TriageState = {
+  analysisDepth: "L0" | "L1" | "L2" | "L3" | null;
+  reviewPriority: number;
+  manualAnalysisEligible: boolean;
+  requiresManualAnalysis: boolean;
+  analysisQueueSelected: boolean;
+  triageReasons: string[];
+  triageSignals: string[];
+  queueDeferred: boolean;
+  metadata: Record<string, unknown>;
+};
+
+async function mergeExistingPolicyTriage(
+  supabase: SupabaseAdminClient,
+  existingPolicy: ExistingPolicyRecord,
+  incoming: Omit<TriageState, "metadata">
+): Promise<TriageState> {
+  const existingMetadata = isRecord(existingPolicy.metadata) ? existingPolicy.metadata : {};
+  const existingDepth = normalizeAnalysisDepth(
+    getMetadataString(existingMetadata, "analysisDepth", "analysis_depth")
+  );
+  const analysisDepth = pickStrongerAnalysisDepth(existingDepth, incoming.analysisDepth);
+  const reviewPriority = Math.max(
+    normalizeReviewPriority(existingMetadata.reviewPriority ?? existingMetadata.review_priority),
+    incoming.reviewPriority
+  );
+  const manualAnalysisEligible = Boolean(
+    normalizeOptionalBoolean(
+      existingMetadata.manualAnalysisEligible ?? existingMetadata.manual_analysis_eligible
+    ) || incoming.manualAnalysisEligible
+  );
+  const analysisQueueSelected = Boolean(
+    normalizeOptionalBoolean(
+      existingMetadata.analysisQueueSelected ?? existingMetadata.analysis_queue_selected
+    ) || incoming.analysisQueueSelected
+  );
+  const requiresManualAnalysis = Boolean(
+    normalizeOptionalBoolean(
+      existingMetadata.requiresManualAnalysis ?? existingMetadata.requires_manual_analysis
+    ) || incoming.requiresManualAnalysis || analysisQueueSelected
+  );
+  const queueDeferred = manualAnalysisEligible && !requiresManualAnalysis;
+  const triageReasons = mergeStringLists(
+    existingMetadata.triageReasons ?? existingMetadata.triage_reasons,
+    incoming.triageReasons
+  );
+  const triageSignals = mergeStringLists(
+    existingMetadata.triageSignals ?? existingMetadata.triage_signals,
+    incoming.triageSignals
+  );
+  const metadata = {
+    ...existingMetadata,
+    ...(analysisDepth ? { analysisDepth, analysis_depth: analysisDepth } : {}),
+    reviewPriority,
+    review_priority: reviewPriority,
+    manualAnalysisEligible,
+    manual_analysis_eligible: manualAnalysisEligible,
+    requiresManualAnalysis,
+    requires_manual_analysis: requiresManualAnalysis,
+    analysisQueueSelected,
+    analysis_queue_selected: analysisQueueSelected,
+    queueDeferred,
+    queue_deferred: queueDeferred,
+    triageReasons,
+    triage_reasons: triageReasons,
+    triageSignals,
+    triage_signals: triageSignals
+  };
+
+  if (!sameJson(existingMetadata, metadata)) {
+    const { error } = await supabase
+      .from("policies")
+      .update({ metadata: toJson(metadata, "merged policy triage metadata") })
+      .eq("id", existingPolicy.id);
+
+    if (error) {
+      throw error;
+    }
+  }
+
+  return {
+    analysisDepth,
+    reviewPriority,
+    manualAnalysisEligible,
+    requiresManualAnalysis,
+    analysisQueueSelected,
+    triageReasons,
+    triageSignals,
+    queueDeferred,
+    metadata
+  };
+}
+
 async function createDuplicateLinkJob(
   supabase: SupabaseAdminClient,
   input: {
@@ -501,7 +807,25 @@ async function createDuplicateLinkJob(
     contentHash: string | null;
   }
 ): Promise<Record<string, unknown>> {
-  const isPublished = input.existingPolicy.status === "published";
+  const { data: existingJob, error: existingJobError } = await supabase
+    .from("analysis_jobs")
+    .select("id,policy_id,title,source_url,source_name,status,progress,created_at,current_step")
+    .eq("policy_id", input.existingPolicy.id)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (existingJobError) {
+    throw existingJobError;
+  }
+
+  if (existingJob) {
+    return {
+      ...(existingJob as Record<string, unknown>),
+      idempotentReplay: true
+    };
+  }
+
   const { data, error } = await supabase
     .from("analysis_jobs")
     .insert({
@@ -510,11 +834,9 @@ async function createDuplicateLinkJob(
       title: input.title,
       source_url: input.sourceUrl,
       source_name: input.sourceName,
-      status: isPublished ? "published" : "queued",
-      progress: isPublished ? 100 : 12,
-      current_step: isPublished
-        ? "Duplicate source detected; linked to existing published policy"
-        : "Duplicate source detected; linked to existing policy",
+      status: "queued",
+      progress: 12,
+      current_step: "Duplicate source detected; linked to existing policy",
       input_payload: {
         ...input.inputPayload,
         duplicate: true,
@@ -541,6 +863,39 @@ async function createDuplicateLinkJob(
   return data as Record<string, unknown>;
 }
 
+function isOpenAnalysisJob(job: Record<string, unknown>): boolean {
+  return job.status === "queued" || job.status === "fetching" || job.status === "extracting" || job.status === "analyzing";
+}
+
+function getMetadataString(metadata: Record<string, unknown>, ...keys: string[]): string | null {
+  for (const key of keys) {
+    const value = metadata[key];
+    if (typeof value === "string" && value.trim()) return value.trim();
+  }
+  return null;
+}
+
+function pickStrongerAnalysisDepth(
+  existing: "L0" | "L1" | "L2" | "L3" | null,
+  incoming: "L0" | "L1" | "L2" | "L3" | null
+): "L0" | "L1" | "L2" | "L3" | null {
+  const rank = { L0: 0, L1: 1, L2: 2, L3: 3 } as const;
+  if (!existing) return incoming;
+  if (!incoming) return existing;
+  return rank[incoming] > rank[existing] ? incoming : existing;
+}
+
+function mergeStringLists(existing: unknown, incoming: unknown): string[] {
+  return normalizeStringList([
+    ...normalizeStringList(existing),
+    ...normalizeStringList(incoming)
+  ]);
+}
+
+function sameJson(left: unknown, right: unknown): boolean {
+  return JSON.stringify(left) === JSON.stringify(right);
+}
+
 function isMissingExternalIdColumnError(error: unknown): boolean {
   if (!isRecord(error)) {
     return false;
@@ -557,6 +912,33 @@ function isMissingExternalIdColumnError(error: unknown): boolean {
 function getString(record: object, key: string): string | null {
   const value = (record as Record<string, unknown>)[key];
   return typeof value === "string" && value.trim() ? value : null;
+}
+
+function normalizeAnalysisDepth(value: string | null): "L0" | "L1" | "L2" | "L3" | null {
+  return value === "L0" || value === "L1" || value === "L2" || value === "L3" ? value : null;
+}
+
+function normalizeReviewPriority(value: unknown): number {
+  const parsed = typeof value === "number" ? value : typeof value === "string" ? Number(value) : 0;
+  if (!Number.isFinite(parsed)) return 0;
+  return Math.max(0, Math.min(100, Math.round(parsed)));
+}
+
+function normalizeStringList(value: unknown): string[] {
+  const items = Array.isArray(value) ? value : typeof value === "string" ? [value] : [];
+  return Array.from(new Set(
+    items
+      .filter((item): item is string => typeof item === "string")
+      .map((item) => item.trim())
+      .filter(Boolean)
+  )).slice(0, 12);
+}
+
+function normalizeOptionalBoolean(value: unknown): boolean | null {
+  if (typeof value === "boolean") return value;
+  if (value === "true" || value === 1 || value === "1") return true;
+  if (value === "false" || value === 0 || value === "0") return false;
+  return null;
 }
 
 function isAllowedPolicyPublishDate(value: string | null): boolean {

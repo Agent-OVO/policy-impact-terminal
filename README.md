@@ -83,6 +83,8 @@ npm run security:audit
 MANUAL_QUALITY_STRICT=true npm run manual:validate -- manual-reports/*.json
 npm run manual:test
 npm run manual:metrics
+npm run policy:triage-test
+npm run policy:crawl-contract-test
 npm run stage7:test
 npm run stage7:migration-test
 npm run auth:test
@@ -97,40 +99,27 @@ npm run build
 npm run build:budget
 ```
 
-任何质量门失败均不得写回或发布。`npm run build`会先执行受路径保护的显式`dist`清理，避免历史构建文件污染预算。涉及Edge Function、revision生命周期或Token预算的修改，还必须通过Deno和临时PostgreSQL测试。阶段七可通过`npm run stage7:source-fetch -- --require-all`重建官方网页及附件复合原文，通过`npm run stage7:evidence-audit`审计证据摘录，并使用`npm run stage7:shadow -- --source-documents=artifacts/stage7/official-source-documents.json --require-deployment-ready`生成真实影子包。`npm run stage7:migration-test -- --shadow-package=artifacts/stage7/report-revision-shadow.json`会实际执行阶段七、八迁移、表级RLS、20份装载和幂等性检查。`tmp/`、`成果截图/`和本地生成脚本默认禁入提交。
+任何质量门失败均不得写回或发布。`npm run build`会先执行受路径保护的显式`dist`清理，避免历史构建文件污染预算。涉及有限采集、Edge Function、revision生命周期或Token预算的修改，还必须通过确定性分层、采集合同、Deno和临时PostgreSQL测试。阶段七可通过`npm run stage7:source-fetch -- --require-all`重建官方网页及附件复合原文，通过`npm run stage7:evidence-audit`审计证据摘录，并使用`npm run stage7:shadow -- --source-documents=artifacts/stage7/official-source-documents.json --require-deployment-ready`生成真实影子包。`npm run stage7:migration-test -- --shadow-package=artifacts/stage7/report-revision-shadow.json`会实际执行阶段七至阶段九迁移、有限人工队列、表级RLS、20份装载和幂等性检查。`tmp/`、`成果截图/`和本地生成脚本默认禁入提交。
 
-## 政策来源抓取
+## 政策来源
 
-先运行 dry-run，输出候选政策与本地去重结果：
+固定定时来源只保留：
 
-```powershell
-npm run crawl:sources -- --limit=40
-```
+1. 中国政府网最新政策；
+2. 国家发展改革委政策文件库；
+3. 工业和信息化部政策文件库；
+4. 国家数据局政策发布。
 
-默认只保留 2026-05-01 以后发布的政策原文或政策发布页，排除政策解读、图解、答记者问、新闻发布会等二次解读内容。发改委来源会限定在 `/xxgk/zcfb/` 政策发布路径；抓取结果会提取政策正文并在写入 Supabase 时保存到 `policies.full_text`。如确需保留解读内容，可额外加 `--include-interpretations`。
+其他官方来源只用于单份报告任务型补证，不自动进入定时爬虫。定时任务已调整为工作日北京时间09:30和17:30运行；每来源最多扫描60条，全局非L0候选最多24条，单次原文入库最多12条，高价值待分析池最多8条，本轮实际分析任务最多3条。
 
-常用参数：
-
-```powershell
-npm run crawl:sources -- --source=gov_zhengce_latest,nda_policy_release --limit=20
-npm run crawl:sources -- --since=2026-05-01 --out=artifacts/policy-candidates.json
-```
-
-如需把候选政策原文写入 Supabase Edge Function，在 `.env.local` 中配置管理员 access token 或爬虫密钥后运行：
-
-```text
-SUPABASE_URL=https://your-project-ref.supabase.co
-SUPABASE_ACCESS_TOKEN=admin-user-jwt
-# 或
-SUPABASE_FUNCTION_JWT=your-supabase-anon-key-or-function-jwt
-SUPABASE_CRAWLER_SECRET=strong-random-shared-secret
-```
+抓取使用零Token确定性分层：L0排除，L1只归档原文，L2/L3进入有限人工复核。默认命令只生成本地候选制品，不写Supabase：
 
 ```powershell
-npm run crawl:sources -- --ingest
+npm run crawl:sources -- --source-scan-limit=60 --candidate-limit=24 --ingest-limit=12 --analysis-limit=3 --pending-queue-limit=8
+npm run crawl:sources -- --source=all --ingest
 ```
 
-注意：`SUPABASE_ACCESS_TOKEN` 必须是管理员用户 JWT，不能使用 service role key。抓取流程只入库政策原文，不写回 `reportPayload`；普通用户不能通过前端或 Edge Function 创建任务。
+输出包含四来源健康、L0—L3数量、入库选择、8条待分析池和3条本轮分析任务。任一来源失败时本轮标记`degraded`；已选候选存在但正文提取为0时标记`failed`并阻断入库。抓取不会自动生成或发布报告。
 
 ## 人工分析与发布
 

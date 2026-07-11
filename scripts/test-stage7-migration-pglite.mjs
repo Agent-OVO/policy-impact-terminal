@@ -17,11 +17,13 @@ const stage8Migration = await fs.readFile(path.resolve(args.stage8Migration), "u
 const stage8BudgetMigration = await fs.readFile(path.resolve(args.stage8BudgetMigration), "utf8");
 const stage8AccountMigration = await fs.readFile(path.resolve(args.stage8AccountMigration), "utf8");
 const stage8DeletionMigration = await fs.readFile(path.resolve(args.stage8DeletionMigration), "utf8");
+const stage9CollectionMigration = await fs.readFile(path.resolve(args.stage9CollectionMigration), "utf8");
 await db.exec(stage7Migration);
 await db.exec(stage8Migration);
 await db.exec(stage8BudgetMigration);
 await db.exec(stage8AccountMigration);
 await db.exec(stage8DeletionMigration);
+await db.exec(stage9CollectionMigration);
 
 await assertCatalog(db);
 await assertLifecycle(db);
@@ -29,10 +31,11 @@ await assertTransactionalCommands(db);
 await assertModelBudgetEnforcement(db);
 await assertInviteAccountGovernance(db);
 await assertAccountDeletionWorkflow(db);
+await assertLimitedCollectionQueue(db);
 await assertTableLevelRls(db);
 await assertBulkShadowMigration(db, args.shadowPackage);
 await db.close();
-console.log("[stage8:pglite] migrations, lifecycle commands, table-level RLS roles, 20-report bulk load, and idempotence assertions passed");
+console.log("[stage9:pglite] migrations, lifecycle commands, limited review queue, table-level RLS roles, 20-report bulk load, and idempotence assertions passed");
 
 async function assertCatalog(database) {
   const expectedTables = [
@@ -91,6 +94,7 @@ async function assertCatalog(database) {
     "purge_expired_user_events",
     "prepare_account_deletion",
     "finalize_account_deletion",
+    "list_pending_policy_analysis",
   ]) {
     assert.ok(functionSet.has(name), `function ${name} must exist`);
   }
@@ -803,6 +807,51 @@ async function assertAccountDeletionWorkflow(database) {
   assert.equal(requestCounts.completed, 1);
 }
 
+async function assertLimitedCollectionQueue(database) {
+  await database.exec(`
+    insert into public.policies(
+      id, external_id, title, status, issuer, source_name, source_url,
+      publish_date, analysis_version, metadata, duplicate_of_policy_id
+    ) values
+      ('00000000-0000-0000-0000-000000000701', 'queue-l3', '高优先级价格政策', 'draft', '测试部门', '测试来源', 'https://example.com/queue-l3', date '2026-07-11', 'v0',
+       '{"analysisDepth":"L3","reviewPriority":95,"requiresManualAnalysis":true,"triageReasons":["价格机制"]}'::jsonb, null),
+      ('00000000-0000-0000-0000-000000000702', 'queue-l2', '方向型产业政策', 'draft', '测试部门', '测试来源', 'https://example.com/queue-l2', date '2026-07-10', 'v0',
+       '{"analysis_depth":"L2","review_priority":70,"requires_manual_analysis":true,"triage_reasons":["产业行动"]}'::jsonb, null),
+      ('00000000-0000-0000-0000-000000000703', 'queue-l1', '低相关正式政策', 'draft', '测试部门', '测试来源', 'https://example.com/queue-l1', date '2026-07-09', 'v0',
+       '{"analysisDepth":"L1","reviewPriority":20,"requiresManualAnalysis":false}'::jsonb, null),
+      ('00000000-0000-0000-0000-000000000704', 'queue-l0', '工作动态', 'draft', '测试部门', '测试来源', 'https://example.com/queue-l0', date '2026-07-09', 'v0',
+       '{"analysisDepth":"L0","reviewPriority":0,"requiresManualAnalysis":false}'::jsonb, null),
+      ('00000000-0000-0000-0000-000000000705', 'queue-legacy', '历史未分层政策', 'draft', '测试部门', '测试来源', 'https://example.com/queue-legacy', date '2026-07-08', 'v0',
+       '{}'::jsonb, null),
+      ('00000000-0000-0000-0000-000000000706', 'queue-published', '已完成人工报告', 'published', '测试部门', '测试来源', 'https://example.com/queue-published', date '2026-07-08', 'codex-manual-v1',
+       '{"analysisDepth":"L3","reviewPriority":99,"requiresManualAnalysis":true}'::jsonb, null),
+      ('00000000-0000-0000-0000-000000000707', 'queue-archived', '已归档政策', 'archived', '测试部门', '测试来源', 'https://example.com/queue-archived', date '2026-07-08', 'v0',
+       '{"analysisDepth":"L3","reviewPriority":99,"requiresManualAnalysis":true}'::jsonb, null),
+      ('00000000-0000-0000-0000-000000000708', 'queue-old', '范围外旧政策', 'draft', '测试部门', '测试来源', 'https://example.com/queue-old', date '2026-04-30', 'v0',
+       '{"analysisDepth":"L3","reviewPriority":99,"requiresManualAnalysis":true}'::jsonb, null),
+      ('00000000-0000-0000-0000-000000000709', 'queue-duplicate', '重复政策', 'draft', '测试部门', '测试来源', 'https://example.com/queue-duplicate', date '2026-07-11', 'v0',
+       '{"analysisDepth":"L3","reviewPriority":100,"requiresManualAnalysis":true}'::jsonb,
+       '00000000-0000-0000-0000-000000000701');
+  `);
+
+  await database.exec("set role authenticated");
+  const result = await database.query("select public.list_pending_policy_analysis(20) as value");
+  await database.exec("reset role");
+
+  const value = result.rows[0].value;
+  assert.equal(value.total, 3);
+  assert.equal(value.queueLimit, 8);
+  assert.deepEqual(value.rows.map((item) => item.id), ["queue-l3", "queue-l2", "queue-legacy"]);
+  assert.deepEqual(value.rows.map((item) => item.reviewPriority), [95, 70, 0]);
+  assert.deepEqual(value.rows.map((item) => item.analysisDepth), ["L3", "L2", "legacy"]);
+  assert.deepEqual(value.rows[0].triageReasons, ["价格机制"]);
+
+  const limited = await database.query("select public.list_pending_policy_analysis(1) as value");
+  assert.equal(limited.rows[0].value.queueLimit, 1);
+  assert.equal(limited.rows[0].value.rows.length, 1);
+  assert.equal(limited.rows[0].value.rows[0].id, "queue-l3");
+}
+
 async function assertTableLevelRls(database) {
   const policyId = "00000000-0000-0000-0000-000000000101";
   const currentRevisionId = "00000000-0000-0000-0000-000000000303";
@@ -1135,6 +1184,7 @@ function parseArgs(argv) {
     stage8BudgetMigration: "supabase/migrations/20260710021000_stage8_model_budget_enforcement.sql",
     stage8AccountMigration: "supabase/migrations/20260710022000_stage8_invite_account_governance.sql",
     stage8DeletionMigration: "supabase/migrations/20260710023000_stage8_account_deletion_workflow.sql",
+    stage9CollectionMigration: "supabase/migrations/20260711010000_stage9_limited_collection_queue.sql",
     shadowPackage: ""
   };
   for (const arg of argv) {
@@ -1144,6 +1194,7 @@ function parseArgs(argv) {
     else if (arg.startsWith("--stage8-budget-migration=")) parsed.stage8BudgetMigration = arg.slice("--stage8-budget-migration=".length);
     else if (arg.startsWith("--stage8-account-migration=")) parsed.stage8AccountMigration = arg.slice("--stage8-account-migration=".length);
     else if (arg.startsWith("--stage8-deletion-migration=")) parsed.stage8DeletionMigration = arg.slice("--stage8-deletion-migration=".length);
+    else if (arg.startsWith("--stage9-collection-migration=")) parsed.stage9CollectionMigration = arg.slice("--stage9-collection-migration=".length);
     else if (arg.startsWith("--shadow-package=")) parsed.shadowPackage = arg.slice("--shadow-package=".length);
     else throw new Error(`Unknown argument: ${arg}`);
   }

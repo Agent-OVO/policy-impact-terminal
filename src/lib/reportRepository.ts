@@ -68,12 +68,16 @@ export interface PendingPolicyAnalysisItem {
   publishTimezone?: string;
   status: ReportStatus;
   analysisVersion: string;
+  analysisDepth?: "L2" | "L3" | "legacy";
+  reviewPriority: number;
+  triageReasons: string[];
   createdAt: string;
   updatedAt: string;
 }
 
 export interface PendingPolicyAnalysisResult {
   total: number;
+  queueLimit: number;
   rows: PendingPolicyAnalysisItem[];
 }
 
@@ -193,6 +197,9 @@ type PendingPolicyAnalysisRpcRow = {
   publish_timezone?: unknown;
   status?: unknown;
   analysisVersion?: unknown;
+  analysisDepth?: unknown;
+  reviewPriority?: unknown;
+  triageReasons?: unknown;
   createdAt?: unknown;
   updatedAt?: unknown;
 };
@@ -208,7 +215,7 @@ const FALLBACK_SOURCE_NAME = "手动提交";
 const QUEUED_STEP = "政策原文已入库，等待人工审核分析";
 const POLICY_MIN_PUBLISH_DATE = "2026-05-01";
 const MANUAL_ANALYSIS_VERSION = "codex-manual-v1";
-const PENDING_POLICY_LIMIT = 20;
+const PENDING_POLICY_LIMIT = 8;
 
 const reportStatuses: readonly ReportStatus[] = [
   "published",
@@ -360,6 +367,7 @@ const mockReportRepository: ReportRepository = {
   async listPendingPolicyAnalysis() {
     return {
       total: 2,
+      queueLimit: 8,
       rows: [
         {
           id: "pending-demo-001",
@@ -370,6 +378,9 @@ const mockReportRepository: ReportRepository = {
           publishDate: "2026-05-10",
           status: "draft",
           analysisVersion: "",
+          analysisDepth: "L3",
+          reviewPriority: 88,
+          triageReasons: ["明确产业行动", "包含专项支持工具"],
           createdAt: "",
           updatedAt: ""
         },
@@ -382,6 +393,9 @@ const mockReportRepository: ReportRepository = {
           publishDate: "2026-05-09",
           status: "reviewing",
           analysisVersion: "",
+          analysisDepth: "L2",
+          reviewPriority: 62,
+          triageReasons: ["方向型政策", "需要产业链影响分析"],
           createdAt: "",
           updatedAt: ""
         }
@@ -608,7 +622,7 @@ const unavailableReportRepository: ReportRepository = {
     throw new ReportRepositoryError("listPolicyReports", "尚未配置 Supabase。生产环境不会回退到本地演示政策数据。");
   },
   async listPendingPolicyAnalysis() {
-    return { total: 0, rows: [] };
+    return { total: 0, queueLimit: PENDING_POLICY_LIMIT, rows: [] };
   },
   async getPolicyReport() {
     throw new ReportRepositoryError("getPolicyReport", "尚未配置 Supabase。生产环境不会回退到本地演示政策数据。");
@@ -813,8 +827,9 @@ function normalizePendingPolicyAnalysis(value: unknown): PendingPolicyAnalysisRe
   const rawRows = Array.isArray(record.rows) ? record.rows : [];
   const rows = rawRows.map(mapPendingPolicyAnalysisItem).filter((item) => item.id && item.title);
   const total = toNumberOrUndefined(record.total) ?? rows.length;
+  const queueLimit = toNumberOrUndefined(record.queueLimit) ?? PENDING_POLICY_LIMIT;
 
-  return { total, rows };
+  return { total, queueLimit, rows };
 }
 
 function mapPendingPolicyAnalysisItem(value: unknown): PendingPolicyAnalysisItem {
@@ -832,9 +847,26 @@ function mapPendingPolicyAnalysisItem(value: unknown): PendingPolicyAnalysisItem
     publishTimezone: toStringValue(row.publishTimezone ?? row.publish_timezone, "") || undefined,
     status: coerceReportStatus(toStringValue(row.status, "draft")),
     analysisVersion: toStringValue(row.analysisVersion, ""),
+    analysisDepth: normalizePendingAnalysisDepth(row.analysisDepth),
+    reviewPriority: Math.max(0, Math.min(100, Math.round(toNumberOrUndefined(row.reviewPriority) ?? 0))),
+    triageReasons: toStringList(row.triageReasons),
     createdAt: toStringValue(row.createdAt, ""),
     updatedAt: toStringValue(row.updatedAt, "")
   };
+}
+
+function normalizePendingAnalysisDepth(value: unknown): "L2" | "L3" | "legacy" | undefined {
+  return value === "L2" || value === "L3" || value === "legacy" ? value : undefined;
+}
+
+function toStringList(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return Array.from(new Set(
+    value
+      .filter((item): item is string => typeof item === "string")
+      .map((item) => item.trim())
+      .filter(Boolean)
+  )).slice(0, 6);
 }
 
 function coerceReportStatus(status: string | null | undefined): ReportStatus {

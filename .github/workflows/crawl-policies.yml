@@ -2,22 +2,34 @@ name: Crawl policy sources
 
 on:
   schedule:
-    # Asia/Shanghai workdays, every hour from Monday 00:00 to Friday 23:00.
-    - cron: "0 16-23 * * 0-4"
-    - cron: "0 0-15 * * 1-5"
-    # Asia/Shanghai weekends, every 12 hours at Saturday/Sunday 00:00 and 12:00.
-    - cron: "0 16 * * 5,6"
-    - cron: "0 4 * * 6,0"
+    # Asia/Shanghai workdays at 09:30 and 17:30 (UTC 01:30 and 09:30).
+    - cron: "30 1,9 * * 1-5"
   workflow_dispatch:
     inputs:
       source:
         description: "Source keys, comma-separated, or all"
         required: false
         default: "all"
-      limit:
-        description: "Maximum policy candidates to ingest"
+      source_scan_limit:
+        description: "Maximum list rows scanned per source"
         required: false
-        default: "80"
+        default: "60"
+      candidate_limit:
+        description: "Maximum non-L0 candidates after deterministic filtering"
+        required: false
+        default: "24"
+      ingest_limit:
+        description: "Maximum original policy documents ingested in one run"
+        required: false
+        default: "12"
+      analysis_limit:
+        description: "Maximum L2/L3 policies selected for manual analysis in one run"
+        required: false
+        default: "3"
+      pending_queue_limit:
+        description: "Maximum high-value policies retained in the pending review queue"
+        required: false
+        default: "8"
       since:
         description: "Only ingest policies published on or after this date"
         required: false
@@ -48,6 +60,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Test deterministic policy triage
+        run: npm run policy:triage-test
+
+      - name: Check limited crawl contract
+        run: npm run policy:crawl-contract-test
+
       - name: Check Supabase crawl configuration
         id: config
         env:
@@ -69,13 +87,21 @@ jobs:
           SUPABASE_FUNCTION_JWT: ${{ secrets.SUPABASE_FUNCTION_JWT }}
           SUPABASE_CRAWLER_SECRET: ${{ secrets.SUPABASE_CRAWLER_SECRET }}
           CRAWL_SOURCE: ${{ github.event.inputs.source || 'all' }}
-          CRAWL_LIMIT: ${{ github.event.inputs.limit || '80' }}
+          SOURCE_SCAN_LIMIT: ${{ github.event.inputs.source_scan_limit || '60' }}
+          CANDIDATE_LIMIT: ${{ github.event.inputs.candidate_limit || '24' }}
+          INGEST_LIMIT: ${{ github.event.inputs.ingest_limit || '12' }}
+          ANALYSIS_LIMIT: ${{ github.event.inputs.analysis_limit || '3' }}
+          PENDING_QUEUE_LIMIT: ${{ github.event.inputs.pending_queue_limit || '8' }}
           CRAWL_SINCE: ${{ github.event.inputs.since || '2026-05-01' }}
         run: |
           node scripts/crawl-policy-sources.mjs --preflight
           node scripts/crawl-policy-sources.mjs \
             --source="${CRAWL_SOURCE}" \
-            --limit="${CRAWL_LIMIT}" \
+            --source-scan-limit="${SOURCE_SCAN_LIMIT}" \
+            --candidate-limit="${CANDIDATE_LIMIT}" \
+            --ingest-limit="${INGEST_LIMIT}" \
+            --analysis-limit="${ANALYSIS_LIMIT}" \
+            --pending-queue-limit="${PENDING_QUEUE_LIMIT}" \
             --since="${CRAWL_SINCE}" \
             --exclude-undated \
             --out=artifacts/policy-candidates.json \

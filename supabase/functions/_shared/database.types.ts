@@ -320,7 +320,12 @@ export type Database = {
       };
     };
     Views: Record<string, never>;
-    Functions: Record<string, never>;
+    Functions: {
+      list_pending_policy_analysis: {
+        Args: { limit_count?: number };
+        Returns: Json;
+      };
+    };
     Enums: {};
     CompositeTypes: {};
   };

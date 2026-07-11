@@ -35,6 +35,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Test deterministic policy triage
+        run: npm run policy:triage-test
+
+      - name: Check limited crawl contract
+        run: npm run policy:crawl-contract-test
+
       - name: Validate report file path
         env:
           REPORT_FILE: ${{ github.event.inputs.report_file }}

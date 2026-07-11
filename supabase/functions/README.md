@@ -46,9 +46,11 @@ Behavior:
 - Returns frontend-usable policy identifiers as `policyId`, `policyRef.id`, and `job.policy_id`.
 - If `externalId` or `external_id` is present, writes `policies.external_id` when the deployed schema supports that column. If the column is absent, ingest falls back to `policies.metadata.externalId` / `metadata.external_id` and still returns `policyExternalId`.
 - Builds `dedupe_key` from `policyNo/policy_no`, otherwise normalized `title + issuer + publishDate`, otherwise normalized URL.
-- Checks existing canonical policies by `dedupe_key` and `contentHash/content_hash`. When a duplicate is detected, returns `{ duplicate: true, policyId, policyRef, policy, job, next: [] }` and does not create a second policy row.
-- Creates an `analysis_jobs` row with `status = 'queued'`, `progress = 8`, and the normalized request in `input_payload`.
-- Returns `{ policyId, policyExternalId, policyRef, policy, job, next: ["analyze"] }`; the scheduled crawler stops here and leaves analysis for the manual Codex workflow.
+- Accepts deterministic `analysisDepth`, `reviewPriority`, queue eligibility, selection, reasons and signal fields from the fixed-source crawler and stores them in policy metadata.
+- L0 records are removed before ingest; L1 records create only the draft policy original; L2/L3 may enter the eight-item review pool, while only the three records selected for the current run create `analysis_jobs`.
+- Checks existing canonical policies by `dedupe_key` and `contentHash/content_hash`. A duplicate merges the stronger triage state without downgrading an existing priority, reuses the latest analysis job when present, and never creates a second policy row.
+- A newly selected analysis task uses `status = 'queued'`, `progress = 8`, and the normalized request in `input_payload`; deferred or archive-only records return `job: null` and `next: []`.
+- The scheduled crawler stops after original-text ingest and queue creation; it never generates or publishes a report automatically.
 
 ### `analyze`
 

@@ -9,6 +9,8 @@
     "build": "tsc -b && vite build",
     "build:budget": "node scripts/check-bundle-budget.mjs",
     "crawl:sources": "node scripts/crawl-policy-sources.mjs",
+    "policy:triage-test": "node scripts/test-policy-triage.mjs",
+    "policy:crawl-contract-test": "node scripts/test-limited-crawl-contract.mjs",
     "manual:policies": "node scripts/manual-policy-analysis.mjs",
     "manual:validate": "node scripts/validate-manual-report.mjs",
     "manual:test": "node scripts/test-manual-report-validation.mjs",

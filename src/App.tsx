@@ -114,7 +114,7 @@ const sectionLabels: Record<ChainNode["section"], string> = {
 
 const sectionOrder: ChainNode["section"][] = ["upstream", "midstream", "downstream", "support"];
 
-const EMPTY_PENDING_POLICY_ANALYSIS: PendingPolicyAnalysisResult = { total: 0, rows: [] };
+const EMPTY_PENDING_POLICY_ANALYSIS: PendingPolicyAnalysisResult = { total: 0, queueLimit: 8, rows: [] };
 
 const relationClass: Record<RelationType, string> = {
   直接相关: "positive",
@@ -3821,9 +3821,9 @@ function PolicyListView({
       <section className="panel pending-policy-panel">
         <div className="pending-policy-head">
           <div>
-            <span className="status-badge blue">定时同步入库</span>
-            <h2>已入库但未分析的政策</h2>
-            <p>这里展示政策原文已入库、但尚未完成人工审核分析与发布的政策。普通用户只能查看清单，不能创建分析任务。</p>
+            <span className="status-badge blue">确定性筛选队列</span>
+            <h2>高价值待分析政策</h2>
+            <p>这里只展示L2/L3及历史未分层政策，按政策动作强度排序；L0直接排除，L1仅归档原文，不占用人工分析名额。</p>
           </div>
           <div className="pending-policy-count">
             <strong>{pendingPolicies.total}</strong>
@@ -3849,8 +3849,10 @@ function PolicyListView({
                   </span>
                   <strong>{item.title}</strong>
                   <p>{item.issuer} · {item.source} · {formatPolicyOfficialPublish(item, "日期待识别")}</p>
+                  {item.triageReasons.length > 0 && <p>{item.triageReasons.slice(0, 2).join("；")}</p>}
                 </div>
                 <div className="pending-policy-meta">
+                  <span>{item.analysisDepth === "legacy" ? "历史未分层" : item.analysisDepth ?? "待分层"} · 优先级 {item.reviewPriority}</span>
                   {item.analysisVersion ? <span>版本 {item.analysisVersion}</span> : <span>未生成分析版本</span>}
                   {item.sourceUrl && (
                     <a href={item.sourceUrl} target="_blank" rel="noreferrer" aria-label={`打开政策来源：${item.title}`}>
@@ -3864,7 +3866,7 @@ function PolicyListView({
           </div>
         )}
         {pendingPolicies.total > pendingPolicies.rows.length && (
-          <p className="pending-policy-more">仅展示最近 {pendingPolicies.rows.length} 条，仍有 {pendingPolicies.total - pendingPolicies.rows.length} 条在队列中。</p>
+          <p className="pending-policy-more">队列上限 {pendingPolicies.queueLimit} 条，当前仅展示 {pendingPolicies.rows.length} 条；另有 {pendingPolicies.total - pendingPolicies.rows.length} 条需人工清理优先级。</p>
         )}
       </section>
 

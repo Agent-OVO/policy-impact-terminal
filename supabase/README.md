@@ -12,7 +12,7 @@ Run the versioned migrations:
 supabase db push
 ```
 
-The authoritative deployable database history is the ordered set under `supabase/migrations/`. The initial schema is `20260510000000_initial_schema.sql`; Stage 7 adds `20260710010000_stage7_revision_projection_core.sql`; Stage 8 adds `20260710020000_stage8_transactional_revision_lifecycle.sql`, `20260710021000_stage8_model_budget_enforcement.sql`, `20260710022000_stage8_invite_account_governance.sql`, and `20260710023000_stage8_account_deletion_workflow.sql`. `supabase/schema.sql` is a historical consolidated snapshot and must not be deployed alone or manually maintained as a second schema source.
+The authoritative deployable database history is the ordered set under `supabase/migrations/`. The initial schema is `20260510000000_initial_schema.sql`; Stage 7 adds `20260710010000_stage7_revision_projection_core.sql`; Stage 8 adds `20260710020000_stage8_transactional_revision_lifecycle.sql`, `20260710021000_stage8_model_budget_enforcement.sql`, `20260710022000_stage8_invite_account_governance.sql`, and `20260710023000_stage8_account_deletion_workflow.sql`; Stage 9 adds `20260711010000_stage9_limited_collection_queue.sql`. `supabase/schema.sql` is a historical consolidated snapshot and must not be deployed alone or manually maintained as a second schema source.
 
 The official source seed is checked in as `supabase/migrations/20260510001000_seed_policy_sources.sql`, so a fresh database receives the crawler source registry during `supabase db push`.
 
@@ -188,7 +188,7 @@ The scheduled GitHub crawler runs `node scripts/crawl-policy-sources.mjs --prefl
 
 The intended production flow is:
 
-1. `ingest`: create a draft `policies` row and a queued `analysis_jobs` row for policy originals published on or after 2026-05-01. The response includes `policyId`, `policyRef.id`, and `job.policy_id` for routing. If the request includes `externalId` or `external_id`, ingest writes `policies.external_id` when that column exists; on older schemas it falls back to `policies.metadata.externalId` / `metadata.external_id` and still returns `policyExternalId`.
+1. `ingest`: create a draft `policies` row for an original policy published on or after 2026-05-01 and persist deterministic L0—L3 triage metadata. L1 records are archived without an analysis task; at most eight L2/L3 records remain in the high-value review pool and at most three selected records create `analysis_jobs`. Duplicate crawls merge stronger triage metadata and reuse the latest existing job instead of generating repeated jobs. The response includes `policyId`, `policyRef.id`, and `job.policy_id` when a task is actually created. If the request includes `externalId` or `external_id`, ingest writes `policies.external_id` when that column exists; on older schemas it falls back to `policies.metadata.externalId` / `metadata.external_id` and still returns `policyExternalId`.
 2. `manual list`: run `npm run manual:policies -- list --limit=10` to find policies that still need Codex manual analysis.
 3. `manual get`: run `npm run manual:policies -- get --policyId=<policy-uuid>` to read metadata and `policies.full_text` into the Codex conversation.
 4. `manual apply`: run `npm run manual:policies -- apply --policyId=<policy-uuid> --file=artifacts/manual-report-payload.json` to write the reviewed `reportPayload`, set `analysis_version = 'codex-manual-v1'`, mark the policy `published`, and update the linked job when one exists.

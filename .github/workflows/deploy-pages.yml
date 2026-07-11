@@ -35,6 +35,12 @@ jobs:
       - name: Audit dependencies
         run: npm run security:audit
 
+      - name: Test deterministic policy triage
+        run: npm run policy:triage-test
+
+      - name: Check limited crawl contract
+        run: npm run policy:crawl-contract-test
+
       - name: Validate all manual reports
         env:
           MANUAL_QUALITY_STRICT: "true"
