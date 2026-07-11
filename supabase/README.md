@@ -2,7 +2,7 @@
 
 This folder holds the database schema and Edge Function boundary for the Policy Impact Terminal. The production frontend reads Supabase only; local mock data is available only when `VITE_ENABLE_MOCK=true` is set explicitly.
 
-> Architecture transition: the current production contract still stores the full report in `policies.metadata.reportPayload`. Stage 7 has completed immutable source/revision/projection infrastructure and a deployment-ready 20-report shadow package. Stage 8 has added typed Edge boundaries, transactional publish/rollback, immutable command/event audit, model-token reservation/finalization, and two admin-only Edge candidates. None of the Stage 7/8 migrations or new functions has been deployed to Supabase production, and no live read/write path has switched. Until staging and production acceptance are complete, the remainder of this README continues to describe the live compatibility path.
+> Architecture transition: the current production contract still stores the full report in `policies.metadata.reportPayload`. Stage 7 has completed immutable source/revision/projection infrastructure and a deployment-ready 20-report shadow package. Stage 8 has added typed Edge boundaries, transactional publish/rollback, immutable command/event audit, model-token reservation/finalization, and two admin-only Edge candidates. Stage 9 adds the limited collection queue, while Stage 10 adds a zero-table private-view and read-only RPC candidate. None of the Stage 7–10 migrations or new functions has been deployed to Supabase production, and no live read/write path has switched. Until production acceptance and explicit deployment approval are complete, the remainder of this README continues to describe the live compatibility path.
 
 ## 1. Apply Schema
 
@@ -12,11 +12,11 @@ Run the versioned migrations:
 supabase db push
 ```
 
-The authoritative deployable database history is the ordered set under `supabase/migrations/`. The initial schema is `20260510000000_initial_schema.sql`; Stage 7 adds `20260710010000_stage7_revision_projection_core.sql`; Stage 8 adds `20260710020000_stage8_transactional_revision_lifecycle.sql`, `20260710021000_stage8_model_budget_enforcement.sql`, `20260710022000_stage8_invite_account_governance.sql`, and `20260710023000_stage8_account_deletion_workflow.sql`; Stage 9 adds `20260711010000_stage9_limited_collection_queue.sql`. `supabase/schema.sql` is a historical consolidated snapshot and must not be deployed alone or manually maintained as a second schema source.
+The authoritative deployable database history is the ordered set under `supabase/migrations/`. The initial schema is `20260510000000_initial_schema.sql`; Stage 7 adds `20260710010000_stage7_revision_projection_core.sql`; Stage 8 adds `20260710020000_stage8_transactional_revision_lifecycle.sql`, `20260710021000_stage8_model_budget_enforcement.sql`, `20260710022000_stage8_invite_account_governance.sql`, and `20260710023000_stage8_account_deletion_workflow.sql`; Stage 9 adds `20260711010000_stage9_limited_collection_queue.sql`; Stage 10 adds the local, undeployed candidate `20260711020000_stage10_cross_policy_observation_kernel.sql`. `supabase/schema.sql` is a historical consolidated snapshot and must not be deployed alone or manually maintained as a second schema source.
 
 The official source seed is checked in as `supabase/migrations/20260510001000_seed_policy_sources.sql`, so a fresh database receives the crawler source registry during `supabase db push`.
 
-Before any Stage 7 production push, run:
+Before any Stage 7–10 production push, run:
 
 ```powershell
 npm run stage7:test
@@ -25,6 +25,7 @@ npm run stage7:evidence-audit
 npm run stage7:shadow -- --source-documents=artifacts/stage7/official-source-documents.json --require-deployment-ready
 npm run stage7:migration-test
 npm run stage7:migration-test -- --shadow-package=artifacts/stage7/report-revision-shadow.json
+npm run stage10:test
 npm run auth:test
 npm run workflow:test
 npm run workflow:generated-check

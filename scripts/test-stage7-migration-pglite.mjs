@@ -18,16 +18,21 @@ const stage8BudgetMigration = await fs.readFile(path.resolve(args.stage8BudgetMi
 const stage8AccountMigration = await fs.readFile(path.resolve(args.stage8AccountMigration), "utf8");
 const stage8DeletionMigration = await fs.readFile(path.resolve(args.stage8DeletionMigration), "utf8");
 const stage9CollectionMigration = await fs.readFile(path.resolve(args.stage9CollectionMigration), "utf8");
+const stage10Migration = args.stage10Migration
+  ? await fs.readFile(path.resolve(args.stage10Migration), "utf8")
+  : null;
 await db.exec(stage7Migration);
 await db.exec(stage8Migration);
 await db.exec(stage8BudgetMigration);
 await db.exec(stage8AccountMigration);
 await db.exec(stage8DeletionMigration);
 await db.exec(stage9CollectionMigration);
+if (stage10Migration) await db.exec(stage10Migration);
 
-await assertCatalog(db);
+await assertCatalog(db, Boolean(stage10Migration));
 await assertLifecycle(db);
 await assertTransactionalCommands(db);
+if (stage10Migration) await assertStage10CrossPolicyKernel(db);
 await assertModelBudgetEnforcement(db);
 await assertInviteAccountGovernance(db);
 await assertAccountDeletionWorkflow(db);
@@ -35,9 +40,12 @@ await assertLimitedCollectionQueue(db);
 await assertTableLevelRls(db);
 await assertBulkShadowMigration(db, args.shadowPackage);
 await db.close();
-console.log("[stage9:pglite] migrations, lifecycle commands, limited review queue, table-level RLS roles, 20-report bulk load, and idempotence assertions passed");
+console.log(
+  (stage10Migration ? "[stage10:pglite]" : "[stage9:pglite]") +
+  " migrations, lifecycle commands, limited review queue, table-level RLS roles, 20-report bulk load, and idempotence assertions passed"
+);
 
-async function assertCatalog(database) {
+async function assertCatalog(database, includeStage10) {
   const expectedTables = [
     "policy_source_documents",
     "policy_source_segments",
@@ -94,9 +102,18 @@ async function assertCatalog(database) {
     "purge_expired_user_events",
     "prepare_account_deletion",
     "finalize_account_deletion",
-    "list_pending_policy_analysis",
+    "list_pending_policy_analysis"
   ]) {
     assert.ok(functionSet.has(name), `function ${name} must exist`);
+  }
+  if (includeStage10) {
+    for (const name of [
+      "query_cross_policy_company",
+      "query_cross_policy_industry",
+      "list_company_relation_changes"
+    ]) {
+      assert.ok(functionSet.has(name), `function ${name} must exist`);
+    }
   }
 }
 
@@ -147,6 +164,14 @@ async function assertLifecycle(database) {
       policy_id, revision_id, projection_version, action_key, title, signal, evidence_level
     ) values (
       '${policyId}', '${revisionId1}', 'policy-projection-v1', 'a1', '测试动作', 'positive', 'strong'
+    );
+    insert into public.report_company_relations(
+      policy_id, revision_id, projection_version, relation_key, company_key, company_name,
+      ticker, relationship, policy_evidence, business_exposure, watch_signals, key_risks
+    ) values (
+      '${policyId}', '${revisionId1}', 'policy-projection-v1', 'company-test', 'test-company',
+      '测试公司', '000001.SZ', 'direct_industry', 'indirect', '第一版直接产业候选关系',
+      array['等待订单'], array['政策未点名']
     );
 
     update public.report_revisions set status='in_review' where id='${revisionId1}';
@@ -209,6 +234,21 @@ async function assertLifecycle(database) {
       policy_id, revision_id, projection_version, action_key, title, signal, evidence_level
     ) values (
       '${policyId}', '${revisionId2}', 'policy-projection-v1', 'a1', '第二版动作', 'positive', 'strong'
+    );
+    insert into public.report_company_relations(
+      policy_id, revision_id, projection_version, relation_key, company_key, company_name,
+      ticker, relationship, policy_evidence, business_exposure, watch_signals, key_risks
+    ) values (
+      '${policyId}', '${revisionId2}', 'policy-projection-v1', 'company-test', 'test-company',
+      '测试公司', '000001.SZ', 'watch_only', 'pending', '第二版降级为观察关系',
+      array['等待采购公告'], array['缺少订单证据']
+    );
+    insert into public.report_evidence_refs(
+      policy_id, revision_id, projection_version, evidence_key, title, source_name,
+      evidence_type, linked_company_keys
+    ) values (
+      '${policyId}', '${revisionId2}', 'policy-projection-v1', 'e-company-v2',
+      '第二版关系边界', '迁移测试', 'analysis_boundary', array['test-company']
     );
     update public.report_revisions set status='in_review' where id='${revisionId2}';
     update public.report_revisions
@@ -305,6 +345,31 @@ async function assertTransactionalCommands(database) {
     ) values (
       '${policyId}', '${revisionId3}', 'policy-projection-v1', 'a1', '第三版动作', 'positive', 'strong'
     );
+    insert into public.report_industry_nodes(
+      policy_id, revision_id, projection_version, node_key, title, subtitle, section,
+      relation, evidence_level, confidence, company_keys, verification_signals
+    ) values (
+      '${policyId}', '${revisionId3}', 'policy-projection-v1', 'industry-test',
+      '测试产业', '阶段十迁移测试产业', 'midstream', 'direct', 'strong', 90,
+      array['test-company'], array['正式名单']
+    );
+    insert into public.report_company_relations(
+      policy_id, revision_id, projection_version, relation_key, company_key, company_name,
+      ticker, chain_node_key, relationship, policy_evidence, business_exposure,
+      watch_signals, key_risks, do_not_overread
+    ) values (
+      '${policyId}', '${revisionId3}', 'policy-projection-v1', 'company-test', 'test-company',
+      '测试公司', '000001.SZ', 'industry-test', 'policy_named', 'strong',
+      '第三版附件确认官方点名', array['等待订单'], array['订单尚未确认'], array['点名不等于收入']
+    );
+    insert into public.report_evidence_refs(
+      policy_id, revision_id, projection_version, evidence_key, title, source_name,
+      evidence_type, linked_node_keys, linked_company_keys
+    ) values (
+      '${policyId}', '${revisionId3}', 'policy-projection-v1', 'e-company-v3',
+      '第三版附件点名', '迁移测试附件', 'attachment',
+      array['industry-test'], array['test-company']
+    );
   `);
 
   await expectFailure(
@@ -359,6 +424,100 @@ async function assertTransactionalCommands(database) {
     `delete from public.report_revision_events where policy_id='${policyId}'::uuid`,
     "revision event audit immutability"
   );
+}
+
+async function assertStage10CrossPolicyKernel(database) {
+  const adminId = "00000000-0000-0000-0000-000000000001";
+  const inactiveId = "00000000-0000-0000-0000-000000000009";
+  const currentRevisionId = "00000000-0000-0000-0000-000000000303";
+
+  const viewRows = await database.query(
+    "select table_name from information_schema.views where table_schema='research_private' order by table_name"
+  );
+  assert.deepEqual(viewRows.rows.map((item) => item.table_name), [
+    "company_relation_revision_changes",
+    "current_company_relations",
+    "current_industry_nodes",
+    "current_policy_tools"
+  ]);
+  const privateTables = await database.query(
+    "select tablename from pg_tables where schemaname='research_private'"
+  );
+  assert.equal(privateTables.rows.length, 0, "Stage 10 candidate must not create duplicate state tables");
+
+  const currentRelations = await database.query(
+    "select revision_id::text, relationship, policy_evidence, business_evidence_state, business_evidence_count from research_private.current_company_relations where company_key='test-company'"
+  );
+  assert.equal(currentRelations.rows.length, 1);
+  assert.equal(currentRelations.rows[0].revision_id, currentRevisionId);
+  assert.equal(currentRelations.rows[0].relationship, "policy_named");
+  assert.equal(currentRelations.rows[0].policy_evidence, "strong");
+  assert.equal(currentRelations.rows[0].business_evidence_state, "not_available");
+  assert.equal(currentRelations.rows[0].business_evidence_count, 0);
+
+  const companyResult = await database.query(
+    "select * from public.query_cross_policy_company($1)",
+    ["测试公司"]
+  );
+  assert.equal(companyResult.rows.length, 1);
+  assert.equal(companyResult.rows[0].relationship, "policy_named");
+  assert.equal(companyResult.rows[0].revision_id, currentRevisionId);
+
+  const industryResult = await database.query(
+    "select * from public.query_cross_policy_industry($1)",
+    ["测试产业"]
+  );
+  assert.equal(industryResult.rows.length, 1);
+  assert.equal(industryResult.rows[0].industry_title, "测试产业");
+  assert.equal(industryResult.rows[0].revision_id, currentRevisionId);
+
+  const changeResult = await database.query(
+    "select change_type, previous_relationship, target_relationship, target_evidence_keys from public.list_company_relation_changes($1)",
+    ["测试公司"]
+  );
+  assert.equal(changeResult.rows.length, 2);
+  const changeTypes = new Set(changeResult.rows.map((item) => item.change_type));
+  assert.ok(changeTypes.has("relationship_downgrade"));
+  assert.ok(changeTypes.has("relationship_upgrade"));
+  const upgrade = changeResult.rows.find((item) => item.change_type === "relationship_upgrade");
+  assert.equal(upgrade.previous_relationship, "watch_only");
+  assert.equal(upgrade.target_relationship, "policy_named");
+  assert.ok(upgrade.target_evidence_keys.includes("e-company-v3"));
+
+  await database.exec(`
+    set request.jwt.claim.sub = '${adminId}';
+    set role authenticated;
+  `);
+  const authenticatedResult = await database.query(
+    "select company_name, relationship from public.query_cross_policy_company('测试公司')"
+  );
+  assert.equal(authenticatedResult.rows.length, 1);
+  await expectFailure(
+    database,
+    "select * from research_private.current_company_relations",
+    "private Stage 10 views are not directly readable by authenticated"
+  );
+  await database.exec("reset role");
+
+  await database.exec(`
+    insert into auth.users(id) values ('${inactiveId}');
+    insert into public.profiles(id, role, status) values ('${inactiveId}', 'viewer', 'suspended');
+    set request.jwt.claim.sub = '${inactiveId}';
+  `);
+  await expectFailure(
+    database,
+    "select * from public.query_cross_policy_company('测试公司')",
+    "inactive user cannot call Stage 10 RPC"
+  );
+  await database.exec(`set request.jwt.claim.sub = '${adminId}'`);
+
+  await database.exec("set role anon");
+  await expectFailure(
+    database,
+    "select * from public.query_cross_policy_company('测试公司')",
+    "anon cannot execute Stage 10 RPC"
+  );
+  await database.exec("reset role");
 }
 
 async function assertModelBudgetEnforcement(database) {
@@ -1029,11 +1188,11 @@ async function assertBulkShadowMigration(database, shadowPackagePath) {
     report_revisions: shadow.counts.reports + 3,
     report_projection_runs: shadow.counts.reports + 3,
     report_policy_actions: shadow.counts.policyActions + 3,
-    report_industry_nodes: shadow.counts.industryNodes,
+    report_industry_nodes: shadow.counts.industryNodes + 1,
     report_industry_edges: shadow.counts.industryEdges,
-    report_company_relations: shadow.counts.companyRelations,
+    report_company_relations: shadow.counts.companyRelations + 3,
     report_policy_network_relations: shadow.counts.policyNetworkRelations,
-    report_evidence_refs: shadow.counts.evidenceRefs,
+    report_evidence_refs: shadow.counts.evidenceRefs + 2,
     report_signals: shadow.counts.signals
   };
   for (const [table, expected] of Object.entries(tableExpectations)) {
@@ -1185,6 +1344,7 @@ function parseArgs(argv) {
     stage8AccountMigration: "supabase/migrations/20260710022000_stage8_invite_account_governance.sql",
     stage8DeletionMigration: "supabase/migrations/20260710023000_stage8_account_deletion_workflow.sql",
     stage9CollectionMigration: "supabase/migrations/20260711010000_stage9_limited_collection_queue.sql",
+    stage10Migration: "",
     shadowPackage: ""
   };
   for (const arg of argv) {
@@ -1195,6 +1355,7 @@ function parseArgs(argv) {
     else if (arg.startsWith("--stage8-account-migration=")) parsed.stage8AccountMigration = arg.slice("--stage8-account-migration=".length);
     else if (arg.startsWith("--stage8-deletion-migration=")) parsed.stage8DeletionMigration = arg.slice("--stage8-deletion-migration=".length);
     else if (arg.startsWith("--stage9-collection-migration=")) parsed.stage9CollectionMigration = arg.slice("--stage9-collection-migration=".length);
+    else if (arg.startsWith("--stage10-migration=")) parsed.stage10Migration = arg.slice("--stage10-migration=".length);
     else if (arg.startsWith("--shadow-package=")) parsed.shadowPackage = arg.slice("--shadow-package=".length);
     else throw new Error(`Unknown argument: ${arg}`);
   }

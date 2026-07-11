@@ -19,6 +19,14 @@ export const manualQualityPaths = [
   "scripts/test-stage9-first-six-query.mjs",
   "scripts/test-stage9-first-six-queue.mjs",
   "research-batches/stage9-first-six/**",
+  "scripts/lib/research-index.mjs",
+  "scripts/build-research-index.mjs",
+  "scripts/query-research-index.mjs",
+  "scripts/query-research-timeline.mjs",
+  "scripts/manage-research-watchlist.mjs",
+  "scripts/run-stage10-migration-pglite.mjs",
+  "scripts/test-stage10-research-kernel.mjs",
+  "research-index/**",
   "scripts/build-report-revision-shadow.mjs",
   "scripts/diff-report-revisions.mjs",
   "scripts/export-stage7-source-documents.mjs",
@@ -82,6 +90,13 @@ export const manualQualitySyntaxCommands = [
   "node --check scripts/test-stage9-first-six-batch.mjs",
   "node --check scripts/test-stage9-first-six-query.mjs",
   "node --check scripts/test-stage9-first-six-queue.mjs",
+  "node --check scripts/lib/research-index.mjs",
+  "node --check scripts/build-research-index.mjs",
+  "node --check scripts/query-research-index.mjs",
+  "node --check scripts/query-research-timeline.mjs",
+  "node --check scripts/manage-research-watchlist.mjs",
+  "node --check scripts/run-stage10-migration-pglite.mjs",
+  "node --check scripts/test-stage10-research-kernel.mjs",
   "node --check scripts/build-report-revision-shadow.mjs",
   "node --check scripts/diff-report-revisions.mjs",
   "node --check scripts/export-stage7-source-documents.mjs",
@@ -155,6 +170,9 @@ ${syntaxLines}
 
       - name: Validate Stage 9 first-six research batch
         run: npm run stage9:first-six:test
+
+      - name: Validate Stage 10 cross-policy observation kernel
+        run: npm run stage10:test
 
       - name: Validate all manual reports
         env:

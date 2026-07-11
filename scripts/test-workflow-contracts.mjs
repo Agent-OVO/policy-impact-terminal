@@ -24,6 +24,7 @@ const contracts = [
       "Install dependencies",
       "Audit dependencies",
       "Validate Stage 9 first-six research batch",
+      "Validate Stage 10 cross-policy observation kernel",
       "Validate all manual reports",
       "Validate revision and projection core",
       ...sharedSecuritySteps,

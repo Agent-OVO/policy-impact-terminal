@@ -24,6 +24,7 @@
 - `docs/architecture/stage-7-revision-projection-core-report-v1.0.md`
 - `docs/architecture/stage-8-transactional-lifecycle-and-edge-types-v1.0.md`
 - `docs/architecture/stage-8-final-regression-report-v1.0.md`
+- `docs/architecture/stage-10-cross-policy-observation-kernel-v1.0.md`
 - `docs/architecture/zero-cost-validation-and-deployment-strategy-v1.0.md`
 - `docs/architecture/zero-cost-production-readiness-audit-v1.0.md`
 - `docs/architecture/stage-7-to-13-roadmap-v1.0.md`
@@ -85,6 +86,7 @@ npm run manual:test
 npm run manual:metrics
 npm run policy:triage-test
 npm run policy:crawl-contract-test
+npm run stage10:test
 npm run stage7:test
 npm run stage7:migration-test
 npm run auth:test
@@ -146,6 +148,7 @@ npm run stage9:first-six:queue -- list immediate_analysis
 
 ```text
 research-index/README.md
+docs/architecture/stage-10-cross-policy-observation-kernel-v1.0.md
 ```
 
 构建、查询和验收：
@@ -157,9 +160,10 @@ npm run research:query -- industry 人工智能
 npm run research:query -- policy-tool 价格
 npm run research:timeline -- industry 电网
 npm run research:watchlist -- validate
+npm run stage10:test
 ```
 
-索引、关系变化和观察池均为本地研究工具，不输出交易指令。
+索引、关系变化和观察池均为本地研究工具，不输出交易指令。阶段十数据库候选创建0张新表，只提供私有当前态视图和带活跃用户、逐政策授权检查的只读RPC；尚未部署生产。
 
 ## 人工分析与发布
 
