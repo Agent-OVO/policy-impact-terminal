@@ -6,8 +6,19 @@ export const manualQualityPaths = [
   "scripts/lib/report-revision-core.mjs",
   "scripts/lib/official-policy-source.mjs",
   "scripts/lib/stage7-shadow-database-loader.mjs",
+  "scripts/lib/policy-triage.mjs",
   "scripts/lib/zero-cost-backup-crypto.mjs",
   "scripts/lib/manual-quality-workflow.mjs",
+  "scripts/crawl-policy-sources.mjs",
+  "scripts/test-policy-triage.mjs",
+  "scripts/test-limited-crawl-contract.mjs",
+  "scripts/query-stage9-first-six.mjs",
+  "scripts/manage-stage9-first-six-queue.mjs",
+  "scripts/validate-stage9-first-six.mjs",
+  "scripts/test-stage9-first-six-batch.mjs",
+  "scripts/test-stage9-first-six-query.mjs",
+  "scripts/test-stage9-first-six-queue.mjs",
+  "research-batches/stage9-first-six/**",
   "scripts/build-report-revision-shadow.mjs",
   "scripts/diff-report-revisions.mjs",
   "scripts/export-stage7-source-documents.mjs",
@@ -41,6 +52,7 @@ export const manualQualityPaths = [
   "src/types/index.ts",
   "src/App.tsx",
   "src/lib/reportMappers.ts",
+  "src/lib/reportRepository.ts",
   "supabase/migrations/**",
   "supabase/functions/**",
   "supabase/config.toml",
@@ -54,12 +66,22 @@ export const manualQualityPaths = [
   ".github/workflows/manual-quality.yml",
   ".github/workflows/deploy-pages.yml",
   ".github/workflows/apply-manual-analysis.yml",
+  ".github/workflows/crawl-policies.yml"
 ];
 
 export const manualQualitySyntaxCommands = [
   "node --check scripts/manage-production-qa-user.mjs",
   "node --check scripts/run-production-authenticated-qa.mjs",
   "node --check scripts/production-authenticated-qa.playwright.js",
+  "node --check scripts/crawl-policy-sources.mjs",
+  "node --check scripts/test-policy-triage.mjs",
+  "node --check scripts/test-limited-crawl-contract.mjs",
+  "node --check scripts/query-stage9-first-six.mjs",
+  "node --check scripts/manage-stage9-first-six-queue.mjs",
+  "node --check scripts/validate-stage9-first-six.mjs",
+  "node --check scripts/test-stage9-first-six-batch.mjs",
+  "node --check scripts/test-stage9-first-six-query.mjs",
+  "node --check scripts/test-stage9-first-six-queue.mjs",
   "node --check scripts/build-report-revision-shadow.mjs",
   "node --check scripts/diff-report-revisions.mjs",
   "node --check scripts/export-stage7-source-documents.mjs",
@@ -124,6 +146,15 @@ jobs:
       - name: Check tooling syntax
         run: |
 ${syntaxLines}
+
+      - name: Test deterministic policy triage
+        run: npm run policy:triage-test
+
+      - name: Check limited crawl contract
+        run: npm run policy:crawl-contract-test
+
+      - name: Validate Stage 9 first-six research batch
+        run: npm run stage9:first-six:test
 
       - name: Validate all manual reports
         env:

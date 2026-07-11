@@ -1,0 +1,369 @@
+{
+  "id": "95e4c9b2-6fd4-4fb5-b8cb-202606290303",
+  "policyId": "95e4c9b2-6fd4-4fb5-b8cb-202606290303",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "通知",
+  "substantivePolicyType": "精细化工关键产品创新任务名单与攻关管理",
+  "primaryActionType": "揭榜挂帅名单认定",
+  "policySignalStrength": "high",
+  "implementationCertainty": "high",
+  "analysisDepth": "L4",
+  "analysisDepthReason": "官方附件逐项列明攻关产品、推荐地区和揭榜团队牵头单位，形成直接主体证据；正文同时规定三年攻关周期、年度跟踪、产融支持、要素保障、测评择优和首批次保险补偿等后续机制，可验证性高，但入围不等于技术成功、订单或利润兑现。",
+  "followUpSignals": [
+    "入围项目年度攻关进度",
+    "国家产融合作平台融资支持",
+    "地方用地用能排污指标配置",
+    "三年期满测评结果",
+    "揭榜优胜单位名单",
+    "新材料首批次和首台套保险补偿",
+    "中试验证和客户导入"
+  ],
+  "generatedAt": "2026-07-11T09:20:00+09:00",
+  "summary": {
+    "id": "95e4c9b2-6fd4-4fb5-b8cb-202606290303",
+    "title": "关于公布精细化工关键产品创新任务揭榜挂帅入围揭榜单位名单的通知",
+    "issuer": "工业和信息化部办公厅",
+    "source": "工业和信息化部",
+    "publishDate": "2026-07-03",
+    "status": "draft",
+    "confidence": 95,
+    "industryCount": 5,
+    "companyCount": 6,
+    "evidenceCount": 10,
+    "primarySignal": "关键化工材料与装备攻关名单",
+    "category": "精细化工"
+  },
+  "policy": {
+    "title": "关于公布精细化工关键产品创新任务揭榜挂帅入围揭榜单位名单的通知",
+    "status": "draft",
+    "issuer": "工业和信息化部办公厅",
+    "publishDate": "2026-07-03",
+    "effectiveDate": "2026-06-29",
+    "source": "工业和信息化部",
+    "category": "精细化工",
+    "level": "中央部委",
+    "confidence": 97,
+    "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_1f634b6402914c67a9daee7def0b2a5c.html",
+    "scope": "中间体原料、重点材料、关键装备及配套试剂",
+    "impactScope": "关键材料国产化攻关、项目要素配置、中试验证、首批次应用和测评优胜",
+    "jurisdiction": "中国大陆",
+    "tags": ["精细化工", "揭榜挂帅", "关键材料", "关键装备", "首批次"]
+  },
+  "brief": {
+    "judgement": "这份文件的研究价值不在“精细化工受政策支持”这一宽泛结论，而在于附件给出了可核验的产品—地区—牵头单位对应关系，并把入围、三年攻关、年度调度、要素保障、测评优胜和首批次应用串成完整路径；因此名单内企业可以作为直接观察对象，但只有技术指标完成、客户验证和商业化订单出现后，才可能从政策身份转化为经营兑现。",
+    "summary": "官方6页附件覆盖中间体原料、重点材料和关键装备等攻关任务，直接点名万华化学、鼎龙科技、七彩化学、沧州大化、卫星化学、西陇科学等上市公司。正文要求入围单位按申报材料推进，地方主管部门年度跟踪并优先配置用地、用能和排污指标，原则上三年内完成攻关；完成后由工信部组织测评，每个产品原则上不超过2家优胜单位，并通过新材料首批次、首台套保险补偿等支持推广。名单带来的是政策身份和资源协调优势，不是订单、补贴金额或盈利保证。",
+    "keyPoints": [
+      "附件是主体证据，直接列出攻关产品和牵头单位，可建立policy_named级公司映射。",
+      "入围单位原则上在名单公布之日起3年内完成任务，存在明确的中期验证窗口。",
+      "地方支持包括跟踪调度、用地用能排污指标、中试、应用验证和市场推广，但未统一给出财政金额。",
+      "优胜单位还需通过专业测评，每个产品原则上不超过2家，入围与最终优胜存在显著差异。",
+      "首批次和首台套保险补偿属于应用推广工具，仍需具体目录、保单、客户和收入验证。"
+    ],
+    "methodology": "人工核验工信部正文和6页官方PDF名单，以名单为公司点名证据；按中间体、材料、试剂和装备拆分产业链；公司只纳入附件直接出现且证券身份可识别的六家上市主体，政策证据和商业化证据分层记录。"
+  },
+  "policyIndustryMap": [
+    {
+      "id": "pi1",
+      "industry": "特种异氰酸酯与高端聚氨酯原料",
+      "policyAction": "组织CHDI、NDI、H6XDI等关键产品攻关",
+      "impactType": "technology_breakthrough",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "附件直接列明相关攻关产品和万华化学、七彩化学、沧州大化等牵头单位。",
+      "relatedClauseIds": ["c1", "c2"],
+      "relatedNodeIds": ["n1"],
+      "watchSignals": ["中试指标", "客户验证", "进口替代"]
+    },
+    {
+      "id": "pi2",
+      "industry": "高性能纤维与高分子材料",
+      "policyAction": "推进LCP、PBO、PIPD、PEI及高性能助剂国产化",
+      "impactType": "technology_breakthrough",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "名单覆盖关键单体、聚合物、纤维助剂、压敏胶和特种材料。",
+      "relatedClauseIds": ["c1", "c2"],
+      "relatedNodeIds": ["n2"],
+      "watchSignals": ["产品定型", "下游认证", "量产规模"]
+    },
+    {
+      "id": "pi3",
+      "industry": "先进催化剂和精细化学品",
+      "policyAction": "攻关单活性中心催化剂、标准试剂和专用化学品",
+      "impactType": "technology_breakthrough",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "附件直接点名催化剂、卡尔费休试剂等产品及承担单位。",
+      "relatedClauseIds": ["c1", "c2"],
+      "relatedNodeIds": ["n3"],
+      "watchSignals": ["催化性能", "标准物质认证", "客户放量"]
+    },
+    {
+      "id": "pi4",
+      "industry": "化工关键装备与自动化",
+      "policyAction": "推进特种反应器、拉膜设备、纯化设备和精密阀攻关",
+      "impactType": "equipment_localization",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "名单第三部分列明关键装备产品和牵头单位。",
+      "relatedClauseIds": ["c1", "c2"],
+      "relatedNodeIds": ["n4"],
+      "watchSignals": ["样机验证", "首台套认定", "设备订单"]
+    },
+    {
+      "id": "pi5",
+      "industry": "产融、中试与首批次应用服务",
+      "policyAction": "提供融资、要素、中试、验证和保险补偿支持",
+      "impactType": "implementation_support",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "正文明确国家产融合作平台、地方要素支持和首批次保险补偿工具。",
+      "relatedClauseIds": ["c3", "c4", "c5"],
+      "relatedNodeIds": ["n5"],
+      "watchSignals": ["融资项目", "中试基地", "保险补偿名单"]
+    }
+  ],
+  "industryChain": [
+    {
+      "id": "chain1",
+      "chainName": "关键产品攻关—中试验证—专业测评—首批次推广—规模化销售",
+      "policyRole": "名单确认攻关主体，地方和产融工具支持研发与中试，专业机构测评筛选优胜者，首批次及首台套政策推动首次应用，最终商业化仍由客户验证和订单决定。",
+      "nodes": [
+        {"id": "n1", "policySensitivity": "high", "description": "特种异氰酸酯及其反应装备直接进入揭榜任务。"},
+        {"id": "n2", "policySensitivity": "high", "description": "高性能纤维、高分子和专用助剂由名单主体承担攻关。"},
+        {"id": "n3", "policySensitivity": "high", "description": "催化剂、标准试剂等精细化学品直接进入任务清单。"},
+        {"id": "n4", "policySensitivity": "high", "description": "关键装备需要样机、中试和首台套验证。"},
+        {"id": "n5", "policySensitivity": "medium", "description": "产融和首批次工具降低从研发到应用的部分摩擦。"}
+      ],
+      "edges": [
+        {"from": "n1", "to": "n5", "relation": "validation_support", "description": "原料和材料攻关需融资、中试及应用验证支持。"},
+        {"from": "n2", "to": "n5", "relation": "market_support", "description": "高性能材料完成攻关后进入首批次应用和市场推广。"},
+        {"from": "n3", "to": "n5", "relation": "certification_support", "description": "试剂和催化剂需性能评价及客户认证。"},
+        {"from": "n4", "to": "n5", "relation": "first_equipment_support", "description": "关键装备可通过首台套保险补偿促进首次应用。"}
+      ]
+    }
+  ],
+  "companyMap": [
+    {
+      "id": "cm1",
+      "companyId": "co1",
+      "chainNodeId": "n1",
+      "relationship": "policy_named",
+      "policyEvidence": "strong",
+      "businessExposure": "名单直接列明万华化学承担NDI、偏光片粘接与保护用压敏胶、醋酸丁酸纤维素等攻关任务。",
+      "investmentUse": "作为直接点名、多产品入围主体观察技术进度和商业化，不把入围等同于新增利润。",
+      "watchSignals": ["NDI中试和客户认证", "压敏胶验证", "优胜测评", "首批次应用"],
+      "keyRisks": ["三年攻关存在技术不确定性", "新产品贡献可能低于公司整体规模", "客户导入周期较长"],
+      "doNotOverread": ["政策点名不代表订单或补贴金额"]
+    },
+    {
+      "id": "cm2",
+      "companyId": "co2",
+      "chainNodeId": "n2",
+      "relationship": "policy_named",
+      "policyEvidence": "strong",
+      "businessExposure": "名单直接列明鼎龙科技承担DAR和TAP等高性能纤维关键单体攻关。",
+      "investmentUse": "观察高端单体技术突破、下游纤维客户验证和量产节奏。",
+      "watchSignals": ["DAR/TAP技术指标", "中试产能", "客户验证", "优胜名单"],
+      "keyRisks": ["下游市场规模和导入节奏不确定", "技术路线可能竞争", "量产成本需验证"],
+      "doNotOverread": ["入围不等于形成稳定收入"]
+    },
+    {
+      "id": "cm3",
+      "companyId": "co3",
+      "chainNodeId": "n1",
+      "relationship": "policy_named",
+      "policyEvidence": "strong",
+      "businessExposure": "名单直接列明七彩化学参与H6XDI以及特种异氰酸酯生产用反应器攻关。",
+      "investmentUse": "观察材料与装备协同、工艺验证和客户导入。",
+      "watchSignals": ["H6XDI样品", "反应器中试", "客户认证", "地方要素支持"],
+      "keyRisks": ["材料和装备双重技术风险", "项目投入可能先于收入", "最终优胜名额有限"],
+      "doNotOverread": ["承担两项任务不代表双重业绩兑现"]
+    },
+    {
+      "id": "cm4",
+      "companyId": "co4",
+      "chainNodeId": "n1",
+      "relationship": "policy_named",
+      "policyEvidence": "strong",
+      "businessExposure": "名单直接列明沧州大化参与CHDI和特种异氰酸酯生产用反应器攻关。",
+      "investmentUse": "观察特种异氰酸酯产品结构升级及装置工艺验证。",
+      "watchSignals": ["CHDI试制", "反应器验证", "量产成本", "客户订单"],
+      "keyRisks": ["公司传统产品周期波动可能掩盖新产品进展", "攻关周期较长", "商业化体量未知"],
+      "doNotOverread": ["政策名单不能替代产品盈利测算"]
+    },
+    {
+      "id": "cm5",
+      "companyId": "co5",
+      "chainNodeId": "n3",
+      "relationship": "policy_named",
+      "policyEvidence": "strong",
+      "businessExposure": "名单直接列明卫星化学承担茂金属聚烯烃及弹性体单活性中心催化剂攻关。",
+      "investmentUse": "观察催化剂自研是否增强高端聚烯烃产品能力和成本控制。",
+      "watchSignals": ["催化剂性能", "POE等产品应用", "中试和量产", "客户认证"],
+      "keyRisks": ["催化剂成果对整体盈利影响需量化", "高端聚烯烃竞争加剧", "攻关成功不等于外售"],
+      "doNotOverread": ["名单不能直接推导POE产销量"]
+    },
+    {
+      "id": "cm6",
+      "companyId": "co6",
+      "chainNodeId": "n3",
+      "relationship": "policy_named",
+      "policyEvidence": "strong",
+      "businessExposure": "名单直接列明西陇科学承担微量水分测定用卡尔费休试剂攻关。",
+      "investmentUse": "观察高端试剂质量、标准认证和客户结构改善。",
+      "watchSignals": ["试剂性能和认证", "高端客户导入", "优胜测评", "销售占比"],
+      "keyRisks": ["单一产品市场空间有限", "竞争和价格压力", "公司经营质量仍需独立评估"],
+      "doNotOverread": ["政策点名不改变公司其他经营风险"]
+    }
+  ],
+  "policyNetwork": [
+    {
+      "id": "pn1",
+      "relatedPolicy": "2025年精细化工关键产品创新任务揭榜挂帅通知",
+      "relationship": "predecessor",
+      "meaning": "本次名单是此前征集和评审流程的阶段性结果。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2025",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_1f634b6402914c67a9daee7def0b2a5c.html",
+      "watchSignals": ["申报材料承诺", "任务书指标"]
+    },
+    {
+      "id": "pn2",
+      "relatedPolicy": "新材料首批次应用保险补偿政策",
+      "relationship": "implementation_support",
+      "meaning": "完成攻关并测评优胜后，材料可通过首批次保险补偿推动应用。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2026-06-29",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_1f634b6402914c67a9daee7def0b2a5c.html",
+      "watchSignals": ["首批次目录", "保险补偿申请"]
+    },
+    {
+      "id": "pn3",
+      "relatedPolicy": "首台（套）重大技术装备保险补偿政策",
+      "relationship": "implementation_support",
+      "meaning": "关键装备优胜项目可借助首台套工具降低首次应用风险。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2026-06-29",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_1f634b6402914c67a9daee7def0b2a5c.html",
+      "watchSignals": ["首台套认定", "示范应用"]
+    }
+  ],
+  "investmentDirection": {
+    "primaryDirection": "关键化工产品国产化攻关及中试应用验证",
+    "directionStrength": "high",
+    "timeHorizon": "medium_term",
+    "watchIndustries": ["特种异氰酸酯", "高性能纤维单体", "高端聚烯烃催化剂", "标准试剂", "化工关键装备"],
+    "watchChainNodes": ["中间体原料", "重点材料", "先进催化剂与试剂", "关键装备", "中试和首批次推广"],
+    "watchCompanyTypes": ["名单直接点名的上市公司", "承担多项攻关任务的龙头", "掌握关键单体和催化剂的平台型企业"],
+    "watchCompanies": ["万华化学", "鼎龙科技", "七彩化学", "沧州大化", "卫星化学", "西陇科学"],
+    "nearTermCatalysts": ["地方配套支持", "项目中试进展", "客户验证", "优胜测评和首批次目录"],
+    "keyRisks": ["入围与优胜之间存在淘汰", "技术和量产成本可能不达标", "单项产品对上市公司整体贡献有限", "攻关周期长达三年"],
+    "minimumEvidenceNeeded": ["任务书技术指标", "年度进度", "中试和客户验证", "最终优胜名单", "产品订单和收入"],
+    "doNotOverread": ["入围不是中标订单", "要素支持不是统一财政补贴", "政策点名不代表股价或盈利确定性", "公司顺序仅用于研究观察"],
+    "summary": "名单提供了六家上市公司的直接政策主体证据，但真正影响经营的环节仍在中试、测评、客户认证和规模销售；研究应按产品逐项跟踪，而非把整个精细化工板块笼统视为受益。"
+  },
+  "actions": [
+    {"id": "a1", "title": "公布入围揭榜单位", "actionType": "名单认定", "actionEvidenceLevel": "strong", "implementationDependency": "官方附件名单", "body": "按攻关产品列明推荐地区和揭榜团队牵头单位。", "signal": "positive", "confidence": 98, "clauseIds": ["c1"], "sortOrder": 1},
+    {"id": "a2", "title": "要求三年内完成攻关", "actionType": "任务管理", "actionEvidenceLevel": "strong", "implementationDependency": "申报材料和年度调度", "body": "入围单位按申报内容推进，原则上名单公布之日起三年内完成。", "signal": "positive", "confidence": 95, "clauseIds": ["c2"], "sortOrder": 2},
+    {"id": "a3", "title": "配置产融和要素支持", "actionType": "要素保障", "actionEvidenceLevel": "strong", "implementationDependency": "国家产融平台和地方实施", "body": "支持项目融资、优质企业培育以及用地、用能、排污等指标配置。", "signal": "positive", "confidence": 92, "clauseIds": ["c3"], "sortOrder": 3},
+    {"id": "a4", "title": "推动中试和市场验证", "actionType": "应用验证", "actionEvidenceLevel": "strong", "implementationDependency": "地方配套和下游用户", "body": "地方可出台中试、应用验证和市场推广政策。", "signal": "positive", "confidence": 90, "clauseIds": ["c4"], "sortOrder": 4},
+    {"id": "a5", "title": "测评优胜并支持首批次应用", "actionType": "测评推广", "actionEvidenceLevel": "strong", "implementationDependency": "任务完成和专业测评", "body": "完成攻关后择优确定优胜单位，并衔接首批次和首台套保险补偿。", "signal": "positive", "confidence": 94, "clauseIds": ["c5"], "sortOrder": 5}
+  ],
+  "clauseGroups": [
+    {"id": "g1", "title": "名单和任务", "count": 2, "tone": "binding"},
+    {"id": "g2", "title": "资源和服务", "count": 2, "tone": "supportive"},
+    {"id": "g3", "title": "测评和推广", "count": 1, "tone": "conditional"}
+  ],
+  "clauses": [
+    {"id": "c1", "no": "附件", "title": "入围单位名单", "group": "g1", "excerpt": "附件按攻关产品、推荐地区和牵头单位列示入围揭榜主体。", "fullText": "精细化工关键产品创新任务揭榜挂帅入围揭榜单位名单。", "confidence": 99, "keywords": ["入围", "牵头单位"], "industries": ["精细化工"], "sortOrder": 1},
+    {"id": "c2", "no": "一", "title": "推进攻关任务", "group": "g1", "excerpt": "请入围揭榜单位按照申报材料提出的攻关内容抓紧推进，确保任务按期保质完成。", "fullText": "原则上名单公布之日起三年内完成攻关任务。", "confidence": 97, "keywords": ["攻关", "三年"], "industries": ["研发", "中试"], "sortOrder": 2},
+    {"id": "c3", "no": "一、二", "title": "产融和要素保障", "group": "g2", "excerpt": "依托国家产融合作平台加强投融资支持，地方可优先配置用地、用能、排污等指标资源。", "fullText": "对入围项目提供投融资和要素协调支持。", "confidence": 95, "keywords": ["产融", "用地", "用能", "排污"], "industries": ["产业服务"], "sortOrder": 3},
+    {"id": "c4", "no": "二", "title": "中试和应用推广", "group": "g2", "excerpt": "出台鼓励中试、应用验证、市场推广的配套政策。", "fullText": "地方主管部门加强项目跟踪、调度和服务。", "confidence": 94, "keywords": ["中试", "应用验证", "市场推广"], "industries": ["中试服务", "客户验证"], "sortOrder": 4},
+    {"id": "c5", "no": "三", "title": "优胜测评和首批次支持", "group": "g3", "excerpt": "完成攻关后委托专业机构开展测评，每个产品原则上不超过2家优胜单位。", "fullText": "通过新材料首批次、首台套重大技术装备保险补偿政策支持应用推广。", "confidence": 97, "keywords": ["测评", "优胜", "首批次", "首台套"], "industries": ["材料推广", "装备推广"], "sortOrder": 5}
+  ],
+  "chainNodes": [
+    {"id": "n1", "title": "特种异氰酸酯与中间体", "subtitle": "关键原料", "section": "upstream", "relation": "direct", "evidenceLevel": "strong", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["CHDI/NDI/H6XDI指标", "中试"], "confidence": 96, "description": "附件直接列明特种异氰酸酯及关键单体攻关主体。", "clauseIds": ["c1", "c2"], "companyIds": ["co1", "co3", "co4"], "evidenceIds": ["e1", "e2", "e3", "e4"], "impactReason": "直接名单证据。", "iconKey": "chemistry"},
+    {"id": "n2", "title": "高性能纤维与高分子材料", "subtitle": "重点材料", "section": "midstream", "relation": "direct", "evidenceLevel": "strong", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["关键单体质量", "材料认证"], "confidence": 95, "description": "PBO、PIPD、压敏胶等材料和单体进入任务清单。", "clauseIds": ["c1", "c2"], "companyIds": ["co1", "co2"], "evidenceIds": ["e1", "e2", "e5"], "impactReason": "直接名单证据。", "iconKey": "material"},
+    {"id": "n3", "title": "催化剂和高端试剂", "subtitle": "精细化学品", "section": "midstream", "relation": "direct", "evidenceLevel": "strong", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["催化性能", "试剂认证"], "confidence": 94, "description": "催化剂和卡尔费休试剂等产品由名单主体承担。", "clauseIds": ["c1", "c2"], "companyIds": ["co5", "co6"], "evidenceIds": ["e1", "e6", "e7"], "impactReason": "直接名单证据。", "iconKey": "lab"},
+    {"id": "n4", "title": "关键反应与纯化装备", "subtitle": "装备国产化", "section": "downstream", "relation": "direct", "evidenceLevel": "strong", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["样机", "首台套"], "confidence": 93, "description": "反应器、拉膜、纯化和精密阀设备进入任务清单。", "clauseIds": ["c1", "c5"], "companyIds": ["co3", "co4"], "evidenceIds": ["e3", "e4", "e8"], "impactReason": "直接名单证据。", "iconKey": "equipment"},
+    {"id": "n5", "title": "中试、测评与首批次推广", "subtitle": "商业化桥梁", "section": "support", "relation": "indirect", "evidenceLevel": "strong", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["年度进度", "优胜名单", "保险补偿"], "confidence": 92, "description": "政策通过产融、要素、测评和保险补偿衔接技术与市场。", "clauseIds": ["c3", "c4", "c5"], "companyIds": ["co1", "co2", "co3", "co4", "co5", "co6"], "evidenceIds": ["e8", "e9", "e10"], "impactReason": "正文明确支持工具。", "iconKey": "support"}
+  ],
+  "chainEdges": [
+    {"id": "edge1", "from": "n1", "to": "n5", "type": "validation", "confidence": 90, "reason": "原料和中间体需中试、测评和客户验证。"},
+    {"id": "edge2", "from": "n2", "to": "n5", "type": "application", "confidence": 90, "reason": "重点材料需首批次推广。"},
+    {"id": "edge3", "from": "n3", "to": "n5", "type": "certification", "confidence": 88, "reason": "催化剂和试剂需性能评价及标准认证。"},
+    {"id": "edge4", "from": "n4", "to": "n5", "type": "first_equipment", "confidence": 90, "reason": "关键装备需首台套应用验证。"}
+  ],
+  "companies": [
+    {"id": "co1", "name": "万华化学集团股份有限公司", "ticker": "600309.SH", "platform": "A股", "status": "政策点名", "section": "upstream", "relation": "direct", "evidenceLevel": "strong", "companyMappingEvidenceLevel": "strong", "mappingLevel": "policy_named", "confidence": 94, "policyRelevance": 96, "evidenceCertainty": 92, "policyRelevanceNote": "附件列明多个攻关产品", "evidenceCertaintyNote": "官方名单直接点名", "officialMention": true, "notInvestmentSignal": true, "reason": "承担NDI、压敏胶、醋酸丁酸纤维素等任务。", "uncertainty": "技术成功、产品销售和利润贡献尚未形成。", "nodeIds": ["n1", "n2", "n5"], "clauseIds": ["c1", "c2", "c5"], "evidenceIds": ["e2", "e5", "e8"]},
+    {"id": "co2", "name": "浙江鼎龙科技股份有限公司", "ticker": "603004.SH", "platform": "A股", "status": "政策点名", "section": "midstream", "relation": "direct", "evidenceLevel": "strong", "companyMappingEvidenceLevel": "strong", "mappingLevel": "policy_named", "confidence": 93, "policyRelevance": 95, "evidenceCertainty": 91, "policyRelevanceNote": "附件列明DAR和TAP任务", "evidenceCertaintyNote": "官方名单直接点名", "officialMention": true, "notInvestmentSignal": true, "reason": "承担高性能纤维关键单体攻关。", "uncertainty": "下游市场、客户认证和量产经济性需验证。", "nodeIds": ["n2", "n5"], "clauseIds": ["c1", "c2"], "evidenceIds": ["e2", "e5"]},
+    {"id": "co3", "name": "鞍山七彩化学股份有限公司", "ticker": "300758.SZ", "platform": "A股", "status": "政策点名", "section": "upstream", "relation": "direct", "evidenceLevel": "strong", "companyMappingEvidenceLevel": "strong", "mappingLevel": "policy_named", "confidence": 91, "policyRelevance": 93, "evidenceCertainty": 90, "policyRelevanceNote": "附件列明材料和装备两类任务", "evidenceCertaintyNote": "官方名单直接点名", "officialMention": true, "notInvestmentSignal": true, "reason": "参与H6XDI和特种反应器攻关。", "uncertainty": "两个项目均需中试、测评和商业验证。", "nodeIds": ["n1", "n4", "n5"], "clauseIds": ["c1", "c2"], "evidenceIds": ["e3", "e8"]},
+    {"id": "co4", "name": "沧州大化股份有限公司", "ticker": "600230.SH", "platform": "A股", "status": "政策点名", "section": "upstream", "relation": "direct", "evidenceLevel": "strong", "companyMappingEvidenceLevel": "strong", "mappingLevel": "policy_named", "confidence": 90, "policyRelevance": 92, "evidenceCertainty": 89, "policyRelevanceNote": "附件列明CHDI和反应器任务", "evidenceCertaintyNote": "官方名单直接点名", "officialMention": true, "notInvestmentSignal": true, "reason": "参与特种异氰酸酯产品及生产装备攻关。", "uncertainty": "新产品商业体量和传统业务周期需分开评估。", "nodeIds": ["n1", "n4", "n5"], "clauseIds": ["c1", "c2"], "evidenceIds": ["e3", "e8"]},
+    {"id": "co5", "name": "卫星化学股份有限公司", "ticker": "002648.SZ", "platform": "A股", "status": "政策点名", "section": "midstream", "relation": "direct", "evidenceLevel": "strong", "companyMappingEvidenceLevel": "strong", "mappingLevel": "policy_named", "confidence": 89, "policyRelevance": 91, "evidenceCertainty": 88, "policyRelevanceNote": "附件列明单活性中心催化剂任务", "evidenceCertaintyNote": "官方名单直接点名", "officialMention": true, "notInvestmentSignal": true, "reason": "承担高端聚烯烃催化剂攻关。", "uncertainty": "催化剂对产品成本和收入的增量需后续量化。", "nodeIds": ["n3", "n5"], "clauseIds": ["c1", "c2"], "evidenceIds": ["e6", "e9"]},
+    {"id": "co6", "name": "西陇科学股份有限公司", "ticker": "002584.SZ", "platform": "A股", "status": "政策点名", "section": "midstream", "relation": "direct", "evidenceLevel": "strong", "companyMappingEvidenceLevel": "strong", "mappingLevel": "policy_named", "confidence": 87, "policyRelevance": 89, "evidenceCertainty": 87, "policyRelevanceNote": "附件列明卡尔费休试剂任务", "evidenceCertaintyNote": "官方名单直接点名", "officialMention": true, "notInvestmentSignal": true, "reason": "承担微量水分测定用高端试剂攻关。", "uncertainty": "单一试剂市场空间及公司整体经营风险需独立评估。", "nodeIds": ["n3", "n5"], "clauseIds": ["c1", "c2"], "evidenceIds": ["e7", "e9"]}
+  ],
+  "evidence": [
+    {"id": "e1", "title": "通知正文", "source": "工业和信息化部", "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_1f634b6402914c67a9daee7def0b2a5c.html", "url": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_1f634b6402914c67a9daee7def0b2a5c.html", "type": "policy", "date": "2026-06-29", "excerpt": "经推荐、评审和公示，确定精细化工关键产品创新任务揭榜挂帅入围揭榜单位名单。", "interpretation": "名单是此前揭榜流程的正式阶段性结果。", "evidenceObject": "policy_action", "sourceLocation": "正文导语", "confidence": 98, "clauseIds": ["c1"], "nodeIds": ["n1", "n2", "n3", "n4"], "companyIds": []},
+    {"id": "e2", "title": "中间体原料名单", "source": "工业和信息化部", "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20266/0797e4f31cd944829b60982295f2db8a.pdf", "url": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20266/0797e4f31cd944829b60982295f2db8a.pdf", "type": "attachment", "date": "2026-06-29", "excerpt": "附件第1—2页列明DAR、TAP、H6XDI、CHDI、NDI等产品和牵头单位。", "interpretation": "形成鼎龙科技、七彩化学、沧州大化和万华化学的直接主体证据。", "evidenceObject": "company_policy_named", "sourceLocation": "附件第1—2页", "confidence": 99, "clauseIds": ["c1"], "nodeIds": ["n1", "n2"], "companyIds": ["co1", "co2", "co3", "co4"]},
+    {"id": "e3", "title": "特种异氰酸酯任务", "source": "工业和信息化部", "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20266/0797e4f31cd944829b60982295f2db8a.pdf", "url": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20266/0797e4f31cd944829b60982295f2db8a.pdf", "type": "attachment", "date": "2026-06-29", "excerpt": "名单列明七彩化学、沧州大化参与特种异氰酸酯及相关反应器攻关。", "interpretation": "材料与装备任务均需中试和专业测评。", "evidenceObject": "company_policy_named", "sourceLocation": "附件第2页、第5页", "confidence": 98, "clauseIds": ["c1", "c2"], "nodeIds": ["n1", "n4"], "companyIds": ["co3", "co4"]},
+    {"id": "e4", "title": "NDI任务", "source": "工业和信息化部", "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20266/0797e4f31cd944829b60982295f2db8a.pdf", "url": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20266/0797e4f31cd944829b60982295f2db8a.pdf", "type": "attachment", "date": "2026-06-29", "excerpt": "附件第2页在NDI产品项下列明万华化学集团股份有限公司。", "interpretation": "万华化学属于政策直接点名的揭榜牵头单位。", "evidenceObject": "company_policy_named", "sourceLocation": "附件第2页", "confidence": 99, "clauseIds": ["c1"], "nodeIds": ["n1"], "companyIds": ["co1"]},
+    {"id": "e5", "title": "高性能材料任务", "source": "工业和信息化部", "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20266/0797e4f31cd944829b60982295f2db8a.pdf", "url": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20266/0797e4f31cd944829b60982295f2db8a.pdf", "type": "attachment", "date": "2026-06-29", "excerpt": "附件列明高性能纤维关键单体、压敏胶和醋酸丁酸纤维素等任务。", "interpretation": "鼎龙科技和万华化学分别在关键单体和材料任务中被点名。", "evidenceObject": "company_policy_named", "sourceLocation": "附件第1页、第4—5页", "confidence": 98, "clauseIds": ["c1"], "nodeIds": ["n2"], "companyIds": ["co1", "co2"]},
+    {"id": "e6", "title": "催化剂任务", "source": "工业和信息化部", "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20266/0797e4f31cd944829b60982295f2db8a.pdf", "url": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20266/0797e4f31cd944829b60982295f2db8a.pdf", "type": "attachment", "date": "2026-06-29", "excerpt": "附件第4页列明卫星化学承担单活性中心催化剂攻关。", "interpretation": "卫星化学属于直接点名主体。", "evidenceObject": "company_policy_named", "sourceLocation": "附件第4页", "confidence": 99, "clauseIds": ["c1"], "nodeIds": ["n3"], "companyIds": ["co5"]},
+    {"id": "e7", "title": "卡尔费休试剂任务", "source": "工业和信息化部", "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20266/0797e4f31cd944829b60982295f2db8a.pdf", "url": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20266/0797e4f31cd944829b60982295f2db8a.pdf", "type": "attachment", "date": "2026-06-29", "excerpt": "附件第5页在微量水分测定用卡尔费休试剂项下列明西陇科学。", "interpretation": "西陇科学属于直接点名主体。", "evidenceObject": "company_policy_named", "sourceLocation": "附件第5页", "confidence": 99, "clauseIds": ["c1"], "nodeIds": ["n3"], "companyIds": ["co6"]},
+    {"id": "e8", "title": "三年攻关和测评机制", "source": "工业和信息化部", "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_1f634b6402914c67a9daee7def0b2a5c.html", "url": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_1f634b6402914c67a9daee7def0b2a5c.html", "type": "policy", "date": "2026-06-29", "excerpt": "原则上名单公布之日起3年内完成攻关，完成后开展测评，每个产品原则上不超过2家优胜单位。", "interpretation": "入围只是起点，最终优胜存在竞争和淘汰。", "evidenceObject": "implementation_condition", "sourceLocation": "正文第一、三项", "confidence": 98, "clauseIds": ["c2", "c5"], "nodeIds": ["n5"], "companyIds": ["co1", "co2", "co3", "co4"]},
+    {"id": "e9", "title": "产融和地方要素支持", "source": "工业和信息化部", "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_1f634b6402914c67a9daee7def0b2a5c.html", "url": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_1f634b6402914c67a9daee7def0b2a5c.html", "type": "policy", "date": "2026-06-29", "excerpt": "依托国家产融合作平台支持融资，地方优先配置项目用地、用能、排污等指标。", "interpretation": "资源支持有助于推进项目，但不等于统一补贴。", "evidenceObject": "implementation_support", "sourceLocation": "正文第一、二项", "confidence": 96, "clauseIds": ["c3"], "nodeIds": ["n5"], "companyIds": ["co5", "co6"]},
+    {"id": "e10", "title": "首批次和首台套推广", "source": "工业和信息化部", "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_1f634b6402914c67a9daee7def0b2a5c.html", "url": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_1f634b6402914c67a9daee7def0b2a5c.html", "type": "policy", "date": "2026-06-29", "excerpt": "优胜单位可通过新材料首批次、首台套重大技术装备保险补偿政策支持应用推广。", "interpretation": "政策提供首次应用工具，但仍需目录、保险和客户项目落地。", "evidenceObject": "implementation_support", "sourceLocation": "正文第三项", "confidence": 97, "clauseIds": ["c5"], "nodeIds": ["n5"], "companyIds": ["co1", "co2", "co3", "co4", "co5", "co6"]}
+  ],
+  "backgroundCards": [
+    {"id": "bg1", "title": "揭榜挂帅不是一般荣誉名单", "body": "主体需按申报任务承担具体技术攻关，并接受年度跟踪和最终测评。", "evidenceIds": ["e1", "e8"]},
+    {"id": "bg2", "title": "入围与优胜分离", "body": "每个产品原则上不超过2家优胜单位，入围企业仍需完成任务并竞争测评结果。", "evidenceIds": ["e8"]},
+    {"id": "bg3", "title": "商业化需二次证据", "body": "产融、要素和保险补偿降低部分摩擦，但客户认证、订单和收入才是经营兑现证据。", "evidenceIds": ["e9", "e10"]}
+  ],
+  "compareInsights": {
+    "comparableCount": 1,
+    "similarPolicies": ["2025年先进计算赋能新质生产力典型应用案例名单"],
+    "contrastPolicies": [],
+    "insights": ["两者均提供官方点名主体证据。", "本次揭榜名单包含未来三年攻关、测评和首批次支持，前瞻性强于已完成案例认定。"],
+    "limitations": ["案例名单和揭榜名单的政策阶段不同，不能仅按点名数量比较强弱。"]
+  },
+  "analysisCoverage": {
+    "status": "complete_candidate",
+    "analysisMethod": "官方正文与6页名单附件人工核验",
+    "textLength": 829,
+    "attachmentTextLength": 3300,
+    "clauseCount": 5,
+    "actionCount": 5,
+    "evidenceCount": 10,
+    "industryNodeCount": 5,
+    "companyCount": 6,
+    "listedCompanyMapCount": 6,
+    "matchedKeywordCount": 12,
+    "comparablePolicyCount": 1,
+    "companyImpactConclusion": "六家上市公司均为附件直接点名主体，但政策只确认攻关身份和支持机制，尚未证明技术成功、客户订单或收入。",
+    "companyImpactReasoning": "公司映射完全来自官方名单；投资研究必须继续追踪任务指标、中试、测评、首批次目录和商业订单。",
+    "sourceIntegrityNote": "官方页面正文和内嵌6页PDF名单均已解析，名单按产品、地区、牵头单位列示。",
+    "limitations": ["未取得各项目申报书和技术指标", "未逐一核验六家公司最新产品收入占比", "正式发布前需用最新年报和公告更新公司业务证据"]
+  },
+  "modules": [
+    {"id": "overview", "label": "政策总览"},
+    {"id": "actions", "label": "政策动作"},
+    {"id": "industry", "label": "产业链"},
+    {"id": "companies", "label": "点名主体"},
+    {"id": "evidence", "label": "证据"},
+    {"id": "compare", "label": "横向比较"}
+  ],
+  "topTabs": [
+    {"id": "report", "label": "报告"},
+    {"id": "industry", "label": "产业"},
+    {"id": "companies", "label": "公司"},
+    {"id": "evidence", "label": "证据"}
+  ]
+}

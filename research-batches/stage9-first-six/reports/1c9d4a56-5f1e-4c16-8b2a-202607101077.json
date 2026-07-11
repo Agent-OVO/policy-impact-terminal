@@ -1,0 +1,331 @@
+{
+  "id": "1c9d4a56-5f1e-4c16-8b2a-202607101077",
+  "policyId": "1c9d4a56-5f1e-4c16-8b2a-202607101077",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "通知",
+  "substantivePolicyType": "第四监管周期输配电价核定",
+  "primaryActionType": "价格机制",
+  "policySignalStrength": "high",
+  "implementationCertainty": "high",
+  "analysisDepth": "L4",
+  "analysisDepthReason": "通知直接核定省级电网输配电价和区域电网输电价格，附件给出分省分电压等级价格表及区域电网容量电价，价格自2026年7月1日起执行，属于可直接改变电网结算和成本传导的强政策工具；但上市设备公司影响仍取决于电网投资计划和采购订单。",
+  "followUpSignals": [
+    "各省销售电价和代理购电价格调整",
+    "国家电网和南方电网固定资产投资计划",
+    "跨省跨区输电量和区域电网结算",
+    "特高压及主网设备招标",
+    "电网数字化和调度系统采购"
+  ],
+  "generatedAt": "2026-07-11T09:00:00+09:00",
+  "summary": {
+    "id": "1c9d4a56-5f1e-4c16-8b2a-202607101077",
+    "title": "关于第四监管周期省级电网输配电价、区域电网输电价格及有关事项的通知（发改价格〔2026〕1077号）",
+    "issuer": "国家发展改革委",
+    "source": "国家发展改革委",
+    "publishDate": "2026-07-10",
+    "status": "draft",
+    "confidence": 92,
+    "industryCount": 4,
+    "companyCount": 5,
+    "evidenceCount": 8,
+    "primarySignal": "输配电价格机制重置",
+    "category": "能源价格"
+  },
+  "policy": {
+    "title": "关于第四监管周期省级电网输配电价、区域电网输电价格及有关事项的通知（发改价格〔2026〕1077号）",
+    "status": "draft",
+    "issuer": "国家发展改革委",
+    "publishDate": "2026-07-10",
+    "effectiveDate": "2026-07-01",
+    "source": "国家发展改革委",
+    "category": "能源价格",
+    "level": "中央部委",
+    "confidence": 95,
+    "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/t20260710_1406431.html",
+    "scope": "全国省级电网和区域电网输电价格",
+    "impactScope": "电网收入准许、跨省跨区结算、终端电价传导及电网投资约束",
+    "jurisdiction": "中国大陆",
+    "tags": ["输配电价", "第四监管周期", "区域电网", "容量电价", "电网投资"]
+  },
+  "brief": {
+    "judgement": "本轮政策的确定性不在于简单判断电网企业盈利上升或下降，而在于第四监管周期的准许收入和跨区输电结算规则正式落地：电网运营主体直接承接价格重置，发电侧和用户侧承担地区差异化传导；设备和数字化供应商只有在后续资本开支、主网建设和招标中出现增量时，才形成可验证的产业影响。",
+    "summary": "通知自2026年7月1日起执行，附件一按省份、用户类别和电压等级列示省级电网输配电价，附件二列示区域电网容量电价。政策直接作用于电网准许收入、跨省跨区交易成本和终端销售电价形成机制。研究上应把国家电网、南方电网作为直接实施主体，把国电南瑞、中国西电和许继电气作为电网投资传导的观察对象，不能把价格核定直接等同于设备订单。",
+    "keyPoints": [
+      "价格表附件是本政策的核心事实源，正文只规定执行和衔接原则。",
+      "省级电网输配电价按用户类别和电压等级分层，区域电网另行实行容量电价结算。",
+      "价格重置首先改变电网结算边界，发电企业、售电公司和终端用户影响需结合各省销售电价文件判断。",
+      "设备与数字化公司的产业关系属于资本开支传导，必须等待招标和订单证据。"
+    ],
+    "methodology": "人工核验国家发展改革委正文、34页省级电网输配电价表和2页区域电网输电价格表；产业链按价格结算、电网运营、投资建设和用户传导分层；公司映射区分直接运营主体与间接设备供应商，未把价格政策直译为交易结论。"
+  },
+  "policyIndustryMap": [
+    {
+      "id": "pi1",
+      "industry": "省级和区域电网运营",
+      "policyAction": "核定第四监管周期输配电价格",
+      "impactType": "market_mechanism",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "价格表直接决定电网输配电业务的结算基准和地区、电压等级之间的价格结构。",
+      "relatedClauseIds": ["c1", "c2"],
+      "relatedNodeIds": ["n1"],
+      "watchSignals": ["准许收入", "输配电量", "成本监审结果"]
+    },
+    {
+      "id": "pi2",
+      "industry": "跨省跨区电力交易",
+      "policyAction": "明确区域电网容量电价和省间结算",
+      "impactType": "market_mechanism",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "区域电网容量电价影响跨区输电成本分摊，进而影响电源基地外送和省间交易经济性。",
+      "relatedClauseIds": ["c2", "c3"],
+      "relatedNodeIds": ["n2"],
+      "watchSignals": ["跨区输电量", "省间现货交易", "外送通道利用率"]
+    },
+    {
+      "id": "pi3",
+      "industry": "输变电设备与主网建设",
+      "policyAction": "以监管周期价格约束和支持电网投资",
+      "impactType": "investment_constraint",
+      "impactDirection": "mixed",
+      "evidenceLevel": "indirect",
+      "policyCloseness": "indirect",
+      "reason": "准许收入和成本约束会影响电网资本开支节奏，但通知没有设备采购或工程项目清单。",
+      "relatedClauseIds": ["c1", "c4"],
+      "relatedNodeIds": ["n3"],
+      "watchSignals": ["电网年度投资", "特高压核准", "设备招标"]
+    },
+    {
+      "id": "pi4",
+      "industry": "电网数字化与调度系统",
+      "policyAction": "强化输配电成本、交易和运行数据管理",
+      "impactType": "efficiency_requirement",
+      "impactDirection": "positive",
+      "evidenceLevel": "indirect",
+      "policyCloseness": "indirect",
+      "reason": "监管周期管理需要更精细的成本、资产、负荷和交易数据，但政策没有指定信息化系统或供应商。",
+      "relatedClauseIds": ["c3", "c4"],
+      "relatedNodeIds": ["n4"],
+      "watchSignals": ["调度系统招标", "电力市场平台建设", "资产管理数字化"]
+    }
+  ],
+  "industryChain": [
+    {
+      "id": "chain1",
+      "chainName": "监管定价—电网结算—资本开支—用户与电源侧传导",
+      "policyRole": "国家价格主管部门确定监管周期价格，电网企业据此结算并安排投资，跨区交易和终端销售电价再向发电侧、售电侧及用户侧传导。",
+      "nodes": [
+        {"id": "n1", "policySensitivity": "high", "description": "省级电网输配电业务直接按附件价格表结算。"},
+        {"id": "n2", "policySensitivity": "high", "description": "区域电网容量电价影响跨省跨区输电成本分摊。"},
+        {"id": "n3", "policySensitivity": "medium", "description": "电网资本开支受准许收入、成本约束和建设任务共同影响。"},
+        {"id": "n4", "policySensitivity": "medium", "description": "调度、交易和资产管理系统可能因精细化监管产生需求。"}
+      ],
+      "edges": [
+        {"from": "n1", "to": "n2", "relation": "settlement_flow", "description": "省级和区域价格共同构成输电结算边界。"},
+        {"from": "n1", "to": "n3", "relation": "funding_constraint", "description": "监管价格与准许收入影响投资承受能力和节奏。"},
+        {"from": "n3", "to": "n4", "relation": "technology_demand", "description": "主网建设和精益运营带动自动化与数字化系统需求。"}
+      ]
+    }
+  ],
+  "companyMap": [
+    {
+      "id": "cm1",
+      "companyId": "co1",
+      "chainNodeId": "n1",
+      "relationship": "direct_industry",
+      "policyEvidence": "indirect",
+      "regulatoryRole": "constraint_exposed",
+      "businessExposure": "国家电网是大部分省级电网和华北、东北、华东、华中、西北区域电网的核心运营主体，直接承接输配电价格结算。",
+      "investmentUse": "作为非上市实施主体观察准许收入、投资计划和设备采购，不作为可交易标的。",
+      "watchSignals": ["年度投资计划", "输配电价执行说明", "集中招标"],
+      "keyRisks": ["价格核定不等于利润保证", "成本监审可能约束费用和投资"],
+      "doNotOverread": ["非上市电网主体不能直接转化为上市公司收益"]
+    },
+    {
+      "id": "cm2",
+      "companyId": "co2",
+      "chainNodeId": "n1",
+      "relationship": "direct_industry",
+      "policyEvidence": "indirect",
+      "regulatoryRole": "constraint_exposed",
+      "businessExposure": "南方电网覆盖广东、广西、云南、贵州、海南及南方区域电网，直接承接相关省级和区域输电价格。",
+      "investmentUse": "作为南方区域价格和资本开支传导锚点，跟踪投资计划与采购。",
+      "watchSignals": ["南方区域结算", "电网投资", "设备和数字化招标"],
+      "keyRisks": ["地区需求和电源结构差异", "价格传导受地方政策影响"],
+      "doNotOverread": ["区域容量电价变化不能直接推导盈利方向"]
+    },
+    {
+      "id": "cm3",
+      "companyId": "co3",
+      "chainNodeId": "n4",
+      "relationship": "direct_industry",
+      "policyEvidence": "indirect",
+      "regulatoryRole": "not_applicable",
+      "businessExposure": "国电南瑞业务覆盖电网自动化、调度和电力市场信息化，处于精细化运行与交易管理环节。",
+      "investmentUse": "仅在电网后续数字化投资、调度或交易平台招标出现时提升研究关注。",
+      "watchSignals": ["国网南网信息化招标", "调度系统订单", "电力市场平台建设"],
+      "keyRisks": ["通知未安排信息化采购", "订单节奏与价格政策可能脱节"],
+      "doNotOverread": ["输配电价调整不是软件订单"]
+    },
+    {
+      "id": "cm4",
+      "companyId": "co4",
+      "chainNodeId": "n3",
+      "relationship": "direct_industry",
+      "policyEvidence": "indirect",
+      "regulatoryRole": "not_applicable",
+      "businessExposure": "中国西电提供高压输变电设备，潜在需求来自主网和跨区输电工程资本开支。",
+      "investmentUse": "作为主网设备投资观察对象，需等待特高压核准、集中招标和订单公告。",
+      "watchSignals": ["特高压工程核准", "组合电器和变压器招标", "在手订单"],
+      "keyRisks": ["监管价格可能同时强化投资约束", "设备竞争和原材料成本"],
+      "doNotOverread": ["价格表不包含工程采购安排"]
+    },
+    {
+      "id": "cm5",
+      "companyId": "co5",
+      "chainNodeId": "n3",
+      "relationship": "watch_only",
+      "policyEvidence": "pending",
+      "regulatoryRole": "not_applicable",
+      "businessExposure": "许继电气覆盖电力系统自动化、直流输电和配用电设备，可能承接电网建设和改造需求。",
+      "investmentUse": "保留为设备与自动化观察对象，只有后续订单和资本开支证据出现时才升级。",
+      "watchSignals": ["直流输电项目", "配网和主网招标", "合同与收入确认"],
+      "keyRisks": ["政策未点名公司", "价格调整可能不带来新增建设"],
+      "doNotOverread": ["业务相邻不等于本轮政策受益"]
+    }
+  ],
+  "policyNetwork": [
+    {
+      "id": "pn1",
+      "relatedPolicy": "输配电定价成本监审办法",
+      "relationship": "implementation_basis",
+      "meaning": "监管周期价格以成本监审、准许成本和合理收益机制为基础。",
+      "evidenceLevel": "indirect",
+      "watchSignals": ["成本监审规则调整", "准许收益率口径"]
+    },
+    {
+      "id": "pn2",
+      "relatedPolicy": "全国统一电力市场建设政策",
+      "relationship": "market_linkage",
+      "meaning": "区域输电价格是省间交易和统一电力市场结算的重要基础条件。",
+      "evidenceLevel": "indirect",
+      "watchSignals": ["省间现货市场", "输电权和容量结算"]
+    },
+    {
+      "id": "pn3",
+      "relatedPolicy": "新型电力系统建设政策",
+      "relationship": "investment_linkage",
+      "meaning": "新能源消纳和跨区输电建设任务决定价格机制能否转化为资本开支。",
+      "evidenceLevel": "indirect",
+      "watchSignals": ["特高压通道", "配网改造", "新能源消纳"]
+    }
+  ],
+  "investmentDirection": {
+    "primaryDirection": "输配电结算重置与电网资本开支传导观察",
+    "directionStrength": "medium",
+    "timeHorizon": "medium_term",
+    "watchIndustries": ["电网运营", "跨区输电", "输变电设备", "电网数字化"],
+    "watchChainNodes": ["省级电网结算", "区域电网容量结算", "主网投资", "调度与交易系统"],
+    "watchCompanyTypes": ["省级和区域电网运营主体", "高压输变电设备商", "电网自动化和调度系统商"],
+    "watchCompanies": ["国电南瑞", "中国西电", "许继电气"],
+    "nearTermCatalysts": ["各省执行文件", "国家电网和南方电网投资计划", "特高压工程核准和集中招标"],
+    "keyRisks": ["价格核定同时包含成本约束", "终端价格传导存在地区差异", "设备公司没有直接政策订单"],
+    "minimumEvidenceNeeded": ["电网企业监管周期准许收入", "年度资本开支", "设备和软件招标结果"],
+    "doNotOverread": ["价格上调不等于利润同比增加", "电网资本开支不由本通知单独决定", "观察顺序不构成交易建议"],
+    "summary": "最确定的是电网运营和跨区结算边界发生变化；设备与数字化公司属于后续资本开支传导，需要用投资计划、招标和订单验证。"
+  },
+  "actions": [
+    {"id": "a1", "title": "核定省级电网输配电价", "actionType": "价格核定", "actionEvidenceLevel": "strong", "implementationDependency": "附件一价格表", "body": "按省份、用户类别和电压等级形成第四监管周期输配电价。", "signal": "mixed", "confidence": 96, "clauseIds": ["c1"], "sortOrder": 1},
+    {"id": "a2", "title": "核定区域电网输电价格", "actionType": "容量价格", "actionEvidenceLevel": "strong", "implementationDependency": "附件二区域价格表", "body": "区域电网按容量电价形成跨区输电结算基准。", "signal": "mixed", "confidence": 95, "clauseIds": ["c2"], "sortOrder": 2},
+    {"id": "a3", "title": "衔接省间和终端价格", "actionType": "价格传导", "actionEvidenceLevel": "strong", "implementationDependency": "省级价格主管部门执行文件", "body": "省级价格、代理购电和销售电价需按新输配电价衔接。", "signal": "mixed", "confidence": 90, "clauseIds": ["c3"], "sortOrder": 3},
+    {"id": "a4", "title": "强化成本和投资约束", "actionType": "监管约束", "actionEvidenceLevel": "indirect", "implementationDependency": "成本监审与电网投资计划", "body": "监管周期机制要求电网运营、成本和投资在准许收入边界内运行。", "signal": "constraint", "confidence": 78, "clauseIds": ["c4"], "sortOrder": 4}
+  ],
+  "clauseGroups": [
+    {"id": "g1", "title": "省级电网价格", "count": 1, "tone": "binding"},
+    {"id": "g2", "title": "区域电网价格", "count": 1, "tone": "binding"},
+    {"id": "g3", "title": "执行和衔接", "count": 2, "tone": "implementation"}
+  ],
+  "clauses": [
+    {"id": "c1", "no": "一", "title": "省级电网输配电价", "group": "g1", "excerpt": "附件一列明各省级电网不同用户类别和电压等级的输配电价。", "fullText": "第四监管周期省级电网输配电价按照附件一执行。", "confidence": 96, "keywords": ["省级电网", "输配电价"], "industries": ["电网运营"], "sortOrder": 1},
+    {"id": "c2", "no": "二", "title": "区域电网容量价格", "group": "g2", "excerpt": "附件二列明华北、东北、华东、华中、西北和南方区域电网容量电价。", "fullText": "第四监管周期区域电网输电价格按照附件二执行。", "confidence": 95, "keywords": ["区域电网", "容量电价"], "industries": ["跨区输电"], "sortOrder": 2},
+    {"id": "c3", "no": "三", "title": "价格执行衔接", "group": "g3", "excerpt": "新价格自2026年7月1日起执行，并由各地做好销售电价和相关结算衔接。", "fullText": "各省级价格主管部门和电网企业按规定执行新输配电价格。", "confidence": 92, "keywords": ["执行日期", "价格衔接"], "industries": ["售电", "电力用户"], "sortOrder": 3},
+    {"id": "c4", "no": "四", "title": "监管周期成本约束", "group": "g3", "excerpt": "监管周期价格与电网准许成本、合理收益和投资运行相衔接。", "fullText": "电网企业需在监管机制下加强成本管理和投资约束。", "confidence": 76, "keywords": ["成本监审", "电网投资"], "industries": ["电网建设"], "sortOrder": 4}
+  ],
+  "chainNodes": [
+    {"id": "n1", "title": "省级电网输配电结算", "subtitle": "直接价格作用层", "section": "upstream", "relation": "direct", "evidenceLevel": "strong", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["省级价格表执行", "准许收入"], "confidence": 95, "description": "省级电网按新监管周期价格结算输配电服务。", "clauseIds": ["c1", "c3"], "companyIds": ["co1", "co2"], "evidenceIds": ["e1", "e2", "e3"], "impactReason": "价格表直接作用于电网运营。", "iconKey": "grid"},
+    {"id": "n2", "title": "区域电网与省间交易", "subtitle": "跨区结算层", "section": "midstream", "relation": "direct", "evidenceLevel": "strong", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["区域容量结算", "跨区交易量"], "confidence": 93, "description": "区域容量电价影响跨省跨区输电和交易成本。", "clauseIds": ["c2", "c3"], "companyIds": ["co1", "co2"], "evidenceIds": ["e4", "e5"], "impactReason": "附件二给出区域容量电价。", "iconKey": "network"},
+    {"id": "n3", "title": "输变电设备和主网建设", "subtitle": "资本开支传导层", "section": "downstream", "relation": "indirect", "evidenceLevel": "indirect", "industryNodeEvidenceLevel": "indirect", "verificationSignals": ["设备招标", "工程核准"], "confidence": 70, "description": "监管周期收入与建设任务共同影响设备需求。", "clauseIds": ["c1", "c4"], "companyIds": ["co4", "co5"], "evidenceIds": ["e6", "e7"], "impactReason": "通知未直接安排采购，需资本开支验证。", "iconKey": "equipment"},
+    {"id": "n4", "title": "电网自动化和交易数字化", "subtitle": "效率工具层", "section": "support", "relation": "indirect", "evidenceLevel": "indirect", "industryNodeEvidenceLevel": "indirect", "verificationSignals": ["调度系统招标", "市场平台订单"], "confidence": 68, "description": "成本、资产和交易精细化管理可能形成数字化需求。", "clauseIds": ["c3", "c4"], "companyIds": ["co3"], "evidenceIds": ["e6", "e8"], "impactReason": "属于监管和运营效率的二级传导。", "iconKey": "digital"}
+  ],
+  "chainEdges": [
+    {"id": "edge1", "from": "n1", "to": "n2", "type": "settlement", "confidence": 90, "reason": "省级和区域价格共同构成电网结算体系。"},
+    {"id": "edge2", "from": "n1", "to": "n3", "type": "investment", "confidence": 70, "reason": "准许收入和建设任务影响资本开支。"},
+    {"id": "edge3", "from": "n3", "to": "n4", "type": "technology", "confidence": 66, "reason": "电网建设和精益运营需要自动化与数字化支撑。"}
+  ],
+  "companies": [
+    {"id": "co1", "name": "国家电网有限公司", "ticker": "未上市", "platform": "中央企业", "status": "观察", "section": "upstream", "relation": "direct", "evidenceLevel": "indirect", "companyMappingEvidenceLevel": "indirect", "mappingLevel": "direct_industry", "confidence": 74, "policyRelevance": 96, "evidenceCertainty": 58, "policyRelevanceNote": "多数省级和区域电网运营主体", "evidenceCertaintyNote": "通知未按企业名称点名", "officialMention": false, "notInvestmentSignal": true, "reason": "直接承接输配电价结算和监管周期管理。", "uncertainty": "价格结构对利润、投资和现金流的具体影响需公司口径与监管参数。", "nodeIds": ["n1", "n2"], "clauseIds": ["c1", "c2", "c3"], "evidenceIds": ["e1", "e2", "e4"]},
+    {"id": "co2", "name": "中国南方电网有限责任公司", "ticker": "未上市", "platform": "中央企业", "status": "观察", "section": "upstream", "relation": "direct", "evidenceLevel": "indirect", "companyMappingEvidenceLevel": "indirect", "mappingLevel": "direct_industry", "confidence": 72, "policyRelevance": 94, "evidenceCertainty": 56, "policyRelevanceNote": "南方区域及五省区电网运营主体", "evidenceCertaintyNote": "通知未按企业名称点名", "officialMention": false, "notInvestmentSignal": true, "reason": "直接承接南方区域及省级输配电价格。", "uncertainty": "地区电源结构、负荷和价格传导决定实际财务影响。", "nodeIds": ["n1", "n2"], "clauseIds": ["c1", "c2", "c3"], "evidenceIds": ["e1", "e3", "e5"]},
+    {"id": "co3", "name": "国电南瑞科技股份有限公司", "ticker": "600406.SH", "platform": "A股", "status": "观察", "section": "support", "relation": "indirect", "evidenceLevel": "indirect", "companyMappingEvidenceLevel": "indirect", "mappingLevel": "direct_industry", "confidence": 69, "policyRelevance": 72, "evidenceCertainty": 52, "policyRelevanceNote": "业务位于电网调度和自动化环节", "evidenceCertaintyNote": "没有本政策订单证据", "officialMention": false, "notInvestmentSignal": true, "reason": "电网精细化运行和市场交易需要自动化及数字化系统支撑。", "uncertainty": "价格政策与具体信息化采购之间没有直接合同链。", "nodeIds": ["n4"], "clauseIds": ["c3", "c4"], "evidenceIds": ["e6", "e8"]},
+    {"id": "co4", "name": "中国西电电气股份有限公司", "ticker": "601179.SH", "platform": "A股", "status": "观察", "section": "downstream", "relation": "indirect", "evidenceLevel": "indirect", "companyMappingEvidenceLevel": "indirect", "mappingLevel": "direct_industry", "confidence": 66, "policyRelevance": 68, "evidenceCertainty": 50, "policyRelevanceNote": "高压输变电设备与跨区主网建设相关", "evidenceCertaintyNote": "没有本政策采购证据", "officialMention": false, "notInvestmentSignal": true, "reason": "跨区输电和主网资本开支可能形成设备需求。", "uncertainty": "监管价格可能强化投资约束，新增订单需工程核准和招标验证。", "nodeIds": ["n3"], "clauseIds": ["c1", "c4"], "evidenceIds": ["e6", "e7"]},
+    {"id": "co5", "name": "许继电气股份有限公司", "ticker": "000400.SZ", "platform": "A股", "status": "待验证", "section": "downstream", "relation": "pending", "evidenceLevel": "pending", "companyMappingEvidenceLevel": "pending", "mappingLevel": "watch_only", "confidence": 52, "policyRelevance": 61, "evidenceCertainty": 38, "policyRelevanceNote": "业务覆盖直流输电和电力自动化", "evidenceCertaintyNote": "仅有业务邻接关系", "officialMention": false, "notInvestmentSignal": true, "reason": "若主网和直流工程资本开支提升，相关设备业务可能受影响。", "uncertainty": "政策没有项目、招标或公司点名，价格变化也可能不增加投资。", "nodeIds": ["n3"], "clauseIds": ["c4"], "evidenceIds": ["e7"]}
+  ],
+  "evidence": [
+    {"id": "e1", "title": "通知正文", "source": "国家发展改革委", "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/t20260710_1406431.html", "url": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/t20260710_1406431.html", "type": "policy", "date": "2026-07-10", "excerpt": "第四监管周期省级电网输配电价和区域电网输电价格按附件执行。", "interpretation": "政策直接重置输配电结算基准。", "evidenceObject": "policy_action", "sourceLocation": "正文", "confidence": 96, "clauseIds": ["c1", "c2", "c3"], "nodeIds": ["n1", "n2"], "companyIds": ["co1", "co2"]},
+    {"id": "e2", "title": "省级电网输配电价表", "source": "国家发展改革委", "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/P020260710613207914509.pdf", "url": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/P020260710613207914509.pdf", "type": "attachment", "date": "2026-07-10", "excerpt": "附件一按省份、用户类别和电压等级列示输配电价。", "interpretation": "地区和电压等级差异是价格传导分析的基础。", "evidenceObject": "policy_action", "sourceLocation": "附件一，共34页", "confidence": 98, "clauseIds": ["c1"], "nodeIds": ["n1"], "companyIds": ["co1"]},
+    {"id": "e3", "title": "南方区域省级价格表", "source": "国家发展改革委", "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/P020260710613207914509.pdf", "url": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/P020260710613207914509.pdf", "type": "attachment", "date": "2026-07-10", "excerpt": "附件覆盖广东、广西、云南、贵州、海南等省区的省级电网输配电价。", "interpretation": "南方电网区域存在分省价格差异。", "evidenceObject": "policy_action", "sourceLocation": "附件一相关省份页面", "confidence": 95, "clauseIds": ["c1"], "nodeIds": ["n1"], "companyIds": ["co2"]},
+    {"id": "e4", "title": "区域电网输电价格表", "source": "国家发展改革委", "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/P020260710613208195785.pdf", "url": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/P020260710613208195785.pdf", "type": "attachment", "date": "2026-07-10", "excerpt": "附件二列示各区域电网容量电价，单位为元/千瓦时。", "interpretation": "区域容量结算影响跨区输电成本分摊。", "evidenceObject": "policy_action", "sourceLocation": "附件二第1—2页", "confidence": 98, "clauseIds": ["c2"], "nodeIds": ["n2"], "companyIds": ["co1"]},
+    {"id": "e5", "title": "南方区域容量电价", "source": "国家发展改革委", "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/P020260710613208195785.pdf", "url": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/P020260710613208195785.pdf", "type": "attachment", "date": "2026-07-10", "excerpt": "附件二单列南方区域及相关省区容量电价。", "interpretation": "南方区域跨省结算需按新表执行。", "evidenceObject": "policy_action", "sourceLocation": "附件二第2页", "confidence": 95, "clauseIds": ["c2"], "nodeIds": ["n2"], "companyIds": ["co2"]},
+    {"id": "e6", "title": "电网资本开支传导边界", "source": "本报告研究解释", "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/t20260710_1406431.html", "url": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/t20260710_1406431.html", "type": "analysis_boundary", "date": "2026-07-11", "excerpt": "通知和附件未列设备采购、工程项目或供应商名单。", "interpretation": "设备公司影响必须通过资本开支和招标二次验证。", "evidenceObject": "research_boundary", "sourceLocation": "正文及附件核验", "confidence": 94, "clauseIds": ["c4"], "nodeIds": ["n3", "n4"], "companyIds": ["co3", "co4"]},
+    {"id": "e7", "title": "输变电设备观察边界", "source": "既有公司证据卡", "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/t20260710_1406431.html", "url": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/t20260710_1406431.html", "type": "company_business", "date": "2026-07-11", "excerpt": "高压输变电和直流输电设备与主网建设相关，但本政策没有采购安排。", "interpretation": "中国西电和许继电气仅作为资本开支传导观察对象。", "evidenceObject": "company_business", "sourceLocation": "既有项目公司证据复用", "confidence": 65, "clauseIds": ["c4"], "nodeIds": ["n3"], "companyIds": ["co4", "co5"]},
+    {"id": "e8", "title": "电网自动化观察边界", "source": "既有公司证据卡", "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/t20260710_1406431.html", "url": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/t20260710_1406431.html", "type": "company_business", "date": "2026-07-11", "excerpt": "电网调度和市场交易需要自动化系统，但通知未指定技术方案。", "interpretation": "国电南瑞映射属于业务邻接，不是政策点名。", "evidenceObject": "company_business", "sourceLocation": "既有项目公司证据复用", "confidence": 64, "clauseIds": ["c3", "c4"], "nodeIds": ["n4"], "companyIds": ["co3"]}
+  ],
+  "backgroundCards": [
+    {"id": "bg1", "title": "监管周期", "body": "输配电价按监管周期核定，核心是准许成本、合理收益和有效资产边界。", "evidenceIds": ["e1", "e2"]},
+    {"id": "bg2", "title": "省级与区域价格", "body": "省级价格服务本省输配电结算，区域容量电价服务跨省跨区电网结算。", "evidenceIds": ["e2", "e4"]},
+    {"id": "bg3", "title": "公司映射边界", "body": "电网运营主体直接承接价格，设备和软件公司必须等待投资与订单证据。", "evidenceIds": ["e6", "e7", "e8"]}
+  ],
+  "compareInsights": {
+    "comparableCount": 1,
+    "similarPolicies": ["关于核定南水北调中线干线工程供水价格的通知"],
+    "contrastPolicies": [],
+    "insights": ["两者均为中央价格主管部门直接核定基础设施网络价格。", "输配电价影响范围更广，且设备投资传导强于单一水利工程价格。"],
+    "limitations": ["不同公用事业价格机制不可直接比较利润弹性。"]
+  },
+  "analysisCoverage": {
+    "status": "complete_candidate",
+    "analysisMethod": "官方正文与价格表附件人工核验",
+    "textLength": 510,
+    "attachmentTextLength": 0,
+    "clauseCount": 4,
+    "actionCount": 4,
+    "evidenceCount": 8,
+    "industryNodeCount": 4,
+    "companyCount": 5,
+    "listedCompanyMapCount": 3,
+    "matchedKeywordCount": 8,
+    "comparablePolicyCount": 1,
+    "companyImpactConclusion": "电网运营主体直接承接价格机制，上市设备和数字化公司只具备间接资本开支传导关系。",
+    "companyImpactReasoning": "通知未公布设备采购或工程项目，上市公司关系必须等待电网投资计划、集中招标和订单证据。",
+    "sourceIntegrityNote": "正文和两份官方PDF价格表均已定位；省级价格表共34页，区域价格表共2页。",
+    "limitations": ["未逐省计算销售电价传导", "未取得电网企业监管周期财务参数", "公司业务证据沿用既有证据卡，需在正式发布前复核最新年报"]
+  },
+  "modules": [
+    {"id": "overview", "label": "政策总览"},
+    {"id": "actions", "label": "政策动作"},
+    {"id": "industry", "label": "产业链"},
+    {"id": "companies", "label": "公司观察"},
+    {"id": "evidence", "label": "证据"},
+    {"id": "compare", "label": "横向比较"}
+  ],
+  "topTabs": [
+    {"id": "report", "label": "报告"},
+    {"id": "industry", "label": "产业"},
+    {"id": "companies", "label": "公司"},
+    {"id": "evidence", "label": "证据"}
+  ]
+}

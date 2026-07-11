@@ -121,6 +121,25 @@ npm run crawl:sources -- --source=all --ingest
 
 输出包含四来源健康、L0—L3数量、入库选择、8条待分析池和3条本轮分析任务。任一来源失败时本轮标记`degraded`；已选候选存在但正文提取为0时标记`failed`并阻断入库。抓取不会自动生成或发布报告。
 
+## 首批六政策研究批次
+
+阶段九已完成首批3份深度报告和3份标准报告，以及跨政策矩阵、三维筛选校准、产业/公司反查和人工队列处置。入口：
+
+```text
+research-batches/stage9-first-six/README.md
+```
+
+一键验收和查询：
+
+```powershell
+npm run stage9:first-six:test
+npm run stage9:first-six:query -- industry 人工智能
+npm run stage9:first-six:query -- company 万华化学 --json
+npm run stage9:first-six:queue -- list immediate_analysis
+```
+
+四份新增报告只保存在研究批次目录，两份既有报告按引用复用；本批次不自动写入`manual-reports/`或生产数据库。
+
 ## 人工分析与发布
 
 ```powershell

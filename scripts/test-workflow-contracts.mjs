@@ -3,6 +3,8 @@ import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 
 const sharedSecuritySteps = [
+  "Test deterministic policy triage",
+  "Check limited crawl contract",
   "Execute revision lifecycle migrations in temporary PostgreSQL WASM",
   "Check invite-only authentication boundary",
   "Check workflow contracts",
@@ -21,6 +23,7 @@ const contracts = [
     requiredSteps: [
       "Install dependencies",
       "Audit dependencies",
+      "Validate Stage 9 first-six research batch",
       "Validate all manual reports",
       "Validate revision and projection core",
       ...sharedSecuritySteps,

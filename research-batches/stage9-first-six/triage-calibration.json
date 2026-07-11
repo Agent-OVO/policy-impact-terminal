@@ -1,0 +1,64 @@
+{
+  "calibrationId": "stage9-first-six-triage-calibration-v1",
+  "basedOnBatch": "stage9-first-six",
+  "status": "implemented_and_tested",
+  "calibratedAt": "2026-07-11T10:40:00+09:00",
+  "dimensions": [
+    {
+      "key": "policyToolStrength",
+      "meaning": "当前文件是否直接使用价格、补贴、采购、准入、标准、名单、试点等政策工具。"
+    },
+    {
+      "key": "incrementalIndustryImpact",
+      "meaning": "相对既有政策和既有经营环境，是否可能带来新的成本、需求、规则、项目或技术任务。"
+    },
+    {
+      "key": "companyVerifiability",
+      "meaning": "当前页面及已取得附件能否直接核验牵头单位、起草单位、入选主体或采购对象。"
+    }
+  ],
+  "misjudgementsFound": [
+    {
+      "type": "retrospective_case_overranking",
+      "example": "2025年物联网赋能行业发展典型案例名单",
+      "oldProblem": "因标题含名单、正文回顾申报遴选过程而被识别为高强度前瞻政策。",
+      "fix": "以当前文件标题判断政策阶段；事后典型案例名单默认降为L2，增量产业影响固定低分，但附件主体可验证性可以保持高分。"
+    },
+    {
+      "type": "broad_plan_keyword_accumulation",
+      "example": "美丽中国建设“十五五”规划",
+      "oldProblem": "正文同时出现价格、采购、准入、标准、目录和试点等词，简单累加导致优先级过高。",
+      "fix": "综合规划保留L3研究资格，但对工具强度和增量产业影响折减，等待专项方案、预算和项目清单。"
+    },
+    {
+      "type": "named_list_semantic_collision",
+      "example": "精细化工揭榜名单与典型案例名单",
+      "oldProblem": "两类文件都含名单，但前者面向未来攻关，后者多为既有成果认定。",
+      "fix": "揭榜挂帅、征集、申报、遴选、采购和首批次等前瞻任务获得额外权重；事后案例认定不获得前瞻权重。"
+    },
+    {
+      "type": "attachment_blindness",
+      "example": "行业标准制修订项目计划",
+      "oldProblem": "列表页面正文不含主要起草单位，自动公司可验证性低于人工附件核验结果。",
+      "fix": "自动筛选仍保守打分；研究阶段读取附件后在报告证据层升级公司关系，不在爬虫层猜测主体。"
+    }
+  ],
+  "rulesImplemented": [
+    "RETROSPECTIVE_CASE_PATTERN",
+    "FORWARD_COMPETITION_PATTERN",
+    "STANDARD_PLAN_PATTERN",
+    "BROAD_PLAN_PATTERN",
+    "DIRECT_SUBJECT_PATTERN",
+    "三维加权reviewPriority"
+  ],
+  "sampleResults": [
+    {"sample": "精细化工揭榜名单", "depth": "L3", "reviewPriority": 96, "policyToolStrength": 95, "incrementalIndustryImpact": 87, "companyVerifiability": 94},
+    {"sample": "输配电价", "depth": "L3", "reviewPriority": 85, "policyToolStrength": 88, "incrementalIndustryImpact": 87, "companyVerifiability": 55},
+    {"sample": "人工智能＋人社", "depth": "L3", "reviewPriority": 73, "policyToolStrength": 72, "incrementalIndustryImpact": 90, "companyVerifiability": 38},
+    {"sample": "农业机器人场景遴选", "depth": "L2", "reviewPriority": 67, "policyToolStrength": 49, "incrementalIndustryImpact": 84, "companyVerifiability": 58},
+    {"sample": "行业标准计划", "depth": "L3", "reviewPriority": 66, "policyToolStrength": 76, "incrementalIndustryImpact": 58, "companyVerifiability": 38},
+    {"sample": "美丽中国综合规划", "depth": "L3", "reviewPriority": 59, "policyToolStrength": 64, "incrementalIndustryImpact": 58, "companyVerifiability": 38},
+    {"sample": "物联网典型案例名单", "depth": "L2", "reviewPriority": 52, "policyToolStrength": 64, "incrementalIndustryImpact": 24, "companyVerifiability": 92}
+  ],
+  "boundary": "自动分数只用于研究排队；附件核验、公司证据和最终报告仍由人工研究流程决定。"
+}
