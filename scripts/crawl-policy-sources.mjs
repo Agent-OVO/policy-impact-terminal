@@ -708,27 +708,45 @@ async function fetchJson(url, options = {}) {
 }
 
 async function fetchText(url, options = {}) {
-  const response = await fetch(url, {
-    headers: {
-      "user-agent": "Mozilla/5.0 policy-impact-terminal crawler",
-      ...(options.referer ? { referer: options.referer } : {})
+  let lastError = null;
+
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    try {
+      const response = await fetch(url, {
+        signal: AbortSignal.timeout(20000),
+        headers: {
+          "user-agent": "Mozilla/5.0 policy-impact-terminal crawler",
+          ...(options.referer ? { referer: options.referer } : {})
+        }
+      });
+
+      if (!response.ok) {
+        const retryable = response.status === 429 || response.status >= 500;
+        if (!retryable || attempt === 3) {
+          throw new Error(`HTTP ${response.status} for ${url}`);
+        }
+        lastError = new Error(`HTTP ${response.status} for ${url}`);
+      } else {
+        const buffer = Buffer.from(await response.arrayBuffer());
+        let text = new TextDecoder("utf-8").decode(buffer);
+        let replacementCount = 0;
+        for (const char of text) {
+          if (char.charCodeAt(0) === 0xfffd) replacementCount += 1;
+        }
+        if (replacementCount > 20) {
+          text = new TextDecoder("gb18030").decode(buffer);
+        }
+        return text;
+      }
+    } catch (error) {
+      lastError = error;
+      if (attempt === 3) break;
     }
-  });
 
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status} for ${url}`);
+    await new Promise((resolve) => setTimeout(resolve, attempt * 1000));
   }
 
-  const buffer = Buffer.from(await response.arrayBuffer());
-  let text = new TextDecoder("utf-8").decode(buffer);
-  let replacementCount = 0;
-  for (const char of text) {
-    if (char.charCodeAt(0) === 0xfffd) replacementCount += 1;
-  }
-  if (replacementCount > 20) {
-    text = new TextDecoder("gb18030").decode(buffer);
-  }
-  return text;
+  throw new Error(`fetch failed after 3 attempts for ${url}: ${getErrorMessage(lastError)}`);
 }
 
 async function writeJson(filePath, data) {
