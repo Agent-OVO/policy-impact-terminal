@@ -10,6 +10,11 @@ on:
         description: "Optional artifact file stem"
         required: false
         default: "manual-policy-source"
+      start_analysis:
+        description: "Explicitly authorize and start Agent analysis before fetching"
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -36,7 +41,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Fetch policy source for manual analysis
+      - name: Explicitly start Agent analysis
+        if: ${{ github.event.inputs.start_analysis == 'true' }}
+        env:
+          SUPABASE_URL: https://qxzspsofhmfjceuaulhu.supabase.co
+          SUPABASE_FUNCTION_JWT: ${{ secrets.SUPABASE_FUNCTION_JWT }}
+          SUPABASE_CRAWLER_SECRET: ${{ secrets.SUPABASE_CRAWLER_SECRET }}
+          POLICY_ID: ${{ github.event.inputs.policy_id }}
+        run: npm run manual:policies -- select --policyId="${POLICY_ID}"
+
+      - name: Fetch policy source for Agent analysis
         env:
           SUPABASE_URL: https://qxzspsofhmfjceuaulhu.supabase.co
           SUPABASE_FUNCTION_JWT: ${{ secrets.SUPABASE_FUNCTION_JWT }}
