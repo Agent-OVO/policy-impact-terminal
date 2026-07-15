@@ -6,9 +6,12 @@ const DEFAULT_LIMIT = 10;
 const DEFAULT_SINCE = "2026-05-01";
 
 const args = parseArgs(process.argv.slice(2));
-await loadEnvFiles([".env.local", ".env"]);
-
 const command = args._[0] ?? "list";
+if (command === "help" || args.help === "true") {
+  printHelp();
+  process.exit(0);
+}
+await loadEnvFiles([".env.local", ".env"]);
 const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
 const accessToken = process.env.SUPABASE_ACCESS_TOKEN || process.env.SUPABASE_FUNCTION_JWT || process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY;
 const crawlerSecret = process.env.SUPABASE_CRAWLER_SECRET;
@@ -21,6 +24,12 @@ if (command === "list") {
   const result = await callAnalyze({
     listPendingManualAnalysis: true,
     limit: Number(args.limit ?? DEFAULT_LIMIT),
+    sincePublishDate: args.since ?? DEFAULT_SINCE
+  });
+  console.log(JSON.stringify(result, null, 2));
+} else if (command === "next") {
+  const result = await callAnalyze({
+    getNextSelectedManualAnalysis: true,
     sincePublishDate: args.since ?? DEFAULT_SINCE
   });
   console.log(JSON.stringify(result, null, 2));
@@ -50,10 +59,37 @@ if (command === "list") {
   console.log(JSON.stringify({
     policyId: result.policyId,
     analyzerVersion: result.analyzerVersion,
-    published: result.published
+    published: result.published,
+    jobUpdated: result.jobUpdated,
+    jobId: result.jobId
   }, null, 2));
+} else if (["select", "pending", "wait", "archive", "dismiss"].includes(command)) {
+  const policyId = args.policyId ?? args.id;
+  if (!policyId) throw new Error(`${command} requires --policyId=<uuid>`);
+  const dispositions = {
+    select: "selected_for_analysis",
+    pending: "pending_review",
+    wait: "awaiting_evidence",
+    archive: "quick_archived",
+    dismiss: "dismissed"
+  };
+  const reason = args.reason;
+  if (["wait", "archive", "dismiss"].includes(command) && (!reason || reason.length < 4)) {
+    throw new Error(`${command} requires --reason=<at least 4 characters>`);
+  }
+  const result = await callAnalyze({
+    setManualReviewDisposition: true,
+    policyId,
+    disposition: dispositions[command],
+    reason
+  });
+  console.log(JSON.stringify(result, null, 2));
 } else {
-  throw new Error(`Unknown command: ${command}. Use list, get, or apply.`);
+  throw new Error("Unknown command. Use list, next, get, select, pending, wait, archive, dismiss, apply, or help.");
+}
+
+function printHelp() {
+  console.log(`Manual policy analysis control\n\nCommands:\n  list [--limit=10] [--since=YYYY-MM-DD]    List the review inbox.\n  next [--since=YYYY-MM-DD]                 Return the next explicitly selected policy with original text.\n  get --policyId=<uuid>                     Read one policy and its original text.\n  select --policyId=<uuid>                  Explicitly start Agent analysis and create/reuse one job.\n  pending --policyId=<uuid>                 Return a policy to pending review.\n  wait --policyId=<uuid> --reason=<text>    Wait for a named evidence item.\n  archive --policyId=<uuid> --reason=<text> Quick archive without analysis.\n  dismiss --policyId=<uuid> --reason=<text> Mark duplicate or invalid.\n  apply --policyId=<uuid> --file=<json>     Publish the Agent-reviewed analysis.\n\nCollection never starts analysis automatically. The user authorizes analysis; the Agent performs the research and applies the reviewed result.`);
 }
 
 function parseArgs(values) {

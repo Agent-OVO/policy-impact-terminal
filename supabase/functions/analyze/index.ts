@@ -523,12 +523,23 @@ Deno.serve(async (req: Request) => {
     requirePost(req);
 
     const supabase = createSupabaseAdminClient();
-    await requireCrawlerOrAdminUser(req, supabase);
+    const actor = await requireCrawlerOrAdminUser(req, supabase);
     const body = await readJsonObject(req);
+    if (body.setManualReviewDisposition === true || body.set_manual_review_disposition === true) {
+      const result = await setManualReviewDisposition(supabase, actor.id, body);
+      return jsonResponse(result);
+    }
+
     if (body.listPendingManualAnalysis === true || body.list_pending_manual_analysis === true) {
       const sincePublishDate = readSincePublishDate(body);
       const limit = clampBatchLimit(body.limit);
       const result = await listPendingManualAnalysisPolicies(supabase, sincePublishDate, limit);
+      return jsonResponse(result);
+    }
+
+    if (body.getNextSelectedManualAnalysis === true || body.get_next_selected_manual_analysis === true) {
+      const sincePublishDate = readSincePublishDate(body);
+      const result = await getNextSelectedManualAnalysis(supabase, sincePublishDate);
       return jsonResponse(result);
     }
 
@@ -721,7 +732,7 @@ function requireRulesAnalysisOptIn(body: Record<string, unknown>): void {
 
   throw new HttpError(
     410,
-    "Automatic rules analysis is disabled in production. Use getManualAnalysisPolicy and applyManualAnalysis after Codex manually reads and analyzes the original policy text."
+    "Automatic rules analysis is disabled in production. A user must explicitly select the policy, then an Agent reads the original text and applies the reviewed analysis."
   );
 }
 
@@ -736,6 +747,214 @@ function requirePolicyInManualScope(policy: PolicyRecord): void {
   if (!["draft", "reviewing", "published"].includes(policy.status ?? "")) {
     throw new HttpError(409, `Policy status "${policy.status ?? "unknown"}" cannot be manually analyzed or published.`);
   }
+}
+
+type ManualReviewDisposition =
+  | "pending_review"
+  | "awaiting_evidence"
+  | "selected_for_analysis"
+  | "quick_archived"
+  | "dismissed";
+
+async function setManualReviewDisposition(
+  supabase: SupabaseAdminClient,
+  actorId: string,
+  body: Record<string, unknown>
+): Promise<Record<string, unknown>> {
+  const policyId = optionalString(body, "policyId") ?? optionalString(body, "policy_id");
+  if (!policyId) throw new HttpError(400, "Missing required string field: policyId");
+
+  const disposition = normalizeManualReviewDisposition(
+    optionalString(body, "disposition") ??
+    optionalString(body, "manualReviewDisposition") ??
+    optionalString(body, "manual_review_disposition")
+  );
+  if (!disposition) {
+    throw new HttpError(400, "Invalid manual review disposition.");
+  }
+
+  const reason = optionalString(body, "reason") ??
+    optionalString(body, "manualReviewReason") ??
+    optionalString(body, "manual_review_reason");
+  if (["awaiting_evidence", "quick_archived", "dismissed"].includes(disposition) && (!reason || reason.length < 4)) {
+    throw new HttpError(400, `${disposition} requires a review reason of at least 4 characters.`);
+  }
+
+  const policy = await fetchPolicy(supabase, policyId);
+  requirePolicyInManualScope(policy);
+  const existingMetadata = isRecord(policy.metadata) ? policy.metadata : {};
+  const alreadyComplete = policy.status === "published" && (
+    readRecordString(existingMetadata, "analysisMethod") === MANUAL_ANALYSIS_VERSION ||
+    readRecordString(existingMetadata, "analysis_method") === MANUAL_ANALYSIS_VERSION ||
+    readRecordString(existingMetadata, "manualReviewDisposition") === "analysis_complete" ||
+    readRecordString(existingMetadata, "manual_review_disposition") === "analysis_complete"
+  );
+  if (alreadyComplete) throw new HttpError(409, "Agent analysis is already complete for this policy.");
+
+  const openStatuses = ["queued", "fetching", "extracting", "analyzing"];
+  const { data: existingJob, error: existingJobError } = await supabase
+    .from("analysis_jobs")
+    .select("id,policy_id,title,source_url,source_name,status,progress,created_at,current_step")
+    .eq("policy_id", policy.id)
+    .in("status", openStatuses)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  if (existingJobError) throw existingJobError;
+
+  if (disposition !== "selected_for_analysis" && existingJob) {
+    throw new HttpError(409, "An open analysis job exists. Complete or fail it before changing disposition.");
+  }
+
+  const now = new Date().toISOString();
+  let job = existingJob as Record<string, unknown> | null;
+  if (disposition === "selected_for_analysis" && !job) {
+    const { data, error } = await supabase
+      .from("analysis_jobs")
+      .insert({
+        policy_id: policy.id,
+        owner_id: actorId,
+        title: policy.title,
+        source_url: policy.source_url,
+        source_name: policy.source_name,
+        status: "queued",
+        progress: 8,
+        current_step: "Explicitly selected for Agent analysis",
+        input_payload: {
+          trigger: "user_explicit_selection",
+          policyId: policy.id,
+          selectedBy: actorId,
+          selectedAt: now
+        }
+      })
+      .select("id,policy_id,title,source_url,source_name,status,progress,created_at,current_step")
+      .single();
+    if (error || !data) throw error ?? new Error("Analysis job insert returned no row.");
+    job = data as Record<string, unknown>;
+  }
+
+  const selected = disposition === "selected_for_analysis";
+  const requiresAnalysis = disposition === "pending_review" || selected;
+  const metadata = {
+    ...existingMetadata,
+    manualAnalysisEligible: true,
+    manual_analysis_eligible: true,
+    requiresManualAnalysis: requiresAnalysis,
+    requires_manual_analysis: requiresAnalysis,
+    analysisQueueSelected: selected,
+    analysis_queue_selected: selected,
+    queueDeferred: disposition === "awaiting_evidence",
+    queue_deferred: disposition === "awaiting_evidence",
+    manualReviewDisposition: disposition,
+    manual_review_disposition: disposition,
+    manualReviewReason: reason ?? null,
+    manual_review_reason: reason ?? null,
+    manualReviewUpdatedAt: now,
+    manual_review_updated_at: now,
+    manualReviewUpdatedBy: actorId,
+    manual_review_updated_by: actorId
+  };
+
+  const updateValues: Record<string, unknown> = { metadata };
+  if (selected && policy.status === "draft") updateValues.status = "reviewing";
+  const { error: updateError } = await supabase.from("policies").update(updateValues).eq("id", policy.id);
+  if (updateError) throw updateError;
+
+  return {
+    mode: "setManualReviewDisposition",
+    policyId: policy.id,
+    disposition,
+    reason: reason ?? null,
+    job,
+    next: selected ? ["getNextSelectedManualAnalysis", "applyManualAnalysis"] : []
+  };
+}
+
+function normalizeManualReviewDisposition(value: string | null): ManualReviewDisposition | null {
+  const allowed: ManualReviewDisposition[] = [
+    "pending_review",
+    "awaiting_evidence",
+    "selected_for_analysis",
+    "quick_archived",
+    "dismissed"
+  ];
+  return allowed.includes(value as ManualReviewDisposition) ? value as ManualReviewDisposition : null;
+}
+
+async function getNextSelectedManualAnalysis(
+  supabase: SupabaseAdminClient,
+  sincePublishDate: string
+): Promise<Record<string, unknown>> {
+  const { data, error } = await supabase
+    .from("policies")
+    .select("id,metadata,publish_date,created_at")
+    .gte("publish_date", sincePublishDate)
+    .not("publish_date", "is", null)
+    .order("publish_date", { ascending: false })
+    .order("created_at", { ascending: false })
+    .limit(200);
+  if (error) throw new HttpError(500, "Failed to locate selected policy.", error);
+
+  const selected = (Array.isArray(data) ? data : [])
+    .map((item: unknown) => {
+      const record = item as { id?: unknown; metadata?: unknown; publish_date?: unknown; created_at?: unknown };
+      const metadata = isRecord(record.metadata) ? record.metadata : {};
+      const disposition = readRecordString(metadata, "manualReviewDisposition") ??
+        readRecordString(metadata, "manual_review_disposition");
+      return {
+        id: typeof record.id === "string" ? record.id : null,
+        disposition,
+        reviewPriority: readRecordNumber(metadata, "reviewPriority") ?? readRecordNumber(metadata, "review_priority") ?? 0,
+        publishDate: typeof record.publish_date === "string" ? record.publish_date : "",
+        createdAt: typeof record.created_at === "string" ? record.created_at : ""
+      };
+    })
+    .filter((item) => item.id && item.disposition === "selected_for_analysis")
+    .sort((a, b) => b.reviewPriority - a.reviewPriority || b.publishDate.localeCompare(a.publishDate) || b.createdAt.localeCompare(a.createdAt))[0];
+
+  if (!selected?.id) {
+    return {
+      mode: "getNextSelectedManualAnalysis",
+      selected: false,
+      policy: null,
+      job: null,
+      message: "No explicitly selected policy is waiting for Agent analysis."
+    };
+  }
+
+  const policy = await fetchPolicy(supabase, selected.id);
+  const { data: job, error: jobError } = await supabase
+    .from("analysis_jobs")
+    .select("id,policy_id,title,source_url,source_name,status,progress,created_at,current_step")
+    .eq("policy_id", policy.id)
+    .in("status", ["queued", "fetching", "extracting", "analyzing"])
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  if (jobError) throw jobError;
+
+  return {
+    mode: "getNextSelectedManualAnalysis",
+    selected: true,
+    policy: {
+      id: policy.id,
+      externalId: policy.external_id,
+      title: policy.title,
+      issuer: policy.issuer,
+      publishDate: policy.publish_date,
+      effectiveDate: policy.effective_date,
+      sourceName: policy.source_name,
+      sourceUrl: policy.source_url,
+      category: policy.category,
+      policyLevel: policy.policy_level,
+      summary: policy.summary,
+      fullText: policy.full_text,
+      fullTextLength: policy.full_text?.length ?? 0,
+      reviewPriority: selected.reviewPriority
+    },
+    job: job ?? null,
+    next: ["agent_analyze_original_text", "applyManualAnalysis"]
+  };
 }
 
 async function listPendingManualAnalysisPolicies(
@@ -1123,6 +1342,18 @@ async function updatePolicyManualAnalysisMetadata(
         ...existingPolicyMetadata,
         analysisMethod: MANUAL_ANALYSIS_VERSION,
         analysis_method: MANUAL_ANALYSIS_VERSION,
+        manualAnalysisEligible: false,
+        manual_analysis_eligible: false,
+        requiresManualAnalysis: false,
+        requires_manual_analysis: false,
+        analysisQueueSelected: false,
+        analysis_queue_selected: false,
+        queueDeferred: false,
+        queue_deferred: false,
+        manualReviewDisposition: "analysis_complete",
+        manual_review_disposition: "analysis_complete",
+        manualReviewCompletedAt: new Date().toISOString(),
+        manual_review_completed_at: new Date().toISOString(),
         analysis: analysisOutput,
         analysisStub: analysisOutput,
         reportPayload,
@@ -1171,7 +1402,7 @@ async function markLatestAnalysisJobPublished(
     .update({
       status: "published",
       progress: 100,
-      current_step: "Manual Codex analysis published",
+      current_step: "Agent analysis published after explicit user selection",
       finished_at: now,
       output_payload: {
         ...existingOutput,
