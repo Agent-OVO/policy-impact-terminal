@@ -962,10 +962,10 @@ async function listPendingManualAnalysisPolicies(
   sincePublishDate: string,
   limit: number
 ): Promise<Record<string, unknown>> {
-  const fetchLimit = Math.min(Math.max(limit * 4, 50), 200);
+  const fetchLimit = Math.min(Math.max(limit * 8, 80), 400);
   const { data, error } = await supabase
     .from("policies")
-    .select("id,external_id,title,issuer,publish_date,effective_date,source_name,source_url,category,policy_level,confidence,summary,full_text,metadata,status,analysis_version,created_at")
+    .select("id,external_id,title,issuer,publish_date,effective_date,source_name,source_url,category,policy_level,confidence,summary,full_text,metadata,status,analysis_version,created_at,updated_at")
     .gte("publish_date", sincePublishDate)
     .not("publish_date", "is", null)
     .order("publish_date", { ascending: false })
@@ -976,14 +976,49 @@ async function listPendingManualAnalysisPolicies(
     throw new HttpError(500, "Failed to list policies pending manual analysis.", error);
   }
 
-  const policies = (Array.isArray(data) ? data : [])
+  const activePolicies = (Array.isArray(data) ? data : [])
     .map((item: unknown) => {
-      const record = item as PolicyRecord & { status?: string | null; analysis_version?: string | null; created_at?: string | null };
+      const record = item as PolicyRecord & {
+        status?: string | null;
+        analysis_version?: string | null;
+        created_at?: string | null;
+        updated_at?: string | null;
+      };
       const metadata = isRecord(record.metadata) ? record.metadata : {};
       const analysis = isRecord(metadata.analysis) ? metadata.analysis : {};
-      const reportPayload = isRecord(metadata.reportPayload) ? metadata.reportPayload : isRecord(metadata.policyReport) ? metadata.policyReport : null;
-      const analysisVersion = record.analysis_version ?? readRecordString(analysis, "analyzerVersion") ?? readRecordString(reportPayload, "analyzerVersion");
-      const manual = analysisVersion === MANUAL_ANALYSIS_VERSION || readRecordString(analysis, "analysisMethod") === MANUAL_ANALYSIS_VERSION;
+      const reportPayload = isRecord(metadata.reportPayload)
+        ? metadata.reportPayload
+        : isRecord(metadata.policyReport)
+          ? metadata.policyReport
+          : null;
+      const analysisVersion = record.analysis_version ??
+        readRecordString(analysis, "analyzerVersion") ??
+        readRecordString(reportPayload, "analyzerVersion");
+      const manual = analysisVersion === MANUAL_ANALYSIS_VERSION ||
+        readRecordString(analysis, "analysisMethod") === MANUAL_ANALYSIS_VERSION;
+      const analysisDepth = readRecordString(metadata, "analysisDepth") ??
+        readRecordString(metadata, "analysis_depth") ??
+        "L2";
+      const explicitManualEligibility = readRecordBoolean(metadata, "manualAnalysisEligible") ??
+        readRecordBoolean(metadata, "manual_analysis_eligible");
+      const manualAnalysisEligible = explicitManualEligibility ?? ["L2", "L3"].includes(analysisDepth);
+      const explicitDisposition = normalizeManualReviewDisposition(
+        readRecordString(metadata, "manualReviewDisposition") ??
+        readRecordString(metadata, "manual_review_disposition")
+      );
+      const queueSelected = readRecordBoolean(metadata, "analysisQueueSelected") ??
+        readRecordBoolean(metadata, "analysis_queue_selected") ??
+        false;
+      const disposition = explicitDisposition ?? (queueSelected ? "selected_for_analysis" : "pending_review");
+      const reviewPriority = readRecordNumber(metadata, "reviewPriority") ??
+        readRecordNumber(metadata, "review_priority") ??
+        0;
+      const triageReasons = readStringArray(metadata.triageReasons ?? metadata.triage_reasons);
+      const active = !manual &&
+        manualAnalysisEligible &&
+        ["L2", "L3"].includes(analysisDepth) &&
+        !["quick_archived", "dismissed"].includes(disposition);
+
       return {
         id: record.id,
         externalId: record.external_id,
@@ -994,19 +1029,48 @@ async function listPendingManualAnalysisPolicies(
         sourceUrl: record.source_url,
         status: record.status ?? "draft",
         analysisVersion,
+        analysisDepth,
+        reviewPriority,
+        triageReasons,
+        manualReviewDisposition: disposition,
+        manualReviewReason: readRecordString(metadata, "manualReviewReason") ??
+          readRecordString(metadata, "manual_review_reason"),
+        analysisQueueSelected: disposition === "selected_for_analysis",
+        queueDeferred: disposition === "awaiting_evidence",
         fullTextLength: record.full_text?.length ?? 0,
-        reason: manual ? "already_manual_analyzed" : record.status === "published" ? "published_needs_manual_reanalysis" : "raw_policy_waiting_manual_analysis",
-        pending: !manual
+        createdAt: record.created_at,
+        updatedAt: record.updated_at,
+        active
       };
     })
-    .filter((item) => item.pending)
-    .slice(0, limit);
+    .filter((item) => item.active)
+    .sort((left, right) => {
+      const stateRank: Record<string, number> = {
+        selected_for_analysis: 0,
+        pending_review: 1,
+        awaiting_evidence: 2
+      };
+      return (stateRank[left.manualReviewDisposition] ?? 9) -
+          (stateRank[right.manualReviewDisposition] ?? 9) ||
+        right.reviewPriority - left.reviewPriority ||
+        String(right.publishDate ?? "").localeCompare(String(left.publishDate ?? "")) ||
+        String(right.createdAt ?? "").localeCompare(String(left.createdAt ?? ""));
+    });
+
+  const stateCounts = {
+    pendingReview: activePolicies.filter((item) => item.manualReviewDisposition === "pending_review").length,
+    awaitingEvidence: activePolicies.filter((item) => item.manualReviewDisposition === "awaiting_evidence").length,
+    selectedForAnalysis: activePolicies.filter((item) => item.manualReviewDisposition === "selected_for_analysis").length
+  };
+  const policies = activePolicies.slice(0, limit);
 
   return {
     mode: "listPendingManualAnalysis",
     sincePublishDate,
     scanned: Array.isArray(data) ? data.length : 0,
+    total: activePolicies.length,
     count: policies.length,
+    stateCounts,
     policies
   };
 }
@@ -1817,6 +1881,23 @@ function readRecordNumber(record: Record<string, unknown> | null | undefined, ke
   if (typeof value === "number" && Number.isFinite(value)) return value;
   if (typeof value === "string" && value.trim() && Number.isFinite(Number(value))) return Number(value);
   return null;
+}
+
+function readRecordBoolean(record: Record<string, unknown> | null | undefined, key: string): boolean | null {
+  const value = record?.[key];
+  if (typeof value === "boolean") return value;
+  if (typeof value === "number") return value === 1 ? true : value === 0 ? false : null;
+  if (typeof value !== "string") return null;
+  const normalized = value.trim().toLowerCase();
+  if (["true", "1", "yes"].includes(normalized)) return true;
+  if (["false", "0", "no"].includes(normalized)) return false;
+  return null;
+}
+
+function readStringArray(value: unknown): string[] {
+  return Array.isArray(value)
+    ? value.filter((item): item is string => typeof item === "string").map((item) => item.trim()).filter(Boolean)
+    : [];
 }
 
 function arrayField(value: unknown): unknown[] {
