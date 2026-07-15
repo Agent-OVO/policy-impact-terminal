@@ -11,6 +11,9 @@ on:
       - "scripts/manage-production-qa-user.mjs"
       - "scripts/run-production-authenticated-qa.mjs"
       - "scripts/production-authenticated-qa.playwright.js"
+      - "scripts/audit-hourly-policy-collection.mjs"
+      - "scripts/lib/hourly-policy-operations.mjs"
+      - "scripts/test-hourly-policy-operations.mjs"
       - "src/App.tsx"
       - "src/lib/reportMappers.ts"
       - "supabase/functions/analyze/index.ts"
@@ -50,6 +53,9 @@ jobs:
           node --check scripts/manage-production-qa-user.mjs
           node --check scripts/run-production-authenticated-qa.mjs
           node --check scripts/production-authenticated-qa.playwright.js
+
+      - name: Check policy operations contracts
+        run: npm run policy:operations-test
 
       - name: Validate all manual reports
         env:
