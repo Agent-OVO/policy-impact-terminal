@@ -12,6 +12,7 @@
     "policy:triage-test": "node scripts/test-policy-triage.mjs",
     "policy:crawl-contract-test": "node scripts/test-limited-crawl-contract.mjs",
     "policy:hourly-operations-test": "node scripts/test-hourly-policy-operations.mjs",
+    "policy:hourly-audit": "node scripts/audit-hourly-policy-collection.mjs",
     "policy:operations-test": "npm run policy:triage-test && npm run policy:crawl-contract-test && npm run policy:hourly-operations-test",
     "manual:policies": "node scripts/manual-policy-analysis.mjs",
     "manual:validate": "node scripts/validate-manual-report.mjs",
