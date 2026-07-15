@@ -1,25 +1,37 @@
-name: Crawl policy sources
+name: Crawl policy sources hourly
 
 on:
   schedule:
-    # Asia/Shanghai workdays, every hour from Monday 00:00 to Friday 23:00.
-    - cron: "0 16-23 * * 0-4"
-    - cron: "0 0-15 * * 1-5"
-    # Asia/Shanghai weekends, every 12 hours at Saturday/Sunday 00:00 and 12:00.
-    - cron: "0 16 * * 5,6"
-    - cron: "0 4 * * 6,0"
+    # Every hour at minute 17. GitHub cron is UTC; frequency is timezone-independent.
+    - cron: "17 * * * *"
   workflow_dispatch:
     inputs:
       source:
         description: "Source keys, comma-separated, or all"
         required: false
         default: "all"
-      limit:
-        description: "Maximum policy candidates to ingest"
+      source_scan_limit:
+        description: "Maximum list rows scanned per source"
         required: false
-        default: "80"
+        default: "60"
+      candidate_limit:
+        description: "Maximum non-L0 candidates after deterministic filtering"
+        required: false
+        default: "24"
+      ingest_limit:
+        description: "Maximum original policy documents ingested in one run; matches the candidate cap to prevent starvation"
+        required: false
+        default: "24"
+      recommendation_limit:
+        description: "Maximum L2/L3 analysis recommendations shown in the artifact; no job is created"
+        required: false
+        default: "3"
+      inbox_display_limit:
+        description: "Maximum high-value inbox rows shown in the crawl artifact"
+        required: false
+        default: "8"
       since:
-        description: "Only ingest policies published on or after this date"
+        description: "Only collect policies published on or after this date"
         required: false
         default: "2026-05-01"
 
@@ -27,7 +39,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: policy-source-crawler
+  group: policy-source-crawler-hourly
   cancel-in-progress: false
 
 jobs:
@@ -48,7 +60,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Check Supabase crawl configuration
+      - name: Test hourly collection contracts
+        run: |
+          npm run policy:triage-test
+          npm run policy:crawl-contract-test
+          npm run policy:hourly-operations-test
+
+      - name: Check optional Supabase ingest configuration
         id: config
         env:
           SUPABASE_URL: https://qxzspsofhmfjceuaulhu.supabase.co
@@ -59,32 +77,49 @@ jobs:
             echo "ready=true" >> "$GITHUB_OUTPUT"
           else
             echo "ready=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::Supabase crawl secrets are not fully configured; skipping scheduled ingest."
+            echo "::notice::Supabase crawl secrets are not fully configured. Hourly collection will still run and upload its artifact; database ingest will be skipped."
           fi
 
-      - name: Crawl and ingest policy documents
-        if: steps.config.outputs.ready == 'true'
+      - name: Collect policy sources and optionally ingest originals
         env:
           SUPABASE_URL: https://qxzspsofhmfjceuaulhu.supabase.co
           SUPABASE_FUNCTION_JWT: ${{ secrets.SUPABASE_FUNCTION_JWT }}
           SUPABASE_CRAWLER_SECRET: ${{ secrets.SUPABASE_CRAWLER_SECRET }}
+          INGEST_READY: ${{ steps.config.outputs.ready }}
           CRAWL_SOURCE: ${{ github.event.inputs.source || 'all' }}
-          CRAWL_LIMIT: ${{ github.event.inputs.limit || '80' }}
+          SOURCE_SCAN_LIMIT: ${{ github.event.inputs.source_scan_limit || '60' }}
+          CANDIDATE_LIMIT: ${{ github.event.inputs.candidate_limit || '24' }}
+          INGEST_LIMIT: ${{ github.event.inputs.ingest_limit || '24' }}
+          RECOMMENDATION_LIMIT: ${{ github.event.inputs.recommendation_limit || '3' }}
+          INBOX_DISPLAY_LIMIT: ${{ github.event.inputs.inbox_display_limit || '8' }}
           CRAWL_SINCE: ${{ github.event.inputs.since || '2026-05-01' }}
         run: |
-          node scripts/crawl-policy-sources.mjs --preflight
-          node scripts/crawl-policy-sources.mjs \
-            --source="${CRAWL_SOURCE}" \
-            --limit="${CRAWL_LIMIT}" \
-            --since="${CRAWL_SINCE}" \
-            --exclude-undated \
-            --out=artifacts/policy-candidates.json \
-            --ingest
+          set -euo pipefail
+          args=(
+            --source="${CRAWL_SOURCE}"
+            --source-scan-limit="${SOURCE_SCAN_LIMIT}"
+            --candidate-limit="${CANDIDATE_LIMIT}"
+            --ingest-limit="${INGEST_LIMIT}"
+            --analysis-limit="${RECOMMENDATION_LIMIT}"
+            --pending-queue-limit="${INBOX_DISPLAY_LIMIT}"
+            --since="${CRAWL_SINCE}"
+            --exclude-undated
+            --manual-selection-only
+            --out=artifacts/policy-candidates.json
+          )
 
-      - name: Upload crawl artifact
+          if [ "${INGEST_READY}" = "true" ]; then
+            node scripts/crawl-policy-sources.mjs --preflight
+            args+=(--ingest)
+          fi
+
+          node scripts/crawl-policy-sources.mjs "${args[@]}"
+
+      - name: Upload hourly collection artifact
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: policy-candidates
+          name: policy-candidates-${{ github.run_id }}-${{ github.run_attempt }}
           path: artifacts/policy-candidates.json
-          if-no-files-found: ignore
+          if-no-files-found: warn
+          retention-days: 7
