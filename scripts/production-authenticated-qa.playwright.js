@@ -1,5 +1,8 @@
 async (page) => {
   const targetUrl = "https://agent-ovo.github.io/policy-impact-terminal/";
+  const expectedReportIds = __PRODUCTION_QA_EXPECTED_REPORT_IDS__;
+  const expectedReportCount = __PRODUCTION_QA_EXPECTED_REPORT_COUNT__;
+  const expectedFullReportCount = __PRODUCTION_QA_EXPECTED_FULL_REPORT_COUNT__;
   const consoleErrors = [];
   const pageErrors = [];
   const requestFailures = [];
@@ -42,8 +45,13 @@ async (page) => {
   }));
 
   await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto(targetUrl, { waitUntil: "networkidle", timeout: 30000 });
-  await page.locator(".report-list").waitFor({ state: "visible", timeout: 20000 });
+  await page.goto(targetUrl, { waitUntil: "domcontentloaded", timeout: 30000 });
+  await page.locator(".report-list").waitFor({ state: "visible", timeout: 30000 });
+  await page.waitForFunction(() => {
+    const reportButtons = document.querySelectorAll(".report-list > button");
+    const failure = document.querySelector(".report-unavailable.error, .report-load-banner.error, .auth-error");
+    return reportButtons.length > 0 || Boolean(failure);
+  }, undefined, { timeout: 30000 });
 
   const authenticated = await page.getByRole("heading", { name: "政策监测与分析报表" }).count() === 1;
   const desktop = [];
@@ -228,15 +236,23 @@ async (page) => {
     runtimeErrors: item.newRuntimeErrors
   }));
 
+  const actualReportIds = desktop.map((item) => item.reportId).filter(Boolean);
+  const missingReportIds = expectedReportIds.filter((id) => !actualReportIds.includes(id));
+  const unexpectedReportIds = actualReportIds.filter((id) => !expectedReportIds.includes(id));
+  const fullInvestmentPanelCount = desktop.filter((item) => item.brief.investmentPanel > 0).length;
+  const policyNetworkPanelCount = desktop.filter((item) => item.brief.policyNetworkItems > 0).length;
+
   const assertionFailures = [];
   if (!authenticated) assertionFailures.push("authenticated session was not loaded");
-  if (reportCount !== 20) assertionFailures.push(`expected 20 reports, found ${reportCount}`);
+  if (expectedReportCount > 0 && reportCount !== expectedReportCount) assertionFailures.push(`expected ${expectedReportCount} reports, found ${reportCount}`);
+  if (missingReportIds.length) assertionFailures.push(`missing governed report ids: ${missingReportIds.join(", ")}`);
+  if (unexpectedReportIds.length) assertionFailures.push(`unexpected production report ids: ${unexpectedReportIds.join(", ")}`);
   if (desktopChecks.some((item) => item.moduleCount !== 7)) assertionFailures.push("one or more desktop reports do not expose 7 modules");
   if (mobileChecks.some((item) => item.moduleCount !== 7)) assertionFailures.push("one or more mobile reports do not expose 7 modules");
   if (desktopChecks.some((item) => !item.companyCountMatches || !item.companyTagCountMatches)) assertionFailures.push("desktop company projection does not match authoritative report count or tags");
   if (mobileChecks.some((item) => !item.companyCountMatches)) assertionFailures.push("mobile company projection does not match authoritative report count");
-  if (desktop.filter((item) => item.brief.investmentPanel > 0).length !== 17) assertionFailures.push("expected 17 investment observation panels");
-  if (desktop.filter((item) => item.brief.policyNetworkItems > 0).length !== 17) assertionFailures.push("expected 17 policy network panels");
+  if (expectedFullReportCount > 0 && fullInvestmentPanelCount !== expectedFullReportCount) assertionFailures.push(`expected ${expectedFullReportCount} investment observation panels, found ${fullInvestmentPanelCount}`);
+  if (expectedFullReportCount > 0 && policyNetworkPanelCount !== expectedFullReportCount) assertionFailures.push(`expected ${expectedFullReportCount} policy network panels, found ${policyNetworkPanelCount}`);
   if (desktopSummary.failures.length || mobileSummary.failures.length) assertionFailures.push("visible report failure states were found");
   if (desktopSummary.overflow.length || mobileSummary.overflow.length) assertionFailures.push("horizontal overflow was found");
   if (desktopSummary.runtimeErrors.length || mobileSummary.runtimeErrors.length || consoleErrors.length || pageErrors.length || requestFailures.length) assertionFailures.push("runtime errors or failed requests were found");
@@ -244,9 +260,13 @@ async (page) => {
   const result = {
     authenticated,
     reportCount,
+    expectedReportCount,
+    expectedFullReportCount,
     expectedTitles,
-    fullInvestmentPanels: desktop.filter((item) => item.brief.investmentPanel > 0).length,
-    policyNetworkPanels: desktop.filter((item) => item.brief.policyNetworkItems > 0).length,
+    missingReportIds,
+    unexpectedReportIds,
+    fullInvestmentPanels: fullInvestmentPanelCount,
+    policyNetworkPanels: policyNetworkPanelCount,
     desktopSummary,
     mobileSummary,
     consoleErrors: [...new Set(consoleErrors)],
