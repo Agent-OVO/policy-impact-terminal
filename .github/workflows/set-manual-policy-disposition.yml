@@ -1,0 +1,90 @@
+name: Set manual policy disposition
+
+on:
+  workflow_dispatch:
+    inputs:
+      policy_id:
+        description: "Policy UUID to update"
+        required: true
+      disposition:
+        description: "Manual review action"
+        required: true
+        type: choice
+        default: "wait"
+        options:
+          - pending
+          - wait
+          - archive
+          - dismiss
+      reason:
+        description: "Required for wait, archive, and dismiss"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+concurrency:
+  group: manual-policy-disposition-${{ github.event.inputs.policy_id }}
+  cancel-in-progress: false
+
+jobs:
+  set-disposition:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate disposition request
+        env:
+          DISPOSITION: ${{ github.event.inputs.disposition }}
+          REASON: ${{ github.event.inputs.reason }}
+        run: |
+          case "$DISPOSITION" in
+            pending|wait|archive|dismiss) ;;
+            *)
+              echo "::error::Unsupported disposition: $DISPOSITION"
+              exit 1
+              ;;
+          esac
+
+          if [ "$DISPOSITION" != "pending" ] && [ "${#REASON}" -lt 4 ]; then
+            echo "::error::$DISPOSITION requires a reason of at least 4 characters"
+            exit 1
+          fi
+
+      - name: Apply manual review disposition
+        env:
+          SUPABASE_URL: https://qxzspsofhmfjceuaulhu.supabase.co
+          SUPABASE_FUNCTION_JWT: ${{ secrets.SUPABASE_FUNCTION_JWT }}
+          SUPABASE_CRAWLER_SECRET: ${{ secrets.SUPABASE_CRAWLER_SECRET }}
+          POLICY_ID: ${{ github.event.inputs.policy_id }}
+          DISPOSITION: ${{ github.event.inputs.disposition }}
+          REASON: ${{ github.event.inputs.reason }}
+        run: |
+          mkdir -p artifacts/manual-analysis
+          args=("$DISPOSITION" "--policyId=$POLICY_ID")
+          if [ -n "$REASON" ]; then
+            args+=("--reason=$REASON")
+          fi
+          npm run manual:policies -- "${args[@]}" \
+            | tee "artifacts/manual-analysis/disposition-$POLICY_ID.json"
+
+      - name: Upload disposition result
+        uses: actions/upload-artifact@v7
+        with:
+          name: manual-policy-disposition-${{ github.event.inputs.policy_id }}
+          path: artifacts/manual-analysis/disposition-*.json
+          if-no-files-found: error
+          retention-days: 30
