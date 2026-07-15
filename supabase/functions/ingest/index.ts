@@ -141,6 +141,42 @@ Deno.serve(async (req) => {
       optionalString(body, "external_id") ??
       optionalString(inputPayload, "externalId") ??
       optionalString(inputPayload, "external_id");
+    const analysisDepth =
+      optionalString(body, "analysisDepth") ??
+      optionalString(body, "analysis_depth") ??
+      optionalString(inputPayload, "analysisDepth") ??
+      optionalString(inputPayload, "analysis_depth");
+    const reviewPriority = normalizeReviewPriority(
+      body.reviewPriority ?? body.review_priority ?? inputPayload.reviewPriority ?? inputPayload.review_priority
+    );
+    const manualAnalysisEligible = readBoolean(
+      body.manualAnalysisEligible ??
+      body.manual_analysis_eligible ??
+      inputPayload.manualAnalysisEligible ??
+      inputPayload.manual_analysis_eligible
+    ) ?? (analysisDepth === "L2" || analysisDepth === "L3");
+    const requiresManualAnalysis = readBoolean(
+      body.requiresManualAnalysis ??
+      body.requires_manual_analysis ??
+      inputPayload.requiresManualAnalysis ??
+      inputPayload.requires_manual_analysis
+    ) ?? manualAnalysisEligible;
+    const analysisQueueSelected = readBoolean(
+      body.analysisQueueSelected ??
+      body.analysis_queue_selected ??
+      inputPayload.analysisQueueSelected ??
+      inputPayload.analysis_queue_selected
+    ) ?? false;
+    const manualReviewDisposition =
+      optionalString(body, "manualReviewDisposition") ??
+      optionalString(body, "manual_review_disposition") ??
+      optionalString(inputPayload, "manualReviewDisposition") ??
+      optionalString(inputPayload, "manual_review_disposition") ??
+      (analysisQueueSelected
+        ? "selected_for_analysis"
+        : manualAnalysisEligible
+          ? "pending_review"
+          : "archived_without_analysis");
 
     if (!sourceUrl && title === "Untitled policy") {
       return jsonResponse({ error: "Provide at least sourceUrl or title." }, 400);
@@ -184,6 +220,16 @@ Deno.serve(async (req) => {
         content_hash: contentHash,
         canonicalSourceUrl,
         canonical_source_url: canonicalSourceUrl,
+        ...(analysisDepth ? { analysisDepth, analysis_depth: analysisDepth } : {}),
+        ...(reviewPriority !== null ? { reviewPriority, review_priority: reviewPriority } : {}),
+        manualAnalysisEligible,
+        manual_analysis_eligible: manualAnalysisEligible,
+        requiresManualAnalysis,
+        requires_manual_analysis: requiresManualAnalysis,
+        analysisQueueSelected,
+        analysis_queue_selected: analysisQueueSelected,
+        manualReviewDisposition,
+        manual_review_disposition: manualReviewDisposition,
         ...(publishDateTime
           ? {
               publishDateTime,
@@ -205,17 +251,19 @@ Deno.serve(async (req) => {
 
     const existingPolicy = await findExistingPolicy(supabase, dedupeKey, contentHash);
     if (existingPolicy) {
-      const job = await createDuplicateLinkJob(supabase, {
-        userId: user.id,
-        existingPolicy,
-        title,
-        sourceUrl,
-        sourceName,
-        inputPayload,
-        now,
-        dedupeKey,
-        contentHash
-      });
+      const job = analysisQueueSelected
+        ? await createDuplicateLinkJob(supabase, {
+            userId: user.id,
+            existingPolicy,
+            title,
+            sourceUrl,
+            sourceName,
+            inputPayload,
+            now,
+            dedupeKey,
+            contentHash
+          })
+        : null;
 
       return jsonResponse({
         duplicate: true,
@@ -247,6 +295,24 @@ Deno.serve(async (req) => {
     }
 
     const policyExternalId = getString(policy, "external_id") ?? externalId;
+
+    if (!analysisQueueSelected) {
+      return jsonResponse({
+        policyId,
+        policyExternalId,
+        policyRef: {
+          id: policyId,
+          externalId: policyExternalId,
+          external_id: policyExternalId,
+          externalIdColumnWritten
+        },
+        policy,
+        job: null,
+        next: [],
+        analysisQueueSelected: false,
+        manualReviewDisposition
+      }, 201);
+    }
 
     const { data: job, error: jobError } = await supabase
       .from("analysis_jobs")
@@ -570,6 +636,22 @@ function isMissingExternalIdColumnError(error: unknown): boolean {
 function getString(record: object, key: string): string | null {
   const value = (record as Record<string, unknown>)[key];
   return typeof value === "string" && value.trim() ? value : null;
+}
+
+function readBoolean(value: unknown): boolean | null {
+  if (typeof value === "boolean") return value;
+  if (typeof value === "number") return value === 1 ? true : value === 0 ? false : null;
+  if (typeof value !== "string") return null;
+  const normalized = value.trim().toLowerCase();
+  if (["true", "1", "yes"].includes(normalized)) return true;
+  if (["false", "0", "no"].includes(normalized)) return false;
+  return null;
+}
+
+function normalizeReviewPriority(value: unknown): number | null {
+  const parsed = typeof value === "number" ? value : typeof value === "string" ? Number(value) : Number.NaN;
+  if (!Number.isFinite(parsed)) return null;
+  return Math.min(100, Math.max(0, Math.round(parsed)));
 }
 
 function isAllowedPolicyPublishDate(value: string | null): boolean {

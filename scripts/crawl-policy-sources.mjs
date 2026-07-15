@@ -3,10 +3,19 @@ import * as cheerio from "cheerio";
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
+import {
+  attachPolicyTriage,
+  buildLimitedPolicyPlan
+} from "./lib/policy-triage.mjs";
 
-const CRAWLER_VERSION = "policy-source-crawler-v0.2";
+const CRAWLER_VERSION = "policy-source-crawler-v0.3";
 const MIN_POLICY_FULL_TEXT_LENGTH = 280;
 const DEFAULT_POLICY_SINCE = "2026-05-01";
+const DEFAULT_SOURCE_SCAN_LIMIT = 60;
+const DEFAULT_CANDIDATE_LIMIT = 24;
+const DEFAULT_INGEST_LIMIT = 24;
+const DEFAULT_ANALYSIS_PER_RUN_LIMIT = 3;
+const DEFAULT_PENDING_QUEUE_LIMIT = 8;
 
 const SOURCES = [
   {
@@ -55,6 +64,7 @@ const selectedSources = selectSources(args.source);
 const crawledAt = new Date().toISOString();
 const collected = [];
 const errors = [];
+const sourceHealth = [];
 
 if (args.autoPublishRequested) {
   throw new Error("--auto-publish is disabled. The crawler only ingests original policy text; reviewed manual analysis must publish reports.");
@@ -62,12 +72,16 @@ if (args.autoPublishRequested) {
 
 for (const source of selectedSources) {
   try {
-    const items = await source.fetch(source, args);
+    const fetched = await source.fetch(source, args);
+    const items = fetched.slice(0, args.sourceScanLimit);
     collected.push(...items);
+    sourceHealth.push({ sourceKey: source.key, sourceName: source.name, status: "ok", listCandidates: items.length, error: null });
     console.log(`[crawl] ${source.key}: ${items.length} candidates`);
   } catch (error) {
-    errors.push({ sourceKey: source.key, message: getErrorMessage(error) });
-    console.error(`[crawl] ${source.key}: ${getErrorMessage(error)}`);
+    const message = getErrorMessage(error);
+    errors.push({ sourceKey: source.key, message });
+    sourceHealth.push({ sourceKey: source.key, sourceName: source.name, status: "failed", listCandidates: 0, error: message });
+    console.error(`[crawl] ${source.key}: ${message}`);
   }
 }
 
@@ -75,23 +89,69 @@ const filtered = collected
   .filter((item) => args.includeInterpretations || !isNonPolicyDocument(item))
   .filter((item) => !args.since || (item.publishDate ? item.publishDate >= args.since : !args.excludeUndated));
 
-const deduped = dedupeCandidates(filtered);
-const candidates = await hydrateCandidates(deduped.candidates.slice(0, args.limit));
-const duplicates = deduped.duplicates;
+const initialDedupe = dedupeCandidates(filtered);
+const preliminaryPlan = buildLimitedPolicyPlan(
+  initialDedupe.candidates.map((item) => attachPolicyTriage(item)),
+  {
+    candidateLimit: args.candidateLimit,
+    ingestLimit: args.ingestLimit,
+    analysisPerRunLimit: args.analysisPerRunLimit,
+    pendingQueueLimit: args.pendingQueueLimit,
+    automaticAnalysisSelection: args.autoSelectAnalysis,
+    hasUsableFullText: () => true
+  }
+);
+const hydrated = await hydrateCandidates(preliminaryPlan.candidatePool);
+const hydratedDedupe = dedupeCandidates(hydrated);
+const plan = buildLimitedPolicyPlan(
+  hydratedDedupe.candidates.map((item) => attachPolicyTriage(item)),
+  {
+    candidateLimit: args.candidateLimit,
+    ingestLimit: args.ingestLimit,
+    analysisPerRunLimit: args.analysisPerRunLimit,
+    pendingQueueLimit: args.pendingQueueLimit,
+    automaticAnalysisSelection: args.autoSelectAnalysis,
+    hasUsableFullText
+  }
+);
+const duplicates = [...initialDedupe.duplicates, ...hydratedDedupe.duplicates];
+const finalizedSourceHealth = finalizeSourceHealth(sourceHealth, filtered, hydrated);
+const extractionFailure = finalizedSourceHealth.some((item) => item.status === "failed" && item.hydratedCandidates > 0);
+const runStatus = extractionFailure ? "failed" : errors.length > 0 ? "degraded" : "ok";
 const output = {
   crawlerVersion: CRAWLER_VERSION,
   crawledAt,
+  operatingMode: "hourly_collection_manual_analysis",
   dryRun: !args.ingest,
+  automaticAnalysisSelection: args.autoSelectAnalysis,
+  runStatus,
   sourceKeys: selectedSources.map((source) => source.key),
+  limits: plan.limits,
   counts: {
     collected: collected.length,
     afterFilters: filtered.length,
-    candidates: candidates.length,
-    withFullText: candidates.filter(hasUsableFullText).length,
+    candidates: plan.candidatePool.length,
+    withFullText: plan.candidatePool.filter(hasUsableFullText).length,
     duplicates: duplicates.length,
-    errors: errors.length
+    errors: errors.length,
+    L0: preliminaryPlan.counts.L0,
+    L1: plan.counts.L1,
+    L2: plan.counts.L2,
+    L3: plan.counts.L3,
+    ingestSelected: plan.counts.ingestSelected,
+    manualEligible: plan.counts.manualEligible,
+    recommendedAnalysis: plan.counts.recommendedAnalysis,
+    analysisSelected: plan.counts.analysisSelected,
+    queueOverflow: plan.counts.queueOverflow
   },
-  candidates,
+  candidates: plan.candidatePool,
+  excludedCandidates: preliminaryPlan.excluded.map(toCandidateSummary),
+  ingestSelection: plan.ingestCandidates.map(toCandidateSummary),
+  pendingQueue: plan.pendingQueue.map(toCandidateSummary),
+  recommendedAnalysisQueue: plan.recommendedAnalysisQueue.map(toCandidateSummary),
+  analysisQueue: plan.analysisQueue.map(toCandidateSummary),
+  deferredManualCandidates: plan.deferredManualCandidates.map(toCandidateSummary),
+  sourceHealth: finalizedSourceHealth,
   duplicates,
   errors
 };
@@ -100,15 +160,23 @@ await writeJson(args.out, output);
 printSummary(output, args.out);
 
 if (args.ingest) {
-  await ingestCandidates(candidates, args);
+  if (runStatus === "failed") {
+    throw new Error("Crawler run is failed because at least one selected source produced candidates but no usable full text; ingest was blocked.");
+  }
+  await ingestCandidates(plan.ingestCandidates, args, plan);
 }
 
 function parseArgs(argv) {
   const parsed = {
     source: "all",
-    limit: 40,
+    sourceScanLimit: DEFAULT_SOURCE_SCAN_LIMIT,
+    candidateLimit: DEFAULT_CANDIDATE_LIMIT,
+    ingestLimit: DEFAULT_INGEST_LIMIT,
+    analysisPerRunLimit: DEFAULT_ANALYSIS_PER_RUN_LIMIT,
+    pendingQueueLimit: DEFAULT_PENDING_QUEUE_LIMIT,
     out: "artifacts/policy-candidates.json",
     ingest: false,
+    autoSelectAnalysis: false,
     autoPublishRequested: false,
     preflight: false,
     includeInterpretations: false,
@@ -118,6 +186,8 @@ function parseArgs(argv) {
 
   for (const arg of argv) {
     if (arg === "--ingest") parsed.ingest = true;
+    else if (arg === "--auto-select-analysis") parsed.autoSelectAnalysis = true;
+    else if (arg === "--manual-selection-only") parsed.autoSelectAnalysis = false;
     else if (arg === "--preflight") parsed.preflight = true;
     else if (arg === "--auto-publish") {
       parsed.ingest = true;
@@ -127,7 +197,12 @@ function parseArgs(argv) {
     else if (arg === "--include-undated") parsed.excludeUndated = false;
     else if (arg === "--exclude-undated") parsed.excludeUndated = true;
     else if (arg.startsWith("--source=")) parsed.source = arg.slice("--source=".length);
-    else if (arg.startsWith("--limit=")) parsed.limit = Number(arg.slice("--limit=".length)) || parsed.limit;
+    else if (arg.startsWith("--limit=")) parsed.candidateLimit = parsePositiveInteger(arg.slice("--limit=".length), parsed.candidateLimit);
+    else if (arg.startsWith("--source-scan-limit=")) parsed.sourceScanLimit = parsePositiveInteger(arg.slice("--source-scan-limit=".length), parsed.sourceScanLimit);
+    else if (arg.startsWith("--candidate-limit=")) parsed.candidateLimit = parsePositiveInteger(arg.slice("--candidate-limit=".length), parsed.candidateLimit);
+    else if (arg.startsWith("--ingest-limit=")) parsed.ingestLimit = parsePositiveInteger(arg.slice("--ingest-limit=".length), parsed.ingestLimit);
+    else if (arg.startsWith("--analysis-limit=")) parsed.analysisPerRunLimit = parsePositiveInteger(arg.slice("--analysis-limit=".length), parsed.analysisPerRunLimit);
+    else if (arg.startsWith("--pending-queue-limit=")) parsed.pendingQueueLimit = parsePositiveInteger(arg.slice("--pending-queue-limit=".length), parsed.pendingQueueLimit);
     else if (arg.startsWith("--out=")) parsed.out = arg.slice("--out=".length);
     else if (arg.startsWith("--since=")) parsed.since = normalizeDate(arg.slice("--since=".length)) ?? "";
     else if (arg === "--help" || arg === "-h") {
@@ -139,23 +214,35 @@ function parseArgs(argv) {
   return parsed;
 }
 
+function parsePositiveInteger(value, fallback) {
+  const parsed = Number(value);
+  return Number.isInteger(parsed) && parsed > 0 ? parsed : fallback;
+}
+
 function printHelp() {
   console.log(`
 Usage:
   npm run crawl:sources
-  npm run crawl:sources -- --source=gov_zhengce_latest,nda_policy_release --limit=20
+  npm run crawl:sources -- --source=gov_zhengce_latest,nda_policy_release --candidate-limit=20
   npm run crawl:sources -- --since=2026-01-01 --out=artifacts/policy-candidates.json
   npm run crawl:sources -- --ingest
 
 Options:
   --source=<keys|all>          Comma-separated source keys. Default: all.
-  --limit=<n>                 Max candidates after filtering. Default: 40.
+  --source-scan-limit=<n>     Max list rows scanned per source. Default: ${DEFAULT_SOURCE_SCAN_LIMIT}.
+  --candidate-limit=<n>       Global non-L0 candidate cap. Default: ${DEFAULT_CANDIDATE_LIMIT}.
+  --limit=<n>                 Backward-compatible alias for --candidate-limit.
+  --ingest-limit=<n>          Max original policy documents ingested per run. Default: ${DEFAULT_INGEST_LIMIT}.
+  --analysis-limit=<n>        Max L2/L3 recommendations shown per run. Default: ${DEFAULT_ANALYSIS_PER_RUN_LIMIT}.
+  --pending-queue-limit=<n>   Max high-value inbox rows shown in the artifact. Default: ${DEFAULT_PENDING_QUEUE_LIMIT}.
   --since=<YYYY-MM-DD>        Keep candidates on/after this date. Defaults to ${DEFAULT_POLICY_SINCE}.
   --include-undated           Keep candidates whose publish date cannot be parsed.
   --exclude-undated           Drop candidates whose publish date cannot be parsed. Default.
   --out=<path>                JSON output path. Default: artifacts/policy-candidates.json.
   --include-interpretations   Keep policy interpretation pages.
   --ingest                    Call Supabase Edge Function ingest for unique candidates.
+  --manual-selection-only     Never create analysis jobs during collection. Default.
+  --auto-select-analysis      Legacy/manual opt-in: select recommended items for analysis jobs.
   --auto-publish              Disabled. Use reviewed manual analysis after ingest.
   --preflight                 Verify Supabase function auth, crawler owner, and source seed.
 
@@ -211,7 +298,7 @@ async function fetchGovLatest(source, args) {
     throw new Error("Gov latest JSON did not return an array.");
   }
 
-  return data.slice(0, Math.min(data.length, Math.max(args.limit * 3, 30))).map((item) =>
+  return data.slice(0, Math.min(data.length, args.sourceScanLimit)).map((item) =>
     makeCandidate(source, {
       title: item.TITLE,
       sourceUrl: item.URL,
@@ -230,7 +317,7 @@ async function fetchNdrcDocuments(source, args) {
     qt: "",
     tab: "all",
     page: "1",
-    pageSize: String(Math.min(Math.max(args.limit * 3, 30), 100)),
+    pageSize: String(Math.min(args.sourceScanLimit, 100)),
     siteCode: "bm04000fgk",
     key: "CAB549A94CF659904A7D6B0E8FC8A7E9",
     startDateStr: "",
@@ -271,7 +358,7 @@ async function fetchMiitDocuments(source, args) {
     websiteid: "110000000000000",
     scope: "basic",
     q: "",
-    pg: String(Math.max(Math.min(args.limit * 3, 50), 20)),
+    pg: String(Math.max(Math.min(args.sourceScanLimit, 50), 20)),
     cateid: "196",
     pos: "title_text,infocontent,titlepy",
     _cus_eq_typename: "",
@@ -477,14 +564,26 @@ function attachFullText(candidate, value, html = "") {
   };
 }
 
-async function ingestCandidates(candidates, args) {
+async function ingestCandidates(candidates, args, plan) {
   const { supabaseUrl, accessToken, crawlerSecret } = readIngestEnvironment();
+  const analysisQueueKeys = new Set(plan.analysisQueue.map(candidateIdentity));
 
   let created = 0;
   let linkedDuplicates = 0;
   let skippedWithoutFullText = 0;
 
   for (const candidate of candidates) {
+    const triage = candidate.triage ?? attachPolicyTriage(candidate).triage;
+    const identity = candidateIdentity(candidate);
+    const manualAnalysisEligible = triage.requiresManualAnalysis;
+    const requiresManualAnalysis = manualAnalysisEligible;
+    const analysisQueueSelected = args.autoSelectAnalysis && manualAnalysisEligible && analysisQueueKeys.has(identity);
+    const manualReviewDisposition = analysisQueueSelected
+      ? "selected_for_analysis"
+      : manualAnalysisEligible
+        ? "pending_review"
+        : "archived_without_analysis";
+
     if (!hasUsableFullText(candidate)) {
       skippedWithoutFullText += 1;
       console.warn(`[ingest] skipped without policy full text: ${candidate.sourceKey} ${candidate.title}`);
@@ -507,6 +606,14 @@ async function ingestCandidates(candidates, args) {
         canonicalSourceUrl: candidate.canonicalSourceUrl,
         contentHash: candidate.contentHash,
         fullText: candidate.fullText,
+        analysisDepth: triage.analysisDepth,
+        reviewPriority: triage.reviewPriority,
+        manualAnalysisEligible,
+        requiresManualAnalysis,
+        analysisQueueSelected,
+        manualReviewDisposition,
+        triageReasons: triage.reasons,
+        triageSignals: triage.signals,
         inputPayload: {
           crawlerVersion: CRAWLER_VERSION,
           crawledAt,
@@ -518,22 +625,41 @@ async function ingestCandidates(candidates, args) {
           publishTimezone: candidate.publishTimezone,
           publish_timezone: candidate.publishTimezone,
           dedupeKey: candidate.dedupeKey,
+          analysisDepth: triage.analysisDepth,
+          analysis_depth: triage.analysisDepth,
+          reviewPriority: triage.reviewPriority,
+          review_priority: triage.reviewPriority,
+          manualAnalysisEligible,
+          manual_analysis_eligible: manualAnalysisEligible,
+          requiresManualAnalysis,
+          requires_manual_analysis: requiresManualAnalysis,
+          analysisQueueSelected,
+          analysis_queue_selected: analysisQueueSelected,
+          manualReviewDisposition,
+          manual_review_disposition: manualReviewDisposition,
+          collectionMode: "hourly_collection_manual_analysis",
+          collection_mode: "hourly_collection_manual_analysis",
+          triageReasons: triage.reasons,
+          triage_reasons: triage.reasons,
+          triageSignals: triage.signals,
+          triage_signals: triage.signals,
           raw: candidate.raw
         }
       }
     });
 
-    if (result.duplicate) {
-      linkedDuplicates += 1;
-    } else {
-      created += 1;
-    }
+    if (result.duplicate) linkedDuplicates += 1;
+    else created += 1;
   }
 
   console.log(`[ingest] created=${created} linkedDuplicates=${linkedDuplicates} skippedWithoutFullText=${skippedWithoutFullText}`);
   if (skippedWithoutFullText > 0) {
     printWorkflowWarning(`${skippedWithoutFullText} candidates were skipped because policy full text could not be extracted.`);
   }
+}
+
+function candidateIdentity(candidate) {
+  return candidate?.dedupeKey || candidate?.contentHash || candidate?.canonicalSourceUrl || candidate?.sourceUrl || candidate?.title;
 }
 
 function readIngestEnvironment() {
@@ -582,27 +708,45 @@ async function fetchJson(url, options = {}) {
 }
 
 async function fetchText(url, options = {}) {
-  const response = await fetch(url, {
-    headers: {
-      "user-agent": "Mozilla/5.0 policy-impact-terminal crawler",
-      ...(options.referer ? { referer: options.referer } : {})
+  let lastError = null;
+
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    try {
+      const response = await fetch(url, {
+        signal: AbortSignal.timeout(20000),
+        headers: {
+          "user-agent": "Mozilla/5.0 policy-impact-terminal crawler",
+          ...(options.referer ? { referer: options.referer } : {})
+        }
+      });
+
+      if (!response.ok) {
+        const retryable = response.status === 429 || response.status >= 500;
+        if (!retryable || attempt === 3) {
+          throw new Error(`HTTP ${response.status} for ${url}`);
+        }
+        lastError = new Error(`HTTP ${response.status} for ${url}`);
+      } else {
+        const buffer = Buffer.from(await response.arrayBuffer());
+        let text = new TextDecoder("utf-8").decode(buffer);
+        let replacementCount = 0;
+        for (const char of text) {
+          if (char.charCodeAt(0) === 0xfffd) replacementCount += 1;
+        }
+        if (replacementCount > 20) {
+          text = new TextDecoder("gb18030").decode(buffer);
+        }
+        return text;
+      }
+    } catch (error) {
+      lastError = error;
+      if (attempt === 3) break;
     }
-  });
 
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status} for ${url}`);
+    await new Promise((resolve) => setTimeout(resolve, attempt * 1000));
   }
 
-  const buffer = Buffer.from(await response.arrayBuffer());
-  let text = new TextDecoder("utf-8").decode(buffer);
-  let replacementCount = 0;
-  for (const char of text) {
-    if (char.charCodeAt(0) === 0xfffd) replacementCount += 1;
-  }
-  if (replacementCount > 20) {
-    text = new TextDecoder("gb18030").decode(buffer);
-  }
-  return text;
+  throw new Error(`fetch failed after 3 attempts for ${url}: ${getErrorMessage(lastError)}`);
 }
 
 async function writeJson(filePath, data) {
@@ -611,8 +755,44 @@ async function writeJson(filePath, data) {
   await fs.writeFile(resolved, `${JSON.stringify(data, null, 2)}\n`, "utf8");
 }
 
+function finalizeSourceHealth(sourceHealth, filtered, hydrated) {
+  return sourceHealth.map((item) => {
+    const filteredCandidates = filtered.filter((candidate) => candidate.sourceKey === item.sourceKey).length;
+    const hydratedRows = hydrated.filter((candidate) => candidate.sourceKey === item.sourceKey);
+    const withFullText = hydratedRows.filter(hasUsableFullText).length;
+    const extractionFailed = hydratedRows.length > 0 && withFullText === 0;
+    return {
+      ...item,
+      status: item.status === "failed" || extractionFailed ? "failed" : "ok",
+      filteredCandidates,
+      hydratedCandidates: hydratedRows.length,
+      withFullText,
+      extractionRate: hydratedRows.length === 0 ? null : Number((withFullText / hydratedRows.length).toFixed(3)),
+      ...(extractionFailed && !item.error ? { error: "selected candidates produced no usable policy full text" } : {})
+    };
+  });
+}
+
+function toCandidateSummary(candidate) {
+  return {
+    sourceKey: candidate.sourceKey,
+    title: candidate.title,
+    issuer: candidate.issuer,
+    publishDate: candidate.publishDate,
+    publishDateTime: candidate.publishDateTime,
+    sourceUrl: candidate.sourceUrl,
+    canonicalSourceUrl: candidate.canonicalSourceUrl,
+    policyNo: candidate.policyNo,
+    contentHash: candidate.contentHash,
+    dedupeKey: candidate.dedupeKey,
+    hasFullText: hasUsableFullText(candidate),
+    triage: candidate.triage
+  };
+}
+
 function printSummary(output, outPath) {
-  console.log(`[summary] collected=${output.counts.collected} filtered=${output.counts.afterFilters} candidates=${output.counts.candidates} withFullText=${output.counts.withFullText} duplicates=${output.counts.duplicates} errors=${output.counts.errors}`);
+  console.log(`[summary] status=${output.runStatus} collected=${output.counts.collected} filtered=${output.counts.afterFilters} candidates=${output.counts.candidates} withFullText=${output.counts.withFullText} duplicates=${output.counts.duplicates} errors=${output.counts.errors}`);
+  console.log(`[summary] layers L0=${output.counts.L0} L1=${output.counts.L1} L2=${output.counts.L2} L3=${output.counts.L3} ingest=${output.counts.ingestSelected} recommended=${output.counts.recommendedAnalysis} selected=${output.counts.analysisSelected} overflow=${output.counts.queueOverflow}`);
   console.log(`[summary] wrote ${path.resolve(outPath)}`);
   if (output.counts.errors > 0) {
     printWorkflowWarning(`${output.counts.errors} source crawler errors occurred. Check artifacts/policy-candidates.json for details.`);
@@ -620,8 +800,11 @@ function printSummary(output, outPath) {
   if (output.counts.candidates > 0 && output.counts.withFullText === 0) {
     printWorkflowWarning("Crawler found candidates but extracted no usable policy full text. Source page selectors may need updating.");
   }
-  for (const item of output.candidates.slice(0, 8)) {
-    console.log(`- ${item.publishDateTime || item.publishDate || "no-date"} ${item.sourceKey} ${item.title}`);
+  for (const item of output.recommendedAnalysisQueue.slice(0, 8)) {
+    console.log(`- recommend ${item.publishDateTime || item.publishDate || "no-date"} ${item.triage.analysisDepth}/${item.triage.reviewPriority} ${item.sourceKey} ${item.title}`);
+  }
+  if (!output.automaticAnalysisSelection && output.counts.analysisSelected !== 0) {
+    printWorkflowWarning("Manual-selection-only mode produced automatic analysis selections; this is a contract violation.");
   }
 }
 
