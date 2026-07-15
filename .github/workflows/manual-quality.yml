@@ -19,6 +19,7 @@ on:
       - "package.json"
       - "package-lock.json"
       - ".github/workflows/manual-quality.yml"
+      - ".github/workflows/set-manual-policy-disposition.yml"
   workflow_dispatch:
 
 permissions:
