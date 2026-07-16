@@ -40,6 +40,9 @@ type ExistingPolicyRecord = {
   source_name?: string | null;
   dedupe_key?: string | null;
   content_hash?: string | null;
+  full_text?: string | null;
+  metadata?: Record<string, unknown> | null;
+  analysis_version?: string | null;
 };
 
 const POLICY_MIN_PUBLISH_DATE = "2026-05-01";
@@ -79,6 +82,7 @@ Deno.serve(async (req) => {
     const sourceName = optionalString(body, "sourceName") ?? inferSourceName(sourceUrl);
     const now = new Date().toISOString();
     const inputPayload = isRecord(body.inputPayload) ? body.inputPayload : {};
+    const sourceExtraction = isRecord(inputPayload.raw) ? inputPayload.raw : {};
     const sourceKey =
       optionalString(body, "sourceKey") ??
       optionalString(body, "source_key") ??
@@ -177,6 +181,11 @@ Deno.serve(async (req) => {
         : manualAnalysisEligible
           ? "pending_review"
           : "archived_without_analysis");
+    const manualReviewReason =
+      optionalString(body, "manualReviewReason") ??
+      optionalString(body, "manual_review_reason") ??
+      optionalString(inputPayload, "manualReviewReason") ??
+      optionalString(inputPayload, "manual_review_reason");
 
     if (!sourceUrl && title === "Untitled policy") {
       return jsonResponse({ error: "Provide at least sourceUrl or title." }, 400);
@@ -230,6 +239,10 @@ Deno.serve(async (req) => {
         analysis_queue_selected: analysisQueueSelected,
         manualReviewDisposition,
         manual_review_disposition: manualReviewDisposition,
+        manualReviewReason,
+        manual_review_reason: manualReviewReason,
+        sourceExtraction,
+        source_extraction: sourceExtraction,
         ...(publishDateTime
           ? {
               publishDateTime,
@@ -251,6 +264,13 @@ Deno.serve(async (req) => {
 
     const existingPolicy = await findExistingPolicy(supabase, dedupeKey, contentHash);
     if (existingPolicy) {
+      const backfill = await maybeBackfillExistingPolicy(supabase, existingPolicy, {
+        fullText,
+        contentHash,
+        sourceUrl,
+        incomingMetadata: policyValues.metadata,
+        now
+      });
       const job = analysisQueueSelected
         ? await createDuplicateLinkJob(supabase, {
             userId: user.id,
@@ -278,6 +298,7 @@ Deno.serve(async (req) => {
           contentHash
         },
         policy: existingPolicy,
+        backfill,
         job,
         next: []
       }, 200);
@@ -525,7 +546,7 @@ async function findExistingPolicy(
   dedupeKey: string | null,
   contentHash: string | null
 ): Promise<ExistingPolicyRecord | null> {
-  const select = "id,external_id,title,status,source_url,source_name,dedupe_key,content_hash";
+  const select = "id,external_id,title,status,source_url,source_name,dedupe_key,content_hash,full_text,metadata,analysis_version";
 
   if (dedupeKey) {
     const { data, error } = await supabase
@@ -564,6 +585,100 @@ async function findExistingPolicy(
   }
 
   return null;
+}
+
+async function maybeBackfillExistingPolicy(
+  supabase: SupabaseAdminClient,
+  existingPolicy: ExistingPolicyRecord,
+  input: {
+    fullText: string | null;
+    contentHash: string | null;
+    sourceUrl: string | null;
+    incomingMetadata: Record<string, unknown>;
+    now: string;
+  }
+): Promise<Record<string, unknown>> {
+  const existingText = typeof existingPolicy.full_text === "string" ? existingPolicy.full_text.trim() : "";
+  const incomingText = input.fullText?.trim() ?? "";
+  const publishedOrAnalyzed = existingPolicy.status === "published" || Boolean(existingPolicy.analysis_version);
+
+  if (publishedOrAnalyzed) {
+    return {
+      updated: false,
+      reason: "published_or_analyzed_requires_explicit_revision",
+      previousLength: existingText.length,
+      incomingLength: incomingText.length
+    };
+  }
+
+  const meaningfulIncrease = incomingText.length >= MIN_POLICY_FULL_TEXT_LENGTH &&
+    incomingText.length >= Math.max(existingText.length + 300, Math.ceil(existingText.length * 1.25));
+  if (!meaningfulIncrease) {
+    return {
+      updated: false,
+      reason: "incoming_text_not_materially_better",
+      previousLength: existingText.length,
+      incomingLength: incomingText.length
+    };
+  }
+
+  const existingMetadata = isRecord(existingPolicy.metadata) ? existingPolicy.metadata : {};
+  const protectedDisposition = optionalString(existingMetadata, "manualReviewDisposition") ??
+    optionalString(existingMetadata, "manual_review_disposition");
+  const protectedReason = optionalString(existingMetadata, "manualReviewReason") ??
+    optionalString(existingMetadata, "manual_review_reason");
+  const mergedMetadata = {
+    ...existingMetadata,
+    fullTextLength: incomingText.length,
+    full_text_length: incomingText.length,
+    contentHash: input.contentHash,
+    content_hash: input.contentHash,
+    sourceExtraction: input.incomingMetadata.sourceExtraction ?? input.incomingMetadata.source_extraction ?? null,
+    source_extraction: input.incomingMetadata.sourceExtraction ?? input.incomingMetadata.source_extraction ?? null,
+    fullTextBackfill: {
+      backfilledAt: input.now,
+      previousLength: existingText.length,
+      newLength: incomingText.length,
+      sourceUrl: input.sourceUrl,
+      mode: "official_attachment_or_page_text_upgrade"
+    },
+    full_text_backfill: {
+      backfilled_at: input.now,
+      previous_length: existingText.length,
+      new_length: incomingText.length,
+      source_url: input.sourceUrl,
+      mode: "official_attachment_or_page_text_upgrade"
+    },
+    ...(protectedDisposition
+      ? {
+          manualReviewDisposition: protectedDisposition,
+          manual_review_disposition: protectedDisposition
+        }
+      : {}),
+    ...(protectedReason
+      ? {
+          manualReviewReason: protectedReason,
+          manual_review_reason: protectedReason
+        }
+      : {})
+  };
+
+  const { error } = await supabase
+    .from("policies")
+    .update({
+      full_text: incomingText,
+      content_hash: input.contentHash,
+      metadata: mergedMetadata
+    })
+    .eq("id", existingPolicy.id);
+  if (error) throw error;
+
+  return {
+    updated: true,
+    reason: "official_text_backfilled",
+    previousLength: existingText.length,
+    incomingLength: incomingText.length
+  };
 }
 
 async function createDuplicateLinkJob(

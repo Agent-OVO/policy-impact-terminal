@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 import { execFileSync } from "node:child_process";
 import crypto from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
 import { createClient } from "@supabase/supabase-js";
 
 const PROJECT_REF = process.env.SUPABASE_PROJECT_REF || "qxzspsofhmfjceuaulhu";
@@ -12,10 +14,11 @@ const CRAWLER_SECRET =
 
 const args = new Set(process.argv.slice(2));
 const dispatchWorkflows = args.has("--dispatch");
-const skipFunctions = args.has("--skip-functions");
-const skipGithubSecrets = args.has("--skip-github-secrets");
-const skipSupabaseSecrets = args.has("--skip-supabase-secrets");
-const skipDatabase = args.has("--skip-db");
+const applyFunctions = args.has("--apply-functions");
+const applyGithubSecrets = args.has("--apply-github-secrets");
+const applySupabaseSecrets = args.has("--apply-supabase-secrets");
+const applyDatabaseMigrations = args.has("--apply-db-migrations");
+const backupManifestPath = path.resolve("artifacts/production-backups/latest-manifest.json");
 
 function run(command, commandArgs, { input, quiet = false } = {}) {
   const label = [command, ...commandArgs].join(" ");
@@ -227,58 +230,105 @@ function triggerWorkflows() {
   runVisible("gh", [
     "workflow",
     "run",
-    "Crawl policy sources",
+    "Crawl policy sources hourly",
     "--repo",
     GITHUB_REPO,
     "-f",
-    "source=all",
-    "-f",
-    "limit=20",
+    "source=all"
   ]);
 }
 
+function requireConfirmation(name, expected) {
+  if (process.env[name] !== expected) {
+    throw new Error(`Set ${name}=${expected} only after independent review and explicit approval.`);
+  }
+}
+
+function requireVerifiedBackupManifest() {
+  let manifest;
+  try {
+    manifest = JSON.parse(fs.readFileSync(backupManifestPath, "utf8"));
+  } catch {
+    throw new Error(`Verified backup manifest is required before database migration: ${backupManifestPath}`);
+  }
+  const valid = manifest?.formatVersion === "zero-cost-logical-backup-v1" &&
+    manifest?.projectRef === PROJECT_REF &&
+    manifest?.readOnlyExport === true &&
+    manifest?.cryptographicSelfCheckPassed === true &&
+    manifest?.restoreVerified === true;
+  if (!valid) {
+    throw new Error("Database migration is blocked until the encrypted logical backup has passed a dedicated local restore verification.");
+  }
+}
+
+function printHelp() {
+  console.log(`Production configuration is validation-only by default.\n\nWrite flags:\n  --apply-functions\n  --apply-github-secrets\n  --apply-supabase-secrets\n  --apply-db-migrations\n  --dispatch\n\nRequired confirmations:\n  PRODUCTION_FUNCTION_DEPLOY_CONFIRMATION=DEPLOY_FUNCTIONS:${PROJECT_REF}\n  PRODUCTION_SECRET_ROTATION_CONFIRMATION=ROTATE_SECRETS:${PROJECT_REF}\n  PRODUCTION_DB_MIGRATION_CONFIRMATION=APPLY_MIGRATIONS:${PROJECT_REF}\n  PRODUCTION_WORKFLOW_DISPATCH_CONFIRMATION=DISPATCH_WORKFLOWS:${PROJECT_REF}\n\nDatabase migrations additionally require a restore-verified encrypted backup manifest at:\n  ${backupManifestPath}`);
+}
+
 async function main() {
-  console.log(`Configuring production for ${GITHUB_REPO}`);
+  if (args.has("--help") || args.has("-h")) {
+    printHelp();
+    return;
+  }
+
+  console.log(`Production configuration target: ${GITHUB_REPO}`);
   console.log(`Supabase project: ${PROJECT_REF}`);
+  console.log(`[plan] functions=${applyFunctions} githubSecrets=${applyGithubSecrets} supabaseSecrets=${applySupabaseSecrets} databaseMigrations=${applyDatabaseMigrations} dispatch=${dispatchWorkflows}`);
 
-  const { anonKey, serviceRoleKey } = getApiKeys();
-  console.log("[ok] Supabase API keys loaded");
+  const anyWrite = applyFunctions || applyGithubSecrets || applySupabaseSecrets || applyDatabaseMigrations || dispatchWorkflows;
+  if (!anyWrite) {
+    console.log("[validation-only] No production write flag was supplied. No keys were loaded and no remote resource was modified.");
+    printHelp();
+    return;
+  }
 
-  if (!skipDatabase) {
+  if (applyDatabaseMigrations) {
+    requireConfirmation("PRODUCTION_DB_MIGRATION_CONFIRMATION", `APPLY_MIGRATIONS:${PROJECT_REF}`);
+    requireVerifiedBackupManifest();
     pushDatabaseMigrations();
   }
 
-  let crawlerOwnerId = process.env.CRAWLER_OWNER_ID || "";
-  if (!skipSupabaseSecrets) {
-    crawlerOwnerId = await resolveCrawlerOwner(serviceRoleKey);
-    console.log("[ok] Crawler owner resolved");
+  if (applyFunctions) {
+    requireConfirmation("PRODUCTION_FUNCTION_DEPLOY_CONFIRMATION", `DEPLOY_FUNCTIONS:${PROJECT_REF}`);
+    deployFunctions();
   }
 
-  if (!skipGithubSecrets) {
-    setGithubSecret("VITE_SUPABASE_URL", PROJECT_URL);
-    setGithubSecret("VITE_SUPABASE_ANON_KEY", anonKey);
-    setGithubSecret("SUPABASE_URL", PROJECT_URL);
-    setGithubSecret("SUPABASE_FUNCTION_JWT", anonKey);
-    if (!skipSupabaseSecrets || providedCrawlerSecret) {
-      setGithubSecret("SUPABASE_CRAWLER_SECRET", CRAWLER_SECRET);
-    } else {
-      console.log("[skip] GitHub secret SUPABASE_CRAWLER_SECRET until Supabase function secrets are configured");
+  if (applyGithubSecrets || applySupabaseSecrets) {
+    requireConfirmation("PRODUCTION_SECRET_ROTATION_CONFIRMATION", `ROTATE_SECRETS:${PROJECT_REF}`);
+    const { anonKey, serviceRoleKey } = getApiKeys();
+    console.log("[ok] Supabase API keys loaded for explicit secret rotation");
+    let crawlerOwnerId = process.env.CRAWLER_OWNER_ID || "";
+
+    if (applySupabaseSecrets) {
+      crawlerOwnerId = await resolveCrawlerOwner(serviceRoleKey);
+      console.log("[ok] Crawler owner resolved");
+      setSupabaseSecrets({
+        SUPABASE_URL: PROJECT_URL,
+        SUPABASE_SERVICE_ROLE_KEY: serviceRoleKey,
+        CRAWLER_INGEST_SECRET: CRAWLER_SECRET,
+        CRAWLER_OWNER_ID: crawlerOwnerId
+      });
+    }
+
+    if (applyGithubSecrets) {
+      setGithubSecret("VITE_SUPABASE_URL", PROJECT_URL);
+      setGithubSecret("VITE_SUPABASE_ANON_KEY", anonKey);
+      setGithubSecret("SUPABASE_URL", PROJECT_URL);
+      setGithubSecret("SUPABASE_FUNCTION_JWT", anonKey);
+      if (applySupabaseSecrets || providedCrawlerSecret) {
+        setGithubSecret("SUPABASE_CRAWLER_SECRET", CRAWLER_SECRET);
+      } else {
+        console.log("[skip] SUPABASE_CRAWLER_SECRET was not rotated because no matching Supabase secret write was requested.");
+      }
     }
   }
 
-  if (!skipSupabaseSecrets) {
-    setSupabaseSecrets({
-      SUPABASE_URL: PROJECT_URL,
-      SUPABASE_SERVICE_ROLE_KEY: serviceRoleKey,
-      CRAWLER_INGEST_SECRET: CRAWLER_SECRET,
-      CRAWLER_OWNER_ID: crawlerOwnerId,
-    });
+  if (dispatchWorkflows) {
+    requireConfirmation("PRODUCTION_WORKFLOW_DISPATCH_CONFIRMATION", `DISPATCH_WORKFLOWS:${PROJECT_REF}`);
+    triggerWorkflows();
   }
 
-  if (!skipFunctions) deployFunctions();
-  if (dispatchWorkflows) triggerWorkflows();
-
-  console.log("[done] Production configuration finished.");
+  console.log("[done] Explicit production changes finished.");
 }
 
 main().catch((error) => {

@@ -7,6 +7,7 @@ import {
   attachPolicyTriage,
   buildLimitedPolicyPlan
 } from "./lib/policy-triage.mjs";
+import { hydratePolicyAttachments } from "./lib/policy-attachments.mjs";
 
 const CRAWLER_VERSION = "policy-source-crawler-v0.3";
 const MIN_POLICY_FULL_TEXT_LENGTH = 280;
@@ -352,13 +353,35 @@ async function fetchNdrcDocuments(source, args) {
 }
 
 async function fetchMiitDocuments(source, args) {
-  const selectFields =
+  const richFields =
     "title,content,deploytime,_index,url,cdate,infoextends,infocontentattribute,columnname,filenumbername,publishgroupname,publishtime,metaid,bexxgk,columnid,xxgkextend1,xxgkextend2,themename,typename,indexcode,createdate";
+  const compactFields =
+    "title,url,deploytime,cdate,infocontent,columnname,filenumbername,publishgroupname,publishtime,metaid,typename";
+
+  try {
+    const rows = await fetchMiitSearchRows(source, {
+      pageSize: Math.max(Math.min(args.sourceScanLimit, 50), 20),
+      selectFields: richFields,
+      mode: "rich"
+    });
+    return mapMiitRows(source, rows, "miit-search-api-rich");
+  } catch (primaryError) {
+    printWorkflowWarning(`MIIT rich search failed; retrying compact query: ${getErrorMessage(primaryError)}`);
+    const rows = await fetchMiitSearchRows(source, {
+      pageSize: 20,
+      selectFields: compactFields,
+      mode: "compact"
+    });
+    return mapMiitRows(source, rows, "miit-search-api-compact-fallback");
+  }
+}
+
+async function fetchMiitSearchRows(source, input) {
   const params = new URLSearchParams({
     websiteid: "110000000000000",
     scope: "basic",
     q: "",
-    pg: String(Math.max(Math.min(args.sourceScanLimit, 50), 20)),
+    pg: String(input.pageSize),
     cateid: "196",
     pos: "title_text,infocontent,titlepy",
     _cus_eq_typename: "",
@@ -367,7 +390,7 @@ async function fetchMiitDocuments(source, args) {
     begin: "",
     end: "",
     dateField: "deploytime",
-    selectFields,
+    selectFields: input.selectFields,
     group: "distinct",
     highlightConfigs: JSON.stringify([
       { field: "infocontent", numberOfFragments: 2, fragmentOffset: 0, fragmentSize: 30, noMatchSize: 145 }
@@ -378,14 +401,20 @@ async function fetchMiitDocuments(source, args) {
     p: "1"
   });
   const data = await fetchJson(`https://www.miit.gov.cn/search-front-server/api/search/info?${params}`, {
-    referer: source.listUrl
+    referer: source.listUrl,
+    accept: "application/json, text/plain, */*",
+    attempts: input.mode === "compact" ? 4 : 3,
+    timeoutMs: 30_000,
+    backoffMs: input.mode === "compact" ? [2_000, 5_000, 9_000] : [1_000, 3_000]
   });
   const rows = data?.data?.searchResult?.dataResults;
-
   if (!Array.isArray(rows)) {
-    throw new Error("MIIT API response did not contain data.searchResult.dataResults.");
+    throw new Error(`MIIT ${input.mode} API response did not contain data.searchResult.dataResults.`);
   }
+  return rows;
+}
 
+function mapMiitRows(source, rows, origin) {
   return rows.map((row) => {
     const item = row.groupData?.[0]?.data ?? row.data ?? row;
     const searchContentPreview = htmlToText(extractMiitContentHtml(item.infoextends) ?? item.infocontent ?? "");
@@ -398,7 +427,7 @@ async function fetchMiitDocuments(source, args) {
       issuer: item.publishgroupname ?? item.xxgkextend2 ?? source.issuer,
       policyNo: item.filenumbername ?? extractPolicyNo(item.title ?? item.title_text),
       raw: {
-        origin: "miit-search-api",
+        origin,
         typename: item.typename,
         themename: item.themename,
         columnname: item.columnname,
@@ -529,7 +558,14 @@ async function hydrateCandidates(candidates) {
 
     try {
       const html = await fetchText(candidate.sourceUrl, { referer: candidate.canonicalSourceUrl });
-      hydrated.push(attachFullText(candidate, extractPolicyTextFromHtml(html, candidate.sourceKey), html));
+      const pageText = extractPolicyTextFromHtml(html, candidate.sourceKey);
+      const attachmentResult = await hydratePolicyAttachments({
+        html,
+        pageText,
+        baseUrl: candidate.sourceUrl,
+        fetchBinary
+      });
+      hydrated.push(attachFullText(candidate, attachmentResult.selectedText, html, attachmentResult));
     } catch (error) {
       hydrated.push({
         ...candidate,
@@ -544,7 +580,7 @@ async function hydrateCandidates(candidates) {
   return hydrated;
 }
 
-function attachFullText(candidate, value, html = "") {
+function attachFullText(candidate, value, html = "", attachmentResult = null) {
   const fullText = normalizePolicyText(value);
   const officialPublishedAt = extractOfficialPublishedAtFromHtml(html, candidate.sourceKey) ?? candidate.officialPublishedAt ?? candidate.publishDateTime;
   const publishDate = candidate.publishDate ?? (officialPublishedAt ? officialPublishedAt.slice(0, 10) : null);
@@ -555,11 +591,24 @@ function attachFullText(candidate, value, html = "") {
     officialPublishedAt: officialPublishedAt ?? candidate.officialPublishedAt,
     publishTimezone: (officialPublishedAt ?? candidate.publishDateTime) ? "Asia/Shanghai" : candidate.publishTimezone,
     fullText: fullText || null,
-    contentHash: candidate.contentHash ?? (isUsablePolicyText(fullText) ? hashText(fullText) : null),
+    contentHash: isUsablePolicyText(fullText) ? hashText(fullText) : candidate.contentHash,
     raw: {
       ...candidate.raw,
       fullTextLength: fullText.length,
-      hydratedAt: crawledAt
+      hydratedAt: crawledAt,
+      ...(attachmentResult
+        ? {
+            attachments: attachmentResult.attachments,
+            wrapperLikely: attachmentResult.wrapperLikely,
+            attachmentExtractionStatus: attachmentResult.attachmentExtractionStatus,
+            attachmentEvidenceIncomplete: attachmentResult.attachmentEvidenceIncomplete,
+            attachmentReviewReason: attachmentResult.attachmentEvidenceIncomplete
+              ? "等待PDF/OFD附件完整正文采集"
+              : null,
+            attachmentTextLength: attachmentResult.extractedAttachmentTextLength,
+            attachmentErrors: attachmentResult.errors
+          }
+        : {})
     }
   };
 }
@@ -576,13 +625,19 @@ async function ingestCandidates(candidates, args, plan) {
     const triage = candidate.triage ?? attachPolicyTriage(candidate).triage;
     const identity = candidateIdentity(candidate);
     const manualAnalysisEligible = triage.requiresManualAnalysis;
-    const requiresManualAnalysis = manualAnalysisEligible;
-    const analysisQueueSelected = args.autoSelectAnalysis && manualAnalysisEligible && analysisQueueKeys.has(identity);
-    const manualReviewDisposition = analysisQueueSelected
-      ? "selected_for_analysis"
-      : manualAnalysisEligible
-        ? "pending_review"
-        : "archived_without_analysis";
+    const attachmentEvidenceIncomplete = candidate.raw?.attachmentEvidenceIncomplete === true;
+    const requiresManualAnalysis = manualAnalysisEligible && !attachmentEvidenceIncomplete;
+    const analysisQueueSelected = args.autoSelectAnalysis && requiresManualAnalysis && analysisQueueKeys.has(identity);
+    const manualReviewDisposition = attachmentEvidenceIncomplete
+      ? "awaiting_evidence"
+      : analysisQueueSelected
+        ? "selected_for_analysis"
+        : manualAnalysisEligible
+          ? "pending_review"
+          : "archived_without_analysis";
+    const manualReviewReason = attachmentEvidenceIncomplete
+      ? cleanText(candidate.raw?.attachmentReviewReason) || "等待PDF/OFD附件完整正文采集"
+      : null;
 
     if (!hasUsableFullText(candidate)) {
       skippedWithoutFullText += 1;
@@ -612,6 +667,7 @@ async function ingestCandidates(candidates, args, plan) {
         requiresManualAnalysis,
         analysisQueueSelected,
         manualReviewDisposition,
+        manualReviewReason,
         triageReasons: triage.reasons,
         triageSignals: triage.signals,
         inputPayload: {
@@ -637,6 +693,8 @@ async function ingestCandidates(candidates, args, plan) {
           analysis_queue_selected: analysisQueueSelected,
           manualReviewDisposition,
           manual_review_disposition: manualReviewDisposition,
+          manualReviewReason,
+          manual_review_reason: manualReviewReason,
           collectionMode: "hourly_collection_manual_analysis",
           collection_mode: "hourly_collection_manual_analysis",
           triageReasons: triage.reasons,
@@ -708,45 +766,69 @@ async function fetchJson(url, options = {}) {
 }
 
 async function fetchText(url, options = {}) {
+  const response = await fetchBinary(url, options);
+  let text = new TextDecoder("utf-8").decode(response.buffer);
+  let replacementCount = 0;
+  for (const char of text) {
+    if (char.charCodeAt(0) === 0xfffd) replacementCount += 1;
+  }
+  if (replacementCount > 20) {
+    text = new TextDecoder("gb18030").decode(response.buffer);
+  }
+  return text;
+}
+
+async function fetchBinary(url, options = {}) {
+  const attempts = Number.isInteger(options.attempts) && options.attempts > 0 ? options.attempts : 3;
+  const timeoutMs = Number.isInteger(options.timeoutMs) && options.timeoutMs > 0 ? options.timeoutMs : 20_000;
+  const backoffMs = Array.isArray(options.backoffMs) ? options.backoffMs : [1_000, 2_000, 4_000];
+  const maxBytes = Number.isInteger(options.maxBytes) && options.maxBytes > 0 ? options.maxBytes : null;
   let lastError = null;
 
-  for (let attempt = 1; attempt <= 3; attempt += 1) {
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
     try {
       const response = await fetch(url, {
-        signal: AbortSignal.timeout(20000),
+        signal: AbortSignal.timeout(timeoutMs),
         headers: {
-          "user-agent": "Mozilla/5.0 policy-impact-terminal crawler",
+          "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 policy-impact-terminal crawler",
+          accept: options.accept ?? "text/html,application/xhtml+xml,application/json;q=0.9,*/*;q=0.8",
+          "accept-language": "zh-CN,zh;q=0.9",
+          connection: "close",
           ...(options.referer ? { referer: options.referer } : {})
         }
       });
 
       if (!response.ok) {
-        const retryable = response.status === 429 || response.status >= 500;
-        if (!retryable || attempt === 3) {
+        const retryable = response.status === 408 || response.status === 429 || response.status >= 500;
+        if (!retryable || attempt === attempts) {
           throw new Error(`HTTP ${response.status} for ${url}`);
         }
         lastError = new Error(`HTTP ${response.status} for ${url}`);
       } else {
+        const contentLength = Number(response.headers.get("content-length"));
+        if (maxBytes && Number.isFinite(contentLength) && contentLength > maxBytes) {
+          throw new Error(`Response exceeds ${maxBytes} bytes for ${url}`);
+        }
         const buffer = Buffer.from(await response.arrayBuffer());
-        let text = new TextDecoder("utf-8").decode(buffer);
-        let replacementCount = 0;
-        for (const char of text) {
-          if (char.charCodeAt(0) === 0xfffd) replacementCount += 1;
+        if (maxBytes && buffer.length > maxBytes) {
+          throw new Error(`Response exceeds ${maxBytes} bytes for ${url}`);
         }
-        if (replacementCount > 20) {
-          text = new TextDecoder("gb18030").decode(buffer);
-        }
-        return text;
+        return {
+          buffer,
+          contentType: response.headers.get("content-type"),
+          finalUrl: response.url || url
+        };
       }
     } catch (error) {
       lastError = error;
-      if (attempt === 3) break;
+      if (attempt === attempts) break;
     }
 
-    await new Promise((resolve) => setTimeout(resolve, attempt * 1000));
+    const waitMs = Number(backoffMs[Math.min(attempt - 1, backoffMs.length - 1)]) || attempt * 1_000;
+    await new Promise((resolve) => setTimeout(resolve, waitMs));
   }
 
-  throw new Error(`fetch failed after 3 attempts for ${url}: ${getErrorMessage(lastError)}`);
+  throw new Error(`fetch failed after ${attempts} attempts for ${url}: ${getErrorMessage(lastError)}`);
 }
 
 async function writeJson(filePath, data) {
