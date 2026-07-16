@@ -120,7 +120,7 @@ const qaBrowserSource = fs.readFileSync(path.resolve(qaBrowserScript), "utf8")
   .replace("__PRODUCTION_QA_EXPECTED_REPORT_COUNT__", String(qaExpectations.reportCount))
   .replace("__PRODUCTION_QA_EXPECTED_FULL_REPORT_COUNT__", String(qaExpectations.fullReportCount));
 fs.writeFileSync(qaRuntimeScript, qaBrowserSource, "utf8");
-const sessionName = `policy-prod-qa-${Date.now().toString(36)}`;
+const sessionName = `policyprodqa${Date.now().toString(36)}`;
 let context = null;
 let qaResult = null;
 let cleanupResult = null;
