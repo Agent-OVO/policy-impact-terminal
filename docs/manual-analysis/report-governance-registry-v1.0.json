@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updatedAt": "2026-07-15",
+  "updatedAt": "2026-07-16",
   "reports": [
     {"policyId":"209014c2-561d-4421-a82b-b9e16f537d3f","category":"A","migrationStatus":"full","title":"南水北调中线干线工程供水价格"},
     {"policyId":"2d6943d5-1653-40d9-a148-a98aaf6fca82","category":"A","migrationStatus":"full","title":"先进计算赋能新质生产力典型应用案例名单"},
@@ -14,6 +14,7 @@
     {"policyId":"d18444d2-2ed2-4a2e-a5a0-051168b4bc7b","category":"A","migrationStatus":"full","title":"城市更新十五五规划"},
     {"policyId":"dc6e49f1-e899-431e-be21-6a7bcbfb2f32","category":"A","migrationStatus":"full","title":"美丽中国建设成效考核办法"},
     {"policyId":"eaf74ff3-c21f-4a77-b402-57f8be41f866","category":"A","migrationStatus":"full","title":"行业高质量数据集建设行动"},
+    {"policyId":"79775a48-aac4-4ff0-b232-e18aafa4139e","category":"A","migrationStatus":"full","title":"公共资源交易中心招标投标现场管理暂行办法"},
     {"policyId":"0e80e84c-03f0-4c7f-9bd2-46470000bab1","category":"B","migrationStatus":"full","title":"就业优先战略十五五规划"},
     {"policyId":"3abd8068-084e-441f-b96b-7c849ca324f7","category":"B","migrationStatus":"full","title":"美丽中国建设十五五规划"},
     {"policyId":"95eae56e-f1d2-4312-8437-b6cab8b7019f","category":"B","migrationStatus":"full","title":"现代化应急体系建设十五五规划"},
