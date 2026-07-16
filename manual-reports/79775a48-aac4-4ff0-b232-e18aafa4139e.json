@@ -1,0 +1,684 @@
+{
+  "id": "79775a48-aac4-4ff0-b232-e18aafa4139e",
+  "policyId": "79775a48-aac4-4ff0-b232-e18aafa4139e",
+  "analyzerVersion": "gpt-5.6-thinking-agent-v1",
+  "analysisMethod": "agent-led-explicit-selection-v1",
+  "generatedAt": "2026-07-16T02:20:00Z",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "部门规章",
+  "substantivePolicyType": "公共资源交易中心招标投标现场管理强制规范",
+  "primaryActionType": "现场管理职责重塑与数智化全过程留痕",
+  "policySignalStrength": "high",
+  "implementationCertainty": "high",
+  "analysisDepth": "L3",
+  "analysisDepthReason": "办法共47条，自2027年1月1日起施行，系统规定交易中心的服务保障、全过程记录、异常行为提醒、违法线索报告和责任追究，并明确大数据、人工智能、区块链、身份识别、权限控制、远程异地评标、数字证书互认、系统对接、音视频留痕和15年卷宗保存要求，形成清晰的全国性合规升级窗口；但尚未出现预算、采购项目、技术标准细则、厂商名单或可归因订单，因此不能形成公司级映射。",
+  "operationDisposition": "继续深研",
+  "followUpSignals": [
+    "各省级招标投标指导协调部门发布实施细则、异常提醒规则和违法线索报告流程",
+    "公共资源交易中心披露电子交易系统、智能见证、音视频监控和长期归档升级预算",
+    "出现人工智能解析招标文件、投标响应度或穿透式风险分析的正式采购与验收项目",
+    "国家统一远程异地评标、数字证书互认和电子交易数据标准进一步落地",
+    "上市公司或平台运营主体披露与本办法直接相关的合同、交付、验收、收入或回款"
+  ],
+  "summary": {
+    "id": "79775a48-aac4-4ff0-b232-e18aafa4139e",
+    "title": "公共资源交易中心招标投标现场管理暂行办法",
+    "issuer": "国家发展改革委等七部门",
+    "source": "国家发展改革委 - 政策文件库及正式PDF附件",
+    "publishDate": "2026-07-15",
+    "status": "published",
+    "confidence": 98,
+    "industryCount": 5,
+    "companyCount": 0,
+    "evidenceCount": 6,
+    "primarySignal": "交易中心数智化现场管理和全过程留痕成为强制职责",
+    "category": "招标投标监管与公共资源交易数字化"
+  },
+  "policy": {
+    "title": "公共资源交易中心招标投标现场管理暂行办法",
+    "status": "已发布，2027年1月1日起施行",
+    "issuer": "国家发展改革委、工业和信息化部、住房城乡建设部、交通运输部、水利部、农业农村部、商务部",
+    "publishDate": "2026-07-15",
+    "effectiveDate": "2027-01-01",
+    "source": "国家发展改革委 - 政策文件库及正式PDF附件",
+    "category": "招标投标监管与公共资源交易数字化",
+    "level": "中央部门联合规章",
+    "confidence": 99,
+    "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/fzggwl/202607/t20260714_1406507.html",
+    "scope": "全国公共资源交易中心及其电子交易系统，并要求国有企业、招标代理机构等参照执行其自有电子交易系统的现场管理",
+    "impactScope": "电子交易系统功能、身份与权限安全、远程异地评标、数字证书互认、全过程数据和音视频留痕、电子卷宗、异常提醒、穿透式风险分析和违法线索报告",
+    "jurisdiction": "中国大陆",
+    "tags": [
+      "公共资源交易",
+      "招标投标",
+      "人工智能",
+      "全过程记录",
+      "电子交易系统",
+      "违法线索报告"
+    ]
+  },
+  "brief": {
+    "judgement": "这项办法不是一般性的作风要求，而是把公共资源交易中心从场地和系统服务机构升级为承担服务保障、全过程记录、异常行为提醒和违法线索报告的现场管理节点，并把大数据、人工智能、区块链、身份权限安全、远程评标、系统互联、音视频留痕和长期电子归档写入具体职责。政策将推动交易中心在2027年1月1日前补齐系统与治理能力，但当前没有预算、招标项目、技术参数、厂商名单和订单信息，不能直接映射电子交易平台、AI、CA、网络安全、音视频或档案厂商。",
+    "summary": "办法共47条，适用于物理交易场所和电子交易系统。交易中心不得代行行政监管，但必须履行服务保障、全过程记录、异常提醒和违法线索报告。核心新增要求包括数智技术应用、AI政策问答与投标文件解析、远程异地评标、数字证书互认、与审批信用监管系统对接、电子数据和音视频全程保存、15年卷宗留存、穿透式分析以及发现违法线索后10个工作日内报告。投资研究应关注地方细则、系统升级预算、技术标准、采购和验收，而不是按政策关键词直接认定相关软件或设备公司受益。",
+    "keyPoints": [
+      "交易现场明确包括业务大厅、开评标区域和电子交易系统，线上平台同样纳入现场管理。",
+      "交易中心承担服务、记录、提醒和报告职责，但不得代行许可、检查、处罚等行政监督。",
+      "办法明确要求应用大数据、人工智能、区块链，并强化身份识别、权限控制、加密和可追溯性。",
+      "全过程书面资料、电子数据和音视频需形成卷宗，卷宗至少保存15年。",
+      "发现违法线索后原则上应在10个工作日内报告，并可建议暂停交易活动。",
+      "本次保持零公司结论，真正的公司映射必须等待预算、招标、合同、交付和验收证据。"
+    ],
+    "methodology": "以国家发展改革委正式发布页和13页PDF附件为事实底座，逐章拆分职责边界、技术要求、数据留痕、异常提醒、违法线索报告和责任约束；仅把行业能力列为观察方向，不按人工智能、电子交易、CA、安防或档案关键词机械匹配上市公司。"
+  },
+  "analysisCoverage": {
+    "companyCount": 0,
+    "companyImpactConclusion": "办法明确了公共资源交易中心和电子交易系统的功能升级方向，但未点名技术供应商，也未公布财政预算、采购规模、建设清单、收费模式、招标项目、中标结果、合同、验收、收入或回款。电子交易平台、人工智能、数字证书、网络安全、音视频监控和电子档案厂商只能作为能力类型观察，当前不建立具体公司映射。",
+    "limitations": [
+      "尚无国家统一配套技术标准、数据接口规范和AI辅助评标使用边界细则。",
+      "各地交易中心现有系统成熟度、改造缺口和资金来源差异未披露。",
+      "办法生效前的具体建设预算、采购批次、厂商和验收节奏尚未出现。",
+      "AI辅助评标和穿透式分析的准确性、可解释性、审计责任和误报处置仍需后续规则。"
+    ]
+  },
+  "policyIndustryMap": [
+    {
+      "id": "pi1",
+      "industry": "公共资源电子交易平台",
+      "policyAction": "将电子交易系统纳入交易现场管理，并要求完善远程评标、数据校验、系统对接和全过程记录功能。",
+      "impactType": "mandatory_platform_upgrade",
+      "impactDirection": "positive",
+      "evidenceLevel": "direct",
+      "policyCloseness": "direct",
+      "reason": "功能义务明确，但实际改造项目和预算仍需地方落地。",
+      "relatedClauseIds": ["c1", "c4", "c5"],
+      "relatedNodeIds": ["n1", "n2", "n3"],
+      "evidenceIds": ["e1", "e4", "e5"],
+      "watchSignals": ["系统升级预算", "电子交易平台招标", "跨区域远程评标项目"]
+    },
+    {
+      "id": "pi2",
+      "industry": "招标投标人工智能与风险分析",
+      "policyAction": "鼓励或要求使用AI开展政策问答、招标文件与投标响应解析、智能见证、卷宗生成和穿透式合法性风险分析。",
+      "impactType": "ai_compliance_application",
+      "impactDirection": "positive",
+      "evidenceLevel": "direct",
+      "policyCloseness": "direct",
+      "reason": "应用场景被明确写入办法，但算法标准、采购主体和商业模式尚未确定。",
+      "relatedClauseIds": ["c2", "c3", "c6"],
+      "relatedNodeIds": ["n2", "n4"],
+      "evidenceIds": ["e2", "e3", "e6"],
+      "watchSignals": ["AI模型采购", "辅助评标技术规范", "智能见证验收"]
+    },
+    {
+      "id": "pi3",
+      "industry": "数字身份、CA与交易安全",
+      "policyAction": "要求身份识别、权限控制、加密、病毒防范、数字证书跨区域跨平台互认和完整可追溯。",
+      "impactType": "identity_and_security_compliance",
+      "impactDirection": "positive",
+      "evidenceLevel": "direct",
+      "policyCloseness": "direct",
+      "reason": "安全与互认要求明确，但未形成新增采购或指定技术路线。",
+      "relatedClauseIds": ["c2", "c4"],
+      "relatedNodeIds": ["n2", "n3"],
+      "evidenceIds": ["e2", "e4"],
+      "watchSignals": ["CA互认改造", "身份权限系统采购", "安全测评"]
+    },
+    {
+      "id": "pi4",
+      "industry": "电子档案、音视频与长期存储",
+      "policyAction": "要求保存书面资料、电子数据和全程音视频，形成项目卷宗并至少保存15年。",
+      "impactType": "long_term_record_retention",
+      "impactDirection": "positive",
+      "evidenceLevel": "direct",
+      "policyCloseness": "direct",
+      "reason": "留痕和保存期限构成刚性要求，但存量缺口和采购节奏未知。",
+      "relatedClauseIds": ["c5"],
+      "relatedNodeIds": ["n3"],
+      "evidenceIds": ["e5"],
+      "watchSignals": ["电子卷宗平台", "音视频存储扩容", "长期归档验收"]
+    },
+    {
+      "id": "pi5",
+      "industry": "招投标监管数据协同与合规服务",
+      "policyAction": "要求对接审批、信用和监管系统，向监管部门同步异常提醒并报告违法线索。",
+      "impactType": "regulatory_data_collaboration",
+      "impactDirection": "positive",
+      "evidenceLevel": "direct",
+      "policyCloseness": "direct",
+      "reason": "监管协同和报告时限明确，但省级具体规则仍待制定。",
+      "relatedClauseIds": ["c4", "c6"],
+      "relatedNodeIds": ["n3", "n4"],
+      "evidenceIds": ["e4", "e6"],
+      "watchSignals": ["省级实施细则", "异常信息共享接口", "违法线索报告系统"]
+    }
+  ],
+  "industryChain": [
+    {
+      "id": "chain1",
+      "chainName": "中央规章—地方细则—交易中心改造—智能记录监管—采购验收与经营兑现",
+      "policyRole": "办法建立全国统一的现场管理职责框架和生效期限，地方细则、技术标准和交易中心系统改造将决定实际产业需求，只有正式采购、合同、交付和验收出现后才能形成公司关系。",
+      "nodes": [
+        {
+          "id": "n1",
+          "policySensitivity": "high",
+          "description": "七部门规章明确交易中心职责边界、强制义务和2027年1月1日生效节点。",
+          "position": "upstream",
+          "evidenceLevel": "direct",
+          "companyIds": []
+        },
+        {
+          "id": "n2",
+          "policySensitivity": "high",
+          "description": "各地制定实施细则，交易中心评估电子交易、AI、身份安全和远程评标功能缺口。",
+          "position": "midstream",
+          "evidenceLevel": "pending",
+          "companyIds": []
+        },
+        {
+          "id": "n3",
+          "policySensitivity": "high",
+          "description": "实施数据校验、系统对接、数字证书互认、音视频留痕、电子卷宗和15年保存。",
+          "position": "midstream",
+          "evidenceLevel": "direct",
+          "companyIds": []
+        },
+        {
+          "id": "n4",
+          "policySensitivity": "high",
+          "description": "开展异常提醒、AI辅助评标、智能见证、穿透式风险分析和违法线索报告。",
+          "position": "downstream",
+          "evidenceLevel": "direct",
+          "companyIds": []
+        },
+        {
+          "id": "n5",
+          "policySensitivity": "medium",
+          "description": "地方预算、采购、中标、交付、验收和运营效果转化为可归因的企业经营结果。",
+          "position": "support",
+          "evidenceLevel": "pending",
+          "companyIds": []
+        }
+      ],
+      "edges": [
+        {
+          "from": "n1",
+          "to": "n2",
+          "relation": "规章要求转化为地方实施和差距评估",
+          "description": "中央强制框架需要地方具体规则和现状评估才能形成项目清单"
+        },
+        {
+          "from": "n2",
+          "to": "n3",
+          "relation": "功能缺口形成平台和基础设施改造需求",
+          "description": "电子交易、安全、互认、留痕和存储能力进入建设阶段"
+        },
+        {
+          "from": "n3",
+          "to": "n4",
+          "relation": "数据底座支持智能提醒和风险分析",
+          "description": "完整、真实、可追溯的数据是AI见证和违法线索分析的前提"
+        },
+        {
+          "from": "n4",
+          "to": "n5",
+          "relation": "制度执行转化为采购和经营结果",
+          "description": "只有正式采购、合同、交付和验收才能形成公司级投资证据"
+        }
+      ]
+    }
+  ],
+  "companyMap": [],
+  "policyNetwork": [
+    {
+      "id": "pn1",
+      "relatedPolicy": "评标专家和评标专家库管理办法（国家发展改革委令2024年第26号）",
+      "relationship": "supporting_rule",
+      "meaning": "本办法要求交易中心向评标专家库组建单位通报专家异常行为，并由组建单位依据既有专家库管理办法纳入履职考核，形成现场提醒与专家治理的制度衔接。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2026-07-15",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/fzggwl/202607/P020260714613102219548.pdf",
+      "watchSignals": ["专家异常行为数据共享", "评标专家履职考核联动"]
+    }
+  ],
+  "investmentDirection": {
+    "primaryDirection": "将该办法作为公共资源交易数字化合规升级的高强度行业信号，重点跟踪地方实施细则、交易中心改造预算、电子交易和AI合规系统采购、音视频与长期归档建设；在出现正式项目和可归因经营证据前，不提高任何具体软件、AI、CA、网络安全、安防或档案公司的投资优先级。",
+    "directionStrength": "medium",
+    "timeHorizon": "near_to_medium_term",
+    "watchIndustries": [
+      "公共资源电子交易平台",
+      "招标投标人工智能与风险分析",
+      "数字身份、CA与交易安全",
+      "电子档案、音视频与长期存储",
+      "招投标监管数据协同与合规服务"
+    ],
+    "watchChainNodes": [
+      "省级实施细则和技术标准",
+      "交易中心系统差距评估",
+      "智能见证与穿透式风险分析",
+      "15年电子卷宗和音视频保存",
+      "采购、交付和验收"
+    ],
+    "watchCompanyTypes": [
+      "公共资源电子交易平台供应商",
+      "招投标AI与数据分析服务商",
+      "CA和身份安全服务商",
+      "音视频与电子档案系统供应商"
+    ],
+    "watchCompanies": [],
+    "nearTermCatalysts": [
+      "省级实施细则发布",
+      "交易中心系统改造项目集中启动",
+      "AI辅助评标和智能见证技术规范出台",
+      "远程异地评标与数字证书互认项目落地",
+      "2027年1月1日正式施行前的采购与验收窗口"
+    ],
+    "keyRisks": [
+      "部分交易中心已有成熟系统，新增改造规模可能低于政策文字强度",
+      "地方财政和建设节奏差异导致项目分散、延期或仅做低成本适配",
+      "AI辅助评标受准确性、解释性和责任边界约束，商业化规模可能有限",
+      "全国统一标准尚未完全明确，厂商方案存在重复适配和验收不确定性",
+      "政策方向被市场提前主题化，但公司缺乏可归因订单和收入"
+    ],
+    "minimumEvidenceNeeded": [
+      "地方交易中心升级预算或正式采购公告",
+      "中标厂商、合同金额、建设范围和交付周期",
+      "项目验收、上线范围和实际运行指标",
+      "上市公司公告或定期报告中的可归因收入、回款和客户信息"
+    ],
+    "doNotOverread": [
+      "写入人工智能不等于指定采购AI大模型",
+      "强制15年留痕不等于所有地区立即大规模扩容",
+      "数字证书互认不等于特定CA厂商获得订单",
+      "异常提醒和穿透式分析不等于交易中心取得行政处罚权",
+      "政策生效窗口不等于相关软件和设备公司业绩必然增长"
+    ],
+    "summary": "政策强度高、执行确定性高，但公司归因仍需等待地方项目、采购、验收和经营兑现。"
+  },
+  "actions": [
+    {
+      "id": "a1",
+      "actionType": "职责重塑",
+      "actionEvidenceLevel": "strong",
+      "title": "明确交易中心四类现场管理职责",
+      "body": "交易中心承担服务保障、全过程记录、异常行为提醒和违法线索报告，但不得代行行政许可、检查和处罚。",
+      "signal": "regulatory",
+      "confidence": 99,
+      "clauseIds": ["c1"],
+      "sortOrder": 1
+    },
+    {
+      "id": "a2",
+      "actionType": "数智化与安全",
+      "actionEvidenceLevel": "strong",
+      "title": "要求应用数智技术并保障真实完整可追溯",
+      "body": "交易中心应应用大数据、人工智能、区块链，并采用身份识别、权限控制、加密和病毒防范等技术。",
+      "signal": "beneficiary",
+      "confidence": 99,
+      "clauseIds": ["c2"],
+      "sortOrder": 2
+    },
+    {
+      "id": "a3",
+      "actionType": "人工智能应用",
+      "actionEvidenceLevel": "strong",
+      "title": "明确AI问答、文件解析和智能见证场景",
+      "body": "办法鼓励或要求在政策咨询、招标文件与投标响应解析、智能见证、信息分类和卷宗生成中使用人工智能。",
+      "signal": "beneficiary",
+      "confidence": 98,
+      "clauseIds": ["c3"],
+      "sortOrder": 3
+    },
+    {
+      "id": "a4",
+      "actionType": "跨区域互联",
+      "actionEvidenceLevel": "strong",
+      "title": "推进远程评标、数字证书互认和监管系统对接",
+      "body": "要求参与远程异地评标、支持数字证书跨区域跨平台互认，并与审批、信用和监管系统对接。",
+      "signal": "beneficiary",
+      "confidence": 98,
+      "clauseIds": ["c4"],
+      "sortOrder": 4
+    },
+    {
+      "id": "a5",
+      "actionType": "全过程留痕",
+      "actionEvidenceLevel": "strong",
+      "title": "建立电子数据、音视频和15年卷宗保存制度",
+      "body": "交易中心需保存全过程书面、电子和音视频资料，制作项目卷宗并至少保存15年。",
+      "signal": "beneficiary",
+      "confidence": 99,
+      "clauseIds": ["c5"],
+      "sortOrder": 5
+    },
+    {
+      "id": "a6",
+      "actionType": "异常与违法线索",
+      "actionEvidenceLevel": "strong",
+      "title": "建立异常提醒和穿透式违法线索报告机制",
+      "body": "交易中心应提醒异常行为、运用数智技术开展穿透式风险分析，并在发现违法线索后10个工作日内报告。",
+      "signal": "regulatory",
+      "confidence": 99,
+      "clauseIds": ["c6"],
+      "sortOrder": 6
+    }
+  ],
+  "clauses": [
+    {
+      "id": "c1",
+      "no": "第三条",
+      "title": "交易中心职责和监管边界",
+      "excerpt": "履行服务保障、全过程记录、异常行为提醒、违法线索报告等职责。",
+      "body": "交易中心成为现场管理和证据留存节点，但不替代招标人主体责任和行政监管。",
+      "confidence": 99,
+      "keywords": ["全过程记录", "异常提醒", "违法线索"],
+      "industries": ["公共资源交易服务", "监管科技"],
+      "sortOrder": 1
+    },
+    {
+      "id": "c2",
+      "no": "第六至七条",
+      "title": "数智技术和交易安全要求",
+      "excerpt": "积极应用大数据、人工智能、区块链等数智技术。",
+      "body": "政策同时要求身份、权限、加密、防病毒和系统可追溯，为平台和安全合规升级提供直接依据。",
+      "confidence": 99,
+      "keywords": ["人工智能", "区块链", "身份识别", "加密"],
+      "industries": ["电子交易平台", "网络安全", "数字身份"],
+      "sortOrder": 2
+    },
+    {
+      "id": "c3",
+      "no": "第九、十四、二十五条",
+      "title": "AI咨询、辅助评标和智能卷宗",
+      "excerpt": "应用人工智能模型解析招标文件内容和投标文件响应度。",
+      "body": "AI被明确用于咨询、辅助评标、智能见证、命名归类和卷宗生成，但最终评审责任仍由评标专家承担。",
+      "confidence": 98,
+      "keywords": ["人工智能模型", "辅助评标", "智能见证"],
+      "industries": ["招投标AI", "智能文档分析"],
+      "sortOrder": 3
+    },
+    {
+      "id": "c4",
+      "no": "第十二、十六至十八条",
+      "title": "远程评标、证书互认和系统对接",
+      "excerpt": "支持数字证书跨区域、跨平台兼容互认。",
+      "body": "跨区域协同、身份验证、在线评标、数据校验和监管系统互联构成交易平台升级的重要技术面。",
+      "confidence": 98,
+      "keywords": ["远程异地评标", "数字证书互认", "系统对接"],
+      "industries": ["电子交易平台", "CA", "数据交换"],
+      "sortOrder": 4
+    },
+    {
+      "id": "c5",
+      "no": "第十九至二十五条",
+      "title": "全过程记录和长期保存",
+      "excerpt": "现场记录卷宗自形成之日起至少保存十五年。",
+      "body": "书面资料、电子数据、音视频及来源标识均进入卷宗，形成长期存储、归档、检索和取证要求。",
+      "confidence": 99,
+      "keywords": ["电子数据", "音视频", "十五年", "电子卷宗"],
+      "industries": ["电子档案", "音视频存储", "数据治理"],
+      "sortOrder": 5
+    },
+    {
+      "id": "c6",
+      "no": "第二十六至三十八条",
+      "title": "异常提醒和违法线索报告",
+      "excerpt": "运用数智技术进行穿透式分析，挖掘招标投标合法性风险。",
+      "body": "办法列明对招标人、代理机构、投标人和评标专家的异常提醒及违法线索情形，并规定10个工作日报告时限。",
+      "confidence": 99,
+      "keywords": ["异常行为", "穿透式分析", "违法线索", "十个工作日"],
+      "industries": ["监管科技", "风险分析", "招投标合规"],
+      "sortOrder": 6
+    }
+  ],
+  "chainNodes": [
+    {
+      "id": "n1",
+      "industryNodeEvidenceLevel": "direct",
+      "verificationSignals": ["省级实施细则", "交易中心差距评估"],
+      "title": "规章与地方实施",
+      "subtitle": "统一职责框架，地方细化",
+      "section": "upstream",
+      "relation": "direct",
+      "evidenceLevel": "direct",
+      "confidence": 98,
+      "description": "中央规章明确职责、生效日期和责任边界，各省需进一步制定提醒、报告和系统管理细则。",
+      "clauseIds": ["c1", "c6"],
+      "companyIds": [],
+      "evidenceIds": ["e1", "e6"],
+      "impactReason": "制度约束和生效窗口已经确定。",
+      "iconKey": "activity"
+    },
+    {
+      "id": "n2",
+      "industryNodeEvidenceLevel": "direct",
+      "verificationSignals": ["平台改造预算", "AI辅助评标项目", "CA互认项目"],
+      "title": "电子交易与数智化改造",
+      "subtitle": "AI、安全、远程评标和互联",
+      "section": "midstream",
+      "relation": "direct",
+      "evidenceLevel": "direct",
+      "confidence": 94,
+      "description": "交易中心需要完善电子交易系统、身份权限、安全、远程评标、数字证书互认、数据校验和系统对接。",
+      "clauseIds": ["c2", "c3", "c4"],
+      "companyIds": [],
+      "evidenceIds": ["e2", "e3", "e4"],
+      "impactReason": "技术方向明确，项目和厂商尚未明确。",
+      "iconKey": "activity"
+    },
+    {
+      "id": "n3",
+      "industryNodeEvidenceLevel": "direct",
+      "verificationSignals": ["音视频扩容", "电子卷宗平台", "长期存储验收"],
+      "title": "全过程记录与长期归档",
+      "subtitle": "电子数据、音视频、15年卷宗",
+      "section": "midstream",
+      "relation": "direct",
+      "evidenceLevel": "direct",
+      "confidence": 97,
+      "description": "交易中心需保存全过程资料、来源标识和音视频，形成可查、可复制、至少保存15年的项目卷宗。",
+      "clauseIds": ["c5"],
+      "companyIds": [],
+      "evidenceIds": ["e5"],
+      "impactReason": "保存范围和期限构成刚性要求。",
+      "iconKey": "activity"
+    },
+    {
+      "id": "n4",
+      "industryNodeEvidenceLevel": "direct",
+      "verificationSignals": ["异常提醒接口", "穿透式分析模型", "线索报告流程"],
+      "title": "异常提醒与监管协同",
+      "subtitle": "穿透式分析，10个工作日报告",
+      "section": "downstream",
+      "relation": "direct",
+      "evidenceLevel": "direct",
+      "confidence": 97,
+      "description": "交易中心需同步异常提醒、分析合法性风险并向监管部门报告违法线索。",
+      "clauseIds": ["c6"],
+      "companyIds": [],
+      "evidenceIds": ["e6"],
+      "impactReason": "监管数据协同和报告要求明确。",
+      "iconKey": "activity"
+    },
+    {
+      "id": "n5",
+      "industryNodeEvidenceLevel": "pending",
+      "verificationSignals": ["采购公告", "中标合同", "验收报告", "上市公司收入回款"],
+      "title": "项目采购与经营兑现",
+      "subtitle": "从制度义务到公司业绩",
+      "section": "support",
+      "relation": "pending",
+      "evidenceLevel": "pending",
+      "confidence": 45,
+      "description": "地方预算、采购、合同、交付和验收出现后，才能判断具体供应商及经营影响。",
+      "clauseIds": ["c2", "c3", "c4", "c5", "c6"],
+      "companyIds": [],
+      "evidenceIds": ["e2", "e3", "e4", "e5", "e6"],
+      "impactReason": "当前政策只有职责和功能要求，没有公司级交易证据。",
+      "iconKey": "activity"
+    }
+  ],
+  "chainEdges": [
+    {
+      "id": "edge1",
+      "from": "n1",
+      "to": "n2",
+      "type": "strong",
+      "label": "职责和生效期限推动系统改造"
+    },
+    {
+      "id": "edge2",
+      "from": "n2",
+      "to": "n3",
+      "type": "strong",
+      "label": "交易系统升级形成完整可追溯数据底座"
+    },
+    {
+      "id": "edge3",
+      "from": "n3",
+      "to": "n4",
+      "type": "strong",
+      "label": "完整留痕支撑提醒、分析和监管取证"
+    },
+    {
+      "id": "edge4",
+      "from": "n4",
+      "to": "n5",
+      "type": "weak",
+      "label": "地方项目落地后才形成公司经营证据"
+    }
+  ],
+  "companies": [],
+  "evidence": [
+    {
+      "id": "e1",
+      "evidenceObject": "policy_action",
+      "type": "official_document_attachment",
+      "source": "国家发展改革委正式PDF附件",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/fzggwl/202607/P020260714613102219548.pdf",
+      "title": "交易中心四类职责与行政监管边界",
+      "excerpt": "履行服务保障、全过程记录、异常行为提醒、违法线索报告等职责。",
+      "interpretation": "交易中心承担现场管理和证据节点职责，但不取得许可、检查、处罚等行政监管权。",
+      "confidence": 99,
+      "clauseIds": ["c1"],
+      "nodeIds": ["n1"],
+      "companyIds": [],
+      "links": {
+        "clauseIds": ["c1"],
+        "nodeIds": ["n1"]
+      }
+    },
+    {
+      "id": "e2",
+      "evidenceObject": "industry_node",
+      "type": "official_document_attachment",
+      "source": "国家发展改革委正式PDF附件",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/fzggwl/202607/P020260714613102219548.pdf",
+      "title": "数智技术和安全可追溯要求",
+      "excerpt": "积极应用大数据、人工智能、区块链等数智技术。",
+      "interpretation": "电子交易平台需同时补强数智应用和身份、权限、加密、病毒防范等安全能力。",
+      "confidence": 99,
+      "clauseIds": ["c2"],
+      "nodeIds": ["n2"],
+      "companyIds": [],
+      "links": {
+        "clauseIds": ["c2"],
+        "nodeIds": ["n2"]
+      }
+    },
+    {
+      "id": "e3",
+      "evidenceObject": "industry_node",
+      "type": "official_document_attachment",
+      "source": "国家发展改革委正式PDF附件",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/fzggwl/202607/P020260714613102219548.pdf",
+      "title": "人工智能咨询、辅助评标与智能见证",
+      "excerpt": "应用人工智能模型解析招标文件内容和投标文件响应度。",
+      "interpretation": "政策明确了AI的专业应用场景，但AI仅提供辅助或参考，不能替代评标专家独立判断。",
+      "confidence": 98,
+      "clauseIds": ["c3"],
+      "nodeIds": ["n2"],
+      "companyIds": [],
+      "links": {
+        "clauseIds": ["c3"],
+        "nodeIds": ["n2"]
+      }
+    },
+    {
+      "id": "e4",
+      "evidenceObject": "industry_node",
+      "type": "official_document_attachment",
+      "source": "国家发展改革委正式PDF附件",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/fzggwl/202607/P020260714613102219548.pdf",
+      "title": "远程评标、证书互认和系统对接",
+      "excerpt": "支持数字证书跨区域、跨平台兼容互认。",
+      "interpretation": "跨区域评标和监管协同要求推动电子交易系统的互操作、数据校验和身份互认。",
+      "confidence": 98,
+      "clauseIds": ["c4"],
+      "nodeIds": ["n2"],
+      "companyIds": [],
+      "links": {
+        "clauseIds": ["c4"],
+        "nodeIds": ["n2"]
+      }
+    },
+    {
+      "id": "e5",
+      "evidenceObject": "industry_node",
+      "type": "official_document_attachment",
+      "source": "国家发展改革委正式PDF附件",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/fzggwl/202607/P020260714613102219548.pdf",
+      "title": "全过程电子数据、音视频和15年卷宗保存",
+      "excerpt": "现场记录卷宗自形成之日起至少保存十五年。",
+      "interpretation": "长期保存和来源标识要求形成电子档案、音视频、存储、检索和取证能力的合规需求。",
+      "confidence": 99,
+      "clauseIds": ["c5"],
+      "nodeIds": ["n3"],
+      "companyIds": [],
+      "links": {
+        "clauseIds": ["c5"],
+        "nodeIds": ["n3"]
+      }
+    },
+    {
+      "id": "e6",
+      "evidenceObject": "policy_action",
+      "type": "official_document_attachment",
+      "source": "国家发展改革委正式PDF附件",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/fzggwl/202607/P020260714613102219548.pdf",
+      "title": "异常提醒、穿透式分析和违法线索报告",
+      "excerpt": "运用数智技术，对交易信息进行穿透式分析。",
+      "interpretation": "交易中心需把完整交易数据转化为异常提醒和违法线索报告，并遵守10个工作日报告时限。",
+      "confidence": 99,
+      "clauseIds": ["c6"],
+      "nodeIds": ["n1", "n4"],
+      "companyIds": [],
+      "links": {
+        "clauseIds": ["c6"],
+        "nodeIds": ["n1", "n4"]
+      }
+    }
+  ],
+  "backgroundCards": [
+    {
+      "id": "bg1",
+      "title": "正式文本和生效时间",
+      "body": "办法由国家发展改革委等七部门联合发布，共47条，自2027年1月1日起施行。",
+      "source": "国家发展改革委正式PDF附件",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/fzggwl/202607/P020260714613102219548.pdf"
+    },
+    {
+      "id": "bg2",
+      "title": "线上系统也属于交易现场",
+      "body": "交易现场不仅包括业务大厅、开标区和评标区，也包括电子交易系统，因此线上交易同样受全过程现场管理要求约束。",
+      "source": "国家发展改革委正式PDF附件",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/fzggwl/202607/P020260714613102219548.pdf"
+    },
+    {
+      "id": "bg3",
+      "title": "适用范围进一步外溢",
+      "body": "国有企业、招标代理机构等应参照本办法管理通过其电子交易系统开展的招标投标活动，影响范围不只限于公共资源交易中心。",
+      "source": "国家发展改革委正式PDF附件",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/fzggwl/202607/P020260714613102219548.pdf"
+    }
+  ]
+}
