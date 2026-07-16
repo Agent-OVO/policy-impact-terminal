@@ -1,0 +1,62 @@
+name: Build production operations summary
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  summary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Collect read-only production state
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SUPABASE_URL: https://qxzspsofhmfjceuaulhu.supabase.co
+          SUPABASE_FUNCTION_JWT: ${{ secrets.SUPABASE_FUNCTION_JWT }}
+          SUPABASE_CRAWLER_SECRET: ${{ secrets.SUPABASE_CRAWLER_SECRET }}
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/operations
+          gh run list \
+            --repo "$GITHUB_REPOSITORY" \
+            --workflow "Crawl policy sources hourly" \
+            --limit 200 \
+            --json databaseId,status,conclusion,createdAt,updatedAt,event,headSha,url \
+            > artifacts/operations/hourly-runs.json
+          node scripts/manual-policy-analysis.mjs list --limit=100 --since=2026-07-15 \
+            > artifacts/operations/current-inbox.json
+          node scripts/manual-policy-analysis.mjs list --limit=100 --since=2026-05-01 \
+            > artifacts/operations/historical-inbox.json
+
+      - name: Build summary and historical migration plan
+        run: |
+          node scripts/build-production-operations-summary.mjs
+          node scripts/plan-manual-inbox-migration.mjs \
+            --input=artifacts/operations/historical-inbox.json \
+            --out-json=artifacts/operations/historical-inbox-migration-plan.json \
+            --out-markdown=artifacts/operations/historical-inbox-migration-plan.md
+
+      - name: Upload operations summary
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: production-operations-summary-${{ github.run_id }}
+          path: artifacts/operations/
+          if-no-files-found: error
+          retention-days: 14

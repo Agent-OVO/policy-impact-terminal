@@ -1,0 +1,46 @@
+{
+  "version": "1.0",
+  "updatedAt": "2026-07-16",
+  "rules": [
+    {
+      "title": "国务院关于同意在上海市设立上海辰山国家植物园的批复",
+      "category": "known_quick_archive",
+      "recommendedDisposition": "quick_archived",
+      "reason": "已完成快速归档验证，当前无新增投资研究价值"
+    },
+    {
+      "title": "工业和信息化部办公厅关于印发2025年人工智能应用典型案例名单的通知",
+      "category": "known_quick_archive",
+      "recommendedDisposition": "quick_archived",
+      "reason": "案例名单无新增预算、采购或强制推广安排，已完成快速归档"
+    },
+    {
+      "title": "中办国办关于完善自然资源资产管理制度体系的意见",
+      "category": "known_local_result_requires_id_reconciliation"
+    },
+    {
+      "title": "国务院办公厅关于转发生态环境部等部门《群众身边水体保护治理行动方案》的通知",
+      "category": "known_local_result_requires_id_reconciliation"
+    },
+    {
+      "title": "国务院关于《扩大消费“十五五”规划》的批复",
+      "category": "known_local_result_requires_id_reconciliation"
+    },
+    {
+      "title": "国务院关于印发《国民健康“十五五”规划》的通知",
+      "category": "known_local_result_requires_id_reconciliation"
+    },
+    {
+      "title": "四部门关于推动互联网基础资源高质量发展的指导意见",
+      "category": "known_local_result_requires_id_reconciliation"
+    },
+    {
+      "title": "国家数据局综合司关于印发《数据产权登记工作指引（试行）》的通知",
+      "category": "known_local_result_requires_id_reconciliation"
+    },
+    {
+      "title": "中华人民共和国工业和信息化部公告2026年第15号",
+      "category": "known_local_result_requires_id_reconciliation"
+    }
+  ]
+}

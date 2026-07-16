@@ -1,0 +1,119 @@
+name: Recover missed policy collection
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Force one recovery crawl even when the latest schedule run is recent"
+        required: false
+        type: boolean
+        default: false
+      threshold_minutes:
+        description: "Recover only when the latest successful schedule run is older than this"
+        required: false
+        default: "80"
+
+# A schedule is intentionally not enabled here. Enabling a 30-minute recovery check
+# requires an independent user decision after the 24-hour acceptance result.
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: policy-source-crawler-recovery
+  cancel-in-progress: false
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Inspect latest scheduled collection
+        id: recovery
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FORCE_RECOVERY: ${{ github.event.inputs.force || 'false' }}
+          THRESHOLD_MINUTES: ${{ github.event.inputs.threshold_minutes || '80' }}
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/recovery
+          gh run list \
+            --repo "$GITHUB_REPOSITORY" \
+            --workflow "Crawl policy sources hourly" \
+            --limit 50 \
+            --json databaseId,status,conclusion,createdAt,event,url \
+            > artifacts/recovery/hourly-runs.json
+          args=(
+            --input=artifacts/recovery/hourly-runs.json
+            --out=artifacts/recovery/recovery-decision.json
+            --threshold-minutes="${THRESHOLD_MINUTES}"
+            --github-output="$GITHUB_OUTPUT"
+          )
+          if [ "$FORCE_RECOVERY" = "true" ]; then args+=(--force); fi
+          node scripts/evaluate-hourly-recovery.mjs "${args[@]}"
+
+      - name: Validate recovery contracts
+        if: steps.recovery.outputs.needed == 'true'
+        run: npm run policy:operations-test
+
+      - name: Check Supabase ingest configuration
+        if: steps.recovery.outputs.needed == 'true'
+        id: config
+        env:
+          SUPABASE_URL: https://qxzspsofhmfjceuaulhu.supabase.co
+          SUPABASE_FUNCTION_JWT: ${{ secrets.SUPABASE_FUNCTION_JWT }}
+          SUPABASE_CRAWLER_SECRET: ${{ secrets.SUPABASE_CRAWLER_SECRET }}
+        run: |
+          if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_FUNCTION_JWT" ] && [ -n "$SUPABASE_CRAWLER_SECRET" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run recovery crawl
+        if: steps.recovery.outputs.needed == 'true'
+        env:
+          SUPABASE_URL: https://qxzspsofhmfjceuaulhu.supabase.co
+          SUPABASE_FUNCTION_JWT: ${{ secrets.SUPABASE_FUNCTION_JWT }}
+          SUPABASE_CRAWLER_SECRET: ${{ secrets.SUPABASE_CRAWLER_SECRET }}
+          INGEST_READY: ${{ steps.config.outputs.ready }}
+        run: |
+          set -euo pipefail
+          node scripts/crawl-policy-sources.mjs --preflight
+          args=(
+            --source=all
+            --source-scan-limit=60
+            --candidate-limit=24
+            --ingest-limit=24
+            --analysis-limit=3
+            --pending-queue-limit=8
+            --since=2026-05-01
+            --exclude-undated
+            --manual-selection-only
+            --out=artifacts/recovery/policy-candidates.json
+          )
+          if [ "$INGEST_READY" = "true" ]; then args+=(--ingest); fi
+          node scripts/crawl-policy-sources.mjs "${args[@]}"
+
+      - name: Upload recovery evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: policy-collection-recovery-${{ github.run_id }}
+          path: artifacts/recovery/
+          if-no-files-found: error
+          retention-days: 14

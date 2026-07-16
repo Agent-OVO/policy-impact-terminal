@@ -14,6 +14,10 @@ assert.match(crawler, /automaticAnalysisSelection/);
 assert.match(crawler, /analysisQueueSelected/);
 assert.match(crawler, /manualReviewDisposition/);
 assert.match(crawler, /buildLimitedPolicyPlan/);
+assert.match(crawler, /hydratePolicyAttachments/);
+assert.match(crawler, /miit-search-api-compact-fallback/);
+assert.match(crawler, /attachmentEvidenceIncomplete/);
+assert.match(crawler, /awaiting_evidence/);
 assert.match(crawler, /DEFAULT_CANDIDATE_LIMIT = 24/);
 assert.match(crawler, /DEFAULT_INGEST_LIMIT = 24/);
 
@@ -28,9 +32,14 @@ assert.match(ingest, /if \(!analysisQueueSelected\)/);
 assert.match(ingest, /job: null/);
 assert.match(ingest, /manualReviewDisposition/);
 assert.match(ingest, /analysisQueueSelected: false/);
+assert.match(ingest, /maybeBackfillExistingPolicy/);
+assert.match(ingest, /published_or_analyzed_requires_explicit_revision/);
+assert.match(ingest, /official_text_backfilled/);
 
 const scripts = JSON.parse(packageJson).scripts;
 assert.equal(scripts["operation:collect-hourly"], "node scripts/crawl-policy-sources.mjs --manual-selection-only");
+assert.ok(scripts["policy:attachment-test"]);
+assert.ok(scripts["policy:hourly-recovery-test"]);
 assert.ok(scripts["policy:operations-test"]);
 
 console.log("[policy:crawl-contract-test] hourly schedule, bounded collection, and manual analysis contract passed");

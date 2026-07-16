@@ -21,8 +21,11 @@ on:
       - "docs/manual-analysis/report-governance-registry-v1.0.json"
       - "package.json"
       - "package-lock.json"
-      - ".github/workflows/manual-quality.yml"
-      - ".github/workflows/set-manual-policy-disposition.yml"
+      - ".github/workflows/**"
+      - ".github/CODEOWNERS"
+      - "scripts/**"
+      - "supabase/functions/**"
+      - "docs/operations/**"
   workflow_dispatch:
 
 permissions:
@@ -34,28 +37,48 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: "22"
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
 
-      - name: Audit dependencies
-        run: npm run security:audit
+      - name: Audit dependencies and tracked secrets
+        run: |
+          npm run security:audit
+          npm run security:secret-scan
 
       - name: Check production QA tooling syntax
         run: |
           node --check scripts/manage-production-qa-user.mjs
           node --check scripts/run-production-authenticated-qa.mjs
           node --check scripts/production-authenticated-qa.playwright.js
+          node --check scripts/lib/policy-attachments.mjs
+          node --check scripts/test-policy-attachments.mjs
+          node --check scripts/configure-production.mjs
+          node --check scripts/create-zero-cost-production-backup.mjs
+          node --check scripts/verify-zero-cost-production-backup.mjs
+          node --check scripts/audit-production-write-readiness.mjs
+          node --check scripts/plan-manual-inbox-migration.mjs
+          node --check scripts/build-production-operations-summary.mjs
+          node --check scripts/evaluate-hourly-recovery.mjs
 
       - name: Check policy operations contracts
         run: npm run policy:operations-test
+
+      - name: Test policy attachment extraction
+        run: npm run policy:attachment-test
+
+      - name: Check workflow and production write guards
+        run: |
+          npm run security:workflow-test
+          npm run setup:production-test
+          npm run backup:test
 
       - name: Validate all manual reports
         env:

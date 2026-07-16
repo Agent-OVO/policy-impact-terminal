@@ -1,0 +1,7 @@
+# Production control surfaces require owner review.
+/.github/workflows/ @Agent-OVO
+/supabase/functions/ @Agent-OVO
+/supabase/migrations/ @Agent-OVO
+/scripts/configure-production.mjs @Agent-OVO
+/scripts/create-zero-cost-production-backup.mjs @Agent-OVO
+/scripts/verify-zero-cost-production-backup.mjs @Agent-OVO
