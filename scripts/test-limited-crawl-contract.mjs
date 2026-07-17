@@ -57,6 +57,7 @@ assert.ok(scripts["policy:hourly-recovery-test"]);
 assert.ok(scripts["policy:operations-test"]);
 
 await testMiitOfficialMirrorFallback();
+await testMiitIndexedAttachmentAugmentsPrimaryPage();
 await testMiitAttachmentMirrorFallback();
 await testMiitOfficialHtmlFallback();
 
@@ -173,6 +174,99 @@ async function testMiitOfficialMirrorFallback() {
     assert.equal(Object.hasOwn(candidate, "hydrationFallback"), false);
   } finally {
     await new Promise((resolve) => server.close(resolve));
+    await fs.rm(tempDir, { recursive: true, force: true });
+  }
+}
+
+async function testMiitIndexedAttachmentAugmentsPrimaryPage() {
+  const pdfBuffer = createMinimalPdf("Indexed attachment full text recovered alongside a reachable primary page. ".repeat(10));
+  let baseUrl = "";
+  const server = http.createServer((request, response) => {
+    const requestUrl = new URL(request.url ?? "/", "http://127.0.0.1");
+    if (requestUrl.pathname === "/api/search/info") {
+      const fields = [
+        { fieldTitle: "正文", fieldName: "content", fieldType: "Text", fieldValue: "<p>现予公布，具体内容详见附件。</p>" },
+        { fieldTitle: "PDF附件预览", fieldName: "filepdf", fieldType: "Attach", fieldValue: JSON.stringify([
+          { name: "索引附件.pdf", fileName: "indexed.pdf", url: "/attachments/indexed.pdf" }
+        ]) }
+      ];
+      response.writeHead(200, { "content-type": "application/json; charset=utf-8" });
+      response.end(JSON.stringify({
+        success: true,
+        data: {
+          searchResult: {
+            dataResults: [{
+              data: {
+                title: "工业和信息化部办公厅关于开展索引附件测试任务的通知",
+                url: `${baseUrl}/article.html`,
+                jsearch_date: "2026-07-16 09:30",
+                publishgroupname: "工业和信息化部",
+                filenumbername: "工信厅测函〔2026〕3号",
+                infoextends: JSON.stringify({ infoContent: JSON.stringify(fields) }),
+                infocontent: "现予公布，具体内容详见附件。",
+                typename: "通知"
+              }
+            }]
+          }
+        }
+      }));
+      return;
+    }
+    if (requestUrl.pathname === "/article.html") {
+      response.writeHead(200, { "content-type": "text/html; charset=utf-8" });
+      response.end("<!doctype html><html><body><div class=\"TRS_Editor\">现予公布，具体内容详见附件。</div></body></html>");
+      return;
+    }
+    if (requestUrl.pathname === "/attachments/indexed.pdf") {
+      response.writeHead(200, { "content-type": "application/pdf", "content-length": String(pdfBuffer.length) });
+      response.end(pdfBuffer);
+      return;
+    }
+    response.writeHead(404).end();
+  });
+
+  const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "miit-indexed-attachment-contract-"));
+  try {
+    await listenServer(server);
+    const address = server.address();
+    assert.ok(address && typeof address === "object");
+    baseUrl = `http://127.0.0.1:${address.port}`;
+    const outputPath = path.join(tempDir, "miit-indexed-attachment.json");
+    const result = await runChild(process.execPath, [
+      path.resolve("scripts/crawl-policy-sources.mjs"),
+      "--source=miit_policy_library",
+      "--source-scan-limit=20",
+      "--candidate-limit=10",
+      "--ingest-limit=10",
+      "--analysis-limit=3",
+      "--pending-queue-limit=8",
+      "--since=2026-07-01",
+      "--exclude-undated",
+      "--manual-selection-only",
+      `--out=${outputPath}`
+    ], {
+      cwd: process.cwd(),
+      windowsHide: true,
+      env: {
+        ...process.env,
+        MIIT_SEARCH_API_URLS: `${baseUrl}/api/search/info`,
+        MIIT_FALLBACK_LIST_URL: `${baseUrl}/missing/`,
+        MIIT_SEARCH_ATTEMPTS: "1",
+        MIIT_SEARCH_TIMEOUT_MS: "1000"
+      }
+    });
+    const output = `${result.stdout ?? ""}\n${result.stderr ?? ""}`;
+    assert.equal(result.status, 0, output);
+    const payload = JSON.parse(await fs.readFile(outputPath, "utf8"));
+    const candidate = payload.candidates[0];
+    assert.equal(candidate.raw.origin, "miit-search-api-rich");
+    assert.equal(candidate.raw.indexedAttachmentCount, 1);
+    assert.equal(candidate.raw.attachmentExtractionStatus, "pdf_extracted");
+    assert.equal(candidate.raw.attachments[0].extractionStatus, "extracted");
+    assert.match(candidate.fullText, /Indexed attachment full text recovered/);
+    assert.equal(candidate.raw.primaryHydrationError, undefined);
+  } finally {
+    await closeServer(server);
     await fs.rm(tempDir, { recursive: true, force: true });
   }
 }
