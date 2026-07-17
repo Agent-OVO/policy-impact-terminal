@@ -45,6 +45,13 @@ assert.match(recoveryWorkflow, /recoveryPerformed/);
 assert.match(recoveryWorkflow, /--recovery-input=artifacts\/recovery\/recovery-runs-annotated\.json/);
 assert.match(recoveryWorkflow, /--manual-selection-only/);
 assert.match(recoveryWorkflow, /steps\.recovery\.outputs\.needed == 'true'/);
+assert.match(recoveryWorkflow, /actions: write/);
+assert.match(recoveryWorkflow, /id: crawl/);
+assert.match(recoveryWorkflow, /Re-arm remote liveness after recovery attempt/);
+assert.match(recoveryWorkflow, /steps\.crawl\.outcome/);
+assert.match(recoveryWorkflow, /gh workflow run policy-remote-liveness\.yml/);
+assert.match(recoveryWorkflow, /delay_minutes="85"/);
+assert.match(recoveryWorkflow, /delay_minutes="15"/);
 
 assert.match(livenessWorkflow, /workflow_run:/);
 assert.match(livenessWorkflow, /Crawl policy sources hourly/);
