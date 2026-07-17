@@ -56,9 +56,10 @@ assert.ok(scripts["policy:hourly-recovery-test"]);
 assert.ok(scripts["policy:operations-test"]);
 
 await testMiitOfficialMirrorFallback();
+await testMiitAttachmentMirrorFallback();
 await testMiitOfficialHtmlFallback();
 
-console.log("[policy:crawl-contract-test] hourly schedule, MIIT official mirror and HTML fallbacks, bounded collection, and manual analysis contract passed");
+console.log("[policy:crawl-contract-test] hourly schedule, MIIT official search/page/attachment fallbacks, bounded collection, and manual analysis contract passed");
 
 async function testMiitOfficialMirrorFallback() {
   const policyText = "本通知围绕制造业高质量发展部署重点任务，明确实施范围、工作要求、组织保障、监督管理和后续评估机制。".repeat(12);
@@ -175,6 +176,119 @@ async function testMiitOfficialMirrorFallback() {
   }
 }
 
+async function testMiitAttachmentMirrorFallback() {
+  const pdfBuffer = createMinimalPdf("Official attachment mirror full text for deterministic extraction. ".repeat(10));
+  let primaryBaseUrl = "";
+  let mirrorBaseUrl = "";
+  const primaryServer = http.createServer((request, response) => {
+    const requestUrl = new URL(request.url ?? "/", "http://127.0.0.1");
+    if (requestUrl.pathname === "/api/search/info") {
+      response.writeHead(200, { "content-type": "application/json; charset=utf-8" });
+      response.end(JSON.stringify({
+        success: true,
+        data: {
+          searchResult: {
+            dataResults: [{
+              data: {
+                title: "工业和信息化部办公厅关于开展附件镜像测试任务的通知",
+                url: `${primaryBaseUrl}/article.html`,
+                jsearch_date: "2026-07-16 10:00",
+                publishgroupname: "工业和信息化部",
+                filenumbername: "工信厅测函〔2026〕2号",
+                infoextends: JSON.stringify({ infoContent: "[]" }),
+                infocontent: "现予公布，具体内容详见附件。",
+                typename: "通知"
+              }
+            }]
+          }
+        }
+      }));
+      return;
+    }
+    if (requestUrl.pathname === "/article.html") {
+      response.writeHead(200, { "content-type": "text/html; charset=utf-8" });
+      response.end(`<!doctype html><html><body><div class="TRS_Editor">现予公布，具体内容详见附件。</div><a href="${primaryBaseUrl}/attachments/policy.pdf">测试政策完整附件.pdf</a></body></html>`);
+      return;
+    }
+    if (requestUrl.pathname === "/attachments/policy.pdf") {
+      response.writeHead(503, { "content-type": "text/plain" });
+      response.end("primary attachment unavailable");
+      return;
+    }
+    response.writeHead(404).end();
+  });
+  const mirrorServer = http.createServer((request, response) => {
+    const requestUrl = new URL(request.url ?? "/", "http://127.0.0.1");
+    if (requestUrl.pathname === "/attachments/policy.pdf") {
+      response.writeHead(200, { "content-type": "application/pdf", "content-length": String(pdfBuffer.length) });
+      response.end(pdfBuffer);
+      return;
+    }
+    response.writeHead(404).end();
+  });
+
+  const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "miit-attachment-mirror-contract-"));
+  try {
+    await Promise.all([
+      listenServer(primaryServer),
+      listenServer(mirrorServer)
+    ]);
+    const primaryAddress = primaryServer.address();
+    const mirrorAddress = mirrorServer.address();
+    assert.ok(primaryAddress && typeof primaryAddress === "object");
+    assert.ok(mirrorAddress && typeof mirrorAddress === "object");
+    primaryBaseUrl = `http://127.0.0.1:${primaryAddress.port}`;
+    mirrorBaseUrl = `http://127.0.0.1:${mirrorAddress.port}`;
+    const outputPath = path.join(tempDir, "miit-attachment-mirror.json");
+    const result = await runChild(process.execPath, [
+      path.resolve("scripts/crawl-policy-sources.mjs"),
+      "--source=miit_policy_library",
+      "--source-scan-limit=20",
+      "--candidate-limit=10",
+      "--ingest-limit=10",
+      "--analysis-limit=3",
+      "--pending-queue-limit=8",
+      "--since=2026-07-01",
+      "--exclude-undated",
+      "--manual-selection-only",
+      `--out=${outputPath}`
+    ], {
+      cwd: process.cwd(),
+      windowsHide: true,
+      env: {
+        ...process.env,
+        MIIT_SEARCH_API_URLS: `${primaryBaseUrl}/api/search/info,${mirrorBaseUrl}/api/search/info`,
+        MIIT_FALLBACK_LIST_URL: `${primaryBaseUrl}/missing/`,
+        MIIT_SEARCH_ATTEMPTS: "1",
+        MIIT_MIRROR_SEARCH_ATTEMPTS: "1",
+        MIIT_MIRROR_ATTACHMENT_ATTEMPTS: "1",
+        MIIT_SEARCH_TIMEOUT_MS: "1000"
+      }
+    });
+    const output = `${result.stdout ?? ""}\n${result.stderr ?? ""}`;
+    assert.equal(result.status, 0, output);
+    const payload = JSON.parse(await fs.readFile(outputPath, "utf8"));
+    assert.equal(payload.runStatus, "ok");
+    assert.equal(payload.counts.candidates, 1);
+    assert.equal(payload.counts.withFullText, 1);
+    assert.equal(payload.counts.analysisSelected, 0);
+    assert.equal(payload.sourceHealth[0].fallbackUsed, true);
+    assert.ok(payload.sourceHealth[0].fetchModes.includes("miit-attachment-mirror-fallback"));
+    const candidate = payload.candidates[0];
+    const attachment = candidate.raw.attachments[0];
+    assert.equal(attachment.extractionStatus, "extracted");
+    assert.equal(attachment.mirrorFallbackUsed, true);
+    assert.equal(attachment.finalUrl, `${mirrorBaseUrl}/attachments/policy.pdf`);
+    assert.match(candidate.fullText, /Official attachment mirror full text/);
+  } finally {
+    await Promise.all([
+      closeServer(primaryServer),
+      closeServer(mirrorServer)
+    ]);
+    await fs.rm(tempDir, { recursive: true, force: true });
+  }
+}
+
 async function testMiitOfficialHtmlFallback() {
   const policyText = "本通知围绕制造业高质量发展部署重点任务，明确实施范围、工作要求、组织保障、监督管理和后续评估机制。".repeat(12);
   const server = http.createServer((request, response) => {
@@ -283,6 +397,18 @@ function createMinimalPdf(text) {
   }
   pdf += `trailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF\n`;
   return Buffer.from(pdf, "ascii");
+}
+
+function listenServer(server) {
+  return new Promise((resolve, reject) => {
+    server.once("error", reject);
+    server.listen(0, "127.0.0.1", resolve);
+  });
+}
+
+function closeServer(server) {
+  if (!server.listening) return Promise.resolve();
+  return new Promise((resolve) => server.close(resolve));
 }
 
 function runChild(command, args, options) {
