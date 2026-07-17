@@ -9,7 +9,7 @@ import {
 } from "./lib/policy-triage.mjs";
 import { hydratePolicyAttachments } from "./lib/policy-attachments.mjs";
 
-const CRAWLER_VERSION = "policy-source-crawler-v0.3";
+const CRAWLER_VERSION = "policy-source-crawler-v0.4";
 const MIN_POLICY_FULL_TEXT_LENGTH = 280;
 const DEFAULT_POLICY_SINCE = "2026-05-01";
 const DEFAULT_SOURCE_SCAN_LIMIT = 60;
@@ -17,6 +17,8 @@ const DEFAULT_CANDIDATE_LIMIT = 24;
 const DEFAULT_INGEST_LIMIT = 24;
 const DEFAULT_ANALYSIS_PER_RUN_LIMIT = 3;
 const DEFAULT_PENDING_QUEUE_LIMIT = 8;
+const MIIT_SEARCH_API_URL = process.env.MIIT_SEARCH_API_URL || "https://www.miit.gov.cn/search-front-server/api/search/info";
+const MIIT_FALLBACK_LIST_URL = process.env.MIIT_FALLBACK_LIST_URL || "https://www.miit.gov.cn/zwgk/";
 
 const SOURCES = [
   {
@@ -75,13 +77,31 @@ for (const source of selectedSources) {
   try {
     const fetched = await source.fetch(source, args);
     const items = fetched.slice(0, args.sourceScanLimit);
+    const fetchModes = [...new Set(items.map((item) => item.raw?.origin).filter(Boolean))];
+    const fallbackUsed = fetchModes.some((mode) => String(mode).includes("fallback"));
     collected.push(...items);
-    sourceHealth.push({ sourceKey: source.key, sourceName: source.name, status: "ok", listCandidates: items.length, error: null });
-    console.log(`[crawl] ${source.key}: ${items.length} candidates`);
+    sourceHealth.push({
+      sourceKey: source.key,
+      sourceName: source.name,
+      status: "ok",
+      listCandidates: items.length,
+      fetchModes,
+      fallbackUsed,
+      error: null
+    });
+    console.log(`[crawl] ${source.key}: ${items.length} candidates${fallbackUsed ? " (official fallback)" : ""}`);
   } catch (error) {
     const message = getErrorMessage(error);
     errors.push({ sourceKey: source.key, message });
-    sourceHealth.push({ sourceKey: source.key, sourceName: source.name, status: "failed", listCandidates: 0, error: message });
+    sourceHealth.push({
+      sourceKey: source.key,
+      sourceName: source.name,
+      status: "failed",
+      listCandidates: 0,
+      fetchModes: [],
+      fallbackUsed: false,
+      error: message
+    });
     console.error(`[crawl] ${source.key}: ${message}`);
   }
 }
@@ -218,6 +238,11 @@ function parseArgs(argv) {
 function parsePositiveInteger(value, fallback) {
   const parsed = Number(value);
   return Number.isInteger(parsed) && parsed > 0 ? parsed : fallback;
+}
+
+function readPositiveIntegerEnv(name) {
+  const parsed = Number(process.env[name]);
+  return Number.isInteger(parsed) && parsed > 0 ? parsed : null;
 }
 
 function printHelp() {
@@ -367,12 +392,22 @@ async function fetchMiitDocuments(source, args) {
     return mapMiitRows(source, rows, "miit-search-api-rich");
   } catch (primaryError) {
     printWorkflowWarning(`MIIT rich search failed; retrying compact query: ${getErrorMessage(primaryError)}`);
-    const rows = await fetchMiitSearchRows(source, {
-      pageSize: 20,
-      selectFields: compactFields,
-      mode: "compact"
-    });
-    return mapMiitRows(source, rows, "miit-search-api-compact-fallback");
+    try {
+      const rows = await fetchMiitSearchRows(source, {
+        pageSize: 20,
+        selectFields: compactFields,
+        mode: "compact"
+      });
+      return mapMiitRows(source, rows, "miit-search-api-compact-fallback");
+    } catch (compactError) {
+      printWorkflowWarning(`MIIT compact search failed; using official HTML list fallback: ${getErrorMessage(compactError)}`);
+      const fallbackRows = await fetchMiitOfficialHomepage(source, args);
+      if (fallbackRows.length === 0) {
+        throw new Error(`MIIT search API and official HTML fallback both failed. rich=${getErrorMessage(primaryError)} compact=${getErrorMessage(compactError)}`);
+      }
+      printWorkflowWarning(`MIIT official HTML fallback recovered ${fallbackRows.length} recent policy rows.`);
+      return fallbackRows;
+    }
   }
 }
 
@@ -400,11 +435,11 @@ async function fetchMiitSearchRows(source, input) {
     sortFields: JSON.stringify([{ name: "deploytime", type: "desc" }]),
     p: "1"
   });
-  const data = await fetchJson(`https://www.miit.gov.cn/search-front-server/api/search/info?${params}`, {
+  const data = await fetchJson(`${MIIT_SEARCH_API_URL}?${params}`, {
     referer: source.listUrl,
     accept: "application/json, text/plain, */*",
-    attempts: input.mode === "compact" ? 4 : 3,
-    timeoutMs: 30_000,
+    attempts: readPositiveIntegerEnv("MIIT_SEARCH_ATTEMPTS") ?? (input.mode === "compact" ? 4 : 3),
+    timeoutMs: readPositiveIntegerEnv("MIIT_SEARCH_TIMEOUT_MS") ?? 30_000,
     backoffMs: input.mode === "compact" ? [2_000, 5_000, 9_000] : [1_000, 3_000]
   });
   const rows = data?.data?.searchResult?.dataResults;
@@ -412,6 +447,41 @@ async function fetchMiitSearchRows(source, input) {
     throw new Error(`MIIT ${input.mode} API response did not contain data.searchResult.dataResults.`);
   }
   return rows;
+}
+
+async function fetchMiitOfficialHomepage(source, args) {
+  const html = await fetchText(MIIT_FALLBACK_LIST_URL, {
+    referer: source.listUrl,
+    attempts: 3,
+    timeoutMs: 20_000
+  });
+  const $ = cheerio.load(html);
+  const candidates = [];
+  const seen = new Set();
+
+  $(".zwgk-zcwj a[href*='/zwgk/zcwj/wjfb/'][href*='/art/']").each((_, anchor) => {
+    const href = $(anchor).attr("href");
+    const title = cleanText($(anchor).attr("title") || $(anchor).text());
+    if (!href || !title) return;
+    const sourceUrl = new URL(href, MIIT_FALLBACK_LIST_URL).href;
+    if (seen.has(sourceUrl)) return;
+    seen.add(sourceUrl);
+    const dateText = cleanText($(anchor).closest("li").find("span").first().text());
+    const publishDate = normalizeDate(dateText.match(/\d{4}-\d{2}-\d{2}/)?.[0]);
+    candidates.push(makeCandidate(source, {
+      title,
+      sourceUrl,
+      publishDate,
+      publishDateTime: publishDate,
+      policyNo: extractPolicyNo(title),
+      raw: {
+        origin: "miit-official-homepage-fallback",
+        fallbackListUrl: MIIT_FALLBACK_LIST_URL
+      }
+    }));
+  });
+
+  return candidates.slice(0, args.sourceScanLimit);
 }
 
 function mapMiitRows(source, rows, origin) {
