@@ -1,0 +1,156 @@
+name: Maintain remote policy collection liveness
+
+on:
+  workflow_run:
+    workflows:
+      - Crawl policy sources hourly
+      - Recover missed policy collection
+    types: [completed]
+  schedule:
+    # Best-effort backstop only. The workflow_run timer chain below is the
+    # independent remote trigger that does not rely on the next cron event.
+    - cron: "4 * * * *"
+    - cron: "34 * * * *"
+  workflow_dispatch:
+    inputs:
+      delay_minutes:
+        description: "Bootstrap/test delay before dispatching a recovery check"
+        required: false
+        default: "85"
+      force_recovery:
+        description: "Force the dispatched recovery crawl; use only for controlled verification"
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  classify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      mode: ${{ steps.classify.outputs.mode }}
+      delay_minutes: ${{ steps.classify.outputs.delay_minutes }}
+      force_recovery: ${{ steps.classify.outputs.force_recovery }}
+    steps:
+      - name: Classify liveness event
+        id: classify
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT_NAME: ${{ github.event_name }}
+          SOURCE_WORKFLOW: ${{ github.event.workflow_run.name || '' }}
+          SOURCE_EVENT: ${{ github.event.workflow_run.event || '' }}
+          SOURCE_CONCLUSION: ${{ github.event.workflow_run.conclusion || '' }}
+          SOURCE_RUN_ID: ${{ github.event.workflow_run.id || '' }}
+          INPUT_DELAY_MINUTES: ${{ github.event.inputs.delay_minutes || '85' }}
+          INPUT_FORCE_RECOVERY: ${{ github.event.inputs.force_recovery || 'false' }}
+        run: |
+          set -euo pipefail
+          mode="none"
+          delay_minutes="85"
+          force_recovery="false"
+
+          case "$EVENT_NAME" in
+            workflow_dispatch)
+              mode="normal"
+              delay_minutes="$INPUT_DELAY_MINUTES"
+              force_recovery="$INPUT_FORCE_RECOVERY"
+              ;;
+            schedule)
+              mode="check"
+              delay_minutes="0"
+              ;;
+            workflow_run)
+              run_json=$(gh run view "$SOURCE_RUN_ID" \
+                --repo "$GITHUB_REPOSITORY" \
+                --json jobs 2>/dev/null || echo '{"jobs":[]}')
+
+              if [ "$SOURCE_WORKFLOW" = "Crawl policy sources hourly" ]; then
+                # Manual smoke runs are deliberately excluded from the formal
+                # remote liveness clock. Only a real schedule event re-arms it.
+                if [ "$SOURCE_EVENT" = "schedule" ]; then
+                  performed=$(jq -r 'any(.jobs[].steps[]?; .name == "Collect policy sources and optionally ingest originals" and .conclusion == "success")' <<<"$run_json")
+                  if [ "$SOURCE_CONCLUSION" = "success" ] && [ "$performed" = "true" ]; then
+                    mode="normal"
+                    delay_minutes="85"
+                  else
+                    mode="retry"
+                    delay_minutes="15"
+                  fi
+                fi
+              elif [ "$SOURCE_WORKFLOW" = "Recover missed policy collection" ]; then
+                performed=$(jq -r 'any(.jobs[].steps[]?; .name == "Run recovery crawl" and .conclusion == "success")' <<<"$run_json")
+                if [ "$SOURCE_CONCLUSION" = "success" ] && [ "$performed" = "true" ]; then
+                  mode="normal"
+                  delay_minutes="85"
+                elif [ "$SOURCE_CONCLUSION" != "success" ]; then
+                  mode="retry"
+                  delay_minutes="15"
+                fi
+                # A successful no-op recovery check must not cancel or reset an
+                # already sleeping liveness timer.
+              fi
+              ;;
+          esac
+
+          if ! [[ "$delay_minutes" =~ ^[0-9]+$ ]] || [ "$delay_minutes" -lt 0 ] || [ "$delay_minutes" -gt 100 ]; then
+            echo "Invalid delay_minutes: $delay_minutes" >&2
+            exit 1
+          fi
+          if [ "$force_recovery" != "true" ] && [ "$force_recovery" != "false" ]; then
+            echo "Invalid force_recovery: $force_recovery" >&2
+            exit 1
+          fi
+
+          echo "mode=$mode" >> "$GITHUB_OUTPUT"
+          echo "delay_minutes=$delay_minutes" >> "$GITHUB_OUTPUT"
+          echo "force_recovery=$force_recovery" >> "$GITHUB_OUTPUT"
+          echo "[remote:liveness] event=$EVENT_NAME source=$SOURCE_WORKFLOW/$SOURCE_EVENT conclusion=$SOURCE_CONCLUSION mode=$mode delay=${delay_minutes}m force=$force_recovery"
+
+  timer:
+    needs: classify
+    if: needs.classify.outputs.mode == 'normal' || needs.classify.outputs.mode == 'retry'
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    concurrency:
+      group: policy-remote-liveness-timer
+      cancel-in-progress: true
+    steps:
+      - name: Wait for collection liveness deadline
+        env:
+          DELAY_MINUTES: ${{ needs.classify.outputs.delay_minutes }}
+        run: sleep "$((DELAY_MINUTES * 60))"
+
+      - name: Dispatch guarded recovery check
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FORCE_RECOVERY: ${{ needs.classify.outputs.force_recovery }}
+        run: |
+          set -euo pipefail
+          args=(workflow run recover-policy-collection.yml --repo "$GITHUB_REPOSITORY" --ref main)
+          if [ "$FORCE_RECOVERY" = "true" ]; then
+            args+=(-f force=true)
+          fi
+          gh "${args[@]}"
+          echo "[remote:liveness] dispatched guarded recovery workflow"
+
+  scheduled_check:
+    needs: classify
+    if: needs.classify.outputs.mode == 'check'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    concurrency:
+      group: policy-remote-liveness-scheduled-check
+      cancel-in-progress: true
+    steps:
+      - name: Dispatch best-effort scheduled recovery check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run recover-policy-collection.yml \
+            --repo "$GITHUB_REPOSITORY" \
+            --ref main
+          echo "[remote:liveness] scheduled backstop dispatched recovery workflow"

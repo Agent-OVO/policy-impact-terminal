@@ -6,10 +6,11 @@ import os from "node:os";
 import path from "node:path";
 import { spawn } from "node:child_process";
 
-const [crawler, workflow, recoveryWorkflow, packageJson, ingest] = await Promise.all([
+const [crawler, workflow, recoveryWorkflow, livenessWorkflow, packageJson, ingest] = await Promise.all([
   fs.readFile(new URL("./crawl-policy-sources.mjs", import.meta.url), "utf8"),
   fs.readFile(new URL("../.github/workflows/crawl-policies.yml", import.meta.url), "utf8"),
   fs.readFile(new URL("../.github/workflows/recover-policy-collection.yml", import.meta.url), "utf8"),
+  fs.readFile(new URL("../.github/workflows/policy-remote-liveness.yml", import.meta.url), "utf8"),
   fs.readFile(new URL("../package.json", import.meta.url), "utf8"),
   fs.readFile(new URL("../supabase/functions/ingest/index.ts", import.meta.url), "utf8")
 ]);
@@ -35,12 +36,29 @@ assert.match(workflow, /policy:crawl-contract-test/);
 assert.match(workflow, /policy:hourly-operations-test/);
 assert.doesNotMatch(workflow, /--auto-select-analysis/);
 
-assert.match(recoveryWorkflow, /cron: "7,22,37,52 \* \* \* \*"/);
+for (const minute of [7, 22, 37, 52]) {
+  assert.match(recoveryWorkflow, new RegExp(`cron: "${minute} \\* \\* \\* \\*"`));
+}
+assert.doesNotMatch(recoveryWorkflow, /cron: "7,22,37,52/);
 assert.match(recoveryWorkflow, /threshold_minutes \|\| '80'/);
 assert.match(recoveryWorkflow, /recoveryPerformed/);
 assert.match(recoveryWorkflow, /--recovery-input=artifacts\/recovery\/recovery-runs-annotated\.json/);
 assert.match(recoveryWorkflow, /--manual-selection-only/);
 assert.match(recoveryWorkflow, /steps\.recovery\.outputs\.needed == 'true'/);
+
+assert.match(livenessWorkflow, /workflow_run:/);
+assert.match(livenessWorkflow, /Crawl policy sources hourly/);
+assert.match(livenessWorkflow, /Recover missed policy collection/);
+assert.match(livenessWorkflow, /actions: write/);
+assert.match(livenessWorkflow, /policy-remote-liveness-timer/);
+assert.match(livenessWorkflow, /cancel-in-progress: true/);
+assert.match(livenessWorkflow, /Collect policy sources and optionally ingest originals/);
+assert.match(livenessWorkflow, /Run recovery crawl/);
+assert.match(livenessWorkflow, /SOURCE_EVENT" = "schedule"/);
+assert.match(livenessWorkflow, /delay_minutes="85"/);
+assert.match(livenessWorkflow, /delay_minutes="15"/);
+assert.match(livenessWorkflow, /gh workflow run recover-policy-collection\.yml/);
+assert.doesNotMatch(livenessWorkflow, /auto-select-analysis/);
 
 assert.match(ingest, /if \(!analysisQueueSelected\)/);
 assert.match(ingest, /job: null/);
