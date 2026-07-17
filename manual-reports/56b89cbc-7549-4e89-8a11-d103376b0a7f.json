@@ -1,0 +1,749 @@
+{
+  "id": "56b89cbc-7549-4e89-8a11-d103376b0a7f",
+  "policyId": "56b89cbc-7549-4e89-8a11-d103376b0a7f",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-official-pdf",
+  "qualityProfile": "policy-analysis-quality-v1.1",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "部门规章",
+  "substantivePolicyType": "招标投标领域公共信用信息与信用评价统一管理规则",
+  "primaryActionType": "信用信息归集共享、强制查询应用、统一评价与差异化监管",
+  "policyType": "部门规章",
+  "policySignalStrength": "high",
+  "implementationCertainty": "high",
+  "policyStrength": "high",
+  "policyTransmission": "regulatory_infrastructure",
+  "analysisDepth": "L4",
+  "analysisDepthReason": "办法明确公共信用信息归集时限、平台互联、公示查询、投标否决、代理机构限制、专家管理、全国统一评价规则、保证金和付款应用、保函费率、差异化监管及法律责任，并确定2027年1月1日施行，制度约束和数字基础设施需求均较明确；但行业评价细则、地方政府投资项目细化规则、系统改造预算、采购项目和供应商尚未出现，企业层保持零公司。",
+  "generatedAt": "2026-07-17T19:25:00+08:00",
+  "summary": {
+    "id": "56b89cbc-7549-4e89-8a11-d103376b0a7f",
+    "title": "《招标投标领域信用管理暂行办法》 2026年第44号令",
+    "issuer": "国家发展和改革委员会",
+    "source": "国家发展改革委 - 政策文件库",
+    "publishDate": "2026-07-17",
+    "status": "published",
+    "confidence": 96,
+    "industryCount": 6,
+    "companyCount": 0,
+    "evidenceCount": 8,
+    "primarySignal": "招标投标信用管理从分散查询和地方评价转向全国统一数据、统一行业评价规则、交易环节强制应用及差异化监管",
+    "category": "招标投标信用治理与公共资源交易数字基础设施"
+  },
+  "policy": {
+    "title": "《招标投标领域信用管理暂行办法》 2026年第44号令",
+    "status": "已发布，尚未施行",
+    "issuer": "国家发展和改革委员会",
+    "publishDate": "2026-07-17",
+    "effectiveDate": "2027-01-01",
+    "source": "国家发展改革委 - 政策文件库",
+    "category": "招标投标信用治理与公共资源交易数字基础设施",
+    "level": "中央部门规章",
+    "confidence": 98,
+    "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/fzggwl/202607/t20260716_1406530.html",
+    "scope": "招标人、投标人、招标代理机构和评标专家的招标投标领域公共信用信息归集、共享、公示、查询、应用、公共信用评价及评价结果应用",
+    "impactScope": "全国信用信息共享平台、信用中国、全国公共资源交易平台、行业监管系统、电子交易系统、企业投标与履约管理、招标代理、评标专家库、投标履约保函和差异化监管",
+    "jurisdiction": "中国大陆",
+    "tags": [
+      "招标投标",
+      "公共信用信息",
+      "信用中国",
+      "公共资源交易平台",
+      "公共信用评价",
+      "投标否决",
+      "保证金",
+      "保函费率",
+      "差异化监管",
+      "信用修复"
+    ]
+  },
+  "brief": {
+    "judgement": "该办法把招标投标信用管理由分散信息公示和地方自设评价，重构为全国统一数据规范、行业统一评价规则、依法必须招标项目强制查询应用以及保证金、付款、保函费率和监管频次联动的制度闭环；它将增加信用平台、公共资源交易平台、行业系统和电子交易系统的接口、留痕、评价与异议处理改造需求，同时直接改变投标人、代理机构和评标专家的合规边界，但当前没有预算、采购、项目或供应商证据，不能映射具体上市公司。",
+    "summary": "办法要求招标投标行政监督部门将公共信用信息按全国统一规范标注，并在信息产生后二十个工作日内归集至全国信用信息共享平台；依法必须招标项目应查询和应用相关信用信息，特定行政处罚、失信被执行人状态等可导致投标被否决或代理机构不得受托。国务院行业主管部门负责建立全国统一的行业公共信用评价规则，地方部门不得自行开展企业评价。评价结果可用于评标标准、保证金、履约能力核验、预付款和进度款，也可被银行、担保和保险机构用于差异化保函费率，并进入差异化监管。",
+    "keyPoints": [
+      "公共信用信息需按统一数据规范标注，并在产生后二十个工作日内归集至全国信用信息共享平台。",
+      "信用中国、全国公共资源交易平台、行业平台和电子交易系统需形成查询、调用、留痕与异议处理链路。",
+      "依法必须招标项目对特定失信信息具有强制查询和应用义务，未履行可能导致罚款及中标无效。",
+      "行业公共信用评价规则由国务院有关部门统一制定，地方不得自行评价企业，降低地方评价壁垒。",
+      "信用评价结果可进入保证金、付款、履约核验、保函费率和监管频次，影响企业交易成本与现金流条件。",
+      "本报告保持零公司，后续以行业评价细则、系统改造项目、招投标和公司合同证据为升级条件。"
+    ],
+    "methodology": "人工读取国家发展改革委发布页及完整PDF，按信息归集、公示查询、强制应用、统一评价、金融与交易条件联动、差异化监管、法律责任和实施时点拆分机制；公司层坚持零公司，不把电子政务、征信、招投标或金融科技业务标签直接解释为当前政策订单。"
+  },
+  "policyIndustryMap": [
+    {
+      "id": "pi1",
+      "industry": "公共信用数据归集与跨平台接口",
+      "policyAction": "按全国统一数据规范归集招标投标信用信息，并强化信用平台、交易平台和行业系统互联互通",
+      "impactType": "digital_infrastructure",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "二十个工作日归集时限和跨平台互联要求形成数据标准、接口、主体验证、质量控制和同步运维需求，但具体改造项目尚未公布。",
+      "relatedClauseIds": ["c1", "c2"],
+      "relatedNodeIds": ["n1"],
+      "watchSignals": ["全国统一数据规范", "行业系统接口改造", "平台数据质量通报", "地方系统采购与验收"]
+    },
+    {
+      "id": "pi2",
+      "industry": "电子招投标信用查询与合规留痕",
+      "policyAction": "为依法必须招标项目提供信用查询，并把查询情况纳入招标投标资料",
+      "impactType": "regulatory_compliance",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "强制查询、否决投标和资料留痕要求将进入电子交易流程，既产生系统规则和证据链改造需求，也提高招标人、投标人和代理机构合规成本。",
+      "relatedClauseIds": ["c2", "c3"],
+      "relatedNodeIds": ["n2"],
+      "watchSignals": ["电子交易系统功能清单", "信用查询接口调用规则", "招标文件模板更新", "项目留痕审计"]
+    },
+    {
+      "id": "pi3",
+      "industry": "行业公共信用评价规则与模型治理",
+      "policyAction": "由国务院行业主管部门建立全国统一评价规则，限制地方自行评价和不合理指标",
+      "impactType": "standard_governance",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "各行业需公开指标、方法、周期、等级和应用规则，并处理异议申诉；统一规则减少地方壁垒，但评价模型、数据质量和解释责任要求提高。",
+      "relatedClauseIds": ["c4"],
+      "relatedNodeIds": ["n3"],
+      "watchSignals": ["行业统一评价规则", "评价指标与权重", "异议申诉机制", "地方旧评价清理"]
+    },
+    {
+      "id": "pi4",
+      "industry": "投标履约保函、保证金与信用定价",
+      "policyAction": "允许信用评价用于保证金机制、预付款和进度款，并支持金融机构采用差异化保函费率",
+      "impactType": "financial_pricing",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "信用结果可能影响投标与履约资金占用、保函保单费率和付款条件，形成交易成本差异，但具体权重、费率和风控模型仍由行业规则与机构实践决定。",
+      "relatedClauseIds": ["c5"],
+      "relatedNodeIds": ["n4"],
+      "watchSignals": ["保证金差异化规则", "保函保单产品条款", "费率变化", "预付款和进度款应用案例"]
+    },
+    {
+      "id": "pi5",
+      "industry": "企业投标合规、信用修复与异议服务",
+      "policyAction": "将严重失信、行政处罚和信用修复状态嵌入投标、代理和专家管理流程",
+      "impactType": "compliance_service",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "企业需要持续核验信用记录、处罚期限、修复状态和申诉结果，代理机构与专家库也需建立准入、退出和纠错流程，但这首先是合规约束而非新增收入。",
+      "relatedClauseIds": ["c3", "c6"],
+      "relatedNodeIds": ["n5"],
+      "watchSignals": ["信用修复接口", "异议处理时效", "投标否决案例", "代理机构和专家出库数据"]
+    },
+    {
+      "id": "pi6",
+      "industry": "招标投标差异化监管与风险分析",
+      "policyAction": "依据评价结果调整抽查比例、检查频次和便利服务，并动态监测评价应用",
+      "impactType": "regulatory_analytics",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "监管部门需要把评价结果转化为抽查、检查和便利服务策略，并监测违规评价与应用；需求方向明确，但算法、平台和采购边界尚未形成。",
+      "relatedClauseIds": ["c5", "c7"],
+      "relatedNodeIds": ["n6"],
+      "watchSignals": ["差异化监管细则", "动态监测平台", "抽查频次变化", "违规评价纠正通报"]
+    }
+  ],
+  "industryChain": [
+    {
+      "id": "chain1",
+      "chainName": "统一信用数据—交易查询应用—行业评价—交易金融条件—差异化监管闭环",
+      "policyRole": "办法把信用数据、电子交易、行业评价、企业资金条件和行政监管连接为统一制度链；产业需求只有经过配套规则、系统改造、预算采购和实际运行后才进入企业经营层。",
+      "nodes": [
+        {"id": "n1", "policySensitivity": "high", "description": "信用数据按统一规范归集至全国平台，并在行业、地方和交易系统间同步。"},
+        {"id": "n2", "policySensitivity": "high", "description": "依法必须招标项目在电子交易流程中查询、应用信用信息并保留证据。"},
+        {"id": "n3", "policySensitivity": "high", "description": "行业主管部门建立全国统一信用评价规则、结果发布和异议处理机制。"},
+        {"id": "n4", "policySensitivity": "high", "description": "评价结果进入保证金、付款、履约核验及保函保单差异化定价。"},
+        {"id": "n5", "policySensitivity": "high", "description": "企业、代理机构和评标专家根据处罚、失信、修复和申诉状态管理资格与合规。"},
+        {"id": "n6", "policySensitivity": "high", "description": "监管部门依据评价结果调整抽查检查和便利服务，并监测评价应用合规性。"}
+      ],
+      "edges": [
+        {"from": "n1", "to": "n2", "relation": "data_to_transaction", "description": "统一信用数据通过平台接口进入招标投标交易流程。"},
+        {"from": "n1", "to": "n3", "relation": "data_to_evaluation", "description": "归集数据支撑行业统一信用评价和结果公示。"},
+        {"from": "n3", "to": "n4", "relation": "evaluation_to_pricing", "description": "评价结果影响交易保证、付款和金融机构风险定价。"},
+        {"from": "n2", "to": "n5", "relation": "transaction_to_compliance", "description": "查询和否决规则推动参与主体持续管理信用合规。"},
+        {"from": "n3", "to": "n6", "relation": "evaluation_to_supervision", "description": "评价结果成为差异化监管和便利服务的输入。"}
+      ]
+    }
+  ],
+  "companyMap": [],
+  "policyNetwork": [
+    {
+      "id": "pn1",
+      "relatedPolicy": "关于建立企业信用状况综合评价体系的实施方案（国办发〔2026〕8号）",
+      "relationship": "framework_basis",
+      "meaning": "本办法把企业信用综合评价总体框架具体化到招标投标领域，形成行业数据、评价和应用规则。",
+      "evidenceLevel": "indirect",
+      "sourceDate": "2026-03-29",
+      "watchSignals": ["综合评价指标体系", "行业评价规则衔接", "地方旧评价清理"]
+    },
+    {
+      "id": "pn2",
+      "relatedPolicy": "公共资源交易中心招标投标现场管理暂行办法（2026年第43号令）",
+      "relationship": "complementary_rule",
+      "meaning": "第43号令规范交易现场记录、异常提醒和违法线索报告，第44号令规范信用数据、评价和结果应用，两者共同推动公共资源交易系统与监管系统形成数据闭环。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2026-07-15",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/fzggwl/202607/t20260714_1406507.html",
+      "watchSignals": ["统一技术标准", "交易系统联合改造", "监管接口和信用接口协同"]
+    },
+    {
+      "id": "pn3",
+      "relatedPolicy": "信用修复管理办法（国家发展改革委令2025年第36号）",
+      "relationship": "supporting_rule",
+      "meaning": "招标人、投标人和代理机构完成信用修复后不再公示相关信息，但附期限行政处罚在期限届满前不得提前终止公示。",
+      "evidenceLevel": "indirect",
+      "watchSignals": ["信用修复数据同步", "行政处罚期限校验", "申诉纠错接口"]
+    }
+  ],
+  "investmentDirection": {
+    "primaryDirection": "提高对公共信用平台与公共资源交易系统接口改造、行业信用评价规则、交易合规留痕、电子保函信用定价和监管分析项目的事实观察，但当前不提高任何具体公司的投资优先级。",
+    "directionStrength": "medium",
+    "timeHorizon": "medium_term",
+    "watchIndustries": [
+      "公共信用数据平台与接口",
+      "公共资源电子交易系统",
+      "行业信用评价与模型治理",
+      "电子保函和信用风险定价",
+      "企业信用合规与修复服务",
+      "招标投标监管数据分析"
+    ],
+    "watchChainNodes": [
+      "统一信用数据归集",
+      "交易查询应用与留痕",
+      "行业统一信用评价",
+      "保证金付款和保函定价",
+      "差异化监管"
+    ],
+    "watchCompanyTypes": [
+      "全国和地方公共信用信息平台建设运营主体",
+      "公共资源电子交易系统建设与运维服务商",
+      "具备招标投标信用评价与规则引擎能力的服务主体",
+      "投标履约电子保函平台、银行、担保和保险机构",
+      "企业信用合规、修复和异议处理服务主体"
+    ],
+    "watchCompanies": [],
+    "nearTermCatalysts": [
+      "国务院行业主管部门发布全国统一信用评价规则",
+      "地方政府投资项目信用评价应用细则",
+      "信用中国和公共资源交易平台接口升级",
+      "电子交易系统改造项目和中标公告",
+      "银行、担保和保险机构差异化保函产品",
+      "2027年施行前系统验收、培训和模板更新"
+    ],
+    "keyRisks": [
+      "多数改造可能由现有国家平台、地方平台和存量合同消化，新增采购规模不确定",
+      "行业评价指标和数据质量可能导致误判、申诉压力和合规责任",
+      "信用评价应用权重受公平竞争边界约束，不能成为排斥市场主体的工具",
+      "企业信用差异可能影响保证金、付款和保函成本，但具体幅度尚无证据",
+      "政策直接约束监管部门、交易主体和金融机构，并未指定商业供应商"
+    ],
+    "minimumEvidenceNeeded": [
+      "各行业统一评价规则及技术规范",
+      "平台接口改造、预算、采购和中标公告",
+      "地方政府投资项目应用细则与招标文件模板",
+      "电子保函、保证金和付款差异化产品及费率数据",
+      "公司公告、合同、业务收入和回款证据",
+      "投标否决、申诉纠错和差异化监管实际案例"
+    ],
+    "doNotOverread": [
+      "全国统一信用评价不等于商业征信机构自动获得订单",
+      "平台互联互通要求不等于新增系统必须整体重建",
+      "差异化保函费率不等于金融机构利润必然上升",
+      "电子交易系统业务能力不等于已经获得本政策改造项目",
+      "信用评价结果不得成为限制、排斥不同地区、所有制或规模企业的工具",
+      "本报告不构成交易结论"
+    ],
+    "summary": "制度已明确数据、交易、评价、金融条件和监管的联动方向，商业兑现仍停在行业规则、系统改造、预算采购和产品实践之前；当前应跟踪可验证项目与费率变化，而不是建立公司受益名单。"
+  },
+  "actions": [
+    {
+      "id": "a1",
+      "title": "统一归集招标投标领域公共信用信息",
+      "actionType": "数据治理",
+      "actionEvidenceLevel": "strong",
+      "body": "招标投标行政监督部门应按全国统一数据规范标注公共信用信息，并在信息产生后二十个工作日内归集至全国信用信息共享平台。",
+      "implementationDependency": "需要统一数据目录、字段规范、接口、质量校验和跨平台同步机制",
+      "signal": "infrastructure",
+      "confidence": 98,
+      "clauseIds": ["c1"],
+      "sortOrder": 1
+    },
+    {
+      "id": "a2",
+      "title": "建立公益性查询和交易平台调用链",
+      "actionType": "平台服务",
+      "actionEvidenceLevel": "strong",
+      "body": "信用中国集中公示主体信用信息并向公共资源交易平台提供调用接口，交易平台需为招标投标活动提供查询服务。",
+      "implementationDependency": "需要接口授权、身份校验、可用性保障、查询证据留存和数据更新",
+      "signal": "infrastructure",
+      "confidence": 98,
+      "clauseIds": ["c2"],
+      "sortOrder": 2
+    },
+    {
+      "id": "a3",
+      "title": "对依法必须招标项目实施强制查询应用",
+      "actionType": "准入监管",
+      "actionEvidenceLevel": "strong",
+      "body": "特定取消投标资格处罚、失信被执行人等信息可导致投标被否决，代理机构和评标专家也受到相应准入与退出约束。",
+      "implementationDependency": "需要交易规则、招标文件模板、处罚期限校验、专家库和代理机构管理系统配套",
+      "signal": "constraint",
+      "confidence": 99,
+      "clauseIds": ["c3"],
+      "sortOrder": 3
+    },
+    {
+      "id": "a4",
+      "title": "由行业主管部门建立全国统一信用评价规则",
+      "actionType": "标准治理",
+      "actionEvidenceLevel": "strong",
+      "body": "行业规则需公开指标、方法、流程、周期、等级和应用，地方不得自行开展企业评价，也不得纳入市场占有率等非信用指标。",
+      "implementationDependency": "需要各行业规则发布、旧评价清理、模型验证和异议申诉机制",
+      "signal": "constraint",
+      "confidence": 98,
+      "clauseIds": ["c4"],
+      "sortOrder": 4
+    },
+    {
+      "id": "a5",
+      "title": "将信用评价嵌入交易和金融条件",
+      "actionType": "信用应用",
+      "actionEvidenceLevel": "strong",
+      "body": "评价结果可用于评标标准、保证金、履约能力、预付款和进度款，金融机构可据此采用差异化保函保单费率。",
+      "implementationDependency": "需要行业权重边界、招标文件载明、金融机构产品和风险定价实践",
+      "signal": "mixed",
+      "confidence": 97,
+      "clauseIds": ["c5"],
+      "sortOrder": 5
+    },
+    {
+      "id": "a6",
+      "title": "建立信用修复和异议申诉闭环",
+      "actionType": "纠错机制",
+      "actionEvidenceLevel": "strong",
+      "body": "完成信用修复后不再公示相关信息，主体可对公示或评价结果提出申诉，有关部门应按规定反馈并更新。",
+      "implementationDependency": "需要修复状态同步、处罚期限控制、申诉受理和跨平台更新",
+      "signal": "compliance",
+      "confidence": 97,
+      "clauseIds": ["c6"],
+      "sortOrder": 6
+    },
+    {
+      "id": "a7",
+      "title": "实施差异化监管并明确法律责任",
+      "actionType": "监管执行",
+      "actionEvidenceLevel": "strong",
+      "body": "监管部门可依据评价结果调整抽查检查和便利服务；未按要求查询应用信用信息可被罚款，影响中标结果的中标无效。",
+      "implementationDependency": "需要差异化监管细则、执法流程、动态监测和责任追踪",
+      "signal": "constraint",
+      "confidence": 99,
+      "clauseIds": ["c7", "c8"],
+      "sortOrder": 7
+    }
+  ],
+  "clauseGroups": [
+    {"id": "g1", "title": "信用数据与查询", "count": 2, "tone": "blue"},
+    {"id": "g2", "title": "交易准入与主体管理", "count": 1, "tone": "red"},
+    {"id": "g3", "title": "评价与结果应用", "count": 2, "tone": "purple"},
+    {"id": "g4", "title": "纠错、监管与责任", "count": 3, "tone": "orange"}
+  ],
+  "clauses": [
+    {
+      "id": "c1",
+      "no": "第五条至第六条",
+      "title": "统一范围、数据规范和二十个工作日归集时限",
+      "group": "g1",
+      "excerpt": "自信息产生之日起二十个工作日内归集至全国信用信息共享平台。",
+      "fullText": "信用数据治理由原则性共享转为有范围、规范、产生单位和时限约束的运行要求。",
+      "confidence": 99,
+      "keywords": ["公共信用信息", "统一数据规范", "二十个工作日", "全国信用信息共享平台"],
+      "industries": ["信用数据平台", "政务数据接口"],
+      "sortOrder": 1
+    },
+    {
+      "id": "c2",
+      "no": "第七条至第八条",
+      "title": "信用中国公示并向公共资源交易平台提供查询接口",
+      "group": "g1",
+      "excerpt": "公共资源交易平台应当加强技术保障，为招标投标活动提供公共信用信息查询服务。",
+      "fullText": "公示、查询和交易调用形成面向招标投标活动的公益性基础服务，系统需保证来源、依据和记录时间可追溯。",
+      "confidence": 99,
+      "keywords": ["信用中国", "公共资源交易平台", "查询接口", "技术保障"],
+      "industries": ["公共资源交易系统", "信用查询服务"],
+      "sortOrder": 2
+    },
+    {
+      "id": "c3",
+      "no": "第九条至第十二条",
+      "title": "投标人、代理机构和评标专家的强制信用应用",
+      "group": "g2",
+      "excerpt": "投标人公共信用信息查询情况应当纳入招标投标资料。",
+      "fullText": "特定处罚和失信状态触发投标否决、代理限制或专家不得聘任和调整出库，并要求查询过程纳入项目资料。",
+      "confidence": 99,
+      "keywords": ["否决投标", "代理机构", "评标专家", "失信被执行人", "资料留痕"],
+      "industries": ["电子招投标", "专家库管理", "企业合规"],
+      "sortOrder": 3
+    },
+    {
+      "id": "c4",
+      "no": "第十六条至第二十条",
+      "title": "建立全国统一行业评价并禁止地方自行评价",
+      "group": "g3",
+      "excerpt": "地方招标投标指导协调部门、行政监督部门不得自行开展企业信用评价。",
+      "fullText": "行业主管部门负责统一指标、方法、流程、周期和等级，评价不得按地区、所有制和规模差异计分，也不得纳入市场占有率等非信用指标。",
+      "confidence": 99,
+      "keywords": ["全国统一评价", "评价规则", "地方评价", "公平竞争", "异议申诉"],
+      "industries": ["信用评价", "模型治理", "公平竞争审查"],
+      "sortOrder": 4
+    },
+    {
+      "id": "c5",
+      "no": "第二十一条至第二十六条",
+      "title": "评价结果进入保证金、付款、保函费率和差异化监管",
+      "group": "g3",
+      "excerpt": "银行、担保机构或者保险机构可以根据评价结果采用差异化保函费率。",
+      "fullText": "信用评价从公示信息转化为交易成本、付款条件、金融风险定价和监管资源配置的输入，但应用不得设置不合理权重或交易壁垒。",
+      "confidence": 98,
+      "keywords": ["保证金", "预付款", "进度款", "保函费率", "差异化监管"],
+      "industries": ["电子保函", "信用风险定价", "监管科技"],
+      "sortOrder": 5
+    },
+    {
+      "id": "c6",
+      "no": "第十三条至第十五条、第十九条",
+      "title": "信用修复、申诉纠错和信息安全",
+      "group": "g4",
+      "excerpt": "有关部门应当在收到申诉的七个工作日内反馈处理结果。",
+      "fullText": "修复、公示纠错、评价异议和信息安全共同构成信用数据使用的权利救济与安全边界。",
+      "confidence": 97,
+      "keywords": ["信用修复", "申诉", "七个工作日", "信息安全"],
+      "industries": ["信用合规服务", "数据安全", "申诉工单系统"],
+      "sortOrder": 6
+    },
+    {
+      "id": "c7",
+      "no": "第二十三条至第二十五条",
+      "title": "评价结果用于差异化监管但不得限制市场主体",
+      "group": "g4",
+      "excerpt": "根据公共信用评价结果，实施差异化监管，提高或者降低抽查比例和检查频次。",
+      "fullText": "监管应用既可提高风险主体检查强度，也可为高信用主体提供便利，但必须防止地方细则形成新的区域或所有制壁垒。",
+      "confidence": 98,
+      "keywords": ["差异化监管", "抽查比例", "检查频次", "便利服务", "交易壁垒"],
+      "industries": ["监管数据分析", "风险分级"],
+      "sortOrder": 7
+    },
+    {
+      "id": "c8",
+      "no": "第二十七条至第三十七条",
+      "title": "未履行信用查询应用义务承担罚款及中标无效责任",
+      "group": "g4",
+      "excerpt": "影响中标结果的，中标无效，应当依法重新招标。",
+      "fullText": "招标人和评标委员会未按要求查询应用信用信息可能承担罚款、资格处罚和重新招标或评标责任，办法自2027年1月1日起施行。",
+      "confidence": 99,
+      "keywords": ["罚款", "中标无效", "重新招标", "责任追究", "2027年"],
+      "industries": ["招标投标合规", "审计留痕"],
+      "sortOrder": 8
+    }
+  ],
+  "chainNodes": [
+    {
+      "id": "n1",
+      "title": "公共信用数据归集与平台互联",
+      "subtitle": "统一目录、数据规范、接口和质量控制",
+      "section": "upstream",
+      "relation": "infrastructure",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 98,
+      "description": "招标投标信用信息需按统一规范及时归集，并在信用平台、公共资源交易平台和行业系统间共享。",
+      "clauseIds": ["c1", "c2"],
+      "companyIds": [],
+      "evidenceIds": ["e1", "e2"],
+      "impactReason": "政策明确数据时限、平台互联和查询接口要求。",
+      "verificationSignals": ["数据规范", "接口技术文件", "平台升级采购", "数据质量运行指标"],
+      "iconKey": "database"
+    },
+    {
+      "id": "n2",
+      "title": "电子交易信用查询与证据留痕",
+      "subtitle": "查询、否决规则、代理限制和项目资料归档",
+      "section": "midstream",
+      "relation": "compliance",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 98,
+      "description": "信用查询与应用成为依法必须招标项目的交易步骤，需要电子系统执行规则、校验处罚期限并保存查询证据。",
+      "clauseIds": ["c2", "c3"],
+      "companyIds": [],
+      "evidenceIds": ["e2", "e3"],
+      "impactReason": "查询结果可直接影响投标、代理委托和专家资格。",
+      "verificationSignals": ["交易系统功能升级", "招标文件模板", "否决投标案例", "审计留痕要求"],
+      "iconKey": "search"
+    },
+    {
+      "id": "n3",
+      "title": "行业统一信用评价与模型治理",
+      "subtitle": "指标、方法、周期、等级、公示和申诉",
+      "section": "midstream",
+      "relation": "standard",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 97,
+      "description": "国务院行业主管部门需要建立公开统一的评价规则，处理异议并向全国平台共享结果，地方不得自行评价企业。",
+      "clauseIds": ["c4"],
+      "companyIds": [],
+      "evidenceIds": ["e4"],
+      "impactReason": "统一评价将重塑现有地方和行业信用评分体系。",
+      "verificationSignals": ["行业评价规则", "模型指标与权重", "地方清理文件", "异议处理统计"],
+      "iconKey": "scale"
+    },
+    {
+      "id": "n4",
+      "title": "保证金、付款和电子保函信用定价",
+      "subtitle": "交易资金占用与金融风险定价",
+      "section": "downstream",
+      "relation": "mixed",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 94,
+      "description": "评价结果可影响保证金、履约核验、预付款、进度款和保函保单费率，改变参与主体交易成本与现金流条件。",
+      "clauseIds": ["c5"],
+      "companyIds": [],
+      "evidenceIds": ["e5"],
+      "impactReason": "政策明确允许在多个交易与金融环节应用评价结果。",
+      "verificationSignals": ["差异化保证金规则", "电子保函产品", "费率和付款条件", "实际应用项目"],
+      "iconKey": "finance"
+    },
+    {
+      "id": "n5",
+      "title": "参与主体信用合规与纠错",
+      "subtitle": "处罚期限、修复、申诉和资格管理",
+      "section": "support",
+      "relation": "constraint",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 96,
+      "description": "企业、代理机构和专家需要持续核验信用状态、行政处罚期限、信用修复和申诉纠错结果，避免交易资格受影响。",
+      "clauseIds": ["c3", "c6"],
+      "companyIds": [],
+      "evidenceIds": ["e3", "e6"],
+      "impactReason": "失信信息、修复状态和申诉结果直接影响公示和交易应用。",
+      "verificationSignals": ["信用修复同步", "申诉处理时效", "代理限制", "专家出库"] ,
+      "iconKey": "shield"
+    },
+    {
+      "id": "n6",
+      "title": "差异化监管与动态监测",
+      "subtitle": "风险分级、抽查检查和便利服务",
+      "section": "support",
+      "relation": "regulation",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 96,
+      "description": "监管部门依据评价结果配置检查资源，并动态监测违法评价和应用行为，需要规则引擎、风险分级和过程审计能力。",
+      "clauseIds": ["c7", "c8"],
+      "companyIds": [],
+      "evidenceIds": ["e7", "e8"],
+      "impactReason": "评价结果成为行政监管和便利服务的输入，违规应用承担明确责任。",
+      "verificationSignals": ["监管细则", "风险分级系统", "抽查数据", "纠正通报"],
+      "iconKey": "radar"
+    }
+  ],
+  "chainEdges": [
+    {"id": "edge1", "from": "n1", "to": "n2", "type": "strong", "label": "统一信用数据通过接口进入电子招标投标流程"},
+    {"id": "edge2", "from": "n1", "to": "n3", "type": "strong", "label": "归集数据支撑行业统一信用评价"},
+    {"id": "edge3", "from": "n3", "to": "n4", "type": "strong", "label": "评价结果进入交易和金融条件"},
+    {"id": "edge4", "from": "n2", "to": "n5", "type": "strong", "label": "交易应用推动参与主体管理信用合规"},
+    {"id": "edge5", "from": "n3", "to": "n6", "type": "strong", "label": "评价结果驱动风险分级和差异化监管"}
+  ],
+  "companies": [],
+  "evidence": [
+    {
+      "id": "e1",
+      "type": "policy_text",
+      "source": "国家发展改革委",
+      "title": "统一数据规范与归集时限",
+      "excerpt": "自信息产生之日起二十个工作日内归集至全国信用信息共享平台。",
+      "interpretation": "归集责任和时限明确，跨平台数据治理由原则要求进入可审计运行环节。",
+      "sourceLocation": "第六条",
+      "confidence": 99,
+      "evidenceObject": "policy_action",
+      "clauseIds": ["c1"],
+      "nodeIds": ["n1"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c1"], "nodeIds": ["n1"], "companyIds": []}
+    },
+    {
+      "id": "e2",
+      "type": "policy_text",
+      "source": "国家发展改革委",
+      "title": "平台查询服务",
+      "excerpt": "公共资源交易平台应当加强技术保障，为招标投标活动提供公共信用信息查询服务。",
+      "interpretation": "信用查询需要嵌入公共资源交易平台和具体交易流程，并形成稳定接口和留痕能力。",
+      "sourceLocation": "第八条",
+      "confidence": 99,
+      "evidenceObject": "industry_node",
+      "clauseIds": ["c2"],
+      "nodeIds": ["n1", "n2"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c2"], "nodeIds": ["n1", "n2"], "companyIds": []}
+    },
+    {
+      "id": "e3",
+      "type": "policy_text",
+      "source": "国家发展改革委",
+      "title": "投标否决与查询留痕",
+      "excerpt": "投标人公共信用信息查询情况应当纳入招标投标资料。",
+      "interpretation": "信用查询不只是参考信息，特定失信状态可触发否决投标，并要求形成项目证据链。",
+      "sourceLocation": "第九条",
+      "confidence": 99,
+      "evidenceObject": "policy_action",
+      "clauseIds": ["c3"],
+      "nodeIds": ["n2", "n5"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c3"], "nodeIds": ["n2", "n5"], "companyIds": []}
+    },
+    {
+      "id": "e4",
+      "type": "policy_text",
+      "source": "国家发展改革委",
+      "title": "全国统一行业评价规则",
+      "excerpt": "地方招标投标指导协调部门、行政监督部门不得自行开展企业信用评价。",
+      "interpretation": "评价权和规则由行业国家层面统一，直接约束地方自设指标和区域性评价壁垒。",
+      "sourceLocation": "第十六条至第二十条",
+      "confidence": 99,
+      "evidenceObject": "industry_node",
+      "clauseIds": ["c4"],
+      "nodeIds": ["n3"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c4"], "nodeIds": ["n3"], "companyIds": []}
+    },
+    {
+      "id": "e5",
+      "type": "policy_text",
+      "source": "国家发展改革委",
+      "title": "交易和保函费率应用",
+      "excerpt": "银行、担保机构或者保险机构可以根据评价结果采用差异化保函费率。",
+      "interpretation": "信用结果可能进入交易资金占用和金融风险定价，但实际影响取决于行业规则、招标文件和机构产品。",
+      "sourceLocation": "第二十一条至第二十二条",
+      "confidence": 98,
+      "evidenceObject": "industry_node",
+      "clauseIds": ["c5"],
+      "nodeIds": ["n4"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c5"], "nodeIds": ["n4"], "companyIds": []}
+    },
+    {
+      "id": "e6",
+      "type": "policy_text",
+      "source": "国家发展改革委",
+      "title": "信用修复与申诉",
+      "excerpt": "完成信用修复的，不再公示相关招标投标领域公共信用信息。",
+      "interpretation": "交易应用必须同步识别修复和申诉结果，避免过期或错误信息继续影响主体资格。",
+      "sourceLocation": "第十三条至第十四条",
+      "confidence": 97,
+      "evidenceObject": "industry_node",
+      "clauseIds": ["c6"],
+      "nodeIds": ["n5"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c6"], "nodeIds": ["n5"], "companyIds": []}
+    },
+    {
+      "id": "e7",
+      "type": "policy_text",
+      "source": "国家发展改革委",
+      "title": "差异化监管",
+      "excerpt": "提高或者降低抽查比例和检查频次。",
+      "interpretation": "信用评价结果进入行政监管资源配置，要求评价、风险分级和监管动作之间可解释、可追溯。",
+      "sourceLocation": "第二十三条",
+      "confidence": 98,
+      "evidenceObject": "industry_node",
+      "clauseIds": ["c7"],
+      "nodeIds": ["n6"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c7"], "nodeIds": ["n6"], "companyIds": []}
+    },
+    {
+      "id": "e8",
+      "type": "policy_text",
+      "source": "国家发展改革委",
+      "title": "法律责任与施行日期",
+      "excerpt": "影响中标结果的，中标无效，应当依法重新招标。",
+      "interpretation": "强制查询和应用义务具有实际法律后果，并为2027年施行前的规则、系统和流程改造设定期限。",
+      "sourceLocation": "第二十七条至第三十七条",
+      "confidence": 99,
+      "evidenceObject": "policy_action",
+      "clauseIds": ["c8"],
+      "nodeIds": ["n6"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c8"], "nodeIds": ["n6"], "companyIds": []}
+    }
+  ],
+  "backgroundCards": [
+    {
+      "id": "bg1",
+      "title": "制度变化：从信用公示转向交易强制应用",
+      "body": "特定失信信息将直接进入依法必须招标项目的投标否决、代理机构委托和评标专家管理流程。",
+      "evidenceIds": ["e2", "e3"]
+    },
+    {
+      "id": "bg2",
+      "title": "评价治理：行业全国统一、地方不得自行评价",
+      "body": "统一规则限制地区、所有制、规模差异化计分和市场占有率等非信用指标，有助于降低地方信用评价壁垒。",
+      "evidenceIds": ["e4"]
+    },
+    {
+      "id": "bg3",
+      "title": "兑现条件：规则、系统、产品和实际应用缺一不可",
+      "body": "产业影响只有在行业评价规则、平台改造、招标项目应用和金融机构费率产品落地后，才可能转化为可验证经营结果。",
+      "evidenceIds": ["e5", "e7", "e8"]
+    }
+  ],
+  "compareInsights": {
+    "comparableCount": 1,
+    "similarPolicies": [
+      "公共资源交易中心招标投标现场管理暂行办法（2026年第43号令）"
+    ],
+    "contrastPolicies": [],
+    "insights": [
+      "第43号令聚焦交易现场服务、记录、异常提醒和违法线索报告；第44号令聚焦信用信息、评价及结果应用，两者共同要求公共资源交易平台与监管系统形成可追溯数据闭环。",
+      "两项规章均自2027年1月1日起施行，增加施行前统一规则、接口、模板和系统改造集中落地的可能性。"
+    ],
+    "limitations": [
+      "当前没有统一技术标准、项目预算、采购和供应商证据。",
+      "政策组合增强制度确定性，不等于任何企业已获得订单。"
+    ]
+  },
+  "followUpSignals": [
+    "国务院行业主管部门发布统一信用评价规则",
+    "地方政府投资项目应用细则",
+    "信用中国与公共资源交易平台接口升级",
+    "电子交易系统改造采购和验收",
+    "投标履约保函差异化费率产品",
+    "2027年施行前模板、培训和监管安排",
+    "投标否决、信用申诉和差异化监管实际案例",
+    "公司订单、收入、验收和回款证据"
+  ],
+  "analysisCoverage": {
+    "status": "no_company_mapping",
+    "analysisMethod": "codex-manual-official-pdf",
+    "evidenceCount": 8,
+    "industryNodeCount": 6,
+    "companyCount": 0,
+    "companyImpactConclusion": "本政策已形成明确的信用数据、交易应用、评价规则、金融条件和监管链条，但未点名企业，也未公布系统项目、预算、采购、供应商、合同或公司业务暴露证据，当前不适合映射具体公司。",
+    "limitations": [
+      "行业统一评价规则和地方应用细则尚未发布。",
+      "平台改造可能由存量系统和既有合同吸收，新增采购规模未知。",
+      "保证金、付款和保函费率的实际差异幅度尚无数据。",
+      "信用评价应用必须遵守公平竞争和比例原则。",
+      "后续公司研究必须补充官方项目、公司公告或定期报告证据。"
+    ]
+  }
+}

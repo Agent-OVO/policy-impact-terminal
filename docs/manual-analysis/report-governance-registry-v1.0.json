@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updatedAt": "2026-07-16",
+  "updatedAt": "2026-07-17",
   "reports": [
     {"policyId":"209014c2-561d-4421-a82b-b9e16f537d3f","category":"A","migrationStatus":"full","title":"南水北调中线干线工程供水价格"},
     {"policyId":"2d6943d5-1653-40d9-a148-a98aaf6fca82","category":"A","migrationStatus":"full","title":"先进计算赋能新质生产力典型应用案例名单"},
@@ -22,6 +22,7 @@
     {"policyId":"f727075a-ad27-428f-a181-cfa098e891fb","category":"B","migrationStatus":"full","title":"农业农村现代化十五五规划"},
     {"policyId":"1ee0c081-413c-4a9b-bdc0-d1f5cafd36b4","category":"B","migrationStatus":"full","title":"国家产融合作平台高新技术企业专区上线服务通知"},
     {"policyId":"a19cfc9f-c064-40ce-9756-ee2e7d74a625","category":"B","migrationStatus":"full","title":"海水淡化产业发展行动方案"},
+    {"policyId":"56b89cbc-7549-4e89-8a11-d103376b0a7f","category":"B","migrationStatus":"full","title":"招标投标领域信用管理暂行办法"},
     {"policyId":"4ce9cfc5-f9ca-48bb-a265-3ee7fdc9c39d","category":"C","migrationStatus":"light","title":"上海市暂时调整实施有关行政法规规定的批复"},
     {"policyId":"712467e3-0b35-4dfb-b4cb-0f686a2b42d3","category":"C","migrationStatus":"light","title":"国务院2026年度立法工作计划"},
     {"policyId":"7d457090-64b4-4985-94f3-87f72f6ee3cb","category":"C","migrationStatus":"light","title":"行政复议法实施条例"}
