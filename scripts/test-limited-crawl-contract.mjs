@@ -37,7 +37,8 @@ assert.doesNotMatch(workflow, /--auto-select-analysis/);
 
 assert.match(recoveryWorkflow, /cron: "7,22,37,52 \* \* \* \*"/);
 assert.match(recoveryWorkflow, /threshold_minutes \|\| '80'/);
-assert.match(recoveryWorkflow, /--recovery-input=artifacts\/recovery\/recovery-runs\.json/);
+assert.match(recoveryWorkflow, /recoveryPerformed/);
+assert.match(recoveryWorkflow, /--recovery-input=artifacts\/recovery\/recovery-runs-annotated\.json/);
 assert.match(recoveryWorkflow, /--manual-selection-only/);
 assert.match(recoveryWorkflow, /steps\.recovery\.outputs\.needed == 'true'/);
 

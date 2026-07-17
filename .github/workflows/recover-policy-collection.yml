@@ -67,9 +67,22 @@ jobs:
             --limit 50 \
             --json databaseId,status,conclusion,createdAt,event,url \
             > artifacts/recovery/recovery-runs.json
+          cp artifacts/recovery/recovery-runs.json artifacts/recovery/recovery-runs-annotated.json
+          while read -r run_id; do
+            [ -n "$run_id" ] || continue
+            recovery_performed=$(gh run view "$run_id" \
+              --repo "$GITHUB_REPOSITORY" \
+              --json jobs \
+              --jq 'any(.jobs[].steps[]?; .name == "Run recovery crawl" and .conclusion == "success")')
+            jq --argjson id "$run_id" --argjson performed "$recovery_performed" \
+              'map(if .databaseId == $id then . + {recoveryPerformed: $performed} else . end)' \
+              artifacts/recovery/recovery-runs-annotated.json \
+              > artifacts/recovery/recovery-runs-annotated.tmp.json
+            mv artifacts/recovery/recovery-runs-annotated.tmp.json artifacts/recovery/recovery-runs-annotated.json
+          done < <(jq -r '.[] | select(.status == "completed" and .conclusion == "success") | .databaseId' artifacts/recovery/recovery-runs.json)
           args=(
             --input=artifacts/recovery/hourly-runs.json
-            --recovery-input=artifacts/recovery/recovery-runs.json
+            --recovery-input=artifacts/recovery/recovery-runs-annotated.json
             --out=artifacts/recovery/recovery-decision.json
             --threshold-minutes="${THRESHOLD_MINUTES}"
             --github-output="$GITHUB_OUTPUT"

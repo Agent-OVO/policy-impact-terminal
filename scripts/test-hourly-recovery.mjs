@@ -19,7 +19,7 @@ try {
   const healthy = run([`--input=${input}`, "--now=2026-07-16T11:00:00Z", "--threshold-minutes=80"]);
   assert.equal(healthy.status, 0, healthy.output);
   assert.match(healthy.output, /needed=false/);
-  assert.match(healthy.output, /recent_schedule_run_is_healthy/);
+  assert.match(healthy.output, /recent_operational_run_is_healthy/);
 
   const stale = run([`--input=${input}`, `--recovery-input=${recoveryInput}`, "--now=2026-07-16T11:30:01Z", "--threshold-minutes=80"]);
   assert.equal(stale.status, 0, stale.output);
@@ -27,12 +27,20 @@ try {
   assert.match(stale.output, /schedule_gap_exceeds_threshold/);
 
   fs.writeFileSync(recoveryInput, JSON.stringify([
-    { databaseId: 20, event: "workflow_dispatch", status: "completed", conclusion: "success", createdAt: "2026-07-16T11:10:00Z" }
+    { databaseId: 19, event: "workflow_dispatch", status: "completed", conclusion: "success", createdAt: "2026-07-16T11:20:00Z", recoveryPerformed: false }
+  ]), "utf8");
+  const noOpRecovery = run([`--input=${input}`, `--recovery-input=${recoveryInput}`, "--now=2026-07-16T11:30:01Z", "--threshold-minutes=80"]);
+  assert.equal(noOpRecovery.status, 0, noOpRecovery.output);
+  assert.match(noOpRecovery.output, /needed=true/);
+  assert.match(noOpRecovery.output, /schedule_gap_exceeds_threshold/);
+
+  fs.writeFileSync(recoveryInput, JSON.stringify([
+    { databaseId: 20, event: "workflow_dispatch", status: "completed", conclusion: "success", createdAt: "2026-07-16T11:10:00Z", recoveryPerformed: true }
   ]), "utf8");
   const recentRecovery = run([`--input=${input}`, `--recovery-input=${recoveryInput}`, "--now=2026-07-16T11:30:01Z", "--threshold-minutes=80"]);
   assert.equal(recentRecovery.status, 0, recentRecovery.output);
   assert.match(recentRecovery.output, /needed=false/);
-  assert.match(recentRecovery.output, /recent_schedule_run_is_healthy/);
+  assert.match(recentRecovery.output, /recent_operational_run_is_healthy/);
 
   fs.writeFileSync(input, JSON.stringify([
     ...runs,
@@ -47,7 +55,7 @@ try {
   assert.equal(forced.status, 0, forced.output);
   assert.match(forced.output, /forced_by_explicit_dispatch/);
 
-  console.log("[hourly:recovery-test] recent primary/recovery suppression, active-run suppression, stale-gap recovery, and explicit force passed");
+  console.log("[hourly:recovery-test] no-op recovery exclusion, performed recovery suppression, active-run suppression, stale-gap recovery, and explicit force passed");
 } finally {
   fs.rmSync(tempDir, { recursive: true, force: true });
 }

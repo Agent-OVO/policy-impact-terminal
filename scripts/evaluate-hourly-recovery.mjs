@@ -16,7 +16,7 @@ const activeScheduleRun = scheduleRuns.find((item) => item.status === "queued" |
 const successfulScheduleRuns = scheduleRuns.filter((item) => item.status === "completed" && item.conclusion === "success");
 const latest = successfulScheduleRuns[0] ?? null;
 const latestRecovery = (Array.isArray(recoveryRuns) ? recoveryRuns : [])
-  .filter((item) => item.status === "completed" && item.conclusion === "success")
+  .filter((item) => item.status === "completed" && item.conclusion === "success" && item.recoveryPerformed === true)
   .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))[0] ?? null;
 const latestOperational = [latest, latestRecovery]
   .filter(Boolean)
@@ -46,7 +46,7 @@ const decision = {
         ? "no_successful_operational_run_found"
         : ageMinutes > args.thresholdMinutes
           ? "schedule_gap_exceeds_threshold"
-          : "recent_schedule_run_is_healthy"
+          : "recent_operational_run_is_healthy"
 };
 await writeJson(args.out, decision);
 if (args.githubOutput) {
