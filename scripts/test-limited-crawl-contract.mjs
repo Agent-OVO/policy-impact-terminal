@@ -220,6 +220,11 @@ async function testMiitAttachmentMirrorFallback() {
   const mirrorServer = http.createServer((request, response) => {
     const requestUrl = new URL(request.url ?? "/", "http://127.0.0.1");
     if (requestUrl.pathname === "/attachments/policy.pdf") {
+      if (request.headers.referer !== `${mirrorBaseUrl}/article.html`) {
+        response.writeHead(403, { "content-type": "text/plain" });
+        response.end("mirror referer required");
+        return;
+      }
       response.writeHead(200, { "content-type": "application/pdf", "content-length": String(pdfBuffer.length) });
       response.end(pdfBuffer);
       return;
