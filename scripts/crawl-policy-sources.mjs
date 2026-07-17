@@ -9,7 +9,7 @@ import {
 } from "./lib/policy-triage.mjs";
 import { hydratePolicyAttachments } from "./lib/policy-attachments.mjs";
 
-const CRAWLER_VERSION = "policy-source-crawler-v0.4";
+const CRAWLER_VERSION = "policy-source-crawler-v0.5";
 const MIN_POLICY_FULL_TEXT_LENGTH = 280;
 const DEFAULT_POLICY_SINCE = "2026-05-01";
 const DEFAULT_SOURCE_SCAN_LIMIT = 60;
@@ -17,7 +17,7 @@ const DEFAULT_CANDIDATE_LIMIT = 24;
 const DEFAULT_INGEST_LIMIT = 24;
 const DEFAULT_ANALYSIS_PER_RUN_LIMIT = 3;
 const DEFAULT_PENDING_QUEUE_LIMIT = 8;
-const MIIT_SEARCH_API_URL = process.env.MIIT_SEARCH_API_URL || "https://www.miit.gov.cn/search-front-server/api/search/info";
+const MIIT_SEARCH_API_URLS = buildMiitSearchApiUrls();
 const MIIT_FALLBACK_LIST_URL = process.env.MIIT_FALLBACK_LIST_URL || "https://www.miit.gov.cn/zwgk/";
 
 const SOURCES = [
@@ -245,6 +245,25 @@ function readPositiveIntegerEnv(name) {
   return Number.isInteger(parsed) && parsed > 0 ? parsed : null;
 }
 
+function buildMiitSearchApiUrls() {
+  const configured = process.env.MIIT_SEARCH_API_URLS || process.env.MIIT_SEARCH_API_URL;
+  const defaults = [
+    "https://www.miit.gov.cn/search-front-server/api/search/info",
+    "https://hubca.miit.gov.cn/search-front-server/api/search/info",
+    "https://cqca.miit.gov.cn/search-front-server/api/search/info",
+    "https://gdca.miit.gov.cn/search-front-server/api/search/info"
+  ];
+  const values = configured
+    ? configured.split(",").map((item) => item.trim()).filter(Boolean)
+    : defaults;
+  return [...new Set(values.map((value) => new URL(value).href.replace(/\/$/, "")))];
+}
+
+function buildMiitEndpointReferer(sourceListUrl, endpoint) {
+  const sourceUrl = new URL(sourceListUrl);
+  return new URL(`${sourceUrl.pathname}${sourceUrl.search}`, new URL(endpoint).origin).href;
+}
+
 function printHelp() {
   console.log(`
 Usage:
@@ -384,26 +403,41 @@ async function fetchMiitDocuments(source, args) {
     "title,url,deploytime,cdate,infocontent,columnname,filenumbername,publishgroupname,publishtime,metaid,typename";
 
   try {
-    const rows = await fetchMiitSearchRows(source, {
+    const result = await fetchMiitSearchRows(source, {
       pageSize: Math.max(Math.min(args.sourceScanLimit, 50), 20),
       selectFields: richFields,
       mode: "rich"
     });
-    return mapMiitRows(source, rows, "miit-search-api-rich");
+    const mirrorFallback = result.endpoint !== MIIT_SEARCH_API_URLS[0];
+    if (mirrorFallback) {
+      printWorkflowWarning(`MIIT primary search endpoint failed; official mirror recovered ${result.rows.length} rows via ${new URL(result.endpoint).host}.`);
+    }
+    return mapMiitRows(
+      source,
+      result.rows,
+      mirrorFallback ? "miit-search-api-rich-mirror-fallback" : "miit-search-api-rich",
+      result.endpoint
+    );
   } catch (primaryError) {
-    printWorkflowWarning(`MIIT rich search failed; retrying compact query: ${getErrorMessage(primaryError)}`);
+    printWorkflowWarning(`MIIT rich search failed across official endpoints; retrying compact query: ${getErrorMessage(primaryError)}`);
     try {
-      const rows = await fetchMiitSearchRows(source, {
+      const result = await fetchMiitSearchRows(source, {
         pageSize: 20,
         selectFields: compactFields,
         mode: "compact"
       });
-      return mapMiitRows(source, rows, "miit-search-api-compact-fallback");
+      const mirrorFallback = result.endpoint !== MIIT_SEARCH_API_URLS[0];
+      return mapMiitRows(
+        source,
+        result.rows,
+        mirrorFallback ? "miit-search-api-compact-mirror-fallback" : "miit-search-api-compact-fallback",
+        result.endpoint
+      );
     } catch (compactError) {
-      printWorkflowWarning(`MIIT compact search failed; using official HTML list fallback: ${getErrorMessage(compactError)}`);
+      printWorkflowWarning(`MIIT compact search failed across official endpoints; using official HTML list fallback: ${getErrorMessage(compactError)}`);
       const fallbackRows = await fetchMiitOfficialHomepage(source, args);
       if (fallbackRows.length === 0) {
-        throw new Error(`MIIT search API and official HTML fallback both failed. rich=${getErrorMessage(primaryError)} compact=${getErrorMessage(compactError)}`);
+        throw new Error(`MIIT official search endpoints and HTML fallback all failed. rich=${getErrorMessage(primaryError)} compact=${getErrorMessage(compactError)}`);
       }
       printWorkflowWarning(`MIIT official HTML fallback recovered ${fallbackRows.length} recent policy rows.`);
       return fallbackRows;
@@ -412,6 +446,33 @@ async function fetchMiitDocuments(source, args) {
 }
 
 async function fetchMiitSearchRows(source, input) {
+  const [primaryEndpoint, ...mirrorEndpoints] = MIIT_SEARCH_API_URLS;
+  try {
+    const rows = await fetchMiitSearchRowsAtEndpoint(source, input, primaryEndpoint, {
+      attempts: readPositiveIntegerEnv("MIIT_SEARCH_ATTEMPTS") ?? (input.mode === "compact" ? 3 : 2)
+    });
+    return { rows, endpoint: primaryEndpoint };
+  } catch (primaryError) {
+    if (mirrorEndpoints.length === 0) throw primaryError;
+    try {
+      return await Promise.any(
+        mirrorEndpoints.map(async (endpoint) => ({
+          rows: await fetchMiitSearchRowsAtEndpoint(source, input, endpoint, {
+            attempts: readPositiveIntegerEnv("MIIT_MIRROR_SEARCH_ATTEMPTS") ?? 2
+          }),
+          endpoint
+        }))
+      );
+    } catch (mirrorError) {
+      const mirrorErrors = Array.isArray(mirrorError?.errors)
+        ? mirrorError.errors.map(getErrorMessage)
+        : [getErrorMessage(mirrorError)];
+      throw new Error(`primary=${getErrorMessage(primaryError)}; mirrors=${mirrorErrors.join(" | ") || "none"}`);
+    }
+  }
+}
+
+async function fetchMiitSearchRowsAtEndpoint(source, input, endpoint, options = {}) {
   const params = new URLSearchParams({
     websiteid: "110000000000000",
     scope: "basic",
@@ -435,16 +496,16 @@ async function fetchMiitSearchRows(source, input) {
     sortFields: JSON.stringify([{ name: "deploytime", type: "desc" }]),
     p: "1"
   });
-  const data = await fetchJson(`${MIIT_SEARCH_API_URL}?${params}`, {
-    referer: source.listUrl,
+  const data = await fetchJson(`${endpoint}?${params}`, {
+    referer: buildMiitEndpointReferer(source.listUrl, endpoint),
     accept: "application/json, text/plain, */*",
-    attempts: readPositiveIntegerEnv("MIIT_SEARCH_ATTEMPTS") ?? (input.mode === "compact" ? 4 : 3),
-    timeoutMs: readPositiveIntegerEnv("MIIT_SEARCH_TIMEOUT_MS") ?? 30_000,
-    backoffMs: input.mode === "compact" ? [2_000, 5_000, 9_000] : [1_000, 3_000]
+    attempts: options.attempts ?? 1,
+    timeoutMs: readPositiveIntegerEnv("MIIT_SEARCH_TIMEOUT_MS") ?? 20_000,
+    backoffMs: input.mode === "compact" ? [2_000, 5_000] : [1_000]
   });
   const rows = data?.data?.searchResult?.dataResults;
   if (!Array.isArray(rows)) {
-    throw new Error(`MIIT ${input.mode} API response did not contain data.searchResult.dataResults.`);
+    throw new Error(`MIIT ${input.mode} API response from ${new URL(endpoint).host} did not contain data.searchResult.dataResults.`);
   }
   return rows;
 }
@@ -484,10 +545,11 @@ async function fetchMiitOfficialHomepage(source, args) {
   return candidates.slice(0, args.sourceScanLimit);
 }
 
-function mapMiitRows(source, rows, origin) {
+function mapMiitRows(source, rows, origin, searchEndpoint = MIIT_SEARCH_API_URLS[0]) {
   return rows.map((row) => {
     const item = row.groupData?.[0]?.data ?? row.data ?? row;
-    const searchContentPreview = htmlToText(extractMiitContentHtml(item.infoextends) ?? item.infocontent ?? "");
+    const indexedPage = extractMiitIndexedPage(item.infoextends, searchEndpoint, item.url);
+    const searchContentPreview = indexedPage.pageText || htmlToText(item.infocontent ?? "");
 
     return makeCandidate(source, {
       title: item.title ?? item.title_text,
@@ -496,17 +558,91 @@ function mapMiitRows(source, rows, origin) {
       publishDateTime: item.jsearch_date ?? item.deploytime ?? item.publishtime ?? item.cdate,
       issuer: item.publishgroupname ?? item.xxgkextend2 ?? source.issuer,
       policyNo: item.filenumbername ?? extractPolicyNo(item.title ?? item.title_text),
+      hydrationFallback: indexedPage.html
+        ? {
+            html: indexedPage.html,
+            pageText: indexedPage.pageText,
+            baseUrl: indexedPage.baseUrl,
+            source: "miit-search-index"
+          }
+        : null,
       raw: {
         origin,
         typename: item.typename,
         themename: item.themename,
         columnname: item.columnname,
         metaid: item.metaid,
+        searchEndpointHost: new URL(searchEndpoint).host,
         searchContentPreview,
-        searchContentPreviewLength: searchContentPreview.length
+        searchContentPreviewLength: searchContentPreview.length,
+        indexedAttachmentCount: indexedPage.attachmentCount
       }
     });
   });
+}
+
+function extractMiitIndexedPage(infoextends, searchEndpoint, itemUrl) {
+  const fields = extractMiitInfoFields(infoextends);
+  const contentHtml = fields.find((field) => field.fieldName === "content")?.fieldValue ?? "";
+  const attachments = fields
+    .filter((field) => field.fieldType === "Attach")
+    .flatMap((field) => parseMiitAttachmentField(field.fieldValue));
+  const baseUrl = new URL(itemUrl || "/", new URL(searchEndpoint).origin).href;
+  const attachmentHtml = attachments
+    .map((attachment) => {
+      const href = attachment.url || attachment.thumbUrl;
+      if (!href) return "";
+      const absoluteUrl = new URL(href, new URL(searchEndpoint).origin).href;
+      const title = attachment.name || attachment.fileName || "附件";
+      return `<a href="${escapeHtmlAttribute(absoluteUrl)}">${escapeHtmlText(title)}</a>`;
+    })
+    .filter(Boolean)
+    .join("\n");
+  const html = contentHtml || attachmentHtml
+    ? `<article>${contentHtml}</article><section class="miit-indexed-attachments">${attachmentHtml}</section>`
+    : "";
+  return {
+    html,
+    pageText: htmlToText(contentHtml),
+    baseUrl,
+    attachmentCount: attachments.length
+  };
+}
+
+function extractMiitInfoFields(infoextends) {
+  if (!infoextends || typeof infoextends !== "string") return [];
+  try {
+    const parsed = JSON.parse(infoextends);
+    const fields = JSON.parse(parsed.infoContent ?? "[]");
+    return Array.isArray(fields) ? fields : [];
+  } catch {
+    return [];
+  }
+}
+
+function parseMiitAttachmentField(value) {
+  if (!value || typeof value !== "string") return [];
+  try {
+    const parsed = JSON.parse(value);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function escapeHtmlAttribute(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
+
+function escapeHtmlText(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
 }
 
 async function fetchNdaPolicyRelease(source) {
@@ -569,6 +705,7 @@ function makeCandidate(source, input) {
     dedupeKey,
     contentHash,
     fullText: fullText || null,
+    hydrationFallback: input.hydrationFallback ?? null,
     raw: input.raw ?? {}
   };
 }
@@ -636,14 +773,32 @@ async function hydrateCandidates(candidates) {
         fetchBinary
       });
       hydrated.push(attachFullText(candidate, attachmentResult.selectedText, html, attachmentResult));
-    } catch (error) {
-      hydrated.push({
-        ...candidate,
-        raw: {
-          ...candidate.raw,
-          hydrationError: getErrorMessage(error)
+    } catch (primaryError) {
+      const fallback = candidate.hydrationFallback;
+      if (fallback?.html) {
+        try {
+          const attachmentResult = await hydratePolicyAttachments({
+            html: fallback.html,
+            pageText: fallback.pageText,
+            baseUrl: fallback.baseUrl,
+            fetchBinary
+          });
+          const recovered = attachFullText(candidate, attachmentResult.selectedText, fallback.html, attachmentResult);
+          recovered.raw.hydrationSource = fallback.source ?? "embedded-fallback";
+          recovered.raw.primaryHydrationError = getErrorMessage(primaryError);
+          hydrated.push(recovered);
+          continue;
+        } catch (fallbackError) {
+          hydrated.push(withoutHydrationFallback(candidate, {
+            hydrationError: getErrorMessage(primaryError),
+            fallbackHydrationError: getErrorMessage(fallbackError)
+          }));
+          continue;
         }
-      });
+      }
+      hydrated.push(withoutHydrationFallback(candidate, {
+        hydrationError: getErrorMessage(primaryError)
+      }));
     }
   }
 
@@ -654,8 +809,9 @@ function attachFullText(candidate, value, html = "", attachmentResult = null) {
   const fullText = normalizePolicyText(value);
   const officialPublishedAt = extractOfficialPublishedAtFromHtml(html, candidate.sourceKey) ?? candidate.officialPublishedAt ?? candidate.publishDateTime;
   const publishDate = candidate.publishDate ?? (officialPublishedAt ? officialPublishedAt.slice(0, 10) : null);
+  const baseCandidate = withoutHydrationFallback(candidate);
   return {
-    ...candidate,
+    ...baseCandidate,
     publishDate,
     publishDateTime: officialPublishedAt ?? candidate.publishDateTime,
     officialPublishedAt: officialPublishedAt ?? candidate.officialPublishedAt,
@@ -679,6 +835,18 @@ function attachFullText(candidate, value, html = "", attachmentResult = null) {
             attachmentErrors: attachmentResult.errors
           }
         : {})
+    }
+  };
+}
+
+function withoutHydrationFallback(candidate, rawPatch = null) {
+  const { hydrationFallback: _hydrationFallback, ...baseCandidate } = candidate;
+  if (!rawPatch) return baseCandidate;
+  return {
+    ...baseCandidate,
+    raw: {
+      ...baseCandidate.raw,
+      ...rawPatch
     }
   };
 }
@@ -1048,18 +1216,6 @@ function extractPolicyNo(value) {
     text.match(/[^\s，,。；;（）()]*\d{4}年第\d+号/)?.[0] ??
     null
   );
-}
-
-function extractMiitContentHtml(infoextends) {
-  if (!infoextends || typeof infoextends !== "string") return null;
-
-  try {
-    const parsed = JSON.parse(infoextends);
-    const fields = JSON.parse(parsed.infoContent ?? "[]");
-    return fields.find((field) => field.fieldName === "content")?.fieldValue ?? null;
-  } catch {
-    return null;
-  }
 }
 
 function extractPolicyTextFromHtml(html, sourceKey) {
