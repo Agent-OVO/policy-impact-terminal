@@ -1012,6 +1012,7 @@ async function fetchPolicyAttachmentBinary(candidate, url, options = {}) {
   try {
     return await fetchBinary(url, {
       ...options,
+      referer: buildMiitAttachmentReferer(candidate.sourceUrl, parsedUrl.origin),
       attempts: Math.min(Number(options.attempts) || 3, 2)
     });
   } catch (primaryError) {
@@ -1023,7 +1024,7 @@ async function fetchPolicyAttachmentBinary(candidate, url, options = {}) {
       const recovered = await Promise.any(
         mirrorUrls.map((mirrorUrl) => fetchBinary(mirrorUrl, {
           ...options,
-          referer: new URL(candidate.sourceUrl || "/", new URL(mirrorUrl).origin).href,
+          referer: buildMiitAttachmentReferer(candidate.sourceUrl, new URL(mirrorUrl).origin),
           attempts: readPositiveIntegerEnv("MIIT_MIRROR_ATTACHMENT_ATTEMPTS") ?? 2
         }))
       );
@@ -1038,6 +1039,16 @@ async function fetchPolicyAttachmentBinary(candidate, url, options = {}) {
         : [getErrorMessage(mirrorError)];
       throw new Error(`MIIT attachment failed on primary and official mirrors. primary=${getErrorMessage(primaryError)} mirrors=${mirrorMessages.join(" | ")}`);
     }
+  }
+}
+
+function buildMiitAttachmentReferer(sourceUrl, targetOrigin) {
+  if (!sourceUrl) return `${targetOrigin}/`;
+  try {
+    const parsedSource = new URL(sourceUrl);
+    return new URL(`${parsedSource.pathname}${parsedSource.search}`, targetOrigin).href;
+  } catch {
+    return `${targetOrigin}/`;
   }
 }
 
