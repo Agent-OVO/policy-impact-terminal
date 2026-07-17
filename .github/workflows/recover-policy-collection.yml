@@ -2,9 +2,13 @@ name: Recover missed policy collection
 
 on:
   schedule:
-    # Four offset checks provide multiple chances when GitHub drops an individual
-    # schedule event. A recovery crawl still runs only after an 80-minute gap.
-    - cron: "7,22,37,52 * * * *"
+    # Keep independent cron registrations instead of one comma-combined expression.
+    # The remote liveness chain is the primary recovery trigger; these remain a
+    # best-effort GitHub scheduler backstop and never count as formal hourly runs.
+    - cron: "7 * * * *"
+    - cron: "22 * * * *"
+    - cron: "37 * * * *"
+    - cron: "52 * * * *"
   workflow_dispatch:
     inputs:
       force:
