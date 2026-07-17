@@ -26,7 +26,7 @@ on:
 
 permissions:
   contents: read
-  actions: read
+  actions: write
 
 concurrency:
   group: policy-source-crawler-recovery
@@ -113,6 +113,7 @@ jobs:
           fi
 
       - name: Run recovery crawl
+        id: crawl
         if: steps.recovery.outputs.needed == 'true'
         env:
           SUPABASE_URL: https://qxzspsofhmfjceuaulhu.supabase.co
@@ -136,6 +137,24 @@ jobs:
           )
           if [ "$INGEST_READY" = "true" ]; then args+=(--ingest); fi
           node scripts/crawl-policy-sources.mjs "${args[@]}"
+
+      - name: Re-arm remote liveness after recovery attempt
+        if: always() && steps.recovery.outputs.needed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RECOVERY_OUTCOME: ${{ steps.crawl.outcome }}
+        run: |
+          set -euo pipefail
+          delay_minutes="15"
+          if [ "$RECOVERY_OUTCOME" = "success" ]; then
+            delay_minutes="85"
+          fi
+          gh workflow run policy-remote-liveness.yml \
+            --repo "$GITHUB_REPOSITORY" \
+            --ref main \
+            -f delay_minutes="$delay_minutes" \
+            -f force_recovery=false
+          echo "[hourly:recovery] explicitly re-armed remote liveness delay=${delay_minutes}m outcome=$RECOVERY_OUTCOME"
 
       - name: Upload recovery evidence
         if: always()
