@@ -53,7 +53,7 @@ try {
 }
 
 function run(args) {
-  const result = spawnSync(process.execPath, [script, ...args], {
+  const result = spawnSync(process.execPath, [script, `--out=${path.join(tempDir, "decision.json")}`, ...args], {
     cwd: process.cwd(), encoding: "utf8", windowsHide: true
   });
   return { status: result.status, output: `${result.stdout ?? ""}\n${result.stderr ?? ""}` };
