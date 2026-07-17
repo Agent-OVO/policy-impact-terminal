@@ -138,7 +138,8 @@ const plan = buildLimitedPolicyPlan(
 const duplicates = [...initialDedupe.duplicates, ...hydratedDedupe.duplicates];
 const finalizedSourceHealth = finalizeSourceHealth(sourceHealth, filtered, hydrated);
 const extractionFailure = finalizedSourceHealth.some((item) => item.status === "failed" && item.hydratedCandidates > 0);
-const runStatus = extractionFailure ? "failed" : errors.length > 0 ? "degraded" : "ok";
+const extractionDegraded = finalizedSourceHealth.some((item) => item.status === "degraded");
+const runStatus = extractionFailure ? "failed" : errors.length > 0 || extractionDegraded ? "degraded" : "ok";
 const output = {
   crawlerVersion: CRAWLER_VERSION,
   crawledAt,
@@ -770,7 +771,7 @@ async function hydrateCandidates(candidates) {
         html,
         pageText,
         baseUrl: candidate.sourceUrl,
-        fetchBinary
+        fetchBinary: (url, options) => fetchPolicyAttachmentBinary(candidate, url, options)
       });
       hydrated.push(attachFullText(candidate, attachmentResult.selectedText, html, attachmentResult));
     } catch (primaryError) {
@@ -781,7 +782,7 @@ async function hydrateCandidates(candidates) {
             html: fallback.html,
             pageText: fallback.pageText,
             baseUrl: fallback.baseUrl,
-            fetchBinary
+            fetchBinary: (url, options) => fetchPolicyAttachmentBinary(candidate, url, options)
           });
           const recovered = attachFullText(candidate, attachmentResult.selectedText, fallback.html, attachmentResult);
           recovered.raw.hydrationSource = fallback.source ?? "embedded-fallback";
@@ -998,6 +999,48 @@ async function callSupabaseFunction(supabaseUrl, functionName, { headers, body }
   return result;
 }
 
+async function fetchPolicyAttachmentBinary(candidate, url, options = {}) {
+  const parsedUrl = new URL(url);
+  const configuredMiitOrigins = [...new Set(MIIT_SEARCH_API_URLS.map((endpoint) => new URL(endpoint).origin))];
+  const isMiitAttachment = candidate?.sourceKey === "miit_policy_library" && (
+    parsedUrl.hostname === "miit.gov.cn"
+    || parsedUrl.hostname.endsWith(".miit.gov.cn")
+    || configuredMiitOrigins.includes(parsedUrl.origin)
+  );
+  if (!isMiitAttachment) return fetchBinary(url, options);
+
+  try {
+    return await fetchBinary(url, {
+      ...options,
+      attempts: Math.min(Number(options.attempts) || 3, 2)
+    });
+  } catch (primaryError) {
+    const mirrorUrls = configuredMiitOrigins
+      .filter((origin) => origin !== parsedUrl.origin)
+      .map((origin) => new URL(`${parsedUrl.pathname}${parsedUrl.search}`, origin).href);
+    if (mirrorUrls.length === 0) throw primaryError;
+    try {
+      const recovered = await Promise.any(
+        mirrorUrls.map((mirrorUrl) => fetchBinary(mirrorUrl, {
+          ...options,
+          referer: new URL(candidate.sourceUrl || "/", new URL(mirrorUrl).origin).href,
+          attempts: readPositiveIntegerEnv("MIIT_MIRROR_ATTACHMENT_ATTEMPTS") ?? 2
+        }))
+      );
+      return {
+        ...recovered,
+        mirrorFallbackUsed: true,
+        originalUrl: url
+      };
+    } catch (mirrorError) {
+      const mirrorMessages = Array.isArray(mirrorError?.errors)
+        ? mirrorError.errors.map(getErrorMessage)
+        : [getErrorMessage(mirrorError)];
+      throw new Error(`MIIT attachment failed on primary and official mirrors. primary=${getErrorMessage(primaryError)} mirrors=${mirrorMessages.join(" | ")}`);
+    }
+  }
+}
+
 async function fetchJson(url, options = {}) {
   const text = await fetchText(url, options);
   return JSON.parse(text);
@@ -1081,14 +1124,29 @@ function finalizeSourceHealth(sourceHealth, filtered, hydrated) {
     const hydratedRows = hydrated.filter((candidate) => candidate.sourceKey === item.sourceKey);
     const withFullText = hydratedRows.filter(hasUsableFullText).length;
     const extractionFailed = hydratedRows.length > 0 && withFullText === 0;
+    const extractionPartial = hydratedRows.length > 0 && withFullText > 0 && withFullText < hydratedRows.length;
+    const attachmentMirrorFallback = hydratedRows.some((candidate) =>
+      candidate.raw?.attachments?.some((attachment) => attachment.mirrorFallbackUsed === true)
+    );
+    const fetchModes = [...new Set([
+      ...(Array.isArray(item.fetchModes) ? item.fetchModes : []),
+      ...(attachmentMirrorFallback ? ["miit-attachment-mirror-fallback"] : [])
+    ])];
     return {
       ...item,
-      status: item.status === "failed" || extractionFailed ? "failed" : "ok",
+      status: item.status === "failed" || extractionFailed
+        ? "failed"
+        : extractionPartial
+          ? "degraded"
+          : "ok",
+      fetchModes,
+      fallbackUsed: item.fallbackUsed === true || attachmentMirrorFallback,
       filteredCandidates,
       hydratedCandidates: hydratedRows.length,
       withFullText,
       extractionRate: hydratedRows.length === 0 ? null : Number((withFullText / hydratedRows.length).toFixed(3)),
-      ...(extractionFailed && !item.error ? { error: "selected candidates produced no usable policy full text" } : {})
+      ...(extractionFailed && !item.error ? { error: "selected candidates produced no usable policy full text" } : {}),
+      ...(extractionPartial && !item.error ? { error: "some selected candidates produced no usable policy full text" } : {})
     };
   });
 }
@@ -1119,6 +1177,8 @@ function printSummary(output, outPath) {
   }
   if (output.counts.candidates > 0 && output.counts.withFullText === 0) {
     printWorkflowWarning("Crawler found candidates but extracted no usable policy full text. Source page selectors may need updating.");
+  } else if (output.counts.withFullText < output.counts.candidates) {
+    printWorkflowWarning(`${output.counts.candidates - output.counts.withFullText} selected candidates did not produce usable full text; the run is degraded.`);
   }
   for (const item of output.recommendedAnalysisQueue.slice(0, 8)) {
     console.log(`- recommend ${item.publishDateTime || item.publishDate || "no-date"} ${item.triage.analysisDepth}/${item.triage.reviewPriority} ${item.sourceKey} ${item.title}`);

@@ -110,6 +110,8 @@ export async function hydratePolicyAttachments(input) {
       }
       attachment.extractionStatus = "extracted";
       attachment.contentType = response.contentType ?? null;
+      attachment.finalUrl = response.finalUrl ?? attachment.url;
+      attachment.mirrorFallbackUsed = response.mirrorFallbackUsed === true;
       attachment.bytes = response.buffer.length;
       attachment.textLength = text.length;
       extractedTexts.push(`${attachment.title}\n${text}`);
