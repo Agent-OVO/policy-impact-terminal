@@ -4,6 +4,9 @@ import path from "node:path";
 
 const args = parseArgs(process.argv.slice(2));
 const runs = JSON.parse(await fs.readFile(path.resolve(args.input), "utf8"));
+const recoveryRuns = args.recoveryInput
+  ? JSON.parse(await fs.readFile(path.resolve(args.recoveryInput), "utf8"))
+  : [];
 const nowMs = Date.parse(args.now ?? new Date().toISOString());
 if (!Number.isFinite(nowMs)) throw new Error(`Invalid --now value: ${args.now}`);
 const scheduleRuns = (Array.isArray(runs) ? runs : [])
@@ -12,14 +15,24 @@ const scheduleRuns = (Array.isArray(runs) ? runs : [])
 const activeScheduleRun = scheduleRuns.find((item) => item.status === "queued" || item.status === "in_progress") ?? null;
 const successfulScheduleRuns = scheduleRuns.filter((item) => item.status === "completed" && item.conclusion === "success");
 const latest = successfulScheduleRuns[0] ?? null;
-const ageMinutes = latest ? (nowMs - Date.parse(latest.createdAt)) / 60_000 : Number.POSITIVE_INFINITY;
-const needed = args.force || (!activeScheduleRun && (!latest || ageMinutes > args.thresholdMinutes));
+const latestRecovery = (Array.isArray(recoveryRuns) ? recoveryRuns : [])
+  .filter((item) => item.status === "completed" && item.conclusion === "success")
+  .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))[0] ?? null;
+const latestOperational = [latest, latestRecovery]
+  .filter(Boolean)
+  .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))[0] ?? null;
+const ageMinutes = latestOperational ? (nowMs - Date.parse(latestOperational.createdAt)) / 60_000 : Number.POSITIVE_INFINITY;
+const needed = args.force || (!activeScheduleRun && (!latestOperational || ageMinutes > args.thresholdMinutes));
 const decision = {
   formatVersion: "hourly-recovery-decision-v1",
   evaluatedAt: new Date(nowMs).toISOString(),
   thresholdMinutes: args.thresholdMinutes,
   latestSuccessfulScheduleRunAt: latest?.createdAt ?? null,
   latestSuccessfulScheduleRunId: latest?.databaseId ?? null,
+  latestSuccessfulRecoveryRunAt: latestRecovery?.createdAt ?? null,
+  latestSuccessfulRecoveryRunId: latestRecovery?.databaseId ?? null,
+  latestOperationalRunAt: latestOperational?.createdAt ?? null,
+  latestOperationalRunId: latestOperational?.databaseId ?? null,
   activeScheduleRunAt: activeScheduleRun?.createdAt ?? null,
   activeScheduleRunId: activeScheduleRun?.databaseId ?? null,
   ageMinutes: Number.isFinite(ageMinutes) ? Number(ageMinutes.toFixed(2)) : null,
@@ -29,8 +42,8 @@ const decision = {
     ? "forced_by_explicit_dispatch"
     : activeScheduleRun
       ? "primary_schedule_run_active"
-      : !latest
-        ? "no_successful_schedule_run_found"
+      : !latestOperational
+        ? "no_successful_operational_run_found"
         : ageMinutes > args.thresholdMinutes
           ? "schedule_gap_exceeds_threshold"
           : "recent_schedule_run_is_healthy"
@@ -44,6 +57,7 @@ console.log(`[hourly:recovery] needed=${needed} reason=${decision.reason} ageMin
 function parseArgs(argv) {
   const parsed = {
     input: "artifacts/recovery/hourly-runs.json",
+    recoveryInput: null,
     out: "artifacts/recovery/recovery-decision.json",
     thresholdMinutes: 80,
     now: null,
@@ -52,13 +66,14 @@ function parseArgs(argv) {
   };
   for (const arg of argv) {
     if (arg.startsWith("--input=")) parsed.input = arg.slice(8);
+    else if (arg.startsWith("--recovery-input=")) parsed.recoveryInput = arg.slice(17);
     else if (arg.startsWith("--out=")) parsed.out = arg.slice(6);
     else if (arg.startsWith("--threshold-minutes=")) parsed.thresholdMinutes = positiveInteger(arg.slice(20), 80);
     else if (arg.startsWith("--now=")) parsed.now = arg.slice(6);
     else if (arg === "--force") parsed.force = true;
     else if (arg.startsWith("--github-output=")) parsed.githubOutput = arg.slice(16);
     else if (arg === "--help" || arg === "-h") {
-      console.log("Usage: node scripts/evaluate-hourly-recovery.mjs --input=<run-list.json> [--threshold-minutes=80] [--force]");
+      console.log("Usage: node scripts/evaluate-hourly-recovery.mjs --input=<run-list.json> [--recovery-input=<run-list.json>] [--threshold-minutes=80] [--force]");
       process.exit(0);
     } else throw new Error(`Unknown argument: ${arg}`);
   }

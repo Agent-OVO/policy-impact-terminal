@@ -2,9 +2,9 @@ name: Recover missed policy collection
 
 on:
   schedule:
-    # Check twice per hour, offset from the primary :17 crawl. A recovery crawl
-    # runs only when the latest successful primary schedule is older than 80 minutes.
-    - cron: "12,42 * * * *"
+    # Four offset checks provide multiple chances when GitHub drops an individual
+    # schedule event. A recovery crawl still runs only after an 80-minute gap.
+    - cron: "7,22,37,52 * * * *"
   workflow_dispatch:
     inputs:
       force:
@@ -61,8 +61,15 @@ jobs:
             --limit 50 \
             --json databaseId,status,conclusion,createdAt,event,url \
             > artifacts/recovery/hourly-runs.json
+          gh run list \
+            --repo "$GITHUB_REPOSITORY" \
+            --workflow "Recover missed policy collection" \
+            --limit 50 \
+            --json databaseId,status,conclusion,createdAt,event,url \
+            > artifacts/recovery/recovery-runs.json
           args=(
             --input=artifacts/recovery/hourly-runs.json
+            --recovery-input=artifacts/recovery/recovery-runs.json
             --out=artifacts/recovery/recovery-decision.json
             --threshold-minutes="${THRESHOLD_MINUTES}"
             --github-output="$GITHUB_OUTPUT"
