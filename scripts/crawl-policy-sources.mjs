@@ -767,8 +767,9 @@ async function hydrateCandidates(candidates) {
     try {
       const html = await fetchText(candidate.sourceUrl, { referer: candidate.canonicalSourceUrl });
       const pageText = extractPolicyTextFromHtml(html, candidate.sourceKey);
+      const attachmentHtml = mergeIndexedAttachmentHtml(candidate, html);
       const attachmentResult = await hydratePolicyAttachments({
-        html,
+        html: attachmentHtml,
         pageText,
         baseUrl: candidate.sourceUrl,
         fetchBinary: (url, options) => fetchPolicyAttachmentBinary(candidate, url, options)
@@ -804,6 +805,13 @@ async function hydrateCandidates(candidates) {
   }
 
   return hydrated;
+}
+
+function mergeIndexedAttachmentHtml(candidate, primaryHtml) {
+  const indexedAttachmentCount = Number(candidate.raw?.indexedAttachmentCount ?? 0);
+  const fallbackHtml = candidate.hydrationFallback?.html;
+  if (!fallbackHtml || indexedAttachmentCount <= 0) return primaryHtml;
+  return `${primaryHtml}\n<section class="miit-indexed-attachment-fallback">${fallbackHtml}</section>`;
 }
 
 function attachFullText(candidate, value, html = "", attachmentResult = null) {
