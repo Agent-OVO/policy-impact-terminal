@@ -24,11 +24,20 @@ try {
   assert.match(stale.output, /needed=true/);
   assert.match(stale.output, /schedule_gap_exceeds_threshold/);
 
+  fs.writeFileSync(input, JSON.stringify([
+    ...runs,
+    { databaseId: 3, event: "schedule", status: "in_progress", conclusion: null, createdAt: "2026-07-16T11:29:00Z" }
+  ]), "utf8");
+  const active = run([`--input=${input}`, "--now=2026-07-16T11:30:01Z", "--threshold-minutes=80"]);
+  assert.equal(active.status, 0, active.output);
+  assert.match(active.output, /needed=false/);
+  assert.match(active.output, /primary_schedule_run_active/);
+
   const forced = run([`--input=${input}`, "--now=2026-07-16T10:10:00Z", "--force"]);
   assert.equal(forced.status, 0, forced.output);
   assert.match(forced.output, /forced_by_explicit_dispatch/);
 
-  console.log("[hourly:recovery-test] recent-run suppression, stale-gap recovery, and explicit force passed");
+  console.log("[hourly:recovery-test] recent-run suppression, active-run suppression, stale-gap recovery, and explicit force passed");
 } finally {
   fs.rmSync(tempDir, { recursive: true, force: true });
 }

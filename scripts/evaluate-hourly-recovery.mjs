@@ -6,28 +6,34 @@ const args = parseArgs(process.argv.slice(2));
 const runs = JSON.parse(await fs.readFile(path.resolve(args.input), "utf8"));
 const nowMs = Date.parse(args.now ?? new Date().toISOString());
 if (!Number.isFinite(nowMs)) throw new Error(`Invalid --now value: ${args.now}`);
-const successfulScheduleRuns = (Array.isArray(runs) ? runs : [])
-  .filter((item) => item.event === "schedule" && item.status === "completed" && item.conclusion === "success")
+const scheduleRuns = (Array.isArray(runs) ? runs : [])
+  .filter((item) => item.event === "schedule")
   .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
+const activeScheduleRun = scheduleRuns.find((item) => item.status === "queued" || item.status === "in_progress") ?? null;
+const successfulScheduleRuns = scheduleRuns.filter((item) => item.status === "completed" && item.conclusion === "success");
 const latest = successfulScheduleRuns[0] ?? null;
 const ageMinutes = latest ? (nowMs - Date.parse(latest.createdAt)) / 60_000 : Number.POSITIVE_INFINITY;
-const needed = args.force || !latest || ageMinutes > args.thresholdMinutes;
+const needed = args.force || (!activeScheduleRun && (!latest || ageMinutes > args.thresholdMinutes));
 const decision = {
   formatVersion: "hourly-recovery-decision-v1",
   evaluatedAt: new Date(nowMs).toISOString(),
   thresholdMinutes: args.thresholdMinutes,
   latestSuccessfulScheduleRunAt: latest?.createdAt ?? null,
   latestSuccessfulScheduleRunId: latest?.databaseId ?? null,
+  activeScheduleRunAt: activeScheduleRun?.createdAt ?? null,
+  activeScheduleRunId: activeScheduleRun?.databaseId ?? null,
   ageMinutes: Number.isFinite(ageMinutes) ? Number(ageMinutes.toFixed(2)) : null,
   force: args.force,
   needed,
   reason: args.force
     ? "forced_by_explicit_dispatch"
-    : !latest
-      ? "no_successful_schedule_run_found"
-      : ageMinutes > args.thresholdMinutes
-        ? "schedule_gap_exceeds_threshold"
-        : "recent_schedule_run_is_healthy"
+    : activeScheduleRun
+      ? "primary_schedule_run_active"
+      : !latest
+        ? "no_successful_schedule_run_found"
+        : ageMinutes > args.thresholdMinutes
+          ? "schedule_gap_exceeds_threshold"
+          : "recent_schedule_run_is_healthy"
 };
 await writeJson(args.out, decision);
 if (args.githubOutput) {

@@ -1,6 +1,10 @@
 name: Recover missed policy collection
 
 on:
+  schedule:
+    # Check twice per hour, offset from the primary :17 crawl. A recovery crawl
+    # runs only when the latest successful primary schedule is older than 80 minutes.
+    - cron: "12,42 * * * *"
   workflow_dispatch:
     inputs:
       force:
@@ -13,8 +17,8 @@ on:
         required: false
         default: "80"
 
-# A schedule is intentionally not enabled here. Enabling a 30-minute recovery check
-# requires an independent user decision after the 24-hour acceptance result.
+# Scheduled recovery is supplementary operational protection. Its artifacts are
+# not counted as primary hourly schedule runs in the 24-hour or 7-day acceptance.
 
 permissions:
   contents: read
