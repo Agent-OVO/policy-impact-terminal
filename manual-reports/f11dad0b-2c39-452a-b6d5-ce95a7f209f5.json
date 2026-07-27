@@ -1,0 +1,533 @@
+{
+  "id": "f11dad0b-2c39-452a-b6d5-ce95a7f209f5",
+  "policyId": "f11dad0b-2c39-452a-b6d5-ce95a7f209f5",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "generatedAt": "2026-07-27T15:45:00Z",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "部门规章",
+  "substantivePolicyType": "标准约束与监管考核",
+  "primaryActionType": "标准约束",
+  "policySignalStrength": "high",
+  "implementationCertainty": "high",
+  "analysisDepth": "L4",
+  "analysisDepthReason": "办法明确适用对象、年度目标、核算凭证、季度监测、年度评估、三个月补充履责和信用约束，并附非电消费及省级权重核算方法；具体企业影响仍需等待年度重点行业和指标发布。",
+  "summary": {
+    "id": "f11dad0b-2c39-452a-b6d5-ce95a7f209f5",
+    "title": "可再生能源消费最低比重目标和可再生能源电力消纳责任权重制度实施办法",
+    "issuer": "国家发展改革委、工业和信息化部、住房城乡建设部、交通运输部",
+    "source": "国家发展改革委 - 政策文件库",
+    "publishDate": "2026-06-22",
+    "status": "published",
+    "confidence": 96,
+    "industryCount": 5,
+    "companyCount": 0,
+    "evidenceCount": 6,
+    "primarySignal": "可再生能源消费由倡导性要求转为重点行业年度最低比重、绿证核算和逾期信用监管",
+    "category": "能源消费责任与绿证市场"
+  },
+  "policy": {
+    "title": "《可再生能源消费最低比重目标和可再生能源电力消纳责任权重制度实施办法》 2026年第42号令",
+    "status": "已发布",
+    "issuer": "国家发展改革委、工业和信息化部、住房城乡建设部、交通运输部",
+    "publishDate": "2026-06-22",
+    "effectiveDate": "2026-08-01",
+    "source": "国家发展改革委 - 政策文件库",
+    "category": "能源消费责任与绿证市场",
+    "level": "部门规章",
+    "confidence": 96,
+    "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/fzggwl/202606/t20260612_1405837.html",
+    "scope": "重点用能行业相关企业、省级行政区域、电网企业、供售电企业、电力用户和交易机构",
+    "impactScope": "绿电绿证交易、重点行业能源消费、非电可再生能源、电网投资、市场交易、MRV和信用监管",
+    "jurisdiction": "中国",
+    "tags": ["最低消费比重", "消纳责任权重", "绿证", "绿电", "重点用能行业", "非电利用", "信用监管"]
+  },
+  "brief": {
+    "judgement": "办法把可再生能源消费从自愿倡导推进为可量化、可核算、可监测、可补足和可追责的履责制度：重点用能行业按年接受最低比重目标，电力消费以绿证为基本凭证，省级区域承担总量和非水电消纳权重，未完成者只有三个月市场化补足窗口。",
+    "summary": "制度覆盖重点用能行业可再生能源电力和非电消费最低比重，以及省级行政区域总量和非水电消纳责任权重。企业可通过自发自用、绿电直连、绿证绿电交易及可再生能源供热、氢氨醇、生物质利用完成目标；国务院能源主管部门按季度监测、按年度评估。未完成企业逾期可能被约谈、通报并纳入信用记录，形成绿证需求、电网消纳投资、非电能源统计和第三方监测服务的制度性需求。",
+    "keyPoints": [
+      "重点用能行业范围、最低比重和过渡期限按年明确并下达。",
+      "可再生能源电力消费最低比重以考核年对应绿证作为基本核算凭证。",
+      "省级消纳权重分为总量和非水电两类，电网、供售电企业及相关用户承担落实责任。",
+      "季度监测、年度评估公开，企业未完成后有三个月补足期。",
+      "在年度行业范围和具体指标发布前，不应推断某一上市公司已经承担新增量化义务。"
+    ],
+    "methodology": "读取部门规章正文及PDF/OFD附件的两套核算方法，区分企业最低消费比重、省级消纳权重、履责凭证、监管处罚和非电统计口径；未提前假定年度重点行业名单。"
+  },
+  "policyIndustryMap": [
+    {
+      "id": "pi1",
+      "industry": "重点用能行业绿色转型",
+      "policyAction": "按年下达可再生能源电力和非电消费最低比重",
+      "impactType": "regulatory_constraint",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "目标直接作用于年度确定的重点用能行业，提升绿电、绿证和非电替代需求，同时增加能源采购、核算和信用合规成本。",
+      "relatedNodeIds": ["n1"],
+      "watchSignals": ["年度重点行业范围", "行业最低比重和过渡期", "企业补充履责公告"]
+    },
+    {
+      "id": "pi2",
+      "industry": "绿证绿电交易与服务",
+      "policyAction": "以绿证作为电力消费最低比重基本核算凭证，并允许补充履责",
+      "impactType": "market_mechanism",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "绿证从自愿消费工具进一步成为企业和区域履责的基本凭证及未完成后的补足工具。",
+      "relatedNodeIds": ["n2"],
+      "watchSignals": ["绿证交易量和价格", "核销数据", "补充履责需求"]
+    },
+    {
+      "id": "pi3",
+      "industry": "电网、调节能力与跨区交易",
+      "policyAction": "要求省级制定消纳方案并由电网企业加大投资建设",
+      "impactType": "infrastructure_build",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "消纳责任权重不能只靠凭证完成，未完成地区还需提出调节能力、电网建设和市场价格机制举措。",
+      "relatedNodeIds": ["n3"],
+      "watchSignals": ["省级消纳实施方案", "电网和调节工程", "跨省绿电交易"]
+    },
+    {
+      "id": "pi4",
+      "industry": "绿色氢氨醇、可再生供热与生物燃料",
+      "policyAction": "建立非电消费最低比重及统计核算方法",
+      "impactType": "demand_creation",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "附件明确供热制冷、绿色氢氨醇和生物质非电利用的核算边界，为未来行业目标提供可执行基础。",
+      "relatedNodeIds": ["n4"],
+      "watchSignals": ["非电重点行业范围", "计量与核算细则", "终端采购协议"]
+    },
+    {
+      "id": "pi5",
+      "industry": "能源数据、MRV与第三方评估",
+      "policyAction": "实施季度监测、年度评估、第三方评价和信用监管",
+      "impactType": "regulatory_constraint",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "制度持续需要消费、交易、核销和非电利用数据，增加核算评估服务需求，也提高数据真实性责任。",
+      "relatedNodeIds": ["n5"],
+      "watchSignals": ["第三方监测委托", "数据平台建设", "信用记录和监管通报"]
+    }
+  ],
+  "industryChain": [
+    {
+      "id": "chain1",
+      "chainName": "年度目标—能源采购—绿证核算—监测评估—补充履责链",
+      "policyRole": "制度将能源消费目标转化为可追踪的年度履责闭环。",
+      "nodes": [
+        {"id": "n1", "policySensitivity": "high", "description": "被纳入年度重点行业的企业承担电力和非电消费最低比重。"},
+        {"id": "n2", "policySensitivity": "high", "description": "绿证、绿电交易、直连和自发自用形成电力履责工具。"},
+        {"id": "n3", "policySensitivity": "high", "description": "电网建设、调节能力和跨区交易支撑省级消纳责任。"},
+        {"id": "n4", "policySensitivity": "medium", "description": "供热制冷、氢氨醇和生物燃料承接非电消费目标。"},
+        {"id": "n5", "policySensitivity": "high", "description": "季度监测、年度评估、第三方核查和信用监管形成数据闭环。"}
+      ],
+      "edges": [
+        {"from": "n1", "to": "n2", "relation": "compliance_demand", "description": "企业最低比重直接产生绿电绿证等履责需求。"},
+        {"from": "n3", "to": "n2", "relation": "market_supply", "description": "电网和跨区交易扩大可消纳绿电供给。"},
+        {"from": "n1", "to": "n4", "relation": "fuel_substitution", "description": "非电目标推动热力、原料和燃料替代。"},
+        {"from": "n5", "to": "n1", "relation": "regulatory_feedback", "description": "监测评估结果触发补足、约谈、通报和信用监管。"}
+      ]
+    }
+  ],
+  "companyMap": [],
+  "policyNetwork": [
+    {
+      "id": "pn1",
+      "relatedPolicy": "《可再生能源发展“十五五”规划》",
+      "relationship": "upstream_planning",
+      "meaning": "规划要求逐步扩大强制消费行业范围，本办法提供年度目标、绿证核算和监管执行机制。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2026-07-23",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/t20260723_1406641.html",
+      "watchSignals": ["规划目标分解", "年度行业目标"]
+    },
+    {
+      "id": "pn2",
+      "relatedPolicy": "年度重点用能行业最低比重目标和省级消纳责任权重",
+      "relationship": "downstream_implementation",
+      "meaning": "年度文件将决定哪些行业和地区面临多大实际约束，是公司与区域影响判断的直接证据。",
+      "evidenceLevel": "pending",
+      "watchSignals": ["行业范围", "目标比例", "过渡期限", "省级权重"]
+    },
+    {
+      "id": "pn3",
+      "relatedPolicy": "非化石能源电力消费核算与绿证交易规则",
+      "relationship": "supporting_rule",
+      "meaning": "核算边界、证书生产年份、交易和核销规则决定履责成本与绿证市场结构。",
+      "evidenceLevel": "pending",
+      "watchSignals": ["核算口径调整", "绿证交易规则", "跨省交易限制"]
+    }
+  ],
+  "investmentDirection": {
+    "primaryDirection": "优先观察年度行业目标公布后形成的刚性绿证需求、电网调节投资和非电替代计量体系，不在行业名单发布前预设具体约束企业。",
+    "directionStrength": "high",
+    "timeHorizon": "medium_term",
+    "watchIndustries": ["绿证绿电交易", "重点用能行业能碳管理", "电网与调节能力", "绿色氢氨醇", "能源MRV"],
+    "watchChainNodes": ["绿证绿电交易与服务", "重点用能行业绿色转型", "能源数据、MRV与第三方评估"],
+    "watchCompanyTypes": ["具备合规绿证和绿电服务能力的机构", "承担年度最低比重的重点用能企业", "电网调节与能碳数据服务商", "有可验证终端消纳的非电替代项目主体"],
+    "watchCompanies": [],
+    "nearTermCatalysts": ["2026年8月1日施行", "年度重点行业及指标发布", "季度监测结果", "绿证补充履责需求"],
+    "keyRisks": ["年度目标强度低于预期", "绿证供需和价格波动", "统计核算复杂", "企业通过低成本凭证履责而非形成实物投资"] ,
+    "minimumEvidenceNeeded": ["年度行业名单和比例", "企业实际绿证核销", "季度及年度评估结果", "电网消纳工程", "非电利用计量数据"],
+    "doNotOverread": ["制度生效不等于所有高耗能企业立即承担同一比例", "绿证需求增加不等于价格单向上涨", "省级权重不等于单一项目订单"],
+    "summary": "制度性信号强、执行确定性高，但具体产业和公司影响必须以年度目标、绿证核销和区域消纳实施方案为准。"
+  },
+  "actions": [
+    {
+      "id": "a1",
+      "actionType": "标准约束",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "年度重点行业范围、比例和过渡期限发布",
+      "title": "建立重点用能行业可再生能源最低消费比重",
+      "body": "企业目标分为可再生能源电力消费和非电消费两类，由国务院能源主管部门按年下达。",
+      "signal": "constraint",
+      "confidence": 97,
+      "clauseIds": ["c1"],
+      "sortOrder": 1
+    },
+    {
+      "id": "a2",
+      "actionType": "市场机制",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "绿证交易、划转和核销系统",
+      "title": "确立绿证为电力消费履责基本凭证",
+      "body": "企业可通过自发自用、绿电直连、绿证绿电交易等完成目标，考核以对应生产年份绿证为基本凭证。",
+      "signal": "market",
+      "confidence": 97,
+      "clauseIds": ["c2"],
+      "sortOrder": 2
+    },
+    {
+      "id": "a3",
+      "actionType": "标准约束",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "省级实施方案、电网投资和跨区交易",
+      "title": "建立省级总量和非水电消纳责任权重",
+      "body": "省级能源主管部门牵头，电网、供售电企业和相关用户共同落实消纳责任。",
+      "signal": "constraint",
+      "confidence": 96,
+      "clauseIds": ["c3"],
+      "sortOrder": 3
+    },
+    {
+      "id": "a4",
+      "actionType": "监管考核",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "交易、核销、用能和非电利用数据完整性",
+      "title": "实施季度监测和年度公开评估",
+      "body": "主管部门委托第三方按季度监测，年度组织完成情况评估并公布，派出机构加强监管。",
+      "signal": "constraint",
+      "confidence": 96,
+      "clauseIds": ["c4"],
+      "sortOrder": 4
+    },
+    {
+      "id": "a5",
+      "actionType": "信用约束",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "评估结果公布和三个月补足窗口",
+      "title": "建立未完成后的补足与信用惩戒机制",
+      "body": "企业未完成后可在三个月内通过市场化方式补足，逾期面临约谈、通报、信用记录和重点监管。",
+      "signal": "constraint",
+      "confidence": 97,
+      "clauseIds": ["c5"],
+      "sortOrder": 5
+    }
+  ],
+  "clauseGroups": [
+    {"id": "g1", "title": "企业目标", "count": 2, "tone": "blue"},
+    {"id": "g2", "title": "区域责任", "count": 1, "tone": "green"},
+    {"id": "g3", "title": "监管奖惩", "count": 2, "tone": "orange"}
+  ],
+  "clauses": [
+    {
+      "id": "c1",
+      "no": "第五至第六条",
+      "title": "重点用能行业按年明确并下达目标",
+      "group": "g1",
+      "excerpt": "国务院能源主管部门按年下达重点用能行业可再生能源电力消费最低比重目标和非电消费最低比重目标。",
+      "fullText": "行业范围、目标和过渡期按年明确，企业约束并非一次性静态名单。",
+      "confidence": 97,
+      "keywords": ["重点用能行业", "按年下达", "最低比重"],
+      "industries": ["高耗能行业", "能碳管理"],
+      "sortOrder": 1
+    },
+    {
+      "id": "c2",
+      "no": "第七至第九条",
+      "title": "绿证和多种履责方式",
+      "group": "g1",
+      "excerpt": "可再生能源电力消费最低比重目标完成情况使用考核年生产电量对应的可再生能源绿色电力证书作为基本凭证进行核算。",
+      "fullText": "自发自用、绿电直连、绿证绿电交易均可完成电力目标，绿证交易和核销进入正式统计。",
+      "confidence": 98,
+      "keywords": ["绿证", "绿电直连", "核销"],
+      "industries": ["绿电交易", "绿证服务"],
+      "sortOrder": 2
+    },
+    {
+      "id": "c3",
+      "no": "第十至第十六条",
+      "title": "省级消纳责任权重",
+      "group": "g2",
+      "excerpt": "可再生能源电力消纳责任权重分为可再生能源电力总量消纳责任权重和非水电消纳责任权重两类。",
+      "fullText": "省级主管部门制定实施方案，电网企业加大投资，供售电企业和相关用户承担消纳责任。",
+      "confidence": 96,
+      "keywords": ["总量权重", "非水电权重", "省级实施方案"],
+      "industries": ["电网", "售电", "电力交易"],
+      "sortOrder": 3
+    },
+    {
+      "id": "c4",
+      "no": "第十九至第二十一条",
+      "title": "季度监测和年度评估",
+      "group": "g3",
+      "excerpt": "委托第三方机构对实施情况按季度开展监测，并予以公布。",
+      "fullText": "国务院能源主管部门按年度评估并公布，国家能源局派出机构负责相关监管。",
+      "confidence": 96,
+      "keywords": ["季度监测", "年度评估", "第三方"],
+      "industries": ["能源数据", "第三方核查"],
+      "sortOrder": 4
+    },
+    {
+      "id": "c5",
+      "no": "第二十二条",
+      "title": "三个月补足和信用约束",
+      "group": "g3",
+      "excerpt": "逾期仍未完成的，予以约谈、通报，并依法依规纳入信用记录，加强重点监管。",
+      "fullText": "企业在指标公布后三个月内可通过绿证或其他市场化方式补足；省级权重也设置补足和下一年度转移规则。",
+      "confidence": 98,
+      "keywords": ["三个月", "补充完成", "信用记录"],
+      "industries": ["重点用能行业", "绿证交易"],
+      "sortOrder": 5
+    }
+  ],
+  "chainNodes": [
+    {
+      "id": "n1",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["年度行业名单", "企业履责比例", "信用通报"],
+      "title": "重点用能行业绿色转型",
+      "subtitle": "从自愿消费转为年度最低比重约束",
+      "section": "downstream",
+      "relation": "constraint",
+      "evidenceLevel": "strong",
+      "confidence": 94,
+      "description": "被纳入范围的企业需要调整能源采购、生产用能和核算管理。",
+      "clauseIds": ["c1", "c5"],
+      "companyIds": [],
+      "evidenceIds": ["e1", "e5"],
+      "impactReason": "年度目标和信用监管直接作用于重点用能行业相关企业。",
+      "iconKey": "factory"
+    },
+    {
+      "id": "n2",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["绿证成交", "核销量", "绿电合同"],
+      "title": "绿证绿电交易与服务",
+      "subtitle": "履责基本凭证与补足工具",
+      "section": "midstream",
+      "relation": "market",
+      "evidenceLevel": "strong",
+      "confidence": 95,
+      "description": "绿证成为企业电力消费和区域消纳履责的核心核算媒介。",
+      "clauseIds": ["c2", "c5"],
+      "companyIds": [],
+      "evidenceIds": ["e2", "e5"],
+      "impactReason": "政策明确绿证基本凭证地位和补充履责功能。",
+      "iconKey": "certificate"
+    },
+    {
+      "id": "n3",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["省级方案", "调节能力投资", "跨区交易"],
+      "title": "电网、调节能力与跨区交易",
+      "subtitle": "区域消纳责任的物理基础",
+      "section": "upstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 91,
+      "description": "电网和系统调节能力决定省级权重能否通过实物消纳而非仅靠凭证补足。",
+      "clauseIds": ["c3"],
+      "companyIds": [],
+      "evidenceIds": ["e3"],
+      "impactReason": "电网企业被要求加大投资建设并组织责任主体完成消纳。",
+      "iconKey": "grid"
+    },
+    {
+      "id": "n4",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["非电目标", "计量数据", "终端协议"],
+      "title": "可再生能源非电利用",
+      "subtitle": "供热、氢氨醇和生物质进入正式核算",
+      "section": "upstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 87,
+      "description": "附件提供非电消费比重计算基础，但行业目标尚待后续按年明确。",
+      "clauseIds": ["c1"],
+      "companyIds": [],
+      "evidenceIds": ["e4"],
+      "impactReason": "非电消费目标覆盖可再生供热、制氢氨醇和生物质利用。",
+      "iconKey": "flask"
+    },
+    {
+      "id": "n5",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["第三方委托", "季度数据", "年度评估"],
+      "title": "能源数据、MRV与第三方评估",
+      "subtitle": "交易、核销、用能和信用数据闭环",
+      "section": "support",
+      "relation": "compliance",
+      "evidenceLevel": "strong",
+      "confidence": 90,
+      "description": "持续监测评估要求统一数据口径、第三方核查和监管平台支持。",
+      "clauseIds": ["c4"],
+      "companyIds": [],
+      "evidenceIds": ["e6"],
+      "impactReason": "办法明确季度监测、年度评估和监管报告机制。",
+      "iconKey": "database"
+    }
+  ],
+  "chainEdges": [
+    {"id": "edge1", "from": "n1", "to": "n2", "type": "strong", "label": "最低比重产生绿证绿电履责需求"},
+    {"id": "edge2", "from": "n3", "to": "n2", "type": "medium", "label": "物理消纳和跨区交易扩大履责供给"},
+    {"id": "edge3", "from": "n4", "to": "n1", "type": "medium", "label": "非电能源计入企业最低消费比重"},
+    {"id": "edge4", "from": "n5", "to": "n1", "type": "strong", "label": "监测评估触发补足和信用监管"}
+  ],
+  "companies": [],
+  "evidence": [
+    {
+      "id": "e1",
+      "evidenceObject": "policy_action",
+      "type": "policy_text",
+      "source": "国家发展改革委规章附件",
+      "title": "年度最低比重目标",
+      "excerpt": "国务院能源主管部门按年下达重点用能行业可再生能源电力消费最低比重目标和非电消费最低比重目标。",
+      "interpretation": "具体企业约束取决于每年发布的行业范围、比例和过渡期。",
+      "sourceLocation": "第六条",
+      "confidence": 98,
+      "clauseIds": ["c1"],
+      "nodeIds": ["n1"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c1"], "nodeIds": ["n1"]}
+    },
+    {
+      "id": "e2",
+      "evidenceObject": "policy_action",
+      "type": "policy_text",
+      "source": "国家发展改革委规章附件",
+      "title": "绿证基本凭证",
+      "excerpt": "可再生能源电力消费最低比重目标完成情况使用考核年生产电量对应的可再生能源绿色电力证书作为基本凭证进行核算。",
+      "interpretation": "绿证核销与生产年份匹配成为企业电力履责关键证据。",
+      "sourceLocation": "第八条",
+      "confidence": 98,
+      "clauseIds": ["c2"],
+      "nodeIds": ["n2"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c2"], "nodeIds": ["n2"]}
+    },
+    {
+      "id": "e3",
+      "evidenceObject": "industry_node",
+      "type": "policy_text",
+      "source": "国家发展改革委规章附件",
+      "title": "电网投资责任",
+      "excerpt": "电网企业应密切配合省级能源主管部门有效落实消纳责任，加大电网投资建设。",
+      "interpretation": "省级消纳权重需要电网接入、调节和交易能力提供物理支撑。",
+      "sourceLocation": "第十三条",
+      "confidence": 96,
+      "clauseIds": ["c3"],
+      "nodeIds": ["n3"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c3"], "nodeIds": ["n3"]}
+    },
+    {
+      "id": "e4",
+      "evidenceObject": "industry_node",
+      "type": "policy_text",
+      "source": "国家发展改革委规章附件1",
+      "title": "非电消费核算范围",
+      "excerpt": "可再生能源非电利用种类包含可再生能源供热（制冷）、可再生能源制氢氨醇等综合利用、生物质能非电利用等。",
+      "interpretation": "非电替代从政策概念进入可计量的企业消费比重体系。",
+      "sourceLocation": "附件1第一部分",
+      "confidence": 96,
+      "clauseIds": ["c1"],
+      "nodeIds": ["n4"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c1"], "nodeIds": ["n4"]}
+    },
+    {
+      "id": "e5",
+      "evidenceObject": "policy_action",
+      "type": "policy_text",
+      "source": "国家发展改革委规章附件",
+      "title": "逾期信用约束",
+      "excerpt": "逾期仍未完成的，予以约谈、通报，并依法依规纳入信用记录，加强重点监管。",
+      "interpretation": "最低比重目标具有补足期限和信用后果，不是单纯倡议。",
+      "sourceLocation": "第二十二条",
+      "confidence": 98,
+      "clauseIds": ["c5"],
+      "nodeIds": ["n1", "n2"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c5"], "nodeIds": ["n1", "n2"]}
+    },
+    {
+      "id": "e6",
+      "evidenceObject": "policy_action",
+      "type": "policy_text",
+      "source": "国家发展改革委规章附件",
+      "title": "监测和评估",
+      "excerpt": "委托第三方机构对实施情况按季度开展监测，并予以公布。",
+      "interpretation": "季度和年度数据将成为识别履责缺口及市场需求的高频证据。",
+      "sourceLocation": "第十九条",
+      "confidence": 96,
+      "clauseIds": ["c4"],
+      "nodeIds": ["n5"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c4"], "nodeIds": ["n5"]}
+    }
+  ],
+  "backgroundCards": [
+    {
+      "id": "bg1",
+      "title": "2026年8月1日起正式施行",
+      "body": "办法不是征求意见或规划性文件，已明确生效日期和四部门解释主体。",
+      "evidenceIds": ["e1"]
+    },
+    {
+      "id": "bg2",
+      "title": "履责工具覆盖物理消费和市场凭证",
+      "body": "企业既可自发自用、绿电直连，也可使用绿证绿电交易；非电消费另有供热、氢氨醇和生物质核算。",
+      "evidenceIds": ["e2", "e4"]
+    },
+    {
+      "id": "bg3",
+      "title": "监管闭环包含监测、补足和信用记录",
+      "body": "季度监测和年度评估发现缺口后，企业获得三个月补足期，逾期进入约谈、通报和信用监管。",
+      "evidenceIds": ["e5", "e6"]
+    }
+  ],
+  "compareInsights": {
+    "comparableCount": 0,
+    "similarPolicies": [],
+    "contrastPolicies": [],
+    "insights": ["本报告未启用横向对比，仅基于当前规章正文及两项核算附件完成分析。"],
+    "limitations": ["年度行业范围和具体比例尚未纳入本报告。", "未比较各省历史消纳权重和绿证供需。"]
+  },
+  "analysisCoverage": {
+    "status": "no_company_mapping",
+    "analysisMethod": "codex-manual-v1",
+    "evidenceCount": 6,
+    "industryNodeCount": 5,
+    "companyCount": 0,
+    "companyImpactConclusion": "办法尚未公布当年度重点用能行业范围、企业清单、最低比重和过渡期限，不能仅凭行业属性准确判断具体公司新增履责义务，因此本轮不生成公司映射。",
+    "limitations": ["具体约束主体取决于年度文件。", "绿证价格和履责成本取决于供需。", "企业可能通过多种方式组合完成目标。"]
+  }
+}

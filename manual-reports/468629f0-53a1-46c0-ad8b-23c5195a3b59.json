@@ -1,0 +1,536 @@
+{
+  "id": "468629f0-53a1-46c0-ad8b-23c5195a3b59",
+  "policyId": "468629f0-53a1-46c0-ad8b-23c5195a3b59",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "generatedAt": "2026-07-27T15:30:00Z",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "规划",
+  "substantivePolicyType": "规划",
+  "primaryActionType": "目标设定",
+  "policySignalStrength": "high",
+  "implementationCertainty": "medium",
+  "analysisDepth": "L3",
+  "analysisDepthReason": "国家规划给出2030年约束性和预期性目标、基地与工程方向，产业传导清晰；具体项目核准、投资金额、招标及企业名单仍需后续规划和项目证据确认。",
+  "summary": {
+    "id": "468629f0-53a1-46c0-ad8b-23c5195a3b59",
+    "title": "关于印发《可再生能源发展“十五五”规划》的通知",
+    "issuer": "国家发展改革委、国家能源局",
+    "source": "国家发展改革委 - 政策文件库",
+    "publishDate": "2026-07-23",
+    "status": "published",
+    "confidence": 94,
+    "industryCount": 5,
+    "companyCount": 0,
+    "evidenceCount": 6,
+    "primarySignal": "可再生能源从装机扩张转向扩量提质、可靠替代、非电利用和强制消费协同",
+    "category": "可再生能源与新型电力系统"
+  },
+  "policy": {
+    "title": "关于印发《可再生能源发展“十五五”规划》的通知(发改能源〔2026〕1067号)",
+    "status": "已发布",
+    "issuer": "国家发展改革委、国家能源局",
+    "publishDate": "2026-07-23",
+    "effectiveDate": "2026-07-23",
+    "source": "国家发展改革委 - 政策文件库",
+    "category": "可再生能源与新型电力系统",
+    "level": "国家专项规划",
+    "confidence": 94,
+    "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/t20260723_1406641.html",
+    "scope": "全国可再生能源开发、消纳、可靠替代、非电利用、技术产业和政策机制",
+    "impactScope": "风电、光伏、海上风电、水电与抽水蓄能、电网调节、储能、绿电绿证、绿色氢氨醇、生物质和地热",
+    "jurisdiction": "中国",
+    "tags": ["十五五", "可再生能源", "风电光伏", "海上风电", "抽水蓄能", "绿电绿证", "绿色氢氨醇", "新型电力系统"]
+  },
+  "brief": {
+    "judgement": "规划的核心变化不是单纯追求新增装机，而是同时考核消费总量、风光发电量、非电利用和可靠顶峰能力，并以大基地、海上风电、抽水蓄能、绿电绿证和绿色氢氨醇共同解决高比例新能源的供给、消纳与替代问题。",
+    "summary": "规划提出到2030年可再生能源消费总量约18亿吨标准煤、发电总装机约35亿千瓦、年发电量约6万亿千瓦时；风电和太阳能装机超过28亿千瓦、发电量超过4万亿千瓦时。政策同时推动“三北”基地、海上风电、水风光一体化、抽水蓄能、非电利用、工业交通替代和强制消费机制，产业兑现仍取决于基地项目库、核准、输电通道、容量电价、绿证需求和设备招标。",
+    "keyPoints": [
+      "2030年可再生能源消费总量约18亿吨标准煤，其中风电光伏装机超过28亿千瓦。",
+      "可靠替代被单列为目标，五年新增可再生能源可靠顶峰发电能力3亿千瓦以上。",
+      "全国海上风电新增开工约1亿千瓦，2030年累计装机超过1亿千瓦。",
+      "非电利用规模到2030年约1.5亿吨标准煤，制氢规模目标200万吨。",
+      "具体公司关系必须等待基地项目、设备招标、绿电合同和非电利用项目验证。"
+    ],
+    "methodology": "读取国家发展改革委官方发布页及PDF/OFD附件全文，按目标表、九章任务和十一项专栏提取政策动作；报告只建立产业链和验证信号，不以规划方向代替公司项目证据。"
+  },
+  "policyIndustryMap": [
+    {
+      "id": "pi1",
+      "industry": "风电光伏开发与装备",
+      "policyAction": "扩大风电光伏装机和发电规模，推进三北大基地与分布式开发",
+      "impactType": "infrastructure_build",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "风电光伏装机与发电量被列为2030年约束性和预期性目标，大基地和光伏治沙提供项目方向。",
+      "relatedNodeIds": ["n1"],
+      "watchSignals": ["基地核准与开工", "风机组件招标", "并网投产与利用小时"]
+    },
+    {
+      "id": "pi2",
+      "industry": "海上风电与海洋工程",
+      "policyAction": "推进近海和深远海海上风电基地及配套输电廊道",
+      "impactType": "infrastructure_build",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "规划给出新增开工和累计装机目标，并要求建立深远海项目库和统筹源网工程。",
+      "relatedNodeIds": ["n2"],
+      "watchSignals": ["省级海风规划修订", "用海与核准", "海缆和基础招标"]
+    },
+    {
+      "id": "pi3",
+      "industry": "电网调节、抽水蓄能与储能",
+      "policyAction": "提升风光置信出力、顶峰能力和系统调节能力",
+      "impactType": "infrastructure_build",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "可靠替代目标把抽水蓄能、调节性电源、储能、预测和联合调度从配套环节提升为装机兑现前提。",
+      "relatedNodeIds": ["n3"],
+      "watchSignals": ["抽蓄核准与开工", "输电通道建设", "容量补偿和辅助服务机制"]
+    },
+    {
+      "id": "pi4",
+      "industry": "绿色氢氨醇与可再生能源非电利用",
+      "policyAction": "推动可再生能源供热、制氢氨醇、生物质和地热规模化利用",
+      "impactType": "demand_creation",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "规划首次以量化目标强化非电利用突破，并将工业原料燃料替代、交通补能和农村能源纳入场景。",
+      "relatedNodeIds": ["n4"],
+      "watchSignals": ["绿氢氨醇项目终端协议", "非电利用统计规则", "工业供热与燃料替代项目"]
+    },
+    {
+      "id": "pi5",
+      "industry": "绿电绿证与可再生能源消费服务",
+      "policyAction": "扩大强制消费范围并发展绿色电力认证和消费服务",
+      "impactType": "market_mechanism",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "规划把供给扩张与重点行业最低消费比重、绿证绿电服务和企业披露连接起来，形成需求侧约束。",
+      "relatedNodeIds": ["n5"],
+      "watchSignals": ["年度最低消费比重", "绿证成交量和价格", "绿电长协与直连项目"]
+    }
+  ],
+  "industryChain": [
+    {
+      "id": "chain1",
+      "chainName": "资源开发—装备建设—电网调节—消费替代—市场核算链",
+      "policyRole": "规划给出总量、结构和可靠替代目标，项目与市场机制决定实际投资节奏。",
+      "nodes": [
+        {"id": "n1", "policySensitivity": "high", "description": "陆上大基地和分布式项目承接风光装机与发电量目标。"},
+        {"id": "n2", "policySensitivity": "high", "description": "海上风电项目库、用海、海缆和登陆点决定深远海建设节奏。"},
+        {"id": "n3", "policySensitivity": "high", "description": "抽蓄、储能、输电和智能调度承担新能源可靠替代与顶峰功能。"},
+        {"id": "n4", "policySensitivity": "medium", "description": "绿色氢氨醇、供热、生物燃料和地热把可再生能源从电力延伸至原料和燃料。"},
+        {"id": "n5", "policySensitivity": "high", "description": "最低消费比重、绿证和绿电交易将需求侧责任转化为可核算凭证。"}
+      ],
+      "edges": [
+        {"from": "n1", "to": "n3", "relation": "capacity_support", "description": "新增风光规模需要电网、储能和调节资源同步建设。"},
+        {"from": "n2", "to": "n3", "relation": "grid_connection", "description": "海上风电需海缆、登陆点和源网工程完成送出。"},
+        {"from": "n1", "to": "n4", "relation": "energy_conversion", "description": "富余可再生能源通过制氢氨醇、供热等方式转化为非电消费。"},
+        {"from": "n5", "to": "n1", "relation": "demand_pull", "description": "强制与自愿绿电消费形成新增可再生能源需求。"}
+      ]
+    }
+  ],
+  "companyMap": [],
+  "policyNetwork": [
+    {
+      "id": "pn1",
+      "relatedPolicy": "《可再生能源消费最低比重目标和可再生能源电力消纳责任权重制度实施办法》",
+      "relationship": "supporting_rule",
+      "meaning": "该办法把规划中的消费侧目标转化为年度指标、绿证核算、季度监测和未完成后的补充履责机制。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2026-06-22",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/fzggwl/202606/t20260612_1405837.html",
+      "watchSignals": ["重点用能行业年度目标", "绿证补充履责"]
+    },
+    {
+      "id": "pn2",
+      "relatedPolicy": "国家级零碳工厂建设工作",
+      "relationship": "downstream_implementation",
+      "meaning": "零碳工厂通过非化石能源消费和物理认定绿电指标，把工业可再生能源替代落实到企业建设和验收。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2026-07-22",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_e27f0b7be4914613ac52b8ac4e6a8c21.html",
+      "watchSignals": ["国家级建设名单", "年度披露与验收"]
+    },
+    {
+      "id": "pn3",
+      "relatedPolicy": "省级可再生能源发展规划、基地项目库和年度建设方案",
+      "relationship": "local_rollout",
+      "meaning": "区域项目清单、核准、用地用海和输电通道将决定国家目标在各地的实际建设强度。",
+      "evidenceLevel": "pending",
+      "watchSignals": ["省级规划", "基地核准", "年度开发建设方案"]
+    }
+  ],
+  "investmentDirection": {
+    "primaryDirection": "以能够同时解决增量供给和可靠消纳的环节为优先观察主线，重点跟踪海上风电、抽水蓄能与电网调节、绿电绿证及绿色氢氨醇的项目化进展。",
+    "directionStrength": "high",
+    "timeHorizon": "long_term",
+    "watchIndustries": ["风电光伏", "海上风电", "抽水蓄能与储能", "电网与调度", "绿色氢氨醇", "绿电绿证"],
+    "watchChainNodes": ["电网调节、抽水蓄能与储能", "海上风电与海洋工程", "绿电绿证与消费服务"],
+    "watchCompanyTypes": ["已获得核准和订单的主机及海工供应商", "抽蓄与输变电设备服务商", "具备终端协议的绿色氢氨醇项目主体", "绿电交易与能碳管理服务机构"],
+    "watchCompanies": [],
+    "nearTermCatalysts": ["基地和海风项目核准", "抽蓄与输电工程招标", "重点行业年度消费目标", "绿氢氨醇长期采购协议"],
+    "keyRisks": ["规划目标与项目开工存在时间差", "新能源消纳和电价机制约束", "设备供给过剩与价格竞争", "深远海和绿色燃料成本较高"],
+    "minimumEvidenceNeeded": ["项目核准及投资额", "设备或工程招标结果", "并网和发电数据", "绿电合同及绿证核销", "非电利用终端采购协议"],
+    "doNotOverread": ["国家装机目标不等于单一企业订单", "规划列出技术方向不等于商业化成熟", "项目储备不等于已开工投资"],
+    "summary": "产业方向和目标强度明确，实际投资观察应从装机口径转向项目核准、系统调节、绿电需求和终端消纳证据。"
+  },
+  "actions": [
+    {
+      "id": "a1",
+      "actionType": "目标设定",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "年度建设方案、基地项目核准和并网投产",
+      "title": "设定2030年可再生能源总量与发电目标",
+      "body": "规划同时设定消费总量、总装机、总发电量以及风电光伏装机和发电量目标，形成供给与消费双重约束。",
+      "signal": "constraint",
+      "confidence": 96,
+      "clauseIds": ["c1"],
+      "sortOrder": 1
+    },
+    {
+      "id": "a2",
+      "actionType": "项目建设",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "基地核准、用地用海、输电通道和地方配套",
+      "title": "推进三北基地、光伏治沙和海上风电",
+      "body": "集中式与分布式、陆上与海上并举，形成大基地、海上基地和生态融合开发的新增供给结构。",
+      "signal": "beneficiary",
+      "confidence": 94,
+      "clauseIds": ["c2"],
+      "sortOrder": 2
+    },
+    {
+      "id": "a3",
+      "actionType": "基础设施建设",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "电力市场、容量机制、储能和输电投资协同",
+      "title": "提升新能源可靠替代与顶峰能力",
+      "body": "规划以风光置信出力、晚高峰电量占比和新增可靠顶峰能力衡量新能源从电量替代走向容量支撑。",
+      "signal": "market",
+      "confidence": 94,
+      "clauseIds": ["c3"],
+      "sortOrder": 3
+    },
+    {
+      "id": "a4",
+      "actionType": "任务部署",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "成本下降、统计核算、终端采购和基础设施",
+      "title": "推动可再生能源非电利用突破",
+      "body": "围绕绿色氢氨醇、工业供热、生物质、地热和交通燃料扩大可再生能源在原料、燃料和热力领域的替代。",
+      "signal": "beneficiary",
+      "confidence": 91,
+      "clauseIds": ["c4"],
+      "sortOrder": 4
+    },
+    {
+      "id": "a5",
+      "actionType": "市场机制",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "年度最低消费比重、绿证核销和交易制度",
+      "title": "完善强制与自愿可再生能源消费机制",
+      "body": "规划扩大重点行业强制消费范围，发展绿证绿电服务、消费认证、企业披露和绿色供应链。",
+      "signal": "market",
+      "confidence": 93,
+      "clauseIds": ["c5"],
+      "sortOrder": 5
+    }
+  ],
+  "clauseGroups": [
+    {"id": "g1", "title": "量化目标", "count": 1, "tone": "blue"},
+    {"id": "g2", "title": "供给建设", "count": 1, "tone": "green"},
+    {"id": "g3", "title": "可靠替代", "count": 1, "tone": "purple"},
+    {"id": "g4", "title": "消费与非电利用", "count": 2, "tone": "orange"}
+  ],
+  "clauses": [
+    {
+      "id": "c1",
+      "no": "专栏1",
+      "title": "2030年主要目标",
+      "group": "g1",
+      "excerpt": "2030年，可再生能源发电总装机达到35亿千瓦左右，年发电量达到6万亿千瓦时左右。",
+      "fullText": "目标表还规定风电、太阳能装机超过28亿千瓦、发电量超过4万亿千瓦时，可再生能源消费总量约18亿吨标准煤。",
+      "confidence": 96,
+      "keywords": ["2030年", "35亿千瓦", "6万亿千瓦时"],
+      "industries": ["风电", "光伏", "水电"],
+      "sortOrder": 1
+    },
+    {
+      "id": "c2",
+      "no": "第二章",
+      "title": "扩大可再生能源电力供给",
+      "group": "g2",
+      "excerpt": "坚持集中式与分布式并举、陆上与海上并重，统筹就地消纳和外送。",
+      "fullText": "章节部署三北基地、光伏治沙、海上风电、重大水电和水风光一体化，明确多种开发形态。",
+      "confidence": 95,
+      "keywords": ["三北基地", "海上风电", "就地消纳"],
+      "industries": ["新能源开发", "海洋工程", "输电"],
+      "sortOrder": 2
+    },
+    {
+      "id": "c3",
+      "no": "可靠替代目标",
+      "title": "新增可靠顶峰发电能力",
+      "group": "g3",
+      "excerpt": "“十五五”期间新增可再生能源可靠顶峰发电能力3亿千瓦以上。",
+      "fullText": "可靠替代目标还包括风光平均置信出力和迎峰度夏度冬晚高峰电量占比，要求源网荷储协同。",
+      "confidence": 95,
+      "keywords": ["可靠顶峰", "置信出力", "源网荷储"],
+      "industries": ["抽水蓄能", "储能", "电网调度"],
+      "sortOrder": 3
+    },
+    {
+      "id": "c4",
+      "no": "第四章",
+      "title": "非电利用实现突破",
+      "group": "g4",
+      "excerpt": "2030年，可再生能源非电利用总规模较2025年增长1.5倍，折合约1.5亿吨标准煤。",
+      "fullText": "目标表同时把可再生能源制氢规模从2025年的25万吨提高到2030年的200万吨。",
+      "confidence": 94,
+      "keywords": ["非电利用", "绿色氢氨醇", "工业供热"],
+      "industries": ["绿氢", "生物质", "地热"],
+      "sortOrder": 4
+    },
+    {
+      "id": "c5",
+      "no": "第五章",
+      "title": "提升可再生能源消费水平",
+      "group": "g4",
+      "excerpt": "逐步扩大可再生能源电力强制消费行业领域范围。",
+      "fullText": "规划同步提出绿色电力消费认证、绿证绿电服务中心、居民绿电套餐和企业信息披露。",
+      "confidence": 93,
+      "keywords": ["强制消费", "绿证绿电", "消费认证"],
+      "industries": ["绿电交易", "能碳管理", "绿色供应链"],
+      "sortOrder": 5
+    }
+  ],
+  "chainNodes": [
+    {
+      "id": "n1",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["基地核准", "设备招标", "并网利用率"],
+      "title": "风电光伏开发与装备",
+      "subtitle": "大基地、分布式和光伏治沙共同扩量",
+      "section": "upstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 92,
+      "description": "风电光伏承担装机和发电量约束性目标，但设备需求按项目核准和开工节奏兑现。",
+      "clauseIds": ["c1", "c2"],
+      "companyIds": [],
+      "evidenceIds": ["e1", "e2"],
+      "impactReason": "规划明确风光装机超过28亿千瓦并推进三北基地和分布式开发。",
+      "iconKey": "sun"
+    },
+    {
+      "id": "n2",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["海风规划", "用海核准", "海缆招标"],
+      "title": "海上风电与海洋工程",
+      "subtitle": "近海和深远海基地进入项目库建设阶段",
+      "section": "upstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 91,
+      "description": "海风新增开工和累计装机目标明确，但深远海成本、用海和送出仍是关键约束。",
+      "clauseIds": ["c2"],
+      "companyIds": [],
+      "evidenceIds": ["e3"],
+      "impactReason": "规划明确海上风电新增开工和累计装机规模，并建设深远海项目库。",
+      "iconKey": "wind"
+    },
+    {
+      "id": "n3",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["抽蓄开工", "容量补偿", "输电通道"],
+      "title": "电网调节、抽水蓄能与储能",
+      "subtitle": "从消纳配套升级为可靠容量支撑",
+      "section": "midstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 92,
+      "description": "风光高比例接入要求抽蓄、储能、构网型装备、预测和联合调度同步扩容。",
+      "clauseIds": ["c3"],
+      "companyIds": [],
+      "evidenceIds": ["e4"],
+      "impactReason": "规划设置可靠顶峰能力、置信出力和晚高峰风光电量指标。",
+      "iconKey": "battery"
+    },
+    {
+      "id": "n4",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["终端采购协议", "成本与补贴", "统计核算"],
+      "title": "绿色氢氨醇与非电利用",
+      "subtitle": "可再生能源进入热力、原料和燃料",
+      "section": "downstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 87,
+      "description": "非电利用目标打开工业原料、供热、交通燃料等空间，但经济性和终端锁量决定项目质量。",
+      "clauseIds": ["c4"],
+      "companyIds": [],
+      "evidenceIds": ["e5"],
+      "impactReason": "规划设定非电利用和制氢量化目标。",
+      "iconKey": "flask"
+    },
+    {
+      "id": "n5",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["年度目标", "绿证核销", "绿电合同"],
+      "title": "绿电绿证与消费服务",
+      "subtitle": "强制责任和自愿消费共同拉动需求",
+      "section": "support",
+      "relation": "market",
+      "evidenceLevel": "strong",
+      "confidence": 90,
+      "description": "消费最低比重、绿证、绿电交易和认证形成可再生能源需求侧的核算与履责基础设施。",
+      "clauseIds": ["c5"],
+      "companyIds": [],
+      "evidenceIds": ["e6"],
+      "impactReason": "规划要求扩大强制消费行业范围并丰富绿电绿证服务。",
+      "iconKey": "certificate"
+    }
+  ],
+  "chainEdges": [
+    {"id": "edge1", "from": "n1", "to": "n3", "type": "strong", "label": "风光扩量需要调节和送出能力"},
+    {"id": "edge2", "from": "n2", "to": "n3", "type": "strong", "label": "海风项目依赖海缆和电网接入"},
+    {"id": "edge3", "from": "n1", "to": "n4", "type": "medium", "label": "可再生电力转化为氢氨醇和热力"},
+    {"id": "edge4", "from": "n5", "to": "n1", "type": "strong", "label": "消费责任和交易形成需求拉动"}
+  ],
+  "companies": [],
+  "evidence": [
+    {
+      "id": "e1",
+      "evidenceObject": "policy_action",
+      "type": "policy_text",
+      "source": "国家发展改革委规划附件",
+      "title": "2030年发电目标",
+      "excerpt": "2030年，可再生能源发电总装机达到35亿千瓦左右，年发电量达到6万亿千瓦时左右。",
+      "interpretation": "供给目标同时考核装机和发电量，避免只看名义装机。",
+      "sourceLocation": "第一章总体要求、专栏1",
+      "confidence": 96,
+      "clauseIds": ["c1"],
+      "nodeIds": ["n1"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c1"], "nodeIds": ["n1"]}
+    },
+    {
+      "id": "e2",
+      "evidenceObject": "industry_node",
+      "type": "policy_text",
+      "source": "国家发展改革委规划附件",
+      "title": "三北基地新增装机",
+      "excerpt": "“十五五”期间，“三北”风电光伏基地新增装机3.7亿千瓦以上。",
+      "interpretation": "大基地仍是风光新增供给的重要载体。",
+      "sourceLocation": "第二章第一节",
+      "confidence": 95,
+      "clauseIds": ["c2"],
+      "nodeIds": ["n1"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c2"], "nodeIds": ["n1"]}
+    },
+    {
+      "id": "e3",
+      "evidenceObject": "industry_node",
+      "type": "policy_text",
+      "source": "国家发展改革委规划附件",
+      "title": "海上风电建设规模",
+      "excerpt": "“十五五”期间，全国海上风电新增开工规模1亿千瓦左右，2030年累计装机规模达到1亿千瓦以上。",
+      "interpretation": "海上风电进入明确的开工和累计装机目标期。",
+      "sourceLocation": "第二章第二节",
+      "confidence": 96,
+      "clauseIds": ["c2"],
+      "nodeIds": ["n2"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c2"], "nodeIds": ["n2"]}
+    },
+    {
+      "id": "e4",
+      "evidenceObject": "policy_action",
+      "type": "policy_text",
+      "source": "国家发展改革委规划附件",
+      "title": "可靠顶峰能力",
+      "excerpt": "“十五五”期间新增可再生能源可靠顶峰发电能力3亿千瓦以上。",
+      "interpretation": "系统价值由电量消纳进一步扩展到容量和顶峰支撑。",
+      "sourceLocation": "第一章可靠替代目标",
+      "confidence": 95,
+      "clauseIds": ["c3"],
+      "nodeIds": ["n3"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c3"], "nodeIds": ["n3"]}
+    },
+    {
+      "id": "e5",
+      "evidenceObject": "industry_node",
+      "type": "policy_text",
+      "source": "国家发展改革委规划附件",
+      "title": "非电利用目标",
+      "excerpt": "2030年，可再生能源非电利用总规模较2025年增长1.5倍，折合约1.5亿吨标准煤。",
+      "interpretation": "绿色燃料、供热和原料替代成为独立增长方向。",
+      "sourceLocation": "第一章非电利用目标",
+      "confidence": 94,
+      "clauseIds": ["c4"],
+      "nodeIds": ["n4"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c4"], "nodeIds": ["n4"]}
+    },
+    {
+      "id": "e6",
+      "evidenceObject": "policy_action",
+      "type": "policy_text",
+      "source": "国家发展改革委规划附件",
+      "title": "强制消费范围",
+      "excerpt": "逐步扩大可再生能源电力强制消费行业领域范围。",
+      "interpretation": "新增供给将通过重点用能行业责任、绿证和绿电交易形成需求闭环。",
+      "sourceLocation": "第五章第一节",
+      "confidence": 93,
+      "clauseIds": ["c5"],
+      "nodeIds": ["n5"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c5"], "nodeIds": ["n5"]}
+    }
+  ],
+  "backgroundCards": [
+    {
+      "id": "bg1",
+      "title": "目标结构由装机扩展到发电、消费和可靠容量",
+      "body": "规划同时设置消费总量、装机、发电量、非电利用和可靠替代指标，观察重点不能只停留在新增装机。",
+      "evidenceIds": ["e1", "e4", "e5"]
+    },
+    {
+      "id": "bg2",
+      "title": "海上风电进入项目库和规模建设阶段",
+      "body": "近海与深远海并举，项目兑现需要用海、海缆路由、登陆点和源网工程同步落实。",
+      "evidenceIds": ["e3"]
+    },
+    {
+      "id": "bg3",
+      "title": "需求侧责任成为供给扩张的重要约束条件",
+      "body": "强制消费、绿证绿电和绿色供应链把可再生能源消纳从鼓励性行为转为可核算的企业和区域责任。",
+      "evidenceIds": ["e6"]
+    }
+  ],
+  "compareInsights": {
+    "comparableCount": 0,
+    "similarPolicies": [],
+    "contrastPolicies": [],
+    "insights": ["本报告未启用横向对比，仅基于当前规划正文和附件完成结构化分析。"],
+    "limitations": ["未对各省规划和具体项目库作横向比较。", "未将产业方向直接映射为公司名单。"]
+  },
+  "analysisCoverage": {
+    "status": "no_company_mapping",
+    "analysisMethod": "codex-manual-v1",
+    "evidenceCount": 6,
+    "industryNodeCount": 5,
+    "companyCount": 0,
+    "companyImpactConclusion": "本规划未点名具体企业、项目中标方或设备供应商，且产业链公司关系高度依赖后续基地核准、工程招标和终端合同，因此本轮不生成具体公司映射。",
+    "limitations": ["国家目标不等于年度项目投资额。", "设备环节可能面临供给过剩和价格竞争。", "非电利用的经济性与终端需求仍需验证。"]
+  }
+}

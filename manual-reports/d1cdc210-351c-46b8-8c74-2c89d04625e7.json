@@ -1,0 +1,523 @@
+{
+  "id": "d1cdc210-351c-46b8-8c74-2c89d04625e7",
+  "policyId": "d1cdc210-351c-46b8-8c74-2c89d04625e7",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "generatedAt": "2026-07-27T15:45:00Z",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "专项管理办法",
+  "substantivePolicyType": "资金支持与项目管理",
+  "primaryActionType": "资金支持",
+  "policySignalStrength": "high",
+  "implementationCertainty": "high",
+  "analysisDepth": "L4",
+  "analysisDepthReason": "办法明确中央预算内投资的支持范围、区域比例、单项标准、项目申报条件、执行监管、绩效评估和违规处置，具备资金机制和项目管理双重可执行性；尚未公布具体年度项目名单和投资计划。",
+  "summary": {
+    "id": "d1cdc210-351c-46b8-8c74-2c89d04625e7",
+    "title": "生态保护修复领域中央预算内投资专项管理办法",
+    "issuer": "国家发展改革委",
+    "source": "国家发展改革委 - 政策文件库",
+    "publishDate": "2026-06-08",
+    "status": "published",
+    "confidence": 96,
+    "industryCount": 5,
+    "companyCount": 0,
+    "evidenceCount": 6,
+    "primarySignal": "生态修复资金支持从方向性部署细化为差别化比例、项目入库、月度监管和绩效惩戒闭环",
+    "category": "生态保护修复与中央预算内投资"
+  },
+  "policy": {
+    "title": "关于印发《生态保护修复领域中央预算内投资专项管理办法》的通知(发改农经〔2026〕713号)",
+    "status": "已发布",
+    "issuer": "国家发展改革委",
+    "publishDate": "2026-06-08",
+    "effectiveDate": "2026-06-08",
+    "source": "国家发展改革委 - 政策文件库",
+    "category": "生态保护修复与中央预算内投资",
+    "level": "国家专项资金管理办法",
+    "confidence": 96,
+    "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202606/t20260608_1405753.html",
+    "scope": "生态保护修复中央预算内投资的申报、审核、下达、建设、监管和绩效评估",
+    "impactScope": "营造林、草原与荒漠化治理、森林草原防灭火、种质与种苗、国家储备林、自然保护地、湿地与野生动植物、监测监管和林业执法",
+    "jurisdiction": "中国",
+    "tags": ["中央预算内投资", "生态修复", "森林草原", "国家公园", "国家储备林", "监测监管", "绩效评估"]
+  },
+  "brief": {
+    "judgement": "该办法的实质不是新增一个泛环保概念，而是为生态修复项目建立可计算的中央资金支持标准和严格的项目制管理：项目必须成熟入库、资金直接到具体项目、按月填报进度并接受绩效评估，执行不佳可能被停拨、收回资金或暂停申报资格。",
+    "summary": "专项支持重点区域生态保护修复、森林草原防灭火和资源保护、国家公园及湿地野生动植物保护、林业执法与监测能力。中央支持比例按区域和项目类型差异化设置，西部、东北多类项目可达80%，西藏除特定项目外可达100%；国家储备林、种质资源、乡土种苗和防火道路另有单项标准。投资计划必须落到具体项目，项目单位承担招标、监理、合同、资金和安全责任，并通过国家重大建设项目库按月报送。",
+    "keyPoints": [
+      "资金以直接投资为主，经营性项目仅在确需支持时采用投资补助。",
+      "重点区域生态修复和多类资源保护项目实行东中西东北60%、70%、80%、80%的差别化支持。",
+      "国家储备林、防火道路、种质和种苗基地设置单项上限或定额。",
+      "项目必须进入国家重大建设项目库并明确责任单位、责任人和绩效目标。",
+      "未公布具体年度项目名单前，不应把资金比例直接推断为某家工程公司的订单。"
+    ],
+    "methodology": "读取国家发展改革委官方发布页及PDF/OFD全文，分别提取支持范围、资金方式与标准、申报条件、计划执行、月度监管和绩效惩戒；产业映射以项目类型和验证节点为单位。"
+  },
+  "policyIndustryMap": [
+    {
+      "id": "pi1",
+      "industry": "重点区域生态保护修复工程",
+      "policyAction": "支持营造林、退化草原、荒漠化石漠化和小型水利水保设施",
+      "impactType": "funding_support",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "支持范围和分区域中央比例明确，但项目需求以年度申报、入库和批复为准。",
+      "relatedNodeIds": ["n1"],
+      "watchSignals": ["年度投资计划", "项目批复", "施工和监理招标"]
+    },
+    {
+      "id": "pi2",
+      "industry": "森林草原防灭火与林业装备",
+      "policyAction": "支持防火道路、有害生物防治、国有林场装备和监测系统",
+      "impactType": "infrastructure_build",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "政策给出区域支持比例及防火道路每公里中央投资上限，工程和装备需求可按项目核验。",
+      "relatedNodeIds": ["n2"],
+      "watchSignals": ["防火道路清单", "装备采购", "监测系统招标"]
+    },
+    {
+      "id": "pi3",
+      "industry": "国家公园、自然保护地与湿地监测",
+      "policyAction": "支持保护管理、科研监测和生境修复设施装备",
+      "impactType": "funding_support",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "自然保护地和野生动植物项目中央支持比例原则上为80%，但设施、设备和服务需求需由具体项目形成。",
+      "relatedNodeIds": ["n3"],
+      "watchSignals": ["国家公园项目库", "科研监测采购", "湿地修复验收"]
+    },
+    {
+      "id": "pi4",
+      "industry": "国家储备林、种质资源与乡土种苗",
+      "policyAction": "按比例或定额支持种质保存、种苗保供和国家储备林建设",
+      "impactType": "funding_support",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "政策明确种质资源80%、乡土种苗40%以及国家储备林分项定额和资本金比例上限。",
+      "relatedNodeIds": ["n4"],
+      "watchSignals": ["储备林资本金方案", "种苗基地批复", "造林与改培进度"]
+    },
+    {
+      "id": "pi5",
+      "industry": "项目管理、监理评估与数字监管",
+      "policyAction": "实施项目入库、月度填报、现场检查和年度绩效评估",
+      "impactType": "regulatory_constraint",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "项目全周期需要工程管理、监理、数据填报和第三方评估，同时不合规项目面临资金和资格处罚。",
+      "relatedNodeIds": ["n5"],
+      "watchSignals": ["第三方评估委托", "项目库进度数据", "资金收回和资格暂停"]
+    }
+  ],
+  "industryChain": [
+    {
+      "id": "chain1",
+      "chainName": "项目储备—资金申报—批复下达—工程执行—绩效监管链",
+      "policyRole": "中央预算资金按具体项目闭环运行，项目成熟度和执行绩效决定资金兑现。",
+      "nodes": [
+        {"id": "n1", "policySensitivity": "high", "description": "重点区域生态治理工程是专项资金的核心建设对象。"},
+        {"id": "n2", "policySensitivity": "high", "description": "防火道路、装备和监测系统具有明确支持标准。"},
+        {"id": "n3", "policySensitivity": "medium", "description": "自然保护地、生境修复和科研监测按项目形成采购。"},
+        {"id": "n4", "policySensitivity": "high", "description": "储备林和种苗项目依照定额、比例及资本金约束执行。"},
+        {"id": "n5", "policySensitivity": "high", "description": "国家重大建设项目库、监理、绩效评估和资金监管贯穿全周期。"}
+      ],
+      "edges": [
+        {"from": "n5", "to": "n1", "relation": "project_gate", "description": "项目成熟入库和审核是工程获得资金的前提。"},
+        {"from": "n5", "to": "n2", "relation": "execution_control", "description": "工程进度和资金支付须按月填报并接受检查。"},
+        {"from": "n4", "to": "n5", "relation": "performance_reporting", "description": "长期林业项目需持续管护和绩效验证。"},
+        {"from": "n3", "to": "n5", "relation": "monitoring_evidence", "description": "保护成效依赖科研监测和评估证据。"}
+      ]
+    }
+  ],
+  "companyMap": [],
+  "policyNetwork": [
+    {
+      "id": "pn1",
+      "relatedPolicy": "《全国重要生态系统保护和修复重大工程总体规划（2021—2035年）》及相关专项规划",
+      "relationship": "upstream_planning",
+      "meaning": "本办法为国家级生态修复规划部署的项目提供中央预算内投资执行规则。",
+      "evidenceLevel": "pending",
+      "watchSignals": ["规划项目库更新", "重点区域工程清单"]
+    },
+    {
+      "id": "pn2",
+      "relatedPolicy": "年度生态保护修复中央预算内投资计划",
+      "relationship": "downstream_implementation",
+      "meaning": "年度投资计划将给出项目、资金和绩效目标，是产业与企业影响判断的直接证据。",
+      "evidenceLevel": "pending",
+      "watchSignals": ["年度计划下达", "具体项目与金额", "地方转发文件"]
+    }
+  ],
+  "investmentDirection": {
+    "primaryDirection": "以已进入重大项目库、中央资金比例明确且具备招标条件的生态工程为观察对象，重点跟踪防火与监测装备、自然保护地设施和储备林项目，而非泛化映射全部环保园林企业。",
+    "directionStrength": "medium",
+    "timeHorizon": "medium_term",
+    "watchIndustries": ["生态修复工程", "森林草原防灭火", "林业装备", "自然保护地监测", "国家储备林", "工程监理与绩效评估"],
+    "watchChainNodes": ["项目管理、监理评估与数字监管", "森林草原防灭火与林业装备", "重点区域生态保护修复工程"],
+    "watchCompanyTypes": ["中标具体生态工程的施工与监理主体", "防火道路和林业装备供应商", "生态监测和项目管理平台服务商", "具有明确资本金和管护安排的储备林项目主体"],
+    "watchCompanies": [],
+    "nearTermCatalysts": ["年度中央投资计划", "地方项目转发下达", "工程和设备招标", "项目库月度进度"],
+    "keyRisks": ["项目尚未进入年度计划", "地方配套资金不足", "隐性债务约束", "项目回款和长期管护压力", "绩效不达标导致资金收回"] ,
+    "minimumEvidenceNeeded": ["项目批复和资金申请报告", "中央及地方资金比例", "招标中标公告", "月度投资完成和资金支付", "竣工及绩效验收"] ,
+    "doNotOverread": ["支持比例不等于企业可确认收入", "规划项目不等于年度资金已下达", "项目入库不等于已经开工"] ,
+    "summary": "资金规则明确，产业机会必须沿着具体项目、批复金额、招标和执行进度验证。"
+  },
+  "actions": [
+    {
+      "id": "a1",
+      "actionType": "资金支持",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "国家级规划范围、项目成熟度和年度资金安排",
+      "title": "确定五类生态保护修复支持范围",
+      "body": "专项覆盖重点区域修复、资源保护利用、自然保护地与野生动植物、林业执法及其他批准项目。",
+      "signal": "beneficiary",
+      "confidence": 97,
+      "clauseIds": ["c1"],
+      "sortOrder": 1
+    },
+    {
+      "id": "a2",
+      "actionType": "资金支持",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "区域属性、项目类型和核定总投资",
+      "title": "实行差别化中央支持比例和单项标准",
+      "body": "不同地区、项目类别和设施设定60%至100%的支持比例、定额或单位造价上限。",
+      "signal": "market",
+      "confidence": 97,
+      "clauseIds": ["c2"],
+      "sortOrder": 2
+    },
+    {
+      "id": "a3",
+      "actionType": "项目准入",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "前期手续、资金落实、重大项目库和绩效目标",
+      "title": "提高项目成熟度和申报责任要求",
+      "body": "申报单位必须审核支持范围、重复申报、审批备案和配套资金，并明确项目负责人和监管责任人。",
+      "signal": "constraint",
+      "confidence": 96,
+      "clauseIds": ["c3"],
+      "sortOrder": 3
+    },
+    {
+      "id": "a4",
+      "actionType": "执行监管",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "招标监理、合同管理、项目库填报和地方转发",
+      "title": "按具体项目下达并实施全周期管理",
+      "body": "项目单位承担质量、进度、资金和安全责任，验收后还需明确产权、运行和管护责任。",
+      "signal": "constraint",
+      "confidence": 96,
+      "clauseIds": ["c4"],
+      "sortOrder": 4
+    },
+    {
+      "id": "a5",
+      "actionType": "绩效惩戒",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "月度数据、检查结果和年度绩效评估",
+      "title": "将执行绩效与后续资金和申报资格挂钩",
+      "body": "进度、资金、建设规模或绩效出现问题时，可停拨、收回资金、暂停申报资格或核减下一年度规模。",
+      "signal": "constraint",
+      "confidence": 97,
+      "clauseIds": ["c5"],
+      "sortOrder": 5
+    }
+  ],
+  "clauseGroups": [
+    {"id": "g1", "title": "支持范围与标准", "count": 2, "tone": "green"},
+    {"id": "g2", "title": "申报与执行", "count": 2, "tone": "blue"},
+    {"id": "g3", "title": "监督绩效", "count": 1, "tone": "orange"}
+  ],
+  "clauses": [
+    {
+      "id": "c1",
+      "no": "第四至第五条",
+      "title": "支持范围和资金方式",
+      "group": "g1",
+      "excerpt": "本专项资金以直接投资方式为主；对确需支持的经营性项目，采取投资补助等方式。",
+      "fullText": "支持内容覆盖生态修复、森林草原资源、自然保护地、湿地野生动植物、林业执法和监测能力。",
+      "confidence": 97,
+      "keywords": ["直接投资", "生态修复", "投资补助"],
+      "industries": ["生态工程", "林业", "监测"],
+      "sortOrder": 1
+    },
+    {
+      "id": "c2",
+      "no": "第六条",
+      "title": "差别化支持标准",
+      "group": "g1",
+      "excerpt": "重点区域生态保护修复项目，东部、中部、西部、东北地区中央支持比例分别为60%、70%、80%、80%。",
+      "fullText": "防火、种质、种苗、国家储备林、自然保护地和林业执法另设比例、定额或单位造价标准。",
+      "confidence": 98,
+      "keywords": ["支持比例", "防火道路", "国家储备林"],
+      "industries": ["工程建设", "林业装备"],
+      "sortOrder": 2
+    },
+    {
+      "id": "c3",
+      "no": "第十二至第十五条",
+      "title": "项目成熟和责任审查",
+      "group": "g2",
+      "excerpt": "确保新开工项目前期工作成熟、在建项目报建手续完备。",
+      "fullText": "申报还需避免重复超额申报、落实配套资金、评估政府投资能力并明确日常监管责任。",
+      "confidence": 96,
+      "keywords": ["前期成熟", "配套资金", "隐性债务"],
+      "industries": ["项目管理", "工程咨询"],
+      "sortOrder": 3
+    },
+    {
+      "id": "c4",
+      "no": "第十九至第二十三条",
+      "title": "项目执行和月度监管",
+      "group": "g2",
+      "excerpt": "每月10日前，应督促项目单位通过国家重大建设项目库及时准确完整填报项目开工、投资完成、形象进度等信息。",
+      "fullText": "项目实行法人责任、招投标、建设监理和合同管理，验收后必须落实产权、运行和管护。",
+      "confidence": 97,
+      "keywords": ["每月10日前", "重大建设项目库", "招标监理"],
+      "industries": ["工程管理", "数字监管", "监理"],
+      "sortOrder": 4
+    },
+    {
+      "id": "c5",
+      "no": "第二十四至第二十五条",
+      "title": "绩效评估和处罚措施",
+      "group": "g3",
+      "excerpt": "视情况采取停止拨付或收回已拨付项目资金、暂停中央预算内投资申报资格、核减下年度中央预算内投资规模等处罚措施。",
+      "fullText": "检查和年度绩效结果作为优化专项和后续投资安排的重要依据。",
+      "confidence": 98,
+      "keywords": ["收回资金", "暂停资格", "绩效评估"],
+      "industries": ["项目单位", "工程承包", "绩效评估"],
+      "sortOrder": 5
+    }
+  ],
+  "chainNodes": [
+    {
+      "id": "n1",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["项目批复", "年度资金", "工程招标"],
+      "title": "重点区域生态保护修复工程",
+      "subtitle": "营造林、草原、荒漠化和水保设施",
+      "section": "upstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 91,
+      "description": "中央资金比例明确，实际需求按具体区域工程和年度计划兑现。",
+      "clauseIds": ["c1", "c2"],
+      "companyIds": [],
+      "evidenceIds": ["e1", "e2"],
+      "impactReason": "政策直接列入支持范围并给出区域比例。",
+      "iconKey": "leaf"
+    },
+    {
+      "id": "n2",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["道路清单", "装备采购", "监测招标"],
+      "title": "森林草原防灭火与林业装备",
+      "subtitle": "道路、装备、有害生物防治和监测系统",
+      "section": "midstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 92,
+      "description": "防火道路有单位造价上限，装备和监测采购可通过项目清单核验。",
+      "clauseIds": ["c2"],
+      "companyIds": [],
+      "evidenceIds": ["e3"],
+      "impactReason": "政策明确支持比例和防火道路标准。",
+      "iconKey": "shield"
+    },
+    {
+      "id": "n3",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["保护地项目", "设备清单", "绩效验收"],
+      "title": "国家公园、自然保护地与湿地监测",
+      "subtitle": "保护管理、科研监测和生境修复",
+      "section": "downstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 88,
+      "description": "支持比例较高，但需求多为分散项目和长期监测，需要逐项验证。",
+      "clauseIds": ["c1", "c2"],
+      "companyIds": [],
+      "evidenceIds": ["e1"],
+      "impactReason": "自然保护地和野生动植物项目被直接纳入支持范围。",
+      "iconKey": "map"
+    },
+    {
+      "id": "n4",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["资本金落实", "造林进度", "长期管护"],
+      "title": "国家储备林、种质资源与乡土种苗",
+      "subtitle": "定额支持与长期经营并存",
+      "section": "upstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "confidence": 89,
+      "description": "国家储备林采用分项定额且不超过项目资本金50%，长期回报取决于经营和管护。",
+      "clauseIds": ["c2"],
+      "companyIds": [],
+      "evidenceIds": ["e4"],
+      "impactReason": "政策给出种质、种苗和储备林具体支持标准。",
+      "iconKey": "tree"
+    },
+    {
+      "id": "n5",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["月度填报", "监理合同", "绩效报告"],
+      "title": "项目管理、监理评估与数字监管",
+      "subtitle": "资金安全和项目绩效的控制层",
+      "section": "support",
+      "relation": "compliance",
+      "evidenceLevel": "strong",
+      "confidence": 93,
+      "description": "项目库填报、现场检查、监理和年度绩效决定资金继续拨付和后续资格。",
+      "clauseIds": ["c3", "c4", "c5"],
+      "companyIds": [],
+      "evidenceIds": ["e5", "e6"],
+      "impactReason": "办法建立月度监管、年度绩效和处罚闭环。",
+      "iconKey": "clipboard"
+    }
+  ],
+  "chainEdges": [
+    {"id": "edge1", "from": "n5", "to": "n1", "type": "strong", "label": "成熟入库和绩效控制工程资金"},
+    {"id": "edge2", "from": "n5", "to": "n2", "type": "strong", "label": "采购和施工进度接受月度监管"},
+    {"id": "edge3", "from": "n3", "to": "n5", "type": "medium", "label": "保护成效需长期监测和评估"},
+    {"id": "edge4", "from": "n4", "to": "n5", "type": "medium", "label": "储备林需落实资本金和管护责任"}
+  ],
+  "companies": [],
+  "evidence": [
+    {
+      "id": "e1",
+      "evidenceObject": "policy_action",
+      "type": "policy_text",
+      "source": "国家发展改革委办法附件",
+      "title": "支持范围",
+      "excerpt": "本专项主要用于支持重点区域生态保护修复、生态资源保护利用、自然保护地建设及野生动植物保护、林业执法监管能力建设项目。",
+      "interpretation": "中央资金覆盖工程、装备、监测和执法能力等多种项目形态。",
+      "sourceLocation": "第四条",
+      "confidence": 97,
+      "clauseIds": ["c1"],
+      "nodeIds": ["n1", "n3"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c1"], "nodeIds": ["n1", "n3"]}
+    },
+    {
+      "id": "e2",
+      "evidenceObject": "policy_action",
+      "type": "policy_text",
+      "source": "国家发展改革委办法附件",
+      "title": "区域支持比例",
+      "excerpt": "东部、中部、西部、东北地区中央支持比例分别为60%、70%、80%、80%。",
+      "interpretation": "区域财力和事权差异被直接反映在中央资金比例中。",
+      "sourceLocation": "第六条第一项",
+      "confidence": 98,
+      "clauseIds": ["c2"],
+      "nodeIds": ["n1"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c2"], "nodeIds": ["n1"]}
+    },
+    {
+      "id": "e3",
+      "evidenceObject": "industry_node",
+      "type": "policy_text",
+      "source": "国家发展改革委办法附件",
+      "title": "防火道路单位标准",
+      "excerpt": "森林防火应急道路中央投资不超过新建50万元/公里、改造30万元/公里。",
+      "interpretation": "工程需求具有可计算的中央投资上限。",
+      "sourceLocation": "第六条第二项",
+      "confidence": 98,
+      "clauseIds": ["c2"],
+      "nodeIds": ["n2"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c2"], "nodeIds": ["n2"]}
+    },
+    {
+      "id": "e4",
+      "evidenceObject": "industry_node",
+      "type": "policy_text",
+      "source": "国家发展改革委办法附件",
+      "title": "国家储备林支持标准",
+      "excerpt": "国家储备林建设项目中央投资不超过项目资本金的50%。",
+      "interpretation": "中央资金需要项目资本金和经营方案共同支撑。",
+      "sourceLocation": "第六条第二项",
+      "confidence": 97,
+      "clauseIds": ["c2"],
+      "nodeIds": ["n4"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c2"], "nodeIds": ["n4"]}
+    },
+    {
+      "id": "e5",
+      "evidenceObject": "policy_action",
+      "type": "policy_text",
+      "source": "国家发展改革委办法附件",
+      "title": "月度项目库填报",
+      "excerpt": "每月10日前，应督促项目单位通过国家重大建设项目库及时准确完整填报项目开工、投资完成、形象进度等信息。",
+      "interpretation": "项目进度和资金支付具有持续可核验数据源。",
+      "sourceLocation": "第二十三条",
+      "confidence": 97,
+      "clauseIds": ["c4"],
+      "nodeIds": ["n5"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c4"], "nodeIds": ["n5"]}
+    },
+    {
+      "id": "e6",
+      "evidenceObject": "policy_action",
+      "type": "policy_text",
+      "source": "国家发展改革委办法附件",
+      "title": "执行不佳处罚",
+      "excerpt": "停止拨付或收回已拨付项目资金、暂停中央预算内投资申报资格、核减下年度中央预算内投资规模。",
+      "interpretation": "项目执行质量直接影响现金流和后续申报资格。",
+      "sourceLocation": "第二十五条",
+      "confidence": 98,
+      "clauseIds": ["c5"],
+      "nodeIds": ["n5"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c5"], "nodeIds": ["n5"]}
+    }
+  ],
+  "backgroundCards": [
+    {
+      "id": "bg1",
+      "title": "资金必须落到具体项目",
+      "body": "专项实行项目制审核和下达，不允许仅凭大类规划推断资金已经形成有效支出。",
+      "evidenceIds": ["e1", "e5"]
+    },
+    {
+      "id": "bg2",
+      "title": "差别化比例提高西部和东北项目的中央支持强度",
+      "body": "多类重点生态项目在西部和东北的中央比例可达80%，西藏部分项目可按100%支持。",
+      "evidenceIds": ["e2"]
+    },
+    {
+      "id": "bg3",
+      "title": "绩效不达标会反向影响资金和资格",
+      "body": "项目进度、资金使用、实际建设规模和绩效结果均可能触发停拨、收回或暂停申报。",
+      "evidenceIds": ["e5", "e6"]
+    }
+  ],
+  "compareInsights": {
+    "comparableCount": 0,
+    "similarPolicies": [],
+    "contrastPolicies": [],
+    "insights": ["本报告未启用横向对比，仅基于当前专项管理办法完整正文分析。"],
+    "limitations": ["未获取2026年度具体投资计划和项目名单。", "未比较地方配套资金和历史执行率。"]
+  },
+  "analysisCoverage": {
+    "status": "no_company_mapping",
+    "analysisMethod": "codex-manual-v1",
+    "evidenceCount": 6,
+    "industryNodeCount": 5,
+    "companyCount": 0,
+    "companyImpactConclusion": "本办法规定的是项目类型和中央资金规则，未公布具体项目单位、中标企业或采购主体；在年度计划和招标结果出现前，映射具体上市公司会把政策支持比例误读为企业订单，因此本轮不生成公司映射。",
+    "limitations": ["年度资金总额和项目分布未知。", "地方配套及隐性债务约束可能影响开工。", "生态工程存在回款和长期管护风险。"]
+  }
+}
