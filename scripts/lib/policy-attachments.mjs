@@ -72,14 +72,15 @@ export function discoverPolicyAttachments(html, baseUrl, options = {}) {
     }
     url.hash = "";
     const filename = decodeURIComponent(url.pathname.split("/").at(-1) || "");
-    const title = candidate.title || filename || "附件";
-    const type = inferAttachmentType(url, title);
-    const interpretationLink = INTERPRETATION_LINK_PATTERN.test(`${title} ${url.pathname}`);
+    const candidateTitle = candidate.title || "";
+    const type = inferAttachmentType(url, candidateTitle || filename);
+    const interpretationLink = INTERPRETATION_LINK_PATTERN.test(`${candidateTitle} ${url.pathname}`);
     if (interpretationLink && !FILE_ATTACHMENT_TYPES.has(type)) continue;
-    const explicitAttachment = ATTACHMENT_TEXT_PATTERN.test(`${title} ${url.pathname} ${url.search}`);
+    const explicitAttachment = ATTACHMENT_TEXT_PATTERN.test(`${candidateTitle} ${filename} ${url.pathname} ${url.search}`);
     const embeddedElement = ["iframe", "embed", "object"].includes(candidate.sourceElement);
     const attachmentLike = FILE_ATTACHMENT_TYPES.has(type) || embeddedElement || explicitAttachment;
     if (!attachmentLike) continue;
+    const title = candidateTitle || filename || (embeddedElement ? "嵌入附件" : "附件");
 
     const normalizedUrl = url.href;
     if (seen.has(normalizedUrl)) continue;
