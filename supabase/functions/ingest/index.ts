@@ -11,6 +11,11 @@ import {
   createSupabaseAdminClient,
   requireCrawlerOrAdminUser
 } from "../_shared/supabaseAdmin.ts";
+import {
+  buildDedupeKey,
+  normalizePolicyUrl,
+  samePolicyIdentity
+} from "../_shared/policyIdentity.ts";
 
 type SupabaseAdminClient = ReturnType<typeof createSupabaseAdminClient>;
 
@@ -38,6 +43,10 @@ type ExistingPolicyRecord = {
   status?: string | null;
   source_url?: string | null;
   source_name?: string | null;
+  canonical_source_url?: string | null;
+  issuer?: string | null;
+  publish_date?: string | null;
+  policy_no?: string | null;
   dedupe_key?: string | null;
   content_hash?: string | null;
   full_text?: string | null;
@@ -129,7 +138,7 @@ Deno.serve(async (req) => {
       optionalString(body, "content_hash") ??
       optionalString(inputPayload, "contentHash") ??
       optionalString(inputPayload, "content_hash");
-    const canonicalSourceUrl = normalizeUrl(
+    const canonicalSourceUrl = normalizePolicyUrl(
       optionalString(body, "canonicalSourceUrl") ??
         optionalString(body, "canonical_source_url") ??
         sourceUrl
@@ -139,7 +148,7 @@ Deno.serve(async (req) => {
       optionalString(body, "dedupe_key") ??
       optionalString(inputPayload, "dedupeKey") ??
       optionalString(inputPayload, "dedupe_key") ??
-      buildDedupeKey({ title, issuer, publishDate, policyNo, canonicalSourceUrl });
+      buildDedupeKey({ title, publishDate, policyNo, canonicalSourceUrl });
     const externalId =
       optionalString(body, "externalId") ??
       optionalString(body, "external_id") ??
@@ -262,7 +271,16 @@ Deno.serve(async (req) => {
       }
     };
 
-    const existingPolicy = await findExistingPolicy(supabase, dedupeKey, contentHash);
+    const existingPolicy = await findExistingPolicy(supabase, {
+      dedupeKey,
+      contentHash,
+      sourceUrl,
+      canonicalSourceUrl,
+      title,
+      issuer,
+      publishDate,
+      policyNo
+    });
     if (existingPolicy) {
       const backfill = await maybeBackfillExistingPolicy(supabase, existingPolicy, {
         fullText,
@@ -543,45 +561,63 @@ function findMatchingSourceId(
 
 async function findExistingPolicy(
   supabase: SupabaseAdminClient,
-  dedupeKey: string | null,
-  contentHash: string | null
+  input: {
+    dedupeKey: string | null;
+    contentHash: string | null;
+    sourceUrl: string | null;
+    canonicalSourceUrl: string | null;
+    title: string;
+    issuer: string | null;
+    publishDate: string | null;
+    policyNo: string | null;
+  }
 ): Promise<ExistingPolicyRecord | null> {
-  const select = "id,external_id,title,status,source_url,source_name,dedupe_key,content_hash,full_text,metadata,analysis_version";
+  const select = "id,external_id,title,status,source_url,source_name,canonical_source_url,issuer,publish_date,policy_no,dedupe_key,content_hash,full_text,metadata,analysis_version";
+  const canonicalUrl = normalizePolicyUrl(input.canonicalSourceUrl ?? input.sourceUrl);
+  const sourceUrl = normalizePolicyUrl(input.sourceUrl);
 
-  if (dedupeKey) {
+  for (const [column, value] of [
+    ["canonical_source_url", canonicalUrl],
+    ["source_url", sourceUrl],
+    ["dedupe_key", input.dedupeKey],
+    ["content_hash", input.contentHash]
+  ] as const) {
+    if (!value) continue;
     const { data, error } = await supabase
       .from("policies")
       .select(select)
-      .eq("dedupe_key", dedupeKey)
+      .eq(column, value)
       .is("duplicate_of_policy_id", null)
       .limit(1)
       .maybeSingle();
-
-    if (error) {
-      throw error;
-    }
-
-    if (data) {
-      return data as ExistingPolicyRecord;
-    }
+    if (error) throw error;
+    if (data) return data as ExistingPolicyRecord;
   }
 
-  if (contentHash) {
+  if (input.publishDate) {
     const { data, error } = await supabase
       .from("policies")
       .select(select)
-      .eq("content_hash", contentHash)
+      .eq("publish_date", input.publishDate)
       .is("duplicate_of_policy_id", null)
-      .limit(1)
-      .maybeSingle();
-
-    if (error) {
-      throw error;
-    }
-
-    if (data) {
-      return data as ExistingPolicyRecord;
-    }
+      .limit(30);
+    if (error) throw error;
+    const incoming = {
+      title: input.title,
+      issuer: input.issuer,
+      publishDate: input.publishDate,
+      policyNo: input.policyNo,
+      canonicalSourceUrl: canonicalUrl,
+      sourceUrl
+    };
+    const semanticMatch = (data ?? []).find((row: ExistingPolicyRecord) => samePolicyIdentity(incoming, {
+      title: row.title,
+      publishDate: row.publish_date,
+      policyNo: row.policy_no,
+      canonicalSourceUrl: row.canonical_source_url,
+      sourceUrl: row.source_url
+    }));
+    if (semanticMatch) return semanticMatch as ExistingPolicyRecord;
   }
 
   return null;
@@ -775,39 +811,6 @@ function isAllowedPolicyPublishDate(value: string | null): boolean {
 
 function hasUsablePolicyText(value: string | null): boolean {
   return typeof value === "string" && value.trim().length >= MIN_POLICY_FULL_TEXT_LENGTH;
-}
-
-function buildDedupeKey(input: {
-  title: string;
-  issuer: string | null;
-  publishDate: string | null;
-  policyNo: string | null;
-  canonicalSourceUrl: string | null;
-}): string | null {
-  const normalizedPolicyNo = normalizeText(input.policyNo);
-  const normalizedIssuer = normalizeText(input.issuer);
-  const normalizedTitle = normalizeText(input.title);
-
-  if (normalizedPolicyNo) {
-    return `policy-no:${normalizedIssuer || "unknown"}:${normalizedPolicyNo}`;
-  }
-
-  if (normalizedTitle && input.publishDate) {
-    return `title-date:${normalizedIssuer || "unknown"}:${input.publishDate}:${normalizedTitle}`;
-  }
-
-  return input.canonicalSourceUrl ? `url:${input.canonicalSourceUrl}` : null;
-}
-
-function normalizeText(value: string | null): string | null {
-  if (!value) return null;
-
-  const normalized = value
-    .normalize("NFKC")
-    .toLowerCase()
-    .replace(/[《》“”"'\[\]【】()（）,，.。;；:：\-_—\s\u3000]/g, "");
-
-  return normalized || null;
 }
 
 function normalizeUrl(value: string | null): string | null {

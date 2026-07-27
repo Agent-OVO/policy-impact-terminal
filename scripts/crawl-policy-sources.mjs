@@ -8,8 +8,14 @@ import {
   buildLimitedPolicyPlan
 } from "./lib/policy-triage.mjs";
 import { hydratePolicyAttachments } from "./lib/policy-attachments.mjs";
+import {
+  buildDedupeKey,
+  dedupeCandidates,
+  normalizeIdentityText,
+  normalizePolicyUrl
+} from "./lib/policy-identity.mjs";
 
-const CRAWLER_VERSION = "policy-source-crawler-v0.5";
+const CRAWLER_VERSION = "policy-source-crawler-v0.6";
 const MIN_POLICY_FULL_TEXT_LENGTH = 280;
 const DEFAULT_POLICY_SINCE = "2026-05-01";
 const DEFAULT_SOURCE_SCAN_LIMIT = 60;
@@ -680,13 +686,13 @@ async function fetchNdaPolicyRelease(source) {
 
 function makeCandidate(source, input) {
   const title = cleanText(input.title);
-  const sourceUrl = normalizeUrl(resolveUrl(input.sourceUrl, source.listUrl));
+  const sourceUrl = normalizePolicyUrl(resolveUrl(input.sourceUrl, source.listUrl));
   const publishDateTime = normalizeDateTime(input.publishDateTime ?? input.officialPublishedAt ?? input.sourcePublishedAt ?? input.publishDate);
   const publishDate = normalizeDate(input.publishDate) ?? (publishDateTime ? publishDateTime.slice(0, 10) : null);
   const issuer = cleanText(input.issuer) || source.issuer;
   const policyNo = cleanText(input.policyNo) || extractPolicyNo(title);
   const fullText = normalizePolicyText(input.fullText);
-  const canonicalSourceUrl = normalizeUrl(resolveUrl(input.canonicalSourceUrl ?? sourceUrl, source.listUrl));
+  const canonicalSourceUrl = normalizePolicyUrl(resolveUrl(input.canonicalSourceUrl ?? sourceUrl, source.listUrl));
   const dedupeKey = buildDedupeKey({ title, issuer, publishDate, policyNo, canonicalSourceUrl });
   const contentHash = input.contentHash ?? (isUsablePolicyText(fullText) ? hashText(fullText) : null);
 
@@ -711,62 +717,13 @@ function makeCandidate(source, input) {
   };
 }
 
-function dedupeCandidates(items) {
-  const canonicalByKey = new Map();
-  const duplicates = [];
-
-  for (const item of items.filter((candidate) => candidate.title && candidate.sourceUrl)) {
-    const key = item.contentHash || item.dedupeKey || item.canonicalSourceUrl;
-    const existing = canonicalByKey.get(key);
-
-    if (!existing) {
-      canonicalByKey.set(key, item);
-      continue;
-    }
-
-    const preferred = pickPreferred(existing, item);
-    const duplicate = preferred === existing ? item : existing;
-    canonicalByKey.set(key, preferred);
-    duplicates.push({
-      duplicateOf: preferred.sourceUrl,
-      reason: item.contentHash && existing.contentHash === item.contentHash ? "contentHash" : "dedupeKey",
-      candidate: duplicate
-    });
-  }
-
-  const candidates = [...canonicalByKey.values()].sort((a, b) => {
-    const dateOrder = (b.publishDate || "").localeCompare(a.publishDate || "");
-    if (dateOrder) return dateOrder;
-    const timeOrder = (b.publishDateTime || "").localeCompare(a.publishDateTime || "");
-    if (timeOrder) return timeOrder;
-    return b.sourcePriority - a.sourcePriority;
-  });
-
-  return { candidates, duplicates };
-}
-
-function pickPreferred(a, b) {
-  if (a.policyNo && !b.policyNo) return a;
-  if (b.policyNo && !a.policyNo) return b;
-  if (a.sourcePriority !== b.sourcePriority) return a.sourcePriority > b.sourcePriority ? a : b;
-  if ((a.publishDateTime || "") !== (b.publishDateTime || "")) {
-    return (a.publishDateTime || "") >= (b.publishDateTime || "") ? a : b;
-  }
-  return (a.publishDate || "") >= (b.publishDate || "") ? a : b;
-}
-
 async function hydrateCandidates(candidates) {
   const hydrated = [];
 
   for (const candidate of candidates) {
-    if (hasUsableFullText(candidate)) {
-      hydrated.push(candidate);
-      continue;
-    }
-
     try {
       const html = await fetchText(candidate.sourceUrl, { referer: candidate.canonicalSourceUrl });
-      const pageText = extractPolicyTextFromHtml(html, candidate.sourceKey);
+      const pageText = preferRicherPolicyText(candidate.fullText, extractPolicyTextFromHtml(html, candidate.sourceKey));
       const attachmentHtml = mergeIndexedAttachmentHtml(candidate, html);
       const attachmentResult = await hydratePolicyAttachments({
         html: attachmentHtml,
@@ -781,25 +738,36 @@ async function hydrateCandidates(candidates) {
         try {
           const attachmentResult = await hydratePolicyAttachments({
             html: fallback.html,
-            pageText: fallback.pageText,
+            pageText: preferRicherPolicyText(candidate.fullText, fallback.pageText),
             baseUrl: fallback.baseUrl,
             fetchBinary: (url, options) => fetchPolicyAttachmentBinary(candidate, url, options)
           });
           const recovered = attachFullText(candidate, attachmentResult.selectedText, fallback.html, attachmentResult);
           recovered.raw.hydrationSource = fallback.source ?? "embedded-fallback";
           recovered.raw.primaryHydrationError = getErrorMessage(primaryError);
+          if (Number(candidate.raw?.indexedAttachmentCount ?? 0) <= 0) {
+            recovered.raw.attachmentCollectionStatus = "source_page_unverified";
+            recovered.raw.attachmentEvidenceIncomplete = true;
+            recovered.raw.attachmentReviewReason = "官方发布页访问失败，搜索索引未提供可核对的附件清单";
+          }
           hydrated.push(recovered);
           continue;
         } catch (fallbackError) {
           hydrated.push(withoutHydrationFallback(candidate, {
             hydrationError: getErrorMessage(primaryError),
-            fallbackHydrationError: getErrorMessage(fallbackError)
+            fallbackHydrationError: getErrorMessage(fallbackError),
+            attachmentCollectionStatus: "source_page_fetch_failed",
+            attachmentEvidenceIncomplete: true,
+            attachmentReviewReason: "官方发布页访问失败，无法核对政策附件"
           }));
           continue;
         }
       }
       hydrated.push(withoutHydrationFallback(candidate, {
-        hydrationError: getErrorMessage(primaryError)
+        hydrationError: getErrorMessage(primaryError),
+        attachmentCollectionStatus: "source_page_fetch_failed",
+        attachmentEvidenceIncomplete: true,
+        attachmentReviewReason: "官方发布页访问失败，无法核对政策附件"
       }));
     }
   }
@@ -835,12 +803,20 @@ function attachFullText(candidate, value, html = "", attachmentResult = null) {
         ? {
             attachments: attachmentResult.attachments,
             wrapperLikely: attachmentResult.wrapperLikely,
+            attachmentCollectionStatus: attachmentResult.attachmentCollectionStatus,
             attachmentExtractionStatus: attachmentResult.attachmentExtractionStatus,
             attachmentEvidenceIncomplete: attachmentResult.attachmentEvidenceIncomplete,
+            attachmentManualReviewRequired: attachmentResult.attachmentManualReviewRequired,
+            discoveredAttachmentCount: attachmentResult.discoveredAttachmentCount,
+            attachmentDiscoveryTruncated: attachmentResult.attachmentDiscoveryTruncated,
             attachmentReviewReason: attachmentResult.attachmentEvidenceIncomplete
-              ? "等待PDF/OFD附件完整正文采集"
-              : null,
+              ? "等待政策附件完整下载或正文提取"
+              : attachmentResult.attachmentManualReviewRequired
+                ? "附件已获取，但部分格式需要人工阅读"
+                : null,
             attachmentTextLength: attachmentResult.extractedAttachmentTextLength,
+            downloadedAttachmentCount: attachmentResult.downloadedAttachmentCount,
+            unextractedAttachmentCount: attachmentResult.unextractedAttachmentCount,
             attachmentErrors: attachmentResult.errors
           }
         : {})
@@ -883,7 +859,7 @@ async function ingestCandidates(candidates, args, plan) {
           ? "pending_review"
           : "archived_without_analysis";
     const manualReviewReason = attachmentEvidenceIncomplete
-      ? cleanText(candidate.raw?.attachmentReviewReason) || "等待PDF/OFD附件完整正文采集"
+      ? cleanText(candidate.raw?.attachmentReviewReason) || "等待政策附件完整下载或正文提取"
       : null;
 
     if (!hasUsableFullText(candidate)) {
@@ -1270,22 +1246,6 @@ function getRawText(value) {
   return String(value);
 }
 
-function buildDedupeKey(input) {
-  const normalizedPolicyNo = normalizeText(input.policyNo);
-  const normalizedIssuer = normalizeText(input.issuer);
-  const normalizedTitle = normalizeText(input.title);
-
-  if (normalizedPolicyNo) {
-    return `policy-no:${normalizedIssuer || "unknown"}:${normalizedPolicyNo}`;
-  }
-
-  if (normalizedTitle && input.publishDate) {
-    return `title-date:${normalizedIssuer || "unknown"}:${input.publishDate}:${normalizedTitle}`;
-  }
-
-  return input.canonicalSourceUrl ? `url:${input.canonicalSourceUrl}` : null;
-}
-
 function extractPolicyNo(value) {
   const text = cleanText(value);
   if (!text) return null;
@@ -1392,6 +1352,14 @@ function cleanText(value) {
   return typeof value === "string" ? value.replace(/\s+/g, " ").trim() : "";
 }
 
+function preferRicherPolicyText(a, b) {
+  const first = normalizePolicyText(a);
+  const second = normalizePolicyText(b);
+  if (!first) return second;
+  if (!second) return first;
+  return first.length >= second.length ? first : second;
+}
+
 function normalizePolicyText(value) {
   if (typeof value !== "string") return "";
 
@@ -1462,18 +1430,6 @@ function formatDateTimeInShanghai(date) {
   return `${get("year")}-${get("month")}-${get("day")} ${get("hour")}:${get("minute")}`;
 }
 
-function normalizeText(value) {
-  const text = cleanText(value);
-  if (!text) return null;
-
-  const normalized = text
-    .normalize("NFKC")
-    .toLowerCase()
-    .replace(/[《》“”"'[\]【】()（）,，.。;；:：\-_—\s\u3000]/g, "");
-
-  return normalized || null;
-}
-
 function resolveUrl(value, baseUrl) {
   const text = cleanText(value);
   if (!text) return null;
@@ -1485,27 +1441,8 @@ function resolveUrl(value, baseUrl) {
   }
 }
 
-function normalizeUrl(value) {
-  const text = cleanText(value);
-  if (!text) return null;
-
-  try {
-    const url = new URL(text);
-    url.hash = "";
-    for (const key of Array.from(url.searchParams.keys())) {
-      if (/^(utm_|spm|from|source|share)/i.test(key)) {
-        url.searchParams.delete(key);
-      }
-    }
-    url.searchParams.sort();
-    return url.toString();
-  } catch {
-    return text;
-  }
-}
-
 function hashText(value) {
-  return crypto.createHash("sha256").update(normalizeText(value) ?? value).digest("hex");
+  return crypto.createHash("sha256").update(normalizeIdentityText(value) ?? value).digest("hex");
 }
 
 async function loadEnvFiles(files) {

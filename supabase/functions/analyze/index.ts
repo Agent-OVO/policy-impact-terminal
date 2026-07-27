@@ -776,8 +776,12 @@ async function setManualReviewDisposition(
   const reason = optionalString(body, "reason") ??
     optionalString(body, "manualReviewReason") ??
     optionalString(body, "manual_review_reason");
+  const closeOpenJob = body.closeOpenJob === true || body.close_open_job === true;
   if (["awaiting_evidence", "quick_archived", "dismissed"].includes(disposition) && (!reason || reason.length < 4)) {
     throw new HttpError(400, `${disposition} requires a review reason of at least 4 characters.`);
+  }
+  if (closeOpenJob && (!reason || reason.length < 4)) {
+    throw new HttpError(400, "Closing an open analysis job requires a review reason of at least 4 characters.");
   }
 
   const policy = await fetchPolicy(supabase, policyId);
@@ -792,22 +796,50 @@ async function setManualReviewDisposition(
   if (alreadyComplete) throw new HttpError(409, "Agent analysis is already complete for this policy.");
 
   const openStatuses = ["queued", "fetching", "extracting", "analyzing"];
-  const { data: existingJob, error: existingJobError } = await supabase
+  const { data: existingJobsData, error: existingJobError } = await supabase
     .from("analysis_jobs")
     .select("id,policy_id,title,source_url,source_name,status,progress,created_at,current_step")
     .eq("policy_id", policy.id)
     .in("status", openStatuses)
     .order("created_at", { ascending: false })
-    .limit(1)
-    .maybeSingle();
+    .limit(20);
   if (existingJobError) throw existingJobError;
 
-  if (disposition !== "selected_for_analysis" && existingJob) {
-    throw new HttpError(409, "An open analysis job exists. Complete or fail it before changing disposition.");
+  const now = new Date().toISOString();
+  const existingJobs = (existingJobsData ?? []) as Array<Record<string, unknown>>;
+  if (disposition === "selected_for_analysis" && existingJobs.length > 1) {
+    throw new HttpError(409, "Multiple open analysis jobs exist. Explicitly close them before selecting this policy again.");
   }
 
-  const now = new Date().toISOString();
-  let job = existingJob as Record<string, unknown> | null;
+  let activeJob: Record<string, unknown> | null = existingJobs[0] ?? null;
+  let closedJobs: Array<Record<string, unknown>> = [];
+  if (disposition !== "selected_for_analysis" && existingJobs.length > 0) {
+    if (!closeOpenJob) {
+      throw new HttpError(409, "An open analysis job exists. Complete or fail it before changing disposition, or explicitly set closeOpenJob=true with a reason.");
+    }
+    const jobIds = existingJobs
+      .map((item) => typeof item.id === "string" ? item.id : null)
+      .filter((value): value is string => Boolean(value));
+    const { data, error } = await supabase
+      .from("analysis_jobs")
+      .update({
+        status: "failed",
+        progress: 100,
+        current_step: `Closed by explicit manual disposition: ${disposition} by ${actorId}`,
+        finished_at: now,
+        error_message: reason
+      })
+      .in("id", jobIds)
+      .select("id,policy_id,title,source_url,source_name,status,progress,created_at,current_step,finished_at,error_message");
+    if (error) throw error;
+    closedJobs = (data ?? []) as Array<Record<string, unknown>>;
+    if (closedJobs.length !== jobIds.length) {
+      throw new Error(`Expected to close ${jobIds.length} open analysis jobs, closed ${closedJobs.length}.`);
+    }
+    activeJob = null;
+  }
+
+  let job = activeJob;
   if (disposition === "selected_for_analysis" && !job) {
     const { data, error } = await supabase
       .from("analysis_jobs")
@@ -866,6 +898,8 @@ async function setManualReviewDisposition(
     disposition,
     reason: reason ?? null,
     job,
+    closeOpenJob,
+    closedJobs,
     next: selected ? ["getNextSelectedManualAnalysis", "applyManualAnalysis"] : []
   };
 }

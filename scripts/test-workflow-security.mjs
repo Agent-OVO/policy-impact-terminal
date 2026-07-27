@@ -20,7 +20,33 @@ for (const file of files) {
     assert.doesNotMatch(text, /run:\s*npm ci\s*$/m, `${file} npm ci must disable lifecycle scripts`);
     assert.match(text, /npm ci --ignore-scripts/, `${file} must use npm ci --ignore-scripts`);
   }
+  if (/\|\s*tee\b/.test(text)) {
+    assert.match(text, /set -euo pipefail/, `${file} must not let tee mask upstream command failures`);
+  }
 }
+
+const manualEvidenceWorkflow = await fs.readFile(path.join(workflowDir, "get-manual-policy.yml"), "utf8");
+assert.match(manualEvidenceWorkflow, /npm run manual:evidence/);
+assert.match(manualEvidenceWorkflow, /attachmentEvidenceIncomplete/);
+assert.match(manualEvidenceWorkflow, /attachmentManualReviewRequired/);
+assert.match(manualEvidenceWorkflow, /attachment_review_completed/);
+assert.match(manualEvidenceWorkflow, /attachment-review-confirmation\.json/);
+assert.match(manualEvidenceWorkflow, /manifestSha256/);
+assert.match(manualEvidenceWorkflow, /manual:policies -- wait/);
+assert.match(manualEvidenceWorkflow, /--closeOpenJob=true/);
+assert.match(manualEvidenceWorkflow, /if:\s*always\(\)/);
+assert.match(manualEvidenceWorkflow, /artifacts\/manual-analysis\/\*\*/);
+assert.match(manualEvidenceWorkflow, /retention-days:\s*30/);
+
+const dispositionWorkflow = await fs.readFile(path.join(workflowDir, "set-manual-policy-disposition.yml"), "utf8");
+assert.match(dispositionWorkflow, /close_open_job/);
+assert.match(dispositionWorkflow, /--closeOpenJob=true/);
+assert.match(dispositionWorkflow, /set -euo pipefail/);
+
+const operationsSummaryWorkflow = await fs.readFile(path.join(workflowDir, "production-operations-summary.yml"), "utf8");
+assert.match(operationsSummaryWorkflow, /cron:\s*"35 0 \* \* \*"/);
+assert.match(operationsSummaryWorkflow, /node scripts\/build-production-operations-summary\.mjs/);
+assert.match(operationsSummaryWorkflow, /manual-policy-analysis\.mjs list --limit=100/);
 
 const codeowners = await fs.readFile(".github/CODEOWNERS", "utf8");
 for (const protectedPath of ["/.github/workflows/", "/supabase/functions/", "/supabase/migrations/"]) {
