@@ -728,6 +728,7 @@ async function hydrateCandidates(candidates) {
       const attachmentResult = await hydratePolicyAttachments({
         html: attachmentHtml,
         pageText,
+        policyTitle: candidate.title,
         baseUrl: candidate.sourceUrl,
         fetchBinary: (url, options) => fetchPolicyAttachmentBinary(candidate, url, options)
       });
@@ -739,6 +740,7 @@ async function hydrateCandidates(candidates) {
           const attachmentResult = await hydratePolicyAttachments({
             html: fallback.html,
             pageText: preferRicherPolicyText(candidate.fullText, fallback.pageText),
+            policyTitle: candidate.title,
             baseUrl: fallback.baseUrl,
             fetchBinary: (url, options) => fetchPolicyAttachmentBinary(candidate, url, options)
           });

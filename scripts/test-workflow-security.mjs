@@ -27,6 +27,9 @@ for (const file of files) {
 
 const manualEvidenceWorkflow = await fs.readFile(path.join(workflowDir, "get-manual-policy.yml"), "utf8");
 assert.match(manualEvidenceWorkflow, /npm run manual:evidence/);
+assert.match(manualEvidenceWorkflow, /id:\s*evidence/);
+assert.match(manualEvidenceWorkflow, /continue-on-error:\s*true/);
+assert.match(manualEvidenceWorkflow, /if \[ ! -f "\$manifest" \]/);
 assert.match(manualEvidenceWorkflow, /attachmentEvidenceIncomplete/);
 assert.match(manualEvidenceWorkflow, /attachmentManualReviewRequired/);
 assert.match(manualEvidenceWorkflow, /attachment_review_completed/);

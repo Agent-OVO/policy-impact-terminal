@@ -13,6 +13,9 @@ const DEFAULT_MAX_ZIP_ENTRY_BYTES = 40 * 1024 * 1024;
 const MIN_ATTACHMENT_TEXT_LENGTH = 8;
 const WRAPPER_TEXT_LENGTH = 1_200;
 const ATTACHMENT_TEXT_PATTERN = /附件|下载|附表|附录|正文(?:文件)?|全文(?:文件)?|名单(?:文件)?|目录(?:文件)?|清单(?:文件)?|表格(?:文件)?|材料(?:文件)?/i;
+const ATTACHMENT_DECLARATION_PATTERN = /(?:附件\s*[:：]?\s*(?:\d+[.、．)]?\s*)?.{0,180}\.(?:pdf|ofd|docx?|xlsx?|pptx?|csv|txt|json|xml|zip)|详见附件|请见附件|附件下载|附件如下)/i;
+const SHORT_ISSUANCE_WRAPPER_PATTERN = /(?:现将|现予).{0,160}(?:印发|发布|公布).{0,120}(?:请|执行|落实|遵照|给你们)/s;
+const TITLE_ISSUANCE_PATTERN = /关于(?:印发|发布|公布|转发)《[^》]{4,120}》/;
 const INTERPRETATION_LINK_PATTERN = /政策解读|一图读懂|图解|答记者问|新闻发布|访谈|\/jd\/|\/zctj\/|\/jiedu\//i;
 const TEXT_TYPES = new Set(["pdf", "ofd", "docx", "xlsx", "pptx", "txt", "csv", "json", "xml", "html", "zip"]);
 const FILE_ATTACHMENT_TYPES = new Set([
@@ -98,11 +101,19 @@ export function discoverPolicyAttachments(html, baseUrl, options = {}) {
   return limited;
 }
 
-export function isLikelyWrapperPage(pageText, attachments) {
-  if (!Array.isArray(attachments) || attachments.length === 0) return false;
+export function isLikelyWrapperPage(pageText, attachments = [], policyTitle = "") {
   const text = normalizePolicyText(pageText);
-  if (!text) return true;
-  if (text.length < WRAPPER_TEXT_LENGTH) return true;
+  const title = cleanText(policyTitle);
+  const hasDiscoveredAttachments = Array.isArray(attachments) && attachments.length > 0;
+  if (!text) return hasDiscoveredAttachments || TITLE_ISSUANCE_PATTERN.test(title);
+
+  const declarationScope = text.slice(-2_000);
+  const declaresAttachments = ATTACHMENT_DECLARATION_PATTERN.test(declarationScope);
+  const shortIssuanceNotice = text.length < WRAPPER_TEXT_LENGTH && (
+    SHORT_ISSUANCE_WRAPPER_PATTERN.test(text) || TITLE_ISSUANCE_PATTERN.test(title)
+  );
+  if (declaresAttachments || shortIssuanceNotice) return true;
+  if (hasDiscoveredAttachments && text.length < WRAPPER_TEXT_LENGTH) return true;
   return /(?:全文|具体内容|办法|规划|名单|目录|项目计划|申报要求).*?(?:见|详见|请见).*?附件/.test(text.slice(-1_500));
 }
 
@@ -111,10 +122,10 @@ export async function hydratePolicyAttachments(input) {
   const attachments = discoverPolicyAttachments(input.html, input.baseUrl, input);
   const discoveredAttachmentCount = Number(attachments.totalDiscovered ?? attachments.length);
   const attachmentDiscoveryTruncated = attachments.discoveryTruncated === true;
-  const wrapperLikely = isLikelyWrapperPage(pageText, attachments);
+  const wrapperLikely = isLikelyWrapperPage(pageText, attachments, input.policyTitle);
 
   if (attachments.length === 0) {
-    return emptyResult(pageText);
+    return emptyResult(pageText, wrapperLikely);
   }
 
   if (input.fetchAttachments === false) {
@@ -161,8 +172,12 @@ export async function hydratePolicyAttachments(input) {
         maxBytes: Math.min(maxBytes, maxTotalBytes - totalBytes)
       });
       const buffer = Buffer.isBuffer(response.buffer) ? response.buffer : Buffer.from(response.buffer ?? []);
+      const expectedType = attachment.type;
+      if (FILE_ATTACHMENT_TYPES.has(expectedType) && looksLikeHtmlPayload(buffer, response.contentType)) {
+        throw new Error(`Attachment returned an HTML/error page instead of ${expectedType}: ${attachment.url}`);
+      }
       totalBytes += buffer.length;
-      attachment.type = detectAttachmentType(buffer, response.contentType, response.finalUrl || attachment.url, attachment.title, attachment.type);
+      attachment.type = detectAttachmentType(buffer, response.contentType, response.finalUrl || attachment.url, attachment.title, expectedType);
       attachment.downloadStatus = "downloaded";
       attachment.contentType = response.contentType ?? null;
       attachment.finalUrl = response.finalUrl ?? attachment.url;
@@ -428,8 +443,19 @@ function inferAttachmentType(url, title) {
 }
 
 function detectAttachmentType(buffer, contentType, finalUrl, title, fallbackType) {
+  const inferred = inferAttachmentType(new URL(finalUrl || "https://invalid.local/"), title);
+  if (buffer.length >= 5 && buffer.subarray(0, 5).toString("ascii") === "%PDF-") return "pdf";
+  if (buffer.length >= 8 && buffer.subarray(0, 8).equals(Buffer.from([0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1]))) {
+    return ["doc", "xls", "ppt"].includes(inferred) ? inferred : ["doc", "xls", "ppt"].includes(fallbackType) ? fallbackType : "doc";
+  }
+  if (buffer.length >= 4 && buffer.readUInt32LE(0) === 0x04034b50) {
+    return inferred === "ofd" || fallbackType === "ofd" ? "ofd" : inferred || fallbackType || "zip";
+  }
+  if (buffer.length >= 8 && buffer.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]))) return "png";
+  if (buffer.length >= 3 && buffer.subarray(0, 3).toString("hex") === "ffd8ff") return "jpg";
+
   const type = String(contentType || "").toLowerCase();
-  if (type.includes("pdf") || buffer.subarray(0, 5).toString("ascii") === "%PDF-") return "pdf";
+  if (type.includes("pdf")) return "pdf";
   if (type.includes("officedocument.wordprocessingml")) return "docx";
   if (type.includes("officedocument.spreadsheetml")) return "xlsx";
   if (type.includes("officedocument.presentationml")) return "pptx";
@@ -448,10 +474,6 @@ function detectAttachmentType(buffer, contentType, finalUrl, title, fallbackType
   if (type.includes("json")) return "json";
   if (type.includes("xml")) return "xml";
   if (type.includes("html")) return "html";
-  const inferred = inferAttachmentType(new URL(finalUrl || "https://invalid.local/"), title);
-  if (buffer.length >= 4 && buffer.readUInt32LE(0) === 0x04034b50) {
-    return inferred === "ofd" || fallbackType === "ofd" ? "ofd" : inferred || fallbackType || "zip";
-  }
   return inferred || fallbackType || "unknown";
 }
 
@@ -460,21 +482,39 @@ function acceptForType(type) {
   return "application/octet-stream,application/pdf,application/zip,text/plain,text/csv,*/*;q=0.1";
 }
 
-function emptyResult(pageText) {
+function looksLikeHtmlPayload(buffer, contentType) {
+  if (hasKnownBinaryMagic(buffer)) return false;
+  const preview = buffer.subarray(0, Math.min(buffer.length, 512)).toString("utf8").trim().toLowerCase();
+  const htmlMarkup = /^(?:<!doctype\s+html|<html\b|<body\b|<head\b)/i.test(preview);
+  const knownError = /信息模板页面配置实体不能为空|access denied|request blocked|forbidden/.test(preview);
+  return htmlMarkup || knownError || (String(contentType || "").toLowerCase().includes("html") && /<[^>]+>/.test(preview));
+}
+
+function hasKnownBinaryMagic(buffer) {
+  if (buffer.length >= 5 && buffer.subarray(0, 5).toString("ascii") === "%PDF-") return true;
+  if (buffer.length >= 4 && buffer.readUInt32LE(0) === 0x04034b50) return true;
+  if (buffer.length >= 8 && buffer.subarray(0, 8).equals(Buffer.from([0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1]))) return true;
+  if (buffer.length >= 8 && buffer.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]))) return true;
+  if (buffer.length >= 3 && buffer.subarray(0, 3).toString("hex") === "ffd8ff") return true;
+  return false;
+}
+
+function emptyResult(pageText, wrapperLikely = false) {
+  const missingAttachmentMessage = "Policy page appears attachment-dependent, but no attachment links were discovered.";
   return {
     selectedText: pageText,
     attachments: [],
-    wrapperLikely: false,
-    attachmentCollectionStatus: "none",
+    wrapperLikely,
+    attachmentCollectionStatus: wrapperLikely ? "missing" : "none",
     attachmentExtractionStatus: "none",
-    attachmentEvidenceIncomplete: false,
+    attachmentEvidenceIncomplete: wrapperLikely,
     attachmentManualReviewRequired: false,
     discoveredAttachmentCount: 0,
     attachmentDiscoveryTruncated: false,
     extractedAttachmentTextLength: 0,
     downloadedAttachmentCount: 0,
     unextractedAttachmentCount: 0,
-    errors: []
+    errors: wrapperLikely ? [{ url: null, message: missingAttachmentMessage }] : []
   };
 }
 

@@ -32,6 +32,30 @@ assert.deepEqual(
   ["png"]
 );
 assert.equal(isLikelyWrapperPage("现予公布，具体内容详见附件。", discovered), true);
+assert.equal(
+  isLikelyWrapperPage(
+    "现将许可目录予以公告。附件：1.生产企业及产品.doc 2.税收优惠目录.doc",
+    [],
+    "《道路机动车辆生产企业及产品》（第408批）"
+  ),
+  true
+);
+assert.equal(
+  isLikelyWrapperPage(
+    "现将《人工智能+信息通信创新发展实施意见》印发给你们，请结合实际认真落实。",
+    [],
+    "关于印发《人工智能+信息通信创新发展实施意见》的通知"
+  ),
+  true
+);
+assert.equal(
+  isLikelyWrapperPage(
+    `${"完整政策条文规定主体责任、执行程序和监督机制。".repeat(100)}附表指标已在本页正文中完整列示。`,
+    [],
+    "完整政策正文"
+  ),
+  false
+);
 
 const pdfBuffer = createMinimalPdf("Policy attachment full text for deterministic extraction test. ".repeat(8));
 const xlsxBuffer = createStoredZip({
@@ -49,6 +73,18 @@ assert.match(extractedXlsx, /重点项目名单/);
 assert.match(extractedXlsx, /项目甲/);
 const extractedOfd = await extractAttachmentTextFromBuffer(ofdBuffer, "ofd");
 assert.match(extractedOfd, /正式OFD附件内容/);
+
+const missingDeclaredAttachments = await hydratePolicyAttachments({
+  html: "<html><body><div>信息模板页面配置实体不能为空</div></body></html>",
+  pageText: "现将许可目录予以公告。附件：1.生产企业及产品.doc 2.税收优惠目录.doc",
+  policyTitle: "《道路机动车辆生产企业及产品》（第408批）",
+  baseUrl: "https://example.gov.cn/policy/page.html"
+});
+assert.equal(missingDeclaredAttachments.wrapperLikely, true);
+assert.equal(missingDeclaredAttachments.attachmentCollectionStatus, "missing");
+assert.equal(missingDeclaredAttachments.attachmentEvidenceIncomplete, true);
+assert.equal(missingDeclaredAttachments.attachments.length, 0);
+assert.match(missingDeclaredAttachments.errors[0].message, /no attachment links were discovered/i);
 
 const longPageText = "这是完整政策正文，包含执行主体、适用范围、工作机制和监督要求。".repeat(80);
 const longPageHtml = `
@@ -95,6 +131,37 @@ const mislabeledPdf = await hydratePolicyAttachments({
 });
 assert.equal(mislabeledPdf.attachments[0].type, "pdf");
 assert.equal(mislabeledPdf.attachments[0].extractionStatus, "extracted");
+
+const htmlInsteadOfDoc = await hydratePolicyAttachments({
+  html: `<div>正文详见附件。</div><a href="./legacy.doc">完整办法.doc</a>`,
+  pageText: "正文详见附件。",
+  baseUrl: "https://example.gov.cn/policy/page.html",
+  fetchBinary: async () => ({
+    buffer: Buffer.from("<!doctype html><html><body>Access Denied</body></html>"),
+    contentType: "text/html"
+  })
+});
+assert.equal(htmlInsteadOfDoc.attachments[0].downloadStatus, "failed");
+assert.equal(htmlInsteadOfDoc.attachmentCollectionStatus, "failed");
+assert.equal(htmlInsteadOfDoc.attachmentEvidenceIncomplete, true);
+assert.match(htmlInsteadOfDoc.attachments[0].error, /HTML\/error page/);
+
+const mislabeledOleDoc = await hydratePolicyAttachments({
+  html: `<div>正文详见附件。</div><a href="./legacy.doc">旧版办法.doc</a>`,
+  pageText: "正文详见附件。",
+  baseUrl: "https://example.gov.cn/policy/page.html",
+  fetchBinary: async () => ({
+    buffer: Buffer.concat([
+      Buffer.from([0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1]),
+      Buffer.alloc(128)
+    ]),
+    contentType: "text/html"
+  })
+});
+assert.equal(mislabeledOleDoc.attachments[0].downloadStatus, "downloaded");
+assert.equal(mislabeledOleDoc.attachments[0].extractionStatus, "downloaded_unextracted");
+assert.equal(mislabeledOleDoc.attachmentEvidenceIncomplete, false);
+assert.equal(mislabeledOleDoc.attachmentManualReviewRequired, true);
 
 const legacyDoc = await hydratePolicyAttachments({
   html: `<div>现予公布，具体内容详见附件。</div><a href="./legacy.doc">完整办法.doc</a>`,
