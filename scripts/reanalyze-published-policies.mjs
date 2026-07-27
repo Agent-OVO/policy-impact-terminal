@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 
+import { parseCliArgs } from "./lib/cli-args.mjs";
+
 const DEFAULT_LIMIT = 30;
 const DEFAULT_CHUNK_SIZE = 3;
 
-const args = parseArgs(process.argv.slice(2));
+const args = parseCliArgs(process.argv.slice(2), { keepPositionals: false });
 const limit = Math.max(1, Number(args.limit ?? DEFAULT_LIMIT));
 let chunkSize = clampChunkSize(args.chunk ?? args.chunkSize ?? DEFAULT_CHUNK_SIZE);
 const allowRulesAnalysis = args.allowRulesAnalysis === "true" || args["allow-rules-analysis"] === "true";
@@ -79,16 +81,6 @@ console.log(`[reanalyze] reanalyzed=${reanalyzed} skipped=${skipped} failed=${fa
 
 if (failed > 0) {
   process.exitCode = 1;
-}
-
-function parseArgs(values) {
-  const parsed = {};
-  for (const value of values) {
-    if (!value.startsWith("--")) continue;
-    const [key, raw = "true"] = value.slice(2).split("=");
-    parsed[key] = raw;
-  }
-  return parsed;
 }
 
 function clampChunkSize(value) {

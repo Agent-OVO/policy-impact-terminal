@@ -55,6 +55,12 @@ PostCSS 8.5.14受到GHSA-r28c-9q8g-f849影响。该问题与政策逻辑无关�
 1. 只检查HTTP状态，不检查官方页面字节数、HTML结构和已知错误模板；
 2. 发布外壳明确写有附件文件名，或短通知标题为“关于印发《…》”，但附件发现数量为0时，没有强制缺证状态。
 
+### 10. 人工处置状态与政策状态脱节，原因参数被截断
+
+政策从 `selected_for_analysis` 退回 `pending_review` 或 `awaiting_evidence` 后，metadata已变化，但 `policies.status` 仍残留 `reviewing`，造成同一政策在业务状态和人工队列中表达不一致。
+
+同时，人工控制CLI按所有等号执行 `split("=")`。当原因包含 `attachment_review_completed=true` 时，第二个等号之后的文字被静默丢弃，生产快照只留下截断原因。
+
 ## 二、实施修复
 
 ### 1. 多键政策身份与去重
@@ -197,6 +203,16 @@ close_open_job: true
 - 短“现将《…》印发给你们”发布外壳或“关于印发《…》”短通知，发现0个附件时进入缺证；
 - 附件URL返回HTML错误页时，不归档为DOC/PDF原件，而是标记下载失败；
 - 真实PDF、OLE旧Office、ZIP/OOXML和图片魔数优先于错误的响应头，避免服务器误标 `text/html` 导致误拒绝。
+
+### 11. 状态同步和长参数解析
+
+`setManualReviewDisposition` 现在同时维护政策业务状态：
+
+- 选择分析时，`draft → reviewing`；
+- 从选择状态退回待审、待证、归档或关闭时，`reviewing → draft`；
+- 已发布政策不被回退。
+
+新增共享CLI参数解析器，只按第一个等号切分长参数；原因、确认令牌和其他值中后续所有等号均原样保留。人工控制CLI和批量重分析CLI共同使用该实现。
 
 ## 三、真实一手证据验证
 
