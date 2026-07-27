@@ -796,17 +796,9 @@ async function setManualReviewDisposition(
   if (alreadyComplete) throw new HttpError(409, "Agent analysis is already complete for this policy.");
 
   const openStatuses = ["queued", "fetching", "extracting", "analyzing"];
-  const { data: existingJobsData, error: existingJobError } = await supabase
-    .from("analysis_jobs")
-    .select("id,policy_id,title,source_url,source_name,status,progress,created_at,current_step")
-    .eq("policy_id", policy.id)
-    .in("status", openStatuses)
-    .order("created_at", { ascending: false })
-    .limit(20);
-  if (existingJobError) throw existingJobError;
+  const existingJobs = await fetchOpenAnalysisJobs(supabase, policy.id, openStatuses);
 
   const now = new Date().toISOString();
-  const existingJobs = (existingJobsData ?? []) as Array<Record<string, unknown>>;
   if (disposition === "selected_for_analysis" && existingJobs.length > 1) {
     throw new HttpError(409, "Multiple open analysis jobs exist. Explicitly close them before selecting this policy again.");
   }
@@ -899,9 +891,39 @@ async function setManualReviewDisposition(
     reason: reason ?? null,
     job,
     closeOpenJob,
-    closedJobs,
+    closedJobCount: closedJobs.length,
+    closedJobIds: closedJobs
+      .map((item) => typeof item.id === "string" ? item.id : null)
+      .filter((value): value is string => Boolean(value)),
     next: selected ? ["getNextSelectedManualAnalysis", "applyManualAnalysis"] : []
   };
+}
+
+async function fetchOpenAnalysisJobs(
+  supabase: SupabaseAdminClient,
+  policyId: string,
+  openStatuses: string[]
+): Promise<Array<Record<string, unknown>>> {
+  const pageSize = 500;
+  const maxRows = 10_000;
+  const rows: Array<Record<string, unknown>> = [];
+
+  for (let from = 0; from < maxRows; from += pageSize) {
+    const { data, error } = await supabase
+      .from("analysis_jobs")
+      .select("id,policy_id,title,source_url,source_name,status,progress,created_at,current_step")
+      .eq("policy_id", policyId)
+      .in("status", openStatuses)
+      .order("created_at", { ascending: false })
+      .range(from, from + pageSize - 1);
+    if (error) throw error;
+
+    const page = (data ?? []) as Array<Record<string, unknown>>;
+    rows.push(...page);
+    if (page.length < pageSize) return rows;
+  }
+
+  throw new HttpError(409, `Policy ${policyId} has more than ${maxRows} open analysis jobs; manual database review is required.`);
 }
 
 function normalizeManualReviewDisposition(value: string | null): ManualReviewDisposition | null {
