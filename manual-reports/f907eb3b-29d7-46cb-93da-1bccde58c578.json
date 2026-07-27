@@ -1,0 +1,81 @@
+{
+  "id": "f907eb3b-29d7-46cb-93da-1bccde58c578",
+  "policyId": "f907eb3b-29d7-46cb-93da-1bccde58c578",
+  "analyzerVersion": "gpt-5.6-thinking-manual-v1",
+  "analysisMethod": "manual-backlog-recovery-v1",
+  "generatedAt": "2026-07-15T13:45:00+08:00",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "指导意见",
+  "substantivePolicyType": "互联网基础资源技术、设施、服务、安全和治理能力提升",
+  "primaryActionType": "基础资源技术设施与治理体系建设",
+  "policySignalStrength": "medium",
+  "implementationCertainty": "medium",
+  "analysisDepth": "L3",
+  "analysisDepthReason": "本轮正式取件已取得并提取官方PDF全文，能够核对互联网基础资源范围、2030年和2035年目标以及六方面十六项任务，适合进入产业链传导分析；但具体项目、预算、试点名单和公司经营证据仍需后续实施文件确认。",
+  "operationDisposition": "继续深研",
+  "followUpSignals": ["十六项任务的部门分工、时间表和考核安排","工业和信息化主管部门及地方的实施方案、试点和任务清单","新型互联网基础资源服务网络和基础设施建设项目","互联网基础资源技术标准、测试验证和应用示范","安全监测、应急处置和监督管理系统的建设采购"],
+  "summary": {"id":"f907eb3b-29d7-46cb-93da-1bccde58c578","title":"工业和信息化部 中央网信办 国家发展改革委 国家数据局关于推动互联网基础资源高质量发展的指导意见","issuer":"工业和信息化部、中央网信办、国家发展改革委、国家数据局","source":"工业和信息化部 - 政策文件库及官方解读","publishDate":"2026-07-13","status":"published","confidence":93,"industryCount":4,"companyCount":0,"evidenceCount":5,"primarySignal":"设定2030年和2035年发展目标","category":"互联网基础资源与网络治理"},
+  "policy": {"title":"工业和信息化部 中央网信办 国家发展改革委 国家数据局关于推动互联网基础资源高质量发展的指导意见","status":"已发布","issuer":"工业和信息化部、中央网信办、国家发展改革委、国家数据局","publishDate":"2026-07-13","effectiveDate":"2026-07-01","source":"工业和信息化部 - 政策文件库及官方解读","category":"互联网基础资源与网络治理","level":"中央政策","confidence":96,"sourceUrl":"https://www.miit.gov.cn/zwgk/zcwj/wjfb/yj/art/2026/art_fefdddaaa4ac49edb130c85d048a2933.html","scope":"IP地址、域名、自治系统号码、网络标识及相关服务系统、基础设施、安全治理和国际合作","impactScope":"互联网基础资源技术研发、标准、服务网络、安全监测、资源管理、行业服务和国际治理","jurisdiction":"中国大陆","tags":["互联网基础资源","IP地址","域名","自治系统号码","网络标识","网络安全"]},
+  "brief": {"judgement":"这项指导意见首次把IP地址、域名、自治系统号码、网络标识及相关服务设施作为统一的互联网基础资源体系推进，政策价值在于技术、标准、基础设施、安全和国际治理协同，而不是简单扩容传统通信网络。官方PDF全文已经取得，但仍需等待实施方案、项目清单和采购证据，不应据此直接推导域名、云网或网络安全公司的订单。","summary":"根据工信部政策页和官方PDF，意见提出到2030年在关键技术、管理能力、标准体系、应用水平、产业生态和安全保障方面取得突破，到2035年形成先进适用、开放引领、安全可控的互联网基础资源技术体系、设施体系、服务体系和管理体系，并从研发标准、基础设施、安全能力、服务生态、监督管理和国际合作六方面部署十六项任务。当前研究可以确认产业链节点，但公司经营影响仍需项目化证据。","keyPoints":["互联网基础资源包括IP地址、域名、自治系统号码、网络标识及其相关服务系统和设施。","到2030年重点推动关键技术、标准、应用、生态和安全能力取得突破。","到2035年目标是形成先进适用、开放引领、安全可控的技术、设施、服务和管理体系。","任务覆盖研发标准、基础设施、安全、服务生态、监管和国际合作六个方面。","官方PDF全文已完整提取，但尚无项目、预算或公司名单，本次继续保持零公司结论。"],"methodology":"使用工信部政策发布页确认文件身份、发文机关和日期，并以本轮正式取件取得的官方PDF全文核对政策范围、目标和十六项任务；未用二手媒体补齐事实，也未按行业邻接建立公司映射。"},
+  "analysisCoverage": {"companyCount":0,"companyImpactConclusion":"本政策未点名上市公司，也未提供可归因到具体企业的项目、采购、合同、订单、验收、收入或回款证据，因此本次不建立具体公司映射，仅保留产业环节和证据门。","limitations":["官方PDF全文已完整取得，但没有具体项目、预算、试点名单、标准计划和企业经营证据。","地方实施节奏、服务体系建设模式和安全监管采购范围仍待后续文件确认。"]},
+  "policyIndustryMap": [
+    {"id":"pi1","industry":"互联网基础资源技术与标准","policyAction":"推动IP地址、域名、ASN和网络标识相关技术研发及标准建设。","impactType":"internet_core_technology","impactDirection":"positive","evidenceLevel":"indirect","policyCloseness":"direct","reason":"总体任务明确，但具体标准项目、参与主体和周期尚未取得。","relatedClauseIds":["c2"],"relatedNodeIds":["n1","n2"],"evidenceIds":[],"watchSignals":[]},
+    {"id":"pi2","industry":"互联网基础资源服务与基础设施","policyAction":"完善相关设施体系、服务网络和行业生态。","impactType":"internet_infrastructure","impactDirection":"positive","evidenceLevel":"indirect","policyCloseness":"direct","reason":"基础设施方向明确，仍需项目清单、架构和投资规模验证。","relatedClauseIds":["c3"],"relatedNodeIds":["n1","n3"],"evidenceIds":[],"watchSignals":[]},
+    {"id":"pi3","industry":"网络安全监测与治理","policyAction":"强化资源安全监测、风险防范、应急处置和监管。","impactType":"cybersecurity_governance","impactDirection":"positive","evidenceLevel":"indirect","policyCloseness":"direct","reason":"监管需求可能形成系统建设，但尚无采购和运营安排。","relatedClauseIds":["c4"],"relatedNodeIds":["n1","n3","n4"],"evidenceIds":[],"watchSignals":[]},
+    {"id":"pi4","industry":"互联网资源国际治理与服务生态","policyAction":"参与国际规则标准并培育高质量服务生态。","impactType":"internet_governance","impactDirection":"mixed","evidenceLevel":"indirect","policyCloseness":"indirect","reason":"长期影响规则和产业生态，短期公司经营传导较弱。","relatedClauseIds":["c5"],"relatedNodeIds":["n2","n4"],"evidenceIds":[],"watchSignals":[]}
+  ],
+  "industryChain": [{"id":"chain1","chainName":"政策制度—实施规则—项目或监管工具—经营兑现","policyRole":"本报告只确认政策已经明确的制度、目标和任务；企业经营影响仍需经过实施细则、预算项目、采购招标、监管执行或市场采用。","nodes":[
+    {"id":"n1","policySensitivity":"high","description":"官方PDF已明确总体任务框架，下一步由主管部门和地方细化责任主体、时间表和考核要求。","position":"upstream","evidenceLevel":"strong","companyIds":[]},
+    {"id":"n2","policySensitivity":"medium","description":"形成技术项目、标准计划、试点名单和应用示范。","position":"midstream","evidenceLevel":"pending","companyIds":[]},
+    {"id":"n3","policySensitivity":"medium","description":"基础资源设施、服务平台、安全监测和应急系统进入建设采购。","position":"downstream","evidenceLevel":"pending","companyIds":[]},
+    {"id":"n4","policySensitivity":"medium","description":"行业采用、服务质量、安全绩效和国际规则参与产生可观察结果。","position":"support","evidenceLevel":"pending","companyIds":[]}
+  ],"edges":[
+    {"from":"n1","to":"n2","relation":"完整条款和分工形成技术标准与试点","description":"完整条款和分工形成技术标准与试点"},
+    {"from":"n2","to":"n3","relation":"研发标准和试点推动设施与安全系统建设","description":"研发标准和试点推动设施与安全系统建设"},
+    {"from":"n3","to":"n4","relation":"设施服务和治理能力形成应用与长期结果","description":"设施服务和治理能力形成应用与长期结果"}
+  ]}],
+  "companyMap": [],
+  "policyNetwork": [
+    {"id":"pn1","relatedPolicy":"互联网基础资源高质量发展实施方案、标准计划和地方试点","relationship":"downstream_implementation","meaning":"指导意见已经给出技术、设施、安全和治理框架，后续实施方案、标准项目和试点名单将决定建设节奏和可验证市场需求。","evidenceLevel":"pending","watchSignals":["部门实施方案","标准制修订计划","地方试点和建设项目"]}
+  ],
+  "investmentDirection": {"primaryDirection":"将政策列为互联网基础资源制度和基础设施观察项，优先跟踪实施方案、标准项目、试点和建设采购，不提高任何域名、云网或网络安全公司的优先级。","directionStrength":"medium","timeHorizon":"medium_term","watchIndustries":["互联网基础资源技术与标准","互联网基础资源服务与基础设施","网络安全监测与治理","互联网资源国际治理与服务生态"],"watchChainNodes":["任务分工与实施规则","技术标准与试点任务","基础设施与安全系统建设","行业应用与国际治理结果"],"watchCompanyTypes":[],"watchCompanies":[],"nearTermCatalysts":[],"keyRisks":["任务周期长且多为能力建设","国际治理结果难以量化","安全监管可能增加合规成本","项目和商业模式尚未明确","公共基础设施可能以存量系统整合为主"],"minimumEvidenceNeeded":[],"doNotOverread":["互联网基础资源不等同于普通通信网络扩容","被政策覆盖的业务类型不等于公司中标","标准和治理参与不等于收入","安全能力要求不等于采购已经启动","行业服务能力不等于当前政策贡献"],"summary":"政策提供统一的互联网基础资源发展框架，官方全文已核实；下一证据门是实施规则、标准项目、试点名单和建设采购。"},
+  "actions": [
+    {"id":"a1","actionType":"发展目标","actionEvidenceLevel":"strong","title":"设定2030年和2035年发展目标","body":"到2030年关键技术和管理能力明显提升，到2035年形成先进适用、开放引领、安全可控的综合体系。","signal":"neutral","confidence":94,"clauseIds":["c1"],"sortOrder":1},
+    {"id":"a2","actionType":"技术与标准","actionEvidenceLevel":"strong","title":"加强核心技术研发和标准研制","body":"围绕互联网基础资源关键技术、标准体系和创新应用提升自主能力。","signal":"beneficiary","confidence":94,"clauseIds":["c2"],"sortOrder":2},
+    {"id":"a3","actionType":"基础设施","actionEvidenceLevel":"strong","title":"完善基础设施和服务网络","body":"推动互联网基础资源相关设施体系、服务体系和行业生态高质量发展。","signal":"beneficiary","confidence":94,"clauseIds":["c3"],"sortOrder":3},
+    {"id":"a4","actionType":"安全监管","actionEvidenceLevel":"strong","title":"强化安全保障和监督管理","body":"加强安全监测、风险防范、应急处置及资源服务监督管理。","signal":"neutral","confidence":94,"clauseIds":["c4"],"sortOrder":4},
+    {"id":"a5","actionType":"国际治理","actionEvidenceLevel":"strong","title":"深化国际合作和治理参与","body":"提升我国在互联网基础资源国际规则、标准和治理中的参与能力。","signal":"neutral","confidence":94,"clauseIds":["c5"],"sortOrder":5}
+  ],
+  "clauses": [
+    {"id":"c1","no":"发展目标","title":"到2030年和2035年分阶段建设","excerpt":"到2030年关键技术、管理能力、标准体系、应用水平、产业生态和安全保障取得突破。","body":"目标明确但属于体系能力目标，尚未量化投资规模和项目数量。","confidence":95,"keywords":["2030年","2035年","安全可控"],"industries":["互联网基础资源"],"sortOrder":1},
+    {"id":"c2","no":"研发标准","title":"技术创新和标准体系","excerpt":"重点加强互联网基础资源核心技术研发和标准研制。","body":"可能形成科研、标准和测试任务，需以后续标准计划、试点和项目验证。","confidence":95,"keywords":["核心技术","标准研制"],"industries":["互联网技术标准"],"sortOrder":2},
+    {"id":"c3","no":"设施服务","title":"完善基础设施和服务体系","excerpt":"推动互联网基础资源设施体系和服务体系高质量发展。","body":"设施和服务网络方向明确，实际建设边界与采购模式待实施方案。","confidence":95,"keywords":["基础设施","服务体系"],"industries":["互联网资源服务"],"sortOrder":3},
+    {"id":"c4","no":"安全监管","title":"提升安全保障和管理能力","excerpt":"强化互联网基础资源安全监测、风险防范、应急处置和监督管理。","body":"安全能力建设具有政策相关性，但具体系统、主体和预算待公布。","confidence":95,"keywords":["安全监测","应急处置","监督管理"],"industries":["网络安全治理"],"sortOrder":4},
+    {"id":"c5","no":"国际合作","title":"参与全球互联网治理","excerpt":"加强国际交流合作，提升在互联网基础资源国际治理中的参与能力。","body":"国际治理影响长期规则和标准，短期经营传导较弱。","confidence":95,"keywords":["国际合作","全球治理"],"industries":["互联网治理"],"sortOrder":5}
+  ],
+  "chainNodes": [
+    {"id":"n1","industryNodeEvidenceLevel":"strong","verificationSignals":["部门实施方案","任务时间表与考核安排"],"title":"任务分工与实施规则","subtitle":"将十六项任务转化为部门和地方执行安排","section":"upstream","relation":"policy","evidenceLevel":"strong","confidence":86,"description":"官方PDF已明确总体任务框架，下一步由主管部门和地方细化责任主体、时间表和考核要求。","clauseIds":["c1","c2","c3","c4","c5"],"companyIds":[],"evidenceIds":["e1"],"impactReason":"完整政策正文已经取得，后续实施分工决定项目化节奏。","iconKey":"activity"},
+    {"id":"n2","industryNodeEvidenceLevel":"pending","verificationSignals":[],"title":"技术标准与试点任务","subtitle":"从目标进入研发、标准和示范","section":"midstream","relation":"pending","evidenceLevel":"pending","confidence":62,"description":"形成技术项目、标准计划、试点名单和应用示范。","clauseIds":["c2"],"companyIds":[],"evidenceIds":["e2"],"impactReason":"标准项目和试点是可验证的下一证据门。","iconKey":"activity"},
+    {"id":"n3","industryNodeEvidenceLevel":"pending","verificationSignals":[],"title":"基础设施与安全系统建设","subtitle":"形成服务网络和监管能力","section":"downstream","relation":"market","evidenceLevel":"pending","confidence":58,"description":"基础资源设施、服务平台、安全监测和应急系统进入建设采购。","clauseIds":["c3","c4"],"companyIds":[],"evidenceIds":["e3","e4"],"impactReason":"当前没有项目、预算和采购主体。","iconKey":"activity"},
+    {"id":"n4","industryNodeEvidenceLevel":"pending","verificationSignals":[],"title":"行业应用与国际治理结果","subtitle":"观察采用、服务和规则影响","section":"support","relation":"market","evidenceLevel":"pending","confidence":54,"description":"行业采用、服务质量、安全绩效和国际规则参与产生可观察结果。","clauseIds":["c1","c5"],"companyIds":[],"evidenceIds":["e1","e5"],"impactReason":"经营影响需要长期采用和服务数据。","iconKey":"activity"}
+  ],
+  "chainEdges": [
+    {"id":"edge1","from":"n1","to":"n2","type":"medium","label":"任务分工和实施规则形成技术标准与试点"},
+    {"id":"edge2","from":"n2","to":"n3","type":"medium","label":"研发标准和试点推动设施与安全系统建设"},
+    {"id":"edge3","from":"n3","to":"n4","type":"weak","label":"设施服务和治理能力形成应用与长期结果"}
+  ],
+  "companies": [],
+  "evidence": [
+    {"id":"e1","evidenceObject":"policy_action","type":"official_interpretation","source":"工业和信息化部 - 政策文件库及官方解读","sourceUrl":"https://www.miit.gov.cn/zwgk/zcwj/wjfb/yj/art/2026/art_fefdddaaa4ac49edb130c85d048a2933.html","title":"到2030年和2035年分阶段建设","excerpt":"到2030年关键技术、管理能力、标准体系、应用水平、产业生态和安全保障取得突破。","interpretation":"目标明确但属于体系能力目标，尚未量化投资规模和项目数量。","confidence":94,"clauseIds":["c1"],"nodeIds":["n1"],"companyIds":[],"links":{"clauseIds":["c1"],"nodeIds":["n1"]}},
+    {"id":"e2","evidenceObject":"policy_action","type":"official_interpretation","source":"工业和信息化部 - 政策文件库及官方解读","sourceUrl":"https://www.miit.gov.cn/zwgk/zcwj/wjfb/yj/art/2026/art_fefdddaaa4ac49edb130c85d048a2933.html","title":"技术创新和标准体系","excerpt":"重点加强互联网基础资源核心技术研发和标准研制。","interpretation":"可能形成科研、标准和测试任务，需以后续标准计划、试点和项目验证。","confidence":94,"clauseIds":["c2"],"nodeIds":["n2"],"companyIds":[],"links":{"clauseIds":["c2"],"nodeIds":["n2"]}},
+    {"id":"e3","evidenceObject":"industry_node","type":"official_interpretation","source":"工业和信息化部 - 政策文件库及官方解读","sourceUrl":"https://www.miit.gov.cn/zwgk/zcwj/wjfb/yj/art/2026/art_fefdddaaa4ac49edb130c85d048a2933.html","title":"完善基础设施和服务体系","excerpt":"推动互联网基础资源设施体系和服务体系高质量发展。","interpretation":"设施和服务网络方向明确，实际建设边界与采购模式待实施方案。","confidence":94,"clauseIds":["c3"],"nodeIds":["n3"],"companyIds":[],"links":{"clauseIds":["c3"],"nodeIds":["n3"]}},
+    {"id":"e4","evidenceObject":"industry_node","type":"official_interpretation","source":"工业和信息化部 - 政策文件库及官方解读","sourceUrl":"https://www.miit.gov.cn/zwgk/zcwj/wjfb/yj/art/2026/art_fefdddaaa4ac49edb130c85d048a2933.html","title":"提升安全保障和管理能力","excerpt":"强化互联网基础资源安全监测、风险防范、应急处置和监督管理。","interpretation":"安全能力建设具有政策相关性，但具体系统、主体和预算待公布。","confidence":94,"clauseIds":["c4"],"nodeIds":["n4"],"companyIds":[],"links":{"clauseIds":["c4"],"nodeIds":["n4"]}},
+    {"id":"e5","evidenceObject":"industry_node","type":"official_interpretation","source":"工业和信息化部 - 政策文件库及官方解读","sourceUrl":"https://www.miit.gov.cn/zwgk/zcwj/wjfb/yj/art/2026/art_fefdddaaa4ac49edb130c85d048a2933.html","title":"参与全球互联网治理","excerpt":"加强国际交流合作，提升在互联网基础资源国际治理中的参与能力。","interpretation":"国际治理影响长期规则和标准，短期经营传导较弱。","confidence":94,"clauseIds":["c5"],"nodeIds":["n1"],"companyIds":[],"links":{"clauseIds":["c5"],"nodeIds":["n1"]}}
+  ],
+  "backgroundCards": [
+    {"id":"bg1","title":"资源范围","body":"官方解读将IP地址、域名、自治系统号码和网络标识等纳入互联网基础资源。","source":"工业和信息化部 - 政策文件库及官方解读","sourceUrl":"https://www.miit.gov.cn/zwgk/zcwj/wjfb/yj/art/2026/art_fefdddaaa4ac49edb130c85d048a2933.html"},
+    {"id":"bg2","title":"分阶段目标","body":"文件提出2030年取得明显突破、2035年形成较成熟综合体系。","source":"工业和信息化部 - 政策文件库及官方解读","sourceUrl":"https://www.miit.gov.cn/zwgk/zcwj/wjfb/yj/art/2026/art_fefdddaaa4ac49edb130c85d048a2933.html"},
+    {"id":"bg3","title":"六方面任务","body":"官方解读概括研发标准、设施、安全、服务生态、监管和国际合作六个方面。","source":"工业和信息化部 - 政策文件库及官方解读","sourceUrl":"https://www.miit.gov.cn/zwgk/zcwj/wjfb/yj/art/2026/art_fefdddaaa4ac49edb130c85d048a2933.html"}
+  ],
+  "identityReconciliation": {"formatVersion":"policy-id-reconciliation-v1","previousPolicyId":"f7307b16-0513-5b89-b87f-e94e195432e0","currentPolicyId":"f907eb3b-29d7-46cb-93da-1bccde58c578","reconciledAt":"2026-07-27T17:02:55.404Z","matchBasis":["official-title-alias","publish-date","official-source-url","official-pdf-full-text"],"productionTitle":"四部门关于推动互联网基础资源高质量发展的指导意见","evidenceWorkflowRunId":"30283913647","evidenceArtifactId":"8659961337","evidenceStatus":{"fullTextLength":583,"evidenceTextLength":6494,"attachmentCount":2,"attachmentCollectionStatus":"complete","attachmentExtractionStatus":"all_extracted","attachmentEvidenceIncomplete":false,"attachmentManualReviewRequired":false,"officialPdfSha256":"9053dae60d8402990f41e37f531f7cf75815971634934da38c4c9ae8fd8cbce7"}}
+}

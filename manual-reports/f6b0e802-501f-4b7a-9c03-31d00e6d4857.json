@@ -1,0 +1,164 @@
+{
+  "id": "f6b0e802-501f-4b7a-9c03-31d00e6d4857",
+  "policyId": "f6b0e802-501f-4b7a-9c03-31d00e6d4857",
+  "analyzerVersion": "gpt-5.6-thinking-manual-v1",
+  "analysisMethod": "manual-backlog-recovery-v1",
+  "generatedAt": "2026-07-15T13:45:00+08:00",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "通知（转发行动方案）",
+  "substantivePolicyType": "群众身边水体污染排查、设施改造、源头治理和监管能力建设行动方案",
+  "primaryActionType": "污染治理攻坚与环境基础设施补短板",
+  "policySignalStrength": "high",
+  "implementationCertainty": "medium",
+  "analysisDepth": "L3",
+  "analysisDepthReason": "行动方案明确到2030年的治理目标，并部署工业园区、县乡黑臭水体、畜禽粪污、乡村河湖库、小微水体、污水管网、排污口监测和数智执法等具体任务；但项目清单、财政规模、采购主体和建设时序仍需地方实施方案。",
+  "operationDisposition": "继续深研",
+  "followUpSignals": [
+    "各地县乡黑臭水体、小微水体和工业园区排查整治清单",
+    "工业园区废水、城镇污水管网和处理设施改造项目及预算",
+    "入河排污口监测、智慧感知和非现场执法系统采购",
+    "畜禽粪污资源化设施和区域集中处理项目",
+    "中央财政、地方专项资金及社会资本参与的具体项目安排"
+  ],
+  "summary": {
+    "id": "f6b0e802-501f-4b7a-9c03-31d00e6d4857",
+    "title": "国务院办公厅关于转发生态环境部等部门《群众身边水体保护治理行动方案》的通知",
+    "issuer": "国务院办公厅；生态环境部等六部门",
+    "source": "中国政府网 - 最新政策",
+    "publishDate": "2026-07-14",
+    "status": "published",
+    "confidence": 93,
+    "industryCount": 5,
+    "companyCount": 0,
+    "evidenceCount": 5,
+    "primarySignal": "设定2030年群众身边水体治理目标",
+    "category": "水污染防治与城乡环境基础设施"
+  },
+  "policy": {
+    "title": "国务院办公厅关于转发生态环境部等部门《群众身边水体保护治理行动方案》的通知",
+    "status": "已发布",
+    "issuer": "国务院办公厅；生态环境部等六部门",
+    "publishDate": "2026-07-14",
+    "effectiveDate": "2026-07-09",
+    "source": "中国政府网 - 最新政策",
+    "category": "水污染防治与城乡环境基础设施",
+    "level": "中央政策",
+    "confidence": 96,
+    "sourceUrl": "https://www.gov.cn/zhengce/content/202607/content_7075364.htm",
+    "scope": "工业园区、县乡黑臭水体、畜禽养殖、乡村河湖库、小微水体、入河排污口及相关监测监管",
+    "impactScope": "工业废水治理、城乡污水管网、黑臭水体整治、畜禽粪污资源化、生态修复、水质监测和智慧执法",
+    "jurisdiction": "中国大陆",
+    "tags": [
+      "水污染治理",
+      "工业园区",
+      "黑臭水体",
+      "污水管网",
+      "入河排污口",
+      "智慧监测"
+    ]
+  },
+  "brief": {
+    "judgement": "这项方案把水污染治理重点进一步下沉到县城、乡村和群众身边的小微水体，并把工业园区设施改造、污水管网、排污口监测、畜禽粪污和非现场执法纳入同一行动链，具有较强项目研究价值；但当前仍是全国性任务框架，不能直接把环保设备或水务公司的既有业务解释为新增订单。",
+    "summary": "政策以2030年基本完成工业园区水污染排查整治、基本消除县乡黑臭水体等目标为牵引，要求建立问题清单、治理主体和长效机制，并明确设施建设改造、运维能力、智慧感知、监测网络、遥感执法和财政社会资本支持。产业影响将先通过地方摸排、清单公布、项目立项和资金安排形成，再进入工程、设备、运维与监测采购。",
+    "keyPoints": [
+      "治理对象从重点流域和城市进一步延伸到县乡、小微水体和群众居住区域。",
+      "工业园区废水收集处理、城镇污水管网和县乡黑臭水体治理是明确的设施补短板方向。",
+      "入河排污口分级管理、智慧感知、自动监测和卫星遥感将强化监测监管需求。",
+      "中央和地方财政积极支持，并允许社会资本参与，但尚未公布资金规模和项目名单。",
+      "文件未点名企业或合同，本次保持零公司结论。"
+    ],
+    "methodology": "仅依据国务院办公厅转发的行动方案拆分治理对象、项目环节和监管工具；公司映射必须等待地方问题清单、资金预算、项目核准、招标合同或运营绩效证据。"
+  },
+  "analysisCoverage": {
+    "companyCount": 0,
+    "companyImpactConclusion": "本政策未点名上市公司，也未提供可归因到具体企业的项目、采购、合同、订单、验收、收入或回款证据，因此本次不建立具体公司映射，仅保留产业环节和证据门。",
+    "limitations": [
+      "行动方案未公布分地区任务量、财政资金规模、具体项目清单和采购计划。",
+      "地方实施节奏、项目付费机制和市场主体参与方式存在显著差异。"
+    ]
+  },
+  "policyIndustryMap": [
+    {"id":"pi1","industry":"工业园区废水治理与运维","policyAction":"排查园区环境基础设施并推进废水收集处理设施建设改造。","impactType":"environmental_infrastructure","impactDirection":"positive","evidenceLevel":"strong","policyCloseness":"direct","reason":"政策直接要求园区设施改造和规范运维，但项目量和市场主体待地方清单。","relatedClauseIds":["c2","c3"],"relatedNodeIds":["n1","n3"],"evidenceIds":[],"watchSignals":[]},
+    {"id":"pi2","industry":"城乡污水管网与黑臭水体治理","policyAction":"补齐县乡水污染设施短板并加强污水管网运维。","impactType":"municipal_water","impactDirection":"positive","evidenceLevel":"strong","policyCloseness":"direct","reason":"建设和运维需求明确，经营规模取决于地方投资、招标和付费机制。","relatedClauseIds":["c2","c3"],"relatedNodeIds":["n2","n3"],"evidenceIds":[],"watchSignals":[]},
+    {"id":"pi3","industry":"水生态修复与小微水体治理","policyAction":"开展控源截污、内源治理、生态修复和活水保质。","impactType":"ecological_restoration","impactDirection":"positive","evidenceLevel":"strong","policyCloseness":"direct","reason":"治理技术方向明确，但项目高度分散且地方财政约束较强。","relatedClauseIds":["c2"],"relatedNodeIds":["n1","n3"],"evidenceIds":[],"watchSignals":[]},
+    {"id":"pi4","industry":"水质监测、遥感与智慧执法","policyAction":"建设排污口智慧感知、监测网络和数智化执法能力。","impactType":"environmental_monitoring","impactDirection":"positive","evidenceLevel":"strong","policyCloseness":"direct","reason":"监测监管工具被明确提出，仍需设备标准、平台方案和采购公告。","relatedClauseIds":["c4"],"relatedNodeIds":["n2","n4"],"evidenceIds":[],"watchSignals":[]},
+    {"id":"pi5","industry":"畜禽粪污处理与资源化利用","policyAction":"建设匹配养殖规模的粪污处理设施并推进集中处理利用。","impactType":"agricultural_environment","impactDirection":"positive","evidenceLevel":"strong","policyCloseness":"direct","reason":"设备和运营需求可能增加，但农户支付能力、补贴和区域模式是关键约束。","relatedClauseIds":["c2"],"relatedNodeIds":["n1","n3"],"evidenceIds":[],"watchSignals":[]}
+  ],
+  "industryChain": [{"id":"chain1","chainName":"政策制度—实施规则—项目或监管工具—经营兑现","policyRole":"本报告只确认政策已经明确的制度、目标和任务；企业经营影响仍需经过实施细则、预算项目、采购招标、监管执行或市场采用。","nodes":[
+    {"id":"n1","policySensitivity":"high","description":"地方完成工业园区、黑臭水体、小微水体和排污口摸排并公布清单。","position":"upstream","evidenceLevel":"strong","companyIds":[]},
+    {"id":"n2","policySensitivity":"medium","description":"地方形成治理方案、财政安排、项目核准及社会资本合作模式。","position":"midstream","evidenceLevel":"pending","companyIds":[]},
+    {"id":"n3","policySensitivity":"medium","description":"污水管网、园区废水、畜禽粪污和水体修复进入招标、建设与运维。","position":"downstream","evidenceLevel":"pending","companyIds":[]},
+    {"id":"n4","policySensitivity":"medium","description":"监测网络和数智执法识别问题并复核治理是否持续有效。","position":"support","evidenceLevel":"pending","companyIds":[]}
+  ],"edges":[
+    {"from":"n1","to":"n2","relation":"问题清单转化为治理方案和资金计划","description":"问题清单转化为治理方案和资金计划"},
+    {"from":"n2","to":"n3","relation":"项目与预算进入工程设备和运营采购","description":"项目与预算进入工程设备和运营采购"},
+    {"from":"n3","to":"n4","relation":"监测和执法持续检验治理绩效","description":"监测和执法持续检验治理绩效"}
+  ]}],
+  "companyMap": [],
+  "policyNetwork": [
+    {"id":"pn1","relatedPolicy":"地方群众身边水体保护治理实施方案和项目清单","relationship":"local_rollout","meaning":"全国行动方案需要由地方问题清单、资金安排和治理项目转化为可执行工程，届时才能验证产业和公司经营影响。","evidenceLevel":"pending","watchSignals":["省市实施方案","县乡问题清单","财政资金和项目招标"]}
+  ],
+  "investmentDirection": {
+    "primaryDirection": "提高对地方治理清单、财政项目、污水管网改造和排污口智慧监测的关注，不提前提高任何具体环保或水务公司的优先级。",
+    "directionStrength": "medium",
+    "timeHorizon": "medium_term",
+    "watchIndustries": ["工业园区废水治理与运维","城乡污水管网与黑臭水体治理","水生态修复与小微水体治理","水质监测、遥感与智慧执法","畜禽粪污处理与资源化利用"],
+    "watchChainNodes": ["地方排查与治理清单","项目立项与资金安排","工程设备与运营服务","监测执法与绩效复核"],
+    "watchCompanyTypes": [],
+    "watchCompanies": [],
+    "nearTermCatalysts": [],
+    "keyRisks": ["地方财政和付费能力约束","项目分散且招标周期较长","低价竞争和应收账款风险","治理后返黑返臭导致绩效压力","社会资本项目回报机制不清晰"],
+    "minimumEvidenceNeeded": [],
+    "doNotOverread": ["全国治理目标不等于已经形成项目","环保设备能力不等于取得当前政策订单","地方摸排清单不等于中标名单","财政支持方向不等于资金已经到位","监测建设要求不等于具体平台采购"],
+    "summary": "政策提供了清晰的治理对象和项目方向，真正可用的投资证据仍是地方清单、资金安排、招标合同、验收回款及持续水质改善。"
+  },
+  "actions": [
+    {"id":"a1","actionType":"目标约束","actionEvidenceLevel":"strong","title":"设定2030年群众身边水体治理目标","body":"基本完成省级及以上工业园区水污染排查整治，基本消除县乡黑臭水体，并控制重点区域畜禽养殖污染。","signal":"beneficiary","confidence":94,"clauseIds":["c1"],"sortOrder":1},
+    {"id":"a2","actionType":"项目与清单","actionEvidenceLevel":"strong","title":"开展五类水污染突出问题攻坚","body":"对工业园区、县乡黑臭水体、畜禽粪污、乡村河湖库和小微水体开展排查、建清单和分类治理。","signal":"beneficiary","confidence":94,"clauseIds":["c2"],"sortOrder":2},
+    {"id":"a3","actionType":"基础设施","actionEvidenceLevel":"strong","title":"补齐污水收集处理和园区环境基础设施","body":"要求加快设施建设改造、规范废水收集处理，并明确污水管网运维单位和专业能力。","signal":"beneficiary","confidence":94,"clauseIds":["c3"],"sortOrder":3},
+    {"id":"a4","actionType":"监测监管","actionEvidenceLevel":"strong","title":"建设排污口监测和数智执法闭环","body":"延伸入河排污口排查整治，建设智慧感知、自动监测、遥感识别和非现场执法能力。","signal":"beneficiary","confidence":94,"clauseIds":["c4"],"sortOrder":4},
+    {"id":"a5","actionType":"资金机制","actionEvidenceLevel":"strong","title":"强化财政、金融和社会资本支持","body":"中央和各级财政积极支持，探索创新投融资模式并鼓励社会资本参与环境基础设施项目。","signal":"neutral","confidence":94,"clauseIds":["c5"],"sortOrder":5}
+  ],
+  "clauses": [
+    {"id":"c1","no":"总体目标","title":"到2030年基本完成重点治理任务","excerpt":"到2030年，基本完成省级及以上工业园区水污染排查整治任务，基本消除县乡黑臭水体。","body":"明确全国性治理期限和结果目标，但没有分地区预算与项目量。","confidence":95,"keywords":["2030年","工业园区","县乡黑臭水体"],"industries":["水污染治理"],"sortOrder":1},
+    {"id":"c2","no":"攻坚行动","title":"建立清单并分类治理","excerpt":"组织开展县乡黑臭水体调查，制定公布清单，明确治理主体，科学制定治理方案。","body":"清单和治理主体是项目进入地方实施阶段的首要证据门。","confidence":95,"keywords":["调查","清单","治理主体"],"industries":["黑臭水体治理"],"sortOrder":2},
+    {"id":"c3","no":"设施建设","title":"加快设施和管网改造","excerpt":"加快推进设施建设改造，规范废水收集处理；加快城镇生活污水收集处理设施建设改造。","body":"明确基础设施补短板，但建设规模、投资来源和采购方式待地方落地。","confidence":95,"keywords":["设施改造","污水管网","废水收集"],"industries":["工业废水","城镇污水"],"sortOrder":3},
+    {"id":"c4","no":"监测监管","title":"建设智慧感知和监测网络","excerpt":"加快建设入河排污口分级分类监测监管体系，加强入河排污口智慧感知能力建设。","body":"监测设备、数据平台与运维服务可能形成需求，需等待具体采购。","confidence":95,"keywords":["入河排污口","智慧感知","自动监测"],"industries":["环境监测"],"sortOrder":4},
+    {"id":"c5","no":"资金保障","title":"财政支持并探索社会资本参与","excerpt":"探索创新投融资模式，支持社会资本参与环境基础设施项目；中央和各级财政积极支持。","body":"资金方向明确，但金额、渠道、偿付和回款机制尚不清晰。","confidence":95,"keywords":["财政支持","社会资本","投融资"],"industries":["环境基础设施投融资"],"sortOrder":5}
+  ],
+  "chainNodes": [
+    {"id":"n1","industryNodeEvidenceLevel":"strong","verificationSignals":[],"title":"地方排查与治理清单","subtitle":"从全国任务进入可执行对象","section":"upstream","relation":"policy","evidenceLevel":"strong","confidence":92,"description":"地方完成工业园区、黑臭水体、小微水体和排污口摸排并公布清单。","clauseIds":["c1","c2"],"companyIds":[],"evidenceIds":["e1","e2"],"impactReason":"清单决定项目范围和优先级。","iconKey":"activity"},
+    {"id":"n2","industryNodeEvidenceLevel":"pending","verificationSignals":[],"title":"项目立项与资金安排","subtitle":"治理方案、预算和责任主体落地","section":"midstream","relation":"pending","evidenceLevel":"pending","confidence":68,"description":"地方形成治理方案、财政安排、项目核准及社会资本合作模式。","clauseIds":["c2","c5"],"companyIds":[],"evidenceIds":["e2","e5"],"impactReason":"没有资金和项目主体就不能形成采购。","iconKey":"activity"},
+    {"id":"n3","industryNodeEvidenceLevel":"pending","verificationSignals":[],"title":"工程设备与运营服务","subtitle":"设施改造、生态修复和长期运维","section":"downstream","relation":"market","evidenceLevel":"pending","confidence":62,"description":"污水管网、园区废水、畜禽粪污和水体修复进入招标、建设与运维。","clauseIds":["c3"],"companyIds":[],"evidenceIds":["e3"],"impactReason":"经营兑现取决于合同、验收和回款。","iconKey":"activity"},
+    {"id":"n4","industryNodeEvidenceLevel":"pending","verificationSignals":[],"title":"监测执法与绩效复核","subtitle":"智慧感知、自动监测和治理效果","section":"support","relation":"regulation","evidenceLevel":"pending","confidence":66,"description":"监测网络和数智执法识别问题并复核治理是否持续有效。","clauseIds":["c4"],"companyIds":[],"evidenceIds":["e4"],"impactReason":"监测需求需由技术标准和采购计划确认。","iconKey":"activity"}
+  ],
+  "chainEdges": [
+    {"id":"edge1","from":"n1","to":"n2","type":"strong","label":"问题清单转化为治理方案和资金计划"},
+    {"id":"edge2","from":"n2","to":"n3","type":"medium","label":"项目与预算进入工程设备和运营采购"},
+    {"id":"edge3","from":"n3","to":"n4","type":"medium","label":"监测和执法持续检验治理绩效"}
+  ],
+  "companies": [],
+  "evidence": [
+    {"id":"e1","evidenceObject":"policy_action","type":"policy_text","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075364.htm","title":"到2030年基本完成重点治理任务","excerpt":"到2030年，基本完成省级及以上工业园区水污染排查整治任务，基本消除县乡黑臭水体。","interpretation":"明确全国性治理期限和结果目标，但没有分地区预算与项目量。","confidence":94,"clauseIds":["c1"],"nodeIds":["n1"],"companyIds":[],"links":{"clauseIds":["c1"],"nodeIds":["n1"]}},
+    {"id":"e2","evidenceObject":"policy_action","type":"policy_text","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075364.htm","title":"建立清单并分类治理","excerpt":"组织开展县乡黑臭水体调查，制定公布清单，明确治理主体，科学制定治理方案。","interpretation":"清单和治理主体是项目进入地方实施阶段的首要证据门。","confidence":94,"clauseIds":["c2"],"nodeIds":["n2"],"companyIds":[],"links":{"clauseIds":["c2"],"nodeIds":["n2"]}},
+    {"id":"e3","evidenceObject":"industry_node","type":"policy_text","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075364.htm","title":"加快设施和管网改造","excerpt":"加快推进设施建设改造，规范废水收集处理；加快城镇生活污水收集处理设施建设改造。","interpretation":"明确基础设施补短板，但建设规模、投资来源和采购方式待地方落地。","confidence":94,"clauseIds":["c3"],"nodeIds":["n3"],"companyIds":[],"links":{"clauseIds":["c3"],"nodeIds":["n3"]}},
+    {"id":"e4","evidenceObject":"industry_node","type":"policy_text","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075364.htm","title":"建设智慧感知和监测网络","excerpt":"加快建设入河排污口分级分类监测监管体系，加强入河排污口智慧感知能力建设。","interpretation":"监测设备、数据平台与运维服务可能形成需求，需等待具体采购。","confidence":94,"clauseIds":["c4"],"nodeIds":["n4"],"companyIds":[],"links":{"clauseIds":["c4"],"nodeIds":["n4"]}},
+    {"id":"e5","evidenceObject":"industry_node","type":"policy_text","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075364.htm","title":"财政支持并探索社会资本参与","excerpt":"探索创新投融资模式，支持社会资本参与环境基础设施项目；中央和各级财政积极支持。","interpretation":"资金方向明确，但金额、渠道、偿付和回款机制尚不清晰。","confidence":94,"clauseIds":["c5"],"nodeIds":["n1"],"companyIds":[],"links":{"clauseIds":["c5"],"nodeIds":["n1"]}}
+  ],
+  "backgroundCards": [
+    {"id":"bg1","title":"治理范围下沉","body":"方案将治理重点进一步向县城、乡村和群众身边的小微水体延伸。","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075364.htm"},
+    {"id":"bg2","title":"多部门协同","body":"生态环境、发展改革、工业和信息化、住房城乡建设、水利、农业农村等部门共同推进。","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075364.htm"},
+    {"id":"bg3","title":"项目与监管并重","body":"方案同时部署设施改造、源头治理、监测网络、智慧感知和督察执法。","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075364.htm"}
+  ],
+  "identityReconciliation": {
+    "formatVersion": "policy-id-reconciliation-v1",
+    "previousPolicyId": "8c1fa6a9-4c7a-55db-9145-539976c5b579",
+    "currentPolicyId": "f6b0e802-501f-4b7a-9c03-31d00e6d4857",
+    "reconciledAt": "2026-07-27T16:59:44.070Z",
+    "matchBasis": ["official-title","publish-date","official-source-url","current-production-text"],
+    "productionTitle": "国务院办公厅关于转发生态环境部等部门《群众身边水体保护治理行动方案》的通知",
+    "evidenceWorkflowRunId": "30283881925",
+    "evidenceArtifactId": "8659950527",
+    "evidenceStatus": {"fullTextLength":2822,"evidenceTextLength":2823,"attachmentCount":0,"attachmentCollectionStatus":"none","attachmentEvidenceIncomplete":false,"attachmentManualReviewRequired":false}
+  }
+}
