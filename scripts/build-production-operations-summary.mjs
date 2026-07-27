@@ -5,44 +5,114 @@ import { findDuplicateGroups } from "./lib/policy-identity.mjs";
 
 const args = parseArgs(process.argv.slice(2));
 const hourlyRuns = await readJson(args.hourlyRuns, []);
+const recoveryRuns = await readJson(args.recoveryRuns, []);
+const livenessRuns = await readJson(args.livenessRuns, []);
 const currentInbox = await readJson(args.currentInbox, {});
 const historicalInbox = await readJson(args.historicalInbox, {});
 const registry = await readJson(args.registry, { reports: [] });
 const generatedAt = new Date().toISOString();
+const asOf = args.asOf ?? generatedAt;
+
 const scheduledRuns = hourlyRuns
-  .filter((item) => item.event === "schedule" && (!args.since || item.createdAt >= args.since))
-  .sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt));
+  .filter((item) => item.event === "schedule" && (!args.since || timestampOf(item, "createdAt") >= Date.parse(args.since)))
+  .sort(compareRunTime);
+const successfulScheduledRuns = scheduledRuns.filter(isSuccessfulCompletedRun);
+const successfulRecoveryRuns = recoveryRuns
+  .filter(isSuccessfulCompletedRun)
+  .sort(compareRunTime);
+const performedRecoveryRuns = successfulRecoveryRuns
+  .filter((item) => item.recoveryPerformed === true)
+  .sort(compareRunTime);
+const sortedLivenessRuns = [...livenessRuns].sort(compareRunTime);
+const activeLivenessRuns = sortedLivenessRuns.filter((item) => ["queued", "in_progress", "pending", "waiting"].includes(item.status));
+
 let maxGapMinutes = 0;
 for (let index = 1; index < scheduledRuns.length; index += 1) {
-  maxGapMinutes = Math.max(maxGapMinutes, (Date.parse(scheduledRuns[index].createdAt) - Date.parse(scheduledRuns[index - 1].createdAt)) / 60_000);
+  maxGapMinutes = Math.max(maxGapMinutes, minutesBetween(scheduledRuns[index - 1].createdAt, scheduledRuns[index].createdAt));
 }
+
+const effectiveRuns = [
+  ...successfulScheduledRuns.map((item) => ({ ...item, effectiveKind: "scheduled" })),
+  ...performedRecoveryRuns.map((item) => ({ ...item, effectiveKind: "recovery" }))
+].sort(compareRunTime);
+const latestEffectiveRun = effectiveRuns.at(-1) ?? null;
+const effectiveAgeMinutes = latestEffectiveRun
+  ? Math.max(0, minutesBetween(effectiveTimestamp(latestEffectiveRun), asOf))
+  : null;
+const collectionHealth = classifyCollectionHealth(effectiveAgeMinutes, args.freshnessThresholdMinutes);
+
 const reports = Array.isArray(registry.reports) ? registry.reports : [];
+const latestScheduledRun = scheduledRuns.at(-1) ?? null;
+const latestSuccessfulScheduledRun = successfulScheduledRuns.at(-1) ?? null;
+const latestRecoveryRun = [...recoveryRuns].sort(compareRunTime).at(-1) ?? null;
+const latestPerformedRecoveryRun = performedRecoveryRuns.at(-1) ?? null;
+const latestLivenessRun = sortedLivenessRuns.at(-1) ?? null;
+const latestActiveLivenessRun = activeLivenessRuns.at(-1) ?? null;
+
 const summary = {
-  formatVersion: "production-operations-summary-v2",
+  formatVersion: "production-operations-summary-v3",
   generatedAt,
-  asOf: generatedAt,
+  asOf,
   authority: {
     kind: "read_only_production_snapshot",
     repository: process.env.GITHUB_REPOSITORY ?? null,
     workflowRunId: process.env.GITHUB_RUN_ID ?? null,
     workflowRunAttempt: process.env.GITHUB_RUN_ATTEMPT ?? null,
     staticDocumentationIsRealtimeAuthority: false,
-    note: "Dynamic counts are authoritative only for this immutable snapshot and its query windows."
+    note: "Dynamic counts and collection freshness are authoritative only for this immutable snapshot and its query windows."
   },
   queryWindows: {
     hourlyBaselineSince: args.since,
     currentInboxSince: currentInbox.sincePublishDate ?? null,
     historicalInboxSince: historicalInbox.sincePublishDate ?? null
   },
+  collectionHealth: {
+    status: collectionHealth,
+    freshnessThresholdMinutes: args.freshnessThresholdMinutes,
+    staleThresholdMinutes: args.freshnessThresholdMinutes * 2,
+    latestEffectiveRunId: latestEffectiveRun?.databaseId ?? null,
+    latestEffectiveRunKind: latestEffectiveRun?.effectiveKind ?? null,
+    latestEffectiveRunAt: latestEffectiveRun ? effectiveTimestamp(latestEffectiveRun) : null,
+    latestEffectiveRunConclusion: latestEffectiveRun?.conclusion ?? null,
+    effectiveAgeMinutes: effectiveAgeMinutes === null ? null : Number(effectiveAgeMinutes.toFixed(2)),
+    recoveryBacked: latestEffectiveRun?.effectiveKind === "recovery",
+    interpretation: collectionHealthInterpretation(collectionHealth, latestEffectiveRun?.effectiveKind ?? null)
+  },
   hourlyCollection: {
     baselineSince: args.since,
     listedRuns: hourlyRuns.length,
     scheduledRuns: scheduledRuns.length,
-    successfulScheduledRuns: scheduledRuns.filter((item) => item.conclusion === "success").length,
-    latestScheduledRunId: scheduledRuns.at(-1)?.databaseId ?? null,
-    latestScheduledRunAt: scheduledRuns.at(-1)?.createdAt ?? null,
-    latestScheduledRunConclusion: scheduledRuns.at(-1)?.conclusion ?? null,
-    maxObservedGapMinutes: Number(maxGapMinutes.toFixed(2))
+    successfulScheduledRuns: successfulScheduledRuns.length,
+    latestScheduledRunId: latestScheduledRun?.databaseId ?? null,
+    latestScheduledRunAt: latestScheduledRun?.createdAt ?? null,
+    latestScheduledRunConclusion: latestScheduledRun?.conclusion ?? null,
+    latestSuccessfulScheduledRunId: latestSuccessfulScheduledRun?.databaseId ?? null,
+    latestSuccessfulScheduledRunAt: latestSuccessfulScheduledRun ? effectiveTimestamp(latestSuccessfulScheduledRun) : null,
+    maxObservedScheduledGapMinutes: Number(maxGapMinutes.toFixed(2)),
+    note: "Scheduled-run gaps describe GitHub schedule delivery only and do not by themselves prove a collection outage."
+  },
+  recoveryCollection: {
+    listedRuns: recoveryRuns.length,
+    successfulRuns: successfulRecoveryRuns.length,
+    annotatedSuccessfulRuns: successfulRecoveryRuns.filter((item) => typeof item.recoveryPerformed === "boolean").length,
+    performedRuns: performedRecoveryRuns.length,
+    latestRunId: latestRecoveryRun?.databaseId ?? null,
+    latestRunAt: latestRecoveryRun ? effectiveTimestamp(latestRecoveryRun) : null,
+    latestRunStatus: latestRecoveryRun?.status ?? null,
+    latestRunConclusion: latestRecoveryRun?.conclusion ?? null,
+    latestPerformedRunId: latestPerformedRecoveryRun?.databaseId ?? null,
+    latestPerformedRunAt: latestPerformedRecoveryRun ? effectiveTimestamp(latestPerformedRecoveryRun) : null
+  },
+  remoteLiveness: {
+    listedRuns: livenessRuns.length,
+    activeRuns: activeLivenessRuns.length,
+    latestRunId: latestLivenessRun?.databaseId ?? null,
+    latestRunAt: latestLivenessRun ? effectiveTimestamp(latestLivenessRun) : null,
+    latestRunStatus: latestLivenessRun?.status ?? null,
+    latestRunConclusion: latestLivenessRun?.conclusion ?? null,
+    latestActiveRunId: latestActiveLivenessRun?.databaseId ?? null,
+    latestActiveRunAt: latestActiveLivenessRun ? effectiveTimestamp(latestActiveLivenessRun) : null,
+    active: Boolean(latestActiveLivenessRun)
   },
   currentInbox: normalizeInbox(currentInbox),
   historicalInbox: normalizeInbox(historicalInbox),
@@ -53,10 +123,12 @@ const summary = {
     categories: Object.fromEntries(["A", "B", "C"].map((category) => [category, reports.filter((item) => item.category === category).length]))
   }
 };
+
 await writeJson(args.outJson, summary);
 await fs.mkdir(path.dirname(path.resolve(args.outMarkdown)), { recursive: true });
 await fs.writeFile(path.resolve(args.outMarkdown), renderMarkdown(summary), "utf8");
-console.log(`[operations:summary] asOf=${summary.asOf} run=${summary.authority.workflowRunId ?? "local"} scheduled=${summary.hourlyCollection.scheduledRuns} latest=${summary.hourlyCollection.latestScheduledRunAt} maxGap=${summary.hourlyCollection.maxObservedGapMinutes}m`);
+console.log(`[operations:summary] asOf=${summary.asOf} run=${summary.authority.workflowRunId ?? "local"} health=${summary.collectionHealth.status} effective=${summary.collectionHealth.latestEffectiveRunKind ?? "none"}:${summary.collectionHealth.latestEffectiveRunId ?? "none"} age=${summary.collectionHealth.effectiveAgeMinutes ?? "unknown"}m`);
+console.log(`[operations:summary] scheduled=${summary.hourlyCollection.scheduledRuns} latestScheduled=${summary.hourlyCollection.latestScheduledRunAt} maxScheduledGap=${summary.hourlyCollection.maxObservedScheduledGapMinutes}m recoveryPerformed=${summary.recoveryCollection.performedRuns} livenessActive=${summary.remoteLiveness.active}`);
 console.log(`[operations:summary] currentInbox=${summary.currentInbox.total} historicalInbox=${summary.historicalInbox.total} duplicates=${summary.historicalInbox.duplicateGroupCount} attachmentPending=${summary.historicalInbox.attachmentEvidencePending} reports=${summary.reports.total}`);
 
 function normalizeInbox(value) {
@@ -109,15 +181,27 @@ function renderMarkdown(value) {
     `快照时间：${value.asOf}`,
     `工作流运行：${value.authority.workflowRunId ?? "本地生成"}`,
     "",
-    "> 本摘要是只读生产快照。动态数量以本文件的快照时间、查询窗口和工作流运行ID为准；静态状态文档不作为实时数量权威源。",
+    "> 本摘要是只读生产快照。动态数量和有效采集新鲜度以本文件的快照时间、查询窗口和工作流运行ID为准；静态状态文档不作为实时权威源。",
     "",
-    "## 小时采集",
+    "## 有效采集健康度",
+    "",
+    `- 状态：${value.collectionHealth.status}；`,
+    `- 最近有效采集：${value.collectionHealth.latestEffectiveRunAt ?? "无"}（${value.collectionHealth.latestEffectiveRunKind ?? "未知"}，run ${value.collectionHealth.latestEffectiveRunId ?? "无"}）；`,
+    `- 距快照：${value.collectionHealth.effectiveAgeMinutes ?? "未知"}分钟；健康阈值${value.collectionHealth.freshnessThresholdMinutes}分钟，陈旧阈值${value.collectionHealth.staleThresholdMinutes}分钟；`,
+    `- 判读：${value.collectionHealth.interpretation}`,
+    "",
+    "## 主定时采集",
     "",
     `- 统计基线：${value.hourlyCollection.baselineSince ?? "全部历史"}；`,
-    `- 已列出定时运行：${value.hourlyCollection.scheduledRuns}次；`,
-    `- 成功：${value.hourlyCollection.successfulScheduledRuns}次；`,
-    `- 最近运行：${value.hourlyCollection.latestScheduledRunAt ?? "无"}（run ${value.hourlyCollection.latestScheduledRunId ?? "无"}，${value.hourlyCollection.latestScheduledRunConclusion ?? "未知"}）；`,
-    `- 最大观察间隔：${value.hourlyCollection.maxObservedGapMinutes}分钟。`,
+    `- 已列出定时运行：${value.hourlyCollection.scheduledRuns}次，成功${value.hourlyCollection.successfulScheduledRuns}次；`,
+    `- 最近定时运行：${value.hourlyCollection.latestScheduledRunAt ?? "无"}（run ${value.hourlyCollection.latestScheduledRunId ?? "无"}，${value.hourlyCollection.latestScheduledRunConclusion ?? "未知"}）；`,
+    `- 最大主定时间隔：${value.hourlyCollection.maxObservedScheduledGapMinutes}分钟。该指标仅描述GitHub定时投递，不单独等同于采集中断。`,
+    "",
+    "## 恢复链与远程存活链",
+    "",
+    `- 恢复工作流：列出${value.recoveryCollection.listedRuns}次，成功${value.recoveryCollection.successfulRuns}次，确认实际补采${value.recoveryCollection.performedRuns}次；`,
+    `- 最近实际补采：${value.recoveryCollection.latestPerformedRunAt ?? "无"}（run ${value.recoveryCollection.latestPerformedRunId ?? "无"}）；`,
+    `- 远程存活链：最近状态${value.remoteLiveness.latestRunStatus ?? "未知"}，当前活动${value.remoteLiveness.active ? "是" : "否"}${value.remoteLiveness.latestActiveRunId ? `（run ${value.remoteLiveness.latestActiveRunId}）` : ""}。`,
     "",
     "## 候选收件箱",
     "",
@@ -137,26 +221,86 @@ function renderMarkdown(value) {
 function parseArgs(argv) {
   const parsed = {
     hourlyRuns: "artifacts/operations/hourly-runs.json",
+    recoveryRuns: "artifacts/operations/recovery-runs-annotated.json",
+    livenessRuns: "artifacts/operations/liveness-runs.json",
     currentInbox: "artifacts/operations/current-inbox.json",
     historicalInbox: "artifacts/operations/historical-inbox.json",
     registry: "docs/manual-analysis/report-governance-registry-v1.0.json",
     outJson: "artifacts/operations/production-summary.json",
     outMarkdown: "artifacts/operations/production-summary.md",
-    since: "2026-07-15T10:15:16Z"
+    since: "2026-07-15T10:15:16Z",
+    asOf: null,
+    freshnessThresholdMinutes: 80
   };
   for (const arg of argv) {
     if (arg.startsWith("--hourly-runs=")) parsed.hourlyRuns = arg.slice(14);
+    else if (arg.startsWith("--recovery-runs=")) parsed.recoveryRuns = arg.slice(16);
+    else if (arg.startsWith("--liveness-runs=")) parsed.livenessRuns = arg.slice(16);
     else if (arg.startsWith("--current-inbox=")) parsed.currentInbox = arg.slice(16);
     else if (arg.startsWith("--historical-inbox=")) parsed.historicalInbox = arg.slice(19);
     else if (arg.startsWith("--registry=")) parsed.registry = arg.slice(11);
     else if (arg.startsWith("--out-json=")) parsed.outJson = arg.slice(11);
     else if (arg.startsWith("--out-markdown=")) parsed.outMarkdown = arg.slice(15);
     else if (arg.startsWith("--since=")) parsed.since = arg.slice(8);
+    else if (arg.startsWith("--as-of=")) parsed.asOf = requireIsoTimestamp(arg.slice(8), "as-of");
+    else if (arg.startsWith("--freshness-threshold-minutes=")) parsed.freshnessThresholdMinutes = requirePositiveNumber(arg.slice(30), "freshness-threshold-minutes");
     else if (arg === "--help" || arg === "-h") {
       console.log("Usage: node scripts/build-production-operations-summary.mjs [options]");
       process.exit(0);
     } else throw new Error(`Unknown argument: ${arg}`);
   }
+  if (parsed.since) requireIsoTimestamp(parsed.since, "since");
+  return parsed;
+}
+
+function classifyCollectionHealth(ageMinutes, thresholdMinutes) {
+  if (ageMinutes === null) return "unknown";
+  if (ageMinutes <= thresholdMinutes) return "healthy";
+  if (ageMinutes <= thresholdMinutes * 2) return "degraded";
+  return "stale";
+}
+
+function collectionHealthInterpretation(status, kind) {
+  if (status === "healthy" && kind === "recovery") return "恢复链已完成补采，终端有效采集保持新鲜；主定时延迟不等于生产中断。";
+  if (status === "healthy") return "主定时或恢复采集在健康阈值内完成，终端有效采集正常。";
+  if (status === "degraded") return "最近有效采集已超过健康阈值，但尚未达到陈旧阈值，应检查主定时和恢复链。";
+  if (status === "stale") return "最近有效采集已超过陈旧阈值，应视为生产采集异常并立即处置。";
+  return "没有可确认的成功主定时或实际恢复采集，无法判断生产新鲜度。";
+}
+
+function effectiveTimestamp(item) {
+  return item?.updatedAt ?? item?.createdAt ?? null;
+}
+
+function compareRunTime(a, b) {
+  return timestampOf(a) - timestampOf(b);
+}
+
+function timestampOf(item, preferredField = null) {
+  const value = preferredField ? item?.[preferredField] : effectiveTimestamp(item);
+  const parsed = Date.parse(value ?? "");
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function minutesBetween(from, to) {
+  const fromTimestamp = Date.parse(from ?? "");
+  const toTimestamp = Date.parse(to ?? "");
+  if (!Number.isFinite(fromTimestamp) || !Number.isFinite(toTimestamp)) return 0;
+  return (toTimestamp - fromTimestamp) / 60_000;
+}
+
+function isSuccessfulCompletedRun(item) {
+  return item?.status === "completed" && item?.conclusion === "success";
+}
+
+function requireIsoTimestamp(value, name) {
+  if (!value || !Number.isFinite(Date.parse(value))) throw new Error(`--${name} must be an ISO timestamp`);
+  return new Date(value).toISOString();
+}
+
+function requirePositiveNumber(value, name) {
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed) || parsed <= 0) throw new Error(`--${name} must be a positive number`);
   return parsed;
 }
 

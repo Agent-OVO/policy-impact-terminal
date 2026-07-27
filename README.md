@@ -110,7 +110,7 @@ GitHub Pages 只负责托管静态前端。政策抓取通过 GitHub Actions 定
 
 - 全天每小时第17分钟运行一次，采集过程不自动选择分析。
 - 每次运行 `scripts/crawl-policy-sources.mjs --manual-selection-only --ingest`，抓取 2026-05-01 以后政策正文和附件并写入 Supabase。
-- `.github/workflows/production-operations-summary.yml` 每日生成一次只读生产快照；实时候选数量、重复组和附件待证数量以该快照的 `asOf`、查询窗口和run ID为准。
+- `.github/workflows/production-operations-summary.yml` 每日生成一次只读生产快照；v3同时核算主定时采集、实际恢复补采和远程存活链，按最近一次有效采集计算新鲜度。主定时最大间隔仅描述GitHub定时投递，不单独等同于采集中断。候选数量、重复组、附件待证数量和采集健康度均以快照的 `asOf`、查询窗口和run ID为准。
 - 前端部署工作流在 `.github/workflows/deploy-pages.yml`。GitHub Pages 的发布源应设置为 GitHub Actions。
 - 报告分析不由 GitHub Actions 定时执行；由授权分析流程运行 `npm run manual:policies -- list/get/apply` 完成读取、分析和写回。
 

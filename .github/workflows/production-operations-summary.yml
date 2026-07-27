@@ -43,6 +43,39 @@ jobs:
             --limit 200 \
             --json databaseId,status,conclusion,createdAt,updatedAt,event,headSha,url \
             > artifacts/operations/hourly-runs.json
+          gh run list \
+            --repo "$GITHUB_REPOSITORY" \
+            --workflow "Recover missed policy collection" \
+            --limit 50 \
+            --json databaseId,status,conclusion,createdAt,updatedAt,event,headSha,url \
+            > artifacts/operations/recovery-runs.json
+          cp artifacts/operations/recovery-runs.json artifacts/operations/recovery-runs-annotated.json
+          while read -r run_id; do
+            [ -n "$run_id" ] || continue
+            job_json=""
+            for attempt in 1 2 3; do
+              if job_json=$(gh run view "$run_id" --repo "$GITHUB_REPOSITORY" --json jobs 2>/dev/null); then
+                break
+              fi
+              sleep $((attempt * 2))
+            done
+            if [ -z "$job_json" ]; then
+              echo "::warning::Unable to inspect recovery run $run_id; freshness will use the remaining annotated runs."
+              continue
+            fi
+            recovery_performed=$(jq 'any(.jobs[].steps[]?; .name == "Run recovery crawl" and .conclusion == "success")' <<< "$job_json")
+            jq --argjson id "$run_id" --argjson performed "$recovery_performed" \
+              'map(if .databaseId == $id then . + {recoveryPerformed: $performed} else . end)' \
+              artifacts/operations/recovery-runs-annotated.json \
+              > artifacts/operations/recovery-runs-annotated.tmp.json
+            mv artifacts/operations/recovery-runs-annotated.tmp.json artifacts/operations/recovery-runs-annotated.json
+          done < <(jq -r '[.[] | select(.status == "completed" and .conclusion == "success")][0:10][].databaseId' artifacts/operations/recovery-runs.json)
+          gh run list \
+            --repo "$GITHUB_REPOSITORY" \
+            --workflow "Remote policy collection liveness" \
+            --limit 20 \
+            --json databaseId,status,conclusion,createdAt,updatedAt,event,headSha,url \
+            > artifacts/operations/liveness-runs.json
           node scripts/manual-policy-analysis.mjs list --limit=100 --since=2026-07-15 \
             > artifacts/operations/current-inbox.json
           node scripts/manual-policy-analysis.mjs list --limit=100 --since=2026-05-01 \
