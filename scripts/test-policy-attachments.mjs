@@ -23,6 +23,19 @@ assert.deepEqual(discovered.map((item) => item.type), ["pdf", "xlsx", "doc", "of
 assert.ok(discovered.every((item) => !/答记者问|一图读懂/.test(item.title)));
 assert.equal(discovered[1].url, "https://example.gov.cn/policy/list.xlsx");
 assert.equal(discoverPolicyAttachments(`<div data-url="./navigation.html">普通导航</div>`, "https://example.gov.cn/page.html").length, 0);
+assert.equal(
+  discoverPolicyAttachments(`
+    <a href="https://www.gov.cn/" aria-label="中国政府网"><img src="/logo.png" alt=""></a>
+    <a href="https://www.gov.cn/">首页</a>
+  `, "https://www.gov.cn/zhengce/content/202607/content_7075364.htm").length,
+  0,
+  "site home logos and navigation links must not be treated as attachments"
+);
+assert.deepEqual(
+  discoverPolicyAttachments(`<a href="./attachment.html">附件：政策全文</a>`, "https://example.gov.cn/page.html").map((item) => item.type),
+  ["html"],
+  "explicitly labelled HTML evidence remains supported"
+);
 assert.deepEqual(
   discoverPolicyAttachments(`<div data-url="./table.xlsx">附件表格</div>`, "https://example.gov.cn/page.html").map((item) => item.type),
   ["xlsx"]
