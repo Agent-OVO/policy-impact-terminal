@@ -226,7 +226,7 @@ export async function hydratePolicyAttachments(input) {
       : downloadedAttachmentCount > 0
         ? "downloaded_unextracted"
         : "failed";
-  const attachmentEvidenceIncomplete = attachmentDiscoveryTruncated || failedAttachmentCount > 0 || (wrapperLikely && extracted.length === 0);
+  const attachmentEvidenceIncomplete = attachmentDiscoveryTruncated || failedAttachmentCount > 0;
   const attachmentManualReviewRequired = attachmentDiscoveryTruncated || unextractedAttachmentCount > 0;
 
   return {
