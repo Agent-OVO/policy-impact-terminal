@@ -13,7 +13,7 @@ const server = http.createServer((request, response) => {
   const url = new URL(request.url ?? "/", "http://127.0.0.1");
   if (url.pathname === "/policy.html") {
     response.writeHead(200, { "content-type": "text/html; charset=utf-8" });
-    response.end(`<!doctype html><html><body><div class="TRS_Editor">现将政策印发，正文和名单详见附件。</div><a href="/policy.pdf">正式正文.pdf</a><a href="/legacy.doc">历史名单.doc</a></body></html>`);
+    response.end(`<!doctype html><html><head><title>测试政策官方发布页</title></head><body><div class="article-meta">发文机关：测试机关　发布日期：2026-07-27</div><div class="TRS_Editor">现将政策印发，正文和名单详见附件。${"本发布页用于验证正文、附件、哈希和人工复核证据链。".repeat(12)}</div><a href="/policy.pdf">正式正文.pdf</a><a href="/legacy.doc">历史名单.doc</a></body></html>`);
     return;
   }
   if (url.pathname === "/policy.pdf") {

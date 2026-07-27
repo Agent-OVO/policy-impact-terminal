@@ -5,6 +5,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { printJson } from "./lib/json-output.mjs";
 import { hydratePolicyAttachments } from "./lib/policy-attachments.mjs";
+import { assertUsablePolicyPageHtml } from "./lib/policy-page-validation.mjs";
 
 const MIIT_MIRROR_ORIGINS = [
   "https://www.miit.gov.cn",
@@ -26,7 +27,8 @@ await fs.mkdir(attachmentsDir, { recursive: true });
 const sourceResponse = await fetchOfficialBinary(policy.sourceUrl, {
   accept: "text/html,application/xhtml+xml;q=0.9,*/*;q=0.5",
   timeoutMs: args.timeoutMs,
-  maxBytes: args.maxSourceBytes
+  maxBytes: args.maxSourceBytes,
+  requirePolicyPageHtml: true
 });
 const sourceHtml = decodeText(sourceResponse.buffer);
 const sourcePageText = extractPolicyTextFromHtml(sourceHtml);
@@ -37,6 +39,7 @@ const archivedNames = new Set();
 const result = await hydratePolicyAttachments({
   html: sourceHtml,
   pageText,
+  policyTitle: policy.title,
   baseUrl: sourceResponse.finalUrl || policy.sourceUrl,
   maxAttachments: args.maxAttachments,
   maxAttachmentBytes: args.maxAttachmentBytes,
@@ -154,6 +157,9 @@ async function fetchOfficialBinary(url, options = {}) {
         ...options,
         referer: rewriteReferer(options.referer, new URL(target).origin)
       });
+      if (options.requirePolicyPageHtml === true) {
+        assertUsablePolicyPageHtml(response.buffer);
+      }
       return {
         ...response,
         mirrorFallbackUsed: index > 0,
