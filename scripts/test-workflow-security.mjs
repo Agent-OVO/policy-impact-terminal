@@ -51,6 +51,12 @@ assert.doesNotMatch(dispositionWorkflow, /npm run manual:policies[\s\S]*?\|\s*te
 const operationsSummaryWorkflow = await fs.readFile(path.join(workflowDir, "production-operations-summary.yml"), "utf8");
 assert.match(operationsSummaryWorkflow, /cron:\s*"35 0 \* \* \*"/);
 assert.match(operationsSummaryWorkflow, /node scripts\/build-production-operations-summary\.mjs/);
+assert.match(operationsSummaryWorkflow, /collect_workflow_runs "crawl-policies\.yml" 200/);
+assert.match(operationsSummaryWorkflow, /collect_workflow_runs "recover-policy-collection\.yml" 50/);
+assert.match(operationsSummaryWorkflow, /collect_workflow_runs "policy-remote-liveness\.yml" 20/);
+assert.match(operationsSummaryWorkflow, /collect_workflow_runs\(\)/);
+assert.match(operationsSummaryWorkflow, /for attempt in 1 2 3/);
+assert.match(operationsSummaryWorkflow, /recording an empty evidence set/);
 assert.match(operationsSummaryWorkflow, /recovery-runs-annotated\.json/);
 assert.match(operationsSummaryWorkflow, /recoveryPerformed/);
 assert.match(operationsSummaryWorkflow, /liveness-runs\.json/);

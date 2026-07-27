@@ -37,18 +37,27 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p artifacts/operations
-          gh run list \
-            --repo "$GITHUB_REPOSITORY" \
-            --workflow "Crawl policy sources hourly" \
-            --limit 200 \
-            --json databaseId,status,conclusion,createdAt,updatedAt,event,headSha,url \
-            > artifacts/operations/hourly-runs.json
-          gh run list \
-            --repo "$GITHUB_REPOSITORY" \
-            --workflow "Recover missed policy collection" \
-            --limit 50 \
-            --json databaseId,status,conclusion,createdAt,updatedAt,event,headSha,url \
-            > artifacts/operations/recovery-runs.json
+          collect_workflow_runs() {
+            workflow_file="$1"
+            limit="$2"
+            output="$3"
+            for attempt in 1 2 3; do
+              if gh run list \
+                --repo "$GITHUB_REPOSITORY" \
+                --workflow "$workflow_file" \
+                --limit "$limit" \
+                --json databaseId,status,conclusion,createdAt,updatedAt,event,headSha,url \
+                > "${output}.tmp"; then
+                mv "${output}.tmp" "$output"
+                return 0
+              fi
+              sleep $((attempt * 2))
+            done
+            echo "::warning::Unable to list workflow runs for $workflow_file after retries; recording an empty evidence set."
+            printf '[]\n' > "$output"
+          }
+          collect_workflow_runs "crawl-policies.yml" 200 artifacts/operations/hourly-runs.json
+          collect_workflow_runs "recover-policy-collection.yml" 50 artifacts/operations/recovery-runs.json
           cp artifacts/operations/recovery-runs.json artifacts/operations/recovery-runs-annotated.json
           while read -r run_id; do
             [ -n "$run_id" ] || continue
@@ -70,12 +79,7 @@ jobs:
               > artifacts/operations/recovery-runs-annotated.tmp.json
             mv artifacts/operations/recovery-runs-annotated.tmp.json artifacts/operations/recovery-runs-annotated.json
           done < <(jq -r '[.[] | select(.status == "completed" and .conclusion == "success")][0:10][].databaseId' artifacts/operations/recovery-runs.json)
-          gh run list \
-            --repo "$GITHUB_REPOSITORY" \
-            --workflow "Remote policy collection liveness" \
-            --limit 20 \
-            --json databaseId,status,conclusion,createdAt,updatedAt,event,headSha,url \
-            > artifacts/operations/liveness-runs.json
+          collect_workflow_runs "policy-remote-liveness.yml" 20 artifacts/operations/liveness-runs.json
           node scripts/manual-policy-analysis.mjs list --limit=100 --since=2026-07-15 \
             > artifacts/operations/current-inbox.json
           node scripts/manual-policy-analysis.mjs list --limit=100 --since=2026-05-01 \
