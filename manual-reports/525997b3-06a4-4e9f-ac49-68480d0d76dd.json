@@ -1,0 +1,82 @@
+{
+  "id": "525997b3-06a4-4e9f-ac49-68480d0d76dd",
+  "policyId": "525997b3-06a4-4e9f-ac49-68480d0d76dd",
+  "analyzerVersion": "gpt-5.6-thinking-manual-v1",
+  "analysisMethod": "manual-backlog-recovery-v1",
+  "generatedAt": "2026-07-15T13:45:00+08:00",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "批复（附专项规划）",
+  "substantivePolicyType": "扩大居民消费、优化供给和消费环境的十五五专项规划",
+  "primaryActionType": "消费供给扩容、场景创新与制度支持",
+  "policySignalStrength": "high",
+  "implementationCertainty": "medium",
+  "analysisDepth": "L3",
+  "analysisDepthReason": "规划给出2030年社会消费品零售总额约60万亿元等目标，覆盖服务、商品、数字、绿色、入境消费、收入保障、基础设施和财政金融机制，并提出多个行动、工程和试点；但重大政策、工程和项目仍需另行报批，细分行业兑现依赖后续实施文件。",
+  "operationDisposition": "继续深研",
+  "followUpSignals": ["国家发展改革委、商务部及相关部门的分领域实施方案和重大项目报批","人工智能+消费、数字消费和新场景试点名单及技术标准","县域商业、社区服务、冷链物流、旅游景区和充电设施项目清单","个人消费贷款及服务业经营主体贷款贴息的资金规模和执行规则","服务业准入、汽车住房限制、带薪休假和入境消费便利化的具体制度调整"],
+  "summary": {"id":"525997b3-06a4-4e9f-ac49-68480d0d76dd","title":"国务院关于《扩大消费“十五五”规划》的批复","issuer":"国务院","source":"中国政府网 - 最新政策","publishDate":"2026-07-13","status":"published","confidence":93,"industryCount":5,"companyCount":0,"evidenceCount":5,"primarySignal":"设定2030年消费扩张和结构优化目标","category":"扩大内需与消费促进"},
+  "policy": {"title":"国务院关于《扩大消费“十五五”规划》的批复","status":"已发布","issuer":"国务院","publishDate":"2026-07-13","effectiveDate":"2026-07-02","source":"中国政府网 - 最新政策","category":"扩大内需与消费促进","level":"中央政策","confidence":96,"sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075216.htm","scope":"服务消费、商品消费、数字与绿色消费、入境消费、消费能力、消费环境、基础设施和财政金融支持","impactScope":"养老托育文旅健康体育、汽车家居家电、人工智能终端与数字服务、商贸物流基础设施、消费金融及市场监管","jurisdiction":"中国大陆","tags":["扩大消费","服务消费","数字消费","人工智能+消费","消费基础设施","财政金融支持"]},
+  "brief": {"judgement":"这份规划的增量不只是再次提出“提振消费”，而是把服务消费、人工智能终端与数字服务、县域商业物流、消费基础设施、普惠补贴和休息休假等机制纳入同一政策组合。它值得作为跨行业实施跟踪框架，但覆盖面极广，不能把规划点名的产品和场景直接等同于具体公司的收入增长。","summary":"规划以2030年社会消费品零售总额约60万亿元、居民消费率提高和服务消费占比提升为目标，系统部署养老托育、文旅健康体育、汽车家居家电、人工智能+消费、绿色与首发经济、入境消费、就业增收、社会保障、消费基础设施和财政金融支持。真正的产业研究应从后续部门细则、试点名单、资金工具和重大项目中收敛，而不是一次性罗列所有消费公司。","keyPoints":["服务消费被置于突出位置，养老、托育、文旅、健康、体育和教育培训均有专项任务。","数字消费明确覆盖人工智能手机电脑、智能穿戴、机器人、3D打印、智能网联汽车和智能体场景。","商品消费侧强调好房子、汽车后市场、智能家居、柔性制造和自主品牌。","县域商业、社区服务、物流冷链、充电设施、景区和新型信息基础设施构成投资抓手。","财政金融、贷款贴息、消费限制优化和休息休假决定需求能否真正释放。"],"methodology":"将规划拆为需求能力、供给扩容、场景渠道、基础设施和制度保障五类机制；不以规划中出现的产品名称建立公司映射，等待实施细则、试点名单、财政工具、项目审批和公司经营披露。"},
+  "analysisCoverage": {"companyCount":0,"companyImpactConclusion":"本政策未点名上市公司，也未提供可归因到具体企业的项目、采购、合同、订单、验收、收入或回款证据，因此本次不建立具体公司映射，仅保留产业环节和证据门。","limitations":["规划覆盖行业过广，当前无法可靠量化各细分领域资金规模和增量贡献。","多数行动尚需部门细则、地方方案、试点名单和重大项目审批。"]},
+  "policyIndustryMap": [
+    {"id":"pi1","industry":"养老、托育与生活服务","policyAction":"扩充普惠养老托育、家政和社区嵌入式服务供给。","impactType":"service_consumption","impactDirection":"positive","evidenceLevel":"strong","policyCloseness":"direct","reason":"政策直接提出网络、项目和价格机制，但盈利模式和补贴强度待细化。","relatedClauseIds":["c2"],"relatedNodeIds":["n1","n3","n4"],"evidenceIds":[],"watchSignals":[]},
+    {"id":"pi2","industry":"文化旅游、体育与健康消费","policyAction":"发展文旅融合、赛事户外、健康管理和医疗健康新服务。","impactType":"experience_consumption","impactDirection":"positive","evidenceLevel":"strong","policyCloseness":"direct","reason":"场景扩容明确，实际增量取决于地方项目、居民支出和服务质量。","relatedClauseIds":["c2"],"relatedNodeIds":["n1","n3","n4"],"evidenceIds":[],"watchSignals":[]},
+    {"id":"pi3","industry":"汽车、家居家电与智能终端","policyAction":"推进汽车后市场、智能家居及新一代智能终端消费。","impactType":"durable_goods","impactDirection":"positive","evidenceLevel":"strong","policyCloseness":"direct","reason":"产品方向明确，但补贴、更新周期、标准互联和市场竞争影响兑现。","relatedClauseIds":["c3"],"relatedNodeIds":["n1","n3"],"evidenceIds":[],"watchSignals":[]},
+    {"id":"pi4","industry":"数字消费与人工智能应用","policyAction":"推动人工智能+消费、数字服务、智能体和数字内容场景。","impactType":"digital_consumption","impactDirection":"positive","evidenceLevel":"strong","policyCloseness":"direct","reason":"政策相关性高，仍需试点、标准、真实用户付费和企业收入证据。","relatedClauseIds":["c3"],"relatedNodeIds":["n1","n2","n3"],"evidenceIds":[],"watchSignals":[]},
+    {"id":"pi5","industry":"商贸物流与消费基础设施","policyAction":"建设县域商业、社区设施、冷链物流、充电网络、景区和信息基础设施。","impactType":"consumer_infrastructure","impactDirection":"positive","evidenceLevel":"strong","policyCloseness":"direct","reason":"投资方向明确，需以具体项目、资金和招标验证。","relatedClauseIds":["c4"],"relatedNodeIds":["n2","n3"],"evidenceIds":[],"watchSignals":[]}
+  ],
+  "industryChain": [{"id":"chain1","chainName":"政策制度—实施规则—项目或监管工具—经营兑现","policyRole":"本报告只确认政策已经明确的制度、目标和任务；企业经营影响仍需经过实施细则、预算项目、采购招标、监管执行或市场采用。","nodes":[
+    {"id":"n1","policySensitivity":"high","description":"有关部门和地方形成服务、商品、数字、绿色和入境消费实施细则。","position":"upstream","evidenceLevel":"strong","companyIds":[]},
+    {"id":"n2","policySensitivity":"medium","description":"重大工程、重点项目、试点名单和财政金融支持按程序报批。","position":"midstream","evidenceLevel":"pending","companyIds":[]},
+    {"id":"n3","policySensitivity":"medium","description":"经营主体扩大服务供给、更新产品并进入新消费场景。","position":"downstream","evidenceLevel":"pending","companyIds":[]},
+    {"id":"n4","policySensitivity":"medium","description":"就业收入、社保、补贴、信贷、休假和消费环境共同决定实际支出。","position":"support","evidenceLevel":"pending","companyIds":[]}
+  ],"edges":[
+    {"from":"n1","to":"n2","relation":"实施政策形成资金工具、试点和项目","description":"实施政策形成资金工具、试点和项目"},
+    {"from":"n2","to":"n3","relation":"政策资源推动产品服务和场景供给","description":"政策资源推动产品服务和场景供给"},
+    {"from":"n3","to":"n4","relation":"供需匹配和支付能力决定消费兑现","description":"供需匹配和支付能力决定消费兑现"}
+  ]}],
+  "companyMap": [],
+  "policyNetwork": [
+    {"id":"pn1","relatedPolicy":"扩大消费分领域实施方案、贷款贴息规则和消费场景试点","relationship":"downstream_implementation","meaning":"综合规划需要由服务消费、数字消费、基础设施、准入和财政金融工具等分领域文件转化为实际政策资源，后续细则决定行业增量。","evidenceLevel":"pending","watchSignals":["分领域实施方案","贷款贴息资金规则","数字消费和新场景试点"]}
+  ],
+  "investmentDirection": {"primaryDirection":"把研究注意力从泛消费概念收敛到后续实施细则、财政金融工具、试点名单和基础设施项目，不据规划文本建立消费公司推荐清单。","directionStrength":"medium","timeHorizon":"medium_term","watchIndustries":["养老、托育与生活服务","文化旅游、体育与健康消费","汽车、家居家电与智能终端","数字消费与人工智能应用","商贸物流与消费基础设施"],"watchChainNodes":["分领域实施政策","资金、试点与重大项目","供给扩容与场景渗透","居民支付能力与消费兑现"],"watchCompanyTypes":[],"watchCompanies":[],"nearTermCatalysts":[],"keyRisks":["居民收入和消费信心不足","财政补贴和贴息力度有限","供给扩张快于有效需求","行业竞争和价格战","地方执行差异与项目回报不确定"],"minimumEvidenceNeeded":[],"doNotOverread":["规划点名产品不等于企业订单","社会消费品零售总额目标不等于行业增速承诺","人工智能+消费不等于所有AI终端受益","基础设施方向不等于项目已经批准","贷款贴息方向不等于资金已发放"],"summary":"规划是跨行业政策组合的总框架，最有用的跟踪对象是资金工具、准入变化、试点项目和居民支付能力，而不是被点名的宽泛产品门类。"},
+  "actions": [
+    {"id":"a1","actionType":"量化目标","actionEvidenceLevel":"strong","title":"设定2030年消费扩张和结构优化目标","body":"社会消费品零售总额达到60万亿元左右，居民消费率和服务性消费支出占比稳步提高。","signal":"beneficiary","confidence":94,"clauseIds":["c1"],"sortOrder":1},
+    {"id":"a2","actionType":"服务供给","actionEvidenceLevel":"strong","title":"扩大服务消费和民生型供给","body":"围绕养老、托育、文旅、健康、体育和教育培训实施提质扩容行动。","signal":"beneficiary","confidence":94,"clauseIds":["c2"],"sortOrder":2},
+    {"id":"a3","actionType":"产品与场景","actionEvidenceLevel":"strong","title":"推动商品升级与人工智能+消费","body":"促进汽车、家居家电和新一代智能终端消费，拓展人工智能在生活服务中的应用。","signal":"beneficiary","confidence":94,"clauseIds":["c3"],"sortOrder":3},
+    {"id":"a4","actionType":"基础设施","actionEvidenceLevel":"strong","title":"建设消费基础设施和多层级市场","body":"推进社区、县域商业、物流冷链、停车充电、旅游景区及新型信息基础设施建设。","signal":"beneficiary","confidence":94,"clauseIds":["c4"],"sortOrder":4},
+    {"id":"a5","actionType":"制度与资金","actionEvidenceLevel":"strong","title":"完善财政金融、准入和休假制度","body":"运用预算内投资、专项债、贷款贴息等工具，并优化限制措施、服务业准入和带薪休假。","signal":"neutral","confidence":94,"clauseIds":["c5"],"sortOrder":5}
+  ],
+  "clauses": [
+    {"id":"c1","no":"总体目标","title":"消费规模和结构目标","excerpt":"到2030年，社会消费品零售总额达到60万亿元左右，居民消费率明显提高。","body":"量化目标为中长期总量框架，不能直接分解为某一行业或企业收入。","confidence":95,"keywords":["60万亿元","居民消费率","服务消费"],"industries":["消费市场"],"sortOrder":1},
+    {"id":"c2","no":"服务消费","title":"养老托育文旅健康体育扩容","excerpt":"实施服务消费提质惠民行动，扩大养老、托育、文化旅游、健康和体育消费。","body":"服务供给和公共支持形成方向性机会，需等待价格、补贴、准入和项目规则。","confidence":95,"keywords":["养老","托育","文旅","健康","体育"],"industries":["生活服务"],"sortOrder":2},
+    {"id":"c3","no":"数字消费","title":"推进人工智能+消费","excerpt":"增加人工智能手机和电脑、智能穿戴、智能机器人等供给，拓展智能体应用场景。","body":"产品范围明确，但渗透率、补贴、标准和渠道决定商业兑现。","confidence":95,"keywords":["人工智能+消费","智能终端","智能体"],"industries":["数字消费"],"sortOrder":3},
+    {"id":"c4","no":"基础设施","title":"扩大消费基础设施有效投资","excerpt":"建设社区服务、县域商业、物流冷链、停车充电、景区和新型信息基础设施。","body":"基础设施需经项目核准、财政安排和采购招标后才形成订单。","confidence":95,"keywords":["县域商业","冷链物流","充电设施","算力网"],"industries":["消费基础设施"],"sortOrder":4},
+    {"id":"c5","no":"制度保障","title":"财政金融和限制优化","excerpt":"统筹中央预算内投资、专项债和贷款贴息，清理不合理限制并落实休息休假制度。","body":"需求释放高度依赖政策工具的力度、覆盖面和执行刚性。","confidence":95,"keywords":["贷款贴息","专项债","准入","带薪休假"],"industries":["消费制度"],"sortOrder":5}
+  ],
+  "chainNodes": [
+    {"id":"n1","industryNodeEvidenceLevel":"strong","verificationSignals":[],"title":"分领域实施政策","subtitle":"把综合规划拆成可执行规则","section":"upstream","relation":"policy","evidenceLevel":"strong","confidence":90,"description":"有关部门和地方形成服务、商品、数字、绿色和入境消费实施细则。","clauseIds":["c1","c2","c3"],"companyIds":[],"evidenceIds":["e1","e2","e3"],"impactReason":"细则决定工具和适用对象。","iconKey":"activity"},
+    {"id":"n2","industryNodeEvidenceLevel":"pending","verificationSignals":[],"title":"资金、试点与重大项目","subtitle":"预算、贴息、项目和名单落地","section":"midstream","relation":"pending","evidenceLevel":"pending","confidence":68,"description":"重大工程、重点项目、试点名单和财政金融支持按程序报批。","clauseIds":["c4","c5"],"companyIds":[],"evidenceIds":["e4","e5"],"impactReason":"没有资金和项目就难以量化行业增量。","iconKey":"activity"},
+    {"id":"n3","industryNodeEvidenceLevel":"pending","verificationSignals":[],"title":"供给扩容与场景渗透","subtitle":"企业产品服务进入消费场景","section":"downstream","relation":"market","evidenceLevel":"pending","confidence":64,"description":"经营主体扩大服务供给、更新产品并进入新消费场景。","clauseIds":["c2","c3"],"companyIds":[],"evidenceIds":["e2","e3"],"impactReason":"供给增加不必然转化为有效需求。","iconKey":"activity"},
+    {"id":"n4","industryNodeEvidenceLevel":"pending","verificationSignals":[],"title":"居民支付能力与消费兑现","subtitle":"收入保障、价格和体验影响需求","section":"support","relation":"market","evidenceLevel":"pending","confidence":62,"description":"就业收入、社保、补贴、信贷、休假和消费环境共同决定实际支出。","clauseIds":["c1","c5"],"companyIds":[],"evidenceIds":["e1","e5"],"impactReason":"宏观目标最终取决于居民可支配收入和信心。","iconKey":"activity"}
+  ],
+  "chainEdges": [
+    {"id":"edge1","from":"n1","to":"n2","type":"strong","label":"实施政策形成资金工具、试点和项目"},
+    {"id":"edge2","from":"n2","to":"n3","type":"medium","label":"政策资源推动产品服务和场景供给"},
+    {"id":"edge3","from":"n3","to":"n4","type":"medium","label":"供需匹配和支付能力决定消费兑现"}
+  ],
+  "companies": [],
+  "evidence": [
+    {"id":"e1","evidenceObject":"policy_action","type":"policy_text","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075216.htm","title":"消费规模和结构目标","excerpt":"到2030年，社会消费品零售总额达到60万亿元左右，居民消费率明显提高。","interpretation":"量化目标为中长期总量框架，不能直接分解为某一行业或企业收入。","confidence":94,"clauseIds":["c1"],"nodeIds":["n1"],"companyIds":[],"links":{"clauseIds":["c1"],"nodeIds":["n1"]}},
+    {"id":"e2","evidenceObject":"policy_action","type":"policy_text","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075216.htm","title":"养老托育文旅健康体育扩容","excerpt":"实施服务消费提质惠民行动，扩大养老、托育、文化旅游、健康和体育消费。","interpretation":"服务供给和公共支持形成方向性机会，需等待价格、补贴、准入和项目规则。","confidence":94,"clauseIds":["c2"],"nodeIds":["n2"],"companyIds":[],"links":{"clauseIds":["c2"],"nodeIds":["n2"]}},
+    {"id":"e3","evidenceObject":"industry_node","type":"policy_text","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075216.htm","title":"推进人工智能+消费","excerpt":"增加人工智能手机和电脑、智能穿戴、智能机器人等供给，拓展智能体应用场景。","interpretation":"产品范围明确，但渗透率、补贴、标准和渠道决定商业兑现。","confidence":94,"clauseIds":["c3"],"nodeIds":["n3"],"companyIds":[],"links":{"clauseIds":["c3"],"nodeIds":["n3"]}},
+    {"id":"e4","evidenceObject":"industry_node","type":"policy_text","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075216.htm","title":"扩大消费基础设施有效投资","excerpt":"建设社区服务、县域商业、物流冷链、停车充电、景区和新型信息基础设施。","interpretation":"基础设施需经项目核准、财政安排和采购招标后才形成订单。","confidence":94,"clauseIds":["c4"],"nodeIds":["n4"],"companyIds":[],"links":{"clauseIds":["c4"],"nodeIds":["n4"]}},
+    {"id":"e5","evidenceObject":"industry_node","type":"policy_text","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075216.htm","title":"财政金融和限制优化","excerpt":"统筹中央预算内投资、专项债和贷款贴息，清理不合理限制并落实休息休假制度。","interpretation":"需求释放高度依赖政策工具的力度、覆盖面和执行刚性。","confidence":94,"clauseIds":["c5"],"nodeIds":["n1"],"companyIds":[],"links":{"clauseIds":["c5"],"nodeIds":["n1"]}}
+  ],
+  "backgroundCards": [
+    {"id":"bg1","title":"覆盖范围广","body":"规划同时涉及服务、商品、数字、绿色、入境消费及制度环境。","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075216.htm"},
+    {"id":"bg2","title":"需求与供给并重","body":"一方面提升就业收入和社会保障，另一方面扩充产品服务与基础设施。","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075216.htm"},
+    {"id":"bg3","title":"后续文件关键","body":"批复明确重要政策、重大工程和重点项目仍需按程序报批。","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075216.htm"}
+  ],
+  "identityReconciliation": {"formatVersion":"policy-id-reconciliation-v1","previousPolicyId":"4317d221-f805-5500-b5b8-941fe1c4139d","currentPolicyId":"525997b3-06a4-4e9f-ac49-68480d0d76dd","reconciledAt":"2026-07-27T17:06:58.235Z","matchBasis":["official-title","publish-date","official-source-url","current-production-text"],"productionTitle":"国务院关于《扩大消费“十五五”规划》的批复","evidenceWorkflowRunId":"30283898161","evidenceArtifactId":"8659951405","evidenceStatus":{"fullTextLength":7472,"evidenceTextLength":7473,"attachmentCount":0,"attachmentCollectionStatus":"none","attachmentEvidenceIncomplete":false,"attachmentManualReviewRequired":false}}
+}

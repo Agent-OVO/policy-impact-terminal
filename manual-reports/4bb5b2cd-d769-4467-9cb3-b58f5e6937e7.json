@@ -1,0 +1,81 @@
+{
+  "id": "4bb5b2cd-d769-4467-9cb3-b58f5e6937e7",
+  "policyId": "4bb5b2cd-d769-4467-9cb3-b58f5e6937e7",
+  "analyzerVersion": "gpt-5.6-thinking-manual-v1",
+  "analysisMethod": "manual-backlog-recovery-v1",
+  "generatedAt": "2026-07-15T13:45:00+08:00",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "意见",
+  "substantivePolicyType": "自然资源资产产权、清查核算、配置交易、收益管理和监督考核制度体系",
+  "primaryActionType": "产权与资产配置制度改革",
+  "policySignalStrength": "high",
+  "implementationCertainty": "medium",
+  "analysisDepth": "L3",
+  "analysisDepthReason": "文件给出2030年和2035年目标，并明确统一调查监测、年度清查更新、确权登记、权利体系、市场化配置、组合配置、收益预算和监督报告等制度动作；但大部分经营影响仍需实施细则、试点、预算和采购落地。",
+  "operationDisposition": "继续深研",
+  "followUpSignals": ["自然资源统一调查监测、资产清查和年度更新的实施细则及标准","自然资本核算、资产负债表和分等定级估价规则","用水权、生态权益指标及自然资源资产组合配置试点","国土空间“一张图”、地籍数据库和资产管理信息化采购","自然资源资产收益纳入预算及统一报告的首批公开结果"],
+  "summary": {"id":"4bb5b2cd-d769-4467-9cb3-b58f5e6937e7","title":"中共中央办公厅 国务院办公厅关于完善自然资源资产管理制度体系的意见","issuer":"中共中央办公厅、国务院办公厅","source":"中国政府网 - 最新政策","publishDate":"2026-07-13","status":"published","confidence":93,"industryCount":4,"companyCount":0,"evidenceCount":5,"primarySignal":"建立统一调查监测和数字化底板","category":"自然资源资产管理与产权制度"},
+  "policy": {"title":"中共中央办公厅 国务院办公厅关于完善自然资源资产管理制度体系的意见","status":"已发布","issuer":"中共中央办公厅、国务院办公厅","publishDate":"2026-07-13","effectiveDate":"2026-07-04","source":"中国政府网 - 最新政策","category":"自然资源资产管理与产权制度","level":"中央政策","confidence":96,"sourceUrl":"https://www.gov.cn/zhengce/202607/content_7075234.htm","scope":"土地、矿产、森林、草原、湿地、水、海洋、荒漠及国家公园等自然资源资产的调查、确权、配置、收益和监督","impactScope":"自然资源调查监测、资产核算、确权登记、市场配置、权益交易、生态修复和数字化管理","jurisdiction":"中国大陆","tags":["自然资源资产","统一确权登记","自然资本核算","用水权交易","国土空间一张图","生态产品价值"]},
+  "brief": {"judgement":"这项意见的新增价值不在于泛化的“生态文明”表态，而在于把自然资源从分散管理进一步推向统一调查、产权底板、价值核算、组合配置、权益交易和收益预算管理。当前具有较高制度研究价值，但尚不能据此直接推导测绘、登记、环保或金融公司的订单。","summary":"政策建立从资源家底、权利边界、资产配置到收益监督的全链条框架，并提出统一时空基准和国土空间“一张图”、年度资产清查更新、自然资本核算、用水权及生态权益交易、自然资源资产组合配置等机制。产业影响首先落在制度标准、数据底板和地方试点，随后才可能进入平台建设、评估服务、交易系统、生态修复项目和融资。","keyPoints":["到2030年形成更健全的自然资源资产管理制度体系，到2035年全面建立系统完备体系。","统一调查监测、确权登记和地籍数据库是产权与配置改革的基础。","自然资源资产清查、价值量核算和自然资本核算将推动估价与统计规则完善。","用水权、生态权益和多要素资产组合配置需要后续交易规则、估价方法和地方试点。","文件未提供项目清单、采购预算或企业名单，本次保持零公司结论。"],"methodology":"仅依据政策正文拆分制度动作、执行主体和传导环节；对公司端不采用行业邻接推断，必须等待实施细则、地方试点、财政预算、采购招标或正式交易规则。"},
+  "analysisCoverage": {"companyCount":0,"companyImpactConclusion":"本政策未点名上市公司，也未提供可归因到具体企业的项目、采购、合同、订单、验收、收入或回款证据，因此本次不建立具体公司映射，仅保留产业环节和证据门。","limitations":["政策为中央制度框架，尚未给出地方试点清单、财政预算、采购计划和交易规模。","公司端只能确认潜在产业环节，不能确认当前政策项目或经营贡献。"]},
+  "policyIndustryMap": [
+    {"id":"pi1","industry":"自然资源调查监测与地理信息平台","policyAction":"推进统一调查监测、新型基础测绘、国土空间“一张图”和信息共享。","impactType":"digital_infrastructure","impactDirection":"positive","evidenceLevel":"strong","policyCloseness":"direct","reason":"制度需求明确，但平台升级和采购主体、预算、范围尚未公布。","relatedClauseIds":["c1"],"relatedNodeIds":["n1","n4"],"evidenceIds":[],"watchSignals":[]},
+    {"id":"pi2","industry":"自然资源资产评估、核算与统计","policyAction":"建立资产清查、分等定级估价、资产负债表和自然资本核算制度。","impactType":"professional_service","impactDirection":"positive","evidenceLevel":"strong","policyCloseness":"direct","reason":"估价核算规则会扩展专业服务需求，但标准、资质和项目规模待细化。","relatedClauseIds":["c2"],"relatedNodeIds":["n2","n4"],"evidenceIds":[],"watchSignals":[]},
+    {"id":"pi3","industry":"确权登记与资源权益交易","policyAction":"完善地籍数据库、统一确权登记、用水权交易和资源权益指标交易。","impactType":"property_rights_market","impactDirection":"positive","evidenceLevel":"strong","policyCloseness":"direct","reason":"产权与交易制度形成增量，实际市场规模取决于规则、试点和交易活跃度。","relatedClauseIds":["c3","c4"],"relatedNodeIds":["n1","n3"],"evidenceIds":[],"watchSignals":[]},
+    {"id":"pi4","industry":"生态修复、资产运营与绿色金融","policyAction":"通过保护修复促进保值增值，探索专业运营机构和多元化投入。","impactType":"project_finance","impactDirection":"mixed","evidenceLevel":"pending","policyCloseness":"indirect","reason":"只有地方形成资产配置方案、修复项目和融资安排后，才可能产生项目和金融需求。","relatedClauseIds":["c4","c5"],"relatedNodeIds":["n3","n4"],"evidenceIds":[],"watchSignals":[]}
+  ],
+  "industryChain": [{"id":"chain1","chainName":"政策制度—实施规则—项目或监管工具—经营兑现","policyRole":"本报告只确认政策已经明确的制度、目标和任务；企业经营影响仍需经过实施细则、预算项目、采购招标、监管执行或市场采用。","nodes":[
+    {"id":"n1","policySensitivity":"high","description":"调查、监测、地籍和确权先解决资产范围、数量和权利边界。","position":"upstream","evidenceLevel":"strong","companyIds":[]},
+    {"id":"n2","policySensitivity":"high","description":"年度清查更新和估价核算规则决定资产是否可比较、可配置和可报告。","position":"midstream","evidenceLevel":"strong","companyIds":[]},
+    {"id":"n3","policySensitivity":"high","description":"配置规则、估价体系、交易市场和组合标的决定资产进入市场的方式。","position":"downstream","evidenceLevel":"strong","companyIds":[]},
+    {"id":"n4","policySensitivity":"medium","description":"当前没有实施项目、预算、采购或企业名单，经营兑现尚未发生。","position":"support","evidenceLevel":"pending","companyIds":[]}
+  ],"edges":[
+    {"from":"n1","to":"n2","relation":"产权底板支撑资产清查与核算","description":"产权底板支撑资产清查与核算"},
+    {"from":"n2","to":"n3","relation":"核算估价支撑配置和交易","description":"核算估价支撑配置和交易"},
+    {"from":"n3","to":"n4","relation":"实施项目和采购决定经营兑现","description":"实施项目和采购决定经营兑现"}
+  ]}],
+  "companyMap": [],
+  "policyNetwork": [
+    {"id":"pn1","relatedPolicy":"自然资源资产清查、核算、组合配置和权益交易配套规则","relationship":"downstream_implementation","meaning":"中央意见建立资产管理总框架，后续清查核算标准、地方试点和交易规则将决定数据平台、专业服务和权益市场是否形成可验证需求。","evidenceLevel":"pending","watchSignals":["资产清查和核算标准","组合配置试点","用水权及生态权益交易规则"]}
+  ],
+  "investmentDirection": {"primaryDirection":"提高对自然资源资产数据底板、核算估价、权益交易和组合配置实施规则的研究优先级，暂不提高任何具体上市公司优先级。","directionStrength":"medium","timeHorizon":"medium_term","watchIndustries":["自然资源调查监测与地理信息平台","自然资源资产评估、核算与统计","确权登记与资源权益交易","生态修复、资产运营与绿色金融"],"watchChainNodes":["调查监测与产权底板","资产清查与价值核算","市场配置与权益交易","项目采购与经营兑现"],"watchCompanyTypes":[],"watchCompanies":[],"nearTermCatalysts":[],"keyRisks":["实施细则和地方试点节奏不确定","资源权益交易可能长期处于低流动性和试验阶段","公共平台建设可能以既有系统整合为主","资产估值和收益分配规则复杂","生态保护约束可能增加开发成本"],"minimumEvidenceNeeded":[],"doNotOverread":["统一调查和“一张图”不等于新增软件订单","确权登记不等于交易规模立即扩大","生态产品价值实现不等于相关公司收入","绿色金融支持不等于融资已经落地","专业运营机构表述不构成上市公司名单"],"summary":"政策已建立制度全景图，下一阶段应跟踪实施规则、地方试点、交易机制和公开采购，而不是从“自然资源数字化”或“生态修复”标签直接罗列公司。"},
+  "actions": [
+    {"id":"a1","actionType":"调查监测与数字化","actionEvidenceLevel":"strong","title":"建立统一调查监测和数字化底板","body":"覆盖主要自然资源和国土空间，推进统一调查标准、新型基础测绘、国土空间“一张图”和调查监测数字化。","signal":"neutral","confidence":94,"clauseIds":["c1"],"sortOrder":1},
+    {"id":"a2","actionType":"资产清查与核算","actionEvidenceLevel":"strong","title":"建立资产清查、统计和核算机制","body":"定期开展自然资源资产清查并年度更新，完善资产负债表和自然资本核算。","signal":"neutral","confidence":94,"clauseIds":["c2"],"sortOrder":2},
+    {"id":"a3","actionType":"产权与登记","actionEvidenceLevel":"strong","title":"完善权利体系和统一确权登记","body":"探索地下空间、国有农用地、海域及用水权等权利安排，完善统一产权底板。","signal":"neutral","confidence":94,"clauseIds":["c3"],"sortOrder":3},
+    {"id":"a4","actionType":"市场配置","actionEvidenceLevel":"strong","title":"完善市场配置和组合配置规则","body":"健全出让、租赁、作价出资、交易、估价和多要素组合配置机制。","signal":"neutral","confidence":94,"clauseIds":["c4"],"sortOrder":4},
+    {"id":"a5","actionType":"收益与监督","actionEvidenceLevel":"strong","title":"统一收益管理和监督报告","body":"相关收入纳入政府预算，完善清单、考核、损害赔偿和公开报告机制。","signal":"constraint","confidence":94,"clauseIds":["c5"],"sortOrder":5}
+  ],
+  "clauses": [
+    {"id":"c1","no":"调查监测","title":"构建统一调查监测与“一张图”","excerpt":"基于统一的时空基准构建自然资源管理和国土空间规划“一张图”。","body":"确认调查监测、基础测绘和数据平台是制度底座，但未形成采购项目。","confidence":95,"keywords":["统一时空基准","一张图","数字化转型"],"industries":["自然资源调查监测","地理信息"],"sortOrder":1},
+    {"id":"c2","no":"清查核算","title":"定期清查并探索价值量核算","excerpt":"建立自然资源资产清查成果年度更新机制，完善资产负债表并探索自然资本核算。","body":"确认资产清查与核算制度方向，具体估价标准和责任主体待细化。","confidence":95,"keywords":["资产清查","价值量","自然资本核算"],"industries":["资产评估","自然资本核算"],"sortOrder":2},
+    {"id":"c3","no":"产权登记","title":"完善权利体系和统一产权底板","excerpt":"推进自然资源和不动产统一确权登记，加快完善地籍数据库。","body":"产权边界清晰后才具备配置和交易基础。","confidence":95,"keywords":["确权登记","地籍数据库","用水权"],"industries":["不动产登记","资源权益"],"sortOrder":3},
+    {"id":"c4","no":"配置交易","title":"市场化配置与组合配置","excerpt":"培育和规范用水权交易市场，完善自然资源资产交易和组合配置规则。","body":"交易机制具有制度增量，但交易品种、定价、规模和试点尚未明确。","confidence":95,"keywords":["市场化配置","组合配置","交易机制"],"industries":["资源交易","生态产品价值"],"sortOrder":4},
+    {"id":"c5","no":"收益监督","title":"收益纳入预算并统一报告","excerpt":"相关收入全部纳入政府预算，完善所有权资源清单、考核监督和统一报告。","body":"制度将提高资产收益透明度和履职约束，不等于新增企业收入。","confidence":95,"keywords":["政府预算","资源清单","统一报告"],"industries":["公共资产管理","监督审计"],"sortOrder":5}
+  ],
+  "chainNodes": [
+    {"id":"n1","industryNodeEvidenceLevel":"strong","verificationSignals":[],"title":"调查监测与产权底板","subtitle":"统一调查、地籍和确权形成资产识别基础","section":"upstream","relation":"policy","evidenceLevel":"strong","confidence":92,"description":"调查、监测、地籍和确权先解决资产范围、数量和权利边界。","clauseIds":["c1","c3"],"companyIds":[],"evidenceIds":["e1","e3"],"impactReason":"政策明确统一调查监测、确权登记和数据库建设。","iconKey":"activity"},
+    {"id":"n2","industryNodeEvidenceLevel":"strong","verificationSignals":[],"title":"资产清查与价值核算","subtitle":"从实物量走向价值量、负债表和自然资本核算","section":"midstream","relation":"policy","evidenceLevel":"strong","confidence":88,"description":"年度清查更新和估价核算规则决定资产是否可比较、可配置和可报告。","clauseIds":["c2"],"companyIds":[],"evidenceIds":["e2"],"impactReason":"政策明确清查、统计、估价和核算制度。","iconKey":"activity"},
+    {"id":"n3","industryNodeEvidenceLevel":"strong","verificationSignals":[],"title":"市场配置与权益交易","subtitle":"出让、租赁、交易和多要素组合配置","section":"downstream","relation":"market","evidenceLevel":"strong","confidence":86,"description":"配置规则、估价体系、交易市场和组合标的决定资产进入市场的方式。","clauseIds":["c4"],"companyIds":[],"evidenceIds":["e4"],"impactReason":"政策明确市场化配置、用水权交易和组合配置。","iconKey":"activity"},
+    {"id":"n4","industryNodeEvidenceLevel":"pending","verificationSignals":[],"title":"项目采购与经营兑现","subtitle":"地方试点、平台采购、修复项目和融资后才可能形成经营影响","section":"support","relation":"pending","evidenceLevel":"pending","confidence":52,"description":"当前没有实施项目、预算、采购或企业名单，经营兑现尚未发生。","clauseIds":["c1","c2","c3","c4","c5"],"companyIds":[],"evidenceIds":["e5"],"impactReason":"需要后续实施规则、地方项目和公开采购验证。","iconKey":"activity"}
+  ],
+  "chainEdges": [
+    {"id":"edge1","from":"n1","to":"n2","type":"strong","label":"产权底板支撑资产清查与核算"},
+    {"id":"edge2","from":"n2","to":"n3","type":"strong","label":"核算估价支撑配置和交易"},
+    {"id":"edge3","from":"n3","to":"n4","type":"weak","label":"实施项目和采购决定经营兑现"}
+  ],
+  "companies": [],
+  "evidence": [
+    {"id":"e1","evidenceObject":"policy_action","type":"policy_text","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/202607/content_7075234.htm","title":"构建统一调查监测与“一张图”","excerpt":"基于统一的时空基准构建自然资源管理和国土空间规划“一张图”。","interpretation":"确认调查监测、基础测绘和数据平台是制度底座，但未形成采购项目。","confidence":94,"clauseIds":["c1"],"nodeIds":["n1"],"companyIds":[],"links":{"clauseIds":["c1"],"nodeIds":["n1"]}},
+    {"id":"e2","evidenceObject":"policy_action","type":"policy_text","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/202607/content_7075234.htm","title":"定期清查并探索价值量核算","excerpt":"建立自然资源资产清查成果年度更新机制，完善资产负债表并探索自然资本核算。","interpretation":"确认资产清查与核算制度方向，具体估价标准和责任主体待细化。","confidence":94,"clauseIds":["c2"],"nodeIds":["n2"],"companyIds":[],"links":{"clauseIds":["c2"],"nodeIds":["n2"]}},
+    {"id":"e3","evidenceObject":"industry_node","type":"policy_text","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/202607/content_7075234.htm","title":"完善权利体系和统一产权底板","excerpt":"推进自然资源和不动产统一确权登记，加快完善地籍数据库。","interpretation":"产权边界清晰后才具备配置和交易基础。","confidence":94,"clauseIds":["c3"],"nodeIds":["n3"],"companyIds":[],"links":{"clauseIds":["c3"],"nodeIds":["n3"]}},
+    {"id":"e4","evidenceObject":"industry_node","type":"policy_text","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/202607/content_7075234.htm","title":"市场化配置与组合配置","excerpt":"培育和规范用水权交易市场，完善自然资源资产交易和组合配置规则。","interpretation":"交易机制具有制度增量，但交易品种、定价、规模和试点尚未明确。","confidence":94,"clauseIds":["c4"],"nodeIds":["n4"],"companyIds":[],"links":{"clauseIds":["c4"],"nodeIds":["n4"]}},
+    {"id":"e5","evidenceObject":"industry_node","type":"policy_text","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/202607/content_7075234.htm","title":"收益纳入预算并统一报告","excerpt":"相关收入全部纳入政府预算，完善所有权资源清单、考核监督和统一报告。","interpretation":"制度将提高资产收益透明度和履职约束，不等于新增企业收入。","confidence":94,"clauseIds":["c5"],"nodeIds":["n1"],"companyIds":[],"links":{"clauseIds":["c5"],"nodeIds":["n1"]}}
+  ],
+  "backgroundCards": [
+    {"id":"bg1","title":"制度目标","body":"文件设定2030年制度体系更加健全、2035年全面建立系统完备体系。","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/202607/content_7075234.htm"},
+    {"id":"bg2","title":"资产范围","body":"制度覆盖土地、矿产、森林、草原、湿地、水、海洋、荒漠及国家公园等国土空间。","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/202607/content_7075234.htm"},
+    {"id":"bg3","title":"执行层级","body":"按照中央统筹、省负总责、市县抓落实推进，具体项目与采购主要等待地方落实。","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/202607/content_7075234.htm"}
+  ],
+  "identityReconciliation": {"formatVersion":"policy-id-reconciliation-v1","previousPolicyId":"0400f685-4a58-524f-ac66-580cdf7d7f2d","currentPolicyId":"4bb5b2cd-d769-4467-9cb3-b58f5e6937e7","reconciledAt":"2026-07-27T17:08:52.087Z","matchBasis":["official-title-alias","publish-date","official-source-url","current-production-text"],"productionTitle":"中办国办关于完善自然资源资产管理制度体系的意见","evidenceWorkflowRunId":"30283907224","evidenceArtifactId":"8659957634","evidenceStatus":{"fullTextLength":3653,"evidenceTextLength":3654,"attachmentCount":0,"attachmentCollectionStatus":"none","attachmentEvidenceIncomplete":false,"attachmentManualReviewRequired":false}}
+}

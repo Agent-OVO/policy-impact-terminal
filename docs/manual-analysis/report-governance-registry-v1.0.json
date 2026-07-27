@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updatedAt": "2026-07-27",
+  "updatedAt": "2026-07-28",
   "reports": [
     {"policyId":"209014c2-561d-4421-a82b-b9e16f537d3f","category":"A","migrationStatus":"full","title":"南水北调中线干线工程供水价格"},
     {"policyId":"2d6943d5-1653-40d9-a148-a98aaf6fca82","category":"A","migrationStatus":"full","title":"先进计算赋能新质生产力典型应用案例名单"},
@@ -19,6 +19,7 @@
     {"policyId":"d1cdc210-351c-46b8-8c74-2c89d04625e7","category":"A","migrationStatus":"full","title":"生态保护修复领域中央预算内投资专项管理办法"},
     {"policyId":"52baf463-4c01-493f-9acc-90f733dffbf8","category":"A","migrationStatus":"full","title":"国家级零碳工厂建设工作"},
     {"policyId":"c769ab9c-b3f9-4912-a1c5-8f3b3ee5e881","category":"A","migrationStatus":"full","title":"第二批次网络安全保险服务试点工作方案名单"},
+    {"policyId":"f6b0e802-501f-4b7a-9c03-31d00e6d4857","category":"A","migrationStatus":"full","title":"群众身边水体保护治理行动方案"},
     {"policyId":"0e80e84c-03f0-4c7f-9bd2-46470000bab1","category":"B","migrationStatus":"full","title":"就业优先战略十五五规划"},
     {"policyId":"3abd8068-084e-441f-b96b-7c849ca324f7","category":"B","migrationStatus":"full","title":"美丽中国建设十五五规划"},
     {"policyId":"95eae56e-f1d2-4312-8437-b6cab8b7019f","category":"B","migrationStatus":"full","title":"现代化应急体系建设十五五规划"},
@@ -28,6 +29,10 @@
     {"policyId":"a19cfc9f-c064-40ce-9756-ee2e7d74a625","category":"B","migrationStatus":"full","title":"海水淡化产业发展行动方案"},
     {"policyId":"56b89cbc-7549-4e89-8a11-d103376b0a7f","category":"B","migrationStatus":"full","title":"招标投标领域信用管理暂行办法"},
     {"policyId":"468629f0-53a1-46c0-ad8b-23c5195a3b59","category":"B","migrationStatus":"full","title":"可再生能源发展十五五规划"},
+    {"policyId":"f907eb3b-29d7-46cb-93da-1bccde58c578","category":"B","migrationStatus":"full","title":"互联网基础资源高质量发展指导意见"},
+    {"policyId":"8f4d1193-2fb5-4753-a9a6-df8b846cbbe6","category":"B","migrationStatus":"full","title":"国民健康十五五规划"},
+    {"policyId":"525997b3-06a4-4e9f-ac49-68480d0d76dd","category":"B","migrationStatus":"full","title":"扩大消费十五五规划"},
+    {"policyId":"4bb5b2cd-d769-4467-9cb3-b58f5e6937e7","category":"B","migrationStatus":"full","title":"自然资源资产管理制度体系意见"},
     {"policyId":"4ce9cfc5-f9ca-48bb-a265-3ee7fdc9c39d","category":"C","migrationStatus":"light","title":"上海市暂时调整实施有关行政法规规定的批复"},
     {"policyId":"712467e3-0b35-4dfb-b4cb-0f686a2b42d3","category":"C","migrationStatus":"light","title":"国务院2026年度立法工作计划"},
     {"policyId":"7d457090-64b4-4985-94f3-87f72f6ee3cb","category":"C","migrationStatus":"light","title":"行政复议法实施条例"}

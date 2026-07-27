@@ -1,0 +1,82 @@
+{
+  "id": "8f4d1193-2fb5-4753-a9a6-df8b846cbbe6",
+  "policyId": "8f4d1193-2fb5-4753-a9a6-df8b846cbbe6",
+  "analyzerVersion": "gpt-5.6-thinking-manual-v1",
+  "analysisMethod": "manual-backlog-recovery-v1",
+  "generatedAt": "2026-07-15T13:45:00+08:00",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "通知（印发专项规划）",
+  "substantivePolicyType": "卫生健康服务体系、科技产业和治理改革的十五五专项规划",
+  "primaryActionType": "医疗卫生强基、数智化和健康产业升级",
+  "policySignalStrength": "high",
+  "implementationCertainty": "medium",
+  "analysisDepth": "L3",
+  "analysisDepthReason": "规划给出2030年健康指标、基层服务、康复护理人才、公共卫生体系、数据共享、医疗人工智能、创新药械和医保支付等具体任务，部分内容具有明确建设和制度方向；但重大工程、投资规模、项目名单和支付细则仍需专项文件落地。",
+  "operationDisposition": "继续深研",
+  "followUpSignals": ["医疗卫生强基、疾控现代化、康复护理等工程的项目清单和财政资金","国家智慧健康检验检查共享平台及地方互联互通采购","医疗人工智能应用中试基地、高质量数据集和可信数据空间名单","创新药和医疗器械临床评价、医保目录及支付机制细则","县域医共体、公共卫生实验室和康复护理网络建设进度"],
+  "summary": {"id":"8f4d1193-2fb5-4753-a9a6-df8b846cbbe6","title":"国务院关于印发《国民健康“十五五”规划》的通知","issuer":"国务院","source":"中国政府网 - 最新政策","publishDate":"2026-07-13","status":"published","confidence":93,"industryCount":5,"companyCount":0,"evidenceCount":5,"primarySignal":"设定2030年国民健康和体系能力目标","category":"卫生健康体系与健康产业"},
+  "policy": {"title":"国务院关于印发《国民健康“十五五”规划》的通知","status":"已发布","issuer":"国务院","publishDate":"2026-07-13","effectiveDate":"2026-07-07","source":"中国政府网 - 最新政策","category":"卫生健康体系与健康产业","level":"中央政策","confidence":96,"sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075213.htm","scope":"全生命周期健康服务、公共卫生、医疗服务体系、科技创新、数智健康、创新药械、三医协同和行业治理","impactScope":"基层医疗、公卫疾控、康复护理、医疗数据平台、人工智能医疗、创新药和高端器械、医保支付与健康服务","jurisdiction":"中国大陆","tags":["国民健康","基层医疗","公共卫生","数智健康","创新药械","康复护理"]},
+  "brief": {"judgement":"这份规划的新增研究价值在于把基层强基、康复护理扩容、公共卫生现代化、跨省检验影像共享、医疗人工智能中试、创新药械应用和医保支付改革放进同一实施框架。方向性强但兑现链条很长，当前不能把医疗信息化、药械或医院服务能力直接解释为规划带来的新增订单和收入。","summary":"规划以2030年人均预期寿命达到80岁、基层和公共卫生能力提升为目标，部署全生命周期服务、医疗卫生强基、康复护理扩容、疾控体系现代化、国家智慧健康检验检查共享平台、医药高质量数据集与可信数据空间、医疗人工智能中试基地、创新药械支持以及三医协同改革。产业影响需从财政项目、平台建设、试点基地、目录支付和采购执行逐层验证。","keyPoints":["基层医疗、县域医共体、康复护理和公共卫生体系是明确的服务能力建设方向。","国家智慧健康检验检查结果跨省共享平台、影像实时调阅和健康数据互通构成数字底座任务。","医疗人工智能应用中试基地、高质量数据集和可信数据空间被纳入规划。","创新药、高端医疗器械、细胞基因治疗等获得研发应用和医保机制支持方向。","公立医院规模和举债受到约束，行业机会与成本、支付和监管压力并存。"],"methodology":"依据规划正文区分公共服务建设、科技产业支持和支付监管三类机制；不以政策点名技术路线直接建立公司关系，必须等待工程项目、财政预算、试点基地、采购公告、医保目录或经营披露。"},
+  "analysisCoverage": {"companyCount":0,"companyImpactConclusion":"本政策未点名上市公司，也未提供可归因到具体企业的项目、采购、合同、订单、验收、收入或回款证据，因此本次不建立具体公司映射，仅保留产业环节和证据门。","limitations":["规划未披露重大工程投资规模、分地区项目数量、平台技术方案和采购计划。","药械和数字健康的经营影响需等待审批、目录、支付、采购及实际使用证据。"]},
+  "policyIndustryMap": [
+    {"id":"pi1","industry":"基层医疗、县域医共体与公共卫生","policyAction":"实施强基工程、疾控现代化和公共卫生实验室建设。","impactType":"healthcare_infrastructure","impactDirection":"positive","evidenceLevel":"strong","policyCloseness":"direct","reason":"公共服务建设方向明确，仍需地方资金、项目和机构采购。","relatedClauseIds":["c2","c3"],"relatedNodeIds":["n1","n2","n3"],"evidenceIds":[],"watchSignals":[]},
+    {"id":"pi2","industry":"康复护理、老年健康与医养服务","policyAction":"扩大康复护理和失能失智照护供给，发展医养结合。","impactType":"care_services","impactDirection":"positive","evidenceLevel":"strong","policyCloseness":"direct","reason":"需求和服务网络明确，但支付、人才和机构运营能力是关键约束。","relatedClauseIds":["c2"],"relatedNodeIds":["n1","n2","n3","n4"],"evidenceIds":[],"watchSignals":[]},
+    {"id":"pi3","industry":"医疗信息化、健康数据与人工智能","policyAction":"建设跨省共享平台、可信数据空间和医疗人工智能中试基地。","impactType":"digital_health","impactDirection":"positive","evidenceLevel":"strong","policyCloseness":"direct","reason":"政策相关性高，需以平台标准、试点名单、采购合同和实际应用验证。","relatedClauseIds":["c4"],"relatedNodeIds":["n1","n2","n3"],"evidenceIds":[],"watchSignals":[]},
+    {"id":"pi4","industry":"创新药与高端医疗器械","policyAction":"支持创新药械研发、临床应用和医保机制完善。","impactType":"biopharma_medtech","impactDirection":"positive","evidenceLevel":"strong","policyCloseness":"direct","reason":"支持方向明确，商业价值取决于审批、临床效果、医保支付和集采。","relatedClauseIds":["c5"],"relatedNodeIds":["n1","n3","n4"],"evidenceIds":[],"watchSignals":[]},
+    {"id":"pi5","industry":"商业健康保险与健康管理","policyAction":"推动商业健康保险与健康管理融合并丰富保障产品。","impactType":"health_finance","impactDirection":"positive","evidenceLevel":"strong","policyCloseness":"direct","reason":"制度方向存在，但产品需求、赔付成本和监管规则尚待落实。","relatedClauseIds":["c5"],"relatedNodeIds":["n1","n3","n4"],"evidenceIds":[],"watchSignals":[]}
+  ],
+  "industryChain": [{"id":"chain1","chainName":"政策制度—实施规则—项目或监管工具—经营兑现","policyRole":"本报告只确认政策已经明确的制度、目标和任务；企业经营影响仍需经过实施细则、预算项目、采购招标、监管执行或市场采用。","nodes":[
+    {"id":"n1","policySensitivity":"high","description":"卫生健康等部门制定工程方案、资源配置标准、试点和支付规则。","position":"upstream","evidenceLevel":"strong","companyIds":[]},
+    {"id":"n2","policySensitivity":"medium","description":"强基、疾控、康复护理和数字平台形成项目清单、预算和采购。","position":"midstream","evidenceLevel":"pending","companyIds":[]},
+    {"id":"n3","policySensitivity":"medium","description":"医疗机构采用数字系统、创新药械和康复护理服务。","position":"downstream","evidenceLevel":"pending","companyIds":[]},
+    {"id":"n4","policySensitivity":"medium","description":"医保目录、价格、集采、医院预算和服务收费影响最终收入与现金流。","position":"support","evidenceLevel":"pending","companyIds":[]}
+  ],"edges":[
+    {"from":"n1","to":"n2","relation":"专项细则形成工程、预算和平台项目","description":"专项细则形成工程、预算和平台项目"},
+    {"from":"n2","to":"n3","relation":"项目采购和试点推动产品服务应用","description":"项目采购和试点推动产品服务应用"},
+    {"from":"n3","to":"n4","relation":"支付、监管和使用绩效决定经营兑现","description":"支付、监管和使用绩效决定经营兑现"}
+  ]}],
+  "companyMap": [],
+  "policyNetwork": [
+    {"id":"pn1","relatedPolicy":"国民健康“十五五”专项工程、数字健康平台和医保支付配套文件","relationship":"downstream_implementation","meaning":"规划需要通过强基、疾控、康复护理、数字健康和创新药械等专项工程及支付规则落地，后续文件将决定项目、采购和商业兑现。","evidenceLevel":"pending","watchSignals":["专项工程清单","数字健康平台方案","医保目录和支付细则"]}
+  ],
+  "investmentDirection": {"primaryDirection":"提高对专项工程、国家健康数据平台、医疗人工智能试点、创新药械支付和康复护理网络的证据跟踪，不据规划建立具体医药或信息化公司结论。","directionStrength":"medium","timeHorizon":"medium_term","watchIndustries":["基层医疗、县域医共体与公共卫生","康复护理、老年健康与医养服务","医疗信息化、健康数据与人工智能","创新药与高端医疗器械","商业健康保险与健康管理"],"watchChainNodes":["专项工程与实施细则","财政、项目与平台建设","技术产品与医疗服务应用","医保支付与经营兑现"],"watchCompanyTypes":[],"watchCompanies":[],"nearTermCatalysts":[],"keyRisks":["财政和医院支付能力约束","医保控费与集中采购压价","数据安全和隐私合规","医疗AI落地周期和责任边界","公立医院债务与资本开支限制"],"minimumEvidenceNeeded":[],"doNotOverread":["规划支持创新药械不等于具体产品进入医保","建设共享平台不等于某厂商中标","医疗AI中试方向不等于商业化收入","医院能力建设不等于无约束扩张","公司既有医疗业务不等于当前政策贡献"],"summary":"规划具备多个可跟踪的建设和制度抓手，但医疗产业最终兑现受财政、医保控费、采购、临床采用和合规监管共同约束。"},
+  "actions": [
+    {"id":"a1","actionType":"量化目标","actionEvidenceLevel":"strong","title":"设定2030年国民健康和体系能力目标","body":"人均预期寿命达到80岁，基层防病治病、健康管理和公共卫生安全保障能力显著提升。","signal":"beneficiary","confidence":94,"clauseIds":["c1"],"sortOrder":1},
+    {"id":"a2","actionType":"公共服务建设","actionEvidenceLevel":"strong","title":"实施基层医疗和康复护理扩容","body":"推进医疗卫生强基工程，建设康复护理服务网络并提高康复专业人员配置。","signal":"beneficiary","confidence":94,"clauseIds":["c2"],"sortOrder":2},
+    {"id":"a3","actionType":"体系建设","actionEvidenceLevel":"strong","title":"建设现代化公共卫生和急救体系","body":"推进疾控联合体、公共卫生实验室、传染病救治和急诊急救信息贯通。","signal":"beneficiary","confidence":94,"clauseIds":["c3"],"sortOrder":3},
+    {"id":"a4","actionType":"数字基础设施","actionEvidenceLevel":"strong","title":"推进全民健康数智化","body":"建设跨省检验检查共享平台、医学影像调阅、医共体智能应用和医疗人工智能中试基地。","signal":"beneficiary","confidence":94,"clauseIds":["c4"],"sortOrder":4},
+    {"id":"a5","actionType":"产业与支付","actionEvidenceLevel":"strong","title":"支持创新药械并深化三医协同","body":"支持创新药和高端器械研发应用，完善医保目录、支付和集中采购政策。","signal":"neutral","confidence":94,"clauseIds":["c5"],"sortOrder":5}
+  ],
+  "clauses": [
+    {"id":"c1","no":"总体目标","title":"人均预期寿命达到80岁","excerpt":"到2030年，人均预期寿命达到80岁，主要健康指标进入高收入国家行列。","body":"这是卫生健康总体结果目标，不能直接映射为单一行业收入。","confidence":95,"keywords":["2030年","预期寿命80岁","健康中国"],"industries":["卫生健康"],"sortOrder":1},
+    {"id":"c2","no":"强基扩容","title":"基层与康复护理服务网络","excerpt":"实施医疗卫生强基工程，健全康复护理服务网络并扩大短缺服务供给。","body":"建设方向明确，具体床位、设备、人才和财政项目需地方分解。","confidence":95,"keywords":["基层医疗","康复护理","县域医共体"],"industries":["医疗服务"],"sortOrder":2},
+    {"id":"c3","no":"公共卫生","title":"疾控和实验室现代化","excerpt":"实施疾控体系现代化建设工程，完善公共卫生实验室网络和传染病救治体系。","body":"公共卫生能力建设可能带来设备和信息化需求，需等待工程清单。","confidence":95,"keywords":["疾控体系","公共卫生实验室","传染病"],"industries":["公共卫生"],"sortOrder":3},
+    {"id":"c4","no":"数智健康","title":"跨省共享与医疗人工智能","excerpt":"建设国家智慧健康检验检查结果跨省共享平台，推进医疗人工智能中试基地和可信数据空间。","body":"数字任务具体，但架构、投资、标准、数据治理和采购主体尚未公布。","confidence":95,"keywords":["检验检查共享","医疗AI","可信数据空间"],"industries":["医疗信息化"],"sortOrder":4},
+    {"id":"c5","no":"创新与支付","title":"支持创新药械并完善支付机制","excerpt":"全链条支持创新药和医疗器械发展应用，健全医保支持机制并完善创新药目录。","body":"研发与准入支持明确，商业兑现取决于审批、目录、价格、集采和临床采用。","confidence":95,"keywords":["创新药","医疗器械","医保目录"],"industries":["医药产业"],"sortOrder":5}
+  ],
+  "chainNodes": [
+    {"id":"n1","industryNodeEvidenceLevel":"strong","verificationSignals":[],"title":"专项工程与实施细则","subtitle":"把规划任务转化为可执行项目","section":"upstream","relation":"policy","evidenceLevel":"strong","confidence":90,"description":"卫生健康等部门制定工程方案、资源配置标准、试点和支付规则。","clauseIds":["c1","c2","c3"],"companyIds":[],"evidenceIds":["e1","e2","e3"],"impactReason":"细则确定建设范围和资源投入。","iconKey":"activity"},
+    {"id":"n2","industryNodeEvidenceLevel":"pending","verificationSignals":[],"title":"财政、项目与平台建设","subtitle":"公共资金和建设主体落地","section":"midstream","relation":"pending","evidenceLevel":"pending","confidence":70,"description":"强基、疾控、康复护理和数字平台形成项目清单、预算和采购。","clauseIds":["c2","c3","c4"],"companyIds":[],"evidenceIds":["e2","e3","e4"],"impactReason":"没有项目和预算不能确认市场规模。","iconKey":"activity"},
+    {"id":"n3","industryNodeEvidenceLevel":"pending","verificationSignals":[],"title":"技术产品与医疗服务应用","subtitle":"药械、数据平台和服务进入机构","section":"downstream","relation":"market","evidenceLevel":"pending","confidence":66,"description":"医疗机构采用数字系统、创新药械和康复护理服务。","clauseIds":["c2","c4","c5"],"companyIds":[],"evidenceIds":["e2","e4","e5"],"impactReason":"应用需经过标准、准入、采购和临床评价。","iconKey":"activity"},
+    {"id":"n4","industryNodeEvidenceLevel":"pending","verificationSignals":[],"title":"医保支付与经营兑现","subtitle":"支付规则、成本和监管决定结果","section":"support","relation":"regulation","evidenceLevel":"pending","confidence":64,"description":"医保目录、价格、集采、医院预算和服务收费影响最终收入与现金流。","clauseIds":["c5"],"companyIds":[],"evidenceIds":["e5"],"impactReason":"支持政策也伴随控费和合规压力。","iconKey":"activity"}
+  ],
+  "chainEdges": [
+    {"id":"edge1","from":"n1","to":"n2","type":"strong","label":"专项细则形成工程、预算和平台项目"},
+    {"id":"edge2","from":"n2","to":"n3","type":"medium","label":"项目采购和试点推动产品服务应用"},
+    {"id":"edge3","from":"n3","to":"n4","type":"medium","label":"支付、监管和使用绩效决定经营兑现"}
+  ],
+  "companies": [],
+  "evidence": [
+    {"id":"e1","evidenceObject":"policy_action","type":"policy_text","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075213.htm","title":"人均预期寿命达到80岁","excerpt":"到2030年，人均预期寿命达到80岁，主要健康指标进入高收入国家行列。","interpretation":"这是卫生健康总体结果目标，不能直接映射为单一行业收入。","confidence":94,"clauseIds":["c1"],"nodeIds":["n1"],"companyIds":[],"links":{"clauseIds":["c1"],"nodeIds":["n1"]}},
+    {"id":"e2","evidenceObject":"policy_action","type":"policy_text","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075213.htm","title":"基层与康复护理服务网络","excerpt":"实施医疗卫生强基工程，健全康复护理服务网络并扩大短缺服务供给。","interpretation":"建设方向明确，具体床位、设备、人才和财政项目需地方分解。","confidence":94,"clauseIds":["c2"],"nodeIds":["n2"],"companyIds":[],"links":{"clauseIds":["c2"],"nodeIds":["n2"]}},
+    {"id":"e3","evidenceObject":"industry_node","type":"policy_text","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075213.htm","title":"疾控和实验室现代化","excerpt":"实施疾控体系现代化建设工程，完善公共卫生实验室网络和传染病救治体系。","interpretation":"公共卫生能力建设可能带来设备和信息化需求，需等待工程清单。","confidence":94,"clauseIds":["c3"],"nodeIds":["n3"],"companyIds":[],"links":{"clauseIds":["c3"],"nodeIds":["n3"]}},
+    {"id":"e4","evidenceObject":"industry_node","type":"policy_text","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075213.htm","title":"跨省共享与医疗人工智能","excerpt":"建设国家智慧健康检验检查结果跨省共享平台，推进医疗人工智能中试基地和可信数据空间。","interpretation":"数字任务具体，但架构、投资、标准、数据治理和采购主体尚未公布。","confidence":94,"clauseIds":["c4"],"nodeIds":["n4"],"companyIds":[],"links":{"clauseIds":["c4"],"nodeIds":["n4"]}},
+    {"id":"e5","evidenceObject":"industry_node","type":"policy_text","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075213.htm","title":"支持创新药械并完善支付机制","excerpt":"全链条支持创新药和医疗器械发展应用，健全医保支持机制并完善创新药目录。","interpretation":"研发与准入支持明确，商业兑现取决于审批、目录、价格、集采和临床采用。","confidence":94,"clauseIds":["c5"],"nodeIds":["n1"],"companyIds":[],"links":{"clauseIds":["c5"],"nodeIds":["n1"]}}
+  ],
+  "backgroundCards": [
+    {"id":"bg1","title":"健康结果目标","body":"规划提出到2030年人均预期寿命达到80岁。","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075213.htm"},
+    {"id":"bg2","title":"公共服务与产业并列","body":"规划同时覆盖基层公卫、医疗服务、科技创新、药械产业和医保治理。","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075213.htm"},
+    {"id":"bg3","title":"支持与约束并存","body":"创新应用受到支持，同时强调控费、集采、数据安全、医院债务和综合监管。","source":"中国政府网 - 最新政策","sourceUrl":"https://www.gov.cn/zhengce/content/202607/content_7075213.htm"}
+  ],
+  "identityReconciliation": {"formatVersion":"policy-id-reconciliation-v1","previousPolicyId":"640af4a5-b801-5edd-8a16-581e3884fc87","currentPolicyId":"8f4d1193-2fb5-4753-a9a6-df8b846cbbe6","reconciledAt":"2026-07-27T17:05:03.830Z","matchBasis":["official-title","publish-date","official-source-url","current-production-text"],"productionTitle":"国务院关于印发《国民健康“十五五”规划》的通知","evidenceWorkflowRunId":"30283891510","evidenceArtifactId":"8659950401","evidenceStatus":{"fullTextLength":7673,"evidenceTextLength":7674,"attachmentCount":0,"attachmentCollectionStatus":"none","attachmentEvidenceIncomplete":false,"attachmentManualReviewRequired":false}}
+}
