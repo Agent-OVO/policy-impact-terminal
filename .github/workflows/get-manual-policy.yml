@@ -15,6 +15,11 @@ on:
         required: false
         type: boolean
         default: false
+      attachment_review_completed:
+        description: "Confirm that downloaded but non-extractable attachments were manually reviewed"
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -58,13 +63,71 @@ jobs:
           POLICY_ID: ${{ github.event.inputs.policy_id }}
           OUTPUT_NAME: ${{ github.event.inputs.output_name || 'manual-policy-source' }}
         run: |
+          set -euo pipefail
           mkdir -p artifacts/manual-analysis
           node scripts/manual-policy-analysis.mjs get --policyId="${POLICY_ID}" \
             | tee "artifacts/manual-analysis/${OUTPUT_NAME}-${POLICY_ID}.json"
 
-      - name: Upload manual policy source artifact
+      - name: Fetch official source page and all policy attachments
+        id: evidence
+        continue-on-error: true
+        env:
+          POLICY_ID: ${{ github.event.inputs.policy_id }}
+          OUTPUT_NAME: ${{ github.event.inputs.output_name || 'manual-policy-source' }}
+        run: |
+          policy_json="artifacts/manual-analysis/${OUTPUT_NAME}-${POLICY_ID}.json"
+          evidence_dir="artifacts/manual-analysis/${OUTPUT_NAME}-${POLICY_ID}-evidence"
+          npm run manual:evidence -- \
+            --policy-json="${policy_json}" \
+            --out-dir="${evidence_dir}"
+
+      - name: Enforce complete attachment evidence before analysis
+        if: always()
+        env:
+          SUPABASE_URL: https://qxzspsofhmfjceuaulhu.supabase.co
+          SUPABASE_FUNCTION_JWT: ${{ secrets.SUPABASE_FUNCTION_JWT }}
+          SUPABASE_CRAWLER_SECRET: ${{ secrets.SUPABASE_CRAWLER_SECRET }}
+          POLICY_ID: ${{ github.event.inputs.policy_id }}
+          OUTPUT_NAME: ${{ github.event.inputs.output_name || 'manual-policy-source' }}
+          START_ANALYSIS: ${{ github.event.inputs.start_analysis }}
+          ATTACHMENT_REVIEW_COMPLETED: ${{ github.event.inputs.attachment_review_completed }}
+          CONFIRMED_BY: ${{ github.actor }}
+          WORKFLOW_RUN_ID: ${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          manifest="artifacts/manual-analysis/${OUTPUT_NAME}-${POLICY_ID}-evidence/manifest.json"
+          if [ ! -f "$manifest" ]; then
+            incomplete=true
+            manual_review=false
+            reason="正式取件未生成证据清单；官方发布页或附件获取失败"
+          else
+            incomplete=$(node -e "const m=require('./' + process.argv[1]); process.stdout.write(String(m.evidence?.attachmentEvidenceIncomplete === true));" "$manifest")
+            manual_review=$(node -e "const m=require('./' + process.argv[1]); process.stdout.write(String(m.evidence?.attachmentManualReviewRequired === true));" "$manifest")
+            if [ "$incomplete" = "true" ]; then
+              reason="正式取件未完成全部政策附件下载或发现被安全上限截断；请先补齐附件"
+            else
+              reason="附件原文件已下载但仍需人工阅读；请核验后以attachment_review_completed=true重新取件"
+            fi
+          fi
+
+          if [ "$incomplete" != "true" ] && { [ "$manual_review" != "true" ] || [ "$ATTACHMENT_REVIEW_COMPLETED" = "true" ]; }; then
+            if [ "$manual_review" = "true" ] && [ "$ATTACHMENT_REVIEW_COMPLETED" = "true" ]; then
+              confirmation="artifacts/manual-analysis/${OUTPUT_NAME}-${POLICY_ID}-evidence/attachment-review-confirmation.json"
+              MANIFEST_PATH="$manifest" CONFIRMATION_PATH="$confirmation" node -e "const fs=require('fs'); const crypto=require('crypto'); const manifest=fs.readFileSync(process.env.MANIFEST_PATH); fs.writeFileSync(process.env.CONFIRMATION_PATH, JSON.stringify({formatVersion:'policy-attachment-review-confirmation-v1',policyId:process.env.POLICY_ID,confirmedAt:new Date().toISOString(),confirmedBy:process.env.CONFIRMED_BY,workflowRunId:process.env.WORKFLOW_RUN_ID,manifestSha256:crypto.createHash('sha256').update(manifest).digest('hex')},null,2)+'\\n');"
+            fi
+            exit 0
+          fi
+          if [ "$START_ANALYSIS" = "true" ]; then
+            npm run manual:policies -- wait --policyId="$POLICY_ID" --reason="$reason" --closeOpenJob=true
+          fi
+          echo "::error::$reason"
+          exit 1
+
+      - name: Upload manual policy evidence artifact
+        if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: manual-policy-source-${{ github.event.inputs.policy_id }}
-          path: artifacts/manual-analysis/*.json
+          path: artifacts/manual-analysis/**
           if-no-files-found: error
+          retention-days: 30

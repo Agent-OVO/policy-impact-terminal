@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import fs from "node:fs/promises";
+import { printJson } from "./lib/json-output.mjs";
 
 const DEFAULT_LIMIT = 10;
 const DEFAULT_SINCE = "2026-05-01";
@@ -26,13 +27,13 @@ if (command === "list") {
     limit: Number(args.limit ?? DEFAULT_LIMIT),
     sincePublishDate: args.since ?? DEFAULT_SINCE
   });
-  console.log(JSON.stringify(result, null, 2));
+  outputJson(result);
 } else if (command === "next") {
   const result = await callAnalyze({
     getNextSelectedManualAnalysis: true,
     sincePublishDate: args.since ?? DEFAULT_SINCE
   });
-  console.log(JSON.stringify(result, null, 2));
+  outputJson(result);
 } else if (command === "get") {
   const policyId = args.policyId ?? args.id;
   if (!policyId) throw new Error("Usage: node scripts/manual-policy-analysis.mjs get --policyId=<uuid>");
@@ -41,7 +42,7 @@ if (command === "list") {
     getManualAnalysisPolicy: true,
     policyId
   });
-  console.log(JSON.stringify(result, null, 2));
+  outputJson(result);
 } else if (command === "apply") {
   const policyId = args.policyId ?? args.id;
   const file = args.file;
@@ -56,13 +57,13 @@ if (command === "list") {
     policyId,
     reportPayload
   });
-  console.log(JSON.stringify({
+  outputJson({
     policyId: result.policyId,
     analyzerVersion: result.analyzerVersion,
     published: result.published,
     jobUpdated: result.jobUpdated,
     jobId: result.jobId
-  }, null, 2));
+  });
 } else if (["select", "pending", "wait", "archive", "dismiss"].includes(command)) {
   const policyId = args.policyId ?? args.id;
   if (!policyId) throw new Error(`${command} requires --policyId=<uuid>`);
@@ -74,22 +75,36 @@ if (command === "list") {
     dismiss: "dismissed"
   };
   const reason = args.reason;
+  const closeOpenJob = args.closeOpenJob === "true" || args.close_open_job === "true";
   if (["wait", "archive", "dismiss"].includes(command) && (!reason || reason.length < 4)) {
     throw new Error(`${command} requires --reason=<at least 4 characters>`);
+  }
+  if (closeOpenJob && (!reason || reason.length < 4)) {
+    throw new Error("--closeOpenJob=true requires --reason=<at least 4 characters>");
   }
   const result = await callAnalyze({
     setManualReviewDisposition: true,
     policyId,
     disposition: dispositions[command],
-    reason
+    reason,
+    closeOpenJob
   });
-  console.log(JSON.stringify(result, null, 2));
+  outputJson(result);
 } else {
   throw new Error("Unknown command. Use list, next, get, select, pending, wait, archive, dismiss, apply, or help.");
 }
 
 function printHelp() {
-  console.log(`Manual policy analysis control\n\nCommands:\n  list [--limit=10] [--since=YYYY-MM-DD]    List the review inbox.\n  next [--since=YYYY-MM-DD]                 Return the next explicitly selected policy with original text.\n  get --policyId=<uuid>                     Read one policy and its original text.\n  select --policyId=<uuid>                  Explicitly start Agent analysis and create/reuse one job.\n  pending --policyId=<uuid>                 Return a policy to pending review.\n  wait --policyId=<uuid> --reason=<text>    Wait for a named evidence item.\n  archive --policyId=<uuid> --reason=<text> Quick archive without analysis.\n  dismiss --policyId=<uuid> --reason=<text> Mark duplicate or invalid.\n  apply --policyId=<uuid> --file=<json>     Publish the Agent-reviewed analysis.\n\nCollection never starts analysis automatically. The user authorizes analysis; the Agent performs the research and applies the reviewed result.`);
+  console.log(`Manual policy analysis control\n\nCommands:\n  list [--limit=10] [--since=YYYY-MM-DD]    List the review inbox.\n  next [--since=YYYY-MM-DD]                 Return the next explicitly selected policy with original text.\n  get --policyId=<uuid>                     Read one policy and its original text.\n  select --policyId=<uuid>                  Explicitly start Agent analysis and create/reuse one job.\n  pending --policyId=<uuid>                 Return a policy to pending review.\n  wait --policyId=<uuid> --reason=<text>    Wait for a named evidence item.\n  archive --policyId=<uuid> --reason=<text> Quick archive without analysis.\n  dismiss --policyId=<uuid> --reason=<text> Mark duplicate or invalid.\n  apply --policyId=<uuid> --file=<json>     Publish the Agent-reviewed analysis.\n\nControlled stale-job closure:\n  --closeOpenJob=true                       Explicitly fail all open jobs for the policy before wait/archive/dismiss; requires a reason.\n\nOutput options:\n  --asciiJson=true                          Escape non-ASCII characters for cross-platform pipes.\n  --unicodeJson=true                        Force readable Unicode output.\n\nCollection never starts analysis automatically. The user authorizes analysis; the Agent performs the research and applies the reviewed result.`);
+}
+
+function outputJson(value) {
+  const asciiSafe = args.unicodeJson === "true"
+    ? false
+    : args.asciiJson === "true"
+      ? true
+      : undefined;
+  printJson(value, { asciiSafe });
 }
 
 function parseArgs(values) {

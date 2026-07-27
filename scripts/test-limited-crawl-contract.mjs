@@ -191,7 +191,8 @@ async function testMiitOfficialMirrorFallback() {
     assert.equal(candidate.raw.origin, "miit-search-api-rich-mirror-fallback");
     assert.equal(candidate.raw.hydrationSource, "miit-search-index");
     assert.equal(candidate.raw.indexedAttachmentCount, 1);
-    assert.equal(candidate.raw.attachmentExtractionStatus, "pdf_extracted");
+    assert.equal(candidate.raw.attachmentCollectionStatus, "complete");
+    assert.equal(candidate.raw.attachmentExtractionStatus, "all_extracted");
     assert.equal(candidate.raw.attachmentEvidenceIncomplete, false);
     assert.ok(candidate.raw.attachmentTextLength >= 280);
     assert.match(candidate.fullText, /Official mirror attachment full text/);
@@ -286,7 +287,8 @@ async function testMiitIndexedAttachmentAugmentsPrimaryPage() {
     const candidate = payload.candidates[0];
     assert.equal(candidate.raw.origin, "miit-search-api-rich");
     assert.equal(candidate.raw.indexedAttachmentCount, 1);
-    assert.equal(candidate.raw.attachmentExtractionStatus, "pdf_extracted");
+    assert.equal(candidate.raw.attachmentCollectionStatus, "complete");
+    assert.equal(candidate.raw.attachmentExtractionStatus, "all_extracted");
     assert.equal(candidate.raw.attachments[0].extractionStatus, "extracted");
     assert.match(candidate.fullText, /Indexed attachment full text recovered/);
     assert.equal(candidate.raw.primaryHydrationError, undefined);

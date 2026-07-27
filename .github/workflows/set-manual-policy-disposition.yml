@@ -17,9 +17,14 @@ on:
           - archive
           - dismiss
       reason:
-        description: "Required for wait, archive, and dismiss"
+        description: "Required for wait, archive, dismiss, and stale-job closure"
         required: false
         default: ""
+      close_open_job:
+        description: "Explicitly fail all open analysis jobs for this policy before changing disposition"
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -50,6 +55,7 @@ jobs:
         env:
           DISPOSITION: ${{ github.event.inputs.disposition }}
           REASON: ${{ github.event.inputs.reason }}
+          CLOSE_OPEN_JOB: ${{ github.event.inputs.close_open_job }}
         run: |
           case "$DISPOSITION" in
             pending|wait|archive|dismiss) ;;
@@ -63,6 +69,10 @@ jobs:
             echo "::error::$DISPOSITION requires a reason of at least 4 characters"
             exit 1
           fi
+          if [ "$CLOSE_OPEN_JOB" = "true" ] && [ "${#REASON}" -lt 4 ]; then
+            echo "::error::close_open_job requires a reason of at least 4 characters"
+            exit 1
+          fi
 
       - name: Apply manual review disposition
         env:
@@ -72,11 +82,16 @@ jobs:
           POLICY_ID: ${{ github.event.inputs.policy_id }}
           DISPOSITION: ${{ github.event.inputs.disposition }}
           REASON: ${{ github.event.inputs.reason }}
+          CLOSE_OPEN_JOB: ${{ github.event.inputs.close_open_job }}
         run: |
+          set -euo pipefail
           mkdir -p artifacts/manual-analysis
           args=("$DISPOSITION" "--policyId=$POLICY_ID")
           if [ -n "$REASON" ]; then
             args+=("--reason=$REASON")
+          fi
+          if [ "$CLOSE_OPEN_JOB" = "true" ]; then
+            args+=("--closeOpenJob=true")
           fi
           npm run manual:policies -- "${args[@]}" \
             | tee "artifacts/manual-analysis/disposition-$POLICY_ID.json"

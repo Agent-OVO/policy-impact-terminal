@@ -45,6 +45,7 @@ jobs:
           MANUAL_ANALYSIS_LIMIT: ${{ github.event.inputs.limit || '20' }}
           MANUAL_ANALYSIS_SINCE: ${{ github.event.inputs.since || '2026-05-01' }}
         run: |
+          set -euo pipefail
           mkdir -p artifacts/manual-analysis
           node scripts/manual-policy-analysis.mjs list \
             --limit="${MANUAL_ANALYSIS_LIMIT}" \

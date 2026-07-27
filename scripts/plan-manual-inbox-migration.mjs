@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from "node:fs/promises";
 import path from "node:path";
+import { findDuplicateGroups } from "./lib/policy-identity.mjs";
 
 const args = parseArgs(process.argv.slice(2));
 const inbox = JSON.parse(await fs.readFile(path.resolve(args.input), "utf8"));
@@ -13,7 +14,23 @@ const knownRules = new Map(
   (known.rules ?? []).map((item) => [normalizeTitle(item.title), item])
 );
 const policies = Array.isArray(inbox.policies) ? inbox.policies : [];
-const rows = policies.map((policy) => classify(policy));
+const duplicateGroups = findDuplicateGroups(policies);
+const duplicateByPolicyId = new Map();
+for (const group of duplicateGroups) {
+  for (const policy of group.policies) {
+    const matches = duplicateByPolicyId.get(policy.id) || [];
+    matches.push({
+      reasons: group.reasons,
+      matchedKeys: group.matchedKeys,
+      policyIds: group.policies.map((item) => item.id)
+    });
+    duplicateByPolicyId.set(policy.id, matches);
+  }
+}
+const rows = policies.map((policy) => ({
+  ...classify(policy),
+  duplicateMatches: duplicateByPolicyId.get(policy.id) || []
+}));
 const counts = Object.fromEntries(
   [...new Set(rows.map((item) => item.category))].sort().map((category) => [category, rows.filter((item) => item.category === category).length])
 );
@@ -27,6 +44,22 @@ const plan = {
     since: args.currentSince
   },
   counts,
+  integrity: {
+    duplicateGroupCount: duplicateGroups.length,
+    exactUrlDuplicateGroupCount: duplicateGroups.filter((group) => group.reasons.includes("exact-url")).length,
+    semanticDuplicateGroupCount: duplicateGroups.filter((group) => group.reasons.some((reason) => ["policy-no", "document-title-date"].includes(reason))).length,
+    duplicateGroups: duplicateGroups.map((group) => ({
+      reasons: group.reasons,
+      matchedKeys: group.matchedKeys,
+      policies: group.policies.map((policy) => ({
+        id: policy.id,
+        title: policy.title,
+        publishDate: policy.publishDate,
+        sourceUrl: policy.sourceUrl,
+        fullTextLength: policy.fullTextLength ?? 0
+      }))
+    }))
+  },
   recommendations: {
     safeWithoutFurtherResearch: rows.filter((item) => ["governed_report_exact", "known_quick_archive"].includes(item.category)).length,
     requiresIdReconciliation: rows.filter((item) => item.category === "known_local_result_requires_id_reconciliation").length,
@@ -64,7 +97,7 @@ function classify(policy) {
   } else if (isLikelyAttachmentWrapper(policy)) {
     category = "likely_attachment_or_wrapper";
     recommendedDisposition = "awaiting_evidence";
-    reason = "正文较短且标题指向规划、办法、名单、目录或项目计划，需先核对PDF/OFD附件";
+    reason = "正文较短且标题指向规划、办法、名单、目录或项目计划，需先完整下载并核对页面声明的全部附件";
   } else {
     category = "historical_unreviewed";
   }
@@ -118,12 +151,13 @@ function renderMarkdown(plan) {
     `- 需要附件补证：${plan.recommendations.requiresAttachmentReview}项；`,
     `- 真正未审阅历史政策：${plan.recommendations.genuinelyUnreviewed}项；`,
     `- 当前窗口新候选：${plan.recommendations.currentWindow}项。`,
+    `- 重复完整性组：${plan.integrity.duplicateGroupCount}组（同URL ${plan.integrity.exactUrlDuplicateGroupCount}组，政策号/核心标题语义重复 ${plan.integrity.semanticDuplicateGroupCount}组）。`,
     "",
     "## 明细",
     "",
     "| 日期 | 分类 | 标题 | 正文长度 | 建议状态 |",
     "|---|---|---|---:|---|",
-    ...plan.rows.map((item) => `| ${item.publishDate ?? ""} | ${item.category} | ${escapeCell(item.title)} | ${item.fullTextLength} | ${item.recommendedDisposition ?? "待裁决"} |`),
+    ...plan.rows.map((item) => `| ${item.publishDate ?? ""} | ${item.category}${item.duplicateMatches.length ? "+duplicate_review" : ""} | ${escapeCell(item.title)} | ${item.fullTextLength} | ${item.recommendedDisposition ?? "待裁决"} |`),
     ""
   ];
   return lines.join("\n");

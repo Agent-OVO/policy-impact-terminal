@@ -1,6 +1,9 @@
 name: Build production operations summary
 
 on:
+  schedule:
+    # Daily at 00:35 UTC (08:35 Beijing / 09:35 Tokyo).
+    - cron: "35 0 * * *"
   workflow_dispatch:
 
 permissions:
