@@ -881,6 +881,7 @@ async function setManualReviewDisposition(
 
   const updateValues: Record<string, unknown> = { metadata };
   if (selected && policy.status === "draft") updateValues.status = "reviewing";
+  if (!selected && policy.status === "reviewing") updateValues.status = "draft";
   const { error: updateError } = await supabase.from("policies").update(updateValues).eq("id", policy.id);
   if (updateError) throw updateError;
 

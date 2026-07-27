@@ -13,5 +13,6 @@ assert.match(analyze, /closedJobCount: closedJobs\.length/);
 assert.match(analyze, /closedJobIds:/);
 assert.doesNotMatch(analyze, /\n\s+closedJobs,\n/);
 assert.match(analyze, /closeOpenJob=true/);
+assert.match(analyze, /if \(!selected && policy\.status === "reviewing"\) updateValues\.status = "draft"/);
 
-console.log("[analyze:control-test] paginated stale-job closure, compact audit output, and explicit close gate passed");
+console.log("[analyze:control-test] paginated stale-job closure, compact audit output, explicit close gate, and disposition/status synchronization passed");

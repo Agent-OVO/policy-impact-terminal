@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
 import fs from "node:fs/promises";
+import { parseCliArgs } from "./lib/cli-args.mjs";
 import { printJson } from "./lib/json-output.mjs";
 
 const DEFAULT_LIMIT = 10;
 const DEFAULT_SINCE = "2026-05-01";
 
-const args = parseArgs(process.argv.slice(2));
+const args = parseCliArgs(process.argv.slice(2));
 const command = args._[0] ?? "list";
 if (command === "help" || args.help === "true") {
   printHelp();
@@ -105,19 +106,6 @@ function outputJson(value) {
       ? true
       : undefined;
   printJson(value, { asciiSafe });
-}
-
-function parseArgs(values) {
-  const parsed = { _: [] };
-  for (const value of values) {
-    if (!value.startsWith("--")) {
-      parsed._.push(value);
-      continue;
-    }
-    const [key, raw = "true"] = value.slice(2).split("=");
-    parsed[key] = raw;
-  }
-  return parsed;
 }
 
 function assertReportPolicyIdMatches(policyId, reportPayload, file) {
