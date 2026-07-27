@@ -107,7 +107,7 @@ const legacyDoc = await hydratePolicyAttachments({
 });
 assert.equal(legacyDoc.attachments[0].downloadStatus, "downloaded");
 assert.equal(legacyDoc.attachments[0].extractionStatus, "downloaded_unextracted");
-assert.equal(legacyDoc.attachmentEvidenceIncomplete, true);
+assert.equal(legacyDoc.attachmentEvidenceIncomplete, false);
 assert.equal(legacyDoc.attachmentManualReviewRequired, true);
 
 const imageHydrated = await hydratePolicyAttachments({
@@ -119,6 +119,7 @@ const imageHydrated = await hydratePolicyAttachments({
 assert.equal(imageHydrated.attachments[0].type, "png");
 assert.equal(imageHydrated.attachments[0].downloadStatus, "downloaded");
 assert.equal(imageHydrated.attachments[0].extractionStatus, "downloaded_unextracted");
+assert.equal(imageHydrated.attachmentEvidenceIncomplete, false);
 assert.equal(imageHydrated.attachmentManualReviewRequired, true);
 
 const ofdHydrated = await hydratePolicyAttachments({
