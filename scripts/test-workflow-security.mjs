@@ -42,6 +42,8 @@ const dispositionWorkflow = await fs.readFile(path.join(workflowDir, "set-manual
 assert.match(dispositionWorkflow, /close_open_job/);
 assert.match(dispositionWorkflow, /--closeOpenJob=true/);
 assert.match(dispositionWorkflow, /set -euo pipefail/);
+assert.match(dispositionWorkflow, /node scripts\/manual-policy-analysis\.mjs/);
+assert.doesNotMatch(dispositionWorkflow, /npm run manual:policies[\s\S]*?\|\s*tee/);
 
 const operationsSummaryWorkflow = await fs.readFile(path.join(workflowDir, "production-operations-summary.yml"), "utf8");
 assert.match(operationsSummaryWorkflow, /cron:\s*"35 0 \* \* \*"/);

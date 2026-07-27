@@ -93,7 +93,7 @@ jobs:
           if [ "$CLOSE_OPEN_JOB" = "true" ]; then
             args+=("--closeOpenJob=true")
           fi
-          npm run manual:policies -- "${args[@]}" \
+          node scripts/manual-policy-analysis.mjs "${args[@]}" \
             | tee "artifacts/manual-analysis/disposition-$POLICY_ID.json"
 
       - name: Upload disposition result
