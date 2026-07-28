@@ -1,0 +1,720 @@
+{
+  "id": "6545fdff-27b6-4dd8-8771-09bdfcc3a520",
+  "policyId": "6545fdff-27b6-4dd8-8771-09bdfcc3a520",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "generatedAt": "2026-07-28T15:55:00+08:00",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "通知",
+  "substantivePolicyType": "中小企业数字化产品和服务培育指引",
+  "primaryActionType": "产品遴选培育与资源池推广",
+  "policySignalStrength": "medium",
+  "implementationCertainty": "medium",
+  "analysisDepth": "L3",
+  "analysisDepthReason": "指引明确“小型化、快速化、轻量化、精准化、数智化”五类培育方向，并规定安全、价格、地方遴选、动态评价和资源池推广机制，能够形成可执行的产品评价与服务供给链；但各地实施细则、入库产品、服务商名单、价格水平、采购合同和使用效果尚未披露，因此当前适合做产业与产品层观察，不建立公司映射。",
+  "followUpSignals": [
+    "各地小快轻准产品和服务遴选培育实施细则",
+    "企业申报与专家评审标准",
+    "优质资源池和入库产品名单",
+    "全国中小企业数字化转型服务平台上架信息",
+    "产品部署周期、收费标准和免费服务承诺",
+    "用户满意度、复购率和实际降本增效数据",
+    "安全测试评估和标准研制应用结果",
+    "政府采购、企业合同和服务收入披露"
+  ],
+  "summary": {
+    "id": "6545fdff-27b6-4dd8-8771-09bdfcc3a520",
+    "title": "工业和信息化部办公厅关于印发《“小快轻准” 数字化产品和服务培育指引（2026年版）》的通知",
+    "issuer": "工业和信息化部办公厅",
+    "source": "工业和信息化部 - 政策文件库",
+    "publishDate": "2026-07-27",
+    "status": "draft",
+    "confidence": 95,
+    "industryCount": 6,
+    "companyCount": 0,
+    "evidenceCount": 9,
+    "primarySignal": "中小企业数字化产品供给从泛平台建设转向场景聚焦、快速部署、开放迁移、量化成效和动态评价",
+    "category": "中小企业数字化转型服务"
+  },
+  "policy": {
+    "title": "工业和信息化部办公厅关于印发《“小快轻准” 数字化产品和服务培育指引（2026年版）》的通知",
+    "status": "已发布",
+    "issuer": "工业和信息化部办公厅",
+    "publishDate": "2026-07-27",
+    "effectiveDate": "2026-07-22",
+    "source": "工业和信息化部 - 政策文件库",
+    "category": "中小企业数字化转型服务",
+    "level": "中央部委",
+    "confidence": 96,
+    "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_067d45af14c242f2a4c03f94d5c9b399.html",
+    "scope": "中小企业、数字化服务商和地方各级中小企业主管部门开展数字化产品与服务培育、遴选、评价和推广",
+    "impactScope": "细分行业数字化产品、工业知识库与机理模型、云化和模块化部署、低代码与开放接口、数据迁移、人工智能应用、安全评估、收费治理、服务平台和资源池",
+    "jurisdiction": "中国大陆",
+    "tags": [
+      "中小企业数字化",
+      "小快轻准",
+      "工业软件",
+      "云化服务",
+      "低代码",
+      "开放接口",
+      "人工智能",
+      "数据迁移",
+      "安全评估",
+      "透明收费"
+    ]
+  },
+  "brief": {
+    "judgement": "这份指引的价值不是宣布一轮统一补贴或采购，而是把中小企业数字化产品的合格供给标准具体化：产品需要聚焦细分场景和行业知识，压缩部署周期与IT改造要求，支持开放接口、低代码和数据迁移，以可量化的创新、提质、降本、增效、绿色和安全成效接受动态评价，并通过地方资源池和全国服务平台推广。政策有利于淘汰“大而全、交付重、迁移难、收费不透明”的方案，但当前没有全国统一价格上限、部署天数、服务商名单或订单，因此不能直接推导软件公司受益。",
+    "summary": "指引面向中小企业、数字化服务商和地方主管部门，提出“小型化、快速化、轻量化、精准化、数智化”五个培育维度。“小型化”要求深耕细分场景、沉淀工业机理模型或行业知识库并控制资源占用；“快速化”鼓励模块化选配、云化、开箱即用、短期培训、免费培训和一定周期免费售后；“轻量化”要求开放接口、低代码或无代码二次开发以及标准化数据迁移；“精准化”强调量化成效、用户反馈、市场占有率、口碑和复购；“数智化”鼓励数据融合与人工智能从辅助决策向多模态感知、预测和自主执行演进。地方可建立“企业申报—专家评审—入库培育—动态评价—择优推广”流程，并依托全国和地方服务平台建设优质资源池。",
+    "keyPoints": [
+      "政策重点是产品和服务评价标准，不是财政补贴、采购目录或收入确认文件。",
+      "场景聚焦、行业知识和低资源占用将压缩泛化平台和重定制方案的优势。",
+      "模块化、云化、开箱即用、培训和售后响应成为服务能力评价内容，但没有统一部署天数。",
+      "开放接口、低代码和标准化数据迁移明确反对数据孤岛与厂商锁定。",
+      "地方遴选、动态评价和跨区域资源池可能形成正式产品名单，但名单、合同和用户成效尚待后续披露。"
+    ],
+    "methodology": "使用工信部通知页和官方PDF附件全文，按“需求场景—产品设计—部署服务—开放迁移—成效评价—资源池推广”拆分传导链；价格、时限、补贴、采购和公司结论均以原文是否明确为界。当前没有具体服务商和产品名单，companies与companyMap保持为空。"
+  },
+  "policyIndustryMap": [
+    {
+      "id": "pi1",
+      "industry": "细分行业工业软件与场景化应用",
+      "policyAction": "要求产品深耕细分行业核心场景并沉淀工业机理模型或行业知识库",
+      "impactType": "product_standard",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "功能聚焦和行业知识密度成为遴选方向，有利于场景适配强的产品，同时压缩泛化和功能堆砌方案。",
+      "relatedClauseIds": ["c1", "c2"],
+      "relatedNodeIds": ["n1", "n2"],
+      "watchSignals": ["行业场景图谱", "机理模型和知识库", "入库产品"]
+    },
+    {
+      "id": "pi2",
+      "industry": "云化SaaS、模块化部署与实施服务",
+      "policyAction": "鼓励模块化选配、轻量化部署、云化服务和开箱即用",
+      "impactType": "delivery_standard",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "政策要求缩短采购到使用的实施周期并降低既有IT改造要求，提升标准化交付和持续服务的重要性。",
+      "relatedClauseIds": ["c3"],
+      "relatedNodeIds": ["n2", "n3"],
+      "watchSignals": ["部署周期", "云化比例", "培训和售后承诺"]
+    },
+    {
+      "id": "pi3",
+      "industry": "系统集成、低代码与数据迁移",
+      "policyAction": "要求开放接口、低门槛二次开发和标准化数据迁移",
+      "impactType": "interoperability_standard",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "开放兼容有利于集成和迁移工具，但降低单一厂商依靠封闭生态锁定客户的能力。",
+      "relatedClauseIds": ["c4"],
+      "relatedNodeIds": ["n3"],
+      "watchSignals": ["标准接口", "低代码配置", "跨平台迁移工具"]
+    },
+    {
+      "id": "pi4",
+      "industry": "数字化转型评价与客户成功服务",
+      "policyAction": "要求形成可量化成效、用户反馈闭环并验证口碑和复购",
+      "impactType": "outcome_evaluation",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "产品评价从功能交付转向创新、提质、降本、增效、绿色和安全等实际结果，客户成功和持续运营能力权重上升。",
+      "relatedClauseIds": ["c5"],
+      "relatedNodeIds": ["n4", "n6"],
+      "watchSignals": ["用户满意度", "复购率", "降本增效数据"]
+    },
+    {
+      "id": "pi5",
+      "industry": "工业人工智能与数据分析",
+      "policyAction": "鼓励数据融合分析和人工智能向多模态、预测与自主执行演进",
+      "impactType": "technology_upgrade",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "AI被纳入产品培育方向，但政策没有模型采购、算力补贴或具体产品名单。",
+      "relatedClauseIds": ["c6"],
+      "relatedNodeIds": ["n2", "n4"],
+      "watchSignals": ["行业模型", "多模态感知", "自主执行应用"]
+    },
+    {
+      "id": "pi6",
+      "industry": "安全评估、价格治理与服务平台",
+      "policyAction": "要求安全稳定、价格透明，并建立地方遴选和跨区域资源池",
+      "impactType": "governance_and_platform",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "安全测试、收费公示、动态评价和平台推广形成供给治理框架，但未确定认证机构、收费标准或平台运营主体。",
+      "relatedClauseIds": ["c7"],
+      "relatedNodeIds": ["n4", "n5"],
+      "watchSignals": ["安全测试", "收费公示", "资源池名单", "跨区域推广"]
+    }
+  ],
+  "industryChain": [
+    {
+      "id": "chain1",
+      "chainName": "中小企业需求—场景化产品—快速部署与开放集成—成效和安全评价—资源池推广—复购扩散",
+      "policyRole": "指引把中小企业痛点转化为产品设计、交付、开放性、成效、安全和价格标准，再由地方遴选与动态评价筛选优质供给，通过全国和地方平台推广，最终以用户满意度和复购验证长期价值。",
+      "nodes": [
+        {"id": "n1", "policySensitivity": "high", "description": "中小企业在创新、提质、降本、增效、绿色和安全方面形成细分场景需求。"},
+        {"id": "n2", "policySensitivity": "high", "description": "服务商以行业知识、机理模型、数据分析和AI形成聚焦型产品。"},
+        {"id": "n3", "policySensitivity": "high", "description": "模块化、云化、开放接口、低代码和数据迁移决定部署与集成质量。"},
+        {"id": "n4", "policySensitivity": "high", "description": "量化成效、用户反馈、安全测试和透明收费构成动态评价依据。"},
+        {"id": "n5", "policySensitivity": "medium", "description": "地方实施细则、入库培育和全国地方资源池负责筛选与推广。"},
+        {"id": "n6", "policySensitivity": "medium", "description": "市场占有率、口碑、满意度和复购决定产品能否形成持续经营价值。"}
+      ],
+      "edges": [
+        {"from": "n1", "to": "n2", "relation": "demand_to_product", "description": "细分行业痛点决定产品功能和知识沉淀。"},
+        {"from": "n2", "to": "n3", "relation": "product_to_delivery", "description": "产品需要通过快速部署、开放集成和迁移能力进入企业。"},
+        {"from": "n3", "to": "n4", "relation": "delivery_to_evaluation", "description": "实际交付后以成效、安全、服务和收费接受评价。"},
+        {"from": "n4", "to": "n5", "relation": "evaluation_to_promotion", "description": "动态评价结果影响入库、分级培育和择优推广。"},
+        {"from": "n5", "to": "n6", "relation": "promotion_to_market_validation", "description": "平台推广需要由真实采用、口碑和复购验证长期价值。"}
+      ]
+    }
+  ],
+  "companyMap": [],
+  "policyNetwork": [
+    {
+      "id": "pn1",
+      "relatedPolicy": "中小企业数字化赋能专项行动方案（2025—2027年）",
+      "relationship": "strategic_basis",
+      "meaning": "本指引落实专项行动方案的服务供给培育任务，把总体部署细化为产品和服务评价标准。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2026-07-27",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_067d45af14c242f2a4c03f94d5c9b399.html",
+      "watchSignals": ["专项行动地方任务", "数字化改造项目"]
+    },
+    {
+      "id": "pn2",
+      "relatedPolicy": "中小企业数字化水平评测指标和重点行业数智化转型场景图谱",
+      "relationship": "implementation_linkage",
+      "meaning": "产品功能设计应对照评测等级和行业场景图谱，后续具体指标将决定产品适配边界。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2026-07-27",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_067d45af14c242f2a4c03f94d5c9b399.html",
+      "watchSignals": ["评测指标更新", "行业场景图谱"]
+    },
+    {
+      "id": "pn3",
+      "relatedPolicy": "地方小快轻准产品和服务遴选培育实施细则",
+      "relationship": "local_rollout",
+      "meaning": "地方可细化标准并实施申报、评审、入库、动态评价和推广，具体名单取决于后续地方文件。",
+      "evidenceLevel": "pending",
+      "watchSignals": ["地方实施细则", "入库名单", "分级评价"]
+    },
+    {
+      "id": "pn4",
+      "relatedPolicy": "全国中小企业数字化转型服务平台及地方服务平台资源池",
+      "relationship": "promotion_channel",
+      "meaning": "优质资源池和跨区域共享是产品推广通道，但平台上架不等于政府采购或企业订单。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2026-07-27",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_067d45af14c242f2a4c03f94d5c9b399.html",
+      "watchSignals": ["资源池名单", "平台上架", "跨区域采用"]
+    }
+  ],
+  "investmentDirection": {
+    "primaryDirection": "提高对场景化工业软件、标准化云交付、开放迁移、客户成功和工业AI产品的研究关注，但在产品名单、合同和收入出现前不提高任何上市公司投资优先级。",
+    "directionStrength": "medium",
+    "timeHorizon": "medium_term",
+    "watchIndustries": [
+      "细分行业工业软件",
+      "中小企业SaaS",
+      "低代码和系统集成",
+      "数据迁移",
+      "工业人工智能",
+      "安全测试",
+      "数字化转型服务平台"
+    ],
+    "watchChainNodes": [
+      "地方实施细则",
+      "企业申报和专家评审",
+      "产品入库与动态评价",
+      "资源池推广",
+      "用户满意度和复购"
+    ],
+    "watchCompanyTypes": [
+      "后续入库的场景化数字产品服务商",
+      "具备标准化云交付和开放接口能力的服务商",
+      "提供安全测试、数据迁移和客户成功服务的机构"
+    ],
+    "watchCompanies": [],
+    "nearTermCatalysts": [
+      "地方遴选实施细则",
+      "首批入库产品和服务名单",
+      "全国服务平台资源池上线",
+      "企业数字化改造合同和使用成效"
+    ],
+    "keyRisks": [
+      "指引以鼓励性和地方细化为主，执行尺度可能不一",
+      "资源池和平台上架不等于政府采购",
+      "透明收费和免费服务要求可能压缩服务商毛利",
+      "开放迁移和低代码要求可能降低客户锁定能力",
+      "中小企业付费能力和续费率仍需验证"
+    ],
+    "minimumEvidenceNeeded": [
+      "正式入库产品和服务商名单",
+      "产品收费、部署周期和服务承诺",
+      "企业客户合同、续费和复购数据",
+      "可量化降本增效和安全测试结果"
+    ],
+    "doNotOverread": [
+      "指引不是统一财政补贴",
+      "资源池入库不等于采购订单",
+      "鼓励云化和AI不等于特定云厂商或模型公司受益",
+      "政策未规定统一价格上限和部署天数"
+    ],
+    "summary": "政策正在建立中小企业数字化产品的供给质量标准，真正的经营价值要由后续地方名单、平台采用、合同、满意度和复购证明。"
+  },
+  "actions": [
+    {
+      "id": "a1",
+      "actionType": "评价框架",
+      "actionEvidenceLevel": "strong",
+      "title": "建立五维产品和服务培育框架",
+      "body": "以小型化、快速化、轻量化、精准化和数智化评价中小企业数字化产品，并附加安全和价格共性要求。",
+      "signal": "mixed",
+      "confidence": 97,
+      "clauseIds": ["c1", "c7"],
+      "sortOrder": 1
+    },
+    {
+      "id": "a2",
+      "actionType": "场景与知识",
+      "actionEvidenceLevel": "strong",
+      "title": "要求深耕细分场景并沉淀行业知识",
+      "body": "产品应聚焦核心场景，依托工业机理模型或行业知识库，通过简单参数配置适配中小企业并控制资源占用。",
+      "signal": "mixed",
+      "confidence": 97,
+      "clauseIds": ["c2"],
+      "sortOrder": 2
+    },
+    {
+      "id": "a3",
+      "actionType": "快速交付",
+      "actionEvidenceLevel": "strong",
+      "title": "鼓励模块化云化部署和高效服务",
+      "body": "鼓励模块化选配、轻量化部署、云化、开箱即用、短期培训、免费培训和一定周期免费售后及7×24小时响应。",
+      "signal": "positive",
+      "confidence": 96,
+      "clauseIds": ["c3"],
+      "sortOrder": 3
+    },
+    {
+      "id": "a4",
+      "actionType": "开放兼容",
+      "actionEvidenceLevel": "strong",
+      "title": "要求开放接口、低代码和数据迁移",
+      "body": "产品应支持第三方兼容、低门槛二次开发和跨平台数据迁移，避免数据孤岛与厂商锁定。",
+      "signal": "mixed",
+      "confidence": 97,
+      "clauseIds": ["c4"],
+      "sortOrder": 4
+    },
+    {
+      "id": "a5",
+      "actionType": "成效和智能",
+      "actionEvidenceLevel": "strong",
+      "title": "以量化成效和人工智能能力持续评价",
+      "body": "产品需形成可感知、可量化的价值，建立用户反馈闭环，并融合数据分析和人工智能能力。",
+      "signal": "positive",
+      "confidence": 96,
+      "clauseIds": ["c5", "c6"],
+      "sortOrder": 5
+    },
+    {
+      "id": "a6",
+      "actionType": "遴选推广",
+      "actionEvidenceLevel": "strong",
+      "title": "建立地方动态培育和跨区域资源池",
+      "body": "地方可实施企业申报、专家评审、入库培育、动态评价和择优推广，并依托全国和地方平台共享优质资源。",
+      "signal": "positive",
+      "confidence": 95,
+      "clauseIds": ["c7"],
+      "sortOrder": 6
+    }
+  ],
+  "clauses": [
+    {
+      "id": "c1",
+      "no": "一至二",
+      "title": "适用对象和培育原则",
+      "excerpt": "本文件主要面向中小企业、数字化服务商和地方各级中小企业主管部门。",
+      "body": "指引以需求牵引、实效导向、分类培育和政府引导为原则，由地方结合重点行业实际细化标准。",
+      "confidence": 97,
+      "keywords": ["中小企业", "数字化服务商", "分类培育", "实效导向"],
+      "industries": ["中小企业数字化服务"],
+      "sortOrder": 1
+    },
+    {
+      "id": "c2",
+      "no": "三（一）",
+      "title": "小型化：场景、知识和资源占用",
+      "excerpt": "数字化产品应专注于细分行业的核心应用场景，避免大而全的功能堆砌。",
+      "body": "产品需要深耕细分场景、沉淀工业机理模型或行业知识库，并适配中小企业普遍软硬件配置。",
+      "confidence": 98,
+      "keywords": ["场景聚焦", "行业知识库", "工业机理模型", "资源占用"],
+      "industries": ["工业软件", "行业数字化"],
+      "sortOrder": 2
+    },
+    {
+      "id": "c3",
+      "no": "三（二）",
+      "title": "快速化：部署、培训和售后",
+      "excerpt": "鼓励采用模块化选配、轻量化部署、云化服务、开箱即用等模式。",
+      "body": "政策要求降低IT改造和操作门槛，完善培训及售后，并鼓励免费培训、一定周期免费售后和7×24小时响应。",
+      "confidence": 98,
+      "keywords": ["模块化", "云化服务", "开箱即用", "免费培训", "7×24小时"],
+      "industries": ["SaaS", "实施服务", "客户成功"],
+      "sortOrder": 3
+    },
+    {
+      "id": "c4",
+      "no": "三（三）",
+      "title": "轻量化：开放接口、低代码和迁移",
+      "excerpt": "支持与第三方主流数字化产品良好兼容与快速对接，避免数据孤岛。",
+      "body": "产品应预留标准接口，支持低代码或无代码二次开发，并通过标准协议和迁移工具减少数据丢失、业务中断和厂商锁定。",
+      "confidence": 98,
+      "keywords": ["开放接口", "低代码", "无代码", "数据迁移", "厂商锁定"],
+      "industries": ["系统集成", "低代码", "数据迁移"],
+      "sortOrder": 4
+    },
+    {
+      "id": "c5",
+      "no": "三（四）",
+      "title": "精准化：量化成效、反馈和复购",
+      "excerpt": "通过产品服务在创新、提质、降本、增效、绿色低碳等方面形成可感知、可量化的实际成效。",
+      "body": "服务商需要建立反馈闭环，并以市场占有率、用户口碑和复购情况验证长期服务价值。",
+      "confidence": 97,
+      "keywords": ["量化成效", "用户满意", "市场占有率", "复购"],
+      "industries": ["数字化评价", "客户成功"],
+      "sortOrder": 5
+    },
+    {
+      "id": "c6",
+      "no": "三（五）",
+      "title": "数智化：数据融合与人工智能",
+      "excerpt": "深化人工智能创新应用，切实赋能中小企业智能化升级。",
+      "body": "产品应融合企业业务数据，推动AI从规则和模型辅助决策向多模态感知、预测和自主执行演进。",
+      "confidence": 97,
+      "keywords": ["数据融合", "人工智能", "多模态", "预测", "自主执行"],
+      "industries": ["工业AI", "数据分析"],
+      "sortOrder": 6
+    },
+    {
+      "id": "c7",
+      "no": "三（六）及四",
+      "title": "安全价格要求和组织实施",
+      "excerpt": "建立企业申报—专家评审—入库培育—动态评价—择优推广的工作流程。",
+      "body": "产品需具备安全防护能力并合理透明收费，地方实施分类分级动态管理，通过全国和地方服务平台建设优质资源池并跨区域推广。",
+      "confidence": 98,
+      "keywords": ["安全测试", "透明收费", "入库培育", "动态评价", "资源池"],
+      "industries": ["安全评估", "平台服务", "供给治理"],
+      "sortOrder": 7
+    }
+  ],
+  "chainNodes": [
+    {
+      "id": "n1",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["行业场景图谱", "企业需求清单"],
+      "title": "中小企业细分场景需求",
+      "subtitle": "创新、提质、降本、增效、绿色和安全",
+      "section": "upstream",
+      "relation": "demand",
+      "evidenceLevel": "strong",
+      "confidence": 96,
+      "description": "指引以中小企业核心痛点和重点行业场景作为产品设计起点。",
+      "clauseIds": ["c1", "c2"],
+      "companyIds": [],
+      "evidenceIds": ["e1", "e2"],
+      "impactReason": "适用范围和小型化要求直接规定需求牵引。",
+      "iconKey": "target"
+    },
+    {
+      "id": "n2",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["机理模型", "行业知识库", "工业AI功能"],
+      "title": "场景化数字产品设计",
+      "subtitle": "行业知识、数据分析和AI",
+      "section": "upstream",
+      "relation": "product",
+      "evidenceLevel": "strong",
+      "confidence": 96,
+      "description": "服务商通过场景聚焦、知识沉淀、低资源占用和AI能力形成产品。",
+      "clauseIds": ["c2", "c6"],
+      "companyIds": [],
+      "evidenceIds": ["e2", "e6"],
+      "impactReason": "产品能力由小型化和数智化要求共同约束。",
+      "iconKey": "boxes"
+    },
+    {
+      "id": "n3",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["部署周期", "接口文档", "迁移测试"],
+      "title": "快速部署与开放集成",
+      "subtitle": "云化、模块化、低代码和数据迁移",
+      "section": "midstream",
+      "relation": "delivery",
+      "evidenceLevel": "strong",
+      "confidence": 97,
+      "description": "产品进入企业需要降低部署和操作门槛，同时支持第三方兼容、二次开发和数据迁移。",
+      "clauseIds": ["c3", "c4"],
+      "companyIds": [],
+      "evidenceIds": ["e3", "e4"],
+      "impactReason": "快速化和轻量化构成交付质量标准。",
+      "iconKey": "plug"
+    },
+    {
+      "id": "n4",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": ["量化成效", "安全测试", "收费公示"],
+      "title": "成效、安全和价格评价",
+      "subtitle": "用户价值与合规服务",
+      "section": "midstream",
+      "relation": "evaluation",
+      "evidenceLevel": "strong",
+      "confidence": 96,
+      "description": "产品需要证明实际价值、安全稳定、服务响应和收费合理透明。",
+      "clauseIds": ["c5", "c7"],
+      "companyIds": [],
+      "evidenceIds": ["e5", "e7"],
+      "impactReason": "精准化和共性要求决定动态评价维度。",
+      "iconKey": "shield-check"
+    },
+    {
+      "id": "n5",
+      "industryNodeEvidenceLevel": "pending",
+      "verificationSignals": ["地方实施细则", "入库名单", "平台资源池"],
+      "title": "地方遴选与资源池推广",
+      "subtitle": "申报、评审、入库、动态评价和跨区域共享",
+      "section": "downstream",
+      "relation": "policy",
+      "evidenceLevel": "strong",
+      "confidence": 88,
+      "description": "地方主管部门可以细化标准并建立产品资源池，通过全国和地方平台推广。",
+      "clauseIds": ["c7"],
+      "companyIds": [],
+      "evidenceIds": ["e8"],
+      "impactReason": "组织实施条款给出流程，但具体名单尚未形成。",
+      "iconKey": "list-checks"
+    },
+    {
+      "id": "n6",
+      "industryNodeEvidenceLevel": "pending",
+      "verificationSignals": ["用户满意度", "复购率", "合同和收入"],
+      "title": "市场采用与持续经营",
+      "subtitle": "口碑、复购和真实降本增效",
+      "section": "downstream",
+      "relation": "market",
+      "evidenceLevel": "pending",
+      "confidence": 68,
+      "description": "产品能否形成经营价值仍需由企业采用、续费、复购和使用成效验证。",
+      "clauseIds": ["c5", "c7"],
+      "companyIds": [],
+      "evidenceIds": ["e5", "e8", "e9"],
+      "impactReason": "政策只建立评价和推广框架，未提供合同或收入证据。",
+      "iconKey": "activity"
+    }
+  ],
+  "chainEdges": [
+    {"id": "edge1", "from": "n1", "to": "n2", "type": "strong", "label": "企业痛点和行业场景驱动产品设计"},
+    {"id": "edge2", "from": "n2", "to": "n3", "type": "strong", "label": "产品通过快速部署和开放集成进入企业"},
+    {"id": "edge3", "from": "n3", "to": "n4", "type": "strong", "label": "交付结果接受成效、安全、服务和价格评价"},
+    {"id": "edge4", "from": "n4", "to": "n5", "type": "medium", "label": "动态评价影响入库培育与择优推广"},
+    {"id": "edge5", "from": "n5", "to": "n6", "type": "medium", "label": "资源池推广需由真实采用和复购验证"}
+  ],
+  "companies": [],
+  "evidence": [
+    {
+      "id": "e1",
+      "evidenceObject": "policy_action",
+      "type": "policy_text",
+      "source": "工业和信息化部官方附件",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20267/496b514493884f9b89d38ef8acd556dd.pdf",
+      "title": "适用范围和需求导向",
+      "excerpt": "主要面向中小企业、数字化服务商和地方各级中小企业主管部门。",
+      "interpretation": "确认政策对象是服务供给培育和企业数字化需求对接，而不是单一软件采购。",
+      "confidence": 98,
+      "clauseIds": ["c1"],
+      "nodeIds": ["n1"],
+      "companyIds": []
+    },
+    {
+      "id": "e2",
+      "evidenceObject": "industry_node",
+      "type": "official_attachment",
+      "source": "工业和信息化部官方附件",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20267/496b514493884f9b89d38ef8acd556dd.pdf",
+      "title": "小型化培育方向",
+      "excerpt": "专注细分行业核心应用场景，避免大而全功能堆砌，并构建工业机理模型或行业知识库。",
+      "interpretation": "场景和行业知识成为产品质量标准，不能由泛化数字化业务标签建立公司映射。",
+      "confidence": 98,
+      "clauseIds": ["c2"],
+      "nodeIds": ["n1", "n2"],
+      "companyIds": []
+    },
+    {
+      "id": "e3",
+      "evidenceObject": "industry_node",
+      "type": "official_attachment",
+      "source": "工业和信息化部官方附件",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20267/496b514493884f9b89d38ef8acd556dd.pdf",
+      "title": "快速化部署和服务",
+      "excerpt": "鼓励采用模块化选配、轻量化部署、云化服务、开箱即用等模式。",
+      "interpretation": "政策提高标准化交付、培训和售后服务权重，但没有规定统一部署周期。",
+      "confidence": 98,
+      "clauseIds": ["c3"],
+      "nodeIds": ["n2", "n3"],
+      "companyIds": []
+    },
+    {
+      "id": "e4",
+      "evidenceObject": "industry_node",
+      "type": "official_attachment",
+      "source": "工业和信息化部官方附件",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20267/496b514493884f9b89d38ef8acd556dd.pdf",
+      "title": "开放接口和数据迁移",
+      "excerpt": "支持与第三方主流数字化产品兼容和快速对接，避免数据孤岛与厂商锁定。",
+      "interpretation": "开放性和可迁移性是明确评价方向，封闭生态不应被解释为政策优势。",
+      "confidence": 98,
+      "clauseIds": ["c4"],
+      "nodeIds": ["n3"],
+      "companyIds": []
+    },
+    {
+      "id": "e5",
+      "evidenceObject": "commercial_realization",
+      "type": "official_attachment",
+      "source": "工业和信息化部官方附件",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20267/496b514493884f9b89d38ef8acd556dd.pdf",
+      "title": "量化成效、口碑和复购",
+      "excerpt": "关注产品的市场占有率、用户口碑及复购情况，以用户满意度检验产品服务价值。",
+      "interpretation": "经营价值需要实际采用和复购证明，资源池入库本身不能替代商业证据。",
+      "confidence": 97,
+      "clauseIds": ["c5"],
+      "nodeIds": ["n4", "n6"],
+      "companyIds": []
+    },
+    {
+      "id": "e6",
+      "evidenceObject": "industry_node",
+      "type": "official_attachment",
+      "source": "工业和信息化部官方附件",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20267/496b514493884f9b89d38ef8acd556dd.pdf",
+      "title": "数据融合和人工智能演进",
+      "excerpt": "从规则或模型的辅助决策，向多模态感知、预测与自主执行的智能决策方向演进。",
+      "interpretation": "AI属于产品升级方向，不构成具体模型、算力或厂商采购证据。",
+      "confidence": 97,
+      "clauseIds": ["c6"],
+      "nodeIds": ["n2", "n4"],
+      "companyIds": []
+    },
+    {
+      "id": "e7",
+      "evidenceObject": "policy_action",
+      "type": "official_attachment",
+      "source": "工业和信息化部官方附件",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20267/496b514493884f9b89d38ef8acd556dd.pdf",
+      "title": "安全稳定和透明收费",
+      "excerpt": "鼓励通过第三方专业机构安全测试与评估，并杜绝隐性收费与捆绑销售。",
+      "interpretation": "安全评估和价格治理是共性门槛，但政策未指定测试机构、收费上限或服务商。",
+      "confidence": 98,
+      "clauseIds": ["c7"],
+      "nodeIds": ["n4"],
+      "companyIds": []
+    },
+    {
+      "id": "e8",
+      "evidenceObject": "policy_action",
+      "type": "official_attachment",
+      "source": "工业和信息化部官方附件",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20267/496b514493884f9b89d38ef8acd556dd.pdf",
+      "title": "地方遴选和优质资源池",
+      "excerpt": "建立企业申报—专家评审—入库培育—动态评价—择优推广的工作流程。",
+      "interpretation": "执行链清晰，但具体细则、名单、资源池和推广结果仍待地方落实。",
+      "confidence": 98,
+      "clauseIds": ["c7"],
+      "nodeIds": ["n5", "n6"],
+      "companyIds": []
+    },
+    {
+      "id": "e9",
+      "evidenceObject": "analysis_boundary",
+      "type": "policy_text",
+      "source": "工业和信息化部通知及官方附件",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_067d45af14c242f2a4c03f94d5c9b399.html",
+      "title": "当前没有统一补贴、价格上限和公司名单",
+      "excerpt": "通知要求各地做好产品培育、供需对接和标准研制应用，附件未列统一财政金额、采购数量、服务商或产品名单。",
+      "interpretation": "当前适用零公司结论；后续应从地方实施细则、入库名单和实际合同反查主体。",
+      "confidence": 98,
+      "clauseIds": ["c1", "c7"],
+      "nodeIds": ["n5", "n6"],
+      "companyIds": []
+    }
+  ],
+  "backgroundCards": [
+    {
+      "id": "bg1",
+      "title": "指引治理的是供给质量",
+      "body": "政策不要求中小企业采购某一产品，而是通过场景、部署、开放、成效、安全和价格标准筛选更适合中小企业的数字化供给。",
+      "evidenceIds": ["e1", "e2", "e7"]
+    },
+    {
+      "id": "bg2",
+      "title": "快速化不等于统一交付时限",
+      "body": "原文要求压缩部署周期、降低操作门槛并完善售后，但没有规定全国统一的上线天数或服务响应数值。",
+      "evidenceIds": ["e3"]
+    },
+    {
+      "id": "bg3",
+      "title": "开放迁移削弱厂商锁定",
+      "body": "第三方兼容、低代码和标准化数据迁移被明确纳入培育方向，封闭系统和高迁移成本不属于政策鼓励的竞争优势。",
+      "evidenceIds": ["e4"]
+    },
+    {
+      "id": "bg4",
+      "title": "资源池不是订单池",
+      "body": "地方入库和全国平台推广只能证明获得展示与培育资格，真实经营价值仍需由付费客户、续费、复购和降本增效效果验证。",
+      "evidenceIds": ["e5", "e8", "e9"]
+    }
+  ],
+  "compareInsights": {
+    "status": "not_used",
+    "comparableCount": 0,
+    "similarPolicies": [],
+    "contrastPolicies": [],
+    "insights": [
+      "本报告未启用横向对比，仅将“小快轻准”指引与其直接引用的专项行动、评测指标和场景图谱按上下位执行关系连接。"
+    ],
+    "limitations": [
+      "地方实施细则和入库产品尚未公布。",
+      "原文没有统一部署周期、价格上限、补贴金额或采购数量。",
+      "当前不根据工业软件、SaaS、低代码或AI业务标签建立公司关系。"
+    ]
+  },
+  "analysisCoverage": {
+    "status": "matched",
+    "analysisMethod": "工信部通知页和官方PDF附件全文人工结构化",
+    "textLength": 5571,
+    "clauseCount": 7,
+    "actionCount": 6,
+    "evidenceCount": 9,
+    "industryNodeCount": 6,
+    "companyCount": 0,
+    "listedCompanyMapCount": 0,
+    "companyImpactConclusion": "指引建立中小企业数字化产品和服务的培育评价框架，但没有具体服务商、产品名单、补贴、采购、合同或收入证据，因此当前适用零公司结论，不建立上市公司映射。",
+    "companyNoMatchReason": "没有正式入库产品、服务商名单或商业合同，主题相似和业务能力不能替代本政策主体证据。",
+    "limitations": [
+      "地方可因地制宜细化标准，执行口径可能存在地区差异。",
+      "资源池、平台上架和择优推广不等于政府采购。",
+      "免费培训、免费售后和透明收费可能增加服务成本，但实际价格和毛利未知。",
+      "需等待入库名单、企业合同、用户满意度和复购数据后再建立公司层。"
+    ]
+  }
+}
