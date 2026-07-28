@@ -69,6 +69,11 @@ import {
   type PolicyNetworkItem,
   type RelationType
 } from "./data/policy";
+import {
+  OPERATIONS_CURRENT_WINDOW_DAYS,
+  OPERATIONS_RECENT_REPORT_LIMIT,
+  operationsMainlines
+} from "./data/operationsOverview";
 import { isSupabaseConfigured, supabase } from "./lib/supabase";
 import { getAnalyticsSessionId, trackUserEvent, type TrackUserEventInput } from "./lib/analytics";
 import { loadCurrentUserAccess } from "./lib/adminAccess";
@@ -3750,6 +3755,207 @@ function jobStatusLabel(status: JobStatus) {
   return labels[status];
 }
 
+function rollingWindowStart(days: number): string {
+  const date = new Date();
+  date.setUTCHours(0, 0, 0, 0);
+  date.setUTCDate(date.getUTCDate() - Math.max(0, days - 1));
+  return date.toISOString().slice(0, 10);
+}
+
+function isRecentTimestamp(value: string | undefined, hours: number): boolean {
+  if (!value) return false;
+  const timestamp = Date.parse(value);
+  if (Number.isNaN(timestamp)) return false;
+  return timestamp >= Date.now() - hours * 60 * 60 * 1000;
+}
+
+function PolicyOperationsOverview({
+  reports,
+  pendingPolicies,
+  pendingPolicyError,
+  onOpenReport,
+  repositoryMode
+}: {
+  reports: PolicySummary[];
+  pendingPolicies: PendingPolicyAnalysisResult;
+  pendingPolicyError: string;
+  onOpenReport: (reportId: string) => void;
+  repositoryMode: RepositoryMode;
+}) {
+  const operations = pendingPolicies.operations;
+  const currentWindowStart = operations?.windowStart ?? rollingWindowStart(OPERATIONS_CURRENT_WINDOW_DAYS);
+  const returnedPending = pendingPolicies.rows;
+  const currentPendingRows = returnedPending.filter((item) => item.publishDate >= currentWindowStart);
+  const datedPendingRows = returnedPending.filter((item) => item.publishDate);
+  const oldestReturnedPublishDate = datedPendingRows.reduce(
+    (oldest, item) => (!oldest || item.publishDate < oldest ? item.publishDate : oldest),
+    ""
+  );
+  const pendingDetailsComplete = operations?.coverage.complete ?? pendingPolicies.total <= returnedPending.length;
+  const currentWindowComplete = operations
+    ? operations.coverage.complete
+    : pendingDetailsComplete ||
+      (Boolean(oldestReturnedPublishDate) && oldestReturnedPublishDate < currentWindowStart);
+  const pendingReadFailed = Boolean(pendingPolicyError);
+  const currentPendingTotal = operations?.current.total ?? currentPendingRows.length;
+  const historicalPendingTotal = operations?.historical.total ??
+    (currentWindowComplete ? Math.max(0, pendingPolicies.total - currentPendingRows.length) : null);
+  const currentPendingLabel = pendingReadFailed
+    ? "读取失败"
+    : operations || currentWindowComplete
+      ? String(currentPendingTotal)
+      : `至少 ${currentPendingTotal}`;
+  const historicalPendingLabel = pendingReadFailed
+    ? "读取失败"
+    : historicalPendingTotal !== null
+      ? String(historicalPendingTotal)
+      : "覆盖不足";
+  const recentReportChanges = reports.filter((item) =>
+    isRecentTimestamp(item.updatedAt ?? item.publishedAt, 24)
+  ).length;
+  const recentPendingChanges = returnedPending.filter((item) => isRecentTimestamp(item.updatedAt, 24)).length;
+  const recentChanges = operations?.recent24h.total ?? recentReportChanges + recentPendingChanges;
+  const recentChangesLabel = pendingReadFailed
+    ? reports.length > 0
+      ? `至少 ${recentReportChanges}`
+      : "读取失败"
+    : operations || pendingDetailsComplete
+      ? String(recentChanges)
+      : `至少 ${recentChanges}`;
+  const evidenceBlockerLabel = pendingReadFailed
+    ? "读取失败"
+    : operations
+      ? String(operations.evidenceBlockers.total)
+      : "未接入";
+  const evidenceBlockerDescription = operations
+    ? `${operations.evidenceBlockers.current} 项在当前窗口，${operations.evidenceBlockers.historical} 项在历史队列`
+    : "权威运营接口未启用，不推定为0";
+  const reportsById = new Map(reports.map((item) => [item.id, item]));
+  const recentReports = [...reports]
+    .filter((item) => item.status === "published")
+    .sort((left, right) => officialPublishSortValue(right) - officialPublishSortValue(left))
+    .slice(0, OPERATIONS_RECENT_REPORT_LIMIT);
+  const decision = pendingReadFailed
+    ? "待分析状态读取失败，先保留主线阅读与最近报告入口"
+    : currentWindowComplete && currentPendingTotal === 0
+      ? "当前窗口已收口，历史积压继续按价值排序处理"
+      : currentWindowComplete
+        ? `当前窗口有 ${currentPendingTotal} 项待分析政策`
+        : `当前窗口至少有 ${currentPendingTotal} 项待分析政策`;
+  const coverageNote = pendingReadFailed
+    ? "待分析安全接口本次读取失败，页面未使用缓存数字替代。"
+    : operations
+      ? `权威只读聚合已扫描 ${operations.coverage.scannedPolicies} 项政策；开放任务 ${operations.current.totalOpenAnalysisJobs + operations.historical.totalOpenAnalysisJobs} 个，陈旧任务 ${operations.current.staleOpenAnalysisJobs + operations.historical.staleOpenAnalysisJobs} 个。`
+      : pendingDetailsComplete
+        ? `兼容RPC已返回全部 ${pendingPolicies.total} 条记录；其人工处置口径可能滞后。`
+        : currentWindowComplete
+          ? `兼容RPC返回最近 ${returnedPending.length} 条；当前窗口可覆盖，历史总量仅作兼容显示。`
+          : `兼容RPC仅返回最近 ${returnedPending.length} 条，当前窗口和历史拆分均按不完整口径展示。`;
+
+  return (
+    <section className="panel operations-overview" aria-label="政策运营总览">
+      <header className="operations-overview-head">
+        <div>
+          <span className="status-badge blue">价值运营 · 只读</span>
+          <h2>{decision}</h2>
+          <p>
+            当前窗口按最近 {operations?.windowDays ?? OPERATIONS_CURRENT_WINDOW_DAYS} 日滚动计算。总览不创建任务、不启动自动分析，只呈现安全读接口和人工审定主线。
+          </p>
+        </div>
+        <div className="operations-overview-mode">
+          <span>数据模式</span>
+          <strong>{repositoryMode === "supabase" ? operations ? "权威只读聚合" : "兼容安全读取" : repositoryMode === "mock" ? "本地演示" : "接口未配置"}</strong>
+          <small>{currentWindowStart} 起</small>
+        </div>
+      </header>
+
+      <div className="operations-facts" aria-label="运营事实">
+        <article>
+          <Clock size={18} />
+          <span>当前窗口待分析</span>
+          <strong>{currentPendingLabel}</strong>
+          <p>{currentWindowComplete ? "当前窗口口径完整" : "明细截断，使用下限"}</p>
+        </article>
+        <article>
+          <ClipboardList size={18} />
+          <span>历史待分析</span>
+          <strong>{historicalPendingLabel}</strong>
+          <p>不设机械清零目标</p>
+        </article>
+        <article>
+          <RefreshCw size={18} />
+          <span>最近24小时变化</span>
+          <strong>{recentChangesLabel}</strong>
+          <p>已发布及待分析记录更新</p>
+        </article>
+        <article className={operations ? undefined : "unavailable"}>
+          <ShieldCheck size={18} />
+          <span>证据阻断</span>
+          <strong>{evidenceBlockerLabel}</strong>
+          <p>{evidenceBlockerDescription}</p>
+        </article>
+      </div>
+
+      <div className="operations-mainline-grid">
+        {operationsMainlines.map((mainline) => {
+          const linkedReports = mainline.reportIds
+            .map((reportId) => reportsById.get(reportId))
+            .filter((item): item is PolicySummary => Boolean(item));
+          return (
+            <article className="operations-mainline" key={mainline.id}>
+              <div className="operations-mainline-copy">
+                <span>{mainline.kicker}</span>
+                <h3>{mainline.title}</h3>
+                <p>{mainline.judgement}</p>
+              </div>
+              <div className="operations-chain" aria-label={`${mainline.title}传导链`}>
+                {mainline.chain.map((item, index) => (
+                  <span key={item}>
+                    {item}
+                    {index < mainline.chain.length - 1 && <ChevronRight size={13} aria-hidden="true" />}
+                  </span>
+                ))}
+              </div>
+              <div className="operations-mainline-bottom">
+                <div>
+                  <b>下一观察事实</b>
+                  <ol>
+                    {mainline.nextFacts.map((fact) => <li key={fact}>{fact}</li>)}
+                  </ol>
+                </div>
+                <div className="operations-report-links">
+                  <b>代表报告</b>
+                  {linkedReports.length > 0 ? linkedReports.map((item) => (
+                    <button key={item.id} type="button" onClick={() => onOpenReport(item.id)}>
+                      <span>{item.title}</span>
+                      <ChevronRight size={14} />
+                    </button>
+                  )) : <p>当前报告接口未返回主线代表报告。</p>}
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+      <footer className="operations-overview-foot">
+        <div>
+          <Network size={16} />
+          <span>{coverageNote}</span>
+        </div>
+        <div className="operations-recent-reports">
+          <b>最近报告</b>
+          {recentReports.length > 0 ? recentReports.map((item) => (
+            <button key={item.id} type="button" onClick={() => onOpenReport(item.id)}>
+              {item.title}
+            </button>
+          )) : <span>暂无可读取报告</span>}
+        </div>
+      </footer>
+    </section>
+  );
+}
+
 function PolicyListView({
   reports,
   jobs,
@@ -3783,6 +3989,12 @@ function PolicyListView({
   const latestPublishedDate = publishedReports[0]
     ? formatPolicyOfficialPublishCompact(publishedReports[0])
     : "待发布";
+  const hasCanonicalOperations = Boolean(pendingPolicies.operations);
+  const pendingQueueLabel = hasCanonicalOperations ? "待分析政策" : "未完成发布候选";
+  const pendingQueueTitle = hasCanonicalOperations ? "已入库但未分析的政策" : "兼容口径的未完成发布候选";
+  const pendingQueueDescription = hasCanonicalOperations
+    ? "这里展示仍处于人工分析队列的政策。普通用户只能查看列表安全字段，不能创建分析任务。"
+    : "权威只读聚合暂不可用，当前列表来自旧安全RPC，可能包含已处置但尚未完成手工发布的政策。";
   const stats: Array<{ label: string; value: string | number; icon: LucideIcon }> = [
     { label: "已发布报表", value: publishedReports.length, icon: FileText },
     { label: "最近发布", value: latestPublishedDate, icon: Clock },
@@ -3806,6 +4018,14 @@ function PolicyListView({
           <span>{error}</span>
         </section>
       )}
+
+      <PolicyOperationsOverview
+        reports={publishedReports}
+        pendingPolicies={pendingPolicies}
+        pendingPolicyError={pendingPolicyError}
+        onOpenReport={onOpenReport}
+        repositoryMode={repositoryMode}
+      />
 
       <section className="mobile-home-hero" aria-label="移动端政策工作台">
         <div className="mobile-home-title">
@@ -3831,7 +4051,7 @@ function PolicyListView({
             <strong>{publishedReports.length}</strong>
           </article>
           <article>
-            <span>待分析政策</span>
+            <span>{pendingQueueLabel}</span>
             <strong>{pendingPolicies.total}</strong>
           </article>
           <article>
@@ -3848,7 +4068,7 @@ function PolicyListView({
       <section className="dashboard-stats">
         <article className="panel stat-tile">
           <ClipboardList size={22} />
-          <span>待分析政策</span>
+          <span>{pendingQueueLabel}</span>
           <strong>{pendingPolicies.total}</strong>
         </article>
         {stats.map(({ label, value, icon: Icon }) => (
@@ -3864,12 +4084,12 @@ function PolicyListView({
         <div className="pending-policy-head">
           <div>
             <span className="status-badge blue">定时同步入库</span>
-            <h2>已入库但未分析的政策</h2>
-            <p>这里展示政策原文已入库、但尚未完成人工审核分析与发布的政策。普通用户只能查看清单，不能创建分析任务。</p>
+            <h2>{pendingQueueTitle}</h2>
+            <p>{pendingQueueDescription}</p>
           </div>
           <div className="pending-policy-count">
             <strong>{pendingPolicies.total}</strong>
-            <span>待分析</span>
+            <span>{hasCanonicalOperations ? "待分析" : "兼容候选"}</span>
           </div>
         </div>
         {pendingPolicyError && (
