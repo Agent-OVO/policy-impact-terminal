@@ -1,0 +1,163 @@
+{
+  "id": "2595c38a-3b3c-4003-be20-aa4da4b2feb3",
+  "policyId": "2595c38a-3b3c-4003-be20-aa4da4b2feb3",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "generatedAt": "2026-07-11T10:00:00+09:00",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "通知",
+  "substantivePolicyType": "农业机器人典型应用场景遴选",
+  "primaryActionType": "场景征集与遴选",
+  "policySignalStrength": "medium",
+  "implementationCertainty": "high",
+  "analysisDepth": "L3",
+  "analysisDepthReason": "政策明确种植、养殖、农产品初加工三大领域、11类应用环节、联合申报主体、技术成熟度、真实场景、安全与知识产权要求、推荐数量和2026年8月14日截止日期，执行路径清晰；但当前仅处申报阶段，尚无入选名单、财政金额、采购项目和公司点名。",
+  "followUpSignals": ["省级推荐名单", "2026年农业机器人典型应用场景名单", "联合申报主体和场景地点", "产品技术成熟度和真实应用数据", "地方推广支持和采购项目", "机器人销售、租赁和服务订单"],
+  "summary": {
+    "id": "2595c38a-3b3c-4003-be20-aa4da4b2feb3",
+    "title": "两部委关于开展农业领域机器人典型应用场景遴选工作的通知",
+    "issuer": "工业和信息化部办公厅、农业农村部办公厅",
+    "source": "工业和信息化部 - 政策文件库",
+    "publishDate": "2026-07-01",
+    "status": "draft",
+    "confidence": 92,
+    "industryCount": 5,
+    "companyCount": 0,
+    "evidenceCount": 8,
+    "primarySignal": "农业机器人真实场景遴选",
+    "category": "机器人应用"
+  },
+  "policy": {
+    "title": "两部委关于开展农业领域机器人典型应用场景遴选工作的通知",
+    "status": "已发布",
+    "issuer": "工业和信息化部办公厅、农业农村部办公厅",
+    "publishDate": "2026-07-01",
+    "effectiveDate": "2026-06-09",
+    "source": "工业和信息化部 - 政策文件库",
+    "category": "机器人应用",
+    "level": "中央部委",
+    "confidence": 96,
+    "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_750f6bdfb49e49188136c7bcb3b65dc7.html",
+    "scope": "种植、养殖和农产品初加工领域机器人应用",
+    "impactScope": "真实农业场景验证、联合申报、技术成熟度评价和推广复制",
+    "jurisdiction": "中国大陆",
+    "tags": ["农业机器人", "场景遴选", "种植", "养殖", "农产品加工"]
+  },
+  "brief": {
+    "judgement": "这项政策不是农业机器人补贴或采购计划，而是以真实场景和联合体申报筛选成熟方案：它把农情监测、耕整播栽、田间管理、采收、精准饲喂、养殖巡检、屠宰分选和仓储搬运等需求结构化，并要求产品已有实际应用、具备自主知识产权和安全方案；当前最有价值的是场景需求图谱，企业层面必须等待入选名单和订单后再映射。",
+    "summary": "政策面向种植、养殖、农产品初加工三大领域，附件一细化为11类应用环节。申报必须由机器人研制单位牵头，与农业社会化服务组织、家庭农场或农业企业等联合，参与单位原则上不超过5家；产品至少在1个真实农业生产场景中应用，并满足技术成熟度、知识产权、安全和法规要求。省级部门按优先顺序推荐，截止日期为2026年8月14日，后续由两部委组织遴选并发布名单。现阶段没有官方入选公司，因此本报告不建立公司关系。",
+    "keyPoints": [
+      "场景参考附件覆盖育苗、耕整、播栽、田间管理、收获、饲养、繁育、产品采集、废弃物处理、初加工和储运11类环节。",
+      "申报主体必须是机器人研制单位与实际农业应用方的联合体。",
+      "产品至少在1个真实生产场景中应用，政策偏向已有验证基础的产品。",
+      "评价同时关注效率、精度、可靠性、成本效益、自主知识产权和安全合规。",
+      "当前没有入选名单、预算或采购合同，公司层面的直接映射必须暂缓。"
+    ],
+    "methodology": "人工核验两部委通知及三份官方DOCX附件，包括场景参考、申报书和推荐表；产业链按场景需求、机器人产品、集成实施、农业运营和推广复制拆分；由于尚未公布申报或入选主体，companies和companyMap保持为空。"
+  },
+  "policyIndustryMap": [
+    {"id": "pi1", "industry": "种植机器人", "policyAction": "征集育苗、耕整、播栽、田间管理和收获场景", "impactType": "scenario_validation", "impactDirection": "positive", "evidenceLevel": "strong", "policyCloseness": "direct", "reason": "正文和附件直接列出种植环节典型场景，形成需求方向。", "relatedClauseIds": ["c1", "c2"], "relatedNodeIds": ["n1"], "watchSignals": ["省级推荐", "真实场景数据", "采收和植保应用"]},
+    {"id": "pi2", "industry": "养殖机器人", "policyAction": "征集饲养、繁育、产品采集和废弃物处理场景", "impactType": "scenario_validation", "impactDirection": "positive", "evidenceLevel": "strong", "policyCloseness": "direct", "reason": "政策明确精准饲喂、行为监测、疫苗注射、清污消杀等场景。", "relatedClauseIds": ["c1", "c2"], "relatedNodeIds": ["n2"], "watchSignals": ["养殖场部署", "疫病防控效果", "设备利用率"]},
+    {"id": "pi3", "industry": "农产品初加工和物流机器人", "policyAction": "征集屠宰、分级分选、搬运码垛和仓储管理场景", "impactType": "scenario_validation", "impactDirection": "positive", "evidenceLevel": "strong", "policyCloseness": "direct", "reason": "附件将初制加工和储运列为独立应用环节。", "relatedClauseIds": ["c1", "c2"], "relatedNodeIds": ["n3"], "watchSignals": ["分选效率", "仓储自动化", "加工企业采用"]},
+    {"id": "pi4", "industry": "机器人系统集成与AI感知", "policyAction": "要求机器人与AI、物联网和先进农艺融合", "impactType": "technology_integration", "impactDirection": "positive", "evidenceLevel": "strong", "policyCloseness": "direct", "reason": "申报条件要求体现机器人与人工智能、物联网等技术深度融合。", "relatedClauseIds": ["c3", "c4"], "relatedNodeIds": ["n4"], "watchSignals": ["感知精度", "自主作业", "系统可靠性"]},
+    {"id": "pi5", "industry": "农业社会化服务与场景运营", "policyAction": "要求研制单位与农场、农业企业和服务组织联合申报", "impactType": "business_model_validation", "impactDirection": "positive", "evidenceLevel": "strong", "policyCloseness": "direct", "reason": "联合体机制要求技术供给方与真实运营方共同证明应用价值。", "relatedClauseIds": ["c3", "c5"], "relatedNodeIds": ["n5"], "watchSignals": ["租赁和服务模式", "联合体名单", "复制推广"]}
+  ],
+  "industryChain": [{
+    "id": "chain1",
+    "chainName": "农业痛点—机器人产品—系统集成—真实场景验证—推广复制",
+    "policyRole": "政策从农业生产痛点出发征集成熟机器人方案，通过联合申报和省级推荐验证真实应用，再由两部委遴选形成可复制推广场景。",
+    "nodes": [
+      {"id": "n1", "policySensitivity": "high", "description": "种植场景覆盖苗期、耕种、管理和采收全流程。"},
+      {"id": "n2", "policySensitivity": "high", "description": "养殖场景覆盖饲喂、巡检、繁育、采集和清污。"},
+      {"id": "n3", "policySensitivity": "high", "description": "初加工和物流场景覆盖分选、搬运、码垛和仓储。"},
+      {"id": "n4", "policySensitivity": "high", "description": "机器人产品需融合感知、AI、物联网和安全设计。"},
+      {"id": "n5", "policySensitivity": "medium", "description": "农业运营主体负责真实场景验证和后续复制。"}
+    ],
+    "edges": [
+      {"from": "n1", "to": "n4", "relation": "technology_demand", "description": "种植痛点转化为精准作业和自主控制需求。"},
+      {"from": "n2", "to": "n4", "relation": "technology_demand", "description": "养殖环境推动巡检、饲喂和消杀机器人需求。"},
+      {"from": "n3", "to": "n4", "relation": "technology_demand", "description": "加工物流需要识别、分选和搬运技术。"},
+      {"from": "n4", "to": "n5", "relation": "application_validation", "description": "技术产品必须在真实农业运营场景中验证。"}
+    ]
+  }],
+  "companyMap": [],
+  "policyNetwork": [
+    {"id": "pn1", "relatedPolicy": "“机器人+”应用行动实施方案", "relationship": "implementation_linkage", "meaning": "农业场景遴选承接机器人在重点行业扩大应用的总体部署。", "evidenceLevel": "indirect", "watchSignals": ["机器人+农业项目", "推广目录"]},
+    {"id": "pn2", "relatedPolicy": "加快场景培育和开放推动新场景大规模应用的实施意见", "relationship": "scenario_linkage", "meaning": "本次工作通过场景开放和典型案例形成需求牵引。", "evidenceLevel": "indirect", "watchSignals": ["场景开放", "规模化复制"]},
+    {"id": "pn3", "relatedPolicy": "乡村全面振兴和农业农村现代化政策", "relationship": "strategic_basis", "meaning": "提升农业生产精准化、智能化是本次遴选的上位需求。", "evidenceLevel": "indirect", "watchSignals": ["农机更新", "智慧农业", "社会化服务"]}
+  ],
+  "investmentDirection": {
+    "primaryDirection": "农业机器人真实场景验证和商业模式观察",
+    "directionStrength": "medium",
+    "timeHorizon": "medium_term",
+    "watchIndustries": ["种植机器人", "养殖机器人", "农产品加工机器人", "农业AI感知", "农业社会化服务"],
+    "watchChainNodes": ["真实农业痛点", "机器人产品成熟度", "联合体场景验证", "遴选名单", "复制推广"],
+    "watchCompanyTypes": ["后续入选名单中的机器人研制单位", "联合申报的农业运营主体", "拥有真实场景数据和服务能力的集成商"],
+    "watchCompanies": [],
+    "nearTermCatalysts": ["省级推荐截止", "两部委入选名单", "地方支持政策", "真实场景订单"],
+    "keyRisks": ["当前无公司名单", "场景遴选不等于采购", "农业环境复杂导致可靠性和成本挑战", "小农户分散可能限制商业模式"],
+    "minimumEvidenceNeeded": ["正式入选名单", "产品型号和真实应用地点", "效率、精度和成本数据", "采购、租赁或服务合同"],
+    "doNotOverread": ["不得按农业机器人概念提前绑定公司", "典型场景不等于财政补贴", "入选后仍需订单和规模化验证"],
+    "summary": "政策清晰描绘了农业机器人需求和申报门槛，但尚未产生公司级事实。当前应建立场景和技术观察池，待正式名单及合同出现后再做公司反查。"
+  },
+  "actions": [
+    {"id": "a1", "title": "征集三大领域应用场景", "actionType": "场景征集", "actionEvidenceLevel": "strong", "implementationDependency": "省级组织申报", "body": "面向种植、养殖和农产品初加工征集机器人场景。", "signal": "positive", "confidence": 98, "clauseIds": ["c1", "c2"], "sortOrder": 1},
+    {"id": "a2", "title": "要求联合体申报", "actionType": "主体组织", "actionEvidenceLevel": "strong", "implementationDependency": "研制单位和农业运营方合作", "body": "机器人研制单位牵头，与服务组织、农场或农业企业联合申报。", "signal": "positive", "confidence": 97, "clauseIds": ["c3"], "sortOrder": 2},
+    {"id": "a3", "title": "设置成熟度和安全门槛", "actionType": "技术门槛", "actionEvidenceLevel": "strong", "implementationDependency": "真实应用和证明材料", "body": "产品需至少在一个真实场景应用，并满足知识产权和安全要求。", "signal": "constraint", "confidence": 97, "clauseIds": ["c4"], "sortOrder": 3},
+    {"id": "a4", "title": "省级审核和限额推荐", "actionType": "审核推荐", "actionEvidenceLevel": "strong", "implementationDependency": "省级工信和农业农村部门", "body": "省级部门按优先顺序推荐，每个应用环节原则上不超过5个。", "signal": "constraint", "confidence": 96, "clauseIds": ["c5"], "sortOrder": 4},
+    {"id": "a5", "title": "组织遴选并推广", "actionType": "名单遴选", "actionEvidenceLevel": "strong", "implementationDependency": "两部委评审和后续地方支持", "body": "两部委遴选并公布典型应用场景，鼓励地方支持和优先推广。", "signal": "positive", "confidence": 95, "clauseIds": ["c6"], "sortOrder": 5}
+  ],
+  "clauses": [
+    {"id": "c1", "no": "一", "title": "三大领域", "excerpt": "面向种植、养殖、农产品初加工3个重点领域。", "body": "聚焦关键环节征集成熟机器人应用场景。", "confidence": 99, "keywords": ["种植", "养殖", "初加工"], "industries": ["农业机器人"], "sortOrder": 1},
+    {"id": "c2", "no": "附件一", "title": "11类应用环节", "excerpt": "场景参考覆盖育苗、耕整、播栽、田间管理、收获、饲养、繁育、产品采集、废弃物处理、初加工和储运。", "body": "农业机器人典型应用场景参考细化11类环节。", "confidence": 99, "keywords": ["11类场景", "应用环节"], "industries": ["农业机器人"], "sortOrder": 2},
+    {"id": "c3", "no": "二（一）", "title": "联合体申报", "excerpt": "由机器人研制单位牵头，与农业社会化服务组织、家庭农场、农业企业等联合申报，参与单位原则上不超过5家。", "body": "供给方和应用方共同申报。", "confidence": 98, "keywords": ["联合体", "不超过5家"], "industries": ["系统集成", "农业服务"], "sortOrder": 3},
+    {"id": "c4", "no": "二（二）至（五）", "title": "成熟度、知识产权和安全", "excerpt": "已至少在1个真实农业生产场景中应用，核心知识产权清晰，并符合安全和相关法律法规。", "body": "产品需证明技术成熟、应用效果和安全合规。", "confidence": 98, "keywords": ["真实场景", "知识产权", "安全"], "industries": ["机器人制造"], "sortOrder": 4},
+    {"id": "c5", "no": "三（一）（二）", "title": "申报和推荐", "excerpt": "省级部门审核推荐，2026年8月14日前报送，每个应用环节原则上不超过5个。", "body": "省级部门负责审核并排序推荐。", "confidence": 98, "keywords": ["8月14日", "推荐顺序"], "industries": ["政策执行"], "sortOrder": 5},
+    {"id": "c6", "no": "三（三）", "title": "遴选发布和推广", "excerpt": "两部委组织遴选并公布名单，鼓励地方对入选场景给予政策支持并优先推广。", "body": "入选后进入示范和复制推广阶段。", "confidence": 97, "keywords": ["遴选", "公布", "推广"], "industries": ["场景运营"], "sortOrder": 6}
+  ],
+  "chainNodes": [
+    {"id": "n1", "title": "种植机器人场景", "subtitle": "从育苗到收获", "section": "upstream", "relation": "direct", "evidenceLevel": "strong", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["作业效率", "精度", "真实应用"], "confidence": 97, "description": "覆盖育苗、耕整、播栽、田间管理和收获。", "clauseIds": ["c1", "c2"], "companyIds": [], "evidenceIds": ["e1", "e2"], "impactReason": "正文和附件直接列明。", "iconKey": "plant"},
+    {"id": "n2", "title": "养殖机器人场景", "subtitle": "饲喂巡检和清污", "section": "upstream", "relation": "direct", "evidenceLevel": "strong", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["饲喂精度", "疫病防控", "设备可靠性"], "confidence": 97, "description": "覆盖饲养、繁育、产品采集和废弃物处理。", "clauseIds": ["c1", "c2"], "companyIds": [], "evidenceIds": ["e1", "e2"], "impactReason": "正文和附件直接列明。", "iconKey": "farm"},
+    {"id": "n3", "title": "初加工与物流机器人", "subtitle": "分选搬运和仓储", "section": "midstream", "relation": "direct", "evidenceLevel": "strong", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["分选准确率", "搬运效率", "仓储应用"], "confidence": 96, "description": "覆盖屠宰、分级分选、搬运码垛和仓储管理。", "clauseIds": ["c1", "c2"], "companyIds": [], "evidenceIds": ["e1", "e2"], "impactReason": "正文和附件直接列明。", "iconKey": "logistics"},
+    {"id": "n4", "title": "机器人产品与智能系统", "subtitle": "AI、物联网和安全", "section": "downstream", "relation": "direct", "evidenceLevel": "strong", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["核心技术", "自主知识产权", "安全方案"], "confidence": 94, "description": "研制单位需证明产品性能、核心技术和系统安全。", "clauseIds": ["c3", "c4"], "companyIds": [], "evidenceIds": ["e3", "e4", "e5"], "impactReason": "申报门槛直接要求。", "iconKey": "robot"},
+    {"id": "n5", "title": "农业场景运营和推广", "subtitle": "联合验证与复制", "section": "support", "relation": "direct", "evidenceLevel": "strong", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["联合体", "入选名单", "推广订单"], "confidence": 92, "description": "农业运营主体提供真实场景，入选后形成示范和复制。", "clauseIds": ["c3", "c5", "c6"], "companyIds": [], "evidenceIds": ["e3", "e6", "e7", "e8"], "impactReason": "联合申报和推广机制直接规定。", "iconKey": "service"}
+  ],
+  "chainEdges": [
+    {"id": "edge1", "from": "n1", "to": "n4", "type": "demand", "confidence": 90, "reason": "种植痛点提出机器人技术需求。"},
+    {"id": "edge2", "from": "n2", "to": "n4", "type": "demand", "confidence": 90, "reason": "养殖痛点提出机器人技术需求。"},
+    {"id": "edge3", "from": "n3", "to": "n4", "type": "demand", "confidence": 88, "reason": "加工物流痛点提出识别和自动化需求。"},
+    {"id": "edge4", "from": "n4", "to": "n5", "type": "validation", "confidence": 92, "reason": "产品需与农业运营方联合完成真实场景验证。"}
+  ],
+  "companies": [],
+  "evidence": [
+    {"id": "e1", "title": "通知正文", "source": "工业和信息化部、农业农村部", "type": "policy", "excerpt": "面向种植、养殖、农产品初加工三个重点领域征集机器人典型应用场景。", "interpretation": "政策直接形成三大场景需求框架。", "evidenceObject": "policy_action", "confidence": 99, "clauseIds": ["c1"], "nodeIds": ["n1", "n2", "n3"], "companyIds": []},
+    {"id": "e2", "title": "农业机器人典型应用场景参考", "source": "两部委官方附件一", "type": "attachment", "excerpt": "附件一列出11类应用环节及典型场景。", "interpretation": "附件提供细粒度需求图谱。", "evidenceObject": "industry_node", "confidence": 99, "clauseIds": ["c2"], "nodeIds": ["n1", "n2", "n3"], "companyIds": []},
+    {"id": "e3", "title": "联合体申报要求", "source": "通知正文", "type": "policy", "excerpt": "由机器人研制单位牵头，与农业服务组织、家庭农场、农业企业等联合申报。", "interpretation": "政策要求技术方和应用方共同证明场景价值。", "evidenceObject": "implementation_condition", "confidence": 98, "clauseIds": ["c3"], "nodeIds": ["n4", "n5"], "companyIds": []},
+    {"id": "e4", "title": "真实场景成熟度要求", "source": "通知正文", "type": "policy", "excerpt": "产品已至少在1个真实农业生产场景中应用。", "interpretation": "政策偏向已有验证基础的成熟产品。", "evidenceObject": "implementation_condition", "confidence": 99, "clauseIds": ["c4"], "nodeIds": ["n4"], "companyIds": []},
+    {"id": "e5", "title": "申报书技术和效益字段", "source": "两部委官方附件二", "type": "attachment", "excerpt": "申报书要求说明机器人功能、关键指标、应用成效、成本效益、先进性和推广计划。", "interpretation": "评审将关注可量化效果和商业复制能力。", "evidenceObject": "implementation_condition", "confidence": 98, "clauseIds": ["c4"], "nodeIds": ["n4", "n5"], "companyIds": []},
+    {"id": "e6", "title": "推荐表", "source": "两部委官方附件三", "type": "attachment", "excerpt": "推荐表记录场景、应用环节、场景简介、申报主体和联系方式。", "interpretation": "后续推荐数据可用于建立场景—主体索引。", "evidenceObject": "implementation_condition", "confidence": 98, "clauseIds": ["c5"], "nodeIds": ["n5"], "companyIds": []},
+    {"id": "e7", "title": "截止日期和推荐限额", "source": "通知正文", "type": "policy", "excerpt": "申报材料于2026年8月14日前报送，每个应用环节推荐数量原则上不超过5个。", "interpretation": "省级推荐存在明确时间表和筛选强度。", "evidenceObject": "implementation_condition", "confidence": 99, "clauseIds": ["c5"], "nodeIds": ["n5"], "companyIds": []},
+    {"id": "e8", "title": "公司映射边界", "source": "正文及三份附件核验", "type": "analysis_boundary", "excerpt": "通知和附件未公布具体申报单位、推荐单位或入选名单。", "interpretation": "当前不具备建立公司政策关系的事实基础。", "evidenceObject": "research_boundary", "confidence": 99, "clauseIds": ["c6"], "nodeIds": ["n5"], "companyIds": []}
+  ],
+  "backgroundCards": [
+    {"id": "bg1", "title": "场景遴选不是采购", "body": "政策征集和评价成熟应用方案，没有统一预算、采购数量或设备目录。", "evidenceIds": ["e1", "e7"]},
+    {"id": "bg2", "title": "联合体降低技术脱离需求风险", "body": "研制单位必须与实际农业运营主体合作，强调真实需求和应用效果。", "evidenceIds": ["e3", "e5"]},
+    {"id": "bg3", "title": "公司关系等待名单", "body": "只有后续推荐和入选名单公开后，才能建立政策点名主体及其订单跟踪。", "evidenceIds": ["e6", "e8"]}
+  ],
+  "compareInsights": {
+    "comparableCount": 1,
+    "similarPolicies": ["2025年先进计算赋能新质生产力典型应用案例名单"],
+    "contrastPolicies": [],
+    "insights": ["两者都通过典型场景促进技术推广。", "农业机器人当前处征集阶段，先进计算样本已公布名单，因此公司证据成熟度明显不同。"],
+    "limitations": ["未公布名单前不能用其他机器人政策的公司主体替代本次证据。"]
+  },
+  "analysisCoverage": {
+    "status": "standard_complete_candidate",
+    "analysisMethod": "官方正文和三份DOCX附件人工核验",
+    "evidenceCount": 8,
+    "industryNodeCount": 5,
+    "companyCount": 0,
+    "companyImpactConclusion": "当前文件未公布申报、推荐或入选主体，缺乏任何公司级政策点名证据，因此不建立公司映射；应等待正式名单后再依据具体场景、产品和主体补充。",
+    "limitations": ["尚无入选名单", "未取得地方推荐材料", "没有预算、采购和合同数据", "正式名单发布后需重建公司层"]
+  }
+}

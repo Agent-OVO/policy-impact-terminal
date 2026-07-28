@@ -1,0 +1,425 @@
+{
+  "id": "78f1c992-a7be-4eca-8443-5571f4328438",
+  "policyId": "78f1c992-a7be-4eca-8443-5571f4328438",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "generatedAt": "2026-07-12T19:10:00+08:00",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "公告",
+  "substantivePolicyType": "量子信息标准化技术委员会成立",
+  "primaryActionType": "标准治理组织建设",
+  "policySignalStrength": "medium",
+  "implementationCertainty": "high",
+  "analysisDepth": "L2",
+  "analysisDepthReason": "公告明确成立量子信息标准化技术委员会、编号、工作范围、委员数量和秘书处，标准治理组织已落地；但尚未公布具体标准项目、时间表、试验验证安排、采购要求或企业经营兑现，因此人工复核将规则初判的L3降为L2。",
+  "followUpSignals": [
+    "量子信息标准体系与项目计划",
+    "标准征求意见稿",
+    "试验验证和互操作测评",
+    "标准正式发布及实施日期",
+    "采购、认证或监管引用"
+  ],
+  "summary": {
+    "id": "78f1c992-a7be-4eca-8443-5571f4328438",
+    "title": "中华人民共和国工业和信息化部公告2026年第15号",
+    "issuer": "工业和信息化部",
+    "source": "工业和信息化部 - 政策文件库",
+    "publishDate": "2026-07-03",
+    "status": "draft",
+    "confidence": 93,
+    "industryCount": 4,
+    "companyCount": 0,
+    "evidenceCount": 5,
+    "primarySignal": "工信部成立量子信息标准化技术委员会MIIT/TC10",
+    "category": "量子信息与产业标准"
+  },
+  "policy": {
+    "title": "中华人民共和国工业和信息化部公告2026年第15号",
+    "status": "已发布",
+    "issuer": "工业和信息化部",
+    "publishDate": "2026-07-03",
+    "effectiveDate": "2026-06-26",
+    "source": "工业和信息化部 - 政策文件库",
+    "category": "量子信息与产业标准",
+    "level": "中央部委",
+    "confidence": 96,
+    "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/gg/art/2026/art_64bc685725aa41b28fa7a8a7305ea757.html",
+    "scope": "量子信息基础共性、量子计算、量子通信和量子精密测量行业标准制修订",
+    "impactScope": "量子技术术语、接口、测试方法、互操作、性能评价、安全要求及后续一致性测评",
+    "jurisdiction": "中国大陆",
+    "tags": ["量子信息", "行业标准", "量子计算", "量子通信", "量子精密测量", "中国信通院"]
+  },
+  "brief": {
+    "judgement": "公告的确定性价值是量子信息行业标准治理组织已经成立，未来标准立项、技术接口、测试方法和一致性评价将拥有正式归口机制；但当前只完成组织建设，没有具体标准项目、强制采用、采购或公司订单证据，因此应关注后续标准计划和测评体系，而不建立公司级受益结论。",
+    "summary": "工信部成立量子信息标准化技术委员会，编号MIIT/TC10，负责基础共性、量子计算、量子通信和量子精密测量等领域行业标准制修订。首届委员会由62名委员组成，秘书处由中国信息通信研究院承担。政策传导当前停留在“标准组织成立”，尚未进入具体标准立项、发布实施、采购引用或经营兑现。",
+    "keyPoints": [
+      "量子信息行业标准工作获得正式归口组织，组织建设具有确定性。",
+      "标准范围覆盖基础共性、量子计算、量子通信和量子精密测量。",
+      "中国信通院承担秘书处，证明公共标准组织角色，不等于上市公司订单。",
+      "公告未给出具体标准项目、完成周期、预算、采购、认证或强制实施安排。",
+      "首项公司结论为零公司，不因量子概念或委员身份推导投资受益。"
+    ],
+    "methodology": "仅使用工信部公告正文确认委员会、编号、工作范围、委员数量和秘书处；未以委员名单、量子概念标签或既有业务能力建立公司映射。按照“组织成立—标准立项—试验验证—正式发布—市场采用”传导链定位当前节点。"
+  },
+  "policyIndustryMap": [
+    {
+      "id": "pi1",
+      "industry": "量子信息标准治理与基础共性",
+      "policyAction": "成立MIIT/TC10并建立行业标准归口机制",
+      "impactType": "standard_governance",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "委员会成立能够统一术语、框架和基础共性标准的组织入口，但具体项目仍待后续立项。",
+      "relatedClauseIds": ["c1", "c2"],
+      "relatedNodeIds": ["n1"],
+      "watchSignals": []
+    },
+    {
+      "id": "pi2",
+      "industry": "量子计算",
+      "policyAction": "将量子计算纳入行业标准制修订范围",
+      "impactType": "standard_setting",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "后续可能形成接口、性能、软件栈、测试方法和互操作标准，但公告尚未列出项目。",
+      "relatedClauseIds": ["c2"],
+      "relatedNodeIds": ["n2"],
+      "watchSignals": []
+    },
+    {
+      "id": "pi3",
+      "industry": "量子通信与量子精密测量",
+      "policyAction": "将量子通信和量子精密测量纳入行业标准制修订范围",
+      "impactType": "standard_setting",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "标准可能影响网络接口、设备性能、安全要求和测量方法，但尚无标准文本和实施要求。",
+      "relatedClauseIds": ["c2"],
+      "relatedNodeIds": ["n2"],
+      "watchSignals": []
+    },
+    {
+      "id": "pi4",
+      "industry": "检测认证与一致性测评",
+      "policyAction": "为后续试验验证、互操作和符合性评价建立制度前提",
+      "impactType": "compliance_service",
+      "impactDirection": "pending",
+      "evidenceLevel": "pending",
+      "policyCloseness": "indirect",
+      "reason": "只有具体标准发布并被认证、采购或监管采用后，检测测评需求才可能形成。",
+      "relatedClauseIds": ["c1", "c2", "c3"],
+      "relatedNodeIds": ["n3", "n4"],
+      "watchSignals": []
+    }
+  ],
+  "industryChain": [
+    {
+      "id": "chain1",
+      "chainName": "标准组织成立—项目立项—试验验证—发布实施—市场采用",
+      "policyRole": "本公告只完成第一步标准治理组织建设，后续必须经过具体标准项目、技术验证、发布实施以及采购或认证采用，才能传导到企业经营。",
+      "nodes": [
+        {"id": "n1", "policySensitivity": "high", "description": "MIIT/TC10成立，标准治理组织和归口机制已经落地。"},
+        {"id": "n2", "policySensitivity": "high", "description": "量子计算、通信和测量领域的具体标准项目仍待立项。"},
+        {"id": "n3", "policySensitivity": "medium", "description": "试验验证、互操作和一致性测评需等待标准草案与测试安排。"},
+        {"id": "n4", "policySensitivity": "high", "description": "标准被采购、认证或监管引用后，才可能形成经营影响。"}
+      ],
+      "edges": [
+        {"from": "n1", "to": "n2", "relation": "governance_to_projects", "description": "委员会组织后续标准项目规划和制修订。"},
+        {"from": "n2", "to": "n3", "relation": "projects_to_validation", "description": "具体标准项目需要技术验证、征求意见和一致性测试。"},
+        {"from": "n3", "to": "n4", "relation": "validation_to_adoption", "description": "标准发布并被市场或监管采用后才形成需求传导。"}
+      ]
+    }
+  ],
+  "companyMap": [],
+  "policyNetwork": [
+    {
+      "id": "pn1",
+      "relatedPolicy": "工业和信息化部办公厅关于印发2026年第四批行业标准制修订项目计划的通知",
+      "relationship": "contrast_policy",
+      "meaning": "委员会公告解决量子信息标准归口组织问题，标准项目计划才会提供具体项目、周期和起草主体；两者不能混为订单或市场份额。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2026-07-07",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_6f8bfa6c47244cf791073fb27e318c29.html",
+      "watchSignals": []
+    },
+    {
+      "id": "pn2",
+      "relatedPolicy": "后续量子信息行业标准体系和项目计划",
+      "relationship": "follow_up_catalyst",
+      "meaning": "只有后续文件明确标准项目、技术范围、起草主体和完成周期，才能把组织建设转化为具体产业研究任务。",
+      "evidenceLevel": "pending",
+      "watchSignals": []
+    }
+  ],
+  "investmentDirection": {
+    "primaryDirection": "当前只提高对量子信息标准体系和测评基础设施的研究关注，不提高任何上市公司投资优先级。",
+    "directionStrength": "low",
+    "timeHorizon": "medium_term",
+    "watchIndustries": ["量子信息标准", "量子计算测试", "量子通信互操作", "量子精密测量评价", "检测认证"],
+    "watchChainNodes": ["标准项目立项", "试验验证", "正式发布与实施", "采购和认证采用"],
+    "watchCompanyTypes": ["标准技术支撑机构", "量子设备与系统厂商", "检测认证机构"],
+    "watchCompanies": [],
+    "nearTermCatalysts": [],
+    "keyRisks": ["标准组织建设周期较长", "标准可能为推荐性而非强制性", "委员或参与单位身份不代表订单", "量子产业商业化节奏不确定"],
+    "minimumEvidenceNeeded": [],
+    "doNotOverread": ["成立委员会不等于量子产业订单释放", "中国信通院承担秘书处不构成上市公司映射", "委员名单不等于受益公司名单", "量子概念业务不自动形成政策关系"],
+    "summary": "当前政策只建立标准治理组织，投资研究应等待具体标准项目和市场采用证据，不应提前罗列量子概念股。"
+  },
+  "actions": [
+    {
+      "id": "a1",
+      "actionType": "组织建设",
+      "actionEvidenceLevel": "strong",
+      "title": "成立量子信息标准化技术委员会",
+      "body": "工信部成立量子信息标准化技术委员会，编号MIIT/TC10，为行业标准制修订建立正式归口组织。",
+      "signal": "neutral",
+      "confidence": 96,
+      "clauseIds": ["c1"],
+      "sortOrder": 1
+    },
+    {
+      "id": "a2",
+      "actionType": "标准范围",
+      "actionEvidenceLevel": "strong",
+      "title": "明确四类标准工作范围",
+      "body": "委员会负责基础共性、量子计算、量子通信和量子精密测量等领域行业标准制修订。",
+      "signal": "beneficiary",
+      "confidence": 95,
+      "clauseIds": ["c2"],
+      "sortOrder": 2
+    },
+    {
+      "id": "a3",
+      "actionType": "组织配置",
+      "actionEvidenceLevel": "strong",
+      "title": "确定首届委员和秘书处",
+      "body": "首届委员会由62名委员组成，秘书处由中国信息通信研究院承担，组织运行主体已经明确。",
+      "signal": "neutral",
+      "confidence": 95,
+      "clauseIds": ["c3"],
+      "sortOrder": 3
+    }
+  ],
+  "clauses": [
+    {
+      "id": "c1",
+      "no": "委员会成立",
+      "title": "成立MIIT/TC10",
+      "excerpt": "工业和信息化部决定成立量子信息标准化技术委员会。",
+      "body": "该条确认正式标准治理组织已经成立，但没有给出具体标准项目。",
+      "confidence": 96,
+      "keywords": ["量子信息", "标准化技术委员会", "MIIT/TC10"],
+      "industries": ["量子信息标准治理"],
+      "sortOrder": 1
+    },
+    {
+      "id": "c2",
+      "no": "工作范围",
+      "title": "覆盖量子信息四类领域",
+      "excerpt": "主要负责基础共性、量子计算、量子通信、量子精密测量等领域行业标准制修订工作。",
+      "body": "该条确定标准工作的产业边界，后续需由具体项目明确接口、测试和评价内容。",
+      "confidence": 96,
+      "keywords": ["基础共性", "量子计算", "量子通信", "量子精密测量"],
+      "industries": ["量子计算", "量子通信", "量子精密测量"],
+      "sortOrder": 2
+    },
+    {
+      "id": "c3",
+      "no": "组织构成",
+      "title": "62名委员和信通院秘书处",
+      "excerpt": "第一届委员会由62名委员组成，秘书处由中国信息通信研究院承担。",
+      "body": "该条确认委员会组织配置和技术支撑单位，不直接证明采购、项目或上市公司受益。",
+      "confidence": 95,
+      "keywords": ["62名委员", "秘书处", "中国信息通信研究院"],
+      "industries": ["标准技术服务"],
+      "sortOrder": 3
+    }
+  ],
+  "chainNodes": [
+    {
+      "id": "n1",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": [],
+      "title": "标准治理组织",
+      "subtitle": "委员会和秘书处构成正式归口机制",
+      "section": "upstream",
+      "relation": "policy",
+      "evidenceLevel": "strong",
+      "confidence": 95,
+      "description": "MIIT/TC10已经成立，标准组织基础明确。",
+      "clauseIds": ["c1", "c3"],
+      "companyIds": [],
+      "evidenceIds": ["e1", "e4"],
+      "impactReason": "公告明确委员会编号、委员数量和秘书处。",
+      "iconKey": "landmark"
+    },
+    {
+      "id": "n2",
+      "industryNodeEvidenceLevel": "pending",
+      "verificationSignals": [],
+      "title": "标准项目规划与立项",
+      "subtitle": "具体标准名称、周期和起草主体尚待公布",
+      "section": "midstream",
+      "relation": "pending",
+      "evidenceLevel": "pending",
+      "confidence": 72,
+      "description": "公告只规定工作范围，尚未列出具体标准项目。",
+      "clauseIds": ["c2"],
+      "companyIds": [],
+      "evidenceIds": ["e2", "e3", "e5"],
+      "impactReason": "标准项目是从组织建设进入产业影响的下一道门。",
+      "iconKey": "clipboard"
+    },
+    {
+      "id": "n3",
+      "industryNodeEvidenceLevel": "pending",
+      "verificationSignals": [],
+      "title": "试验验证与测评",
+      "subtitle": "标准草案形成后才可能出现测试和认证需求",
+      "section": "downstream",
+      "relation": "pending",
+      "evidenceLevel": "pending",
+      "confidence": 60,
+      "description": "当前没有试验验证、认证或测评安排。",
+      "clauseIds": ["c2"],
+      "companyIds": [],
+      "evidenceIds": ["e5"],
+      "impactReason": "测试测评需求依赖具体标准内容和实施方式。",
+      "iconKey": "check-circle"
+    },
+    {
+      "id": "n4",
+      "industryNodeEvidenceLevel": "pending",
+      "verificationSignals": [],
+      "title": "标准采用与经营兑现",
+      "subtitle": "采购、认证或监管采用决定最终传导",
+      "section": "support",
+      "relation": "market",
+      "evidenceLevel": "pending",
+      "confidence": 48,
+      "description": "公告没有采购、预算、订单或收入信息，经营影响尚不能确认。",
+      "clauseIds": ["c1", "c2", "c3"],
+      "companyIds": [],
+      "evidenceIds": ["e5"],
+      "impactReason": "只有标准发布并被采用后，才可能形成适配、检测或采购需求。",
+      "iconKey": "activity"
+    }
+  ],
+  "chainEdges": [
+    {"id": "edge1", "from": "n1", "to": "n2", "type": "strong", "label": "委员会组织具体标准项目"},
+    {"id": "edge2", "from": "n2", "to": "n3", "type": "medium", "label": "标准草案进入技术验证和测评"},
+    {"id": "edge3", "from": "n3", "to": "n4", "type": "weak", "label": "发布实施和市场采用决定经营影响"}
+  ],
+  "companies": [],
+  "evidence": [
+    {
+      "id": "e1",
+      "evidenceObject": "policy_action",
+      "type": "policy_text",
+      "source": "工业和信息化部公告正文",
+      "title": "成立标准化技术委员会",
+      "excerpt": "工业和信息化部决定成立量子信息标准化技术委员会。",
+      "interpretation": "用于确认标准治理组织已经成立，不证明具体标准项目或企业订单。",
+      "confidence": 96,
+      "clauseIds": ["c1"],
+      "nodeIds": ["n1"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c1"], "nodeIds": ["n1"]}
+    },
+    {
+      "id": "e2",
+      "evidenceObject": "industry_node",
+      "type": "policy_text",
+      "source": "工业和信息化部公告正文",
+      "title": "量子计算标准范围",
+      "excerpt": "主要负责基础共性、量子计算等领域行业标准制修订工作。",
+      "interpretation": "确认量子计算进入委员会标准范围，尚未给出项目名称和实施时间。",
+      "confidence": 95,
+      "clauseIds": ["c2"],
+      "nodeIds": ["n2"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c2"], "nodeIds": ["n2"]}
+    },
+    {
+      "id": "e3",
+      "evidenceObject": "industry_node",
+      "type": "policy_text",
+      "source": "工业和信息化部公告正文",
+      "title": "量子通信和测量标准范围",
+      "excerpt": "负责量子通信、量子精密测量等领域行业标准制修订工作。",
+      "interpretation": "确认通信和测量方向进入标准治理范围，不代表设备采购或市场份额。",
+      "confidence": 95,
+      "clauseIds": ["c2"],
+      "nodeIds": ["n2"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c2"], "nodeIds": ["n2"]}
+    },
+    {
+      "id": "e4",
+      "evidenceObject": "policy_connection",
+      "type": "policy_text",
+      "source": "工业和信息化部公告正文",
+      "title": "委员会构成和秘书处",
+      "excerpt": "第一届委员会由62名委员组成，秘书处由中国信息通信研究院承担。",
+      "interpretation": "确认公共标准组织的技术支撑单位，不建立上市公司关系。",
+      "confidence": 95,
+      "clauseIds": ["c3"],
+      "nodeIds": ["n1"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c3"], "nodeIds": ["n1"]}
+    },
+    {
+      "id": "e5",
+      "evidenceObject": "analysis_boundary",
+      "type": "policy_text",
+      "source": "工业和信息化部公告正文",
+      "title": "公告未进入具体项目和经营兑现",
+      "excerpt": "公告正文未列出具体标准项目、预算、采购、认证安排或实施日期。",
+      "interpretation": "该边界用于阻止从委员会成立直接推导量子概念股订单或业绩。",
+      "confidence": 92,
+      "clauseIds": ["c1", "c2", "c3"],
+      "nodeIds": ["n2", "n3", "n4"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c1", "c2", "c3"], "nodeIds": ["n2", "n3", "n4"]}
+    }
+  ],
+  "backgroundCards": [
+    {
+      "id": "bg1",
+      "title": "量子信息标准工作获得正式归口组织",
+      "body": "委员会成立使量子信息行业标准制修订拥有明确的组织入口和工作范围。",
+      "evidenceIds": ["e1", "e2", "e3"]
+    },
+    {
+      "id": "bg2",
+      "title": "当前节点仍是组织建设",
+      "body": "公告没有具体标准项目、技术指标、完成周期和实施方式，产业传导尚未进入标准立项。",
+      "evidenceIds": ["e5"]
+    },
+    {
+      "id": "bg3",
+      "title": "公司映射必须等待后续文件",
+      "body": "秘书处和委员身份只能证明标准组织角色，不能替代采购、合同、收入和市场采用证据。",
+      "evidenceIds": ["e4", "e5"]
+    }
+  ],
+  "compareInsights": {
+    "comparableCount": 0,
+    "similarPolicies": [],
+    "contrastPolicies": [],
+    "insights": ["本报告未启用横向对比，仅使用现有行业标准项目计划说明“组织成立”和“具体标准项目”是不同政策节点。"],
+    "limitations": ["公告正文未提供具体标准项目和时间表。", "本次未使用委员名单建立公司关系。", "量子产业经营影响需等待标准采用和公司披露。"]
+  },
+  "analysisCoverage": {
+    "status": "matched",
+    "analysisMethod": "codex-manual-v1",
+    "evidenceCount": 5,
+    "industryNodeCount": 4,
+    "companyCount": 0,
+    "companyImpactConclusion": "本公告只建立量子信息标准治理组织，尚无具体标准项目、采购、合同或经营兑现证据，因此当前适用零公司结论，不建立上市公司映射。",
+    "limitations": ["标准委员会成立不等于标准已经发布实施。", "秘书处和委员身份不等于商业订单。", "缺少具体标准项目、测试认证和市场采用证据。"]
+  }
+}

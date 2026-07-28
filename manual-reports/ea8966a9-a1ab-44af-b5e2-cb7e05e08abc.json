@@ -1,0 +1,550 @@
+{
+  "id": "ea8966a9-a1ab-44af-b5e2-cb7e05e08abc",
+  "policyId": "ea8966a9-a1ab-44af-b5e2-cb7e05e08abc",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "generatedAt": "2026-07-12T18:54:16+08:00",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "通知",
+  "substantivePolicyType": "全国数据产权登记工作指引",
+  "primaryActionType": "数据产权登记制度建设",
+  "policySignalStrength": "high",
+  "implementationCertainty": "high",
+  "analysisDepth": "L3",
+  "analysisDepthReason": "指引对登记对象、三类数据权利、登记机构准入、申请审查、公示异议、存证凭证、转让变更续期注销、凭证采信和责任追究作出完整规定，制度执行链明确；但全国登记机构目录、国家服务系统实际运行、收费标准、首批登记量和凭证市场采信尚待后续事实验证。",
+  "followUpSignals": [
+    "全国数据产权登记机构目录",
+    "国家数据产权登记服务系统上线与统一编码核验",
+    "登记机构收费标准与首批登记业务量",
+    "登记凭证在交易入表融资和作价入股中的实际采信",
+    "登记争议注销与机构年度考核结果"
+  ],
+  "summary": {
+    "id": "ea8966a9-a1ab-44af-b5e2-cb7e05e08abc",
+    "title": "国家数据局综合司关于印发《数据产权登记工作指引（试行）》的通知",
+    "issuer": "国家数据局综合司",
+    "source": "国家数据局 - 政策发布",
+    "publishDate": "2026-07-04",
+    "status": "draft",
+    "confidence": 95,
+    "industryCount": 5,
+    "companyCount": 0,
+    "evidenceCount": 7,
+    "primarySignal": "全国统一数据产权登记制度进入可执行规则阶段",
+    "category": "数据基础制度与数据要素市场"
+  },
+  "policy": {
+    "title": "国家数据局综合司关于印发《数据产权登记工作指引（试行）》的通知",
+    "status": "已发布",
+    "issuer": "国家数据局综合司",
+    "publishDate": "2026-07-04",
+    "effectiveDate": "2026-07-01",
+    "source": "国家数据局 - 政策发布",
+    "category": "数据基础制度与数据要素市场",
+    "level": "中央部委",
+    "confidence": 97,
+    "sourceUrl": "https://www.nda.gov.cn/sjj/zwgk/zcfb/0704/20260703230745065425855_pc.html",
+    "scope": "数据资源、数据产品和服务等各类形态数据的数据产权登记及其管理",
+    "impactScope": "登记机构、国家登记服务系统、数据合规审查、数据交易、数据资产入表、融资担保、作价入股、争议处理和登记凭证采信",
+    "jurisdiction": "中国大陆",
+    "tags": ["数据产权", "数据持有权", "数据使用权", "数据经营权", "数据登记", "数据交易", "数据资产入表"]
+  },
+  "brief": {
+    "judgement": "指引把数据产权登记从地方探索推进为全国统一的可执行制度链，登记凭证可在数据交易、资产入表、融资担保、作价入股和争议处理中作为证明材料，并要求数据流通服务机构原则上采信；但登记权利可并存且不排他，凭证内容以国家系统存证为准，权属争议仍可进入仲裁或诉讼，因此它不是不可推翻的所有权证书，也不能据此直接推导某家平台或软件公司的订单。",
+    "summary": "指引适用于数据资源、数据产品和服务等形态，明确数据持有权、使用权、经营权可以相互独立并由不同主体同时享有。国家数据管理部门负责统一制度和国家服务系统，登记机构需经省级推荐和国家遴选后进入全国目录，并满足资本、经验、专职审查团队、等保三级和系统对接等条件。登记流程包括申请、受理、审查、公示、异议处理、信息存证和凭证核发，通常自受理起十个工作日办结。凭证具有交易、入表、融资和纠纷证据用途，但不替代司法和仲裁对争议的最终处理。",
+    "keyPoints": [
+      "登记对象覆盖数据资源、数据产品和服务，三类数据权利相互独立且可以非排他并存。",
+      "登记机构不是任意平台，必须由国家数据管理部门遴选并进入全国目录。",
+      "登记审查重点是数据描述、来源合规和权利明确性，而不是仅做形式备案。",
+      "登记凭证可用于交易、入表、融资担保、作价入股和争议处理，并要求流通服务机构原则上采信。",
+      "政策当前适用零公司结论，登记机构目录、系统建设和市场采信出现前不建立上市公司受益映射。"
+    ],
+    "methodology": "使用国家数据局通知页和官方附件全文，按“权利定义—机构准入—申请审查—公示存证—凭证应用—异议与责任”拆分制度链；公司层严格保持零公司，不因数据交易所、软件、合规或估值业务标签推导订单。"
+  },
+  "policyIndustryMap": [
+    {
+      "id": "pi1",
+      "industry": "数据产权登记机构与登记信息系统",
+      "policyAction": "建立全国登记机构目录和国家数据产权登记服务系统",
+      "impactType": "institutional_service",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "指引建立国家遴选、全国目录、统一系统、统一凭证样式和编码，但尚未公布机构名单和系统承建主体。",
+      "relatedClauseIds": ["c1", "c2"],
+      "relatedNodeIds": ["n1", "n2"],
+      "watchSignals": []
+    },
+    {
+      "id": "pi2",
+      "industry": "数据合规审查与安全服务",
+      "policyAction": "要求审查数据来源合规性、权利明确性、个人信息和重要数据处理合规性",
+      "impactType": "compliance_service",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "登记机构需要合理审慎审查并保存资料，可能形成法律、数据安全和技术核验服务需求，同时增加申请主体合规成本。",
+      "relatedClauseIds": ["c3", "c4"],
+      "relatedNodeIds": ["n3"],
+      "watchSignals": []
+    },
+    {
+      "id": "pi3",
+      "industry": "数据交易与流通服务",
+      "policyAction": "规定登记凭证可作为数据产权证明，并要求数据流通服务机构原则上采信",
+      "impactType": "transaction_infrastructure",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "统一登记和凭证采信有助于降低重复审查与交易成本，但实际作用取决于交易机构、合同和业务系统采用。",
+      "relatedClauseIds": ["c5", "c6"],
+      "relatedNodeIds": ["n4", "n5"],
+      "watchSignals": []
+    },
+    {
+      "id": "pi4",
+      "industry": "数据资产入表、估值与融资服务",
+      "policyAction": "允许在入表、融资担保和作价入股中把登记凭证作为合法拥有或控制数据的证明",
+      "impactType": "financial_enablement",
+      "impactDirection": "pending",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "凭证为会计、评估和融资提供权利证明材料，但不能单独解决价值、可变现性和担保处置问题。",
+      "relatedClauseIds": ["c5", "c6"],
+      "relatedNodeIds": ["n5"],
+      "watchSignals": []
+    },
+    {
+      "id": "pi5",
+      "industry": "公共数据授权运营与公用企业数据",
+      "policyAction": "区分原始公共数据、授权运营形成的数据产品和公用企业数据的登记边界",
+      "impactType": "rights_boundary",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "党政机关履职产生的原始公共数据不登记，授权运营形成的产品服务完成公共数据资源登记后可申请，公用企业产生的数据原则上可以登记。",
+      "relatedClauseIds": ["c3"],
+      "relatedNodeIds": ["n2", "n3"],
+      "watchSignals": []
+    }
+  ],
+  "industryChain": [
+    {
+      "id": "chain1",
+      "chainName": "权利与来源准备—登记审查—公示存证—凭证核发—交易融资应用—变更注销监管",
+      "policyRole": "指引建立从申请主体准备权利和来源材料，到登记机构审查、公示异议、国家系统存证和统一凭证，再到交易、入表、融资及后续变更注销的完整制度链。",
+      "nodes": [
+        {"id": "n1", "policySensitivity": "high", "description": "国家和省级数据管理部门建立统一制度、登记机构目录和国家服务系统。"},
+        {"id": "n2", "policySensitivity": "high", "description": "登记机构经国家遴选，满足资本、经验、团队、等保和系统对接等条件。"},
+        {"id": "n3", "policySensitivity": "high", "description": "申请、受理和合理审慎审查确认数据描述、来源和权利边界。"},
+        {"id": "n4", "policySensitivity": "high", "description": "公示、异议和不可篡改存证完成登记，统一样式和编码核发凭证。"},
+        {"id": "n5", "policySensitivity": "high", "description": "凭证进入数据交易、入表、融资、作价入股和争议处理后才形成实际市场影响。"}
+      ],
+      "edges": [
+        {"from": "n1", "to": "n2", "relation": "governance_to_institutions", "description": "国家制度和目录确定谁有资格提供登记服务。"},
+        {"from": "n2", "to": "n3", "relation": "institutions_to_review", "description": "登记机构按统一规则受理并审查申请。"},
+        {"from": "n3", "to": "n4", "relation": "review_to_registration", "description": "审查通过后经公示、异议和存证完成登记。"},
+        {"from": "n4", "to": "n5", "relation": "certificate_to_application", "description": "凭证被交易、会计、金融和争议处理环节采信后形成市场价值。"}
+      ]
+    }
+  ],
+  "companyMap": [],
+  "policyNetwork": [
+    {
+      "id": "pn1",
+      "relatedPolicy": "中共中央、国务院关于构建数据基础制度更好发挥数据要素作用的意见",
+      "relationship": "strategic_basis",
+      "meaning": "本指引把数据产权制度要求细化为登记对象、权利内容、机构、流程和凭证应用规则。",
+      "evidenceLevel": "indirect",
+      "sourceDate": null,
+      "watchSignals": []
+    },
+    {
+      "id": "pn2",
+      "relatedPolicy": "公共数据资源登记和授权运营制度",
+      "relationship": "supporting_rule",
+      "meaning": "公共数据原始资源和授权运营形成的数据产品适用不同登记路径，避免把公共数据资源登记和数据产权登记混为一体。",
+      "evidenceLevel": "indirect",
+      "sourceDate": null,
+      "watchSignals": []
+    },
+    {
+      "id": "pn3",
+      "relatedPolicy": "企业数据资产入表、融资担保和作价入股规则",
+      "relationship": "application_layer",
+      "meaning": "登记凭证可以作为合法拥有或控制数据的证明材料，但价值确认、会计处理和融资风险仍需其他规则与专业判断。",
+      "evidenceLevel": "indirect",
+      "sourceDate": null,
+      "watchSignals": []
+    }
+  ],
+  "investmentDirection": {
+    "primaryDirection": "提高对全国登记机构目录、国家登记服务系统、数据流通凭证采信和数据资产融资案例的研究关注，但当前不提高任何上市公司的投资优先级。",
+    "directionStrength": "medium",
+    "timeHorizon": "medium_term",
+    "watchIndustries": ["数据产权登记", "数据交易", "数据合规", "数据资产入表", "数据评估", "公共数据授权运营"],
+    "watchChainNodes": ["登记机构遴选", "国家服务系统", "登记审查", "凭证采信", "入表融资应用"],
+    "watchCompanyTypes": ["登记机构候选主体", "数据流通服务机构", "数据合规与评估机构", "登记系统技术服务商"],
+    "watchCompanies": [],
+    "nearTermCatalysts": [],
+    "keyRisks": ["登记机构可能以事业单位和地方公共平台为主", "凭证不代表排他所有权", "数据来源与个人信息合规审查成本较高", "实际交易和融资采信可能慢于制度发布"],
+    "minimumEvidenceNeeded": [],
+    "doNotOverread": ["登记凭证不是不可推翻的所有权证书", "登记机构目录公布前不能指定受益平台", "系统建设方向不等于软件公司订单", "数据资产入表和融资不等于数据可以立即变现"],
+    "summary": "制度价值显著高于短期公司价值；先观察机构目录、系统运行和凭证采信，再判断服务市场和公司机会。"
+  },
+  "actions": [
+    {
+      "id": "a1",
+      "actionType": "统一制度建设",
+      "actionEvidenceLevel": "strong",
+      "title": "构建全国统一数据产权登记体系",
+      "body": "国家数据管理部门负责统一制度、国家服务系统和登记机构管理，省级部门负责推荐、日常管理和跨区域协同。",
+      "signal": "beneficiary",
+      "confidence": 97,
+      "clauseIds": ["c1", "c2"],
+      "sortOrder": 1
+    },
+    {
+      "id": "a2",
+      "actionType": "权利边界",
+      "actionEvidenceLevel": "strong",
+      "title": "明确持有权、使用权和经营权",
+      "body": "三类数据权利可以相互独立、由同一或不同主体享有，同一数据同一权利也可以由不同权利人同时享有且互不排斥。",
+      "signal": "mixed",
+      "confidence": 97,
+      "clauseIds": ["c1", "c4"],
+      "sortOrder": 2
+    },
+    {
+      "id": "a3",
+      "actionType": "登记机构准入",
+      "actionEvidenceLevel": "strong",
+      "title": "建立国家遴选和全国目录",
+      "body": "登记机构需经省级推荐和国家遴选，满足资本、经验、专职团队、等保三级和国家系统对接等条件。",
+      "signal": "beneficiary",
+      "confidence": 96,
+      "clauseIds": ["c2"],
+      "sortOrder": 3
+    },
+    {
+      "id": "a4",
+      "actionType": "登记流程",
+      "actionEvidenceLevel": "strong",
+      "title": "统一申请审查公示存证和核证流程",
+      "body": "登记流程包括申请、受理、审查、公示、异议处理、信息存证和凭证核发，通常自受理之日起十个工作日办结。",
+      "signal": "neutral",
+      "confidence": 96,
+      "clauseIds": ["c3", "c4", "c5"],
+      "sortOrder": 4
+    },
+    {
+      "id": "a5",
+      "actionType": "凭证应用",
+      "actionEvidenceLevel": "strong",
+      "title": "明确登记凭证的交易和金融证明用途",
+      "body": "登记凭证可用于数据交易、数据资产入表、融资担保、作价入股、争议处理和企业培育认定，数据流通服务机构原则上应当采信。",
+      "signal": "beneficiary",
+      "confidence": 96,
+      "clauseIds": ["c5", "c6"],
+      "sortOrder": 5
+    }
+  ],
+  "clauses": [
+    {
+      "id": "c1",
+      "no": "适用范围和定义",
+      "title": "登记对象和三类数据权利",
+      "excerpt": "本指引适用于数据资源、数据产品和服务等各类形态数据。",
+      "body": "数据产权包括持有权、使用权和经营权，三类权利可独立配置，并非传统实物所有权的简单复制。",
+      "confidence": 97,
+      "keywords": ["数据资源", "数据产品", "持有权", "使用权", "经营权"],
+      "industries": ["数据要素市场", "数据交易"],
+      "sortOrder": 1
+    },
+    {
+      "id": "c2",
+      "no": "登记机构管理",
+      "title": "国家遴选、全国目录和机构准入",
+      "excerpt": "登记机构经省级数据管理部门推荐，由国家数据管理部门遴选确定。",
+      "body": "机构需具备资本或经费、两年以上经验、专职团队、数据安全制度、等保三级系统和国家系统对接条件。",
+      "confidence": 97,
+      "keywords": ["登记机构", "全国目录", "国家遴选", "等保三级"],
+      "industries": ["数据产权登记服务", "登记信息系统"],
+      "sortOrder": 2
+    },
+    {
+      "id": "c3",
+      "no": "登记对象边界",
+      "title": "公共数据和公用企业数据区别处理",
+      "excerpt": "党政机关履职过程中收集和产生的各类数据不进行数据产权登记。",
+      "body": "授权运营形成的公共数据产品服务在完成公共数据资源登记后可申请，公用企业服务过程中产生的数据原则上可以申请。",
+      "confidence": 96,
+      "keywords": ["公共数据", "授权运营", "公用企业"],
+      "industries": ["公共数据运营", "数据产品"],
+      "sortOrder": 3
+    },
+    {
+      "id": "c4",
+      "no": "审查规则",
+      "title": "审查数据来源和权利明确性",
+      "excerpt": "登记机构应对数据描述、数据来源合规性和数据产权明确性进行合理审慎审查。",
+      "body": "审查覆盖采集生成、协议取得、公开数据自动化收集、衍生数据、个人信息和重要数据，并明确委托处理数据的受托人原则上不能登记相关权利。",
+      "confidence": 97,
+      "keywords": ["来源合规", "权利明确", "自动化程序", "衍生数据", "个人信息"],
+      "industries": ["数据合规", "数据安全"],
+      "sortOrder": 4
+    },
+    {
+      "id": "c5",
+      "no": "公示存证与凭证",
+      "title": "国家系统存证和统一凭证",
+      "excerpt": "登记事项自登记信息存证时完成登记。",
+      "body": "公示期五个工作日，存证要求信息不可篡改、过程可追溯和内容可查验，凭证与系统信息不一致时以系统存证为准，有效期一般不超过五年。",
+      "confidence": 97,
+      "keywords": ["公示", "异议", "存证", "统一编码", "五年"],
+      "industries": ["登记系统", "可信存证"],
+      "sortOrder": 5
+    },
+    {
+      "id": "c6",
+      "no": "凭证作用和争议处理",
+      "title": "凭证可以证明但不终结权属争议",
+      "excerpt": "登记凭证可以作为数据产权归属和内容的证明。",
+      "body": "凭证可用于交易、入表、融资和争议处理，但异议双方仍可申请仲裁或提起诉讼，登记机构应按生效法律文书处置。",
+      "confidence": 97,
+      "keywords": ["交易", "入表", "融资担保", "作价入股", "仲裁", "诉讼"],
+      "industries": ["数据交易", "数据资产融资"],
+      "sortOrder": 6
+    }
+  ],
+  "chainNodes": [
+    {
+      "id": "n1",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": [],
+      "title": "统一制度和国家服务系统",
+      "subtitle": "国家与省级数据管理部门负责制度和机构管理",
+      "section": "upstream",
+      "relation": "policy",
+      "evidenceLevel": "strong",
+      "confidence": 96,
+      "description": "统一制度、全国目录、国家服务系统和跨区域管理构成登记基础设施。",
+      "clauseIds": ["c1", "c2"],
+      "companyIds": [],
+      "evidenceIds": ["e1", "e2"],
+      "impactReason": "指引明确国家和省级部门职责及国家系统功能。",
+      "iconKey": "landmark"
+    },
+    {
+      "id": "n2",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": [],
+      "title": "登记机构准入和运营",
+      "subtitle": "国家遴选、全国执业、收费公开和年度考核",
+      "section": "upstream",
+      "relation": "market",
+      "evidenceLevel": "strong",
+      "confidence": 94,
+      "description": "登记机构需进入全国目录并承担审查、保密、数据安全、系统运营和资料长期保存责任。",
+      "clauseIds": ["c2"],
+      "companyIds": [],
+      "evidenceIds": ["e2", "e7"],
+      "impactReason": "机构条件和监管责任决定登记服务供给边界。",
+      "iconKey": "building"
+    },
+    {
+      "id": "n3",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": [],
+      "title": "申请和合规审查",
+      "subtitle": "核验数据描述、来源和权利内容",
+      "section": "midstream",
+      "relation": "compliance",
+      "evidenceLevel": "strong",
+      "confidence": 95,
+      "description": "登记机构需要合理审慎审查来源、协议、自动化收集、衍生数据和个人信息合规。",
+      "clauseIds": ["c3", "c4"],
+      "companyIds": [],
+      "evidenceIds": ["e3", "e4"],
+      "impactReason": "审查质量决定登记凭证可信度和申请成本。",
+      "iconKey": "file-search"
+    },
+    {
+      "id": "n4",
+      "industryNodeEvidenceLevel": "strong",
+      "verificationSignals": [],
+      "title": "公示、异议、存证和核证",
+      "subtitle": "统一系统形成可追溯登记结果",
+      "section": "midstream",
+      "relation": "infrastructure",
+      "evidenceLevel": "strong",
+      "confidence": 95,
+      "description": "公示异议和国家系统存证完成登记，统一样式和编码核发凭证。",
+      "clauseIds": ["c5", "c6"],
+      "companyIds": [],
+      "evidenceIds": ["e5", "e6"],
+      "impactReason": "存证和统一凭证是跨机构核验和采信的基础。",
+      "iconKey": "shield-check"
+    },
+    {
+      "id": "n5",
+      "industryNodeEvidenceLevel": "pending",
+      "verificationSignals": [],
+      "title": "交易、入表和融资采信",
+      "subtitle": "实际业务使用决定制度的经营价值",
+      "section": "downstream",
+      "relation": "pending",
+      "evidenceLevel": "pending",
+      "confidence": 72,
+      "description": "凭证已经具有制度上的证明用途，但实际降低交易成本和支持融资仍需业务案例验证。",
+      "clauseIds": ["c5", "c6"],
+      "companyIds": [],
+      "evidenceIds": ["e6", "e7"],
+      "impactReason": "政策价值只有在交易、会计和金融环节持续采信后才会兑现。",
+      "iconKey": "activity"
+    }
+  ],
+  "chainEdges": [
+    {"id": "edge1", "from": "n1", "to": "n2", "type": "strong", "label": "统一制度和国家系统确定登记机构供给"},
+    {"id": "edge2", "from": "n2", "to": "n3", "type": "strong", "label": "登记机构承接申请并开展合规审查"},
+    {"id": "edge3", "from": "n3", "to": "n4", "type": "strong", "label": "审查通过后进入公示、异议、存证和核证"},
+    {"id": "edge4", "from": "n4", "to": "n5", "type": "medium", "label": "登记凭证被交易、入表和融资环节采信"}
+  ],
+  "companies": [],
+  "evidence": [
+    {
+      "id": "e1",
+      "evidenceObject": "policy_action",
+      "type": "policy_text",
+      "source": "国家数据局官方附件",
+      "title": "登记对象和三类数据权利",
+      "excerpt": "本指引适用于数据资源、数据产品和服务等各类形态数据。",
+      "interpretation": "确认登记制度覆盖多类数据形态，并以持有权、使用权和经营权表达财产性权利。",
+      "confidence": 97,
+      "clauseIds": ["c1"],
+      "nodeIds": ["n1"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c1"], "nodeIds": ["n1"]}
+    },
+    {
+      "id": "e2",
+      "evidenceObject": "industry_node",
+      "type": "policy_text",
+      "source": "国家数据局官方附件",
+      "title": "登记机构国家遴选和准入条件",
+      "excerpt": "登记机构经省级推荐，由国家数据管理部门遴选确定。",
+      "interpretation": "登记服务供给需要进入全国目录，当前不能把任意数据平台视为登记机构。",
+      "confidence": 97,
+      "clauseIds": ["c2"],
+      "nodeIds": ["n1", "n2"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c2"], "nodeIds": ["n1", "n2"]}
+    },
+    {
+      "id": "e3",
+      "evidenceObject": "policy_action",
+      "type": "policy_text",
+      "source": "国家数据局官方附件",
+      "title": "公共数据登记边界",
+      "excerpt": "党政机关履职过程中收集和产生的各类数据不进行数据产权登记。",
+      "interpretation": "原始公共数据资源不直接进入产权登记，授权运营形成的数据产品服务适用衔接规则。",
+      "confidence": 96,
+      "clauseIds": ["c3"],
+      "nodeIds": ["n2", "n3"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c3"], "nodeIds": ["n2", "n3"]}
+    },
+    {
+      "id": "e4",
+      "evidenceObject": "industry_node",
+      "type": "policy_text",
+      "source": "国家数据局官方附件",
+      "title": "合理审慎审查",
+      "excerpt": "登记机构应对数据描述、来源合规性和产权明确性进行合理审慎审查。",
+      "interpretation": "登记不是简单形式备案，合规和权利审查构成核心服务与成本。",
+      "confidence": 97,
+      "clauseIds": ["c4"],
+      "nodeIds": ["n3"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c4"], "nodeIds": ["n3"]}
+    },
+    {
+      "id": "e5",
+      "evidenceObject": "industry_node",
+      "type": "policy_text",
+      "source": "国家数据局官方附件",
+      "title": "存证完成登记和统一凭证",
+      "excerpt": "登记事项自登记信息存证时完成登记。",
+      "interpretation": "国家系统存证是登记完成节点，统一样式和编码支撑跨机构核验。",
+      "confidence": 97,
+      "clauseIds": ["c5"],
+      "nodeIds": ["n4"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c5"], "nodeIds": ["n4"]}
+    },
+    {
+      "id": "e6",
+      "evidenceObject": "commercial_realization",
+      "type": "policy_text",
+      "source": "国家数据局官方附件",
+      "title": "登记凭证的证明和采信用途",
+      "excerpt": "登记凭证可以作为数据产权归属和内容的证明。",
+      "interpretation": "制度允许凭证进入交易、入表、融资和争议处理，但实际业务量和融资效果仍待观察。",
+      "confidence": 96,
+      "clauseIds": ["c5", "c6"],
+      "nodeIds": ["n4", "n5"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c5", "c6"], "nodeIds": ["n4", "n5"]}
+    },
+    {
+      "id": "e7",
+      "evidenceObject": "analysis_boundary",
+      "type": "policy_text",
+      "source": "国家数据局官方附件",
+      "title": "凭证不是排他确权和公司订单",
+      "excerpt": "同一数据的同一权利，不同权利人可同时享有且互不排斥。",
+      "interpretation": "登记凭证并非排他的传统所有权证书；目录和系统承建主体尚未公布，当前维持零公司结论。",
+      "confidence": 97,
+      "clauseIds": ["c1", "c2", "c6"],
+      "nodeIds": ["n2", "n5"],
+      "companyIds": [],
+      "links": {"clauseIds": ["c1", "c2", "c6"], "nodeIds": ["n2", "n5"]}
+    }
+  ],
+  "backgroundCards": [
+    {
+      "id": "bg1",
+      "title": "三类数据权利不是排他所有权",
+      "body": "持有权、使用权和经营权可以分别配置，同一数据同一权利也可由不同主体同时享有，登记制度强调权利内容和来源证明。",
+      "evidenceIds": ["e1", "e7"]
+    },
+    {
+      "id": "bg2",
+      "title": "登记服务由国家目录控制准入",
+      "body": "登记机构必须经国家遴选并满足资本、经验、团队、安全和系统条件，登记服务市场不是任意平台均可进入。",
+      "evidenceIds": ["e2"]
+    },
+    {
+      "id": "bg3",
+      "title": "凭证价值取决于业务环节采信",
+      "body": "制度已经赋予凭证交易、入表、融资和争议证明用途，但实际市场价值需由交易案例、融资案例和持续采信验证。",
+      "evidenceIds": ["e5", "e6", "e7"]
+    }
+  ],
+  "compareInsights": {
+    "comparableCount": 0,
+    "similarPolicies": [],
+    "contrastPolicies": [],
+    "insights": ["本报告未启用横向对比，仅区分公共数据资源登记、数据产权登记和企业数据资产应用三个不同制度层级。"],
+    "limitations": ["全国登记机构目录和收费标准尚未公布。", "国家服务系统实际运行和数据接口尚未验证。", "本次不根据地方数据交易平台和软件业务标签建立公司关系。"]
+  },
+  "analysisCoverage": {
+    "status": "matched",
+    "analysisMethod": "codex-manual-v1",
+    "evidenceCount": 7,
+    "industryNodeCount": 5,
+    "companyCount": 0,
+    "companyImpactConclusion": "指引建立全国统一的数据产权登记制度和凭证应用规则，但登记机构目录、国家系统建设主体、收费和业务量尚未公布，当前适用零公司结论，不建立上市公司映射。",
+    "limitations": ["登记凭证是证明材料而非排他所有权证书。", "凭证在交易、入表和融资中的实际采信仍需案例验证。", "登记机构可能以事业单位和地方公共平台为主，上市公司关系不确定。"]
+  }
+}
