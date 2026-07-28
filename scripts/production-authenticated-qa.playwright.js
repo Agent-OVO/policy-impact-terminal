@@ -54,6 +54,20 @@ async (page) => {
   }, undefined, { timeout: 30000 });
 
   const authenticated = await page.getByRole("heading", { name: "政策监测与分析报表" }).count() === 1;
+  await page.locator(".operations-overview").waitFor({ state: "visible", timeout: 15000 });
+  await page.waitForFunction(() => {
+    const mode = document.querySelector(".operations-overview-mode strong")?.textContent?.trim();
+    return mode === "权威只读聚合" || mode === "兼容安全读取" || mode === "接口未配置";
+  }, undefined, { timeout: 15000 });
+  const operationsOverview = {
+    panelCount: await page.locator(".operations-overview").count(),
+    mode: (await page.locator(".operations-overview-mode strong").textContent())?.trim() || "",
+    facts: await page.locator(".operations-facts article").evaluateAll((items) => items.map((item) => ({
+      label: item.querySelector("span")?.textContent?.trim() || "",
+      value: item.querySelector("strong")?.textContent?.trim() || ""
+    }))),
+    coverage: (await page.locator(".operations-overview-foot > div:first-child span").textContent())?.trim() || ""
+  };
   const desktop = [];
   let reportButtons = page.locator(".report-list > button");
   const reportCount = await reportButtons.count();
@@ -244,6 +258,12 @@ async (page) => {
 
   const assertionFailures = [];
   if (!authenticated) assertionFailures.push("authenticated session was not loaded");
+  if (operationsOverview.panelCount !== 1) assertionFailures.push("policy operations overview is missing");
+  if (operationsOverview.mode !== "权威只读聚合") assertionFailures.push(`policy operations overview is not using canonical aggregation: ${operationsOverview.mode || "missing"}`);
+  if (operationsOverview.facts.length !== 4 || operationsOverview.facts.some((item) => !/^\d+$/.test(item.value))) {
+    assertionFailures.push("policy operations overview facts are incomplete or nonnumeric");
+  }
+  if (!operationsOverview.coverage.includes("权威只读聚合已扫描")) assertionFailures.push("policy operations overview coverage is not canonical");
   if (expectedReportCount > 0 && reportCount !== expectedReportCount) assertionFailures.push(`expected ${expectedReportCount} reports, found ${reportCount}`);
   if (missingReportIds.length) assertionFailures.push(`missing governed report ids: ${missingReportIds.join(", ")}`);
   if (unexpectedReportIds.length) assertionFailures.push(`unexpected production report ids: ${unexpectedReportIds.join(", ")}`);
@@ -263,6 +283,7 @@ async (page) => {
     expectedReportCount,
     expectedFullReportCount,
     expectedTitles,
+    operationsOverview,
     missingReportIds,
     unexpectedReportIds,
     fullInvestmentPanels: fullInvestmentPanelCount,
