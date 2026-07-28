@@ -10,16 +10,17 @@
   "policySignalStrength": "high",
   "implementationCertainty": "high",
   "analysisDepth": "L4",
-  "analysisDepthReason": "公告正文和三份官方附件能够把政策影响落实到具体生产主体、车型、产品型号和技术参数；公司关系具有强点名证据，但目录资格不等于销量、订单或利润，因此投资观察仍需车型上市、交付和终端竞争数据补证。",
+  "analysisDepthReason": "第406批和第408批公告及六份官方附件能够把政策影响落实到具体生产主体、产品品种、车型、型号和技术参数。第408批未改变准入与税收资格机制，但新增小米增程式乘用车、江淮插混货车、东南汽车插混乘用车、福建奔驰纯电乘用车等产品品种，并滚动更新车船税和购置税目录；公司关系具有强点名证据，但资格不等于销量、订单或利润。",
   "followUpSignals": [
-    "目录车型正式上市和交付",
-    "后续批次目录增补或变更",
-    "车型参数一致性和资格调整",
-    "车企分车型销量和订单",
-    "终端含税价格与优惠传导",
+    "第408批新增产品品种对应具体车型申报与上市",
+    "小米增程式乘用车产品落地与产能安排",
+    "江淮插混货车及福建整车企业新能源车型落地",
+    "第八十七批车船税目录和第三十二批购置税目录车型交付",
+    "后续批次目录增补、变更或资格调整",
+    "车企分车型销量、订单与终端含税价格",
     "商用车车队采购和运营更新"
   ],
-  "generatedAt": "2026-07-10T13:40:00+09:00",
+  "generatedAt": "2026-07-28T16:05:00+08:00",
   "summary": {
     "id": "560837e2-0eaf-4782-8c93-44751864d1a7",
     "title": "《道路机动车辆生产企业及产品》（第406批）、《享受车船税减免优惠的节约能源 使用新能源汽车车型目录》（第八十五批）、《减免车辆购置税的新能源汽车车型目录》（第三十批）",
@@ -27,11 +28,11 @@
     "source": "工业和信息化部 - 政策文件库",
     "publishDate": "2026-05-09",
     "status": "published",
-    "confidence": 92,
+    "confidence": 95,
     "industryCount": 4,
     "companyCount": 12,
-    "evidenceCount": 8,
-    "primarySignal": "车型准入与税收优惠目录同步更新，影响入选车型上市合规和消费者税负",
+    "evidenceCount": 11,
+    "primarySignal": "车型准入与税收优惠目录持续滚动更新，第408批新增多条新能源产品路线但未改变资格机制",
     "category": "汽车产业准入与新能源汽车税收优惠"
   },
   "policy": {
@@ -58,15 +59,16 @@
     ]
   },
   "brief": {
-    "judgement": "这份公告的核心不是新增补贴额度，而是把第406批准入车型和两类税收优惠目录同步落地。对车企而言，入选目录意味着相关车型具备上市、销售和享受税收优惠的制度前提；对未列入或参数不满足要求的车型，则形成清晰的合规和终端价格劣势。",
-    "summary": "工信部依据行政许可、车船税优惠、车辆购置税减免及2026至2027年新能源汽车产品技术要求等制度，公告三份目录。附件显示，第406批覆盖大量新产品和变更产品，既有纯电动、插电式混合动力、燃料电池车型，也有货车、客车、专用车和改装车；车船税目录同时覆盖节能型汽车、天然气重型商用车和新能源汽车；购置税减免目录则把纯电动、插电式混合动力、燃料电池等车型的续驶里程、整备质量、电池能量等参数纳入资格确认。",
+    "judgement": "这组公告的核心不是新增补贴额度，而是持续滚动车型准入和两类税收优惠资格。第408批没有改变政策工具，但出现值得跟踪的产品路线扩展：小米汽车获准增加增程式电动乘用车品种，江淮获准增加插电式混合动力货车品种，东南汽车和福建奔驰分别增加插混、纯电乘用车品种；同期车船税与购置税目录继续把具体车型和参数纳入资格管理。上述事实说明产品规划和合规申报取得进展，不代表车型已经量产交付、获得订单或形成利润。",
+    "summary": "第406批报告已经覆盖道路机动车辆公告、车船税减免目录和购置税减免目录的制度机制。2026年7月发布的第408批、第八十七批和第三十二批延续同一机制，并新增一批生产企业产品品种与具体车型：除小米增程式、江淮插混货车、东南汽车插混、福建奔驰纯电外，北京汽车制造厂和北汽股份也分别增加增程式、插混乘用车品种；税惠目录则继续覆盖节能乘用车、天然气商用车、插混增程车型、纯电乘用车和新能源商用车。报告据此更新技术路线和主体证据，但不另建平行月报，也不扩大公司池。",
     "keyPoints": [
-      "公告本身是目录发布和资格确认，不等同于直接采购、现金补贴或销量承诺。",
-      "三份附件共同决定车型能否进入道路机动车辆产品公告、能否适用车船税减免、能否适用新能源汽车车辆购置税减免。",
-      "对入选车型，政策通过降低终端税负、强化合规可售状态来支持上市节奏；对未入选车型，影响主要体现为销售合规与购车成本差异。",
-      "公司映射仅限官方附件中出现的企业或其清晰相关上市主体，且不推断具体销量、订单或业绩弹性。"
+      "第408批是同一目录机制的滚动执行，不是新的补贴政策或产业刺激工具。",
+      "产品品种许可与具体车型进入税惠目录是不同资格节点，不能把品种扩展直接解释为车型已上市。",
+      "小米增程式、江淮插混货车、东南汽车插混和福建奔驰纯电等新增路线具有产品规划观察价值。",
+      "第八十七批车船税和第三十二批购置税目录继续按企业、车型、续驶里程、质量和电池能量确认资格。",
+      "公司映射仍限于原有12个官方点名或清晰集团主体，不因月度名单规模机械扩张。"
     ],
-    "methodology": "人工阅读工信部公告正文，并对三份官方Word附件进行文本抽取核验：1.道路机动车辆生产企业及产品（第406批）；2.享受车船税减免优惠的节约能源 使用新能源汽车车型目录（第八十五批）；3.减免车辆购置税的新能源汽车车型目录（第三十批）。企业映射严格区分附件直接点名的生产主体、上市公司本体和上市集团子公司，不把车型资格解释为销量、订单或利润。"
+    "methodology": "在原第406批三份官方Word附件基础上，新增核验工信部装备工业一司发布的第408批、第八十七批和第三十二批三份官方Word附件。分析区分“生产企业产品品种许可—具体车型公告—车船税资格—购置税资格—上市交付—经营兑现”六个节点；新增企业和车型只作为滚动证据，不将目录资格解释为销量、订单或利润。"
   },
   "policyIndustryMap": [
     {"id": "pi1", "industry": "道路机动车辆产品准入与车型申报", "policyAction": "公布第406批道路机动车辆生产企业及产品", "impactType": "regulatory_constraint", "impactDirection": "mixed", "evidenceLevel": "strong", "policyCloseness": "direct", "reason": "附件1按生产企业、商标、产品名称和型号确认本批车型公告资格，既提供可售合规基础，也形成申报和产品一致性约束。", "relatedClauseIds": ["c1", "c2"], "relatedNodeIds": ["n1"], "watchSignals": ["车型上市", "公告变更", "产品一致性检查"]},
@@ -95,7 +97,7 @@
   ],
   "companyMap": [
     {"id": "cm1", "companyId": "co1", "chainNodeId": "n2", "relationship": "policy_named", "policyEvidence": "strong", "regulatoryRole": "mixed", "businessExposure": "附件点名比亚迪汽车有限公司、比亚迪汽车工业有限公司及多类纯电、插混和商用车型，上市公司关系来自集团归属。", "investmentUse": "作为多车型、多税种目录覆盖的集团观察对象，后续按具体车型上市和销量验证，而非按公司整体推导受益。", "watchSignals": ["目录车型上市", "分车型销量", "车型资格变更"], "keyRisks": ["附件点名主体与上市公司本体并非完全同一法人", "价格竞争和产品结构可能弱化税收资格作用"], "doNotOverread": ["子公司车型被点名不等于上市公司整体收入确定增长"]},
-    {"id": "cm2", "companyId": "co2", "chainNodeId": "n2", "relationship": "policy_named", "policyEvidence": "strong", "regulatoryRole": "mixed", "businessExposure": "附件点名小米汽车科技有限公司及小米YU7，上市映射到小米集团。", "investmentUse": "用于跟踪YU7的资格、上市和交付节奏，集团层面影响需结合汽车业务收入和产能。", "watchSignals": ["YU7上市交付", "产能爬坡", "汽车业务收入"], "keyRisks": ["生产主体与上市集团存在法人层级", "目录资格不解决产能与竞争问题"], "doNotOverread": ["车型获得购置税资格不等于交付目标自动实现"]},
+    {"id": "cm2", "companyId": "co2", "chainNodeId": "n2", "relationship": "policy_named", "policyEvidence": "strong", "regulatoryRole": "mixed", "businessExposure": "第406批附件点名小米YU7纯电车型；第408批附件进一步同意小米汽车科技有限公司增加增程式电动乘用车产品品种，上市映射到小米集团。", "investmentUse": "同时跟踪YU7纯电车型交付和增程式产品的具体申报、产能与上市节奏，不能把产品品种许可等同于新车已经量产。", "watchSignals": ["YU7上市交付", "增程式车型公告与上市", "产能爬坡", "汽车业务收入"], "keyRisks": ["生产主体与上市集团存在法人层级", "产品品种许可不等于具体车型已获税惠资格", "目录资格不解决产能与竞争问题"], "doNotOverread": ["增加增程式产品品种不等于车型已上市或交付目标自动实现"]},
     {"id": "cm3", "companyId": "co3", "chainNodeId": "n2", "relationship": "policy_named", "policyEvidence": "strong", "regulatoryRole": "mixed", "businessExposure": "附件点名北京理想汽车有限公司相关增程车型，上市映射到理想汽车。", "investmentUse": "观察具体增程车型税收资格与终端价格条件，需结合新旧车型周期和交付表现。", "watchSignals": ["目录车型交付", "终端定价", "分车型订单"], "keyRisks": ["生产主体与上市公司法人不同", "增程车型竞争和技术门槛变化"], "doNotOverread": ["目录列入不能替代车型竞争力研究"]},
     {"id": "cm4", "companyId": "co4", "chainNodeId": "n2", "relationship": "policy_named", "policyEvidence": "strong", "regulatoryRole": "mixed", "businessExposure": "附件点名零跑生产主体及纯电、增程车型，港股映射需注意官方主体名称与上市公司名称口径。", "investmentUse": "作为纯电与增程车型目录覆盖样本，跟踪入选车型销量占比和新品节奏。", "watchSignals": ["入选车型销量", "新品上市", "参数变更"], "keyRisks": ["法人名称映射边界", "车型结构和价格竞争"], "doNotOverread": ["多车型入选不等于利润率改善"]},
     {"id": "cm5", "companyId": "co5", "chainNodeId": "n2", "relationship": "policy_named", "policyEvidence": "strong", "regulatoryRole": "mixed", "businessExposure": "附件直接点名上汽集团并列示纯电、换电等车型。", "investmentUse": "用于逐品牌、逐车型观察税收资格和上市节奏，不能用集团总销量替代目录车型效果。", "watchSignals": ["MG、智己、荣威车型交付", "换电车型进展", "分品牌销量"], "keyRisks": ["集团内品牌分化", "终端折扣可能抵消税收优势"], "doNotOverread": ["集团被点名不代表所有品牌车型均获资格"]},
@@ -111,7 +113,7 @@
     {"id": "pn1", "relatedPolicy": "《关于延续和优化新能源汽车车辆购置税减免政策的公告》（2023年第10号）", "relationship": "upstream_guidance", "meaning": "本批购置税目录是在既有2024—2027年税收减免制度下确认具体车型资格，并非重新制定优惠额度。", "evidenceLevel": "indirect", "sourceDate": "2026-05-09", "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/gg/art/2026/art_1b3cc214aff949839f8e7f63c8fc7549.html", "watchSignals": ["税收政策调整", "目录适用期限"]},
     {"id": "pn2", "relatedPolicy": "《关于2026—2027减免车辆购置税新能源汽车产品技术要求的公告》（2025年第24号）", "relationship": "supporting_rule", "meaning": "本批车型需要满足2026—2027年续驶里程、能耗等技术要求，决定购置税资格的技术门槛。", "evidenceLevel": "indirect", "sourceDate": "2026-05-09", "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/gg/art/2026/art_1b3cc214aff949839f8e7f63c8fc7549.html", "watchSignals": ["技术指标调整", "车型参数复核"]},
     {"id": "pn3", "relatedPolicy": "《关于调整享受车船税优惠的节能 新能源汽车产品技术要求的公告》（2025年第25号）", "relationship": "supporting_rule", "meaning": "车船税目录资格由新的节能和新能源汽车技术要求约束，商用车持有成本优势需以具体车型持续符合标准为前提。", "evidenceLevel": "indirect", "sourceDate": "2026-05-09", "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/gg/art/2026/art_1b3cc214aff949839f8e7f63c8fc7549.html", "watchSignals": ["车船税技术标准", "车型资格调整"]},
-    {"id": "pn4", "relatedPolicy": "后续道路机动车辆公告及税收优惠目录批次", "relationship": "follow_up_catalyst", "meaning": "后续批次的新增、变更或撤销将持续更新具体车型资格，并检验企业产品迭代和合规申报能力。", "evidenceLevel": "pending", "watchSignals": ["后续批次目录", "车型变更", "资格撤销"]}
+    {"id": "pn4", "relatedPolicy": "《道路机动车辆生产企业及产品》（第408批）及第八十七批车船税、第三十二批购置税目录", "relationship": "rolling_update", "meaning": "第408批延续同一目录资格机制，并新增小米增程式乘用车、江淮插混货车、东南汽车插混乘用车、福建奔驰纯电乘用车等产品品种；两份税惠目录继续按具体车型和参数确认资格。", "evidenceLevel": "strong", "sourceDate": "2026-07-17", "sourceUrl": "https://www.miit.gov.cn/jgsj/zbys/wjfb/art/2026/art_dbb6d7d4034741d782ca702bb4866fa3.html", "watchSignals": ["新增产品品种对应具体车型公告", "税惠目录车型上市与交付", "后续批次变更或资格撤销"]}
   ],
   "investmentDirection": {
     "primaryDirection": "车型目录资格与终端税负优势的逐车型观察",
@@ -121,11 +123,11 @@
     "watchChainNodes": ["车型公告准入", "终端购置税减免资格", "车船税优惠和商用车持有成本", "参数申报与一致性合规"],
     "watchCompanyTypes": ["附件直接点名的上市整车企业", "被点名子公司对应的上市集团", "官方点名但未单独上市的生产主体"],
     "watchCompanies": ["奇瑞汽车股份有限公司", "上海汽车集团股份有限公司", "长城汽车股份有限公司", "北汽福田汽车股份有限公司", "重庆长安汽车股份有限公司", "赛力斯集团股份有限公司", "比亚迪股份有限公司（相关主体：比亚迪汽车有限公司、比亚迪汽车工业有限公司）", "小米集团（相关主体：小米汽车科技有限公司）"],
-    "nearTermCatalysts": ["入选车型正式上市和交付", "后续批次目录新增车型", "车企披露分车型订单和销量", "终端含税价格优势体现", "商用车车队更新采购"],
+    "nearTermCatalysts": ["第408批新增产品品种对应具体车型申报", "小米增程式车型和福建新能源车型上市", "税惠目录车型正式交付", "后续批次目录新增车型", "车企披露分车型订单和销量", "终端含税价格优势体现", "商用车车队更新采购"],
     "keyRisks": ["目录资格只证明准入或税收适用，不保证销量和利润", "部分点名主体是上市公司子公司或在华制造主体", "同一企业不同车型和税种不能合并判断", "技术参数变化可能影响资格稳定性", "价格竞争可能抵消税收优惠带来的终端优势"],
     "minimumEvidenceNeeded": ["车型上市和交付时间", "入选车型销量及公司销售占比", "终端含税价格与同级竞品比较", "车型参数和资格后续变更", "上市公司分品牌、分车型经营披露"],
     "doNotOverread": ["policy_named只表示附件直接点名生产主体或车型", "子公司被点名不等于上市公司整体被直接点名", "购置税和车船税资格不是现金补贴给车企", "目录入选不能替代产品力、价格、产能和估值研究"],
-    "summary": "该公告提供了强车型和主体证据，但商业含义必须逐车型判断。最直接的观察对象是附件明确列示的上市整车企业及其生产主体；投资研究应继续跟踪车型上市、交付、价格和销量占比。对比亚迪、小米、理想、特斯拉等集团，必须区分附件点名的制造子公司与上市母公司；对广汽埃安等未单独上市主体，只保留集团归属观察边界。"
+    "summary": "第406至408批目录提供了强车型和主体证据，但商业含义必须逐车型、逐资格节点判断。第408批最值得新增跟踪的是小米增程式产品品种及江淮、东南汽车、福建奔驰等新能源路线扩展；投资研究仍需跟踪具体车型公告、税惠资格、上市、交付、价格和销量。对比亚迪、小米、理想、特斯拉等集团，必须区分附件点名的制造子公司与上市母公司。"
   },
   "actions": [
     {
@@ -568,18 +570,19 @@
       "ticker": "1810.HK",
       "logoDomain": "xiaomi.com",
       "exchange": "港交所",
-      "platform": "纯电动乘用车",
+      "platform": "纯电动与增程式乘用车",
       "status": "官方附件点名生产主体；代表性受影响企业",
       "section": "downstream",
       "relation": "direct",
       "evidenceLevel": "strong",
-      "confidence": 79,
-      "policyRelevance": 85,
-      "evidenceCertainty": 83,
-      "evidenceCount": 2,
+      "confidence": 84,
+      "policyRelevance": 90,
+      "evidenceCertainty": 89,
+      "evidenceCount": 3,
       "products": [
         "小米YU7",
-        "纯电动多用途乘用车"
+        "纯电动多用途乘用车",
+        "增程式电动乘用车产品品种"
       ],
       "nodeIds": [
         "n1",
@@ -593,9 +596,10 @@
       ],
       "evidenceIds": [
         "e3",
-        "e5"
+        "e5",
+        "e9"
       ],
-      "reason": "附件1和附件3均出现小米汽车科技有限公司，附件3列出小米YU7纯电动多用途乘用车及续驶里程、电池能量等参数，说明该车型获得本批购置税目录资格。",
+      "reason": "第406批附件列出小米YU7纯电车型及购置税资格参数；第408批官方附件进一步同意小米汽车科技有限公司增加增程式电动乘用车产品品种，证明其产品路线获得新的公告申报基础，但尚无具体增程车型和税惠资格。",
       "uncertainty": "目录资格只是上市和税收资格的一环，不能直接外推为交付量或盈利改善。",
       "riskFactors": [
         "新车型产能爬坡",
@@ -603,7 +607,8 @@
         "公告参数一致性"
       ],
       "sourceUrls": [
-        "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/7ef7905198e642c7bc2e12755c54d11e.doc"
+        "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20264/7ef7905198e642c7bc2e12755c54d11e.doc",
+        "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20267/fe94ddaebee14942a6b65a8a5c18361c.doc"
       ],
       "entityType": "上市公司",
       "listingStatus": "港股上市",
@@ -1282,6 +1287,57 @@
         "co7",
         "co1"
       ]
+    },
+    {
+      "id": "e9",
+      "title": "第408批新增多条新能源产品品种",
+      "source": "工业和信息化部官方附件1（第408批）",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20267/fe94ddaebee14942a6b65a8a5c18361c.doc",
+      "url": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20267/fe94ddaebee14942a6b65a8a5c18361c.doc",
+      "type": "official_attachment",
+      "date": "2026-07-17",
+      "excerpt": "同意小米汽车科技有限公司增加增程式电动乘用车产品品种，并同意江淮、东南汽车、福建奔驰等增加插混货车、插混乘用车或纯电乘用车产品品种。",
+      "interpretation": "产品品种许可证明企业取得相应技术路线的公告申报基础，但不等于具体车型已经进入产品公告、税惠目录或量产交付。",
+      "evidenceObject": "policy_action",
+      "sourceLocation": "附件1第一部分新产品",
+      "confidence": 98,
+      "clauseIds": ["c2", "c5"],
+      "nodeIds": ["n1", "n4"],
+      "companyIds": ["co2"]
+    },
+    {
+      "id": "e10",
+      "title": "第八十七批车船税目录继续扩充节能和新能源车型",
+      "source": "工业和信息化部官方附件2（第八十七批）",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20267/a1d57f1028da49aca9ae3a4ae9e825ee.doc",
+      "url": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20267/a1d57f1028da49aca9ae3a4ae9e825ee.doc",
+      "type": "official_attachment",
+      "date": "2026-07-17",
+      "excerpt": "目录覆盖节能乘用车、天然气重型商用车、插电式混合动力乘用车和纯电动商用车，并逐项列出车型、续驶里程、燃料消耗量和电池参数。",
+      "interpretation": "第八十七批延续既有车船税资格机制，新增车型只改变具体资格覆盖，不改变税收政策工具本身。",
+      "evidenceObject": "company_mapping",
+      "sourceLocation": "附件2节能型汽车和新能源汽车目录",
+      "confidence": 97,
+      "clauseIds": ["c3", "c5"],
+      "nodeIds": ["n2", "n3", "n4"],
+      "companyIds": ["co1", "co5", "co6", "co9", "co10", "co12"]
+    },
+    {
+      "id": "e11",
+      "title": "第三十二批购置税目录滚动确认纯电和插混车型资格",
+      "source": "工业和信息化部官方附件3（第三十二批）",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20267/cd3a60502a874c06b481cd9aa5a6790b.doc",
+      "url": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20267/cd3a60502a874c06b481cd9aa5a6790b.doc",
+      "type": "official_attachment",
+      "date": "2026-07-17",
+      "excerpt": "目录列出雷克萨斯ES350e和ES500e、奔驰纯电GLC和C级，以及比亚迪、北汽、奇瑞、上汽、长城、赛力斯、理想、广汽埃安、长安等具体新能源车型。",
+      "interpretation": "购置税目录继续按车型与参数确认资格；新增豪华品牌和自主品牌车型不等于销量或利润增长，仍需上市、定价和交付验证。",
+      "evidenceObject": "company_mapping",
+      "sourceLocation": "附件3纯电动与插电式混合动力车型目录",
+      "confidence": 97,
+      "clauseIds": ["c4", "c5", "c6"],
+      "nodeIds": ["n2", "n4"],
+      "companyIds": ["co1", "co3", "co5", "co6", "co9", "co10", "co11", "co12"]
     }
   ],
   "backgroundCards": [
@@ -1296,11 +1352,14 @@
     {
       "id": "b2",
       "title": "附件范围",
-      "body": "官方页面提供三份Word附件，分别对应道路机动车辆产品公告、车船税减免车型目录、车辆购置税减免车型目录。附件内容远超过网页正文，是本次分析的主要事实来源。",
+      "body": "第406批与第408批各提供三份官方Word附件，分别对应道路机动车辆产品公告、车船税减免车型目录和车辆购置税减免车型目录。六份附件构成滚动分析的主要事实来源。",
       "evidenceIds": [
         "e2",
         "e4",
-        "e5"
+        "e5",
+        "e9",
+        "e10",
+        "e11"
       ]
     },
     {
@@ -1319,7 +1378,19 @@
       "body": "乘用车受购置税减免影响更直接，商用车和运营车辆还受到车船税、持有成本、车队采购预算和地方更新节奏影响。检测认证和公告申报服务则受车型参数管理牵引。",
       "evidenceIds": [
         "e4",
-        "e8"
+        "e8",
+        "e10",
+        "e11"
+      ]
+    },
+    {
+      "id": "b5",
+      "title": "滚动目录不重复建报",
+      "body": "第408批延续第406批相同的准入和税收资格机制，本次只把新增产品路线和车型证据并入既有报告，不因每月批次更新机械新增平行报告。",
+      "evidenceIds": [
+        "e9",
+        "e10",
+        "e11"
       ]
     }
   ],
@@ -1356,12 +1427,12 @@
     ]
   ],
   "compareInsights": {
-    "status": "official_catalog_review_with_conceptual_baselines",
-    "basis": "以公告正文和三份官方附件为依据，对比道路机动车辆公告、车船税优惠目录、购置税减免目录三类制度功能。",
-    "method": "人工阅读公告正文和三份官方附件，不使用媒体评论。",
-    "comparableCount": 0,
-    "insights": ["本报告未启用横向对比，也未引入上一批或后续批次目录；仅对本公告内部的车型公告、车船税目录和购置税目录三类制度功能进行结构比较。"],
-    "limitations": ["未逐项复原三份附件中的全部企业和车型，不能用于完整目录统计。", "未引入上一批目录或后续批次数据，不能据此判断企业目录覆盖率的环比变化。"],
+    "status": "official_catalog_review_with_rolling_update",
+    "basis": "以第406批和第408批公告正文及六份官方附件为依据，对比同一准入、车船税和购置税机制下的滚动主体与车型变化。",
+    "method": "人工阅读两批公告正文和六份官方Word附件，不使用媒体评论或市场传闻。",
+    "comparableCount": 1,
+    "insights": ["第408批延续第406批相同的目录资格机制，政策工具没有发生变化。", "实质新增集中于企业产品品种和具体车型，其中小米增程式乘用车、江淮插混货车、东南汽车插混乘用车和福建奔驰纯电乘用车值得后续跟踪。", "滚动目录适合更新既有报告，不应按月机械复制完整报告。"],
+    "limitations": ["未逐项复原六份附件中的全部企业和车型，不能用于完整目录统计。", "本次只识别高价值新增路线，未计算所有企业和车型的完整环比覆盖率。"],
     "conceptualBaselines": [
       {
         "label": "制度基准",
@@ -1474,19 +1545,19 @@
   },
   "analysisCoverage": {
     "status": "complete_manual_official_sources_and_attachments",
-    "textLength": 928,
-    "attachmentReview": "已读取工信部页面三份官方Word附件，并抽取附件1、附件2、附件3中的企业、车型和参数字段。",
+    "textLength": 1861,
+    "attachmentReview": "已读取第406批与第408批两组公告及六份官方Word附件，并抽取道路机动车辆产品、车船税和购置税目录中的企业、产品品种、车型和参数字段。",
     "clauseCount": 6,
     "actionCount": 4,
-    "evidenceCount": 8,
+    "evidenceCount": 11,
     "industryNodeCount": 4,
     "companyCount": 12,
     "listedCompanyMapCount": 11,
-    "matchedKeywordCount": 20,
-    "comparablePolicyCount": 0,
-    "companyImpactConclusion": "完整主体层保留12个官方附件点名生产主体或清晰集团映射，其中11个可对应上市主体，广汽埃安作为未单独上市子公司保留归属边界。目录点名证明车型资格和税收适用基础，不代表销量、订单或利润确定增加。",
+    "matchedKeywordCount": 28,
+    "comparablePolicyCount": 1,
+    "companyImpactConclusion": "公司池仍保留12个官方附件点名生产主体或清晰集团映射，不因第408批名单规模扩张。小米的政策关系新增增程式产品品种许可，其余新增企业作为产业证据保留；目录点名或品种许可只证明资格进展，不代表销量、订单或利润确定增加。",
     "limitations": [
-      "官方网页正文较短，实质信息主要来自三份Word附件；附件文本为人工抽取和核对，未逐项复原全部表格。",
+      "两批官方网页正文均较短，实质信息主要来自六份Word附件；附件文本为人工抽取和核对，未逐项复原全部表格。",
       "公司映射只覆盖代表性企业，没有穷尽附件中的全部生产企业、车型和改装车企业。",
       "入选目录不等于业绩兑现，实际影响取决于车型上市时间、价格、产能、竞争格局和终端需求。",
       "未采用媒体评论、券商观点或非官方二次解读。",
