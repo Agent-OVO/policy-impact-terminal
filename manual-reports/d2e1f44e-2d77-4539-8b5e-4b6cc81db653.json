@@ -1,0 +1,176 @@
+{
+  "id": "d2e1f44e-2d77-4539-8b5e-4b6cc81db653",
+  "policyId": "d2e1f44e-2d77-4539-8b5e-4b6cc81db653",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "generatedAt": "2026-07-11T09:40:00+09:00",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "通知",
+  "substantivePolicyType": "行业标准制修订项目计划",
+  "primaryActionType": "标准项目立项",
+  "policySignalStrength": "medium",
+  "implementationCertainty": "high",
+  "analysisDepth": "L3",
+  "analysisDepthReason": "附件明确列出805项标准项目、制修订类型、周期、主管司局、归口单位和主要起草单位，主体和任务可核验；但标准尚处制修订阶段，未直接形成采购、补贴或强制实施，经营影响需等待标准发布、实施及客户采用。",
+  "followUpSignals": ["标准征求意见稿和报批稿", "标准正式发布和实施日期", "重点项目试验验证", "起草单位产品适配和认证", "行业采购规范引用"],
+  "summary": {
+    "id": "d2e1f44e-2d77-4539-8b5e-4b6cc81db653",
+    "title": "工业和信息化部办公厅关于印发2026年第四批行业标准制修订项目计划的通知",
+    "issuer": "工业和信息化部办公厅",
+    "source": "工业和信息化部 - 政策文件库",
+    "publishDate": "2026-07-07",
+    "status": "draft",
+    "confidence": 91,
+    "industryCount": 5,
+    "companyCount": 5,
+    "evidenceCount": 9,
+    "primarySignal": "805项行业标准项目进入正式制修订计划",
+    "category": "产业标准"
+  },
+  "policy": {
+    "title": "工业和信息化部办公厅关于印发2026年第四批行业标准制修订项目计划的通知",
+    "status": "已发布",
+    "issuer": "工业和信息化部办公厅",
+    "publishDate": "2026-07-07",
+    "effectiveDate": "2026-06-26",
+    "source": "工业和信息化部 - 政策文件库",
+    "category": "产业标准",
+    "level": "中央部委",
+    "confidence": 96,
+    "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_6f8bfa6c47244cf791073fb27e318c29.html",
+    "scope": "传统产业升级、新兴产业强化和产业基础标准",
+    "impactScope": "数字化转型、绿色低碳、人工智能、5G、集成电路、网络和数据安全等标准体系",
+    "jurisdiction": "中国大陆",
+    "tags": ["行业标准", "数字化转型", "人工智能", "绿色低碳", "集成电路"]
+  },
+  "brief": {
+    "judgement": "这份计划的价值在于提前暴露未来一至数年的产业技术规则和主要起草主体，而不是立即创造订单：805项项目覆盖传统产业升级、新兴产业和基础共性领域，参与企业能够影响技术接口、测试方法和评价口径，但标准尚未正式发布实施，只有后续被采购规范、认证体系和监管要求采用时，才可能形成产品适配、检测和改造需求。",
+    "summary": "附件共安排805项行业标准制修订项目，其中制定612项、修订193项，重点和基础通用标准499项、其他标准306项。代表性项目显示，中控技术参与化工生产智能控制要求，科大讯飞参与企业级软件智能化分级要求，奇安信参与AI模型安全保障指南，万华化学参与光伏POE粒子和共聚烯烃薄膜标准，京东方参与显示屏碳足迹量化标准。上述主体均为附件直接列示的主要起草单位，但标准参与身份不等于市场份额、订单或排他优势。",
+    "keyPoints": [
+      "计划项目具有明确编号、周期、主管司局、归口单位和起草单位。",
+      "805项中制定项目占多数，反映新技术、新产品和新场景规则建设需求较强。",
+      "数字化、AI安全、绿色低碳和集成电路标准可能改变接口、测试和认证要求。",
+      "经营影响仍需经过征求意见、正式发布、实施和市场采用。",
+      "主要起草单位不是独家标准所有者，也不自动获得采购。"
+    ],
+    "methodology": "人工核验工信部正文及131页官方PDF附件，提取总量、制修订结构和五个代表性项目；公司映射只使用附件直接列示的主要起草单位，并设置标准发布、实施和市场采用三道兑现条件。"
+  },
+  "policyIndustryMap": [
+    {"id": "pi1", "industry": "制造业数字化与工业软件", "policyAction": "立项化工智能控制、设备预测维护和场景图谱等标准", "impactType": "standard_setting", "impactDirection": "mixed", "evidenceLevel": "strong", "policyCloseness": "direct", "reason": "附件列明数字化转型标准项目及主要起草单位，可能统一功能、接口和评价口径。", "relatedClauseIds": ["c1", "c2"], "relatedNodeIds": ["n1"], "watchSignals": ["征求意见稿", "行业应用", "软件适配"]},
+    {"id": "pi2", "industry": "人工智能产品与安全治理", "policyAction": "立项企业软件智能化、智能体价值评估和AI安全标准", "impactType": "standard_setting", "impactDirection": "mixed", "evidenceLevel": "strong", "policyCloseness": "direct", "reason": "AI部分覆盖产品服务、基础技术、安全治理和行业应用。", "relatedClauseIds": ["c1", "c3"], "relatedNodeIds": ["n2"], "watchSignals": ["AI标准发布", "检测认证", "采购引用"]},
+    {"id": "pi3", "industry": "绿色低碳与碳足迹", "policyAction": "立项零碳园区、产品碳足迹和资源循环标准", "impactType": "standard_setting", "impactDirection": "mixed", "evidenceLevel": "strong", "policyCloseness": "direct", "reason": "绿色低碳项目可能把碳核算、节能和回收要求转化为统一技术口径。", "relatedClauseIds": ["c1", "c4"], "relatedNodeIds": ["n3"], "watchSignals": ["碳足迹标准", "零碳园区评价", "检测需求"]},
+    {"id": "pi4", "industry": "集成电路与电子信息", "policyAction": "立项AI芯片、RISC-V、EDA文件格式等标准", "impactType": "standard_setting", "impactDirection": "mixed", "evidenceLevel": "strong", "policyCloseness": "direct", "reason": "附件列出芯片测试、服务器要求、芯粒接口和EDA文件格式等项目。", "relatedClauseIds": ["c1", "c3"], "relatedNodeIds": ["n4"], "watchSignals": ["接口兼容", "测试认证", "生态采用"]},
+    {"id": "pi5", "industry": "标准检测、认证与技术服务", "policyAction": "要求试验验证、知识产权处置和技术审查", "impactType": "compliance_service", "impactDirection": "positive", "evidenceLevel": "strong", "policyCloseness": "direct", "reason": "正文要求标准制定与技术创新、试验验证、产业化和应用推广协调。", "relatedClauseIds": ["c2", "c5"], "relatedNodeIds": ["n5"], "watchSignals": ["检测方法", "认证项目", "标准实施评估"]}
+  ],
+  "industryChain": [{
+    "id": "chain1",
+    "chainName": "标准立项—起草验证—发布实施—产品适配—采购和认证采用",
+    "policyRole": "计划确定标准项目和起草主体，后续经起草、征求意见、审查和发布形成规则，再通过产品适配、检测认证和采购引用传导到经营层面。",
+    "nodes": [
+      {"id": "n1", "policySensitivity": "high", "description": "数字化和工业软件项目定义制造场景、功能和接口。"},
+      {"id": "n2", "policySensitivity": "high", "description": "AI产品、智能体和安全治理标准形成评价和测试口径。"},
+      {"id": "n3", "policySensitivity": "high", "description": "绿色低碳标准形成碳足迹、园区和回收规则。"},
+      {"id": "n4", "policySensitivity": "high", "description": "芯片和电子信息标准影响测试、接口和生态兼容。"},
+      {"id": "n5", "policySensitivity": "medium", "description": "检测认证和技术服务承接标准实施需求。"}
+    ],
+    "edges": [
+      {"from": "n1", "to": "n5", "relation": "testing", "description": "数字化标准需功能和兼容性测试。"},
+      {"from": "n2", "to": "n5", "relation": "certification", "description": "AI安全和能力标准可能形成评估认证需求。"},
+      {"from": "n3", "to": "n5", "relation": "verification", "description": "碳足迹和零碳标准需要核算与验证。"},
+      {"from": "n4", "to": "n5", "relation": "conformance", "description": "芯片接口和测试标准需要一致性验证。"}
+    ]
+  }],
+  "companyMap": [
+    {"id": "cm1", "companyId": "co1", "ticker": "688777.SH", "chainNodeId": "n1", "relationship": "policy_named", "policyEvidence": "strong", "businessExposure": "附件在化工生产智能控制要求项目中直接列明中控技术为主要起草单位。", "investmentUse": "观察标准草案、发布和化工客户采用，不把起草身份等同于新增订单。", "watchSignals": ["标准征求意见", "正式发布", "化工客户适配项目"], "keyRisks": ["标准由多家共同起草", "实施不一定强制", "收入贡献需订单验证"], "doNotOverread": ["主要起草单位不是独家标准所有者"]},
+    {"id": "cm2", "companyId": "co2", "ticker": "002230.SZ", "chainNodeId": "n2", "relationship": "policy_named", "policyEvidence": "strong", "businessExposure": "附件在企业级软件智能化分级通用能力要求项目中直接列明科大讯飞。", "investmentUse": "观察企业软件智能化评价标准是否被招采和测评采用。", "watchSignals": ["分级标准发布", "企业软件认证", "项目采购引用"], "keyRisks": ["参与标准不等于产品领先", "评价标准可能不形成强制采购"], "doNotOverread": ["标准参与身份不代表市场份额"]},
+    {"id": "cm3", "companyId": "co3", "ticker": "688561.SH", "chainNodeId": "n2", "relationship": "policy_named", "policyEvidence": "strong", "businessExposure": "附件在AI模型开发安全保障指南项目中直接列明奇安信为主要起草单位。", "investmentUse": "观察AI安全指南是否形成评估、咨询或安全产品适配需求。", "watchSignals": ["指南发布", "AI安全测评", "客户合规项目"], "keyRisks": ["指南类标准约束力可能有限", "参与主体多且竞争激烈"], "doNotOverread": ["起草指南不等于获得安全项目"]},
+    {"id": "cm4", "companyId": "co4", "ticker": "600309.SH", "chainNodeId": "n3", "relationship": "policy_named", "policyEvidence": "strong", "businessExposure": "附件在光伏胶膜用POE粒子和共聚烯烃薄膜项目中直接列明万华化学。", "investmentUse": "观察标准参数与公司材料产品适配，以及下游客户采用。", "watchSignals": ["POE标准发布", "光伏胶膜认证", "产品销售"], "keyRisks": ["技术参数可能调整", "参与标准不保证客户订单"], "doNotOverread": ["标准立项不等于POE需求立即增长"]},
+    {"id": "cm5", "companyId": "co5", "ticker": "000725.SZ", "chainNodeId": "n3", "relationship": "policy_named", "policyEvidence": "strong", "businessExposure": "附件在显示屏产品碳足迹量化方法与要求项目中直接列明京东方。", "investmentUse": "观察碳足迹核算标准对显示产品供应链数据和客户认证的影响。", "watchSignals": ["碳足迹标准发布", "客户碳数据要求", "供应链核算系统"], "keyRisks": ["标准可能增加合规成本", "短期不一定带来新增收入"], "doNotOverread": ["参与碳足迹标准并非单向受益"]}
+  ],
+  "policyNetwork": [
+    {"id": "pn1", "relatedPolicy": "国家标准化发展纲要", "relationship": "strategic_basis", "meaning": "行业标准项目落实标准引领产业升级和技术创新的总体部署。", "evidenceLevel": "indirect", "watchSignals": ["标准体系建设方案", "强制性标准衔接"]},
+    {"id": "pn2", "relatedPolicy": "制造业数字化转型行动政策", "relationship": "implementation_linkage", "meaning": "数字化场景和工业软件标准为制造业转型提供技术规则。", "evidenceLevel": "indirect", "watchSignals": ["场景图谱", "工业软件评价"]},
+    {"id": "pn3", "relatedPolicy": "产品碳足迹管理体系建设政策", "relationship": "implementation_linkage", "meaning": "碳足迹和绿色低碳行业标准承接产品碳管理要求。", "evidenceLevel": "indirect", "watchSignals": ["碳足迹因子", "认证和披露"]}
+  ],
+  "investmentDirection": {
+    "primaryDirection": "未来产业技术规则与标准参与主体观察",
+    "directionStrength": "medium",
+    "timeHorizon": "medium_term",
+    "watchIndustries": ["工业软件", "人工智能安全", "绿色低碳", "集成电路", "检测认证"],
+    "watchChainNodes": ["标准起草", "试验验证", "正式发布", "产品适配", "检测认证"],
+    "watchCompanyTypes": ["附件直接列示的主要起草单位", "标准检测认证机构", "需要大规模产品适配的制造企业"],
+    "watchCompanies": ["中控技术", "科大讯飞", "奇安信", "万华化学", "京东方A"],
+    "nearTermCatalysts": ["征求意见稿", "标准报批和发布", "采购规范引用", "产品认证"],
+    "keyRisks": ["项目可能延期或调整", "推荐性标准采用率不确定", "参与标准不形成排他优势", "部分标准增加企业合规成本"],
+    "minimumEvidenceNeeded": ["标准文本和技术参数", "正式发布日期", "客户采用或采购引用", "认证和适配项目"],
+    "doNotOverread": ["805项立项不是805个订单", "起草单位不是独家受益主体", "标准计划不能直接转化为盈利预测"],
+    "summary": "标准计划提供未来规则方向和参与主体线索，适合中期跟踪；当前最可靠的是项目和起草单位事实，经营兑现必须等待标准发布、实施和市场采用。"
+  },
+  "actions": [
+    {"id": "a1", "title": "安排805项行业标准项目", "actionType": "项目立项", "actionEvidenceLevel": "strong", "implementationDependency": "附件项目计划", "body": "第四批共安排805项，其中制定612项、修订193项。", "signal": "mixed", "confidence": 98, "clauseIds": ["c1"], "sortOrder": 1},
+    {"id": "a2", "title": "要求协同技术创新和试验验证", "actionType": "标准组织", "actionEvidenceLevel": "strong", "implementationDependency": "起草单位和归口组织", "body": "标准制定需统筹技术创新、试验验证、知识产权处置和产业化推广。", "signal": "positive", "confidence": 94, "clauseIds": ["c2"], "sortOrder": 2},
+    {"id": "a3", "title": "强化新兴产业标准", "actionType": "标准布局", "actionEvidenceLevel": "strong", "implementationDependency": "项目起草和审查", "body": "人工智能、5G、集成电路等新兴产业进入重点项目。", "signal": "positive", "confidence": 96, "clauseIds": ["c3"], "sortOrder": 3},
+    {"id": "a4", "title": "升级传统产业和绿色低碳标准", "actionType": "标准布局", "actionEvidenceLevel": "strong", "implementationDependency": "行业实施", "body": "数字化转型、绿色低碳和质量可靠性项目推动传统产业规则升级。", "signal": "mixed", "confidence": 95, "clauseIds": ["c4"], "sortOrder": 4},
+    {"id": "a5", "title": "加强过程管理和技术审查", "actionType": "质量管理", "actionEvidenceLevel": "strong", "implementationDependency": "主管司局和技术组织", "body": "归口单位负责起草、征求意见和审查，主管司局负责过程管理。", "signal": "constraint", "confidence": 94, "clauseIds": ["c5"], "sortOrder": 5}
+  ],
+  "clauses": [
+    {"id": "c1", "no": "三", "title": "805项项目结构", "excerpt": "共安排805项，其中制定612项、修订193项；重点和基础通用标准499项，其他标准306项。", "body": "2026年第四批行业标准制修订计划共安排805项。", "confidence": 99, "keywords": ["805项", "制定", "修订"], "industries": ["标准化"], "sortOrder": 1},
+    {"id": "c2", "no": "正文", "title": "技术创新和验证", "excerpt": "做好标准制定与技术创新、试验验证、知识产权处置、产业化推进、应用推广的统筹协调。", "body": "起草单位需统筹标准和产业化。", "confidence": 97, "keywords": ["试验验证", "产业化"], "industries": ["技术服务"], "sortOrder": 2},
+    {"id": "c3", "no": "附件", "title": "新兴产业标准", "excerpt": "计划表包括人工智能、5G、集成电路、新型显示等项目。", "body": "强化新兴产业标准项目计划。", "confidence": 98, "keywords": ["人工智能", "5G", "集成电路"], "industries": ["新兴产业"], "sortOrder": 3},
+    {"id": "c4", "no": "附件", "title": "传统产业升级和绿色低碳", "excerpt": "计划表包括数字化转型、绿色低碳、质量与可靠性提升项目。", "body": "升级传统产业标准项目计划。", "confidence": 98, "keywords": ["数字化转型", "绿色低碳"], "industries": ["传统产业"], "sortOrder": 4},
+    {"id": "c5", "no": "正文", "title": "标准起草和审查", "excerpt": "有关协会、技术组织和专业机构负责起草、征求意见和技术审查。", "body": "主管司局做好项目过程管理。", "confidence": 96, "keywords": ["技术审查", "过程管理"], "industries": ["标准服务"], "sortOrder": 5}
+  ],
+  "chainNodes": [
+    {"id": "n1", "title": "制造业数字化和工业软件标准", "subtitle": "传统产业升级", "section": "upstream", "relation": "direct", "evidenceLevel": "strong", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["标准草案", "行业采用"], "confidence": 95, "description": "化工智能控制、预测维护和场景图谱等项目进入计划。", "clauseIds": ["c1", "c2", "c4"], "companyIds": ["co1"], "evidenceIds": ["e1", "e2", "e4"], "impactReason": "附件直接列项。", "iconKey": "digital"},
+    {"id": "n2", "title": "人工智能产品与安全标准", "subtitle": "新兴产业规则", "section": "midstream", "relation": "direct", "evidenceLevel": "strong", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["AI标准发布", "测评认证"], "confidence": 95, "description": "企业软件智能化、智能体和AI安全项目进入计划。", "clauseIds": ["c1", "c3"], "companyIds": ["co2", "co3"], "evidenceIds": ["e1", "e3", "e5", "e6"], "impactReason": "附件直接列项。", "iconKey": "ai"},
+    {"id": "n3", "title": "绿色低碳和产品碳足迹标准", "subtitle": "环境规则", "section": "midstream", "relation": "direct", "evidenceLevel": "strong", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["碳足迹方法", "实施认证"], "confidence": 94, "description": "零碳园区、产品碳足迹和循环利用标准进入计划。", "clauseIds": ["c1", "c4"], "companyIds": ["co4", "co5"], "evidenceIds": ["e1", "e7", "e8"], "impactReason": "附件直接列项。", "iconKey": "green"},
+    {"id": "n4", "title": "集成电路接口和测试标准", "subtitle": "电子信息基础", "section": "downstream", "relation": "direct", "evidenceLevel": "strong", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["测试方法", "接口采用"], "confidence": 93, "description": "AI芯片测试、RISC-V和EDA文件格式等项目进入计划。", "clauseIds": ["c1", "c3"], "companyIds": [], "evidenceIds": ["e1", "e9"], "impactReason": "附件直接列项，但本报告不扩张公司映射。", "iconKey": "chip"},
+    {"id": "n5", "title": "检测认证与标准实施服务", "subtitle": "落地支撑", "section": "support", "relation": "indirect", "evidenceLevel": "strong", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["检测项目", "认证规则"], "confidence": 88, "description": "标准正式实施后可能形成一致性、性能和合规验证需求。", "clauseIds": ["c2", "c5"], "companyIds": [], "evidenceIds": ["e1"], "impactReason": "正文明确试验验证和技术审查要求。", "iconKey": "test"}
+  ],
+  "chainEdges": [
+    {"id": "edge1", "from": "n1", "to": "n5", "type": "implementation", "confidence": 78, "reason": "数字化标准发布后需产品和场景验证。"},
+    {"id": "edge2", "from": "n2", "to": "n5", "type": "certification", "confidence": 82, "reason": "AI能力和安全规则可能形成测试评估。"},
+    {"id": "edge3", "from": "n3", "to": "n5", "type": "verification", "confidence": 84, "reason": "碳足迹和绿色标准需要核算验证。"},
+    {"id": "edge4", "from": "n4", "to": "n5", "type": "conformance", "confidence": 80, "reason": "芯片接口和测试标准需要一致性验证。"}
+  ],
+  "companies": [
+    {"id": "co1", "name": "中控技术股份有限公司", "ticker": "688777.SH", "section": "upstream", "relation": "direct", "evidenceLevel": "strong", "companyMappingEvidenceLevel": "strong", "mappingLevel": "policy_named", "officialMention": true, "notInvestmentSignal": true, "confidence": 92, "policyRelevance": 94, "evidenceCertainty": 91, "reason": "参与化工生产智能控制要求标准项目。", "nodeIds": ["n1"], "clauseIds": ["c2", "c4"], "evidenceIds": ["e2", "e4"], "riskNote": "标准尚未发布，客户采用和订单增量未知。"},
+    {"id": "co2", "name": "科大讯飞股份有限公司", "ticker": "002230.SZ", "section": "midstream", "relation": "direct", "evidenceLevel": "strong", "companyMappingEvidenceLevel": "strong", "mappingLevel": "policy_named", "officialMention": true, "notInvestmentSignal": true, "confidence": 91, "policyRelevance": 92, "evidenceCertainty": 90, "reason": "参与企业级软件智能化分级通用能力要求。", "nodeIds": ["n2"], "clauseIds": ["c3"], "evidenceIds": ["e3", "e5"], "riskNote": "标准参与不证明企业软件市场份额或采购结果。"},
+    {"id": "co3", "name": "奇安信科技集团股份有限公司", "ticker": "688561.SH", "section": "midstream", "relation": "direct", "evidenceLevel": "strong", "companyMappingEvidenceLevel": "strong", "mappingLevel": "policy_named", "officialMention": true, "notInvestmentSignal": true, "confidence": 90, "policyRelevance": 91, "evidenceCertainty": 89, "reason": "参与AI模型开发安全保障指南。", "nodeIds": ["n2"], "clauseIds": ["c3"], "evidenceIds": ["e3", "e6"], "riskNote": "指南约束力、市场采用和安全项目转化仍不确定。"},
+    {"id": "co4", "name": "万华化学集团股份有限公司", "ticker": "600309.SH", "section": "midstream", "relation": "direct", "evidenceLevel": "strong", "companyMappingEvidenceLevel": "strong", "mappingLevel": "policy_named", "officialMention": true, "notInvestmentSignal": true, "confidence": 89, "policyRelevance": 90, "evidenceCertainty": 88, "reason": "参与光伏胶膜用POE粒子和共聚烯烃薄膜标准。", "nodeIds": ["n3"], "clauseIds": ["c4"], "evidenceIds": ["e7"], "riskNote": "标准参数、下游采用和产品销售需后续验证。"},
+    {"id": "co5", "name": "京东方科技集团股份有限公司", "ticker": "000725.SZ", "section": "midstream", "relation": "direct", "evidenceLevel": "strong", "companyMappingEvidenceLevel": "strong", "mappingLevel": "policy_named", "officialMention": true, "notInvestmentSignal": true, "confidence": 88, "policyRelevance": 89, "evidenceCertainty": 87, "reason": "参与显示屏产品碳足迹量化方法与要求。", "nodeIds": ["n3"], "clauseIds": ["c4"], "evidenceIds": ["e8"], "riskNote": "标准可能同时增加数据和合规成本，收入影响不确定。"}
+  ],
+  "evidence": [
+    {"id": "e1", "title": "项目计划总体说明", "source": "工业和信息化部", "type": "attachment", "excerpt": "第四批共安排805项，制定612项、修订193项；重点和基础通用标准499项、其他306项。", "interpretation": "项目规模和结构可直接核验。", "evidenceObject": "policy_action", "confidence": 99, "clauseIds": ["c1"], "nodeIds": ["n1", "n2", "n3", "n4"], "companyIds": []},
+    {"id": "e2", "title": "化工智能控制标准", "source": "工信部官方附件第5页", "type": "attachment", "excerpt": "项目2026-0601T-HG为制造业数字化转型化工生产智能控制要求，中控技术列为主要起草单位。", "interpretation": "中控技术获得直接标准参与主体证据。", "evidenceObject": "company_policy_named", "confidence": 99, "clauseIds": ["c2", "c4"], "nodeIds": ["n1"], "companyIds": ["co1"]},
+    {"id": "e3", "title": "人工智能标准项目", "source": "工信部官方附件第64—69页", "type": "attachment", "excerpt": "附件人工智能部分包括产品服务、关键基础技术和安全治理项目。", "interpretation": "AI规则建设覆盖能力评价和安全测试。", "evidenceObject": "industry_node", "confidence": 98, "clauseIds": ["c3"], "nodeIds": ["n2"], "companyIds": ["co2", "co3"]},
+    {"id": "e4", "title": "标准与产业化协调要求", "source": "工业和信息化部通知正文", "type": "policy", "excerpt": "做好标准制定与技术创新、试验验证、知识产权处置、产业化推进和应用推广的统筹协调。", "interpretation": "标准项目不仅编写文本，也要求试验验证和产业化衔接。", "evidenceObject": "implementation_condition", "confidence": 97, "clauseIds": ["c2", "c5"], "nodeIds": ["n1", "n5"], "companyIds": ["co1"]},
+    {"id": "e5", "title": "企业软件智能化分级标准", "source": "工信部官方附件第64页", "type": "attachment", "excerpt": "项目2026-1076T-YD列明科大讯飞参与企业级软件智能化分级通用能力要求。", "interpretation": "科大讯飞属于标准直接点名起草单位。", "evidenceObject": "company_policy_named", "confidence": 99, "clauseIds": ["c3"], "nodeIds": ["n2"], "companyIds": ["co2"]},
+    {"id": "e6", "title": "AI模型安全指南", "source": "工信部官方附件第66页", "type": "attachment", "excerpt": "项目2026-1084T-YD列明奇安信参与AI模型开发安全保障指南。", "interpretation": "奇安信属于标准直接点名起草单位。", "evidenceObject": "company_policy_named", "confidence": 99, "clauseIds": ["c3"], "nodeIds": ["n2"], "companyIds": ["co3"]},
+    {"id": "e7", "title": "光伏材料标准", "source": "工信部官方附件第81页", "type": "attachment", "excerpt": "光伏胶膜用POE粒子和共聚烯烃薄膜项目列明万华化学。", "interpretation": "万华化学属于标准直接点名起草单位。", "evidenceObject": "company_policy_named", "confidence": 99, "clauseIds": ["c4"], "nodeIds": ["n3"], "companyIds": ["co4"]},
+    {"id": "e8", "title": "显示屏碳足迹标准", "source": "工信部官方附件第16页", "type": "attachment", "excerpt": "显示屏产品碳足迹量化方法与要求项目列明京东方。", "interpretation": "京东方属于标准直接点名起草单位。", "evidenceObject": "company_policy_named", "confidence": 99, "clauseIds": ["c4"], "nodeIds": ["n3"], "companyIds": ["co5"]},
+    {"id": "e9", "title": "集成电路标准项目", "source": "工信部官方附件第78—79页", "type": "attachment", "excerpt": "附件列明AI芯片测试、服务器要求、RISC-V能力评价和EDA文件格式项目。", "interpretation": "标准计划覆盖芯片测试和生态接口，但本报告未据此扩大公司名单。", "evidenceObject": "industry_node", "confidence": 98, "clauseIds": ["c3"], "nodeIds": ["n4"], "companyIds": []}
+  ],
+  "backgroundCards": [
+    {"id": "bg1", "title": "项目计划不是正式标准", "body": "计划确定制修订任务，仍需起草、征求意见、审查、批准和发布。", "evidenceIds": ["e1", "e4"]},
+    {"id": "bg2", "title": "起草单位是参与主体", "body": "附件列示主要起草单位，说明参与规则形成，但不代表独家控制或市场份额。", "evidenceIds": ["e2", "e5", "e6"]},
+    {"id": "bg3", "title": "经营兑现依赖市场采用", "body": "标准正式实施并被认证、采购或客户规范引用后，才可能形成适配和服务需求。", "evidenceIds": ["e4", "e7", "e8", "e9"]}
+  ],
+  "compareInsights": {
+    "comparableCount": 1,
+    "similarPolicies": ["工业和信息化部办公厅关于实施人工智能科技伦理审查与服务先导计划的通知"],
+    "contrastPolicies": [],
+    "insights": ["两者均通过规则和服务体系塑造产业能力。", "本计划覆盖范围更广，但单个项目实施强度低于明确的先导计划。"],
+    "limitations": ["标准立项、试点和强制监管属于不同政策工具，不能用项目数量直接比较投资强度。"]
+  },
+  "analysisCoverage": {
+    "status": "standard_complete_candidate",
+    "analysisMethod": "官方正文与131页项目计划附件抽样核验",
+    "evidenceCount": 9,
+    "industryNodeCount": 5,
+    "companyCount": 5,
+    "listedCompanyMapCount": 5,
+    "companyImpactConclusion": "五家公司均为附件直接列明的标准主要起草单位，但经营影响需等待标准发布、实施和市场采用。",
+    "limitations": ["未逐项分析805个项目", "未核验全部起草单位证券身份", "正式发布前需跟踪标准草案及最新公司业务资料"]
+  }
+}
