@@ -1,0 +1,309 @@
+{
+  "id": "f233bba0-b49d-4c22-9bc4-ddd9d33f5548",
+  "policyId": "f233bba0-b49d-4c22-9bc4-ddd9d33f5548",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "generatedAt": "2026-07-28T17:25:00+08:00",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "通知",
+  "substantivePolicyType": "首批次新材料保险补偿资金申请",
+  "primaryActionType": "销售交付、保险缴费、资金复核与反骗补",
+  "policySignalStrength": "high",
+  "implementationCertainty": "high",
+  "analysisDepth": "L4",
+  "analysisDepthReason": "通知只面向已通过资格审定且处于有效期内的项目，并把资金申请落实到生产、最终用户销售、交付、单一保单、保费发票、银行流水、完税和理赔等可核验商业证据，明确最高80%实际保费补助、额度上限、线上申报和反骗补责任，已经形成从资格到销售回款和保险资金的完整兑现链；但未公布2026年申请企业、材料产品、最终用户、销售金额、保单和补助资金名单，因此不建立公司映射。",
+  "followUpSignals": [
+    "2026年首批次新材料保险补偿项目和资金意见",
+    "申请企业、材料产品、目录序号和资格有效期",
+    "最终用户、销售合同金额和交付数量",
+    "保单起止时间、保险险种、费率和保费金额",
+    "保费发票、银行流水和完税证明",
+    "出口产品和汇率口径",
+    "历史出险、已决未决赔付和理赔时间",
+    "资金拨付、收回、骗补处理和三年禁申报情况",
+    "首批次材料复购、规模化应用和收入贡献"
+  ],
+  "summary": {
+    "id": "f233bba0-b49d-4c22-9bc4-ddd9d33f5548",
+    "title": "三部门关于组织开展2026年首批次新材料保险补偿资金申请工作的通知",
+    "issuer": "工业和信息化部办公厅等三部门",
+    "source": "工业和信息化部 - 政策文件库",
+    "publishDate": "2026-06-18",
+    "status": "draft",
+    "confidence": 98,
+    "industryCount": 6,
+    "companyCount": 0,
+    "evidenceCount": 9,
+    "primarySignal": "首批次新材料财政支持必须以已获资格、最终用户销售、真实交付、合规保单和全额保费流水为基础，补助最高为实际缴纳保费80%且不超过额度",
+    "category": "首批次新材料保险补偿与商业兑现"
+  },
+  "policy": {
+    "title": "三部门关于组织开展2026年首批次新材料保险补偿资金申请工作的通知",
+    "status": "已发布",
+    "issuer": "工业和信息化部办公厅、财政部办公厅、金融监管总局办公厅",
+    "publishDate": "2026-06-18",
+    "effectiveDate": "2026-06-15",
+    "source": "工业和信息化部 - 政策文件库",
+    "category": "首批次新材料保险补偿与商业兑现",
+    "level": "中央三部门",
+    "confidence": 98,
+    "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_38ee26e680994289a8b1bc9109ff19bf.html",
+    "scope": "已通过首批次新材料保险补偿资格审定、处于资格有效期并完成生产、最终用户销售交付、投保和保费缴纳的新材料制造企业申请2026年补助资金",
+    "impactScope": "先进基础材料、关键战略材料、前沿新材料、生产制造企业、最终用户、销售和交付、财产保险、保费补助、贸易链核验、出口业务、完税信用和反骗补",
+    "jurisdiction": "中国大陆",
+    "tags": ["首批次新材料", "保险补偿", "最终用户", "销售合同", "交付证明", "保费发票", "银行流水", "完税证明", "80%补助"]
+  },
+  "brief": {
+    "judgement": "本轮不是重新开放首批次新材料资格申报，而是只为已经通过资格审定、仍在有效期、且完成真实商业和保险闭环的项目申请资金。生产企业必须证明产品销售给最终用户，不能自产自购，最终用户不得是贸易商；如存在中间商，需要提供直到最终用户的全套合同。每份保单只能对应一家制造企业、一个产品和一家用户，产品名称、技术指标、销售合同、交付证明、保单、保费发票和银行流水必须一致。符合条件的企业可申请不超过实际缴纳保费80%且不超过已核定额度的补助。这使首批次政策的公司证据门从“技术和目录资格”推进到“用户、合同、交付、保单、现金流和税务”层，但公开文件尚无具体项目名单。",
+    "summary": "支持对象需已获资格、在有效期内完成生产、交付和投保，保单起保日期在2025年10月16日之后，本次附件进一步明确受理保单起保日期为2025年10月16日至2026年7月20日。申报材料包括资金申请表、销售合同、交付证明、保单、保费发票、足额缴费银行流水、自我声明、完税证明、营业执照和信用记录。销售必须到最终用户；中间商链条需完整；交付可由用户盖章证明或发货单、交货单、发票和收款流水构成。保险条款和费率必须合规，不得通过特别约定变更备案口径。工业和信息化、财政和金融监管部门分别核查资格、合同交付、保险费率、承保理赔和保费清收，最终形成项目和资金意见。",
+    "keyPoints": [
+      "本通知只受理资金申请，不等同于新的资格审定名单。",
+      "补助最高为实际缴纳保费80%，同时不得超过既有保费补助资金额度。",
+      "最终用户、禁止自产自购、非贸易商和完整合同链，是防止虚假销售与关联循环的重要门槛。",
+      "每份保单只能对应一家制造企业、一个产品和一家用户，合同、交付、保单、发票和流水需要一致。",
+      "当前没有申请项目和企业名单，不能从材料目录或揭榜名单直接推导本年度资金受益公司。"
+    ],
+    "methodology": "使用工信部通知页和两份官方PDF附件，按“既有资格—最终用户销售—产品交付—单一保单—全额缴费—部门复核—资金拨付—应用复购”拆分兑现链。公司关系必须由2026年项目资金意见或企业公开的合同、用户、保单和补助证据建立；不以材料技术方向、行业标签或此前揭榜身份代替。"
+  },
+  "policyIndustryMap": [
+    {
+      "id": "pi1",
+      "industry": "首批次新材料生产制造",
+      "policyAction": "已获资格项目完成生产、交付和投保后申请保费补助",
+      "impactType": "commercialization_risk_compensation",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "政策降低新材料首次规模应用阶段的保险成本，但仅适用于既有资格和真实交付项目。",
+      "relatedClauseIds": ["c1", "c2", "c5"],
+      "relatedNodeIds": ["n1", "n2", "n3", "n5"],
+      "watchSignals": ["资金项目名单", "材料产品", "交付和保费"]
+    },
+    {
+      "id": "pi2",
+      "industry": "新材料最终用户与应用验证",
+      "policyAction": "要求销售至非贸易商最终用户并形成完整交付证据",
+      "impactType": "end_user_validation",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "最终用户和实际交付把政策支持与真实应用绑定，避免仅凭生产或库存申请资金。",
+      "relatedClauseIds": ["c2", "c3"],
+      "relatedNodeIds": ["n2", "n3"],
+      "watchSignals": ["最终用户", "应用场景", "交付数量", "复购"]
+    },
+    {
+      "id": "pi3",
+      "industry": "新材料贸易、供应链和出口",
+      "policyAction": "要求中间商完整合同链并规范外文和外币交易材料",
+      "impactType": "transaction_compliance",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "贸易链和出口项目可申报，但材料复杂度和真实性审核提高，贸易商不能作为最终用户。",
+      "relatedClauseIds": ["c2", "c3"],
+      "relatedNodeIds": ["n2", "n3"],
+      "watchSignals": ["中间商合同链", "出口国家", "参考汇率", "最终用户"]
+    },
+    {
+      "id": "pi4",
+      "industry": "财产保险、风险定价和理赔",
+      "policyAction": "一企一产品一用户投保并核查费率、承保、理赔和保费清收",
+      "impactType": "insurance_service",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "保险公司提供首用风险分担，费率和赔付数据反映材料技术及场景风险，但当前没有承保主体。",
+      "relatedClauseIds": ["c4"],
+      "relatedNodeIds": ["n4", "n5"],
+      "watchSignals": ["承保公司", "险种费率", "出险赔付", "保费清收"]
+    },
+    {
+      "id": "pi5",
+      "industry": "财政资金审核、税务和信用合规",
+      "policyAction": "以发票、银行流水、完税和信用记录核验资金真实性",
+      "impactType": "fiscal_compliance",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "补助建立在真实缴费和纳税基础上，骗补会收回资金并触发三年禁申报。",
+      "relatedClauseIds": ["c5", "c6"],
+      "relatedNodeIds": ["n5", "n6"],
+      "watchSignals": ["资金意见", "完税证明", "信用记录", "骗补处理"]
+    },
+    {
+      "id": "pi6",
+      "industry": "新材料规模化应用和客户复购",
+      "policyAction": "通过保险降低首批次应用风险并积累用户和赔付数据",
+      "impactType": "market_adoption",
+      "impactDirection": "pending",
+      "evidenceLevel": "pending",
+      "policyCloseness": "indirect",
+      "reason": "政策可降低首次使用风险，但长期经营价值必须由用户满意、复购、销售收入和理赔表现验证。",
+      "relatedClauseIds": ["c2", "c4", "c5"],
+      "relatedNodeIds": ["n3", "n4", "n6"],
+      "watchSignals": ["复购订单", "销售放量", "客户认证", "赔付率"]
+    }
+  ],
+  "industryChain": [
+    {
+      "id": "chain1",
+      "chainName": "既有资格—最终用户销售—产品交付—单一保单与缴费—项目复核—资金补助—规模化应用",
+      "policyRole": "资格只证明产品进入政策范围，最终用户销售和交付形成真实应用，保单和现金流形成风险与资金事实，三部门复核后才形成补助，长期价值再由复购和规模化验证。",
+      "nodes": [
+        {"id": "n1", "policySensitivity": "high", "description": "项目已通过资格审定且仍在有效期内。"},
+        {"id": "n2", "policySensitivity": "high", "description": "生产企业与最终用户形成真实销售合同，贸易链完整且非自产自购。"},
+        {"id": "n3", "policySensitivity": "high", "description": "产品完成交付，名称、型号、数量、金额和时间可核验。"},
+        {"id": "n4", "policySensitivity": "high", "description": "一家制造企业、一个产品和一家用户对应一份合规保单。"},
+        {"id": "n5", "policySensitivity": "high", "description": "保费发票、银行流水、完税和信用材料进入部门复核，补助最高80%。"},
+        {"id": "n6", "policySensitivity": "medium", "description": "使用、理赔、复购和销售放量验证材料长期价值。"}
+      ],
+      "edges": [
+        {"from": "n1", "to": "n2", "relation": "qualification_to_sale", "description": "既有资格项目必须形成真实最终用户销售。"},
+        {"from": "n2", "to": "n3", "relation": "sale_to_delivery", "description": "合同需要由用户证明或全套物流、发票和回款材料验证交付。"},
+        {"from": "n3", "to": "n4", "relation": "delivery_to_insurance", "description": "已交付产品进入单一用户和产品保单。"},
+        {"from": "n4", "to": "n5", "relation": "premium_to_fiscal_review", "description": "保单、发票和银行流水决定可申请的实际保费。"},
+        {"from": "n5", "to": "n6", "relation": "support_to_scale", "description": "补助降低首次应用风险，但规模化仍需复购和经营数据。"}
+      ]
+    }
+  ],
+  "companyMap": [],
+  "policyNetwork": [
+    {
+      "id": "pn1",
+      "relatedPolicy": "关于进一步完善首台套重大技术装备首批次新材料保险补偿政策的意见（工信部联重装〔2024〕89号）",
+      "relationship": "strategic_basis",
+      "meaning": "本次资金申请在2024年完善后的保险补偿制度下执行。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2026-06-18",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_38ee26e680994289a8b1bc9109ff19bf.html",
+      "watchSignals": ["政策修订", "资格和额度变化"]
+    },
+    {
+      "id": "pn2",
+      "relatedPolicy": "首台套重大技术装备首批次新材料保险补偿政策实施细则（试行）（工信厅联重装〔2024〕64号）",
+      "relationship": "implementation_rule",
+      "meaning": "资格有效期、保险、资金和审核仍需符合实施细则，本通知细化2026年资金材料。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2026-06-18",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_38ee26e680994289a8b1bc9109ff19bf.html",
+      "watchSignals": ["实施细则", "审核口径", "资金意见"]
+    },
+    {
+      "id": "pn3",
+      "relatedPolicy": "精细化工关键产品揭榜挂帅入围单位名单",
+      "relationship": "innovation_to_application",
+      "meaning": "揭榜入围项目完成攻关和优胜测评后可能进入首批次应用支持，但入围身份不能替代资格、最终用户销售、交付和投保证据。",
+      "evidenceLevel": "indirect",
+      "watchSignals": ["攻关完成", "优胜测评", "首批次资格", "最终用户"]
+    },
+    {
+      "id": "pn4",
+      "relatedPolicy": "2026年首台套重大技术装备保险补偿政策",
+      "relationship": "parallel_policy_tool",
+      "meaning": "两项政策均按最高80%实际保费补助，但首台套本轮同时组织资格审定和资金申请，新材料本轮只受理已获资格项目的资金申请。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2026-06-18",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_38ee26e680994289a8b1bc9109ff19bf.html",
+      "watchSignals": ["两类项目名单", "保费和补助", "用户应用"]
+    }
+  ],
+  "investmentDirection": {
+    "primaryDirection": "优先跟踪资金项目名单中已经形成最终用户销售、交付、保单和缴费的新材料，而不是仅关注材料技术概念或资格身份；当前不指定公司。",
+    "directionStrength": "medium",
+    "timeHorizon": "medium_term",
+    "watchIndustries": ["先进基础材料", "关键战略材料", "前沿新材料", "新材料保险", "应用验证", "供应链合规"],
+    "watchChainNodes": ["既有资格", "最终用户合同", "产品交付", "保单与保费", "补助资金", "复购和规模化"] ,
+    "watchCompanyTypes": ["2026年资金申请的新材料制造企业", "最终用户", "承保保险公司", "涉及中间商的完整供应链主体"],
+    "watchCompanies": [],
+    "nearTermCatalysts": ["项目和资金意见", "资金拨付", "用户应用案例", "复购合同", "公司收入和产能利用披露"],
+    "keyRisks": ["本轮不新增资格，未获资格企业不能申请", "补助受实际保费和额度双重上限", "贸易链、合同、交付和缴费不一致可能被否决", "虚假销售或理赔触发资金收回和三年禁申报", "首批次应用仍存在质量和客户认证风险"],
+    "minimumEvidenceNeeded": ["资格和额度", "最终用户销售合同", "交付和回款", "保单、发票及银行流水", "补助资金", "复购和经营贡献"],
+    "doNotOverread": ["资格审定不等于2026年资金受益", "最高80%不代表统一按80%补助", "最终用户销售不等于规模化复购", "揭榜入围不等于首批次资金项目"],
+    "summary": "该政策的证据质量高于一般目录和名单政策，因为资金申请要求合同、交付、保单和现金流；但具体公司研究必须等待项目资金意见。"
+  },
+  "actions": [
+    {"id": "a1", "actionType": "支持对象", "actionEvidenceLevel": "strong", "title": "限定已获资格并完成生产交付投保的企业", "body": "本轮不重新开放资格，企业需在有效期内完成真实产品和保险闭环。", "signal": "constraint", "confidence": 99, "clauseIds": ["c1"], "sortOrder": 1},
+    {"id": "a2", "actionType": "保费补助", "actionEvidenceLevel": "strong", "title": "补助不超过实际缴纳保费80%和既有额度", "body": "保费发票金额和已核定额度共同构成资金上限。", "signal": "beneficiary", "confidence": 99, "clauseIds": ["c1", "c5"], "sortOrder": 2},
+    {"id": "a3", "actionType": "最终用户", "actionEvidenceLevel": "strong", "title": "禁止自产自购和贸易商最终用户", "body": "中间商交易需提供至最终用户的完整合同，确保材料进入真实应用。", "signal": "constraint", "confidence": 99, "clauseIds": ["c2"], "sortOrder": 3},
+    {"id": "a4", "actionType": "交付证明", "actionEvidenceLevel": "strong", "title": "以用户证明或物流发票回款核验交付", "body": "产品名称、型号、数量和时间需与合同和保险材料一致。", "signal": "constraint", "confidence": 98, "clauseIds": ["c3"], "sortOrder": 4},
+    {"id": "a5", "actionType": "保险合规", "actionEvidenceLevel": "strong", "title": "实行一企一产品一用户保单", "body": "保险条款费率不得通过特别约定改变，发票和银行流水需与实收保费一致。", "signal": "constraint", "confidence": 99, "clauseIds": ["c4"], "sortOrder": 5},
+    {"id": "a6", "actionType": "部门复核", "actionEvidenceLevel": "strong", "title": "三部门核验资格、交易、保险和资金", "body": "工业和信息化、财政和金融监管分别审核项目与保险真实性，第三方专家形成资金意见。", "signal": "market", "confidence": 98, "clauseIds": ["c5"], "sortOrder": 6},
+    {"id": "a7", "actionType": "反骗补", "actionEvidenceLevel": "strong", "title": "骗补骗保收回资金并禁申报三年", "body": "虚假材料、虚假理赔等行为承担财政、行政和可能的刑事责任。", "signal": "risk", "confidence": 99, "clauseIds": ["c6"], "sortOrder": 7}
+  ],
+  "clauses": [
+    {"id": "c1", "no": "支持对象", "title": "资格、交付、投保和双重资金上限", "excerpt": "已通过资格审定、在有效年限内完成生产、交付和投保的企业可申请不超过实际缴纳保费80%且不超过额度的补贴。", "body": "资格和真实商业保险事实缺一不可。", "confidence": 99, "keywords": ["资格有效", "生产交付", "80%", "额度"], "industries": ["新材料制造"], "sortOrder": 1},
+    {"id": "c2", "no": "销售合同", "title": "最终用户和完整交易链", "excerpt": "产品须销售给最终用户，不能自产自购，最终用户不得为贸易商。", "body": "中间商需提供至最终用户的全套合同。", "confidence": 99, "keywords": ["最终用户", "贸易商", "自产自购"], "industries": ["材料应用"], "sortOrder": 2},
+    {"id": "c3", "no": "交付证明", "title": "用户盖章或全套交付材料", "excerpt": "交付可由用户单位证明或发货单、交货单、发票和收款流水等材料证明。", "body": "交付把合同转化为真实应用证据。", "confidence": 98, "keywords": ["交付证明", "发票", "收款流水"], "industries": ["供应链"], "sortOrder": 3},
+    {"id": "c4", "no": "保单与缴费", "title": "一企一产品一用户和费率合规", "excerpt": "每份保单对应一家生产制造企业、一个产品及一家用户单位。", "body": "保费发票和银行流水需与实收金额一致，条款费率不得违规改变。", "confidence": 99, "keywords": ["每份保单", "保费发票", "银行流水", "费率"], "industries": ["保险"], "sortOrder": 4},
+    {"id": "c5", "no": "审核和资金", "title": "多部门真实性复核", "excerpt": "工业和信息化部门核验资格销售交付，金融监管核验承保理赔和保费清收。", "body": "第三方专家复核后形成项目和资金意见。", "confidence": 98, "keywords": ["项目审核", "部门复核", "资金意见"], "industries": ["财政管理"], "sortOrder": 5},
+    {"id": "c6", "no": "责任追究", "title": "骗补骗保资金收回和禁申报", "excerpt": "虚假材料或虚假理赔骗补骗保的，收缴财政资金，3年内不得申报相关项目。", "body": "严重违法行为可能移送司法机关。", "confidence": 99, "keywords": ["骗补骗保", "收缴资金", "3年"], "industries": ["合规"], "sortOrder": 6}
+  ],
+  "chainNodes": [
+    {"id": "n1", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["资格结果", "有效期", "额度"], "title": "既有资格与额度", "subtitle": "本轮资金申请的前置门槛", "section": "upstream", "relation": "policy", "evidenceLevel": "strong", "confidence": 99, "description": "企业需已获资格并处有效期，本通知不重新审定资格。", "clauseIds": ["c1"], "companyIds": [], "evidenceIds": ["e1"], "impactReason": "未获资格企业不具备资金申请入口。", "iconKey": "badge-check"},
+    {"id": "n2", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["最终用户", "销售合同", "交易链"], "title": "真实销售与最终用户", "subtitle": "排除自产自购和贸易商终端", "section": "upstream", "relation": "commercial", "evidenceLevel": "strong", "confidence": 99, "description": "销售合同必须指向最终用户，中间商链条完整。", "clauseIds": ["c2"], "companyIds": [], "evidenceIds": ["e2"], "impactReason": "真实应用是资金支持核心。", "iconKey": "users"},
+    {"id": "n3", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["交付证明", "发货单", "发票", "回款"], "title": "产品交付", "subtitle": "合同进入实物流和资金流", "section": "midstream", "relation": "delivery", "evidenceLevel": "strong", "confidence": 98, "description": "用户证明或全套物流、发票和收款材料确认交付。", "clauseIds": ["c3"], "companyIds": [], "evidenceIds": ["e3"], "impactReason": "交付是商业兑现的重要门槛。", "iconKey": "package-check"},
+    {"id": "n4", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["保单", "险种", "费率", "理赔"], "title": "保险与风险定价", "subtitle": "一企一产品一用户", "section": "midstream", "relation": "insurance", "evidenceLevel": "strong", "confidence": 99, "description": "产品完成投保，保险条款费率和历史理赔接受监管核验。", "clauseIds": ["c4"], "companyIds": [], "evidenceIds": ["e4", "e5"], "impactReason": "保单把首次应用风险转移给保险机制。", "iconKey": "shield"},
+    {"id": "n5", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["保费发票", "银行流水", "完税", "补助资金"], "title": "财政资金复核", "subtitle": "最高补助实际保费80%且不超额度", "section": "downstream", "relation": "subsidy", "evidenceLevel": "strong", "confidence": 99, "description": "真实缴费、纳税和信用材料决定项目资金意见。", "clauseIds": ["c1", "c4", "c5"], "companyIds": [], "evidenceIds": ["e1", "e4", "e6", "e7"], "impactReason": "补助发生在商业和保险闭环之后。", "iconKey": "wallet"},
+    {"id": "n6", "industryNodeEvidenceLevel": "pending", "verificationSignals": ["复购", "销售放量", "收入", "赔付率"], "title": "规模化应用", "subtitle": "资金支持后的市场验证", "section": "support", "relation": "pending", "evidenceLevel": "pending", "confidence": 65, "description": "补助可降低首批次风险，长期价值仍由复购和经营贡献证明。", "clauseIds": ["c1", "c6"], "companyIds": [], "evidenceIds": ["e8", "e9"], "impactReason": "财政资金不是规模化市场需求的替代证据。", "iconKey": "trending-up"}
+  ],
+  "chainEdges": [
+    {"id": "edge1", "from": "n1", "to": "n2", "type": "strong", "label": "资格项目形成最终用户销售"},
+    {"id": "edge2", "from": "n2", "to": "n3", "type": "strong", "label": "合同经真实交付验证"},
+    {"id": "edge3", "from": "n3", "to": "n4", "type": "strong", "label": "交付产品进入保险风险分担"},
+    {"id": "edge4", "from": "n4", "to": "n5", "type": "strong", "label": "实际保费进入财政资金复核"},
+    {"id": "edge5", "from": "n5", "to": "n6", "type": "weak", "label": "补助后仍需复购和经营数据验证规模化"}
+  ],
+  "companies": [],
+  "evidence": [
+    {"id": "e1", "evidenceObject": "commercial_realization", "type": "policy_text", "source": "工信部等三部门通知", "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_38ee26e680994289a8b1bc9109ff19bf.html", "title": "支持对象和双重资金上限", "excerpt": "已获资格并完成生产、交付和投保的企业可申请不超过实际缴纳保费80%且不超过额度的补贴。", "interpretation": "资金只支持已完成商业和保险闭环的既有资格项目。", "confidence": 99, "clauseIds": ["c1"], "nodeIds": ["n1", "n5"], "companyIds": []},
+    {"id": "e2", "evidenceObject": "implementation_condition", "type": "official_attachment", "source": "首批次新材料保险补偿资金申请申报材料要求", "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20265/5a567fa473bf4f8ebf6447b00cb60ec4.pdf", "title": "最终用户和禁止自产自购", "excerpt": "产品须销售给最终用户，不能是企业自产自购，最终用户单位不得为贸易商。", "interpretation": "阻止虚假内部交易和仅在贸易环节停留。", "confidence": 99, "clauseIds": ["c2"], "nodeIds": ["n2"], "companyIds": []},
+    {"id": "e3", "evidenceObject": "commercial_realization", "type": "official_attachment", "source": "首批次新材料保险补偿资金申请申报材料要求", "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20265/5a567fa473bf4f8ebf6447b00cb60ec4.pdf", "title": "交付证明材料", "excerpt": "交付可由用户单位盖章证明或发货单、交货单、发票和收款流水等全套材料证明。", "interpretation": "合同之外还需实物流和资金流证据。", "confidence": 98, "clauseIds": ["c3"], "nodeIds": ["n3"], "companyIds": []},
+    {"id": "e4", "evidenceObject": "implementation_condition", "type": "official_attachment", "source": "首批次新材料保险补偿资金申请申报材料要求", "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20265/5a567fa473bf4f8ebf6447b00cb60ec4.pdf", "title": "一企一产品一用户保单", "excerpt": "每份保单对应一家生产制造企业、一个产品及一家用户单位。", "interpretation": "保单与具体交易对象一一对应，便于真实性核验。", "confidence": 99, "clauseIds": ["c4"], "nodeIds": ["n4", "n5"], "companyIds": []},
+    {"id": "e5", "evidenceObject": "industry_node", "type": "policy_text", "source": "工信部等三部门通知", "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_38ee26e680994289a8b1bc9109ff19bf.html", "title": "风险协商和保险监管", "excerpt": "根据技术成熟度、应用场景和历史赔付率自主协商保险费率和险种。", "interpretation": "材料风险影响保费和补助之外的净成本。", "confidence": 97, "clauseIds": ["c4"], "nodeIds": ["n4"], "companyIds": []},
+    {"id": "e6", "evidenceObject": "commercial_realization", "type": "official_attachment", "source": "首批次新材料保险补偿资金申请申报材料要求", "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20265/5a567fa473bf4f8ebf6447b00cb60ec4.pdf", "title": "保费发票和足额缴费银行流水", "excerpt": "发票、银行流水金额应与保单保费实收金额一致。", "interpretation": "实际缴费而非合同保费构成补助基础。", "confidence": 99, "clauseIds": ["c4", "c5"], "nodeIds": ["n5"], "companyIds": []},
+    {"id": "e7", "evidenceObject": "implementation_condition", "type": "official_attachment", "source": "首批次新材料保险补偿资金申请申报材料要求", "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20265/5a567fa473bf4f8ebf6447b00cb60ec4.pdf", "title": "完税、信用和申报信息", "excerpt": "企业需提供申报产品完税证明、营业执照、信用记录和自我声明。", "interpretation": "财政支持同时接受税务和信用约束。", "confidence": 98, "clauseIds": ["c5"], "nodeIds": ["n5"], "companyIds": []},
+    {"id": "e8", "evidenceObject": "policy_action", "type": "policy_text", "source": "工信部等三部门通知", "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_38ee26e680994289a8b1bc9109ff19bf.html", "title": "骗补骗保责任", "excerpt": "虚假材料或虚假理赔骗补骗保的，收缴财政资金，3年内不得申报相关项目。", "interpretation": "材料、交易和保险真实性具有高合规成本。", "confidence": 99, "clauseIds": ["c6"], "nodeIds": ["n5", "n6"], "companyIds": []},
+    {"id": "e9", "evidenceObject": "analysis_boundary", "type": "research_boundary", "source": "通知与两份官方附件核验", "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_38ee26e680994289a8b1bc9109ff19bf.html", "title": "当前不建立公司映射", "excerpt": "文件未公布2026年申请企业、材料产品、最终用户、保单、销售合同或资金项目名单。", "interpretation": "资格方向、材料类别和揭榜身份不能替代本年度资金项目证据。", "confidence": 99, "clauseIds": ["c1", "c5"], "nodeIds": ["n1", "n5", "n6"], "companyIds": []}
+  ],
+  "backgroundCards": [
+    {"id": "bg1", "title": "资金申请不等于资格审定", "body": "本轮只面向已经取得资格且仍在有效期的项目，未获资格企业不能通过提交合同和保单补办资格。", "evidenceIds": ["e1"]},
+    {"id": "bg2", "title": "最终用户是商业真实性核心", "body": "禁止自产自购和贸易商最终用户，中间商必须穿透到最终用户。", "evidenceIds": ["e2", "e3"]},
+    {"id": "bg3", "title": "补助基于实际现金流", "body": "合同和保单不足以申请资金，保费发票、银行流水和完税信用材料共同决定真实性。", "evidenceIds": ["e4", "e6", "e7"]}
+  ],
+  "compareInsights": {
+    "status": "official_policy_tool_comparison",
+    "comparableCount": 2,
+    "similarPolicies": ["2026年首台套重大技术装备保险补偿政策", "精细化工关键产品揭榜挂帅入围名单"],
+    "contrastPolicies": [],
+    "insights": ["首批次资金申请的证据门比一般名单政策更接近经营兑现，要求最终用户、合同、交付、保单、发票、银行流水和完税。", "首台套本轮可同时申请资格和资金，新材料本轮仅受理已获资格项目。", "揭榜入围项目必须继续经过攻关、测评、资格、销售、交付和投保，才可能进入本政策资金链。"],
+    "limitations": ["尚无项目和资金意见。", "尚无申请产品、最终用户、保费和补助金额。", "尚无复购、销售放量和经营贡献证据。"]
+  },
+  "analysisCoverage": {
+    "status": "matched",
+    "analysisMethod": "工信部通知和两份官方PDF附件人工核验",
+    "textLength": 12706,
+    "clauseCount": 6,
+    "actionCount": 7,
+    "evidenceCount": 9,
+    "industryNodeCount": 6,
+    "companyCount": 0,
+    "listedCompanyMapCount": 0,
+    "companyImpactConclusion": "文件建立了最终用户销售、交付、保单、保费、税务和资金复核链，但未公开2026年申请企业、材料产品、用户、保单或资金项目名单，因此当前不建立具体公司映射。",
+    "limitations": ["本轮只受理已获资格项目。", "最高80%同时受实际保费和额度限制。", "合同、交付和保险材料需严格一致。", "长期市场价值仍需复购和收入验证。"]
+  },
+  "modules": [
+    {"id": "overview", "label": "政策总览"},
+    {"id": "actions", "label": "资金门槛"},
+    {"id": "industry", "label": "商业兑现链"},
+    {"id": "companies", "label": "公司边界"},
+    {"id": "evidence", "label": "证据"},
+    {"id": "compare", "label": "工具比较"}
+  ],
+  "topTabs": [
+    {"id": "report", "label": "报告"},
+    {"id": "industry", "label": "产业"},
+    {"id": "companies", "label": "公司"},
+    {"id": "evidence", "label": "证据"}
+  ]
+}

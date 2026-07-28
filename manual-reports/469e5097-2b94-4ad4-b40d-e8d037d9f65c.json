@@ -1,0 +1,303 @@
+{
+  "id": "469e5097-2b94-4ad4-b40d-e8d037d9f65c",
+  "policyId": "469e5097-2b94-4ad4-b40d-e8d037d9f65c",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "generatedAt": "2026-07-28T17:15:00+08:00",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "通知",
+  "substantivePolicyType": "首台套重大技术装备保险补偿资格与资金实施",
+  "primaryActionType": "资格审定、风险保险、保费补助与质量保证金减免",
+  "policySignalStrength": "high",
+  "implementationCertainty": "high",
+  "analysisDepth": "L4",
+  "analysisDepthReason": "通知明确2024版推广应用指导目录全部领域、整机与核心系统的台套或批次支持方式、资格审定和五年额度、制造交付投保及全额缴费条件、最高80%保费补助、关联交易与费率审核、质量保证金减免和反馈迭代机制，已形成完整的资格—交易—保险—资金—应用链；但尚未公布2026年资格审定项目、装备制造企业、用户、保单、补助额度和资金名单，因此不建立公司映射。",
+  "followUpSignals": [
+    "2026年首台套重大技术装备保险补偿资格审定结果",
+    "五年保费补助资金额度及其装备价值核定口径",
+    "制造、交付、用户验收和保单起保信息",
+    "承保公司、保险险种、费率和历史赔付数据",
+    "实际缴纳保费及不超过80%的财政补助金额",
+    "关联企业交易审核和骗补处理结果",
+    "关键系统与零部件质量保证金减免执行",
+    "首台套装备使用反馈、出险理赔和迭代升级"
+  ],
+  "summary": {
+    "id": "469e5097-2b94-4ad4-b40d-e8d037d9f65c",
+    "title": "三部门关于组织实施2026年首台（套）重大技术装备保险补偿政策的通知",
+    "issuer": "工业和信息化部办公厅等三部门",
+    "source": "工业和信息化部 - 政策文件库",
+    "publishDate": "2026-06-23",
+    "status": "draft",
+    "confidence": 97,
+    "industryCount": 6,
+    "companyCount": 0,
+    "evidenceCount": 8,
+    "primarySignal": "首台套政策从装备目录资格延伸到五年保费额度、制造交付投保和最高80%保费补助，并通过保险降低首用风险和质量保证金占用",
+    "category": "首台套重大技术装备保险补偿"
+  },
+  "policy": {
+    "title": "三部门关于组织实施2026年首台（套）重大技术装备保险补偿政策的通知",
+    "status": "已发布",
+    "issuer": "工业和信息化部办公厅、财政部办公厅、金融监管总局办公厅",
+    "publishDate": "2026-06-23",
+    "effectiveDate": "2026-06-16",
+    "source": "工业和信息化部 - 政策文件库",
+    "category": "首台套重大技术装备保险补偿",
+    "level": "中央三部门",
+    "confidence": 97,
+    "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_fefca99ac5934ebd905b2232e417e317.html",
+    "scope": "《首台（套）重大技术装备推广应用指导目录（2024版）》全部领域内装备制造企业申请资格审定和保费补助资金",
+    "impactScope": "高端工业母机、电子专用装备、新型农业机械、精密仪器仪表、航空和船舶发动机、重大装备整机、核心系统、关键零部件、配套基础件、财产保险、用户首用风险和供应链质量保证金",
+    "jurisdiction": "中国大陆",
+    "tags": ["首台套", "重大技术装备", "保险补偿", "保费补助", "资格审定", "五年额度", "质量保证金", "装备推广"]
+  },
+  "brief": {
+    "judgement": "政策支持的不是装备销售价格，而是首台套从首次应用到质量风险暴露期间的保险成本。制造企业先依据2024版目录申请资格，工业和信息化部按装备价值一定比例核定五年有效的保费补助额度；只有在装备完成制造、交付、投保并全额缴纳保费后，才可申请资金，符合条件的投保企业获得不超过实际缴纳保费80%的补助。资格、额度、装备交付、保单和实际保费是五道不同证据门。政策还要求已投保质量保障类保险的关键系统和零部件不应再被整机企业收取质量保证金，并鼓励用户不再向整机企业收取保证金，说明保险补偿同时承担风险分担和降低供应链资金占用的功能。",
+    "summary": "支持范围覆盖2024版首台套推广应用指导目录全部领域。整机原则上按台套支持，核心系统、关键零部件和基础件原则上按批次支持；工业母机、电子专用装备、农机和仪器等低单价整机可按批次，航空发动机和船舶发动机等高价值核心系统可按台套。资格审定由制造企业申报、地方或央企审核、第三方复核，按装备价值核定五年有效额度。资金申请必须完成制造、交付、投保和保费全额缴纳，审核关联交易、保险费率和材料真实性，补助最高为实际保费80%。同一制造企业已通过资格审定后，无需重复申报，额度可覆盖达到或超过目录指标的装备及改进型装备。",
+    "keyPoints": [
+      "资格审定和资金申请是两套门槛，获得资格并不等于已经获得财政资金。",
+      "补助对象是实际缴纳保费，最高比例80%，不是按装备销售额或制造成本直接补贴。",
+      "五年有效额度提高同一制造企业后续符合指标装备和改进型装备的政策可复用性。",
+      "保险费率由制造企业和承保公司根据技术成熟度、场景复杂度和历史赔付率协商，风险越高未必意味着净补助越高。",
+      "当前没有项目和企业名单，不能用2024版目录中的技术方向直接罗列受益公司。"
+    ],
+    "methodology": "使用工信部官方通知全文，按“目录范围—资格审定—五年额度—制造交付—投保缴费—资金复核—保证金减免—反馈迭代”拆分政策链。公司映射仅在2026年资格结果或资金项目公开后建立；现阶段不以装备能力、目录领域或历史首台套身份代替本年度项目证据。"
+  },
+  "policyIndustryMap": [
+    {
+      "id": "pi1",
+      "industry": "重大技术装备整机制造",
+      "policyAction": "覆盖2024版目录全部领域并原则上按台套支持整机",
+      "impactType": "risk_compensation",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "政策降低首台套应用阶段的质量风险和保险成本，但具体制造企业需等待资格审定结果。",
+      "relatedClauseIds": ["c1", "c2"],
+      "relatedNodeIds": ["n1", "n2"],
+      "watchSignals": ["资格审定名单", "装备型号", "用户和交付"]
+    },
+    {
+      "id": "pi2",
+      "industry": "核心系统、关键零部件和基础件",
+      "policyAction": "原则上按批次支持并允许高价值核心系统按台套支持",
+      "impactType": "supply_chain_risk_sharing",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "政策把首用风险分担延伸到关键配套，并通过质量保证金减免改善供应链资金占用。",
+      "relatedClauseIds": ["c1", "c5"],
+      "relatedNodeIds": ["n1", "n5"],
+      "watchSignals": ["关键部件投保", "质量保证金减免", "配套企业反馈"]
+    },
+    {
+      "id": "pi3",
+      "industry": "工业母机、电子专用装备、农机和仪器仪表",
+      "policyAction": "允许低单价整机按批次方式支持",
+      "impactType": "batch_application_support",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "批次方式适配单台价值较低但需要规模化验证的装备，实际作用取决于申报批次、用户和保单。",
+      "relatedClauseIds": ["c1"],
+      "relatedNodeIds": ["n1", "n2", "n3"],
+      "watchSignals": ["批次申报", "销售交付", "用户应用"]
+    },
+    {
+      "id": "pi4",
+      "industry": "航空发动机、船舶发动机等高价值系统",
+      "policyAction": "允许高价值核心系统和零部件按台套方式支持",
+      "impactType": "high_value_risk_compensation",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "单件价值和首次应用风险高，政策允许按台套核定，但不代表具体项目已经取得资格。",
+      "relatedClauseIds": ["c1", "c2"],
+      "relatedNodeIds": ["n1", "n2", "n3"],
+      "watchSignals": ["高价值系统资格", "保额和费率", "交付与用户验收"]
+    },
+    {
+      "id": "pi5",
+      "industry": "财产保险、风险定价和第三方复核",
+      "policyAction": "自主协商险种费率并对资格和资金进行第三方复核",
+      "impactType": "insurance_service",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "保险公司承担风险识别、承保和理赔，复核机构核查技术和资金，但当前没有承保主体和服务合同。",
+      "relatedClauseIds": ["c2", "c3", "c4"],
+      "relatedNodeIds": ["n1", "n3", "n4"],
+      "watchSignals": ["承保公司", "保险费率", "赔付率", "第三方复核"]
+    },
+    {
+      "id": "pi6",
+      "industry": "首台套用户验证与装备迭代服务",
+      "policyAction": "建立使用、质量、出险和理赔反馈迭代机制",
+      "impactType": "application_feedback",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "用户反馈是装备迭代和后续市场采用的重要证据，但政策没有公布用户和使用结果。",
+      "relatedClauseIds": ["c5", "c6"],
+      "relatedNodeIds": ["n2", "n5"],
+      "watchSignals": ["用户反馈", "出险理赔", "改进型装备", "重复采购"]
+    }
+  ],
+  "industryChain": [
+    {
+      "id": "chain1",
+      "chainName": "目录装备—资格审定—制造交付—投保缴费—保费补助—保证金减免—使用反馈与迭代",
+      "policyRole": "目录定义技术范围，资格审定形成五年额度，真实制造和交付形成商业事实，保险和全额缴费完成风险转移，财政补助降低保费负担，质量保证金减免改善现金流，使用和理赔数据反哺装备迭代。",
+      "nodes": [
+        {"id": "n1", "policySensitivity": "high", "description": "制造企业依据2024版目录申请资格，第三方复核技术参数和价值。"},
+        {"id": "n2", "policySensitivity": "high", "description": "资格项目完成装备制造、交付和用户应用。"},
+        {"id": "n3", "policySensitivity": "high", "description": "制造企业投保并全额缴纳保费，保险公司按风险定价。"},
+        {"id": "n4", "policySensitivity": "high", "description": "部门复核资金申请，补助不超过实际缴纳保费80%。"},
+        {"id": "n5", "policySensitivity": "medium", "description": "保证金减免和使用反馈改善供应链现金流并推动迭代。"}
+      ],
+      "edges": [
+        {"from": "n1", "to": "n2", "relation": "qualification_to_delivery", "description": "获得资格和额度后仍需完成制造和交付。"},
+        {"from": "n2", "to": "n3", "relation": "delivery_to_insurance", "description": "真实装备交易进入保险和风险分担。"},
+        {"from": "n3", "to": "n4", "relation": "premium_to_subsidy", "description": "实际缴费是财政补助的金额基础。"},
+        {"from": "n4", "to": "n5", "relation": "support_to_adoption", "description": "补助和保证金减免降低首次应用和供应链资金压力。"}
+      ]
+    }
+  ],
+  "companyMap": [],
+  "policyNetwork": [
+    {
+      "id": "pn1",
+      "relatedPolicy": "关于进一步完善首台套重大技术装备首批次新材料保险补偿政策的意见（工信部联重装〔2024〕89号）",
+      "relationship": "strategic_basis",
+      "meaning": "2026年实施工作沿用2024年完善后的保险补偿制度框架。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2026-06-23",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_fefca99ac5934ebd905b2232e417e317.html",
+      "watchSignals": ["政策口径调整", "补助范围变化"]
+    },
+    {
+      "id": "pn2",
+      "relatedPolicy": "首台套重大技术装备首批次新材料保险补偿政策实施细则（试行）（工信厅联重装〔2024〕64号）",
+      "relationship": "implementation_rule",
+      "meaning": "资格、额度、资金和审核应同时符合实施细则，本通知负责2026年度组织实施。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2026-06-23",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_fefca99ac5934ebd905b2232e417e317.html",
+      "watchSignals": ["实施细则修订", "审核口径"]
+    },
+    {
+      "id": "pn3",
+      "relatedPolicy": "首台套重大技术装备推广应用指导目录（2024版）",
+      "relationship": "eligibility_catalog",
+      "meaning": "目录定义产品范围和技术指标，但目录内企业或装备不自动取得2026年资格和资金。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2026-06-23",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_fefca99ac5934ebd905b2232e417e317.html",
+      "watchSignals": ["目录更新", "技术指标", "资格审定结果"]
+    },
+    {
+      "id": "pn4",
+      "relatedPolicy": "精细化工关键产品揭榜挂帅入围单位名单",
+      "relationship": "application_support_linkage",
+      "meaning": "揭榜产品完成攻关和测评后可能进入首台套或首批次支持，但入围身份不能替代保险补偿资格、交付和投保证据。",
+      "evidenceLevel": "indirect",
+      "watchSignals": ["攻关完成", "优胜测评", "保险补偿资格"]
+    }
+  ],
+  "investmentDirection": {
+    "primaryDirection": "关注2026年资格审定和资金项目如何把目录内技术能力转化为真实装备交付、保险和用户应用，优先跟踪高价值核心系统、工业母机、电子装备、农机和仪器的项目证据；当前不指定公司。",
+    "directionStrength": "medium",
+    "timeHorizon": "medium_term",
+    "watchIndustries": ["高端工业母机", "电子专用装备", "新型农机", "精密仪器", "航空船舶动力", "关键零部件", "财产保险"],
+    "watchChainNodes": ["资格审定", "五年额度", "装备交付", "保单和全额缴费", "财政补助", "保证金减免"],
+    "watchCompanyTypes": ["2026年资格审定装备制造企业", "最终用户", "承保保险公司", "关键系统和零部件配套企业"],
+    "watchCompanies": [],
+    "nearTermCatalysts": ["资格审定结果", "资金项目名单", "首台套交付和投保", "保费补助资金下达", "用户反馈和重复采购"],
+    "keyRisks": ["目录范围不等于项目资格", "补助只覆盖实际保费且最高80%", "技术成熟度和赔付率可能抬高保费", "关联交易和费率合规审核严格", "首台套质量和用户接受度仍可能不足"],
+    "minimumEvidenceNeeded": ["资格审定项目和额度", "装备制造及交付证明", "用户和销售合同", "保单、保费发票及缴费", "补助资金和理赔记录"],
+    "doNotOverread": ["保险补偿不是装备售价补贴", "资格审定不等于资金到账", "目录内企业不等于2026年项目主体", "最高80%不代表每个项目均按80%补助"],
+    "summary": "政策解决首用风险而非创造终端需求，经营兑现必须由制造、交付、投保、缴费、补助和用户反馈逐级验证。"
+  },
+  "actions": [
+    {"id": "a1", "actionType": "支持范围", "actionEvidenceLevel": "strong", "title": "覆盖2024版首台套目录全部领域", "body": "整机原则上按台套，关键系统和零部件原则上按批次，并按装备价值和形态调整支持方式。", "signal": "beneficiary", "confidence": 98, "clauseIds": ["c1"], "sortOrder": 1},
+    {"id": "a2", "actionType": "资格审定", "actionEvidenceLevel": "strong", "title": "核定五年有效保费补助额度", "body": "制造企业申报，推荐单位审核，第三方复核技术参数和价值，按装备价值核定额度。", "signal": "market", "confidence": 98, "clauseIds": ["c2"], "sortOrder": 2},
+    {"id": "a3", "actionType": "资金申请", "actionEvidenceLevel": "strong", "title": "制造交付投保并缴费后申请资金", "body": "只有完成装备制造、交付、投保和全额保费缴纳，才进入资金复核。", "signal": "constraint", "confidence": 99, "clauseIds": ["c3"], "sortOrder": 3},
+    {"id": "a4", "actionType": "保费补助", "actionEvidenceLevel": "strong", "title": "补助不超过实际缴纳保费80%", "body": "财政补助以真实保费为基础，不直接按装备售价支付。", "signal": "beneficiary", "confidence": 99, "clauseIds": ["c3"], "sortOrder": 4},
+    {"id": "a5", "actionType": "风险定价", "actionEvidenceLevel": "strong", "title": "按技术成熟度和赔付风险协商费率险种", "body": "制造企业和保险公司自主协商，审核关联交易和费率使用合规性。", "signal": "mixed", "confidence": 97, "clauseIds": ["c4"], "sortOrder": 5},
+    {"id": "a6", "actionType": "供应链减负", "actionEvidenceLevel": "strong", "title": "减少已投保装备和零部件质量保证金", "body": "整机企业不应向已投保关键配套收取保证金，并鼓励用户不再向整机企业收取保证金。", "signal": "beneficiary", "confidence": 97, "clauseIds": ["c5"], "sortOrder": 6},
+    {"id": "a7", "actionType": "反馈迭代", "actionEvidenceLevel": "strong", "title": "建立使用、质量、出险和理赔反馈", "body": "整机企业、配套企业、用户和保险公司通过使用数据推动装备迭代。", "signal": "market", "confidence": 95, "clauseIds": ["c6"], "sortOrder": 7}
+  ],
+  "clauses": [
+    {"id": "c1", "no": "支持范围", "title": "目录全部领域和台套批次规则", "excerpt": "2026年支持范围为首台套重大技术装备推广应用指导目录（2024版）全部领域。", "body": "支持方式按整机、核心系统、关键部件和装备价值调整。", "confidence": 99, "keywords": ["2024版目录", "台套", "批次"], "industries": ["重大装备"], "sortOrder": 1},
+    {"id": "c2", "no": "资格审定", "title": "五年额度和第三方复核", "excerpt": "按装备价值的一定比例核定保费补助资金额度，有效期5年。", "body": "资格结果可在其他首台套政策中优先考虑，但不等于资金到账。", "confidence": 99, "keywords": ["资格审定", "五年", "额度"], "industries": ["装备制造"], "sortOrder": 2},
+    {"id": "c3", "no": "资金申请", "title": "制造交付投保缴费和80%补助", "excerpt": "完成制造、交付、投保与全额保费缴纳后，对符合条件投保企业按不超过实际缴纳保费80%给予补助。", "body": "资金申请要求真实商业和保险链。", "confidence": 99, "keywords": ["制造", "交付", "投保", "80%"], "industries": ["财政补助", "保险"], "sortOrder": 3},
+    {"id": "c4", "no": "审核与费率", "title": "风险定价和关联交易审核", "excerpt": "根据技术成熟度、应用场景复杂度和历史赔付率协商费率和险种。", "body": "审核重点关注关联交易和保险费率合规。", "confidence": 98, "keywords": ["保险费率", "赔付率", "关联交易"], "industries": ["保险服务"], "sortOrder": 4},
+    {"id": "c5", "no": "质量保证金", "title": "降低整机和配套企业资金占用", "excerpt": "已投保质量保障类保险的关键系统和零部件不应收取质量保证金。", "body": "政策以保险替代部分保证金风险缓释功能。", "confidence": 98, "keywords": ["质量保证金", "关键系统", "零部件"], "industries": ["装备供应链"], "sortOrder": 5},
+    {"id": "c6", "no": "反馈机制", "title": "使用和理赔数据推动装备迭代", "excerpt": "建立完善的首台套反馈迭代机制。", "body": "制造、用户、配套和保险主体共同积累首用证据。", "confidence": 96, "keywords": ["使用反馈", "出险", "理赔", "迭代"], "industries": ["装备应用"], "sortOrder": 6}
+  ],
+  "chainNodes": [
+    {"id": "n1", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["资格名单", "目录条目", "五年额度"], "title": "目录与资格审定", "subtitle": "确定装备技术范围和补助额度", "section": "upstream", "relation": "policy", "evidenceLevel": "strong", "confidence": 98, "description": "制造企业依据目录申报，经过地方、央企和第三方复核。", "clauseIds": ["c1", "c2"], "companyIds": [], "evidenceIds": ["e1", "e2"], "impactReason": "资格是政策入口，但尚无2026年名单。", "iconKey": "clipboard"},
+    {"id": "n2", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["制造完成", "销售合同", "用户交付"], "title": "装备制造与交付", "subtitle": "从技术资格转化为真实交易", "section": "midstream", "relation": "commercial", "evidenceLevel": "strong", "confidence": 92, "description": "装备需完成制造并交付用户，商业影响在此开始。", "clauseIds": ["c3"], "companyIds": [], "evidenceIds": ["e3"], "impactReason": "资格不能替代交付。", "iconKey": "factory"},
+    {"id": "n3", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["保单", "费率", "保费缴纳", "赔付"], "title": "保险承保与风险定价", "subtitle": "按技术和场景风险形成保费", "section": "midstream", "relation": "insurance", "evidenceLevel": "strong", "confidence": 96, "description": "制造企业和保险公司协商险种费率并全额缴费。", "clauseIds": ["c3", "c4"], "companyIds": [], "evidenceIds": ["e3", "e4"], "impactReason": "实际保费决定补助上限。", "iconKey": "shield"},
+    {"id": "n4", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["资金项目", "补助比例", "资金到账"], "title": "财政保费补助", "subtitle": "最高补助实际缴纳保费80%", "section": "downstream", "relation": "subsidy", "evidenceLevel": "strong", "confidence": 98, "description": "资金申请接受真实性、关联交易和费率合规复核。", "clauseIds": ["c3", "c4"], "companyIds": [], "evidenceIds": ["e3", "e4"], "impactReason": "资金兑现发生在交付和缴费之后。", "iconKey": "wallet"},
+    {"id": "n5", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["保证金减免", "用户反馈", "重复采购"], "title": "首用推广与供应链迭代", "subtitle": "降低资金占用并积累应用证据", "section": "support", "relation": "adoption", "evidenceLevel": "strong", "confidence": 92, "description": "保险替代部分保证金，使用和理赔反馈推动改进和后续应用。", "clauseIds": ["c5", "c6"], "companyIds": [], "evidenceIds": ["e5", "e6", "e7"], "impactReason": "长期价值取决于用户采用和产品迭代。", "iconKey": "repeat"}
+  ],
+  "chainEdges": [
+    {"id": "edge1", "from": "n1", "to": "n2", "type": "strong", "label": "资格项目完成制造和交付"},
+    {"id": "edge2", "from": "n2", "to": "n3", "type": "strong", "label": "真实交付进入保险风险分担"},
+    {"id": "edge3", "from": "n3", "to": "n4", "type": "strong", "label": "实际保费形成财政补助基础"},
+    {"id": "edge4", "from": "n4", "to": "n5", "type": "medium", "label": "保险和补助降低首用与供应链资金压力"}
+  ],
+  "companies": [],
+  "evidence": [
+    {"id": "e1", "evidenceObject": "policy_action", "type": "policy_text", "source": "工信部等三部门通知", "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_fefca99ac5934ebd905b2232e417e317.html", "title": "2024版目录全部领域纳入支持", "excerpt": "2026年支持范围为首台套重大技术装备推广应用指导目录（2024版）全部领域。", "interpretation": "确认政策技术范围，但目录本身不是2026年项目名单。", "confidence": 99, "clauseIds": ["c1"], "nodeIds": ["n1"], "companyIds": []},
+    {"id": "e2", "evidenceObject": "policy_action", "type": "policy_text", "source": "工信部等三部门通知", "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_fefca99ac5934ebd905b2232e417e317.html", "title": "资格审定和五年额度", "excerpt": "按装备价值的一定比例核定保费补助资金额度，有效期5年。", "interpretation": "资格和额度可复用，但资金仍需实际交付和投保。", "confidence": 99, "clauseIds": ["c2"], "nodeIds": ["n1"], "companyIds": []},
+    {"id": "e3", "evidenceObject": "commercial_realization", "type": "policy_text", "source": "工信部等三部门通知", "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_fefca99ac5934ebd905b2232e417e317.html", "title": "制造交付投保缴费和80%补助", "excerpt": "完成装备制造、交付、投保与全额保费缴纳后，对符合条件投保企业按不超过实际缴纳保费80%给予补助。", "interpretation": "财政资金建立在真实商业和保险事实之上。", "confidence": 99, "clauseIds": ["c3"], "nodeIds": ["n2", "n3", "n4"], "companyIds": []},
+    {"id": "e4", "evidenceObject": "implementation_condition", "type": "policy_text", "source": "工信部等三部门通知", "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_fefca99ac5934ebd905b2232e417e317.html", "title": "风险定价和合规审核", "excerpt": "根据技术成熟度、应用场景复杂度和历史赔付率协商保险费率和险种。", "interpretation": "补助无法消除产品质量和保险定价风险。", "confidence": 97, "clauseIds": ["c4"], "nodeIds": ["n3", "n4"], "companyIds": []},
+    {"id": "e5", "evidenceObject": "commercial_realization", "type": "policy_text", "source": "工信部等三部门通知", "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_fefca99ac5934ebd905b2232e417e317.html", "title": "已投保配套不应收取质量保证金", "excerpt": "对于已投保质量保障类保险的关键系统和零部件，不应收取配套企业质量保证金。", "interpretation": "保险可降低供应链资金占用，但需实际执行验证。", "confidence": 98, "clauseIds": ["c5"], "nodeIds": ["n5"], "companyIds": []},
+    {"id": "e6", "evidenceObject": "policy_action", "type": "policy_text", "source": "工信部等三部门通知", "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_fefca99ac5934ebd905b2232e417e317.html", "title": "同一企业无需重复资格申报", "excerpt": "同一装备制造企业无需重复提出资格审定申报，额度适用于符合或超过目录指标的装备及改进型装备。", "interpretation": "五年额度支持同一技术条目持续迭代和多次应用。", "confidence": 98, "clauseIds": ["c2"], "nodeIds": ["n1", "n5"], "companyIds": []},
+    {"id": "e7", "evidenceObject": "industry_node", "type": "policy_text", "source": "工信部等三部门通知", "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_fefca99ac5934ebd905b2232e417e317.html", "title": "首台套使用和理赔反馈迭代", "excerpt": "建立完善的首台套反馈迭代机制，及时获得使用、质量、出险和理赔情况。", "interpretation": "保险数据应反哺产品改进和市场采用。", "confidence": 96, "clauseIds": ["c6"], "nodeIds": ["n5"], "companyIds": []},
+    {"id": "e8", "evidenceObject": "analysis_boundary", "type": "research_boundary", "source": "2026年通知全文核验", "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_fefca99ac5934ebd905b2232e417e317.html", "title": "当前不建立公司映射", "excerpt": "通知未公布资格审定项目、制造企业、用户、保单、补助额度和资金名单。", "interpretation": "目录范围和装备能力不能替代本年度项目证据。", "confidence": 99, "clauseIds": ["c1", "c2", "c3"], "nodeIds": ["n1", "n2", "n4"], "companyIds": []}
+  ],
+  "backgroundCards": [
+    {"id": "bg1", "title": "保费补助不是装备售价补贴", "body": "政策最高补助实际缴纳保费的80%，资格额度与资金到账也属于不同阶段。", "evidenceIds": ["e2", "e3"]},
+    {"id": "bg2", "title": "保险不能替代产品竞争力", "body": "技术成熟度、场景复杂度、赔付率和用户反馈仍决定费率、采用和后续采购。", "evidenceIds": ["e4", "e7"]},
+    {"id": "bg3", "title": "保证金减免改善供应链现金流", "body": "已投保关键系统和零部件原则上不再重复承担质量保证金，但执行情况需合同验证。", "evidenceIds": ["e5"]}
+  ],
+  "compareInsights": {
+    "status": "official_policy_tool_comparison",
+    "comparableCount": 2,
+    "similarPolicies": ["2026年首批次新材料保险补偿资金申请", "精细化工关键产品揭榜挂帅入围名单"],
+    "contrastPolicies": [],
+    "insights": ["首台套同时开放资格审定和资金申请，首批次新材料本轮只受理已获资格项目的资金申请。", "揭榜入围只证明攻关主体，只有完成产品、交付、投保和缴费后才可能进入保险补偿。"],
+    "limitations": ["没有2026年资格和资金项目名单。", "没有装备价值核定比例和具体额度。", "没有承保、费率、赔付和用户数据。"]
+  },
+  "analysisCoverage": {
+    "status": "matched",
+    "analysisMethod": "工信部官方通知全文人工核验",
+    "textLength": 6463,
+    "clauseCount": 6,
+    "actionCount": 7,
+    "evidenceCount": 8,
+    "industryNodeCount": 5,
+    "companyCount": 0,
+    "listedCompanyMapCount": 0,
+    "companyImpactConclusion": "通知明确目录范围、资格、额度、交付、投保和保费补助流程，但未公布2026年项目、制造企业、用户、承保主体、保单或资金，因此当前不建立具体公司映射。",
+    "limitations": ["目录内装备不自动获得资格。", "最高80%不等于所有项目统一补助比例。", "装备价值额度核定比例未披露。", "商业价值需要交付、用户采用和理赔数据验证。"]
+  },
+  "modules": [
+    {"id": "overview", "label": "政策总览"},
+    {"id": "actions", "label": "资格与资金"},
+    {"id": "industry", "label": "首用风险链"},
+    {"id": "companies", "label": "公司边界"},
+    {"id": "evidence", "label": "证据"},
+    {"id": "compare", "label": "工具比较"}
+  ],
+  "topTabs": [
+    {"id": "report", "label": "报告"},
+    {"id": "industry", "label": "产业"},
+    {"id": "companies", "label": "公司"},
+    {"id": "evidence", "label": "证据"}
+  ]
+}
