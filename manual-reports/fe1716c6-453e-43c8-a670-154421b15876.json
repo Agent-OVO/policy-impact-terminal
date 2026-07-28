@@ -291,12 +291,13 @@
     "limitations": ["20%补助需要符合条件和核定总投资，不能外推为普遍补贴。", "差别化电价具体范围和标准由地方实施。", "设备和服务方向广泛，供应商关系需等待项目采购。", "2028年淘汰和领跑结果需持续跟踪。"]
   },
   "modules": [
-    {"id": "overview", "label": "政策总览"},
-    {"id": "actions", "label": "政策工具"},
+    {"id": "brief", "label": "政策速读"},
     {"id": "industry", "label": "改造链"},
+    {"id": "clauses", "label": "政策工具"},
+    {"id": "background", "label": "背景与边界"},
+    {"id": "compare", "label": "政策网络"},
     {"id": "companies", "label": "公司边界"},
-    {"id": "evidence", "label": "证据"},
-    {"id": "compare", "label": "政策网络"}
+    {"id": "evidence", "label": "证据链"}
   ],
   "topTabs": [
     {"id": "report", "label": "报告"},

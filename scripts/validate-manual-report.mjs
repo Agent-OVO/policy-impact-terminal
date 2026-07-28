@@ -56,6 +56,7 @@ async function validateFile(file) {
   const investmentDirection = recordField(report, "investmentDirection") ?? recordField(report, "investment_direction");
   const evidence = arrayField(report, "evidence");
   const backgroundCards = arrayField(report, "backgroundCards", "background_cards");
+  const modules = arrayField(report, "modules");
   const judgement = stringField(brief, "judgement") ?? stringField(brief, "judgment") ?? stringField(brief, "oneLine") ?? "";
   const companyNoMatchReason =
     stringField(coverage, "companyImpactConclusion") ??
@@ -78,6 +79,7 @@ async function validateFile(file) {
   if (chainNodes.length < 1) errors.push("chainNodes must include at least 1 impact node");
   if (evidence.length < 2) errors.push("evidence must include at least 2 evidence items");
   if (backgroundCards.length < 1) errors.push("backgroundCards must include at least 1 factual background item");
+  validateModuleContract(errors, modules);
   if (companies.length < 1 && companyNoMatchReason.trim().length < 30) {
     errors.push("companies must include representative entities, or analysisCoverage must explain why no company mapping is applicable");
   }
@@ -130,6 +132,22 @@ async function validateFile(file) {
 
   for (const warning of warnings) {
     console.warn(`[manual:validate] warn ${warning}`);
+  }
+}
+
+function validateModuleContract(errors, modules) {
+  if (modules.length === 0) return;
+  const canonicalIds = ["brief", "industry", "clauses", "background", "compare", "companies", "evidence"];
+  const ids = modules.map((item) => stringField(item, "id") ?? "");
+  const labels = modules.map((item) => stringField(item, "label") ?? "");
+  const matchesCanonicalOrder = ids.length === canonicalIds.length &&
+    ids.every((id, index) => id === canonicalIds[index]);
+
+  if (!matchesCanonicalOrder) {
+    errors.push(`modules, when provided, must use canonical 7-module order: ${canonicalIds.join(",")}`);
+  }
+  if (labels.some((label) => !label.trim())) {
+    errors.push("modules, when provided, must include a non-empty label for every module");
   }
 }
 
