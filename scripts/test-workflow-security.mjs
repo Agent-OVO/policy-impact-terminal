@@ -48,6 +48,18 @@ assert.match(dispositionWorkflow, /set -euo pipefail/);
 assert.match(dispositionWorkflow, /node scripts\/manual-policy-analysis\.mjs/);
 assert.doesNotMatch(dispositionWorkflow, /npm run manual:policies[\s\S]*?\|\s*tee/);
 
+const staleJobCleanupWorkflow = await fs.readFile(path.join(workflowDir, "cleanup-legacy-stale-analysis-jobs.yml"), "utf8");
+assert.match(staleJobCleanupWorkflow, /workflow_dispatch/);
+assert.doesNotMatch(staleJobCleanupWorkflow, /schedule\s*:/);
+assert.doesNotMatch(staleJobCleanupWorkflow, /cron\s*:/);
+assert.match(staleJobCleanupWorkflow, /CLOSE_LEGACY_STALE_ANALYSIS_JOBS/);
+assert.match(staleJobCleanupWorkflow, /expected_policy_count/);
+assert.match(staleJobCleanupWorkflow, /expected_job_count/);
+assert.match(staleJobCleanupWorkflow, /cleanup-legacy-stale-analysis-jobs\.mjs/);
+assert.match(staleJobCleanupWorkflow, /set -euo pipefail/);
+assert.match(staleJobCleanupWorkflow, /if:\s*always\(\)/);
+assert.match(staleJobCleanupWorkflow, /retention-days:\s*30/);
+
 const operationsSummaryWorkflow = await fs.readFile(path.join(workflowDir, "production-operations-summary.yml"), "utf8");
 assert.match(operationsSummaryWorkflow, /cron:\s*"35 0 \* \* \*"/);
 assert.match(operationsSummaryWorkflow, /node scripts\/build-production-operations-summary\.mjs/);
