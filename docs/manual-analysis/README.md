@@ -34,7 +34,8 @@
 
 阶段化执行路线和完成记录见：
 
-- `next-stage-roadmap-v2.0.md`
+- `next-stage-roadmap-v3.0.md`（当前）
+- `next-stage-roadmap-v2.0.md`（历史阶段记录）
 - `phase-1-2-completion-report-v1.0.md`
 - `phase-3-4-completion-report-v1.0.md`
 - `stage-5-technical-debt-report-v1.0.md`
@@ -210,8 +211,16 @@ npm run manual:test
 
 ## 6. 当前下一步建议
 
-1. 新增报告全部按 `policy-industry-company-methodology-v1.0.md` 生成，并优先使用可派生身份字段的精简写法；
-2. 旧报告按 `report-migration-backlog-v1.0.md` 的 A/B/C 分类处理，不做机械批量迁移；
-3. A 类完整回炉，B 类优先补产业方向和政策网络，C 类保持轻量；
-4. 每次发布前同时运行严格校验和 `npm run manual:test`；
-5. 外部搜索只服务产业链验证、公司业务暴露、政策网络、催化信号和反证搜索。
+项目已进入价值运营阶段，当前路线见 `next-stage-roadmap-v3.0.md`。
+
+1. 当前窗口优先，历史积压不设清零KPI；
+2. 每批快速筛选最多10项，正式报告最多3项；
+3. 新报告生成前必须先做生产候选与既有成熟成果身份对账；
+4. 月度目录和滚动名单优先更新锚定报告，不机械新建平行报告；
+5. 每批正式分析完成后形成一份跨政策主线简报；
+6. 公司关系只有在名单、项目、采购、合同、验收和经营证据出现后逐级升级；
+7. 每次发布继续执行严格校验、回归测试、治理指标、运营测试、构建和生产复核。
+
+首份跨政策合成简报见：
+
+- `../briefs/energy-manufacturing-policy-mainline-brief-20260728.md`
