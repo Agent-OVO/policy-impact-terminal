@@ -1,0 +1,121 @@
+name: Cleanup legacy stale analysis jobs
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: "Execute cleanup after a fresh dry run"
+        required: false
+        type: boolean
+        default: false
+      confirmation:
+        description: "Apply only: CLOSE_LEGACY_STALE_ANALYSIS_JOBS"
+        required: false
+        default: ""
+      expected_policy_count:
+        description: "Apply only: exact eligible policy count from the latest dry run"
+        required: false
+        default: "0"
+      expected_job_count:
+        description: "Apply only: exact stale job count from the latest dry run"
+        required: false
+        default: "0"
+      cutoff_date:
+        description: "Only pending policies published before this date are eligible"
+        required: true
+        default: "2026-07-15"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cleanup-legacy-stale-analysis-jobs
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Validate cleanup request
+        env:
+          APPLY: ${{ github.event.inputs.apply }}
+          CONFIRMATION: ${{ github.event.inputs.confirmation }}
+          EXPECTED_POLICY_COUNT: ${{ github.event.inputs.expected_policy_count }}
+          EXPECTED_JOB_COUNT: ${{ github.event.inputs.expected_job_count }}
+          CUTOFF_DATE: ${{ github.event.inputs.cutoff_date }}
+        run: |
+          set -euo pipefail
+          [[ "$CUTOFF_DATE" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || {
+            echo "::error::cutoff_date must use YYYY-MM-DD"
+            exit 1
+          }
+          [[ "$EXPECTED_POLICY_COUNT" =~ ^[0-9]+$ ]] || {
+            echo "::error::expected_policy_count must be a non-negative integer"
+            exit 1
+          }
+          [[ "$EXPECTED_JOB_COUNT" =~ ^[0-9]+$ ]] || {
+            echo "::error::expected_job_count must be a non-negative integer"
+            exit 1
+          }
+          if [ "$APPLY" = "true" ]; then
+            [ "$CONFIRMATION" = "CLOSE_LEGACY_STALE_ANALYSIS_JOBS" ] || {
+              echo "::error::apply requires the exact confirmation phrase"
+              exit 1
+            }
+            [ "$EXPECTED_POLICY_COUNT" -gt 0 ] || {
+              echo "::error::apply requires a positive expected_policy_count from a fresh dry run"
+              exit 1
+            }
+            [ "$EXPECTED_JOB_COUNT" -gt 0 ] || {
+              echo "::error::apply requires a positive expected_job_count from a fresh dry run"
+              exit 1
+            }
+          fi
+
+      - name: Build or execute cleanup plan
+        env:
+          SUPABASE_URL: https://qxzspsofhmfjceuaulhu.supabase.co
+          SUPABASE_FUNCTION_JWT: ${{ secrets.SUPABASE_FUNCTION_JWT }}
+          SUPABASE_CRAWLER_SECRET: ${{ secrets.SUPABASE_CRAWLER_SECRET }}
+          APPLY: ${{ github.event.inputs.apply }}
+          CONFIRMATION: ${{ github.event.inputs.confirmation }}
+          EXPECTED_POLICY_COUNT: ${{ github.event.inputs.expected_policy_count }}
+          EXPECTED_JOB_COUNT: ${{ github.event.inputs.expected_job_count }}
+          CUTOFF_DATE: ${{ github.event.inputs.cutoff_date }}
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/operations
+          args=("--cutoff=$CUTOFF_DATE" "--output=artifacts/operations/legacy-stale-job-cleanup.json")
+          if [ "$APPLY" = "true" ]; then
+            args+=(
+              "--apply=true"
+              "--confirmation=$CONFIRMATION"
+              "--expectedPolicies=$EXPECTED_POLICY_COUNT"
+              "--expectedJobs=$EXPECTED_JOB_COUNT"
+            )
+          fi
+          node scripts/cleanup-legacy-stale-analysis-jobs.mjs "${args[@]}" \
+            | tee artifacts/operations/legacy-stale-job-cleanup.log
+
+      - name: Upload cleanup evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: legacy-stale-analysis-job-cleanup-${{ github.run_id }}
+          path: artifacts/operations/legacy-stale-job-cleanup.*
+          if-no-files-found: error
+          retention-days: 30
