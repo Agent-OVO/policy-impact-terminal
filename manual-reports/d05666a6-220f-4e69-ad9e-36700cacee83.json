@@ -1,0 +1,659 @@
+{
+  "id": "d05666a6-220f-4e69-ad9e-36700cacee83",
+  "policyId": "d05666a6-220f-4e69-ad9e-36700cacee83",
+  "analyzerVersion": "gpt-5.6-thinking-manual-v1",
+  "analysisMethod": "official-page-and-five-attachments-manual-v1",
+  "generatedAt": "2026-07-28T04:20:00Z",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "六部门联合申报通知",
+  "substantivePolicyType": "梯度培育、项目申报与名单认定",
+  "primaryActionType": "任务部署",
+  "policySignalStrength": "high",
+  "implementationCertainty": "high",
+  "analysisDepth": "L4",
+  "analysisDepthReason": "通知及五个附件完整规定基础级、先进级、卓越级和领航级智能工厂的能力成熟度、建设内容、AI应用比例、申报条件、推荐名额、申报期限、评审方式和绩效指标，并要求申报材料披露项目总投资、集成商和建设成效；但具体申报主体、项目名单、采购合同和经营兑现尚未公布，因此适合深入拆解产业与项目链，暂不映射具体公司。",
+  "operationDisposition": "继续深研",
+  "followUpSignals": [
+    "2026年8月15日前卓越级和领航级项目申报情况",
+    "2026年9月1日前省级及中央企业推荐汇总表",
+    "卓越级和领航级智能工厂培育名单及具体项目名称",
+    "入选项目披露的总投资、集成商、工业软件、装备和AI应用内容",
+    "智能工厂项目的采购、中标、验收及关键绩效改善数据"
+  ],
+  "summary": {
+    "id": "d05666a6-220f-4e69-ad9e-36700cacee83",
+    "title": "工业和信息化部等六部门办公厅（综合司）关于开展2026年度智能工厂梯度培育行动的通知",
+    "issuer": "工业和信息化部办公厅、国家发展改革委办公厅、财政部办公厅、国务院国资委办公厅、市场监管总局办公厅、国家数据局综合司",
+    "source": "工业和信息化部 - 政策文件库",
+    "publishDate": "2026-07-17",
+    "status": "published",
+    "confidence": 98,
+    "industryCount": 6,
+    "companyCount": 0,
+    "evidenceCount": 7,
+    "primarySignal": "智能工厂培育从宽泛数字化转型进入四级能力标准、限额推荐、项目申报和名单评审阶段",
+    "category": "智能制造与工业数字化"
+  },
+  "policy": {
+    "title": "工业和信息化部等六部门办公厅（综合司）关于开展2026年度智能工厂梯度培育行动的通知",
+    "status": "已发布并启动申报",
+    "issuer": "工业和信息化部办公厅、国家发展改革委办公厅、财政部办公厅、国务院国资委办公厅、市场监管总局办公厅、国家数据局综合司",
+    "publishDate": "2026-07-17",
+    "effectiveDate": "2026-07-15",
+    "source": "工业和信息化部 - 政策文件库",
+    "category": "智能制造与工业数字化",
+    "level": "中央六部门联合行动通知",
+    "confidence": 98,
+    "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bbccc17a650749c2a76569679350fa5d.html",
+    "scope": "规模以上工业企业的基础级、先进级、卓越级和领航级智能工厂建设、认定、申报、评审、名单发布及推广",
+    "impactScope": "智能制造装备、工业软件、工业控制系统、数字孪生、数据治理、工业网络与算力、工业大模型、工业智能体、系统集成、效能评测和人才服务",
+    "jurisdiction": "中国大陆",
+    "tags": [
+      "智能工厂",
+      "梯度培育",
+      "智能制造",
+      "工业软件",
+      "数字孪生",
+      "工业大模型",
+      "工业智能体",
+      "系统集成",
+      "效能评测"
+    ]
+  },
+  "brief": {
+    "judgement": "本通知的新增价值不在于再次提出制造业数字化，而在于把智能工厂拆成基础、先进、卓越和领航四级，设置成熟度、AI场景比例、工业模型和智能体等可量化指标，并通过限额推荐、专家评审、现场抽查和名单发布形成项目入口；当前尚无名单、预算、采购和合同，不能据此建立具体公司受益关系。",
+    "summary": "基础级和先进级由企业自建、省级或中央企业培育认定，卓越级和领航级进入国家层面申报评审。卓越级要求已获先进级、智能制造达到国内领先、AI应用场景比例不低于30%；领航级要求已获卓越级、具备全球竞争力并广泛深度应用AI，AI场景比例不低于60%。申报材料需披露智能工厂建设时间、总投资、集成商、重点场景和关键绩效，项目申报截止2026年8月15日，推荐审核截止9月1日。",
+    "keyPoints": [
+      "四级体系把数字化改造、网络化协同、智能化升级和智能化变革分开管理，不能把基础级与国家级领航项目混为一谈。",
+      "卓越级和领航级均要求先取得前一级资格，国家名单具有明确的递进门槛。",
+      "卓越级AI应用场景比例不低于30%，领航级不低于60%，并统计工业模型数量、工业智能体数量和日均词元调用量。",
+      "申报材料要求披露总投资、集成商和项目成效，为后续识别真实项目和服务商提供证据入口。",
+      "通知没有统一财政资金、采购预算或指定供应商，名单认定不能直接解释为软件、设备或AI公司的新增收入。"
+    ],
+    "methodology": "完整读取工业和信息化部正式通知、智能工厂梯度培育要素条件PDF以及卓越级、领航级申报材料和推荐表，按“分级资格—能力标准—项目申报—限额推荐—评审抽查—名单发布—项目采购与经营兑现”拆解，具体公司延后至名单、项目投资、集成商和采购证据出现。"
+  },
+  "analysisCoverage": {
+    "status": "no_company_mapping",
+    "companyCount": 0,
+    "analysisMethod": "official-page-and-five-attachments-manual-v1",
+    "companyImpactConclusion": "当前通知只规定培育层级、申报条件、评审程序和绩效指标，尚未公布卓越级或领航级申报主体、入选项目、总投资、集成商、采购合同、中标结果或公司经营数据，因此本次不建立具体公司映射。",
+    "limitations": [
+      "先进级名单由地方和中央企业认定，当前尚未取得全国统一名单和项目明细。",
+      "卓越级、领航级申报及推荐尚未结束，正式培育名单未公布。",
+      "通知要求各地结合实际支持建设，但未规定统一财政资金或补贴金额。",
+      "申报材料中的集成商、总投资和项目成效需在具体项目公开后才能核验。"
+    ]
+  },
+  "policyIndustryMap": [
+    {
+      "id": "pi1",
+      "industry": "智能制造装备与工业控制系统",
+      "policyAction": "四级智能工厂均要求部署安全可控的智能制造装备、工业软件和工业控制系统",
+      "impactType": "technology_upgrade",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "装备、检测、控制和自动化是基础级至领航级持续升级的物理执行层，但实际需求需由具体建设项目和采购清单确认。",
+      "relatedClauseIds": ["c1", "c2", "c3"],
+      "relatedNodeIds": ["n2"],
+      "watchSignals": ["项目设备清单", "工业控制系统改造", "自动化检测采购"]
+    },
+    {
+      "id": "pi2",
+      "industry": "工业软件、数字孪生与仿真",
+      "policyAction": "先进级以上要求数据贯通、模拟仿真，卓越级和领航级进一步建设工厂级数字孪生和生成式设计",
+      "impactType": "technology_upgrade",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "要素条件把研发设计、生产管理、运营管理和数字孪生纳入分级能力标准，形成明确的软件能力方向。",
+      "relatedClauseIds": ["c2", "c3", "c4"],
+      "relatedNodeIds": ["n2", "n3"],
+      "watchSignals": ["数字孪生建设", "仿真软件采购", "MES、ERP、SCADA等系统升级"]
+    },
+    {
+      "id": "pi3",
+      "industry": "工业人工智能、工业大模型与工业智能体",
+      "policyAction": "卓越级要求AI多场景协同应用，领航级要求工业大模型和工业智能体深度融合",
+      "impactType": "demand_creation",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "政策直接设置AI场景比例、模型数量、智能体数量和词元调用量指标，但这些指标是工厂应用绩效，不等于特定通用模型厂商订单。",
+      "relatedClauseIds": ["c3", "c4", "c5"],
+      "relatedNodeIds": ["n3"],
+      "watchSignals": ["AI场景比例", "工业模型和智能体数量", "词元调用量", "工业AI采购合同"]
+    },
+    {
+      "id": "pi4",
+      "industry": "工业数据治理、网络与算力基础设施",
+      "policyAction": "先进级以上要求数据治理，卓越级和领航级要求高性能网络、算力和企业数据资产体系",
+      "impactType": "infrastructure_build",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "生产经营数据贯通、工业智能体运行和跨系统优化依赖数据治理、工业网络和算力，但新增规模取决于企业现有基础。",
+      "relatedClauseIds": ["c2", "c3", "c4"],
+      "relatedNodeIds": ["n4"],
+      "watchSignals": ["数据治理项目", "工业网络改造", "边缘与企业算力投入"]
+    },
+    {
+      "id": "pi5",
+      "industry": "智能工厂系统集成与解决方案服务",
+      "policyAction": "申报材料要求披露集成商、总体架构、重点场景和后续提升计划",
+      "impactType": "market_mechanism",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "项目申报把集成商列为基础信息，领航级还要求形成可复制输出的解决方案，为后续识别真实服务商提供直接证据入口。",
+      "relatedClauseIds": ["c4", "c6", "c7"],
+      "relatedNodeIds": ["n4", "n6"],
+      "watchSignals": ["入选项目集成商", "解决方案对外输出", "项目中标与验收"]
+    },
+    {
+      "id": "pi6",
+      "industry": "智能制造标准、效能评测与人才服务",
+      "policyAction": "不同等级绑定成熟度标准、效能评测、专家评审、现场抽查和推广服务",
+      "impactType": "standard_constraint",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "标准和评测提高项目质量与可比性，也增加企业数据、认证和持续改进成本；商业主体仍需等待具体委托和服务合同。",
+      "relatedClauseIds": ["c1", "c5", "c6"],
+      "relatedNodeIds": ["n1", "n5"],
+      "watchSignals": ["成熟度评估", "现场核查", "效能评测委托", "人才培养项目"]
+    }
+  ],
+  "industryChain": [
+    {
+      "id": "chain1",
+      "chainName": "分级自评与认定—数字底座建设—AI与智能体应用—系统集成—国家评审—名单与复制推广",
+      "policyRole": "政策先建立分级资格和可量化能力标准，再通过项目申报、限额推荐、专家评审和现场抽查形成国家名单；只有具体项目投资、集成商和采购事实出现后，产业方向才可能进入公司经营层。",
+      "nodes": [
+        {"id": "n1", "policySensitivity": "high", "description": "企业自评、省级或中央企业认定形成基础级和先进级资格，卓越级和领航级必须逐级申报。"},
+        {"id": "n2", "policySensitivity": "high", "description": "智能装备、工业软件、控制系统、仿真和数字孪生构成工厂升级底座。"},
+        {"id": "n3", "policySensitivity": "high", "description": "工业AI、大模型和智能体按场景比例、模型数量和实际调用量进入绩效评价。"},
+        {"id": "n4", "policySensitivity": "high", "description": "数据治理、工业网络、算力和系统集成把研发、生产、运营和供应链数据贯通。"},
+        {"id": "n5", "policySensitivity": "high", "description": "推荐单位按限额排序，国家层面开展专家评审、现场抽查和答辩。"},
+        {"id": "n6", "policySensitivity": "medium", "description": "培育名单、项目成效和解决方案复制推广决定后续产业需求和经营证据。"}
+      ],
+      "edges": [
+        {"from": "n1", "to": "n2", "relation": "qualification_to_build", "description": "分级资格和要素条件约束企业建设范围。"},
+        {"from": "n2", "to": "n3", "relation": "digital_base_to_ai", "description": "数据采集、软件与控制系统为AI场景提供基础。"},
+        {"from": "n3", "to": "n4", "relation": "ai_to_integration", "description": "工业智能体需要统一数据、网络、算力和跨系统集成。"},
+        {"from": "n4", "to": "n5", "relation": "project_to_evaluation", "description": "项目架构、投资、集成商和绩效材料进入推荐评审。"},
+        {"from": "n5", "to": "n6", "relation": "evaluation_to_rollout", "description": "名单发布后通过案例交流、标准群和母工厂等方式推广。"}
+      ]
+    }
+  ],
+  "companyMap": [],
+  "policyNetwork": [
+    {
+      "id": "pn1",
+      "relatedPolicy": "《智能工厂梯度培育管理办法（暂行）》",
+      "relationship": "upstream_guidance",
+      "meaning": "管理办法规定智能工厂梯度培育的总体制度，本通知据此启动2026年度具体认定、申报和评审安排。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2026-07-17",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bbccc17a650749c2a76569679350fa5d.html",
+      "watchSignals": ["年度培育规则变化", "等级管理和动态调整要求"]
+    },
+    {
+      "id": "pn2",
+      "relatedPolicy": "《智能制造典型场景参考指引（2025年版）》",
+      "relationship": "supporting_rule",
+      "meaning": "参考指引为工厂建设、研发设计、生产作业、生产管理和运营管理提供场景分类，申报项目需据此描述具体实例。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2026-07-17",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bbccc17a650749c2a76569679350fa5d.html",
+      "watchSignals": ["典型场景更新", "AI高价值应用场景"]
+    },
+    {
+      "id": "pn3",
+      "relatedPolicy": "2026年度卓越级和领航级智能工厂培育名单",
+      "relationship": "downstream_implementation",
+      "meaning": "后续名单将确认具体项目主体和项目名称，是从政策方向进入企业、投资和集成商核验的第一道事实门。",
+      "evidenceLevel": "pending",
+      "watchSignals": ["专家评审", "现场抽查", "答辩", "名单发布"]
+    }
+  ],
+  "investmentDirection": {
+    "primaryDirection": "把研究注意力从泛化的工业数字化概念转向入选工厂的具体项目投资、集成商、AI场景、工业软件和装备采购，并以项目绩效、验收和解决方案对外输出验证经营价值。",
+    "directionStrength": "medium",
+    "timeHorizon": "medium_term",
+    "watchIndustries": [
+      "智能制造装备与工业控制系统",
+      "工业软件与数字孪生",
+      "工业人工智能与工业智能体",
+      "工业数据治理、网络和算力",
+      "智能工厂系统集成与评测服务"
+    ],
+    "watchChainNodes": [
+      "数字底座建设",
+      "AI与工业智能体应用",
+      "系统集成与数据贯通",
+      "国家评审和名单",
+      "解决方案复制推广"
+    ],
+    "watchCompanyTypes": [
+      "进入卓越级或领航级培育名单的制造企业",
+      "在申报材料中被明确披露的智能工厂集成商",
+      "获得具体工业软件、控制系统、智能装备或工业AI项目合同的服务商",
+      "能够披露项目验收、绩效改善和回款的智能制造解决方案提供方"
+    ],
+    "watchCompanies": [],
+    "nearTermCatalysts": [
+      "2026年8月15日项目申报截止",
+      "2026年9月1日推荐审核截止",
+      "卓越级和领航级培育名单发布",
+      "入选项目投资额和集成商披露",
+      "后续采购、中标和验收公告"
+    ],
+    "keyRisks": [
+      "认定主要使用企业既有建设成果，新增资本开支可能有限",
+      "地方支持方式和财政能力差异较大",
+      "名单荣誉和示范推广不等于外部订单或收入",
+      "AI场景数量和词元调用量可能不能直接反映商业回报",
+      "企业可能使用自研系统或集团内部集成资源"
+    ],
+    "minimumEvidenceNeeded": [
+      "国家培育名单及具体项目名称",
+      "项目总投资和建设内容",
+      "集成商、软件和设备供应商信息",
+      "采购、中标、合同、验收和回款",
+      "研制周期、生产效率、成本和质量等绩效改善"
+    ],
+    "doNotOverread": [
+      "进入申报流程不等于进入国家培育名单",
+      "先进级或卓越级称号不等于新增财政补贴",
+      "AI场景比例提高不等于通用大模型厂商获得订单",
+      "申报材料填写集成商不等于该集成商收入具有重大性",
+      "示范推广和标准群建设不等于解决方案已经实现规模化对外销售"
+    ],
+    "summary": "制度和项目入口已经明确，产业方向具有研究价值，但当前商业兑现仍停在申报评审之前；公司研究必须等待名单、项目、集成商和采购证据。"
+  },
+  "actions": [
+    {
+      "id": "a1",
+      "actionType": "梯度培育",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "企业达到规模、合规和成熟度基本条件",
+      "title": "建立基础、先进、卓越和领航四级智能工厂体系",
+      "body": "基础级聚焦数字化改造，先进级聚焦网络化协同，卓越级聚焦智能化升级，领航级探索全球领先的智能化变革。",
+      "signal": "market",
+      "confidence": 99,
+      "clauseIds": ["c1"],
+      "sortOrder": 1
+    },
+    {
+      "id": "a2",
+      "actionType": "地方认定",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "企业自评和省级、中央企业认定程序",
+      "title": "基础级自评自建并由地方和中央企业培育先进级",
+      "body": "规模以上工业企业自愿开展基础级自评自建，省级主管部门和中央企业负责先进级培育认定并报送名单。",
+      "signal": "market",
+      "confidence": 98,
+      "clauseIds": ["c2"],
+      "sortOrder": 2
+    },
+    {
+      "id": "a3",
+      "actionType": "项目申报",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "已取得前一级资格并具备项目材料和绩效证据",
+      "title": "组织卓越级和领航级项目限额申报",
+      "body": "卓越级和领航级项目于2026年8月15日前线上申请，推荐单位于9月1日前按限额和优先顺序完成审核推荐。",
+      "signal": "market",
+      "confidence": 99,
+      "clauseIds": ["c3", "c4", "c6"],
+      "sortOrder": 3
+    },
+    {
+      "id": "a4",
+      "actionType": "标准约束",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "成熟度、AI应用和关键绩效达到相应等级",
+      "title": "设置AI场景和工业智能体等量化指标",
+      "body": "卓越级AI应用场景比例不低于30%，领航级不低于60%，并观察工业模型、工业智能体、词元调用量及多类生产经营绩效。",
+      "signal": "constraint",
+      "confidence": 99,
+      "clauseIds": ["c3", "c4", "c5"],
+      "sortOrder": 4
+    },
+    {
+      "id": "a5",
+      "actionType": "评审推广",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "专家评审、现场抽查、领航级答辩和名单发布",
+      "title": "开展国家评审、现场核查和解决方案推广",
+      "body": "工业和信息化部会同相关部门开展专家评审、现场抽查和名单发布，领航级增加答辩，并推动典型案例、标准和解决方案复制推广。",
+      "signal": "market",
+      "confidence": 98,
+      "clauseIds": ["c6", "c7"],
+      "sortOrder": 5
+    }
+  ],
+  "clauses": [
+    {
+      "id": "c1",
+      "no": "附件1第一条至第五部分",
+      "title": "四级智能工厂对应不同能力阶段",
+      "excerpt": "基础级智能工厂聚焦数字化转型，先进级智能工厂聚焦数字化网络化能力提升。",
+      "body": "四级体系不是同一称号的简单排序，而是从数据采集和自动化逐步进入跨系统协同、AI多场景优化以及未来制造模式重塑。",
+      "confidence": 99,
+      "keywords": ["基础级", "先进级", "卓越级", "领航级", "成熟度"],
+      "industries": ["智能制造", "工业数字化"],
+      "sortOrder": 1
+    },
+    {
+      "id": "c2",
+      "no": "通知第一部分及附件1第二、三部分",
+      "title": "基础级和先进级形成地方及集团培育底座",
+      "excerpt": "规上工业企业自愿开展基础级智能工厂自评自建。",
+      "body": "基础级和先进级扩展潜在项目池，但是否形成新增采购取决于企业现有系统基础、地方支持和升级差距。",
+      "confidence": 98,
+      "keywords": ["自评自建", "省级认定", "中央企业", "先进级"],
+      "industries": ["智能制造装备", "工业软件"],
+      "sortOrder": 2
+    },
+    {
+      "id": "c3",
+      "no": "通知第二部分及附件1第四部分",
+      "title": "卓越级要求国内领先并深化AI多场景应用",
+      "excerpt": "其中应用人工智能技术场景比例不低于30%。",
+      "body": "卓越级的核心增量是工厂整体数字孪生、生成式设计、预测性维护、智能排产和工业智能体探索，但国家名单发布前无法确认具体项目。",
+      "confidence": 99,
+      "keywords": ["卓越级", "人工智能", "30%", "数字孪生", "工业智能体"],
+      "industries": ["工业AI", "数字孪生", "工业软件"],
+      "sortOrder": 3
+    },
+    {
+      "id": "c4",
+      "no": "通知第三部分及附件1第五部分",
+      "title": "领航级面向全球领先的未来制造模式",
+      "excerpt": "其中应用人工智能技术场景比例不低于60%。",
+      "body": "领航级强调工业大模型、工业智能体、一体化数据模型管理和母工厂复制输出，要求比一般数字化改造更高，但仍需项目投资与经营证据。",
+      "confidence": 99,
+      "keywords": ["领航级", "60%", "工业大模型", "工业智能体", "母工厂"],
+      "industries": ["工业大模型", "系统集成", "智能制造解决方案"],
+      "sortOrder": 4
+    },
+    {
+      "id": "c5",
+      "no": "附件1附表",
+      "title": "绩效指标同时考察技术能力和经营结果",
+      "excerpt": "应用人工智能模型数量、开发工业智能体数量、日均词元调用量。",
+      "body": "政策不仅统计部署数量，还观察研制周期、生产效率、产品不良率、库存周转、成本、能耗和复制推广，后续应以综合绩效而非AI调用量单一指标判断价值。",
+      "confidence": 99,
+      "keywords": ["模型数量", "智能体数量", "词元调用量", "生产效率", "运营成本"],
+      "industries": ["工业AI", "效能评测"],
+      "sortOrder": 5
+    },
+    {
+      "id": "c6",
+      "no": "通知第二、三部分组织实施",
+      "title": "申报期限和推荐名额形成近期执行节点",
+      "excerpt": "申报书于2026年8月15日前完成线上申请。",
+      "body": "推荐上限按照地区工业增加值排名或累计卓越级数量确定，减少无边界扩张，但名单仍取决于审核、评审、抽查和答辩。",
+      "confidence": 99,
+      "keywords": ["8月15日", "9月1日", "推荐上限", "专家评审", "现场抽查"],
+      "industries": ["项目申报服务", "智能制造评测"],
+      "sortOrder": 6
+    },
+    {
+      "id": "c7",
+      "no": "附件2至附件5及通知第四部分",
+      "title": "申报材料提供项目投资和集成商证据入口",
+      "excerpt": "包括智能工厂建设起止时间、总投资、集成商、项目简介等信息。",
+      "body": "具体申报材料若后续公开，可用于确认项目规模、建设内容和集成商；当前仅有材料字段要求，不能预先推导供应商或订单。",
+      "confidence": 99,
+      "keywords": ["总投资", "集成商", "项目简介", "推荐汇总表", "申报平台"],
+      "industries": ["系统集成", "工业软件", "智能装备"],
+      "sortOrder": 7
+    }
+  ],
+  "chainNodes": [
+    {
+      "id": "n1",
+      "title": "分级自评与资格认定",
+      "subtitle": "从基础级、先进级逐步进入国家级申报",
+      "section": "upstream",
+      "relation": "policy",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 98,
+      "description": "企业和地方先形成基础级、先进级项目池，卓越级和领航级须取得前一级资格后申报。",
+      "clauseIds": ["c1", "c2", "c3", "c4"],
+      "companyIds": [],
+      "evidenceIds": ["e1", "e2", "e3"],
+      "impactReason": "逐级资格决定国家级项目候选范围。",
+      "verificationSignals": ["先进级名单", "卓越级申报主体", "领航级申报主体"]
+    },
+    {
+      "id": "n2",
+      "title": "智能装备、工业软件与数字孪生",
+      "subtitle": "智能工厂的执行与建模底座",
+      "section": "upstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 95,
+      "description": "各等级逐步提高装备数字化、软件集成、工业控制、仿真和数字孪生要求。",
+      "clauseIds": ["c1", "c2", "c3", "c4"],
+      "companyIds": [],
+      "evidenceIds": ["e1", "e4"],
+      "impactReason": "政策明确技术能力方向，但尚无具体采购规模。",
+      "verificationSignals": ["项目建设内容", "软件设备清单", "采购中标"]
+    },
+    {
+      "id": "n3",
+      "title": "工业AI、大模型与工业智能体",
+      "subtitle": "从辅助决策进入自主优化",
+      "section": "midstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 96,
+      "description": "卓越级和领航级明确AI场景比例、模型数量、智能体数量和词元调用量，推动工业AI进入可评测应用。",
+      "clauseIds": ["c3", "c4", "c5"],
+      "companyIds": [],
+      "evidenceIds": ["e3", "e4", "e5"],
+      "impactReason": "指标可验证，但具体模型和服务商尚未披露。",
+      "verificationSignals": ["AI场景清单", "模型和智能体来源", "项目合同", "业务绩效"]
+    },
+    {
+      "id": "n4",
+      "title": "数据治理、工业网络与系统集成",
+      "subtitle": "实现研发生产经营数据贯通",
+      "section": "midstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 94,
+      "description": "先进级以上需要数据治理、跨系统集成和基础设施升级，领航级进一步沉淀企业数据资产。",
+      "clauseIds": ["c2", "c3", "c4", "c7"],
+      "companyIds": [],
+      "evidenceIds": ["e4", "e7"],
+      "impactReason": "申报材料要求披露总体架构、总投资和集成商。",
+      "verificationSignals": ["集成商披露", "数据平台建设", "网络算力项目", "验收结果"]
+    },
+    {
+      "id": "n5",
+      "title": "推荐、评审与现场核查",
+      "subtitle": "把建设项目转为国家培育名单",
+      "section": "downstream",
+      "relation": "constraint",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 98,
+      "description": "省级和中央企业限额推荐，国家组织专家评审、现场抽查，领航级增加答辩。",
+      "clauseIds": ["c6"],
+      "companyIds": [],
+      "evidenceIds": ["e2", "e3", "e6"],
+      "impactReason": "评审结果决定项目是否进入国家培育名单。",
+      "verificationSignals": ["推荐汇总表", "现场抽查", "评审结果", "培育名单"]
+    },
+    {
+      "id": "n6",
+      "title": "名单发布与解决方案复制",
+      "subtitle": "从示范项目到外部经营兑现",
+      "section": "downstream",
+      "relation": "market",
+      "evidenceLevel": "pending",
+      "industryNodeEvidenceLevel": "pending",
+      "confidence": 65,
+      "description": "入选工厂通过案例、母工厂、标准群和解决方案推广向供应链输出，真正收入仍需合同、交付和回款验证。",
+      "clauseIds": ["c3", "c4", "c7"],
+      "companyIds": [],
+      "evidenceIds": ["e3", "e6", "e7"],
+      "impactReason": "政策提出推广要求，但名单和经营结果尚未出现。",
+      "verificationSignals": ["名单发布", "解决方案输出", "外部客户合同", "收入回款"]
+    }
+  ],
+  "chainEdges": [
+    {"id": "edge1", "from": "n1", "to": "n2", "type": "strong", "label": "资格和标准驱动工厂底座升级"},
+    {"id": "edge2", "from": "n2", "to": "n3", "type": "strong", "label": "数字底座支撑工业AI和智能体"},
+    {"id": "edge3", "from": "n3", "to": "n4", "type": "strong", "label": "AI应用依赖数据和系统贯通"},
+    {"id": "edge4", "from": "n4", "to": "n5", "type": "strong", "label": "项目材料进入限额推荐和国家评审"},
+    {"id": "edge5", "from": "n5", "to": "n6", "type": "medium", "label": "名单和示范推动复制推广"}
+  ],
+  "companies": [],
+  "evidence": [
+    {
+      "id": "e1",
+      "evidenceObject": "policy_action",
+      "type": "official_document",
+      "source": "工业和信息化部等六部门2026年度智能工厂梯度培育行动通知",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bbccc17a650749c2a76569679350fa5d.html",
+      "title": "四级梯度培育安排",
+      "excerpt": "基础级智能工厂聚焦数字化转型，先进级智能工厂聚焦数字化网络化能力提升。",
+      "interpretation": "附件进一步把卓越级定位为智能化升级、领航级定位为智能化变革，形成递进能力体系。",
+      "sourceLocation": "通知第一部分、附件1第一至第五部分",
+      "confidence": 99,
+      "clauseIds": ["c1", "c2"],
+      "nodeIds": ["n1", "n2"],
+      "companyIds": []
+    },
+    {
+      "id": "e2",
+      "evidenceObject": "policy_action",
+      "type": "official_document",
+      "source": "工业和信息化部等六部门2026年度智能工厂梯度培育行动通知",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bbccc17a650749c2a76569679350fa5d.html",
+      "title": "卓越级申报与评审",
+      "excerpt": "工业和信息化部会同相关部门组织开展卓越级智能工厂专家评审、现场抽查、名单发布和宣传推广。",
+      "interpretation": "项目是否进入国家培育名单仍要经过推荐、评审和抽查，申报本身不能视为认定。",
+      "sourceLocation": "通知第二部分",
+      "confidence": 99,
+      "clauseIds": ["c3", "c6"],
+      "nodeIds": ["n1", "n5"],
+      "companyIds": []
+    },
+    {
+      "id": "e3",
+      "evidenceObject": "policy_action",
+      "type": "official_document",
+      "source": "工业和信息化部等六部门2026年度智能工厂梯度培育行动通知",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bbccc17a650749c2a76569679350fa5d.html",
+      "title": "领航级条件与国家评审",
+      "excerpt": "申报主体须已获评卓越级智能工厂，推动人工智能等新技术广泛深度应用。",
+      "interpretation": "领航级要求逐级晋升、全球竞争力和未来制造模式探索，候选范围显著窄于一般数字化项目。",
+      "sourceLocation": "通知第三部分",
+      "confidence": 99,
+      "clauseIds": ["c4", "c6"],
+      "nodeIds": ["n1", "n3", "n5", "n6"],
+      "companyIds": []
+    },
+    {
+      "id": "e4",
+      "evidenceObject": "industry_node",
+      "type": "official_attachment",
+      "source": "《智能工厂梯度培育要素条件（2026年版）》",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bbccc17a650749c2a76569679350fa5d.html",
+      "title": "卓越级和领航级技术架构",
+      "excerpt": "突破并集成部署智能制造装备、工业大模型、工业智能体等。",
+      "interpretation": "政策直接确认装备、软件、模型、智能体、数据治理、网络和算力的技术方向，但供应商和投资规模仍由具体项目决定。",
+      "sourceLocation": "附件1第四、五部分",
+      "confidence": 99,
+      "clauseIds": ["c3", "c4"],
+      "nodeIds": ["n2", "n3", "n4"],
+      "companyIds": []
+    },
+    {
+      "id": "e5",
+      "evidenceObject": "industry_node",
+      "type": "official_attachment",
+      "source": "《智能工厂梯度培育要素条件（2026年版）》",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bbccc17a650749c2a76569679350fa5d.html",
+      "title": "AI和经营绩效指标",
+      "excerpt": "应用人工智能模型数量、开发工业智能体数量、日均词元调用量。",
+      "interpretation": "AI使用规模被量化，同时政策还要求观察研制周期、质量、成本、能耗和推广企业数量，不能只以模型调用量判断项目价值。",
+      "sourceLocation": "附件1附表",
+      "confidence": 99,
+      "clauseIds": ["c5"],
+      "nodeIds": ["n3"],
+      "companyIds": []
+    },
+    {
+      "id": "e6",
+      "evidenceObject": "policy_action",
+      "type": "official_document",
+      "source": "工业和信息化部等六部门2026年度智能工厂梯度培育行动通知",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bbccc17a650749c2a76569679350fa5d.html",
+      "title": "申报期限与推荐上限",
+      "excerpt": "申报主体于2026年8月15日前完成线上申请。",
+      "interpretation": "9月1日前完成推荐审核，地区和中央企业推荐数量受限，构成明确的近期名单催化。",
+      "sourceLocation": "通知第二、三部分组织实施",
+      "confidence": 99,
+      "clauseIds": ["c6"],
+      "nodeIds": ["n5", "n6"],
+      "companyIds": []
+    },
+    {
+      "id": "e7",
+      "evidenceObject": "industry_node",
+      "type": "official_attachment",
+      "source": "卓越级智能工厂项目申报材料清单",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bbccc17a650749c2a76569679350fa5d.html",
+      "title": "项目投资与集成商字段",
+      "excerpt": "包括智能工厂建设起止时间、总投资、集成商、项目简介等信息。",
+      "interpretation": "具体申报材料一旦公开，可直接用于项目和服务商核验；当前附件只是规定申报字段，不构成任何公司的订单证据。",
+      "sourceLocation": "附件2",
+      "confidence": 99,
+      "clauseIds": ["c7"],
+      "nodeIds": ["n4", "n6"],
+      "companyIds": []
+    }
+  ],
+  "backgroundCards": [
+    {
+      "id": "bg1",
+      "title": "四级能力成熟度",
+      "body": "基础级和先进级智能制造能力成熟度自评需达到二级及以上，卓越级达到三级及以上，领航级达到四级及以上。",
+      "source": "《智能工厂梯度培育要素条件（2026年版）》",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bbccc17a650749c2a76569679350fa5d.html"
+    },
+    {
+      "id": "bg2",
+      "title": "2026年申报时间表",
+      "body": "卓越级和领航级项目线上申报截止2026年8月15日，推荐单位审核和纸质材料报送截止9月1日。",
+      "source": "工业和信息化部等六部门通知",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bbccc17a650749c2a76569679350fa5d.html"
+    },
+    {
+      "id": "bg3",
+      "title": "当前证据边界",
+      "body": "政策已明确项目申报和评价字段，但尚未发布国家培育名单、项目总投资、集成商和采购合同，本次保持零公司结论。",
+      "source": "工业和信息化部官方通知及五个附件",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_bbccc17a650749c2a76569679350fa5d.html"
+    }
+  ],
+  "compareInsights": {
+    "comparableCount": 0,
+    "similarPolicies": [],
+    "contrastPolicies": [],
+    "insights": ["本次未启用横向对比，仅基于当前通知及五个官方附件判断四级培育和项目申报机制。"],
+    "limitations": ["未将其他年度智能工厂名单或地方支持政策作为比较样本。"]
+  }
+}
