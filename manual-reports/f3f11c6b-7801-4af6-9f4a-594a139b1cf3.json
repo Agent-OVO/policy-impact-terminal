@@ -1,0 +1,655 @@
+{
+  "id": "f3f11c6b-7801-4af6-9f4a-594a139b1cf3",
+  "policyId": "f3f11c6b-7801-4af6-9f4a-594a139b1cf3",
+  "analyzerVersion": "gpt-5.6-thinking-manual-v1",
+  "analysisMethod": "official-pdf-full-text-manual-v1",
+  "generatedAt": "2026-07-28T04:32:00Z",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "部门规范性文件",
+  "substantivePolicyType": "退役准备、费用预提与技术能力建设",
+  "primaryActionType": "监管约束",
+  "policySignalStrength": "high",
+  "implementationCertainty": "high",
+  "analysisDepth": "L4",
+  "analysisDepthReason": "办法以18条正式条款明确核电厂营运单位的全面责任和完全经济责任，规定退役费用逐年预提、列入生产成本、累计提取率暂按不低于项目竣工决算建成价10%执行，并要求核电集团原则上每5年评估和动态调整；同时建立全生命周期退役计划、记录、人力资源和技术装备研发责任。资金管理细则、具体厂址退役计划、采购项目和合同尚未出现，因此适合深入拆解成本、工程和技术链，暂不映射具体公司。",
+  "operationDisposition": "继续深研",
+  "followUpSignals": [
+    "核电厂退役费用资金管理办法及专户、使用、监督和会计处理细则",
+    "核电集团首次五年评估结果及退役费用提取率调整",
+    "具体核电厂退役专章、初步退役计划和最终退役计划",
+    "退役关键技术、装备和科研项目的立项、采购、中标与验收",
+    "核设施退役专业服务、人才队伍和市场化服务合同"
+  ],
+  "summary": {
+    "id": "f3f11c6b-7801-4af6-9f4a-594a139b1cf3",
+    "title": "国家发展改革委等四部门关于印发《核电厂退役准备管理暂行办法》的通知",
+    "issuer": "国家发展改革委、国家能源局、财政部、生态环境部",
+    "source": "国家发展改革委 - 政策文件库",
+    "publishDate": "2026-05-19",
+    "status": "published",
+    "confidence": 99,
+    "industryCount": 6,
+    "companyCount": 0,
+    "evidenceCount": 7,
+    "primarySignal": "核电厂退役从远期概念转为覆盖全生命周期、费用预提、五年评估、人才和装备研发的法定准备责任",
+    "category": "核电安全、退役与费用管理"
+  },
+  "policy": {
+    "title": "国家发展改革委等四部门关于印发《核电厂退役准备管理暂行办法》的通知",
+    "status": "已发布并施行",
+    "issuer": "国家发展改革委、国家能源局、财政部、生态环境部",
+    "publishDate": "2026-05-19",
+    "effectiveDate": "2026-07-01",
+    "source": "国家发展改革委 - 政策文件库",
+    "category": "核电安全、退役与费用管理",
+    "level": "中央四部门规范性文件",
+    "confidence": 99,
+    "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/ghxwj/202605/t20260519_1405292.html",
+    "scope": "核电厂营运单位、核电集团及核电厂从选址、设计、建造、运行至退役的准备工作",
+    "impactScope": "退役费用预提与成本核算、退役规划设计、污染和活化信息记录、放射性废物最小化、退役工程技术装备、专业人才与市场化服务",
+    "jurisdiction": "中国大陆",
+    "tags": [
+      "核电厂退役",
+      "费用预提",
+      "生产成本",
+      "五年评估",
+      "退役计划",
+      "放射性废物",
+      "退役技术装备",
+      "专业化服务"
+    ]
+  },
+  "brief": {
+    "judgement": "本办法的新增价值是把核电厂退役责任前移到选址、设计、建造和运行全过程，并首次以明确比例建立退役费用预提底线：营运单位承担完全经济责任，费用逐年提取、列入生产成本，累计提取率暂按不低于竣工决算建成价10%执行；这会形成长期成本、资金和技术准备约束，但在资金细则和具体退役项目出现前，不能直接推导任何公司的订单或利润。",
+    "summary": "核电厂以厂址为单位统筹退役，原则上以厂址无限制开放和使用为最终目标。营运单位负全面责任，核电集团统筹管理；项目设计阶段需编制退役专章，建造阶段形成初步计划，运行阶段持续更新并保存污染、活化和设备信息，运行期满前完成最终退役计划。费用在商运后运行期逐年提取，列入生产成本并专用于退役，核电集团原则上每5年评估并动态调整提取率。",
+    "keyPoints": [
+      "退役准备责任贯穿核电项目选址、设计、建造和运行，不再只在机组停运前启动。",
+      "核电厂营运单位承担全面责任和完全经济责任，核电集团承担统筹管理责任。",
+      "退役费用列入生产成本并逐年提取，累计提取率暂按不低于竣工决算建成价10%执行。",
+      "核电集团原则上每5年评估费用准备情况并动态调整提取率。",
+      "人才和技术装备建设被单列为责任，允许具备条件的专业单位按市场化方式向全行业服务。"
+    ],
+    "methodology": "完整读取国家发展改革委官方发布页及18条正式PDF全文，按“全生命周期准备—责任主体—费用预提—五年评估—人才队伍—技术装备—具体项目和经营兑现”拆解；公司层坚持零公司，等待资金细则、具体厂址计划、采购和合同证据。"
+  },
+  "analysisCoverage": {
+    "status": "no_company_mapping",
+    "companyCount": 0,
+    "analysisMethod": "official-pdf-full-text-manual-v1",
+    "companyImpactConclusion": "办法没有点名商业供应商，也未公布具体退役厂址、工程预算、项目清单、采购合同、中标结果或收入回款。核电营运主体承担责任、专业单位可市场化服务只构成主体类型和需求方向，当前不建立具体上市公司映射。",
+    "limitations": [
+      "退役费用资金管理办法尚未出台，专户、投资、使用、税务和会计处理规则仍待明确。",
+      "10%为暂行累计提取率底线，具体集团和厂址提取率需评估后确定。",
+      "现有核电厂距离实际退役时间、最终状态和工程规模差异较大。",
+      "技术装备研发总体方案、科研项目和市场化服务合同尚未公开。"
+    ]
+  },
+  "policyIndustryMap": [
+    {
+      "id": "pi1",
+      "industry": "核电退役费用、成本核算与资金管理",
+      "policyAction": "要求营运单位逐年预提退役费用、列入生产成本并专款用于退役",
+      "impactType": "regulatory_constraint",
+      "impactDirection": "constraint",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "费用准备从原则性责任转为具有暂行比例下限、评估周期和动态调整机制的长期财务约束，首先影响核电营运主体的成本和资金安排。",
+      "relatedClauseIds": ["c4", "c5"],
+      "relatedNodeIds": ["n3"],
+      "watchSignals": ["资金管理办法", "提取率", "年度费用计提", "专户和使用规则"]
+    },
+    {
+      "id": "pi2",
+      "industry": "核电退役规划、设计与工程咨询",
+      "policyAction": "要求设计阶段编制退役专章、建造阶段编制初步退役计划、运行期满前完成最终退役计划",
+      "impactType": "standard_constraint",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "退役可实施性被嵌入核电项目全生命周期，形成规划、工程设计、安全评价和持续更新需求，但具体委托方式仍待项目披露。",
+      "relatedClauseIds": ["c2", "c3"],
+      "relatedNodeIds": ["n1", "n2"],
+      "watchSignals": ["退役专章", "初步退役计划", "最终退役计划", "咨询和评价项目"]
+    },
+    {
+      "id": "pi3",
+      "industry": "放射性废物、去污拆除与辐射防护",
+      "policyAction": "贯彻放射性废物最小化和辐射防护最优化，保存污染和活化信息并以安全退役为目标",
+      "impactType": "regulatory_constraint",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "退役工程需要辐射测量、去污、拆除、废物分类处理和最终状态验证，但办法尚未公布具体厂址、工程量和技术标准。",
+      "relatedClauseIds": ["c1", "c2", "c3"],
+      "relatedNodeIds": ["n2", "n4"],
+      "watchSignals": ["放射性特征调查", "去污拆除方案", "废物处理设施", "环境和辐射监测"]
+    },
+    {
+      "id": "pi4",
+      "industry": "核设施退役技术装备与科研",
+      "policyAction": "要求核电集团制定研发总体方案并分阶段攻关退役关键技术",
+      "impactType": "technology_upgrade",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "政策明确要形成我国核电厂退役技术装备体系，需求方向涵盖远程作业、切割拆除、测量监测、废物处理和数字化支持，但尚无具体科研和采购清单。",
+      "relatedClauseIds": ["c7"],
+      "relatedNodeIds": ["n5"],
+      "watchSignals": ["研发总体方案", "关键技术攻关", "科研项目", "装备采购与国产化验证"]
+    },
+    {
+      "id": "pi5",
+      "industry": "核设施退役专业人才与市场化服务",
+      "policyAction": "要求制定人力资源计划、统筹专业单位并鼓励面向全行业提供市场化服务",
+      "impactType": "market_mechanism",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "政策为专业化退役技术单位跨项目服务提供制度方向，但是否形成独立商业市场仍取决于资质、项目开放和集团内部外包边界。",
+      "relatedClauseIds": ["c6"],
+      "relatedNodeIds": ["n5", "n6"],
+      "watchSignals": ["专业机构名单", "人才培养", "市场化服务合同", "跨集团项目"]
+    },
+    {
+      "id": "pi6",
+      "industry": "核电全生命周期档案、数据与资产信息管理",
+      "policyAction": "要求记录核电机组改造维修中污染或活化的构筑物、系统和设备信息并长期保管",
+      "impactType": "infrastructure_build",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "可靠档案是退役工程设计、辐射调查、工作量核算和安全许可的基础，可能推动专用数据治理和数字化工程，但办法未指定系统采购。",
+      "relatedClauseIds": ["c3"],
+      "relatedNodeIds": ["n2"],
+      "watchSignals": ["退役数据库", "设备污染档案", "数字化交付", "数据质量审查"]
+    }
+  ],
+  "industryChain": [
+    {
+      "id": "chain1",
+      "chainName": "全生命周期准备—计划与档案—费用预提—技术装备与人才—许可和项目实施—最终状态释放",
+      "policyRole": "办法把退役责任和成本前移至核电厂全生命周期，并以逐年费用预提、五年评估、技术研发和专业人才保证未来退役项目可实施；产业和公司经营结果只有在具体厂址计划、资金使用和采购合同出现后才能确认。",
+      "nodes": [
+        {"id": "n1", "policySensitivity": "high", "description": "选址、设计和建造阶段预留便于退役的措施并形成退役专章和初步计划。"},
+        {"id": "n2", "policySensitivity": "high", "description": "运行阶段持续更新计划、记录污染活化信息并在期满前完成最终退役计划。"},
+        {"id": "n3", "policySensitivity": "high", "description": "营运单位逐年预提费用、列入成本，集团每5年评估并调整提取率。"},
+        {"id": "n4", "policySensitivity": "high", "description": "具体退役实施需完成许可、安全评价、去污拆除、废物处理和最终状态验证。"},
+        {"id": "n5", "policySensitivity": "high", "description": "集团形成退役技术装备研发体系和专业化人才队伍。"},
+        {"id": "n6", "policySensitivity": "medium", "description": "具备条件的专业单位通过市场化方式向全行业提供技术和工程服务。"}
+      ],
+      "edges": [
+        {"from": "n1", "to": "n2", "relation": "design_to_records", "description": "前期可退役设计和工程档案支撑运行期计划更新。"},
+        {"from": "n2", "to": "n3", "relation": "plan_to_funding", "description": "退役计划和厂址条件为费用评估及提取率调整提供基础。"},
+        {"from": "n3", "to": "n4", "relation": "funding_to_execution", "description": "专用退役资金支持未来许可、工程和废物处置。"},
+        {"from": "n5", "to": "n4", "relation": "technology_to_execution", "description": "技术装备和人员能力决定退役工程安全和效率。"},
+        {"from": "n5", "to": "n6", "relation": "capability_to_service", "description": "集团内部能力成熟后可能形成专业化市场服务。"}
+      ]
+    }
+  ],
+  "companyMap": [],
+  "policyNetwork": [
+    {
+      "id": "pn1",
+      "relatedPolicy": "《中华人民共和国能源法》《中华人民共和国核安全法》《中华人民共和国放射性污染防治法》",
+      "relationship": "upstream_guidance",
+      "meaning": "三部法律构成退役责任、安全许可、辐射防护和污染防治的上位法律依据，本办法将其落实为核电厂全生命周期准备要求。",
+      "evidenceLevel": "indirect",
+      "watchSignals": ["核安全法规修订", "退役安全标准", "放射性废物规则"]
+    },
+    {
+      "id": "pn2",
+      "relatedPolicy": "核电厂退役费用资金管理办法",
+      "relationship": "downstream_implementation",
+      "meaning": "后续资金办法将决定退役费用提取、存放、使用、监督、会计和税务处理，是10%暂行底线转化为企业财务影响的关键细则。",
+      "evidenceLevel": "pending",
+      "watchSignals": ["资金管理办法发布", "专户和使用规则", "税务会计处理"]
+    },
+    {
+      "id": "pn3",
+      "relatedPolicy": "核电厂退役许可制度和安全要求",
+      "relationship": "supporting_rule",
+      "meaning": "生态环境部及国家核安全局后续完善的许可和安全规则将细化最终状态、工程实施、废物处置和验收标准。",
+      "evidenceLevel": "pending",
+      "watchSignals": ["许可制度", "退役安全导则", "最终状态释放标准"]
+    }
+  ],
+  "investmentDirection": {
+    "primaryDirection": "优先观察退役费用准备对核电运营成本和现金安排的影响，以及未来具体厂址退役计划带来的去污拆除、废物处理、测量监测、远程装备和专业服务项目；当前不提高任何具体公司的研究优先级。",
+    "directionStrength": "medium",
+    "timeHorizon": "long_term",
+    "watchIndustries": [
+      "核电退役费用和资金管理",
+      "退役规划设计与工程咨询",
+      "放射性废物处理和辐射防护",
+      "退役技术装备与科研",
+      "核设施专业化服务",
+      "全生命周期档案和数据管理"
+    ],
+    "watchChainNodes": [
+      "费用预提与五年评估",
+      "最终退役计划",
+      "退役许可和工程实施",
+      "技术装备研发",
+      "市场化专业服务"
+    ],
+    "watchCompanyTypes": [
+      "承担退役费用和全生命周期责任的核电营运主体",
+      "获得具体退役规划、评价或工程合同的核技术服务机构",
+      "取得去污拆除、辐射测量、废物处理和远程作业装备订单的供应方",
+      "能够披露跨项目市场化退役服务合同和回款的专业单位"
+    ],
+    "watchCompanies": [],
+    "nearTermCatalysts": [
+      "退役费用资金管理办法发布",
+      "核电集团五年评估和提取率调整",
+      "退役技术装备研发总体方案",
+      "具体厂址退役计划或科研项目",
+      "首批市场化服务和采购合同"
+    ],
+    "keyRisks": [
+      "费用计提提高核电营运主体当期成本但资金实际使用周期很长",
+      "10%为暂行累计底线，最终比例和财务处理仍可能调整",
+      "大量能力可能由核电集团内部单位承担，外部市场空间有限",
+      "具体退役项目时间远、规模和技术路线存在较大不确定性",
+      "核安全、辐射防护和废物处置要求可能增加工程成本及责任风险"
+    ],
+    "minimumEvidenceNeeded": [
+      "资金管理细则和集团提取率",
+      "具体核电厂退役计划和预算",
+      "科研、设备和工程项目立项",
+      "采购、中标、合同和验收",
+      "公司披露的收入、成本、现金流和回款"
+    ],
+    "doNotOverread": [
+      "累计提取率不低于10%不等于当年新增10%的现金支出",
+      "费用列入生产成本不等于退役工程订单已经形成",
+      "技术装备研发要求不等于某一设备供应商被指定",
+      "鼓励市场化服务不等于核电集团必须外包",
+      "核电业务能力或核技术资质不等于已经获得当前政策对应项目"
+    ],
+    "summary": "政策确定性高、财务责任明确，但经营兑现周期长；当前应先跟踪资金规则、集团计提和具体退役项目，再研究公司关系。"
+  },
+  "actions": [
+    {
+      "id": "a1",
+      "actionType": "责任落实",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "营运单位和核电集团建立全生命周期管理机制",
+      "title": "明确营运单位全面责任和集团统筹责任",
+      "body": "核电厂营运单位对退役准备负全面责任并承担完全经济责任，核电集团统筹所属核电厂退役准备。",
+      "signal": "constraint",
+      "confidence": 99,
+      "clauseIds": ["c1", "c4"],
+      "sortOrder": 1
+    },
+    {
+      "id": "a2",
+      "actionType": "全生命周期准备",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "设计、建造、运行和档案管理持续执行",
+      "title": "把退役准备嵌入选址、设计、建造和运行",
+      "body": "核电项目需预留便于退役的措施，设计阶段编制退役专章，建造阶段形成初步计划，运行阶段持续更新并保存关键档案。",
+      "signal": "constraint",
+      "confidence": 99,
+      "clauseIds": ["c2", "c3"],
+      "sortOrder": 2
+    },
+    {
+      "id": "a3",
+      "actionType": "资金支持",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "商运后逐年计提并等待资金管理办法细化",
+      "title": "建立退役费用预提和暂行比例底线",
+      "body": "退役费用列入生产成本、专用于退役并在运行期逐年提取，累计提取率暂按不低于项目竣工决算建成价10%执行。",
+      "signal": "constraint",
+      "confidence": 99,
+      "clauseIds": ["c4"],
+      "sortOrder": 3
+    },
+    {
+      "id": "a4",
+      "actionType": "动态评估",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "集团掌握厂址计划、技术路线和成本参数",
+      "title": "原则上每5年评估并动态调整提取率",
+      "body": "核电集团定期评估所控股核电厂退役费用准备情况，根据评估结果调整提取率，确保资金满足需要。",
+      "signal": "constraint",
+      "confidence": 99,
+      "clauseIds": ["c5"],
+      "sortOrder": 4
+    },
+    {
+      "id": "a5",
+      "actionType": "技术与人才",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "集团制定研发方案、人力计划并形成可验证项目",
+      "title": "建设专业人才和退役技术装备体系",
+      "body": "核电集团需统筹专业技术力量、分阶段攻关关键技术并形成装备体系，鼓励具备能力的单位市场化服务全行业。",
+      "signal": "market",
+      "confidence": 98,
+      "clauseIds": ["c6", "c7"],
+      "sortOrder": 5
+    }
+  ],
+  "clauses": [
+    {
+      "id": "c1",
+      "no": "第三条至第六条",
+      "title": "责任主体和监管分工",
+      "excerpt": "核电厂营运单位对核电厂退役准备工作负全面责任。",
+      "body": "营运单位承担全面和经济责任，集团统筹，发展改革、能源、财政和核安全监管部门分别承担协调、资金和许可安全职责。",
+      "confidence": 99,
+      "keywords": ["全面责任", "核电集团", "财政监督", "退役许可"],
+      "industries": ["核电运营", "核安全监管"],
+      "sortOrder": 1
+    },
+    {
+      "id": "c2",
+      "no": "第七条至第九条",
+      "title": "设计和建造阶段前置退役准备",
+      "excerpt": "在核电项目申请报告等文件中，编制核电厂退役专章。",
+      "body": "项目早期需要考虑废物最小化、辐射防护和可拆除性，并在设计、建造阶段形成专章和初步计划。",
+      "confidence": 99,
+      "keywords": ["退役专章", "初步退役计划", "废物最小化", "辐射防护"],
+      "industries": ["核电设计", "工程咨询", "辐射防护"],
+      "sortOrder": 2
+    },
+    {
+      "id": "c3",
+      "no": "第十条至第十二条",
+      "title": "运行期持续更新和最终计划",
+      "excerpt": "在核电厂运行期满前编制完成最终退役计划。",
+      "body": "营运单位需根据监管、技术和机组修改动态更新计划，保存污染活化信息，为安全退役和最终状态证明提供依据。",
+      "confidence": 99,
+      "keywords": ["计划更新", "污染信息", "活化信息", "最终退役计划"],
+      "industries": ["退役规划", "档案数据", "核安全评价"],
+      "sortOrder": 3
+    },
+    {
+      "id": "c4",
+      "no": "第十三条",
+      "title": "退役费用预提、成本计入和10%暂行底线",
+      "excerpt": "累计提取率暂按不低于10%执行。",
+      "body": "费用在商运后的运行期逐年提取，列入生产成本并专用于退役；10%对应竣工决算建成价的累计提取率，不是当年一次性支出比例。",
+      "confidence": 99,
+      "keywords": ["完全经济责任", "生产成本", "逐年提取", "10%"],
+      "industries": ["核电运营财务", "退役资金管理"],
+      "sortOrder": 4
+    },
+    {
+      "id": "c5",
+      "no": "第十四条",
+      "title": "五年评估与动态调整",
+      "excerpt": "原则上每5年对所控股核电厂退役费用准备情况进行评估。",
+      "body": "实际提取率需结合厂址、技术、工程量和成本变化动态调整，暂行底线不能替代集团评估。",
+      "confidence": 99,
+      "keywords": ["每5年", "费用评估", "动态调整", "提取率"],
+      "industries": ["成本评估", "资金管理", "工程咨询"],
+      "sortOrder": 5
+    },
+    {
+      "id": "c6",
+      "no": "第十五条",
+      "title": "专业人才和市场化服务",
+      "excerpt": "鼓励有条件、有能力的单位按照专业化、市场化方式为全行业提供服务。",
+      "body": "政策允许专业退役能力向行业输出，但没有规定必须外包，集团内部资源和资质边界将决定市场空间。",
+      "confidence": 99,
+      "keywords": ["人力资源计划", "专业化人才", "市场化服务"],
+      "industries": ["核技术服务", "人才培训", "退役工程服务"],
+      "sortOrder": 6
+    },
+    {
+      "id": "c7",
+      "no": "第十六条",
+      "title": "技术装备研发总体方案",
+      "excerpt": "形成我国核电厂退役技术装备体系。",
+      "body": "核电集团需分阶段、分批次攻关关键技术并利用现有科研设施，具体需求要等待研发项目和装备清单。",
+      "confidence": 99,
+      "keywords": ["研发总体方案", "关键技术攻关", "技术装备体系"],
+      "industries": ["核设施装备", "科研服务", "远程作业"],
+      "sortOrder": 7
+    }
+  ],
+  "chainNodes": [
+    {
+      "id": "n1",
+      "title": "可退役设计与前期规划",
+      "subtitle": "在项目建设前预留退役条件",
+      "section": "upstream",
+      "relation": "constraint",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 99,
+      "description": "选址、设计和建造阶段落实便于退役、废物最小化和辐射防护要求，形成退役专章和初步计划。",
+      "clauseIds": ["c1", "c2"],
+      "companyIds": [],
+      "evidenceIds": ["e1", "e2"],
+      "impactReason": "前期设计决定未来拆除、去污和废物量。",
+      "verificationSignals": ["退役专章", "初步计划", "可拆除设计"]
+    },
+    {
+      "id": "n2",
+      "title": "运行期计划与信息记录",
+      "subtitle": "持续积累可执行退役数据",
+      "section": "upstream",
+      "relation": "constraint",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 99,
+      "description": "运行阶段更新退役计划并记录污染、活化、维修和改造信息，期满前完成最终计划。",
+      "clauseIds": ["c3"],
+      "companyIds": [],
+      "evidenceIds": ["e3"],
+      "impactReason": "完整数据决定工程量、辐射风险和费用估算。",
+      "verificationSignals": ["最终退役计划", "污染活化档案", "定期安全评价"]
+    },
+    {
+      "id": "n3",
+      "title": "费用预提与五年评估",
+      "subtitle": "形成长期成本和资金保障",
+      "section": "midstream",
+      "relation": "constraint",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 99,
+      "description": "费用逐年计入生产成本，累计提取率暂不低于建成价10%，集团每5年评估并调整。",
+      "clauseIds": ["c4", "c5"],
+      "companyIds": [],
+      "evidenceIds": ["e4", "e5"],
+      "impactReason": "明确财务责任是本政策最直接的经营影响。",
+      "verificationSignals": ["资金管理办法", "提取率", "财务披露", "五年评估"]
+    },
+    {
+      "id": "n4",
+      "title": "许可、去污拆除与废物处置",
+      "subtitle": "具体厂址进入工程实施阶段",
+      "section": "downstream",
+      "relation": "market",
+      "evidenceLevel": "pending",
+      "industryNodeEvidenceLevel": "pending",
+      "confidence": 65,
+      "description": "最终退役需经过许可、安全评价、特征调查、去污拆除、废物处理和最终状态验证。",
+      "clauseIds": ["c1", "c2", "c3"],
+      "companyIds": [],
+      "evidenceIds": ["e1", "e2", "e3"],
+      "impactReason": "办法确立准备责任但尚无具体退役工程。",
+      "verificationSignals": ["厂址退役许可", "工程预算", "采购中标", "最终状态验收"]
+    },
+    {
+      "id": "n5",
+      "title": "技术装备与专业人才",
+      "subtitle": "支撑安全高效退役的能力层",
+      "section": "support",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 95,
+      "description": "集团制定研发和人力方案，攻关退役关键技术并形成装备体系和专业队伍。",
+      "clauseIds": ["c6", "c7"],
+      "companyIds": [],
+      "evidenceIds": ["e6", "e7"],
+      "impactReason": "能力建设方向明确，项目和采购仍待披露。",
+      "verificationSignals": ["研发项目", "装备清单", "科研经费", "人才队伍"]
+    },
+    {
+      "id": "n6",
+      "title": "专业化市场服务",
+      "subtitle": "从集团能力向行业服务转化",
+      "section": "support",
+      "relation": "market",
+      "evidenceLevel": "pending",
+      "industryNodeEvidenceLevel": "pending",
+      "confidence": 58,
+      "description": "有条件的单位可向全行业提供市场化退役服务，但外包边界、资质和项目合同尚未确定。",
+      "clauseIds": ["c6"],
+      "companyIds": [],
+      "evidenceIds": ["e6"],
+      "impactReason": "制度允许市场化，不代表现有项目已经开放。",
+      "verificationSignals": ["专业服务资质", "跨集团合同", "项目交付", "收入回款"]
+    }
+  ],
+  "chainEdges": [
+    {"id": "edge1", "from": "n1", "to": "n2", "type": "strong", "label": "前期设计和计划进入运行期持续更新"},
+    {"id": "edge2", "from": "n2", "to": "n3", "type": "strong", "label": "计划和档案支撑费用估算与动态评估"},
+    {"id": "edge3", "from": "n3", "to": "n4", "type": "medium", "label": "专用资金支持未来退役工程实施"},
+    {"id": "edge4", "from": "n5", "to": "n4", "type": "strong", "label": "技术装备和人才支撑安全退役"},
+    {"id": "edge5", "from": "n5", "to": "n6", "type": "weak", "label": "成熟能力可能转化为市场化服务"}
+  ],
+  "companies": [],
+  "evidence": [
+    {
+      "id": "e1",
+      "evidenceObject": "policy_action",
+      "type": "official_document",
+      "source": "《核电厂退役准备管理暂行办法》",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/ghxwj/202605/t20260519_1405292.html",
+      "title": "责任主体和最终目标",
+      "excerpt": "核电厂营运单位对核电厂退役准备工作负全面责任。",
+      "interpretation": "营运单位承担执行责任，集团统筹，退役原则上以厂址无限制开放和使用为最终目标。",
+      "sourceLocation": "第四条至第六条",
+      "confidence": 99,
+      "clauseIds": ["c1"],
+      "nodeIds": ["n1", "n4"],
+      "companyIds": []
+    },
+    {
+      "id": "e2",
+      "evidenceObject": "policy_action",
+      "type": "official_document",
+      "source": "《核电厂退役准备管理暂行办法》",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/ghxwj/202605/t20260519_1405292.html",
+      "title": "设计建造阶段准备",
+      "excerpt": "编制核电厂退役专章，明确退役目标、策略、初步方案等内容。",
+      "interpretation": "退役要求在项目申请和设计阶段前置，并在建造阶段落实为初步退役计划。",
+      "sourceLocation": "第七条至第九条",
+      "confidence": 99,
+      "clauseIds": ["c2"],
+      "nodeIds": ["n1", "n4"],
+      "companyIds": []
+    },
+    {
+      "id": "e3",
+      "evidenceObject": "policy_action",
+      "type": "official_document",
+      "source": "《核电厂退役准备管理暂行办法》",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/ghxwj/202605/t20260519_1405292.html",
+      "title": "运行期信息和最终计划",
+      "excerpt": "在核电厂运行期满前编制完成最终退役计划。",
+      "interpretation": "计划需随监管、技术和机组状态更新，污染和活化档案必须长期保存。",
+      "sourceLocation": "第十条至第十二条",
+      "confidence": 99,
+      "clauseIds": ["c3"],
+      "nodeIds": ["n2", "n4"],
+      "companyIds": []
+    },
+    {
+      "id": "e4",
+      "evidenceObject": "policy_action",
+      "type": "official_document",
+      "source": "《核电厂退役准备管理暂行办法》",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/ghxwj/202605/t20260519_1405292.html",
+      "title": "费用预提和10%底线",
+      "excerpt": "累计提取率暂按不低于10%执行。",
+      "interpretation": "退役费用在商运后运行期逐年计入生产成本，10%是相对于项目竣工决算建成价的累计提取率暂行底线。",
+      "sourceLocation": "第十三条",
+      "confidence": 99,
+      "clauseIds": ["c4"],
+      "nodeIds": ["n3"],
+      "companyIds": []
+    },
+    {
+      "id": "e5",
+      "evidenceObject": "policy_action",
+      "type": "official_document",
+      "source": "《核电厂退役准备管理暂行办法》",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/ghxwj/202605/t20260519_1405292.html",
+      "title": "五年评估和提取率调整",
+      "excerpt": "原则上每5年对所控股核电厂退役费用准备情况进行评估。",
+      "interpretation": "核电集团需根据评估结果动态调整提取率，意味着暂行比例不是永久固定参数。",
+      "sourceLocation": "第十四条",
+      "confidence": 99,
+      "clauseIds": ["c5"],
+      "nodeIds": ["n3"],
+      "companyIds": []
+    },
+    {
+      "id": "e6",
+      "evidenceObject": "industry_node",
+      "type": "official_document",
+      "source": "《核电厂退役准备管理暂行办法》",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/ghxwj/202605/t20260519_1405292.html",
+      "title": "人才和市场化服务",
+      "excerpt": "鼓励有条件、有能力的单位按照专业化、市场化方式为全行业提供服务。",
+      "interpretation": "政策打开专业能力行业输出方向，但未规定外包比例、服务主体或具体合同。",
+      "sourceLocation": "第十五条",
+      "confidence": 99,
+      "clauseIds": ["c6"],
+      "nodeIds": ["n5", "n6"],
+      "companyIds": []
+    },
+    {
+      "id": "e7",
+      "evidenceObject": "industry_node",
+      "type": "official_document",
+      "source": "《核电厂退役准备管理暂行办法》",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/ghxwj/202605/t20260519_1405292.html",
+      "title": "技术装备体系",
+      "excerpt": "形成我国核电厂退役技术装备体系。",
+      "interpretation": "集团需制定研发总体方案并分阶段攻关，具体产业价值要由科研立项、装备清单和采购合同验证。",
+      "sourceLocation": "第十六条",
+      "confidence": 99,
+      "clauseIds": ["c7"],
+      "nodeIds": ["n5"],
+      "companyIds": []
+    }
+  ],
+  "backgroundCards": [
+    {
+      "id": "bg1",
+      "title": "施行时间",
+      "body": "办法自2026年7月1日起施行，有效期5年。",
+      "source": "国家发展改革委官方文件",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/ghxwj/202605/t20260519_1405292.html"
+    },
+    {
+      "id": "bg2",
+      "title": "费用口径",
+      "body": "累计提取率暂按不低于核电项目竣工决算建成价的10%执行，未来按资金管理办法调整。",
+      "source": "《核电厂退役准备管理暂行办法》第十三条",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/ghxwj/202605/t20260519_1405292.html"
+    },
+    {
+      "id": "bg3",
+      "title": "当前研究边界",
+      "body": "办法建立责任和能力框架，但没有公布具体退役项目、资金使用、设备采购或商业合同，本次保持零公司结论。",
+      "source": "国家发展改革委官方文件全文",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/ghxwj/202605/t20260519_1405292.html"
+    }
+  ],
+  "compareInsights": {
+    "comparableCount": 0,
+    "similarPolicies": [],
+    "contrastPolicies": [],
+    "insights": ["本次未启用横向对比，仅基于当前正式办法判断退役准备、费用和技术能力机制。"],
+    "limitations": ["尚未取得后续资金管理细则和具体核电集团执行数据。"]
+  }
+}
