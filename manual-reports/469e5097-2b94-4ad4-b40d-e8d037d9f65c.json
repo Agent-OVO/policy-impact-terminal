@@ -287,12 +287,13 @@
     "limitations": ["目录内装备不自动获得资格。", "最高80%不等于所有项目统一补助比例。", "装备价值额度核定比例未披露。", "商业价值需要交付、用户采用和理赔数据验证。"]
   },
   "modules": [
-    {"id": "overview", "label": "政策总览"},
-    {"id": "actions", "label": "资格与资金"},
+    {"id": "brief", "label": "政策速读"},
     {"id": "industry", "label": "首用风险链"},
+    {"id": "clauses", "label": "资格与资金"},
+    {"id": "background", "label": "背景与边界"},
+    {"id": "compare", "label": "工具比较"},
     {"id": "companies", "label": "公司边界"},
-    {"id": "evidence", "label": "证据"},
-    {"id": "compare", "label": "工具比较"}
+    {"id": "evidence", "label": "证据链"}
   ],
   "topTabs": [
     {"id": "report", "label": "报告"},

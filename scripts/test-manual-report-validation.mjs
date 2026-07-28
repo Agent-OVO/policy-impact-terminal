@@ -136,6 +136,11 @@ try {
   runCase("valid urban renewal report", reports.urbanRenewal, true);
   runCase("valid education plan report", reports.education, true);
 
+  const invalidModules = writeVariant("invalid-module-contract", reports.legacy, (report) => {
+    report.modules[0].id = "overview";
+  });
+  runCase("invalid noncanonical report modules", invalidModules, false);
+
   const compact = writeVariant("valid-compact-derived-identities", reports.industry, (report) => {
     for (const chain of report.industryChain ?? []) {
       for (const node of chain.nodes ?? []) {

@@ -293,12 +293,13 @@
     "limitations": ["本轮只受理已获资格项目。", "最高80%同时受实际保费和额度限制。", "合同、交付和保险材料需严格一致。", "长期市场价值仍需复购和收入验证。"]
   },
   "modules": [
-    {"id": "overview", "label": "政策总览"},
-    {"id": "actions", "label": "资金门槛"},
+    {"id": "brief", "label": "政策速读"},
     {"id": "industry", "label": "商业兑现链"},
+    {"id": "clauses", "label": "资金门槛"},
+    {"id": "background", "label": "背景与边界"},
+    {"id": "compare", "label": "工具比较"},
     {"id": "companies", "label": "公司边界"},
-    {"id": "evidence", "label": "证据"},
-    {"id": "compare", "label": "工具比较"}
+    {"id": "evidence", "label": "证据链"}
   ],
   "topTabs": [
     {"id": "report", "label": "报告"},

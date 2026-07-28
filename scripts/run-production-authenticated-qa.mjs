@@ -189,6 +189,7 @@ if (primaryError) {
     expectedReportCount: qaResult.expectedReportCount,
     fullInvestmentPanels: qaResult.fullInvestmentPanels,
     expectedFullReportCount: qaResult.expectedFullReportCount,
+    operationsOverview: qaResult.operationsOverview,
     policyNetworkPanels: qaResult.policyNetworkPanels,
     desktopFailures: qaResult.desktopSummary?.failures?.length ?? 0,
     desktopOverflow: qaResult.desktopSummary?.overflow?.length ?? 0,
