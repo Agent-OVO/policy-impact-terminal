@@ -1,0 +1,717 @@
+{
+  "id": "654132bb-86bd-42e6-ac1e-c2e2b5159b4c",
+  "policyId": "654132bb-86bd-42e6-ac1e-c2e2b5159b4c",
+  "analyzerVersion": "gpt-5.6-thinking-manual-v1",
+  "analysisMethod": "official-full-text-manual-v1",
+  "generatedAt": "2026-07-28T05:28:00Z",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "国家发展改革委、国家能源局联合通知",
+  "substantivePolicyType": "绿电直连项目建设、运行、交易与溯源规则",
+  "primaryActionType": "市场机制",
+  "policySignalStrength": "high",
+  "implementationCertainty": "high",
+  "analysisDepth": "L4",
+  "analysisDepthReason": "通知完整定义多用户绿电直连的适用范围、并网与离网类型、规划比例、投资主体、产权责任、储能与集控、安全运行、市场注册、计量结算、费用承担和绿证溯源，并给出60%自发自用、30%及2030年前35%用电覆盖、原则上20%上网等量化边界。政策形成可执行项目模式，但省级细则、具体项目、投资额、采购和经营结果尚未公布，因此适合深入拆解项目和产业链，暂不映射具体公司。",
+  "operationDisposition": "继续深研",
+  "followUpSignals": [
+    "各省多用户绿电直连适用主体、用户边界、就近距离和上网比例细则",
+    "首批项目规划、核准或备案及主责单位名单",
+    "项目新能源、专用线路、变电、储能、集控和运营平台投资规模",
+    "电网接入方案、市场注册、计量结算和小时级绿电溯源运行数据",
+    "项目采购、中标、投产、自用率、负荷覆盖率、弃电和经营结果"
+  ],
+  "summary": {
+    "id": "654132bb-86bd-42e6-ac1e-c2e2b5159b4c",
+    "title": "国家发展改革委 国家能源局关于有序推动多用户绿电直连发展有关事项的通知",
+    "issuer": "国家发展改革委、国家能源局",
+    "source": "国家发展改革委 - 政策文件库",
+    "publishDate": "2026-05-20",
+    "status": "published",
+    "confidence": 99,
+    "industryCount": 6,
+    "companyCount": 0,
+    "evidenceCount": 8,
+    "primarySignal": "绿电直连由单一法人源荷模式扩展为多法人项目整体，并建立独立主责、比例约束、市场结算和小时级绿电溯源规则",
+    "category": "绿电直连、新能源消纳与园区能源"
+  },
+  "policy": {
+    "title": "国家发展改革委 国家能源局关于有序推动多用户绿电直连发展有关事项的通知",
+    "status": "已发布",
+    "issuer": "国家发展改革委、国家能源局",
+    "publishDate": "2026-05-20",
+    "effectiveDate": "2026-05-14",
+    "source": "国家发展改革委 - 政策文件库",
+    "category": "绿电直连、新能源消纳与园区能源",
+    "level": "中央两部门能源政策",
+    "confidence": 99,
+    "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202605/t20260520_1405313.html",
+    "scope": "多个不同法人实体构成的工业园区、零碳园区、增量配电网、算力设施、绿色氢氨醇及其他有绿色电力消费需求的用户，不包括居民和农业用户",
+    "impactScope": "新能源电源、专用线路、变电设施、储能、集控平台、计量、网络安全、调度、市场交易、内部结算、绿证溯源和省级项目管理",
+    "jurisdiction": "中国大陆",
+    "tags": [
+      "多用户绿电直连",
+      "以荷定源",
+      "自发自用",
+      "工业园区",
+      "零碳园区",
+      "算力设施",
+      "绿色氢氨醇",
+      "储能",
+      "电力市场",
+      "绿证溯源"
+    ]
+  },
+  "brief": {
+    "judgement": "本通知真正放开的不是多个用户共同购买绿电，而是允许多个不同法人实体通过独立主责单位、专用线路和内部源荷体系组成一个可并网或离网的绿电直连项目，并以项目整体参与市场和结算；同时设置60%自用、30%及2030年前35%负荷覆盖、原则上20%上网等硬边界，说明其目标是就近消纳而非借直连扩大向公共电网售电。",
+    "summary": "多用户绿电直连的新能源不直接接入公共电网，而是通过专线向多个法人用户供电。并网型项目整体接入公共电网，项目主责单位负责连接线路、变电、储能和运营平台，协调产权、运维、平衡、内部费用和违约责任。项目原则上整体参与电力市场，初期可报量不报价，不得由电网代理购电；内部所有发电、负荷、储能和并网关口需分表双向分时计量。自发自用绿电按小时在用户间分配，并进入绿证核发、划转和核销体系。",
+    "keyPoints": [
+      "多用户必须是多个不同法人实体，不包括居民和农业用户，项目分为并网型和离网型。",
+      "项目按照以荷定源规划，年自发自用量占总可用发电量不低于60%，占总用电量不低于30%、2030年前不低于35%。",
+      "项目需设独立法人主责单位，原则上投资专线、变电、储能和运营平台，并承担内部协议和供电中断责任。",
+      "并网项目原则上整体参与电力市场，不得由电网代理购电，年上网电量原则上不超过总可用发电量20%。",
+      "小时级绿电分配与绿证溯源提高可验证性，但项目仍需公平承担输配电费、系统运行费、交叉补贴和基金附加。"
+    ],
+    "methodology": "完整读取国家发展改革委、国家能源局正式通知全文，按“适用范围—以荷定源—项目主体和投资—接网安全—就近消纳—市场计量结算—绿证溯源—省级落地”拆解；公司层保持零公司，等待项目名单、投资、采购、投产和经营数据。"
+  },
+  "analysisCoverage": {
+    "status": "no_company_mapping",
+    "companyCount": 0,
+    "analysisMethod": "official-full-text-manual-v1",
+    "companyImpactConclusion": "通知没有公布具体项目、主责单位、投资额、设备或软件供应商、采购合同和经营结果。算力设施、绿氢氨醇、园区、储能和平台服务只是政策优先场景与产业方向，当前不建立具体公司映射。",
+    "limitations": [
+      "省级适用主体、项目边界、就近距离和上网比例尚未细化。",
+      "不同项目的负荷曲线、新能源资源、储能需求和接网条件差异显著。",
+      "内部价格和收益分配由多方协议协商，政策没有统一内部电价或收益率。",
+      "项目仍承担输配电费、系统运行费、交叉补贴和基金附加，经济性不能只按新能源发电成本计算。"
+    ]
+  },
+  "policyIndustryMap": [
+    {
+      "id": "pi1",
+      "industry": "工业园区、零碳园区与增量配电网",
+      "policyAction": "允许全部或部分园区负荷与周边新能源组成多用户直连项目",
+      "impactType": "infrastructure_build",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "多法人园区首次获得明确的项目组织和结算框架，但项目经济性需满足负荷、电源和公共电网费用约束。",
+      "relatedClauseIds": ["c1", "c2", "c3"],
+      "relatedNodeIds": ["n1", "n2"],
+      "watchSignals": ["省级项目清单", "园区主责单位", "核准备案", "投产负荷"]
+    },
+    {
+      "id": "pi2",
+      "industry": "新能源电源开发与就近消纳",
+      "policyAction": "支持新建新能源、受限无法并网项目和集中汇流分布式光伏接入多用户直连",
+      "impactType": "demand_creation",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "政策为部分新能源提供就近负荷和替代并网路径，但以荷定源、60%自用和20%上网限制抑制过度配置。",
+      "relatedClauseIds": ["c1", "c2", "c6"],
+      "relatedNodeIds": ["n1", "n4"],
+      "watchSignals": ["新能源规模", "自用率", "上网比例", "弃电"]
+    },
+    {
+      "id": "pi3",
+      "industry": "专用线路、变电与电网接入",
+      "policyAction": "项目主责单位原则上投资专线、变电设施并与公共电网划分物理和责任界面",
+      "impactType": "infrastructure_build",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "多用户项目形成新的内部网络和接入评估需求，但电网企业只承担公平接入和约定容量内供电责任，具体建设量需由项目方案确认。",
+      "relatedClauseIds": ["c3", "c4"],
+      "relatedNodeIds": ["n2", "n3"],
+      "watchSignals": ["接入方案", "专线长度", "变电容量", "系统评估"]
+    },
+    {
+      "id": "pi4",
+      "industry": "储能、集控、负荷调节与能源管理",
+      "policyAction": "要求通过储能、集控、灵活负荷和多能互补提升内部平衡与就近消纳",
+      "impactType": "technology_upgrade",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "项目的60%自用、峰谷差和上网比例约束提高了储能、预测、调度和负荷管理需求，但配置规模由源荷曲线决定。",
+      "relatedClauseIds": ["c4", "c5", "c6"],
+      "relatedNodeIds": ["n3", "n4"],
+      "watchSignals": ["储能容量", "集控平台", "负荷响应", "交换功率"]
+    },
+    {
+      "id": "pi5",
+      "industry": "电力市场交易、计量与内部结算",
+      "policyAction": "项目整体注册为新型经营主体、统一申报结算并对全部关口双向分时计量",
+      "impactType": "market_mechanism",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "市场和计量机制使多法人源荷协同可结算，但内部价格、平衡责任和补偿仍需协议，增加治理和运营复杂度。",
+      "relatedClauseIds": ["c7", "c8", "c9"],
+      "relatedNodeIds": ["n5"],
+      "watchSignals": ["市场注册", "现货申报", "计量点", "内部费用协议"]
+    },
+    {
+      "id": "pi6",
+      "industry": "绿电溯源、绿证与碳管理",
+      "policyAction": "按小时分配项目自用新能源电量并推送国家绿证核发交易系统",
+      "impactType": "standard_constraint",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "小时级源荷匹配提高出口企业、重点用能和碳排放企业绿电消费证明质量，但绿证权益和核销仍需按国家规则执行。",
+      "relatedClauseIds": ["c10"],
+      "relatedNodeIds": ["n5", "n6"],
+      "watchSignals": ["小时级匹配", "绿证核发", "划转核销", "企业披露"]
+    }
+  ],
+  "industryChain": [
+    {
+      "id": "chain1",
+      "chainName": "省级规划—主责单位和源荷投资—专线储能集控—接网安全与内部平衡—市场计量结算—小时级绿电和绿证",
+      "policyRole": "政策把多个法人用户和新能源电源组织为一个独立项目整体，通过量化自用和上网边界、主责单位、接网安全、市场结算及绿证溯源形成可执行闭环；公司经营价值仍需具体项目和合同验证。",
+      "nodes": [
+        {"id": "n1", "policySensitivity": "high", "description": "省级能源部门以荷定源规划项目，确定用户边界、就近距离和新能源规模。"},
+        {"id": "n2", "policySensitivity": "high", "description": "独立主责单位组织电源、用户并投资专线、变电、储能和运营平台。"},
+        {"id": "n3", "policySensitivity": "high", "description": "并网项目完成接入评估、安全设备、监测控制和公共电网责任界面。"},
+        {"id": "n4", "policySensitivity": "high", "description": "项目通过储能、集控、灵活负荷和多能互补维持内部平衡与就近消纳。"},
+        {"id": "n5", "policySensitivity": "high", "description": "项目整体进入电力市场、分表计量、统一与公共电网结算并内部协商分配。"},
+        {"id": "n6", "policySensitivity": "high", "description": "自用绿电按小时分配至各用户并进入绿证核发、划转和核销链。"}
+      ],
+      "edges": [
+        {"from": "n1", "to": "n2", "relation": "planning_to_investment", "description": "省级规划和负荷需求决定项目主体及投资规模。"},
+        {"from": "n2", "to": "n3", "relation": "investment_to_connection", "description": "内部设施和接网方案形成物理及责任界面。"},
+        {"from": "n3", "to": "n4", "relation": "connection_to_operation", "description": "接网容量和调度要求约束内部平衡。"},
+        {"from": "n4", "to": "n5", "relation": "operation_to_settlement", "description": "源荷运行和交换功率进入市场、计量与电费结算。"},
+        {"from": "n5", "to": "n6", "relation": "metering_to_traceability", "description": "分时计量数据形成小时级绿电归属和绿证结果。"}
+      ]
+    }
+  ],
+  "companyMap": [],
+  "policyNetwork": [
+    {
+      "id": "pn1",
+      "relatedPolicy": "关于有序推动绿电直连发展有关事项的通知（发改能源〔2025〕650号）",
+      "relationship": "prior_policy",
+      "meaning": "2025年文件建立单用户绿电直连基础规则，本通知在其上扩展多法人用户、项目整体治理和内部绿电分配。",
+      "evidenceLevel": "indirect",
+      "watchSignals": ["单用户项目转多用户", "省级衔接规则"]
+    },
+    {
+      "id": "pn2",
+      "relatedPolicy": "关于完善价格机制促进新能源发电就近消纳的通知（发改价格〔2025〕1192号）",
+      "relationship": "supporting_rule",
+      "meaning": "该价格机制决定并网项目应承担的输配电费、系统运行费和交叉补贴，是项目经济性的重要外部条件。",
+      "evidenceLevel": "indirect",
+      "watchSignals": ["就近消纳价格", "公共电网费用", "系统运行费"]
+    },
+    {
+      "id": "pn3",
+      "relatedPolicy": "可再生能源消费最低比重目标和可再生能源电力消纳责任权重制度实施办法",
+      "relationship": "supporting_rule",
+      "meaning": "绿电直连自用电量和绿证可以成为重点用能企业完成可再生能源消费目标的路径，但完成量需按核算规则认定。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2026-06-22",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/fzggwl/202606/t20260612_1405837.html",
+      "watchSignals": ["重点行业目标", "直连电量核算", "绿证补足"]
+    },
+    {
+      "id": "pn4",
+      "relatedPolicy": "可再生能源发展“十五五”规划",
+      "relationship": "upstream_guidance",
+      "meaning": "规划把绿电直连、源网荷储、零碳工厂和高比例新能源消费纳入中期方向，多用户直连是其项目化执行机制之一。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2026-07-23",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/t20260723_1406641.html",
+      "watchSignals": ["零碳园区", "算力绿电", "绿氢氨醇", "源网荷储"]
+    }
+  ],
+  "investmentDirection": {
+    "primaryDirection": "优先观察省级细则和首批项目如何把多个法人负荷、周边新能源、储能、专线、运营平台和绿证溯源组织为可持续项目；不因算力、绿氢、储能或园区被点名就直接提高具体公司的投资优先级。",
+    "directionStrength": "medium",
+    "timeHorizon": "medium_term",
+    "watchIndustries": [
+      "工业园区与零碳园区能源",
+      "新能源就近消纳",
+      "专用线路和变电设施",
+      "储能、集控和负荷管理",
+      "电力市场计量与结算",
+      "绿证和碳管理"
+    ],
+    "watchChainNodes": [
+      "省级项目规划",
+      "项目主责单位与投资",
+      "接网安全和内部平衡",
+      "市场计量与内部结算",
+      "小时级绿电溯源"
+    ],
+    "watchCompanyTypes": [
+      "获得省级核准备案的项目主责单位和园区运营主体",
+      "取得新能源、专线、变电、储能或集控项目合同的供应方",
+      "能够披露直连项目自用率、负荷覆盖、绿证和经营结果的用能企业",
+      "提供市场运营、计量结算和绿电溯源服务且有明确合同的机构"
+    ],
+    "watchCompanies": [],
+    "nearTermCatalysts": [
+      "省级实施细则发布",
+      "首批项目规划和核准备案",
+      "项目投资人与用户协议披露",
+      "接网和市场注册完成",
+      "项目投产及自用、上网和绿证数据"
+    ],
+    "keyRisks": [
+      "多法人内部产权、费用和平衡责任协商复杂",
+      "60%自用、30%或35%负荷覆盖和20%上网约束可能限制部分项目规模",
+      "并网项目仍承担公共电网相关费用，经济性可能低于只按新能源成本测算的预期",
+      "源荷时序不匹配会提高储能和备用容量需求",
+      "地方细则、接网条件和项目审批节奏可能明显分化"
+    ],
+    "minimumEvidenceNeeded": [
+      "省级细则和项目清单",
+      "主责单位、负荷用户和电源结构",
+      "专线、变电、储能和平台投资",
+      "市场注册、计量与内部结算协议",
+      "投产后自用率、上网比例、绿证和经营数据"
+    ],
+    "doNotOverread": [
+      "多用户模式放开不等于园区可绕开公共电网费用",
+      "优先支持算力和绿氢氨醇不等于相关企业自动获得低价电力",
+      "储能和集控成为必要能力不等于特定供应商已获订单",
+      "绿电小时级溯源不等于自动获得碳市场收益",
+      "新能源可参与项目不等于原有无法并网项目均可直接转为直连"
+    ],
+    "summary": "项目规则完整、执行方向明确，但真正商业价值取决于省级细则、源荷匹配、公共电网费用、投资规模和内部治理；当前应看项目事实而不是概念受益。"
+  },
+  "actions": [
+    {
+      "id": "a1",
+      "actionType": "适用范围",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "多个不同法人实体及新能源通过专线组成项目",
+      "title": "明确多用户绿电直连项目类型和用户范围",
+      "body": "多个不同法人用户可组成并网型或离网型项目，居民和农业用户不在适用范围。",
+      "signal": "market",
+      "confidence": 99,
+      "clauseIds": ["c1"],
+      "sortOrder": 1
+    },
+    {
+      "id": "a2",
+      "actionType": "规划约束",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "省级统筹和项目源荷测算",
+      "title": "建立以荷定源和自用覆盖比例",
+      "body": "年自发自用电量占总可用发电量不低于60%，占总用电量不低于30%、2030年前不低于35%。",
+      "signal": "constraint",
+      "confidence": 99,
+      "clauseIds": ["c2"],
+      "sortOrder": 2
+    },
+    {
+      "id": "a3",
+      "actionType": "项目建设",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "独立主责单位、产权协议和投资能力",
+      "title": "明确项目主责单位和内部设施投资责任",
+      "body": "主责单位原则上投资线路、变电、储能和运营平台，并与内部主体约定产权、运维、平衡、费用和违约责任。",
+      "signal": "market",
+      "confidence": 99,
+      "clauseIds": ["c3"],
+      "sortOrder": 3
+    },
+    {
+      "id": "a4",
+      "actionType": "运行约束",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "储能、集控、调节能力和电网接入条件",
+      "title": "限制交换功率和上网电量并强化安全责任",
+      "body": "并网项目交换功率不得超过接网容量，年上网电量原则上不超过总可用发电量20%，消纳困难时段不得反送电。",
+      "signal": "constraint",
+      "confidence": 99,
+      "clauseIds": ["c4", "c5", "c6"],
+      "sortOrder": 4
+    },
+    {
+      "id": "a5",
+      "actionType": "交易与溯源",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "市场注册、分表计量、统一结算和绿证系统",
+      "title": "建立项目整体市场参与、计量结算和小时级绿电溯源",
+      "body": "项目原则上整体参与市场，不得由电网代理购电，全部关口双向分时计量，自用绿电按小时分配并进入绿证链。",
+      "signal": "market",
+      "confidence": 99,
+      "clauseIds": ["c7", "c8", "c9", "c10"],
+      "sortOrder": 5
+    }
+  ],
+  "clauses": [
+    {
+      "id": "c1",
+      "no": "第一部分适用范围",
+      "title": "多个法人和并网离网两类项目",
+      "excerpt": "多用户指多个不同法人实体，不包括居民和农业用户。",
+      "body": "项目新能源不直接接入公共电网，通过内部专线向多法人供电，并网型整体形成一个公共电网接口。",
+      "confidence": 99,
+      "keywords": ["不同法人", "并网型", "离网型", "专用线路"],
+      "industries": ["园区能源", "绿电直连"],
+      "sortOrder": 1
+    },
+    {
+      "id": "c2",
+      "no": "第二部分项目规划",
+      "title": "以荷定源和三项比例边界",
+      "excerpt": "年自发自用电量占总可用发电量的比例不低于60%。",
+      "body": "项目还需满足自用绿电占总用电量不低于30%、2030年前不低于35%，防止脱离真实负荷扩建电源。",
+      "confidence": 99,
+      "keywords": ["以荷定源", "60%", "30%", "35%"],
+      "industries": ["新能源开发", "用能企业"],
+      "sortOrder": 2
+    },
+    {
+      "id": "c3",
+      "no": "第二部分投资模式",
+      "title": "独立主责单位和内部协议",
+      "excerpt": "项目应明确独立的主体作为项目主责单位。",
+      "body": "主责单位可由源荷合资、一方独资或园区及非公共电网第三方投资，并原则上承担线路、变电、储能和平台投资。",
+      "confidence": 99,
+      "keywords": ["主责单位", "合资", "储能", "运营平台", "产权"],
+      "industries": ["项目投资", "能源服务"],
+      "sortOrder": 3
+    },
+    {
+      "id": "c4",
+      "no": "第三部分责任界面",
+      "title": "接网容量和供电责任边界",
+      "excerpt": "公共电网按接网容量和有关协议履行供电责任。",
+      "body": "项目需管理内部平衡，确保交换功率不超过接网容量；离网项目自行承担全部安全风险。",
+      "confidence": 99,
+      "keywords": ["责任界面", "接网容量", "供电责任", "内部平衡"],
+      "industries": ["电网接入", "项目运营"],
+      "sortOrder": 4
+    },
+    {
+      "id": "c5",
+      "no": "第三部分安全运行",
+      "title": "安全、调度和网络监测要求",
+      "excerpt": "安装网络安全监测、隔离装置等网络安全设施。",
+      "body": "项目还需配置继电保护、稳定控制、通信和分级监控，并按市场出清结果接受调度。",
+      "confidence": 99,
+      "keywords": ["继电保护", "网络安全", "监测控制", "调度"],
+      "industries": ["电力二次设备", "网络安全", "调度自动化"],
+      "sortOrder": 5
+    },
+    {
+      "id": "c6",
+      "no": "第三部分就近消纳",
+      "title": "20%上网和困难时段禁反送",
+      "excerpt": "年上网电量原则上不超过总可用发电量的20%。",
+      "body": "项目弃电不纳入新能源利用率统计，消纳困难时段不得向公共电网反送电，强化就近自用属性。",
+      "confidence": 99,
+      "keywords": ["20%", "弃电", "反送电", "就近消纳"],
+      "industries": ["新能源消纳", "储能"],
+      "sortOrder": 6
+    },
+    {
+      "id": "c7",
+      "no": "第四部分市场参与",
+      "title": "项目整体进入电力市场",
+      "excerpt": "项目原则上应作为整体参与电力市场交易。",
+      "body": "项目注册为新型经营主体，初期可报量不报价，条件成熟后报量报价，且不得由电网代理购电。",
+      "confidence": 99,
+      "keywords": ["新型经营主体", "整体交易", "报量不报价", "代理购电"],
+      "industries": ["电力交易", "项目运营"],
+      "sortOrder": 7
+    },
+    {
+      "id": "c8",
+      "no": "第四部分计量管理",
+      "title": "全部关口双向分时计量",
+      "excerpt": "安装符合相关标准和有关部门认可的双向分时计量装置。",
+      "body": "发电、厂用电、并网、用户和储能均需分表，项目以公共电网接入点作为统一结算参考点。",
+      "confidence": 99,
+      "keywords": ["分表计量", "双向分时", "结算参考点"],
+      "industries": ["电力计量", "结算系统"],
+      "sortOrder": 8
+    },
+    {
+      "id": "c9",
+      "no": "第四部分价格机制",
+      "title": "公平承担公共电网费用",
+      "excerpt": "公平承担输配电费、系统运行费、政策性交叉补贴等费用。",
+      "body": "并网和离网项目还需缴纳基金附加，新能源发电量不纳入可持续发展价格结算机制。",
+      "confidence": 99,
+      "keywords": ["输配电费", "系统运行费", "交叉补贴", "基金附加"],
+      "industries": ["电力价格", "项目经济性"],
+      "sortOrder": 9
+    },
+    {
+      "id": "c10",
+      "no": "第四部分绿电溯源",
+      "title": "小时级绿电分配和绿证链",
+      "excerpt": "实现小时级新能源发用电量匹配。",
+      "body": "项目自用新能源扣除上网电量后形成整体结果，再按每时段用户用电占比分配并推送绿证系统。",
+      "confidence": 99,
+      "keywords": ["小时级", "绿电溯源", "绿证", "核销"],
+      "industries": ["绿证", "碳管理", "能源数据"],
+      "sortOrder": 10
+    }
+  ],
+  "chainNodes": [
+    {
+      "id": "n1",
+      "title": "省级规划和项目边界",
+      "subtitle": "以荷定源确定用户、电源和距离",
+      "section": "upstream",
+      "relation": "constraint",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 99,
+      "description": "省级能源部门结合电力供需和消纳条件细化主体、距离、上网比例和退出机制。",
+      "clauseIds": ["c1", "c2"],
+      "companyIds": [],
+      "evidenceIds": ["e1", "e2"],
+      "impactReason": "地方细则决定项目可行边界。",
+      "verificationSignals": ["省级细则", "项目清单", "核准备案"]
+    },
+    {
+      "id": "n2",
+      "title": "主责单位和项目投资",
+      "subtitle": "组织多法人源荷和内部资产",
+      "section": "upstream",
+      "relation": "market",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 99,
+      "description": "独立主责单位组织电源、负荷、线路、变电、储能、平台和内部协议。",
+      "clauseIds": ["c3"],
+      "companyIds": [],
+      "evidenceIds": ["e3"],
+      "impactReason": "主责单位是项目投资、责任和结算中心。",
+      "verificationSignals": ["主责单位", "合资协议", "投资额", "产权结构"]
+    },
+    {
+      "id": "n3",
+      "title": "接网安全和调度",
+      "subtitle": "形成公共电网责任界面",
+      "section": "midstream",
+      "relation": "constraint",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 99,
+      "description": "并网项目按接网容量管理交换功率，配置保护、通信、网络安全和调度设施。",
+      "clauseIds": ["c4", "c5"],
+      "companyIds": [],
+      "evidenceIds": ["e4", "e5"],
+      "impactReason": "安全和容量边界决定项目能否并网运行。",
+      "verificationSignals": ["接入评估", "保护配置", "网络安全", "调度协议"]
+    },
+    {
+      "id": "n4",
+      "title": "储能、集控和内部平衡",
+      "subtitle": "满足自用和上网约束",
+      "section": "midstream",
+      "relation": "beneficiary",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 96,
+      "description": "项目利用储能、集控、灵活负荷和多能互补控制峰谷差、交换功率和上网比例。",
+      "clauseIds": ["c4", "c5", "c6"],
+      "companyIds": [],
+      "evidenceIds": ["e4", "e5", "e6"],
+      "impactReason": "源荷不匹配会直接提高调节需求。",
+      "verificationSignals": ["储能配置", "负荷曲线", "自用率", "上网比例"]
+    },
+    {
+      "id": "n5",
+      "title": "市场、计量和内部结算",
+      "subtitle": "项目整体与公共电网结算",
+      "section": "downstream",
+      "relation": "market",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 99,
+      "description": "项目整体注册和申报，全部关口分表计量，主责单位统一外部结算并内部公平分摊。",
+      "clauseIds": ["c7", "c8", "c9"],
+      "companyIds": [],
+      "evidenceIds": ["e7", "e8"],
+      "impactReason": "市场和结算规则决定项目现金流和内部利益分配。",
+      "verificationSignals": ["市场注册", "计量数据", "内部结算", "公共电网费用"]
+    },
+    {
+      "id": "n6",
+      "title": "小时级绿电和绿证",
+      "subtitle": "把项目发电分配到具体用户",
+      "section": "downstream",
+      "relation": "market",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 99,
+      "description": "按每时段用电比例分配自用新能源电量，形成可核对的绿电和绿证结果。",
+      "clauseIds": ["c10"],
+      "companyIds": [],
+      "evidenceIds": ["e8"],
+      "impactReason": "溯源结果决定企业绿色消费证明。",
+      "verificationSignals": ["小时级匹配", "绿证核发", "企业披露", "核销"]
+    }
+  ],
+  "chainEdges": [
+    {"id": "edge1", "from": "n1", "to": "n2", "type": "strong", "label": "省级边界形成项目主体和投资方案"},
+    {"id": "edge2", "from": "n2", "to": "n3", "type": "strong", "label": "内部资产建设进入接网和安全评估"},
+    {"id": "edge3", "from": "n3", "to": "n4", "type": "strong", "label": "接网容量和调度要求约束内部平衡"},
+    {"id": "edge4", "from": "n4", "to": "n5", "type": "strong", "label": "源荷运行结果进入市场计量和结算"},
+    {"id": "edge5", "from": "n5", "to": "n6", "type": "strong", "label": "分时计量生成用户绿电和绿证结果"}
+  ],
+  "companies": [],
+  "evidence": [
+    {
+      "id": "e1",
+      "evidenceObject": "policy_action",
+      "type": "official_document",
+      "source": "国家发展改革委 国家能源局发改能源〔2026〕688号",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202605/t20260520_1405313.html",
+      "title": "多用户项目定义",
+      "excerpt": "多用户指多个不同法人实体，不包括居民和农业用户。",
+      "interpretation": "政策对象是多法人源荷共同体，而非普通居民或农业分布式供电。",
+      "sourceLocation": "第一部分适用范围",
+      "confidence": 99,
+      "clauseIds": ["c1"],
+      "nodeIds": ["n1"],
+      "companyIds": []
+    },
+    {
+      "id": "e2",
+      "evidenceObject": "policy_action",
+      "type": "official_document",
+      "source": "国家发展改革委 国家能源局发改能源〔2026〕688号",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202605/t20260520_1405313.html",
+      "title": "以荷定源比例",
+      "excerpt": "年自发自用电量占总可用发电量的比例不低于60%。",
+      "interpretation": "同时要求自用绿电覆盖总用电量不低于30%、2030年前不低于35%。",
+      "sourceLocation": "第二部分项目规划",
+      "confidence": 99,
+      "clauseIds": ["c2"],
+      "nodeIds": ["n1", "n4"],
+      "companyIds": []
+    },
+    {
+      "id": "e3",
+      "evidenceObject": "policy_action",
+      "type": "official_document",
+      "source": "国家发展改革委 国家能源局发改能源〔2026〕688号",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202605/t20260520_1405313.html",
+      "title": "主责单位和投资",
+      "excerpt": "项目连接线路、变电设施、储能及运营平台原则上由项目主责单位投资建设。",
+      "interpretation": "独立主责单位承担项目资产、内部协议和责任组织，公共电网企业不能作为园区模式第三方投资主体。",
+      "sourceLocation": "第二部分投资模式",
+      "confidence": 99,
+      "clauseIds": ["c3"],
+      "nodeIds": ["n2"],
+      "companyIds": []
+    },
+    {
+      "id": "e4",
+      "evidenceObject": "policy_action",
+      "type": "official_document",
+      "source": "国家发展改革委 国家能源局发改能源〔2026〕688号",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202605/t20260520_1405313.html",
+      "title": "接网容量责任",
+      "excerpt": "公共电网按接网容量和有关协议履行供电责任。",
+      "interpretation": "项目负责内部平衡，交换功率不得超过接网容量。",
+      "sourceLocation": "第三部分责任界面",
+      "confidence": 99,
+      "clauseIds": ["c4"],
+      "nodeIds": ["n3", "n4"],
+      "companyIds": []
+    },
+    {
+      "id": "e5",
+      "evidenceObject": "industry_node",
+      "type": "official_document",
+      "source": "国家发展改革委 国家能源局发改能源〔2026〕688号",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202605/t20260520_1405313.html",
+      "title": "安全和调节设施",
+      "excerpt": "安装网络安全监测、隔离装置等网络安全设施。",
+      "interpretation": "项目还需配置保护、稳定控制、通信、监测及储能集控能力，并接受相应调度。",
+      "sourceLocation": "第三部分安全运行管理",
+      "confidence": 99,
+      "clauseIds": ["c5"],
+      "nodeIds": ["n3", "n4"],
+      "companyIds": []
+    },
+    {
+      "id": "e6",
+      "evidenceObject": "policy_action",
+      "type": "official_document",
+      "source": "国家发展改革委 国家能源局发改能源〔2026〕688号",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202605/t20260520_1405313.html",
+      "title": "上网限制",
+      "excerpt": "年上网电量原则上不超过总可用发电量的20%。",
+      "interpretation": "消纳困难时段还不得反送电，项目核心是内部自用而非向公共电网销售。",
+      "sourceLocation": "第三部分就近消纳要求",
+      "confidence": 99,
+      "clauseIds": ["c6"],
+      "nodeIds": ["n4"],
+      "companyIds": []
+    },
+    {
+      "id": "e7",
+      "evidenceObject": "policy_action",
+      "type": "official_document",
+      "source": "国家发展改革委 国家能源局发改能源〔2026〕688号",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202605/t20260520_1405313.html",
+      "title": "市场注册和统一申报",
+      "excerpt": "项目原则上应作为整体参与电力市场交易。",
+      "interpretation": "项目初期可报量不报价，不能由电网代理购电，主责单位承担统一外部结算。",
+      "sourceLocation": "第四部分市场参与方式",
+      "confidence": 99,
+      "clauseIds": ["c7", "c9"],
+      "nodeIds": ["n5"],
+      "companyIds": []
+    },
+    {
+      "id": "e8",
+      "evidenceObject": "industry_node",
+      "type": "official_document",
+      "source": "国家发展改革委 国家能源局发改能源〔2026〕688号",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202605/t20260520_1405313.html",
+      "title": "计量、费用和绿证溯源",
+      "excerpt": "实现小时级新能源发用电量匹配。",
+      "interpretation": "全部关口双向分时计量，项目公平承担公共电网相关费用，自用电量进入绿证核发、划转和核销。",
+      "sourceLocation": "第四部分计量、价格和绿电溯源机制",
+      "confidence": 99,
+      "clauseIds": ["c8", "c9", "c10"],
+      "nodeIds": ["n5", "n6"],
+      "companyIds": []
+    }
+  ],
+  "backgroundCards": [
+    {
+      "id": "bg1",
+      "title": "优先支持场景",
+      "body": "政策优先支持算力设施、绿色氢氨醇等新兴和未来产业，也支持工业园区、零碳园区及增量配电网。",
+      "source": "国家发展改革委 国家能源局发改能源〔2026〕688号",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202605/t20260520_1405313.html"
+    },
+    {
+      "id": "bg2",
+      "title": "三项核心比例",
+      "body": "自用电量占可用发电量不低于60%，覆盖总用电量不低于30%、2030年前不低于35%，年上网电量原则上不超过20%。",
+      "source": "国家发展改革委 国家能源局发改能源〔2026〕688号",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202605/t20260520_1405313.html"
+    },
+    {
+      "id": "bg3",
+      "title": "当前研究边界",
+      "body": "政策规则已完整，但尚无省级细则、项目名单、投资和合同，本次只建立项目与产业观察，不建立具体公司关系。",
+      "source": "国家发展改革委官方全文",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202605/t20260520_1405313.html"
+    }
+  ],
+  "compareInsights": {
+    "comparableCount": 0,
+    "similarPolicies": [],
+    "contrastPolicies": [],
+    "insights": ["本次未启用横向对比，仅基于多用户绿电直连正式通知判断项目机制；与单用户规则的关系仅采用本通知明确引用的政策沿革。"],
+    "limitations": ["尚未取得省级项目样本和实际运行数据，不能评价不同组织模式的经济性。"]
+  }
+}
