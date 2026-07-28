@@ -48,6 +48,7 @@ type QueuePolicy = {
   status: string;
   analysisVersion: string | null;
   analysisDepth: string;
+  reviewPriority: number;
   manualReviewDisposition: QueueDisposition;
   createdAt: string | null;
   updatedAt: string | null;
@@ -229,6 +230,9 @@ function toQueueCandidate(
     readString(metadata, "manual_review_disposition")
   );
   const disposition = explicitDisposition ?? (queueSelected ? "selected_for_analysis" : "pending_review");
+  const reviewPriority = readNumber(metadata, "reviewPriority") ??
+    readNumber(metadata, "review_priority") ??
+    0;
 
   if (
     manualComplete ||
@@ -252,6 +256,7 @@ function toQueueCandidate(
     status: policy.status ?? "draft",
     analysisVersion,
     analysisDepth,
+    reviewPriority,
     manualReviewDisposition: disposition,
     createdAt: policy.created_at,
     updatedAt: policy.updated_at
@@ -299,6 +304,7 @@ function compareQueuePolicies(left: QueuePolicy, right: QueuePolicy): number {
     dismissed: 4
   };
   return rank[left.manualReviewDisposition] - rank[right.manualReviewDisposition] ||
+    right.reviewPriority - left.reviewPriority ||
     right.publishDate.localeCompare(left.publishDate) ||
     String(right.createdAt ?? "").localeCompare(String(left.createdAt ?? ""));
 }
@@ -334,4 +340,9 @@ function readString(record: Record<string, unknown>, key: string): string | null
 function readBoolean(record: Record<string, unknown>, key: string): boolean | null {
   const value = record[key];
   return typeof value === "boolean" ? value : null;
+}
+
+function readNumber(record: Record<string, unknown>, key: string): number | null {
+  const value = record[key];
+  return typeof value === "number" && Number.isFinite(value) ? value : null;
 }

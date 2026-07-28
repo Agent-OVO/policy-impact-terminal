@@ -15,6 +15,7 @@ assert(edgeFunction.includes('disposition === "quick_archived"'), "quick-archive
 assert(edgeFunction.includes('disposition === "dismissed"'), "dismissed policies must be excluded");
 assert(edgeFunction.includes("awaiting_evidence"), "evidence blocker counts must use the canonical disposition");
 assert(edgeFunction.includes("staleOpenAnalysisJobCount"), "open and stale analysis jobs must be included in the aggregate");
+assert(edgeFunction.includes("right.reviewPriority - left.reviewPriority"), "queue ordering must preserve canonical review priority");
 assert(edgeFunction.includes('formatVersion: "policy-operations-overview-v1"'), "response must be versioned");
 assert(edgeFunction.includes("toSafeQueueRow"), "queue output must pass through a list-safe mapper");
 assert(!/toSafeQueueRow[\s\S]*manualReviewReason/.test(edgeFunction), "safe queue output must not disclose review reasons");
