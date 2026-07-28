@@ -1,0 +1,657 @@
+{
+  "id": "8a0c8d07-0ff9-42de-ab8f-5bdd84bad437",
+  "policyId": "8a0c8d07-0ff9-42de-ab8f-5bdd84bad437",
+  "analyzerVersion": "gpt-5.6-thinking-manual-v1",
+  "analysisMethod": "official-notice-and-four-attachments-manual-v1",
+  "generatedAt": "2026-07-28T05:15:00Z",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "中央价格通知",
+  "substantivePolicyType": "自然垄断输配电价核定与监管",
+  "primaryActionType": "价格机制",
+  "policySignalStrength": "high",
+  "implementationCertainty": "high",
+  "analysisDepth": "L4",
+  "analysisDepthReason": "通知及四个正式附件完整核定第四监管周期省级电网输配电价和区域电网输电价格，明确自2026年8月1日起执行，并逐省列示工商业单一制、两部制电量电价、需量和容量电价、线损率及部分外送电价格；区域电网价格进一步拆分为按实际交易结算电量收取的电量电价和通过省级输配电价回收的容量电价。该政策直接影响电网收入回收和工商业用户网络费用，但缺少第三监管周期同口径对照、实际结算电量和企业账单，适合深入研究价格与成本传导，暂不映射具体上市公司。",
+  "operationDisposition": "继续深研",
+  "followUpSignals": [
+    "各省级价格主管部门发布的具体执行通知和广东等需另行公布的细分输配电价",
+    "第三监管周期与第四监管周期同电压等级、同用电制度的逐省价差对照",
+    "电网企业输配电收入、准许成本、线损率、销售电量和投资计划完成情况",
+    "高耗能和高负荷率工商业用户2026年8月后的实际电费账单变化",
+    "跨省跨区交易结算电量、区域电网容量费和外送电价格执行数据"
+  ],
+  "summary": {
+    "id": "8a0c8d07-0ff9-42de-ab8f-5bdd84bad437",
+    "title": "国家发展改革委关于第四监管周期省级电网输配电价、区域电网输电价格及有关事项的通知",
+    "issuer": "国家发展和改革委员会",
+    "source": "国家发展改革委 - 政策文件库",
+    "publishDate": "2026-07-10",
+    "status": "published",
+    "confidence": 99,
+    "industryCount": 6,
+    "companyCount": 0,
+    "evidenceCount": 7,
+    "primarySignal": "第四监管周期以逐省分电压等级和区域电网电量、容量双机制重新核定输配电收入回收价格",
+    "category": "电力价格与自然垄断监管"
+  },
+  "policy": {
+    "title": "国家发展改革委关于第四监管周期省级电网输配电价、区域电网输电价格及有关事项的通知",
+    "status": "已发布，2026年8月1日起执行",
+    "issuer": "国家发展和改革委员会",
+    "publishDate": "2026-07-10",
+    "effectiveDate": "2026-08-01",
+    "source": "国家发展改革委 - 政策文件库",
+    "category": "电力价格与自然垄断监管",
+    "level": "中央价格主管部门核价文件",
+    "confidence": 99,
+    "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/t20260710_1406431.html",
+    "scope": "省级电网工商业用户、国家电网经营区域、南方电网经营区域、内蒙古电力经营区域以及华北、华东、华中、东北、西北区域电网",
+    "impactScope": "省级输配电收入、区域电网输电结算、工商业网络费用、容需量成本、上网环节线损、跨省外送电结算和电网监管数据",
+    "jurisdiction": "中国大陆",
+    "tags": [
+      "第四监管周期",
+      "输配电价",
+      "区域电网",
+      "单一制",
+      "两部制",
+      "需量电价",
+      "容量电价",
+      "线损",
+      "外送电"
+    ]
+  },
+  "brief": {
+    "judgement": "本通知直接重置2026年8月起省级电网和区域电网的输配电收入回收价格：工商业用户按省份、电压等级和单一制或两部制承担电量及容需量费用，区域电网则通过电量电价和分省容量电价回收成本；它首先影响电网企业收入结构和用户网络费用，不能在缺少第三周期对照和实际账单的情况下简单解释为全国电价普涨、普降或电力设备订单增长。",
+    "summary": "国家发展改革委依据2025年发布的输配电定价和成本监审办法，核定第四监管周期省级电网输配电价和区域电网输电价格，自2026年8月1日起执行。各省表格普遍区分工商业单一制和两部制，并按接入电压列示电量电价、需量电价和容量电价；居民和农业继续执行现行目录销售电价。多数省份将上网环节线损费用在表外单列，并设置省内线损率、外送电送出省价格和线损率。区域电网电量电价按实际交易结算电量收取，容量电价按省级电网销售电量分摊并通过省级输配电价回收。",
+    "keyPoints": [
+      "第四监管周期价格自2026年8月1日起执行，属于直接生效的价格监管文件。",
+      "工商业输配电价按省份、电压等级和单一制或两部制差异化，用户不能只看一个全国平均值。",
+      "两部制用户同时承担电量电价和需量或容量电价，实际账单取决于负荷率、报装容量和计费方式。",
+      "区域电网采用电量和容量双重回收机制，区域容量费已进入省级输配电价回收链。",
+      "居民和农业价格政策未在本通知中调整，设备能力和电网投资方向也不能自动解释为订单。"
+    ],
+    "methodology": "完整读取国家发展改革委正式通知、省级电网输配电价PDF与OFD、区域电网输电价格PDF与OFD，按“成本监审与核价—省级电量及容需量价格—区域电量和容量分摊—线损与外送结算—用户账单—电网经营结果”拆解；未取得第三监管周期同口径附件，因此不作无证据的涨跌判断。"
+  },
+  "analysisCoverage": {
+    "status": "no_company_mapping",
+    "companyCount": 0,
+    "analysisMethod": "official-notice-and-four-attachments-manual-v1",
+    "companyImpactConclusion": "通知直接约束国家电网、南方电网、内蒙古电力及其省级电网的输配电价格，但这些执行主体与具体上市公司经营边界不能等同；文件也未产生设备采购、工程项目、合同或供应商名单。因此本次保持零公司结论，先观察电网收入、用户账单和后续投资采购。",
+    "limitations": [
+      "未取得第三监管周期全省同口径价格表，不能判定各地区具体上调或下调幅度。",
+      "附件给出核定价格，不提供各省准许收入、成本监审结果和预测销售电量。",
+      "工商业用户总电价还受电能量价格、系统运行费、政府性基金附加及峰谷机制影响，本文件只覆盖输配和相关表内项目。",
+      "实际经营影响需结合电网结算电量、负荷、容量选择、线损和投资完成情况。"
+    ]
+  },
+  "policyIndustryMap": [
+    {
+      "id": "pi1",
+      "industry": "省级电网输配电运营",
+      "policyAction": "逐省核定分电压等级工商业单一制和两部制输配电价",
+      "impactType": "market_mechanism",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "核定价格决定省级电网在监管周期内回收输配电准许收入的主要单价，但经营结果还取决于销售电量、负荷、成本和投资效率。",
+      "relatedClauseIds": ["c1", "c2"],
+      "relatedNodeIds": ["n1", "n2"],
+      "watchSignals": ["输配电收入", "销售电量", "准许成本", "投资完成率"]
+    },
+    {
+      "id": "pi2",
+      "industry": "工商业用电与高耗能产业成本",
+      "policyAction": "按电压等级和计费制度确定工商业用户电量及容需量网络费用",
+      "impactType": "market_mechanism",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "用电企业实际承担的输配成本因省份、接入电压、单一制或两部制、负荷率和报装容量而异，影响不能用行业标签统一推导。",
+      "relatedClauseIds": ["c2", "c3"],
+      "relatedNodeIds": ["n2", "n5"],
+      "watchSignals": ["企业账单", "需量或容量选择", "负荷率", "单位产品电耗"]
+    },
+    {
+      "id": "pi3",
+      "industry": "区域电网与跨省跨区电力交易",
+      "policyAction": "核定华北、华东、华中、东北和西北区域电网电量电价及分省容量电价",
+      "impactType": "market_mechanism",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "区域电量费随实际交易结算电量收取，容量费随省级销售电量分摊，直接影响跨区域网络使用成本和省级电网费用回收。",
+      "relatedClauseIds": ["c4"],
+      "relatedNodeIds": ["n3", "n4"],
+      "watchSignals": ["区域交易结算电量", "容量费分摊", "跨区输电利用率"]
+    },
+    {
+      "id": "pi4",
+      "industry": "省间外送电与电源结算",
+      "policyAction": "多省设置外送电送出省输电价格、送省外线损率及部分水电或联网工程过渡价格",
+      "impactType": "market_mechanism",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "外送价格和线损影响跨省电量结算，但各省及特定电站存在差异化或限额衔接安排，不能直接推导发电企业统一利润变化。",
+      "relatedClauseIds": ["c5"],
+      "relatedNodeIds": ["n4", "n5"],
+      "watchSignals": ["外送电量", "特定工程限额", "送端线损", "结算收入"]
+    },
+    {
+      "id": "pi5",
+      "industry": "电网损耗管理、计量与监管数据",
+      "policyAction": "多数省份将上网环节线损费用单列并要求电网每年报送资产、费用、收入、负荷、线损和投资数据",
+      "impactType": "regulatory_constraint",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "线损和基础数据直接影响监管核价与执行监测，强化电网对计量、数据质量、降损和投资绩效的责任，但不等于新增系统采购。",
+      "relatedClauseIds": ["c1", "c5", "c7"],
+      "relatedNodeIds": ["n1", "n6"],
+      "watchSignals": ["省内线损率", "数据报送", "降损结果", "成本监审"]
+    },
+    {
+      "id": "pi6",
+      "industry": "居民农业交叉补贴与公共价格政策",
+      "policyAction": "工商业表内价格继续包含对居民和农业用户的基期交叉补贴，居民农业继续执行现行目录销售电价",
+      "impactType": "regulatory_constraint",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "交叉补贴仍嵌入多数省级电价，体现公共价格约束；本通知没有改变居民农业目录电价，不能解释为其终端电价调整。",
+      "relatedClauseIds": ["c2", "c6"],
+      "relatedNodeIds": ["n2", "n5"],
+      "watchSignals": ["交叉补贴规模", "目录销售电价", "后续公共价格改革"]
+    }
+  ],
+  "industryChain": [
+    {
+      "id": "chain1",
+      "chainName": "成本监审与核价—省级和区域价格—用户及交易结算—电网收入与用电成本—数据监测—下周期校准",
+      "policyRole": "本通知把成本监审和定价办法转化为第四监管周期的可执行价格表，价格经省级电网和区域网络结算影响电网收入与用户成本，并通过年度数据报送和执行监测反馈到后续监管。",
+      "nodes": [
+        {"id": "n1", "policySensitivity": "high", "description": "国家发展改革委依据成本监审和输配电定价办法核定省级及区域电网价格。"},
+        {"id": "n2", "policySensitivity": "high", "description": "省级电网按省份、电压等级和单一制或两部制执行电量、需量和容量价格。"},
+        {"id": "n3", "policySensitivity": "high", "description": "区域电网按实际交易结算电量收取电量费，并按分省销售电量分摊容量费。"},
+        {"id": "n4", "policySensitivity": "high", "description": "跨省跨区和外送电依据区域价格、送出省价格、特定工程衔接价及线损结算。"},
+        {"id": "n5", "policySensitivity": "high", "description": "电网收入回收和工商业用户账单随电量、负荷、容量、电压等级和结算结构变化。"},
+        {"id": "n6", "policySensitivity": "high", "description": "电网每年报送资产、费用、收入、电量、负荷、线损和投资进度，接受执行监测。"}
+      ],
+      "edges": [
+        {"from": "n1", "to": "n2", "relation": "pricing_to_provincial", "description": "成本监审和定价规则形成省级输配电价表。"},
+        {"from": "n1", "to": "n3", "relation": "pricing_to_regional", "description": "区域网络准许成本转化为电量和容量价格。"},
+        {"from": "n3", "to": "n4", "relation": "regional_to_transactions", "description": "区域电价进入跨省跨区交易和省级分摊。"},
+        {"from": "n2", "to": "n5", "relation": "tariff_to_bills", "description": "省级价格影响工商业网络费和电网收入回收。"},
+        {"from": "n4", "to": "n5", "relation": "transactions_to_settlement", "description": "外送价格和线损影响送受端结算。"},
+        {"from": "n5", "to": "n6", "relation": "outcomes_to_monitoring", "description": "收入、账单和投资执行数据进入监管监测。"}
+      ]
+    }
+  ],
+  "companyMap": [],
+  "policyNetwork": [
+    {
+      "id": "pn1",
+      "relatedPolicy": "发改价格规〔2025〕1490号输配电定价成本监审和定价办法",
+      "relationship": "upstream_guidance",
+      "meaning": "该文件规定输配电定价成本监审、省级电网、区域电网和跨省跨区专项工程定价方法，本通知是第四监管周期的价格执行结果。",
+      "evidenceLevel": "indirect",
+      "watchSignals": ["成本监审口径", "准许收益率", "定价参数调整"]
+    },
+    {
+      "id": "pn2",
+      "relatedPolicy": "各省第四监管周期输配电价执行细则",
+      "relationship": "local_rollout",
+      "meaning": "部分地区还需公布具体价格、计费方式或衔接安排，地方文件决定用户账单的最终落地口径。",
+      "evidenceLevel": "pending",
+      "watchSignals": ["省级执行通知", "广东具体价表", "容需量计费规则"]
+    },
+    {
+      "id": "pn3",
+      "relatedPolicy": "第五监管周期输配电价核定",
+      "relationship": "follow_up_catalyst",
+      "meaning": "第四周期积累的资产、成本、收入、电量、线损和投资数据将影响后续成本监审和价格校准。",
+      "evidenceLevel": "pending",
+      "watchSignals": ["年度数据报送", "中期执行评估", "下周期成本监审"]
+    }
+  ],
+  "investmentDirection": {
+    "primaryDirection": "将研究注意力放在省级电网输配电收入回收、区域网络费用分摊和高耗能用户真实账单，而不是从价格文件直接跳到电力设备公司；优先比较第三、第四周期同口径价差并验证电量、负荷、线损和投资完成情况。",
+    "directionStrength": "medium",
+    "timeHorizon": "medium_term",
+    "watchIndustries": [
+      "省级电网输配电运营",
+      "区域电网和跨省跨区交易",
+      "工商业及高耗能产业用电成本",
+      "外送电和大型电源结算",
+      "电网损耗与价格监管数据"
+    ],
+    "watchChainNodes": [
+      "省级电量和容需量价格",
+      "区域电量和容量分摊",
+      "外送价格和线损",
+      "电网收入及用户账单",
+      "年度监管数据"
+    ],
+    "watchCompanyTypes": [
+      "直接执行核定价格的省级电网和区域电网运营主体",
+      "输配电成本占比较高且能够披露实际电费变化的工业企业",
+      "涉及特定外送工程且能披露结算价格和电量的发电主体",
+      "后续因电网投资计划形成明确采购、中标和回款的设备或服务供应方"
+    ],
+    "watchCompanies": [],
+    "nearTermCatalysts": [
+      "2026年8月1日正式执行",
+      "各省具体执行和衔接通知",
+      "第三、第四周期逐项价差核验",
+      "2026年下半年工商业用户账单",
+      "2027年5月底前首轮完整监管数据报送"
+    ],
+    "keyRisks": [
+      "核定单价变化可能被销售电量、负荷结构和成本变化抵消",
+      "用户总电价还包含电能量、系统运行费和基金附加，不能把总账单变化全部归因于输配电价",
+      "高耗能行业成本传导取决于地区、用电制度、市场电价和产品议价能力",
+      "区域及外送价格存在特定工程、限额和过渡安排，不能使用统一平均数",
+      "电网投资计划和设备订单不是输配电价文件的直接内容"
+    ],
+    "minimumEvidenceNeeded": [
+      "第三监管周期同口径价格表",
+      "省级执行细则和用户计费规则",
+      "电网销售电量、准许收入、线损和投资数据",
+      "企业实际电费账单和单位产品电耗",
+      "设备采购、中标、交付和回款"
+    ],
+    "doNotOverread": [
+      "第四监管周期重新核价不等于全国输配电价普遍上涨",
+      "电网收入单价变化不等于净利润同比例变化",
+      "工商业输配电价变化不等于居民农业目录电价变化",
+      "区域容量费通过省级电价回收不等于新增重复收费",
+      "电网投资和数据报送要求不等于设备公司已经获得订单"
+    ],
+    "summary": "价格确定性高、传导链清晰，但投资判断必须做地区和用户结构拆分；当前最重要的是同口径周期比较和真实结算验证。"
+  },
+  "actions": [
+    {
+      "id": "a1",
+      "actionType": "价格核定",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "省级价格主管部门和电网企业自2026年8月1日起执行",
+      "title": "核定第四监管周期省级电网输配电价",
+      "body": "逐省、分电压等级列示工商业单一制及两部制电量电价、需量电价和容量电价。",
+      "signal": "market",
+      "confidence": 99,
+      "clauseIds": ["c1", "c2"],
+      "sortOrder": 1
+    },
+    {
+      "id": "a2",
+      "actionType": "区域价格",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "区域电网交易结算电量和省级销售电量",
+      "title": "建立区域电网电量和容量双重回收价格",
+      "body": "区域电量电价随实际交易结算电量收取，容量电价随省级电网销售电量收取并通过省级输配电价回收。",
+      "signal": "market",
+      "confidence": 99,
+      "clauseIds": ["c4"],
+      "sortOrder": 2
+    },
+    {
+      "id": "a3",
+      "actionType": "线损与外送结算",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "省内上网电量、外送电量和特定工程衔接规则",
+      "title": "逐省明确线损率和外送电输电价格",
+      "body": "多数省份在输配电价外单列上网环节线损，并对外送电设置送出省价格、线损率或特定电站限额衔接价格。",
+      "signal": "market",
+      "confidence": 99,
+      "clauseIds": ["c5"],
+      "sortOrder": 3
+    },
+    {
+      "id": "a4",
+      "actionType": "公共价格边界",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "继续执行居民农业现行目录销售电价",
+      "title": "维持居民农业目录电价和基期交叉补贴边界",
+      "body": "工商业表中多数价格包含对居民和农业用户的基期交叉补贴，居民和农业继续执行现行目录销售电价。",
+      "signal": "constraint",
+      "confidence": 99,
+      "clauseIds": ["c2", "c6"],
+      "sortOrder": 4
+    },
+    {
+      "id": "a5",
+      "actionType": "执行监管",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "电网企业统计归集并于每年5月底前报送基础数据",
+      "title": "建立价格执行监测和年度数据报送",
+      "body": "电网企业需统计资产、费用、收入、电量、负荷、容量、线损和投资计划完成进度，省级价格部门监测执行并报告问题。",
+      "signal": "constraint",
+      "confidence": 99,
+      "clauseIds": ["c1", "c7"],
+      "sortOrder": 5
+    }
+  ],
+  "clauses": [
+    {
+      "id": "c1",
+      "no": "通知正文",
+      "title": "第四监管周期价格核定和执行时间",
+      "excerpt": "核定第四监管周期省级电网输配电价、区域电网输电价格，自2026年8月1日起执行。",
+      "body": "文件是可直接执行的核价结果，不是征求意见或远期规划。",
+      "confidence": 99,
+      "keywords": ["第四监管周期", "省级电网", "区域电网", "2026年8月1日"],
+      "industries": ["输配电运营", "电力价格监管"],
+      "sortOrder": 1
+    },
+    {
+      "id": "c2",
+      "no": "附件1各省通用注释",
+      "title": "工商业分电压和计费制度执行",
+      "excerpt": "工商业用电指除执行居民生活和农业生产用电价格以外的用电，执行上述输配电价表。",
+      "body": "单一制用户主要承担电量输配电价，两部制用户还承担需量或容量费用；价格随省份和接入电压不同。",
+      "confidence": 99,
+      "keywords": ["工商业", "单一制", "两部制", "电压等级", "容需量"],
+      "industries": ["工商业用电", "省级电网"],
+      "sortOrder": 2
+    },
+    {
+      "id": "c3",
+      "no": "附件1福建电网输配电价表",
+      "title": "福建电网价格和联网成本实例",
+      "excerpt": "表中各电价含增值税、区域电网容量电费、闽粤联网工程容量电费、对居民和农业用户的基期交叉补贴。",
+      "body": "福建单一制电量价按不满1千伏至220千伏及以上依次为0.1833、0.1633、0.1433、0.1233和0.0883元每千瓦时；两部制电量、需量和容量价格另按电压等级列示，省内上网环节线损率为3.37%，外送电送出省价格为0.0220元每千瓦时。",
+      "confidence": 99,
+      "keywords": ["福建", "闽粤联网", "3.37%", "0.0220"],
+      "industries": ["福建电网", "福建工商业用电"],
+      "sortOrder": 3
+    },
+    {
+      "id": "c4",
+      "no": "附件2",
+      "title": "区域电网电量和容量双价格",
+      "excerpt": "区域电网电量电价随区域电网实际交易结算电量收取，容量电价随各省级电网销售电量收取。",
+      "body": "华北、华东、华中、东北和西北区域电量电价分别为0.0108、0.0092、0.0256、0.0164和0.0121元每千瓦时；分省容量费通过省级电网输配电价回收。",
+      "confidence": 99,
+      "keywords": ["区域电网", "电量电价", "容量电价", "销售电量"],
+      "industries": ["区域电网", "跨省跨区交易"],
+      "sortOrder": 4
+    },
+    {
+      "id": "c5",
+      "no": "附件1各省注释",
+      "title": "线损和外送电结算差异化",
+      "excerpt": "上网环节线损费用在输配电价外单列。",
+      "body": "多数省份单列省内线损率并设置外送价格；四川、云南等还对特定水电站和年度电量限额保留衔接价格，必须按项目和电量区间核验。",
+      "confidence": 99,
+      "keywords": ["线损", "外送电", "送出省价格", "衔接价格"],
+      "industries": ["跨省输电", "发电结算"],
+      "sortOrder": 5
+    },
+    {
+      "id": "c6",
+      "no": "附件1各省通用注释",
+      "title": "居民农业和交叉补贴边界",
+      "excerpt": "居民生活、农业生产用电继续执行现行目录销售电价政策。",
+      "body": "本通知核定的是输配环节及相关表内费用，不构成居民农业目录电价调整。",
+      "confidence": 99,
+      "keywords": ["居民生活", "农业生产", "目录销售电价", "交叉补贴"],
+      "industries": ["公共价格政策"],
+      "sortOrder": 6
+    },
+    {
+      "id": "c7",
+      "no": "通知正文数据报送要求",
+      "title": "电网执行监测和年度基础数据",
+      "excerpt": "每年5月底前报我委（价格司）和省级价格主管部门。",
+      "body": "报送范围覆盖资产、费用、收入、输配售电量、负荷、用户报装容量、线损率和投资计划完成进度，为执行监管和后续核价提供数据。",
+      "confidence": 99,
+      "keywords": ["资产", "费用", "收入", "线损率", "投资计划"],
+      "industries": ["电网监管", "成本监审"],
+      "sortOrder": 7
+    }
+  ],
+  "chainNodes": [
+    {
+      "id": "n1",
+      "title": "成本监审与价格核定",
+      "subtitle": "自然垄断环节的监管入口",
+      "section": "upstream",
+      "relation": "constraint",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 99,
+      "description": "国家发展改革委依据成本监审和定价办法核定监管周期价格。",
+      "clauseIds": ["c1", "c7"],
+      "companyIds": [],
+      "evidenceIds": ["e1", "e7"],
+      "impactReason": "核价决定电网准许收入的价格基础。",
+      "verificationSignals": ["成本监审结果", "准许收入", "周期参数"]
+    },
+    {
+      "id": "n2",
+      "title": "省级电量与容需量价格",
+      "subtitle": "按省份、电压和用电制度执行",
+      "section": "midstream",
+      "relation": "market",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 99,
+      "description": "工商业单一制和两部制按接入电压承担不同电量、需量和容量价格。",
+      "clauseIds": ["c2", "c3", "c6"],
+      "companyIds": [],
+      "evidenceIds": ["e2", "e3", "e6"],
+      "impactReason": "用户和电网的实际结算从省级价表开始。",
+      "verificationSignals": ["省级执行细则", "用户电压等级", "负荷率", "报装容量"]
+    },
+    {
+      "id": "n3",
+      "title": "区域电网电量与容量费",
+      "subtitle": "跨省网络成本分摊",
+      "section": "midstream",
+      "relation": "market",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 99,
+      "description": "区域电量费按实际交易结算，容量费按省级销售电量分摊并进入省级输配电价。",
+      "clauseIds": ["c4"],
+      "companyIds": [],
+      "evidenceIds": ["e4"],
+      "impactReason": "区域网络费用进入省级电网成本和交易结算。",
+      "verificationSignals": ["区域结算电量", "分省容量费", "区域网络利用率"]
+    },
+    {
+      "id": "n4",
+      "title": "外送电、专项工程与线损结算",
+      "subtitle": "跨区域结算的差异化规则",
+      "section": "midstream",
+      "relation": "market",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 98,
+      "description": "送出省价格、线损率、联网工程容量费和特定电站限额价格共同决定外送结算。",
+      "clauseIds": ["c3", "c4", "c5"],
+      "companyIds": [],
+      "evidenceIds": ["e3", "e4", "e5"],
+      "impactReason": "跨区电量不能使用单一全国输电价格。",
+      "verificationSignals": ["外送电量", "工程容量费", "特定电站限额", "线损"]
+    },
+    {
+      "id": "n5",
+      "title": "电网收入与工商业用户账单",
+      "subtitle": "从核定价格到经营和成本",
+      "section": "downstream",
+      "relation": "market",
+      "evidenceLevel": "indirect",
+      "industryNodeEvidenceLevel": "indirect",
+      "confidence": 78,
+      "description": "价格与电量、负荷、容量和成本共同决定电网收入回收及企业用电成本。",
+      "clauseIds": ["c2", "c3", "c4", "c5", "c6"],
+      "companyIds": [],
+      "evidenceIds": ["e2", "e3", "e4", "e5", "e6"],
+      "impactReason": "附件给出单价但不提供实际经营和账单结果。",
+      "verificationSignals": ["电网财务数据", "用户账单", "销售电量", "成本传导"]
+    },
+    {
+      "id": "n6",
+      "title": "年度执行监测与下周期反馈",
+      "subtitle": "用真实数据校准价格监管",
+      "section": "support",
+      "relation": "constraint",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 98,
+      "description": "电网统计资产、费用、收入、电量、负荷、线损和投资进度，价格部门监测执行。",
+      "clauseIds": ["c7"],
+      "companyIds": [],
+      "evidenceIds": ["e7"],
+      "impactReason": "数据质量和投资绩效影响监管判断。",
+      "verificationSignals": ["年度报送", "执行问题", "中期评估", "下周期核价"]
+    }
+  ],
+  "chainEdges": [
+    {"id": "edge1", "from": "n1", "to": "n2", "type": "strong", "label": "成本监审形成省级价格"},
+    {"id": "edge2", "from": "n1", "to": "n3", "type": "strong", "label": "成本监审形成区域价格"},
+    {"id": "edge3", "from": "n3", "to": "n4", "type": "strong", "label": "区域价格进入跨区和外送结算"},
+    {"id": "edge4", "from": "n2", "to": "n5", "type": "strong", "label": "省级价表进入用户账单和电网收入"},
+    {"id": "edge5", "from": "n4", "to": "n5", "type": "medium", "label": "外送与线损影响结算结果"},
+    {"id": "edge6", "from": "n5", "to": "n6", "type": "strong", "label": "经营和执行数据反馈监管"}
+  ],
+  "companies": [],
+  "evidence": [
+    {
+      "id": "e1",
+      "evidenceObject": "policy_action",
+      "type": "official_document",
+      "source": "国家发展改革委发改价格〔2026〕1077号",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/t20260710_1406431.html",
+      "title": "第四监管周期价格和执行时间",
+      "excerpt": "核定第四监管周期省级电网输配电价、区域电网输电价格，自2026年8月1日起执行。",
+      "interpretation": "通知完成价格核定并给出确定生效日期。",
+      "sourceLocation": "通知正文第一段",
+      "confidence": 99,
+      "clauseIds": ["c1"],
+      "nodeIds": ["n1"],
+      "companyIds": []
+    },
+    {
+      "id": "e2",
+      "evidenceObject": "policy_action",
+      "type": "official_attachment",
+      "source": "附件1省级电网输配电价表",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/P020260710613207914509.pdf",
+      "title": "工商业分电压和计费制度价表",
+      "excerpt": "工商业用电指除执行居民生活和农业生产用电价格以外的用电，执行上述输配电价表。",
+      "interpretation": "各省表格分别列出单一制及两部制电量价格，并对两部制列出需量和容量价格。",
+      "sourceLocation": "附件1各省价表及注释",
+      "confidence": 99,
+      "clauseIds": ["c2"],
+      "nodeIds": ["n2", "n5"],
+      "companyIds": []
+    },
+    {
+      "id": "e3",
+      "evidenceObject": "industry_node",
+      "type": "official_attachment",
+      "source": "附件1福建电网输配电价表",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/P020260710613207914509.pdf",
+      "title": "福建价表、线损和外送价格",
+      "excerpt": "省内上网环节线损率为3.37%。",
+      "interpretation": "福建价表还包含区域容量费、闽粤联网容量费和基期交叉补贴，外送电送出省输电价格为0.0220元每千瓦时。",
+      "sourceLocation": "附件1福建电网输配电价表",
+      "confidence": 99,
+      "clauseIds": ["c3"],
+      "nodeIds": ["n2", "n4", "n5"],
+      "companyIds": []
+    },
+    {
+      "id": "e4",
+      "evidenceObject": "policy_action",
+      "type": "official_attachment",
+      "source": "附件2第四监管周期区域电网输电价格表",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/P020260710613208195785.pdf",
+      "title": "区域电量和容量价格回收",
+      "excerpt": "区域电网容量电价作为上级电网分摊费用，通过省级电网输配电价回收。",
+      "interpretation": "区域电量费和容量费依据不同计费基础回收，避免将两者重复理解为同一种按电量收费。",
+      "sourceLocation": "附件2表格及注释第二、三项",
+      "confidence": 99,
+      "clauseIds": ["c4"],
+      "nodeIds": ["n3", "n4", "n5"],
+      "companyIds": []
+    },
+    {
+      "id": "e5",
+      "evidenceObject": "industry_node",
+      "type": "official_attachment",
+      "source": "附件1省级电网输配电价表",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/P020260710613207914509.pdf",
+      "title": "线损和特定外送衔接价格",
+      "excerpt": "上网环节线损费用在输配电价外单列。",
+      "interpretation": "四川、云南等地区对部分电站和电量限额设置衔接价，外送结算需按省份、项目和电量区间核验。",
+      "sourceLocation": "附件1各省价表注释",
+      "confidence": 99,
+      "clauseIds": ["c5"],
+      "nodeIds": ["n4", "n5"],
+      "companyIds": []
+    },
+    {
+      "id": "e6",
+      "evidenceObject": "policy_action",
+      "type": "official_attachment",
+      "source": "附件1省级电网输配电价表",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/P020260710613207914509.pdf",
+      "title": "居民农业目录电价边界",
+      "excerpt": "居民生活、农业生产用电继续执行现行目录销售电价政策。",
+      "interpretation": "本次核价对象主要是工商业输配环节，不能外推居民农业终端价格变化。",
+      "sourceLocation": "附件1各省价表注释第一项",
+      "confidence": 99,
+      "clauseIds": ["c6"],
+      "nodeIds": ["n2", "n5"],
+      "companyIds": []
+    },
+    {
+      "id": "e7",
+      "evidenceObject": "policy_action",
+      "type": "official_document",
+      "source": "国家发展改革委发改价格〔2026〕1077号",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/t20260710_1406431.html",
+      "title": "价格执行监测和数据报送",
+      "excerpt": "每年5月底前报我委（价格司）和省级价格主管部门。",
+      "interpretation": "报送字段覆盖电网资产、成本收入、电量负荷、容量、线损和投资计划完成进度，为后续监管提供事实基础。",
+      "sourceLocation": "通知正文第二段",
+      "confidence": 99,
+      "clauseIds": ["c7"],
+      "nodeIds": ["n1", "n6"],
+      "companyIds": []
+    }
+  ],
+  "backgroundCards": [
+    {
+      "id": "bg1",
+      "title": "执行日期",
+      "body": "第四监管周期省级电网输配电价和区域电网输电价格自2026年8月1日起执行。",
+      "source": "国家发展改革委发改价格〔2026〕1077号",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/t20260710_1406431.html"
+    },
+    {
+      "id": "bg2",
+      "title": "福建实例",
+      "body": "福建价表按电压和计费制度列示价格，含区域容量费、闽粤联网容量费和基期交叉补贴；省内上网线损率3.37%，外送价格0.0220元每千瓦时。",
+      "source": "附件1福建电网输配电价表",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/P020260710613207914509.pdf"
+    },
+    {
+      "id": "bg3",
+      "title": "研究边界",
+      "body": "本次取得的是第四周期价格表，尚未完成第三周期同口径对照，也没有实际结算电量和用户账单，因此不判断全国统一涨跌或公司利润方向。",
+      "source": "国家发展改革委通知及四个附件",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202607/t20260710_1406431.html"
+    }
+  ],
+  "compareInsights": {
+    "comparableCount": 0,
+    "similarPolicies": [],
+    "contrastPolicies": [],
+    "insights": ["本次未启用横向对比，也未完成第三监管周期同口径对比，仅基于第四监管周期通知及四个官方附件判断价格机制和传导边界。"],
+    "limitations": ["后续需取得第三监管周期省级和区域电网完整价表，按同省、同电压、同计费制度比较。"]
+  }
+}
