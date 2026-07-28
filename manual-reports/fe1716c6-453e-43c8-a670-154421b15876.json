@@ -1,0 +1,307 @@
+{
+  "id": "fe1716c6-453e-43c8-a670-154421b15876",
+  "policyId": "fe1716c6-453e-43c8-a670-154421b15876",
+  "analyzerVersion": "codex-manual-v1",
+  "analysisMethod": "codex-manual-v1",
+  "generatedAt": "2026-07-28T17:05:00+08:00",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "通知",
+  "substantivePolicyType": "重点行业强制性节能降碳改造行动",
+  "primaryActionType": "技术改造、投资补助、价格约束与淘汰退出",
+  "policySignalStrength": "high",
+  "implementationCertainty": "high",
+  "analysisDepth": "L4",
+  "analysisDepthReason": "行动计划同时明确九个重点行业、2028年量化目标、分行业技术路线、中央投资补助比例、差别化电价上限、碳排放置换、强制改造和淘汰边界，并要求省级部门形成企业级改造计划清单，已经具备目标、工具、责任主体、时间和验收链；但具体省级项目清单、核定总投资、补助金额、设备采购和合同尚未公布，因此适合形成项目与产业链深度分析，暂不建立公司映射。",
+  "followUpSignals": [
+    "各省重点行业节能降碳改造总体方案和企业项目清单",
+    "中央投资项目申报、核定总投资和20%补助金额",
+    "差别化电价具体省级实施方案及每千瓦时加价标准",
+    "钢铁、电解铝、水泥、玻璃、炼化、化工和煤电改造项目采购",
+    "高效电机、风机、水泵、热泵、锅炉、空压机和变压器订单",
+    "合同能源管理、节能诊断和数字化能碳管理合同",
+    "2028年前基准水平以下产能改造完成、淘汰关停和领跑者名单",
+    "节能量、减煤量、碳减排量和碳排放置换核定结果"
+  ],
+  "summary": {
+    "id": "fe1716c6-453e-43c8-a670-154421b15876",
+    "title": "关于开展重点行业节能降碳改造攻坚三年行动的通知（发改环资〔2026〕698号）",
+    "issuer": "国家发展改革委等五部门",
+    "source": "国家发展改革委 - 政策文件库",
+    "publishDate": "2026-06-15",
+    "status": "draft",
+    "confidence": 98,
+    "industryCount": 6,
+    "companyCount": 0,
+    "evidenceCount": 9,
+    "primarySignal": "九个重点行业进入2026—2028年强制改造期，合格项目可按核定总投资20%获得中央投资补助，落后项目面临差别电价和淘汰关停",
+    "category": "重点行业节能降碳改造与中央投资"
+  },
+  "policy": {
+    "title": "关于开展重点行业节能降碳改造攻坚三年行动的通知（发改环资〔2026〕698号）",
+    "status": "已发布",
+    "issuer": "国家发展改革委、工业和信息化部、生态环境部、国务院国资委、国家能源局",
+    "publishDate": "2026-06-15",
+    "effectiveDate": "2026-05-18",
+    "source": "国家发展改革委 - 政策文件库",
+    "category": "重点行业节能降碳改造与中央投资",
+    "level": "中央五部门",
+    "confidence": 98,
+    "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202606/t20260615_1405852.html",
+    "scope": "钢铁、电解铝、水泥、平板玻璃、炼油、乙烯、合成氨、甲醇和煤电等重点行业在2026—2028年实施节能降碳诊断、技术改造、设备更新、验收和退出",
+    "impactScope": "工业炉窑和核心工艺、通用用能设备、余热余压利用、电气化和绿电替代、煤电灵活性和低碳化、节能诊断、合同能源管理、数字化能碳管理、中央投资、绿色金融、差别电价和碳市场",
+    "jurisdiction": "中国大陆",
+    "tags": ["节能降碳", "技术改造", "中央投资", "差别电价", "淘汰关停", "合同能源管理", "设备更新", "碳排放置换", "煤电改造"]
+  },
+  "brief": {
+    "judgement": "这不是一般性的绿色转型倡议，而是带有资金、价格和退出约束的三年改造行动。到2028年底，八个工业重点行业达到能效标杆水平的产能比例平均提高20个百分点，煤电行业力争提高15个百分点，基准水平以下产能基本清零，累计形成节能量1亿吨标准煤以上、减排二氧化碳2亿吨以上。符合条件的项目可按核定总投资20%获得中央投资补助；地方可把差别、阶梯和惩罚性电价整合为差别化电价，在市场交易电价基础上每千瓦时加价不超过0.1元；不能按期完成改造或改造后仍不达标的项目应淘汰关停。真正的经营影响将首先表现为高耗能企业资本开支、用电和碳成本分化，以及高效设备、系统工程、节能诊断和合同能源管理项目需求。",
+    "summary": "行动覆盖钢铁、电解铝、水泥、平板玻璃、炼油、乙烯、合成氨、甲醇和煤电。各行业均列出核心工艺、落后装置规模和通用设备更新方向，例如钢铁的高炉转炉和干熄焦、电解铝的500kA及以上电解槽、水泥的六级预热器和高效篦冷机、玻璃熔窑全氧或富氧燃烧、炼化换热和蒸汽动力系统、煤化工气化与压缩系统，以及煤电通流、燃烧、冷端、灵活性、储能储热和低碳化改造。省级节能主管部门需在2026年7月底前形成企业级改造计划清单，每年12月底报送进展；企业需开展诊断并制定具体方案，可采用合同能源管理。政策把中央投资、税收、绿色金融、差别电价、碳排放置换、碳市场配额、强制标准和淘汰退出组合为完整工具链。",
+    "keyPoints": [
+      "到2028年底，八个工业重点行业标杆产能比例平均提高20个百分点，煤电力争提高15个百分点，基准以下产能基本清零。",
+      "符合条件的节能降碳项目按核定总投资20%获得中央投资补助，优先支持改造后达到标杆水平的项目。",
+      "差别化电价可在市场交易电价基础上每千瓦时加价不超过0.1元，落后产能同时面临淘汰关停约束。",
+      "改造方向覆盖核心工艺、通用设备、余热余压、电气化、绿电、数字化和煤电灵活性，形成广泛但需项目清单验证的设备与服务需求。",
+      "政策未公布任何企业项目、投资额、补助、供应商和合同，公司层保持零映射。"
+    ],
+    "methodology": "使用国家发展改革委通知页和官方PDF、OFD附件全文，按“省级清单—企业诊断—资金和价格工具—工艺与设备改造—监测验收—淘汰或领跑”拆分传导链。所有设备、工程和服务方向均来自附件，具体公司关系必须等待企业项目清单、采购、中标、合同和验收证据。"
+  },
+  "policyIndustryMap": [
+    {
+      "id": "pi1",
+      "industry": "钢铁、电解铝、水泥和平板玻璃",
+      "policyAction": "改造高温工艺、炉窑、电解槽和粉磨系统并淘汰落后装置",
+      "impactType": "mandatory_retrofit",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "政策明确重点工序、先进技术和应加快改造的规模边界，生产企业承担资本开支与退出压力，高效产能可能获得相对优势。",
+      "relatedClauseIds": ["c1", "c2", "c6"],
+      "relatedNodeIds": ["n1", "n2", "n4", "n6"],
+      "watchSignals": ["省级项目清单", "炉窑和电解槽改造", "设备采购", "淘汰关停"]
+    },
+    {
+      "id": "pi2",
+      "industry": "炼油、乙烯、合成氨和甲醇",
+      "policyAction": "优化核心工艺、换热和蒸汽系统并实施原燃料替代和电气化",
+      "impactType": "mandatory_retrofit",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "炼化和煤化工装置被设置改造规模边界，节能、原料替代和系统优化将增加改造投入，同时淘汰低效工艺。",
+      "relatedClauseIds": ["c1", "c2", "c6"],
+      "relatedNodeIds": ["n1", "n2", "n4", "n6"],
+      "watchSignals": ["炼化装置改造", "气化和合成系统升级", "电气化项目", "关停清单"]
+    },
+    {
+      "id": "pi3",
+      "industry": "煤电灵活性、节能和低碳化改造",
+      "policyAction": "改造30万千瓦以上现役煤电机组并提升调峰和低碳能力",
+      "impactType": "capacity_transformation",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "政策要求供电煤耗下降、灵活性应改尽改，并鼓励耦合新能源、掺烧生物质和储能储热，煤电角色从电量供给向调节和容量支撑转变。",
+      "relatedClauseIds": ["c2"],
+      "relatedNodeIds": ["n2", "n4", "n5"],
+      "watchSignals": ["煤电机组改造清单", "灵活性改造", "储能储热", "煤耗和碳排放验收"]
+    },
+    {
+      "id": "pi4",
+      "industry": "高效通用设备、余热余压和系统工程",
+      "policyAction": "集中更新电机、风机、水泵、热泵、锅炉、空压机、变压器等设备",
+      "impactType": "equipment_replacement",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "多行业任务反复列出通用设备和余热余压利用，但供应商、采购量和订单只能由后续项目证据确认。",
+      "relatedClauseIds": ["c2", "c4"],
+      "relatedNodeIds": ["n2", "n4"],
+      "watchSignals": ["设备技术规格", "招标采购", "节能系统集成", "投产验收"]
+    },
+    {
+      "id": "pi5",
+      "industry": "节能诊断、合同能源管理与数字化能碳服务",
+      "policyAction": "要求企业诊断并鼓励采用合同能源管理和数智赋能",
+      "impactType": "energy_service",
+      "impactDirection": "positive",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "企业需要识别主要工序和设备潜力、制定方案并监测成效，形成诊断、设计、融资、运行和绩效验证服务需求。",
+      "relatedClauseIds": ["c4", "c7"],
+      "relatedNodeIds": ["n1", "n2", "n5"],
+      "watchSignals": ["节能诊断合同", "合同能源管理项目", "能碳平台", "节能量核证"]
+    },
+    {
+      "id": "pi6",
+      "industry": "中央投资、绿色金融、差别电价和碳市场",
+      "policyAction": "以20%投资补助、差别电价、碳置换和配额激励改变项目经济性",
+      "impactType": "financial_and_price_mechanism",
+      "impactDirection": "mixed",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "先进项目可获得投资和碳市场激励，落后项目承担电价加价和退出压力，政策将技术差距转化为现金流和资产价值分化。",
+      "relatedClauseIds": ["c3", "c5", "c6"],
+      "relatedNodeIds": ["n3", "n5", "n6"],
+      "watchSignals": ["中央投资批次", "差别电价细则", "碳置换核定", "配额收益"]
+    }
+  ],
+  "industryChain": [
+    {
+      "id": "chain1",
+      "chainName": "省级企业清单—节能诊断—资金与价格约束—工艺设备改造—监测验收—领跑或退出",
+      "policyRole": "地方把行业目标落到具体企业，企业诊断后形成项目方案，中央投资、金融、价格和碳机制改变项目经济性，工艺和设备改造形成实物工作量，最终以能效碳效结果验收，未达标项目进入淘汰关停。",
+      "nodes": [
+        {"id": "n1", "policySensitivity": "high", "description": "省级部门形成行业总体方案和企业级改造计划清单。"},
+        {"id": "n2", "policySensitivity": "high", "description": "企业开展节能降碳诊断并形成工艺、设备、系统和时限方案。"},
+        {"id": "n3", "policySensitivity": "high", "description": "中央投资、税收、金融、差别电价、碳置换和配额共同决定项目经济性。"},
+        {"id": "n4", "policySensitivity": "high", "description": "工艺改造、设备更新、余热利用、电气化、绿电和数字化形成实际投资。"},
+        {"id": "n5", "policySensitivity": "high", "description": "节能量、煤耗、碳排放和设备能效接受监测、核定与年度报告。"},
+        {"id": "n6", "policySensitivity": "high", "description": "达到标杆的项目获得激励，不能达标的项目按规定淘汰关停。"}
+      ],
+      "edges": [
+        {"from": "n1", "to": "n2", "relation": "list_to_diagnosis", "description": "企业进入地方清单后需开展诊断并制定方案。"},
+        {"from": "n2", "to": "n3", "relation": "plan_to_financing", "description": "项目方案决定能否申报投资补助和金融支持，并暴露价格约束风险。"},
+        {"from": "n3", "to": "n4", "relation": "economics_to_retrofit", "description": "资金和价格机制推动项目进入设备采购和工程实施。"},
+        {"from": "n4", "to": "n5", "relation": "retrofit_to_verification", "description": "改造完成后需要核验实际节能、减煤和降碳效果。"},
+        {"from": "n5", "to": "n6", "relation": "verification_to_disposition", "description": "验收结果决定领跑激励、继续改造或淘汰退出。"}
+      ]
+    }
+  ],
+  "companyMap": [],
+  "policyNetwork": [
+    {
+      "id": "pn1",
+      "relatedPolicy": "2026年度工业节能监察工作及国家任务清单",
+      "relationship": "enforcement_linkage",
+      "meaning": "工业节能监察识别能效不达标企业和设备，本行动提供2026—2028年改造、资金和退出路径，两者共同形成检查—整改—验收闭环。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2026-06-15",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202606/t20260615_1405852.html",
+      "watchSignals": ["监察结果", "企业改造清单", "整改验收"]
+    },
+    {
+      "id": "pn2",
+      "relatedPolicy": "国家级零碳工厂建设工作",
+      "relationship": "enterprise_transformation_linkage",
+      "meaning": "节能降碳改造提供工艺和设备基础，零碳工厂进一步要求非化石能源、物理绿电、MRV和供应链协同。",
+      "evidenceLevel": "indirect",
+      "watchSignals": ["零碳工厂名单", "改造项目重叠", "能碳指标"]
+    },
+    {
+      "id": "pn3",
+      "relatedPolicy": "2026年度智能工厂梯度培育行动",
+      "relationship": "digital_efficiency_linkage",
+      "meaning": "行动计划鼓励数智赋能提效，智能工厂项目可承接能源管理、工艺优化、设备预测维护和工业智能体，但需以具体项目内容验证。",
+      "evidenceLevel": "indirect",
+      "watchSignals": ["智能工厂项目", "能源管理和AI场景", "集成商合同"]
+    },
+    {
+      "id": "pn4",
+      "relatedPolicy": "第四监管周期输配电价和省级差别化电价政策",
+      "relationship": "price_linkage",
+      "meaning": "企业基础输配电费由第四监管周期价格决定，本行动允许地方叠加不超过0.1元每千瓦时的差别化电价，实际电费影响需按省份和用户制度测算。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2026-06-15",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202606/t20260615_1405852.html",
+      "watchSignals": ["省级差别电价", "企业电费账单", "加价范围"]
+    }
+  ],
+  "investmentDirection": {
+    "primaryDirection": "优先观察进入省级清单且有中央投资、差别电价或淘汰期限约束的真实改造项目，重点跟踪高效通用设备、炉窑和核心工艺、余热余压、煤电灵活性、合同能源管理和能碳系统；在项目和合同出现前不指定上市公司。",
+    "directionStrength": "high",
+    "timeHorizon": "medium_term",
+    "watchIndustries": ["工业节能设备", "炉窑和核心工艺改造", "余热余压利用", "煤电灵活性", "合同能源管理", "数字化能碳管理", "绿色金融"],
+    "watchChainNodes": ["省级企业清单", "中央投资项目", "差别电价实施", "设备采购和工程实施", "验收与淘汰"],
+    "watchCompanyTypes": ["省级清单中的改造责任企业", "中标的高效设备和系统集成商", "合同能源管理和节能诊断机构", "煤电灵活性与低碳改造服务商"],
+    "watchCompanies": [],
+    "nearTermCatalysts": ["省级总体方案和项目清单", "中央投资申报和资金下达", "设备与工程招标", "差别电价细则", "2026年度改造进展"],
+    "keyRisks": ["20%补助只适用于符合条件且核定的项目", "差别电价和淘汰约束可能压缩落后企业现金流", "设备方向广泛但订单可能分散", "地方清单和执行力度存在差异", "节能效果不达标可能影响验收和资金"],
+    "minimumEvidenceNeeded": ["具体企业和项目清单", "核定总投资和补助金额", "采购或中标公告", "改造合同和设备交付", "节能量与碳减排验收"],
+    "doNotOverread": ["行业被纳入不等于所有企业同时改造", "20%补助不是所有改造投资的普遍补贴", "设备更新方向不等于具体供应商订单", "碳置换和配额激励不等于即时利润"],
+    "summary": "政策强度高，但投资研究应从省级清单和中央投资项目开始，以采购、交付和验收逐级确认经营兑现。"
+  },
+  "actions": [
+    {"id": "a1", "actionType": "三年目标", "actionEvidenceLevel": "strong", "title": "设定2028年标杆产能、节能和减排目标", "body": "八个工业重点行业标杆产能比例平均提高20个百分点，煤电力争提高15个百分点，基准以下产能基本清零，形成1亿吨标准煤以上节能量和2亿吨以上二氧化碳减排。", "signal": "constraint", "confidence": 99, "clauseIds": ["c1"], "sortOrder": 1},
+    {"id": "a2", "actionType": "技术改造", "actionEvidenceLevel": "strong", "title": "按九个行业实施工艺和设备改造", "body": "行动对钢铁、电解铝、水泥、玻璃、炼化、化工和煤电分别列出先进技术、设备更新和应加快改造的落后装置。", "signal": "mixed", "confidence": 98, "clauseIds": ["c2"], "sortOrder": 2},
+    {"id": "a3", "actionType": "中央投资", "actionEvidenceLevel": "strong", "title": "按核定总投资20%给予资金补助", "body": "中央投资优先支持改造后达到标杆水平的符合条件项目，地方资金、税收和金融工具形成补充。", "signal": "beneficiary", "confidence": 99, "clauseIds": ["c3"], "sortOrder": 3},
+    {"id": "a4", "actionType": "价格约束", "actionEvidenceLevel": "strong", "title": "允许实施每千瓦时不超过0.1元的差别化电价", "body": "地方可整合差别、阶梯和惩罚性电价，在市场交易电价基础上加价，形成对低效产能的持续成本约束。", "signal": "risk", "confidence": 99, "clauseIds": ["c5"], "sortOrder": 4},
+    {"id": "a5", "actionType": "碳机制", "actionEvidenceLevel": "strong", "title": "衔接碳排放置换和碳市场配额激励", "body": "经核定的改造减排量可作为本地区两高项目碳排放置换源，先进企业可通过碳市场配额获得激励。", "signal": "market", "confidence": 96, "clauseIds": ["c5"], "sortOrder": 5},
+    {"id": "a6", "actionType": "强制退出", "actionEvidenceLevel": "strong", "title": "要求2028年底前改造基准以下项目", "body": "不能按期完成改造或改造后仍不符合要求的项目按规定淘汰关停。", "signal": "risk", "confidence": 99, "clauseIds": ["c6"], "sortOrder": 6},
+    {"id": "a7", "actionType": "组织实施", "actionEvidenceLevel": "strong", "title": "形成省级企业清单和年度进展机制", "body": "省级部门在2026年7月底前报送总体方案和企业改造计划清单，企业开展诊断并可采用合同能源管理。", "signal": "constraint", "confidence": 98, "clauseIds": ["c7"], "sortOrder": 7}
+  ],
+  "clauses": [
+    {"id": "c1", "no": "总体目标", "title": "2028年标杆产能和减排目标", "excerpt": "到2028年底，工业重点行业达到现行能效标杆水平的产能比例平均提高20个百分点。", "body": "目标同时覆盖煤电标杆比例、基准以下产能清零、节能量和二氧化碳减排。", "confidence": 99, "keywords": ["2028年", "20个百分点", "1亿吨标准煤", "2亿吨二氧化碳"], "industries": ["重点行业"], "sortOrder": 1},
+    {"id": "c2", "no": "重点任务", "title": "九个行业分技术路线改造", "excerpt": "以钢铁、电解铝、水泥、平板玻璃、炼油、乙烯、合成氨、甲醇、煤电等行业为重点。", "body": "附件逐行业列出核心工艺、通用设备、余热利用、原燃料替代和落后装置边界。", "confidence": 99, "keywords": ["钢铁", "电解铝", "水泥", "炼化", "煤电"], "industries": ["工业", "电力"], "sortOrder": 2},
+    {"id": "c3", "no": "资金支持", "title": "中央投资补助比例", "excerpt": "对符合条件的节能降碳改造项目按核定总投资20%的比例给予资金补助。", "body": "资金优先支持改造后达到标杆水平的项目，不是无条件普遍补贴。", "confidence": 99, "keywords": ["中央投资", "20%", "核定总投资"], "industries": ["技术改造", "绿色金融"], "sortOrder": 3},
+    {"id": "c4", "no": "企业实施", "title": "诊断、设备更新和合同能源管理", "excerpt": "重点行业企业要深入组织实施节能降碳诊断。", "body": "企业需形成具体方案，并可通过合同能源管理、设备更新、系统耦合和数智赋能实施。", "confidence": 98, "keywords": ["节能诊断", "合同能源管理", "设备更新", "数智赋能"], "industries": ["节能服务"], "sortOrder": 4},
+    {"id": "c5", "no": "价格和碳机制", "title": "差别电价、碳置换和配额激励", "excerpt": "可在市场交易电价基础上每度加价不超过0.1元。", "body": "价格、碳排放置换和配额分配共同强化先进与落后产能分化。", "confidence": 99, "keywords": ["0.1元", "差别化电价", "碳排放置换", "配额"], "industries": ["电力成本", "碳市场"], "sortOrder": 5},
+    {"id": "c6", "no": "标准约束", "title": "2028年底改造和淘汰边界", "excerpt": "不能按期完成改造或改造后仍不符合要求的项目应按规定淘汰关停。", "body": "强制标准把技术改造转化为资产存续和退出约束。", "confidence": 99, "keywords": ["强制标准", "淘汰关停", "基准水平"], "industries": ["落后产能"], "sortOrder": 6},
+    {"id": "c7", "no": "组织实施", "title": "省级清单和年度报送", "excerpt": "2026年7月底前报送总体方案和改造计划清单。", "body": "地方需把任务落实到企业，每年12月底报送进展，形成可持续跟踪入口。", "confidence": 98, "keywords": ["省级清单", "7月底", "12月底"], "industries": ["政策执行"], "sortOrder": 7}
+  ],
+  "chainNodes": [
+    {"id": "n1", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["省级总体方案", "企业项目清单"], "title": "省级清单与企业诊断", "subtitle": "把行业目标落实到具体企业和装置", "section": "upstream", "relation": "policy", "evidenceLevel": "strong", "confidence": 98, "description": "地方形成清单，企业诊断能效碳效差距和设备潜力。", "clauseIds": ["c1", "c7"], "companyIds": [], "evidenceIds": ["e1", "e2", "e8"], "impactReason": "清单是从行业政策进入项目层的第一道门。", "iconKey": "clipboard"},
+    {"id": "n2", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["改造方案", "技术路线", "设备清单"], "title": "工艺与设备方案", "subtitle": "核心工艺、通用设备和系统优化", "section": "upstream", "relation": "implementation", "evidenceLevel": "strong", "confidence": 98, "description": "各行业形成工艺、设备、余热、电气化、绿电和数字化方案。", "clauseIds": ["c2", "c4"], "companyIds": [], "evidenceIds": ["e3"], "impactReason": "附件明确技术方向，但供应商尚未确定。", "iconKey": "settings"},
+    {"id": "n3", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["补助资金", "差别电价", "绿色贷款"], "title": "资金与价格工具", "subtitle": "20%补助、差别电价和碳机制", "section": "midstream", "relation": "market", "evidenceLevel": "strong", "confidence": 99, "description": "财政、金融、价格和碳市场改变项目收益和落后产能成本。", "clauseIds": ["c3", "c5"], "companyIds": [], "evidenceIds": ["e4", "e5", "e6"], "impactReason": "资金和价格决定改造速度及现金流压力。", "iconKey": "wallet"},
+    {"id": "n4", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["采购中标", "设备交付", "工程进度"], "title": "改造建设与设备采购", "subtitle": "形成真实设备和工程工作量", "section": "midstream", "relation": "investment", "evidenceLevel": "strong", "confidence": 90, "description": "项目进入设备采购、工程施工、系统集成和调试。", "clauseIds": ["c2", "c4"], "companyIds": [], "evidenceIds": ["e3", "e8"], "impactReason": "商业兑现必须由具体采购和合同证明。", "iconKey": "factory"},
+    {"id": "n5", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["节能量", "煤耗", "碳减排", "验收"], "title": "监测核定与绩效验收", "subtitle": "以实际能效碳效验证政策效果", "section": "downstream", "relation": "verification", "evidenceLevel": "strong", "confidence": 94, "description": "企业和地方报送进展，核定节能、减煤、降碳和设备能效。", "clauseIds": ["c1", "c5", "c7"], "companyIds": [], "evidenceIds": ["e2", "e6", "e8"], "impactReason": "验收结果影响资金、碳权益和后续监管。", "iconKey": "check-circle"},
+    {"id": "n6", "industryNodeEvidenceLevel": "strong", "verificationSignals": ["领跑者名单", "淘汰关停", "配额收益"], "title": "先进激励与落后退出", "subtitle": "资产和竞争格局分化", "section": "support", "relation": "constraint", "evidenceLevel": "strong", "confidence": 98, "description": "先进产能获得资金、配额和融资激励，落后项目承担加价、改造和关停风险。", "clauseIds": ["c5", "c6"], "companyIds": [], "evidenceIds": ["e5", "e6", "e7"], "impactReason": "政策最终改变资产存续和行业供给结构。", "iconKey": "scale"}
+  ],
+  "chainEdges": [
+    {"id": "edge1", "from": "n1", "to": "n2", "type": "strong", "label": "清单企业形成具体改造方案"},
+    {"id": "edge2", "from": "n2", "to": "n3", "type": "strong", "label": "方案接受资金和价格机制筛选"},
+    {"id": "edge3", "from": "n3", "to": "n4", "type": "strong", "label": "项目经济性推动采购和建设"},
+    {"id": "edge4", "from": "n4", "to": "n5", "type": "strong", "label": "改造结果进入节能降碳核定"},
+    {"id": "edge5", "from": "n5", "to": "n6", "type": "strong", "label": "绩效决定激励、继续改造或退出"}
+  ],
+  "companies": [],
+  "evidence": [
+    {"id": "e1", "evidenceObject": "policy_action", "type": "policy_text", "source": "国家发展改革委通知正文", "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202606/t20260615_1405852.html", "title": "九个行业实施三年攻坚行动", "excerpt": "2026年起，以钢铁、电解铝、水泥、平板玻璃、炼油、乙烯、合成氨、甲醇、煤电等9个行业为重点。", "interpretation": "确认行动范围和2026—2028年实施期。", "confidence": 99, "clauseIds": ["c1"], "nodeIds": ["n1"], "companyIds": []},
+    {"id": "e2", "evidenceObject": "policy_action", "type": "official_attachment", "source": "重点行业节能降碳改造攻坚三年行动计划", "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202606/P020260615375309063825.pdf", "title": "2028年量化目标", "excerpt": "标杆产能比例平均提高20个百分点，煤电力争提高15个百分点，形成1亿吨标准煤以上节能量和2亿吨以上二氧化碳减排。", "interpretation": "确认政策具有可验收的量化终点。", "confidence": 99, "clauseIds": ["c1"], "nodeIds": ["n1", "n5"], "companyIds": []},
+    {"id": "e3", "evidenceObject": "industry_node", "type": "official_attachment", "source": "重点行业节能降碳改造攻坚三年行动计划", "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202606/P020260615375309063825.pdf", "title": "分行业工艺和设备改造任务", "excerpt": "附件逐行业列出核心工艺、通用设备、余热利用、电气化和应加快改造的装置边界。", "interpretation": "建立设备和工程方向，但不代表具体供应商订单。", "confidence": 98, "clauseIds": ["c2", "c4"], "nodeIds": ["n2", "n4"], "companyIds": []},
+    {"id": "e4", "evidenceObject": "commercial_realization", "type": "official_attachment", "source": "重点行业节能降碳改造攻坚三年行动计划", "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202606/P020260615375309063825.pdf", "title": "中央投资按核定总投资20%补助", "excerpt": "对符合条件的节能降碳改造项目按核定总投资20%的比例给予资金补助。", "interpretation": "资金支持具有明确比例，但需项目符合条件并经核定。", "confidence": 99, "clauseIds": ["c3"], "nodeIds": ["n3"], "companyIds": []},
+    {"id": "e5", "evidenceObject": "policy_action", "type": "official_attachment", "source": "重点行业节能降碳改造攻坚三年行动计划", "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202606/P020260615375309063825.pdf", "title": "差别化电价加价上限", "excerpt": "在市场交易电价基础上每度加价不超过0.1元。", "interpretation": "落后产能的能效差距可能直接转化为持续电力成本。", "confidence": 99, "clauseIds": ["c5"], "nodeIds": ["n3", "n6"], "companyIds": []},
+    {"id": "e6", "evidenceObject": "policy_connection", "type": "official_attachment", "source": "重点行业节能降碳改造攻坚三年行动计划", "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202606/P020260615375309063825.pdf", "title": "碳排放置换和配额激励", "excerpt": "改造减少的二氧化碳排放量经核定可作为两高项目碳排放置换源。", "interpretation": "节能改造可形成区域碳资源和配额收益，但需核定。", "confidence": 96, "clauseIds": ["c5"], "nodeIds": ["n3", "n5", "n6"], "companyIds": []},
+    {"id": "e7", "evidenceObject": "analysis_boundary", "type": "official_attachment", "source": "重点行业节能降碳改造攻坚三年行动计划", "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202606/P020260615375309063825.pdf", "title": "未达标项目淘汰关停", "excerpt": "不能按期完成改造或改造后仍不符合要求的项目应按规定淘汰关停。", "interpretation": "政策具有资产退出和供给收缩约束，不是单向补贴。", "confidence": 99, "clauseIds": ["c6"], "nodeIds": ["n6"], "companyIds": []},
+    {"id": "e8", "evidenceObject": "implementation_condition", "type": "official_attachment", "source": "重点行业节能降碳改造攻坚三年行动计划", "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202606/P020260615375309063825.pdf", "title": "省级企业清单和企业主体责任", "excerpt": "2026年7月底前报送总体方案和改造计划清单，企业开展诊断并制定具体方案。", "interpretation": "后续项目清单和采购是公司研究的关键证据入口。", "confidence": 98, "clauseIds": ["c4", "c7"], "nodeIds": ["n1", "n2", "n4", "n5"], "companyIds": []},
+    {"id": "e9", "evidenceObject": "analysis_boundary", "type": "research_boundary", "source": "通知和官方附件核验", "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202606/t20260615_1405852.html", "title": "当前不建立公司映射", "excerpt": "通知和附件未公布省级企业项目清单、补助项目、设备供应商或采购合同。", "interpretation": "行业方向和设备需求不能替代具体公司项目证据。", "confidence": 99, "clauseIds": ["c7"], "nodeIds": ["n1", "n4"], "companyIds": []}
+  ],
+  "backgroundCards": [
+    {"id": "bg1", "title": "补助和约束同时存在", "body": "合格项目可按核定总投资20%获得补助，落后项目同时面临差别电价和淘汰关停。", "evidenceIds": ["e4", "e5", "e7"]},
+    {"id": "bg2", "title": "设备需求必须经过项目清单", "body": "政策列出的电机、风机、热泵、锅炉和变压器等只是技术方向，只有省级清单和采购合同才能建立供应商关系。", "evidenceIds": ["e3", "e8", "e9"]},
+    {"id": "bg3", "title": "节能效果决定政策兑现", "body": "补助、碳置换、配额激励和资产存续最终依赖节能、煤耗和碳减排核定。", "evidenceIds": ["e2", "e6", "e7"]}
+  ],
+  "compareInsights": {
+    "status": "official_policy_network_comparison",
+    "comparableCount": 3,
+    "similarPolicies": ["2026年度工业节能监察", "国家级零碳工厂建设", "2026年度智能工厂梯度培育"],
+    "contrastPolicies": [],
+    "insights": ["工业节能监察负责发现和执法，三年行动提供改造和退出工具，零碳工厂与智能工厂进一步提高能源结构、MRV和数智化要求。", "三年行动的新增强度来自20%投资补助、不超过0.1元每千瓦时差别电价和2028年淘汰期限。"],
+    "limitations": ["未取得省级企业清单和中央投资项目。", "未使用设备行业标签建立公司映射。", "实际电费和改造收益需按省份、行业、装置和项目测算。"]
+  },
+  "analysisCoverage": {
+    "status": "matched",
+    "analysisMethod": "国家发展改革委正文和官方PDF、OFD附件人工核验",
+    "textLength": 14153,
+    "clauseCount": 7,
+    "actionCount": 7,
+    "evidenceCount": 9,
+    "industryNodeCount": 6,
+    "companyCount": 0,
+    "listedCompanyMapCount": 0,
+    "companyImpactConclusion": "政策明确行业、技术、补助、价格和退出机制，但尚未公布省级企业项目清单、中央投资项目、设备供应商、采购合同或验收结果，因此当前不建立具体公司映射。",
+    "limitations": ["20%补助需要符合条件和核定总投资，不能外推为普遍补贴。", "差别化电价具体范围和标准由地方实施。", "设备和服务方向广泛，供应商关系需等待项目采购。", "2028年淘汰和领跑结果需持续跟踪。"]
+  },
+  "modules": [
+    {"id": "overview", "label": "政策总览"},
+    {"id": "actions", "label": "政策工具"},
+    {"id": "industry", "label": "改造链"},
+    {"id": "companies", "label": "公司边界"},
+    {"id": "evidence", "label": "证据"},
+    {"id": "compare", "label": "政策网络"}
+  ],
+  "topTabs": [
+    {"id": "report", "label": "报告"},
+    {"id": "industry", "label": "产业"},
+    {"id": "companies", "label": "公司"},
+    {"id": "evidence", "label": "证据"}
+  ]
+}
