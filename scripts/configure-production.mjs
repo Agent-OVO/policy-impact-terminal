@@ -18,6 +18,11 @@ const applyFunctions = args.has("--apply-functions");
 const applyGithubSecrets = args.has("--apply-github-secrets");
 const applySupabaseSecrets = args.has("--apply-supabase-secrets");
 const applyDatabaseMigrations = args.has("--apply-db-migrations");
+const deployableFunctions = ["ingest", "analyze", "publish", "operations-overview"];
+const requestedFunctions = [...args]
+  .filter((arg) => arg.startsWith("--function="))
+  .map((arg) => arg.slice("--function=".length).trim())
+  .filter(Boolean);
 const backupManifestPath = path.resolve("artifacts/production-backups/latest-manifest.json");
 
 function run(command, commandArgs, { input, quiet = false } = {}) {
@@ -200,7 +205,12 @@ function setSupabaseSecrets(secrets) {
 }
 
 function deployFunctions() {
-  for (const functionName of ["ingest", "analyze", "publish"]) {
+  const functionNames = requestedFunctions.length > 0 ? [...new Set(requestedFunctions)] : deployableFunctions;
+  const invalidFunctions = functionNames.filter((name) => !deployableFunctions.includes(name));
+  if (invalidFunctions.length > 0) {
+    throw new Error(`Unsupported function deployment target(s): ${invalidFunctions.join(", ")}.`);
+  }
+  for (const functionName of functionNames) {
     runVisibleNpx([
       "supabase",
       "functions",
@@ -262,7 +272,7 @@ function requireVerifiedBackupManifest() {
 }
 
 function printHelp() {
-  console.log(`Production configuration is validation-only by default.\n\nWrite flags:\n  --apply-functions\n  --apply-github-secrets\n  --apply-supabase-secrets\n  --apply-db-migrations\n  --dispatch\n\nRequired confirmations:\n  PRODUCTION_FUNCTION_DEPLOY_CONFIRMATION=DEPLOY_FUNCTIONS:${PROJECT_REF}\n  PRODUCTION_SECRET_ROTATION_CONFIRMATION=ROTATE_SECRETS:${PROJECT_REF}\n  PRODUCTION_DB_MIGRATION_CONFIRMATION=APPLY_MIGRATIONS:${PROJECT_REF}\n  PRODUCTION_WORKFLOW_DISPATCH_CONFIRMATION=DISPATCH_WORKFLOWS:${PROJECT_REF}\n\nDatabase migrations additionally require a restore-verified encrypted backup manifest at:\n  ${backupManifestPath}`);
+  console.log(`Production configuration is validation-only by default.\n\nWrite flags:\n  --apply-functions [--function=<name>]\n  --apply-github-secrets\n  --apply-supabase-secrets\n  --apply-db-migrations\n  --dispatch\n\nDeployable functions:\n  ${deployableFunctions.join(", ")}\n\nRequired confirmations:\n  PRODUCTION_FUNCTION_DEPLOY_CONFIRMATION=DEPLOY_FUNCTIONS:${PROJECT_REF}\n  PRODUCTION_SECRET_ROTATION_CONFIRMATION=ROTATE_SECRETS:${PROJECT_REF}\n  PRODUCTION_DB_MIGRATION_CONFIRMATION=APPLY_MIGRATIONS:${PROJECT_REF}\n  PRODUCTION_WORKFLOW_DISPATCH_CONFIRMATION=DISPATCH_WORKFLOWS:${PROJECT_REF}\n\nDatabase migrations additionally require a restore-verified encrypted backup manifest at:\n  ${backupManifestPath}`);
 }
 
 async function main() {
@@ -273,7 +283,7 @@ async function main() {
 
   console.log(`Production configuration target: ${GITHUB_REPO}`);
   console.log(`Supabase project: ${PROJECT_REF}`);
-  console.log(`[plan] functions=${applyFunctions} githubSecrets=${applyGithubSecrets} supabaseSecrets=${applySupabaseSecrets} databaseMigrations=${applyDatabaseMigrations} dispatch=${dispatchWorkflows}`);
+  console.log(`[plan] functions=${applyFunctions} functionTargets=${requestedFunctions.join(",") || "all"} githubSecrets=${applyGithubSecrets} supabaseSecrets=${applySupabaseSecrets} databaseMigrations=${applyDatabaseMigrations} dispatch=${dispatchWorkflows}`);
 
   const anyWrite = applyFunctions || applyGithubSecrets || applySupabaseSecrets || applyDatabaseMigrations || dispatchWorkflows;
   if (!anyWrite) {

@@ -37,6 +37,8 @@ export interface PolicySummary {
   publishDateTime?: string;
   officialPublishedAt?: string;
   publishTimezone?: string;
+  publishedAt?: string;
+  updatedAt?: string;
   status: ReportStatus;
   confidence: number;
   industryCount: number;
@@ -72,9 +74,48 @@ export interface PendingPolicyAnalysisItem {
   updatedAt: string;
 }
 
+export type PolicyOperationsQueueSummary = {
+  total: number;
+  pendingReview: number;
+  awaitingEvidence: number;
+  selectedForAnalysis: number;
+  totalOpenAnalysisJobs: number;
+  staleOpenAnalysisJobs: number;
+};
+
+export type PolicyOperationsOverview = {
+  formatVersion: string;
+  generatedAt: string;
+  windowDays: number;
+  windowStart: string;
+  current: PolicyOperationsQueueSummary;
+  historical: PolicyOperationsQueueSummary;
+  evidenceBlockers: {
+    total: number;
+    current: number;
+    historical: number;
+  };
+  recent24h: {
+    total: number;
+    queueUpdates: number;
+    publishedReportUpdates: number;
+  };
+  reports: {
+    total: number;
+  };
+  coverage: {
+    complete: boolean;
+    scannedPolicies: number;
+    returnedQueueRows: number;
+    queueRowsTruncated: boolean;
+  };
+};
+
 export interface PendingPolicyAnalysisResult {
   total: number;
   rows: PendingPolicyAnalysisItem[];
+  operations?: PolicyOperationsOverview;
+  source?: "operations_function" | "legacy_rpc" | "mock" | "unavailable";
 }
 
 export interface CreateAnalysisJobInput {
@@ -158,6 +199,8 @@ type SupabasePolicyRow = {
   status: string | null;
   analysis_version: string | null;
   confidence: number | null;
+  published_at: string | null;
+  updated_at: string | null;
   metadata: JsonRecord | null;
 };
 
@@ -208,7 +251,7 @@ const FALLBACK_SOURCE_NAME = "手动提交";
 const QUEUED_STEP = "政策原文已入库，等待人工审核分析";
 const POLICY_MIN_PUBLISH_DATE = "2026-05-01";
 const MANUAL_ANALYSIS_VERSION = "codex-manual-v1";
-const PENDING_POLICY_LIMIT = 20;
+const PENDING_POLICY_LIMIT = 50;
 
 const reportStatuses: readonly ReportStatus[] = [
   "published",
@@ -360,6 +403,38 @@ const mockReportRepository: ReportRepository = {
   async listPendingPolicyAnalysis() {
     return {
       total: 2,
+      source: "mock",
+      operations: {
+        formatVersion: "policy-operations-overview-v1",
+        generatedAt: new Date().toISOString(),
+        windowDays: 14,
+        windowStart: "2026-07-15",
+        current: {
+          total: 0,
+          pendingReview: 0,
+          awaitingEvidence: 0,
+          selectedForAnalysis: 0,
+          totalOpenAnalysisJobs: 0,
+          staleOpenAnalysisJobs: 0
+        },
+        historical: {
+          total: 2,
+          pendingReview: 2,
+          awaitingEvidence: 0,
+          selectedForAnalysis: 0,
+          totalOpenAnalysisJobs: 0,
+          staleOpenAnalysisJobs: 0
+        },
+        evidenceBlockers: { total: 0, current: 0, historical: 0 },
+        recent24h: { total: 0, queueUpdates: 0, publishedReportUpdates: 0 },
+        reports: { total: 1 },
+        coverage: {
+          complete: true,
+          scannedPolicies: 3,
+          returnedQueueRows: 2,
+          queueRowsTruncated: false
+        }
+      },
       rows: [
         {
           id: "pending-demo-001",
@@ -477,7 +552,7 @@ const supabaseReportRepository: ReportRepository = {
     const client = requireSupabaseClient("listPolicyReports");
     const { data, error } = await client
       .from("policies")
-      .select("id,external_id,title,issuer,source_name,publish_date,status,analysis_version,confidence,metadata")
+      .select("id,external_id,title,issuer,source_name,publish_date,status,analysis_version,confidence,published_at,updated_at,metadata")
       .eq("status", "published")
       .eq("analysis_version", MANUAL_ANALYSIS_VERSION)
       .gte("publish_date", POLICY_MIN_PUBLISH_DATE)
@@ -492,15 +567,29 @@ const supabaseReportRepository: ReportRepository = {
 
   async listPendingPolicyAnalysis() {
     const client = requireSupabaseClient("listPendingPolicyAnalysis");
+    const { data: operationsData, error: operationsError } = await client.functions.invoke(
+      "operations-overview",
+      {
+        body: {
+          windowDays: 14,
+          limit: PENDING_POLICY_LIMIT
+        }
+      }
+    );
+
+    if (!operationsError && operationsData) {
+      return normalizePendingPolicyAnalysis(operationsData, "operations_function");
+    }
+
     const { data, error } = await client.rpc("list_pending_policy_analysis", {
       limit_count: PENDING_POLICY_LIMIT
     });
 
     if (error) {
-      throw createRepositoryError("listPendingPolicyAnalysis", error);
+      throw createRepositoryError("listPendingPolicyAnalysis", operationsError ?? error);
     }
 
-    return normalizePendingPolicyAnalysis(data);
+    return normalizePendingPolicyAnalysis(data, "legacy_rpc");
   },
 
   async getPolicyReport(reportId) {
@@ -608,7 +697,7 @@ const unavailableReportRepository: ReportRepository = {
     throw new ReportRepositoryError("listPolicyReports", "尚未配置 Supabase。生产环境不会回退到本地演示政策数据。");
   },
   async listPendingPolicyAnalysis() {
-    return { total: 0, rows: [] };
+    return { total: 0, rows: [], source: "unavailable" };
   },
   async getPolicyReport() {
     throw new ReportRepositoryError("getPolicyReport", "尚未配置 Supabase。生产环境不会回退到本地演示政策数据。");
@@ -763,6 +852,8 @@ function mapPolicySummary(row: SupabasePolicyRow): PolicySummary {
     source: row.source_name ?? FALLBACK_SOURCE,
     publishDate: row.publish_date ?? "",
     ...timing,
+    publishedAt: row.published_at ?? undefined,
+    updatedAt: row.updated_at ?? undefined,
     status: coerceReportStatus(row.status),
     confidence: toNumber(row.confidence),
     industryCount: counts.industryCount ?? 0,
@@ -784,6 +875,8 @@ function mapPolicySummaryContext(row: SupabasePolicyReportRow): Partial<PolicySu
     source: row.source_name ?? FALLBACK_SOURCE,
     publishDate: row.publish_date ?? "",
     ...timing,
+    publishedAt: row.published_at ?? undefined,
+    updatedAt: row.updated_at ?? undefined,
     status: coerceReportStatus(row.status),
     ...counts
   };
@@ -808,13 +901,79 @@ function mapAnalysisJob(row: SupabaseAnalysisJobRow): AnalysisJob {
   };
 }
 
-function normalizePendingPolicyAnalysis(value: unknown): PendingPolicyAnalysisResult {
+function normalizePendingPolicyAnalysis(
+  value: unknown,
+  source: PendingPolicyAnalysisResult["source"] = "legacy_rpc"
+): PendingPolicyAnalysisResult {
   const record = isJsonRecord(value) ? value : {};
   const rawRows = Array.isArray(record.rows) ? record.rows : [];
   const rows = rawRows.map(mapPendingPolicyAnalysisItem).filter((item) => item.id && item.title);
   const total = toNumberOrUndefined(record.total) ?? rows.length;
+  const operations = source === "operations_function" ? mapPolicyOperationsOverview(record) : undefined;
 
-  return { total, rows };
+  return {
+    total,
+    rows,
+    source,
+    ...(operations ? { operations } : {})
+  };
+}
+
+function mapPolicyOperationsOverview(record: JsonRecord): PolicyOperationsOverview | undefined {
+  const current = mapPolicyOperationsQueueSummary(record.current);
+  const historical = mapPolicyOperationsQueueSummary(record.historical);
+  const evidenceBlockers = isJsonRecord(record.evidenceBlockers) ? record.evidenceBlockers : {};
+  const recent24h = isJsonRecord(record.recent24h) ? record.recent24h : {};
+  const reports = isJsonRecord(record.reports) ? record.reports : {};
+  const coverage = isJsonRecord(record.coverage) ? record.coverage : {};
+  const formatVersion = toStringValue(record.formatVersion, "");
+  const generatedAt = toStringValue(record.generatedAt, "");
+  const windowStart = toStringValue(record.windowStart, "");
+  const windowDays = toNumberOrUndefined(record.windowDays);
+
+  if (!current || !historical || !formatVersion || !generatedAt || !windowStart || windowDays === undefined) {
+    return undefined;
+  }
+
+  return {
+    formatVersion,
+    generatedAt,
+    windowDays,
+    windowStart,
+    current,
+    historical,
+    evidenceBlockers: {
+      total: toNumberOrUndefined(evidenceBlockers.total) ?? 0,
+      current: toNumberOrUndefined(evidenceBlockers.current) ?? 0,
+      historical: toNumberOrUndefined(evidenceBlockers.historical) ?? 0
+    },
+    recent24h: {
+      total: toNumberOrUndefined(recent24h.total) ?? 0,
+      queueUpdates: toNumberOrUndefined(recent24h.queueUpdates) ?? 0,
+      publishedReportUpdates: toNumberOrUndefined(recent24h.publishedReportUpdates) ?? 0
+    },
+    reports: {
+      total: toNumberOrUndefined(reports.total) ?? 0
+    },
+    coverage: {
+      complete: coverage.complete === true,
+      scannedPolicies: toNumberOrUndefined(coverage.scannedPolicies) ?? 0,
+      returnedQueueRows: toNumberOrUndefined(coverage.returnedQueueRows) ?? 0,
+      queueRowsTruncated: coverage.queueRowsTruncated === true
+    }
+  };
+}
+
+function mapPolicyOperationsQueueSummary(value: unknown): PolicyOperationsQueueSummary | undefined {
+  if (!isJsonRecord(value)) return undefined;
+  return {
+    total: toNumberOrUndefined(value.total) ?? 0,
+    pendingReview: toNumberOrUndefined(value.pendingReview) ?? 0,
+    awaitingEvidence: toNumberOrUndefined(value.awaitingEvidence) ?? 0,
+    selectedForAnalysis: toNumberOrUndefined(value.selectedForAnalysis) ?? 0,
+    totalOpenAnalysisJobs: toNumberOrUndefined(value.totalOpenAnalysisJobs) ?? 0,
+    staleOpenAnalysisJobs: toNumberOrUndefined(value.staleOpenAnalysisJobs) ?? 0
+  };
 }
 
 function mapPendingPolicyAnalysisItem(value: unknown): PendingPolicyAnalysisItem {

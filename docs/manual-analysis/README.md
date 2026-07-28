@@ -35,6 +35,8 @@
 阶段化执行路线和完成记录见：
 
 - `next-stage-roadmap-v3.0.md`（当前）
+- `brief-value-review-and-overview-entry-gate-20260728.md`（跨政策简报价值复核与运营总览准入）
+- `../frontend/policy-operations-overview-screen-contract-v0.1.md`（只读运营总览屏幕合同）
 - `next-stage-roadmap-v2.0.md`（历史阶段记录）
 - `phase-1-2-completion-report-v1.0.md`
 - `phase-3-4-completion-report-v1.0.md`
