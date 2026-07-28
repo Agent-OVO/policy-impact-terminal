@@ -9,6 +9,7 @@ on:
 permissions:
   contents: read
   actions: read
+  issues: write
 
 jobs:
   summary:
@@ -92,6 +93,47 @@ jobs:
             --input=artifacts/operations/historical-inbox.json \
             --out-json=artifacts/operations/historical-inbox-migration-plan.json \
             --out-markdown=artifacts/operations/historical-inbox-migration-plan.md
+
+      - name: Publish stable operations status
+        env:
+          GH_TOKEN: ${{ github.token }}
+          STATUS_LABEL: operations-status
+          STATUS_TITLE: "政策解析终端生产运行状态（自动更新）"
+          STATUS_BODY_FILE: artifacts/operations/production-operations-summary.md
+        run: |
+          set -euo pipefail
+          # Publish only the sanitized summary. Detailed inbox and migration files remain in the workflow artifact.
+          gh label create "$STATUS_LABEL" \
+            --repo "$GITHUB_REPOSITORY" \
+            --description "自动更新的政策解析终端生产运行状态" \
+            --color "1D76DB" \
+            --force
+          issue_record="$(
+            gh issue list \
+              --repo "$GITHUB_REPOSITORY" \
+              --state all \
+              --label "$STATUS_LABEL" \
+              --limit 100 \
+              --json number,title,state \
+              | jq -r --arg title "$STATUS_TITLE" '[.[] | select(.title == $title)][0] | if . == null then "" else "\(.number)\t\(.state)" end'
+          )"
+          if [ -n "$issue_record" ]; then
+            issue_number="${issue_record%%$'\t'*}"
+            issue_state="${issue_record#*$'\t'}"
+            if [ "$issue_state" = "CLOSED" ]; then
+              gh issue reopen "$issue_number" --repo "$GITHUB_REPOSITORY"
+            fi
+            gh issue edit "$issue_number" \
+              --repo "$GITHUB_REPOSITORY" \
+              --body-file "$STATUS_BODY_FILE"
+          else
+            gh issue create \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "$STATUS_TITLE" \
+              --label "$STATUS_LABEL" \
+              --body-file "$STATUS_BODY_FILE" \
+              >/dev/null
+          fi
 
       - name: Upload operations summary
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
