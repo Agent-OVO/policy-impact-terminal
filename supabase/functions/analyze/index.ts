@@ -927,6 +927,44 @@ async function fetchOpenAnalysisJobs(
   throw new HttpError(409, `Policy ${policyId} has more than ${maxRows} open analysis jobs; manual database review is required.`);
 }
 
+async function fetchOpenAnalysisJobCounts(
+  supabase: SupabaseAdminClient,
+  policyIds: string[],
+  openStatuses: string[]
+): Promise<Map<string, number>> {
+  const counts = new Map<string, number>();
+  const uniquePolicyIds = [...new Set(policyIds.filter((value) => typeof value === "string" && value.length > 0))];
+  const policyChunkSize = 50;
+  const pageSize = 1_000;
+  const maxRowsPerChunk = 10_000;
+
+  for (let index = 0; index < uniquePolicyIds.length; index += policyChunkSize) {
+    const policyIdChunk = uniquePolicyIds.slice(index, index + policyChunkSize);
+    for (let from = 0; from < maxRowsPerChunk; from += pageSize) {
+      const { data, error } = await supabase
+        .from("analysis_jobs")
+        .select("id,policy_id,status")
+        .in("policy_id", policyIdChunk)
+        .in("status", openStatuses)
+        .range(from, from + pageSize - 1);
+      if (error) throw error;
+
+      const page = (data ?? []) as Array<Record<string, unknown>>;
+      for (const job of page) {
+        const policyId = typeof job.policy_id === "string" ? job.policy_id : null;
+        if (!policyId) continue;
+        counts.set(policyId, (counts.get(policyId) ?? 0) + 1);
+      }
+      if (page.length < pageSize) break;
+      if (from + pageSize >= maxRowsPerChunk) {
+        throw new HttpError(409, `Open analysis job audit exceeded ${maxRowsPerChunk} rows for a policy chunk; manual database review is required.`);
+      }
+    }
+  }
+
+  return counts;
+}
+
 function normalizeManualReviewDisposition(value: string | null): ManualReviewDisposition | null {
   const allowed: ManualReviewDisposition[] = [
     "pending_review",
@@ -1033,7 +1071,7 @@ async function listPendingManualAnalysisPolicies(
     throw new HttpError(500, "Failed to list policies pending manual analysis.", error);
   }
 
-  const activePolicies = (Array.isArray(data) ? data : [])
+  const activePoliciesWithoutJobCounts = (Array.isArray(data) ? data : [])
     .map((item: unknown) => {
       const record = item as PolicyRecord & {
         status?: string | null;
@@ -1114,10 +1152,31 @@ async function listPendingManualAnalysisPolicies(
         String(right.createdAt ?? "").localeCompare(String(left.createdAt ?? ""));
     });
 
+  const openStatuses = ["queued", "fetching", "extracting", "analyzing"];
+  const openAnalysisJobCounts = await fetchOpenAnalysisJobCounts(
+    supabase,
+    activePoliciesWithoutJobCounts.map((item) => item.id),
+    openStatuses
+  );
+  const activePolicies = activePoliciesWithoutJobCounts.map((item) => {
+    const openAnalysisJobCount = openAnalysisJobCounts.get(item.id) ?? 0;
+    const selected = item.manualReviewDisposition === "selected_for_analysis";
+    return {
+      ...item,
+      openAnalysisJobCount,
+      hasOpenAnalysisJobs: openAnalysisJobCount > 0,
+      staleOpenAnalysisJobCount: selected ? 0 : openAnalysisJobCount,
+      requiresCloseOpenJob: !selected && openAnalysisJobCount > 0
+    };
+  });
   const stateCounts = {
     pendingReview: activePolicies.filter((item) => item.manualReviewDisposition === "pending_review").length,
     awaitingEvidence: activePolicies.filter((item) => item.manualReviewDisposition === "awaiting_evidence").length,
-    selectedForAnalysis: activePolicies.filter((item) => item.manualReviewDisposition === "selected_for_analysis").length
+    selectedForAnalysis: activePolicies.filter((item) => item.manualReviewDisposition === "selected_for_analysis").length,
+    totalOpenAnalysisJobs: activePolicies.reduce((total, item) => total + item.openAnalysisJobCount, 0),
+    policiesWithOpenAnalysisJobs: activePolicies.filter((item) => item.openAnalysisJobCount > 0).length,
+    staleOpenAnalysisJobs: activePolicies.reduce((total, item) => total + item.staleOpenAnalysisJobCount, 0),
+    policiesWithStaleOpenAnalysisJobs: activePolicies.filter((item) => item.staleOpenAnalysisJobCount > 0).length
   };
   const policies = activePolicies.slice(0, limit);
 

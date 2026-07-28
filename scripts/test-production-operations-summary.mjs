@@ -69,7 +69,10 @@ try {
       publishDate: "2026-07-17",
       sourceUrl: "https://example.gov.cn/policy.html",
       fullTextLength: 600,
-      manualReviewDisposition: "pending_review"
+      manualReviewDisposition: "pending_review",
+      openAnalysisJobCount: 3,
+      staleOpenAnalysisJobCount: 3,
+      requiresCloseOpenJob: true
     },
     {
       id: "b",
@@ -77,7 +80,10 @@ try {
       publishDate: "2026-07-17",
       sourceUrl: "https://example.gov.cn/policy.html#top",
       fullTextLength: 1900,
-      manualReviewDisposition: "pending_review"
+      manualReviewDisposition: "pending_review",
+      openAnalysisJobCount: 0,
+      staleOpenAnalysisJobCount: 0,
+      requiresCloseOpenJob: false
     },
     {
       id: "c",
@@ -86,21 +92,40 @@ try {
       sourceUrl: "https://example.gov.cn/attachment-policy",
       fullTextLength: 300,
       manualReviewDisposition: "awaiting_evidence",
-      manualReviewReason: "等待DOC附件完整下载"
+      manualReviewReason: "等待DOC附件完整下载",
+      openAnalysisJobCount: 2,
+      staleOpenAnalysisJobCount: 2,
+      requiresCloseOpenJob: true
     }
   ];
   await fs.writeFile(current, JSON.stringify({
     sincePublishDate: "2026-07-15",
     total: 3,
     count: 3,
-    stateCounts: { pendingReview: 2, awaitingEvidence: 1, selectedForAnalysis: 0 },
+    stateCounts: {
+      pendingReview: 2,
+      awaitingEvidence: 1,
+      selectedForAnalysis: 0,
+      totalOpenAnalysisJobs: 5,
+      policiesWithOpenAnalysisJobs: 2,
+      staleOpenAnalysisJobs: 5,
+      policiesWithStaleOpenAnalysisJobs: 2
+    },
     policies
   }));
   await fs.writeFile(historical, JSON.stringify({
     sincePublishDate: "2026-05-01",
     total: 3,
     count: 3,
-    stateCounts: { pendingReview: 2, awaitingEvidence: 1, selectedForAnalysis: 0 },
+    stateCounts: {
+      pendingReview: 2,
+      awaitingEvidence: 1,
+      selectedForAnalysis: 0,
+      totalOpenAnalysisJobs: 5,
+      policiesWithOpenAnalysisJobs: 2,
+      staleOpenAnalysisJobs: 5,
+      policiesWithStaleOpenAnalysisJobs: 2
+    },
     policies
   }));
   await fs.writeFile(registry, JSON.stringify({ reports: [] }));
@@ -143,6 +168,9 @@ try {
   assert.equal(summary.historicalInbox.duplicateGroupCount, 1);
   assert.equal(summary.historicalInbox.exactUrlDuplicateGroupCount, 1);
   assert.equal(summary.historicalInbox.attachmentEvidencePending, 1);
+  assert.equal(summary.currentInbox.totalOpenAnalysisJobs, 5);
+  assert.equal(summary.currentInbox.staleOpenAnalysisJobs, 5);
+  assert.equal(summary.historicalInbox.policiesWithStaleOpenAnalysisJobs, 2);
 
   const markdown = await fs.readFile(outMarkdown, "utf8");
   assert.match(markdown, /有效采集健康度/);
@@ -151,9 +179,10 @@ try {
   assert.match(markdown, /最大主定时间隔：60分钟/);
   assert.match(markdown, /当前活动是（run 20）/);
   assert.match(markdown, /附件正文待证：1项/);
+  assert.match(markdown, /陈旧任务5个、涉及2项/);
   assert.match(markdown, /静态状态文档不作为实时权威源/);
 
-  console.log("[operations:summary-test] effective freshness, recovery-backed health, liveness state, duplicate integrity, and attachment evidence counts passed");
+  console.log("[operations:summary-test] effective freshness, recovery-backed health, liveness state, stale-job visibility, duplicate integrity, and attachment evidence counts passed");
 } finally {
   await fs.rm(tempDir, { recursive: true, force: true });
 }
