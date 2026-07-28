@@ -129,7 +129,7 @@ await fs.mkdir(path.dirname(path.resolve(args.outMarkdown)), { recursive: true }
 await fs.writeFile(path.resolve(args.outMarkdown), renderMarkdown(summary), "utf8");
 console.log(`[operations:summary] asOf=${summary.asOf} run=${summary.authority.workflowRunId ?? "local"} health=${summary.collectionHealth.status} effective=${summary.collectionHealth.latestEffectiveRunKind ?? "none"}:${summary.collectionHealth.latestEffectiveRunId ?? "none"} age=${summary.collectionHealth.effectiveAgeMinutes ?? "unknown"}m`);
 console.log(`[operations:summary] scheduled=${summary.hourlyCollection.scheduledRuns} latestScheduled=${summary.hourlyCollection.latestScheduledRunAt} maxScheduledGap=${summary.hourlyCollection.maxObservedScheduledGapMinutes}m recoveryPerformed=${summary.recoveryCollection.performedRuns} livenessActive=${summary.remoteLiveness.active}`);
-console.log(`[operations:summary] currentInbox=${summary.currentInbox.total} historicalInbox=${summary.historicalInbox.total} duplicates=${summary.historicalInbox.duplicateGroupCount} attachmentPending=${summary.historicalInbox.attachmentEvidencePending} reports=${summary.reports.total}`);
+console.log(`[operations:summary] currentInbox=${summary.currentInbox.total} historicalInbox=${summary.historicalInbox.total} staleOpenJobs=${summary.historicalInbox.staleOpenAnalysisJobs} stalePolicies=${summary.historicalInbox.policiesWithStaleOpenAnalysisJobs} duplicates=${summary.historicalInbox.duplicateGroupCount} attachmentPending=${summary.historicalInbox.attachmentEvidencePending} reports=${summary.reports.total}`);
 
 function normalizeInbox(value) {
   const policies = Array.isArray(value?.policies) ? value.policies : [];
@@ -148,6 +148,10 @@ function normalizeInbox(value) {
     pendingReview: stateCounts.pendingReview ?? policies.filter((item) => item.manualReviewDisposition === "pending_review").length,
     awaitingEvidence: stateCounts.awaitingEvidence ?? policies.filter((item) => item.manualReviewDisposition === "awaiting_evidence").length,
     selectedForAnalysis: stateCounts.selectedForAnalysis ?? policies.filter((item) => item.manualReviewDisposition === "selected_for_analysis").length,
+    totalOpenAnalysisJobs: stateCounts.totalOpenAnalysisJobs ?? policies.reduce((total, item) => total + Number(item.openAnalysisJobCount ?? 0), 0),
+    policiesWithOpenAnalysisJobs: stateCounts.policiesWithOpenAnalysisJobs ?? policies.filter((item) => Number(item.openAnalysisJobCount ?? 0) > 0).length,
+    staleOpenAnalysisJobs: stateCounts.staleOpenAnalysisJobs ?? policies.reduce((total, item) => total + Number(item.staleOpenAnalysisJobCount ?? 0), 0),
+    policiesWithStaleOpenAnalysisJobs: stateCounts.policiesWithStaleOpenAnalysisJobs ?? policies.filter((item) => Number(item.staleOpenAnalysisJobCount ?? 0) > 0).length,
     attachmentEvidencePending: attachmentPending.length,
     duplicateGroupCount: duplicateGroups.length,
     exactUrlDuplicateGroupCount: duplicateGroups.filter((group) => group.reasons.includes("exact-url")).length,
@@ -207,6 +211,7 @@ function renderMarkdown(value) {
     "",
     `- 当前窗口（自${value.currentInbox.sincePublishDate ?? "未知"}）：${value.currentInbox.total}项，待判断${value.currentInbox.pendingReview}，等待证据${value.currentInbox.awaitingEvidence}，已选择${value.currentInbox.selectedForAnalysis}；`,
     `- 历史全量（自${value.historicalInbox.sincePublishDate ?? "未知"}）：${value.historicalInbox.total}项，待判断${value.historicalInbox.pendingReview}，等待证据${value.historicalInbox.awaitingEvidence}，已选择${value.historicalInbox.selectedForAnalysis}；`,
+    `- 开放分析任务：当前窗口${value.currentInbox.totalOpenAnalysisJobs}个，其中非已选择状态的陈旧任务${value.currentInbox.staleOpenAnalysisJobs}个、涉及${value.currentInbox.policiesWithStaleOpenAnalysisJobs}项；历史全量陈旧任务${value.historicalInbox.staleOpenAnalysisJobs}个、涉及${value.historicalInbox.policiesWithStaleOpenAnalysisJobs}项。处置这些候选前必须显式确认关闭对应政策的开放任务；`,
     `- 历史重复完整性组：${value.historicalInbox.duplicateGroupCount}组，其中同URL ${value.historicalInbox.exactUrlDuplicateGroupCount}组，政策号/核心标题语义重复 ${value.historicalInbox.semanticDuplicateGroupCount}组；`,
     `- 附件正文待证：${value.historicalInbox.attachmentEvidencePending}项。`,
     "",
