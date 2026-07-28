@@ -13,3 +13,4 @@
 当前简报：
 
 - `energy-manufacturing-policy-mainline-brief-20260728.md`
+- `manufacturing-policy-tools-and-business-realization-20260728.md`
