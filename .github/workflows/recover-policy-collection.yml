@@ -62,12 +62,14 @@ jobs:
           gh run list \
             --repo "$GITHUB_REPOSITORY" \
             --workflow "Crawl policy sources hourly" \
+            --all \
             --limit 50 \
             --json databaseId,status,conclusion,createdAt,event,url \
             > artifacts/recovery/hourly-runs.json
           gh run list \
             --repo "$GITHUB_REPOSITORY" \
             --workflow "Recover missed policy collection" \
+            --all \
             --limit 50 \
             --json databaseId,status,conclusion,createdAt,event,url \
             > artifacts/recovery/recovery-runs.json

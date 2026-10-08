@@ -46,6 +46,7 @@ assert.doesNotMatch(recoveryWorkflow, /cron: "7,22,37,52/);
 assert.match(recoveryWorkflow, /threshold_minutes \|\| '80'/);
 assert.match(recoveryWorkflow, /recoveryPerformed/);
 assert.match(recoveryWorkflow, /--recovery-input=artifacts\/recovery\/recovery-runs-annotated\.json/);
+assert.equal((recoveryWorkflow.match(/--all/g) ?? []).length, 2, "existing hourly and recovery run lookups must include disabled workflow history");
 assert.match(recoveryWorkflow, /--manual-selection-only/);
 assert.match(recoveryWorkflow, /steps\.recovery\.outputs\.needed == 'true'/);
 assert.match(recoveryWorkflow, /actions: write/);
