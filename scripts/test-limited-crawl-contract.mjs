@@ -20,6 +20,7 @@ assert.match(crawler, /automaticAnalysisSelection/);
 assert.match(crawler, /analysisQueueSelected/);
 assert.match(crawler, /manualReviewDisposition/);
 assert.match(crawler, /buildLimitedPolicyPlan/);
+assert.match(crawler, /GITHUB_RUN_NUMBER/);
 assert.match(crawler, /hydratePolicyAttachments/);
 assert.match(crawler, /miit-search-api-compact-fallback/);
 assert.match(crawler, /miit-search-api-rich-mirror-fallback/);
@@ -93,6 +94,7 @@ await testMiitOfficialMirrorFallback();
 await testMiitIndexedAttachmentAugmentsPrimaryPage();
 await testMiitAttachmentMirrorFallback();
 await testMiitOfficialHtmlFallback();
+await testMiitOfficialMobileMirrorFallback();
 
 console.log("[policy:crawl-contract-test] hourly schedule, MIIT official search/page/attachment fallbacks, bounded collection, and manual analysis contract passed");
 
@@ -550,19 +552,71 @@ async function testMiitOfficialHtmlFallback() {
     assert.equal(result.status, 0, output);
     assert.match(output, /official HTML fallback recovered 2 recent policy rows/);
     const payload = JSON.parse(await fs.readFile(outputPath, "utf8"));
-    assert.equal(payload.runStatus, "ok");
+    assert.equal(payload.runStatus, "degraded");
     assert.equal(payload.automaticAnalysisSelection, false);
     assert.equal(payload.counts.collected, 2);
     assert.ok(payload.counts.candidates >= 1);
     assert.equal(payload.counts.withFullText, payload.counts.candidates);
     assert.equal(payload.counts.analysisSelected, 0);
-    assert.equal(payload.sourceHealth[0].status, "ok");
+    assert.equal(payload.sourceHealth[0].status, "degraded");
     assert.equal(payload.sourceHealth[0].fallbackUsed, true);
     assert.deepEqual(payload.sourceHealth[0].fetchModes, ["miit-official-homepage-fallback"]);
     assert.ok(payload.candidates.every((item) => item.raw?.origin === "miit-official-homepage-fallback"));
   } finally {
     await new Promise((resolve) => server.close(resolve));
     await fs.rm(tempDir, { recursive: true, force: true });
+  }
+}
+
+async function testMiitOfficialMobileMirrorFallback() {
+  const policyText = "工业和信息化部发布的政策文件正文，说明实施范围、标准、监督要求及执行依据。".repeat(25);
+  const server = http.createServer((req, res) => {
+    const url = new URL(req.url ?? "/", "http://127.0.0.1");
+    if (url.pathname === "/api/search/info" || url.pathname === "/primary-zwgk/") {
+      res.writeHead(503); res.end("upstream temporarily unavailable"); return;
+    }
+    if (url.pathname === "/mobile-zwgk/") {
+      res.writeHead(200, { "content-type": "text/html; charset=utf-8" });
+      res.end('<div class="zwgk-zcwj"><ul><li><span>2026-10-08</span><a href="/zwgk/zcwj/wjfb/tz/art/2026/art_mirror_test.html" title="工业和信息化部关于发布新的正式政策通知">工业和信息化部关于发布新的正式政策通知</a></li></ul></div>');
+      return;
+    }
+    if (url.pathname === "/zwgk/zcwj/wjfb/tz/art/2026/art_mirror_test.html") {
+      res.writeHead(200, { "content-type": "text/html; charset=utf-8" });
+      res.end('<html><div class="TRS_Editor">' + policyText + "</div></html>"); return;
+    }
+    res.writeHead(404); res.end("not found");
+  });
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "miit-mobile-contract-"));
+  try {
+    await listenServer(server);
+    const address = server.address();
+    assert.ok(address && typeof address === "object");
+    const base = "http://127.0.0.1:" + address.port;
+    const file = path.join(dir, "out.json");
+    const result = await runChild(process.execPath, [
+      path.resolve("scripts/crawl-policy-sources.mjs"), "--source=miit_policy_library",
+      "--source-scan-limit=20", "--candidate-limit=24", "--ingest-limit=24",
+      "--since=2026-10-01", "--manual-selection-only", "--out=" + file
+    ], { cwd: process.cwd(), windowsHide: true, env: {
+      ...process.env,
+      MIIT_SEARCH_API_URLS: base + "/api/search/info",
+      MIIT_FALLBACK_LIST_URL: base + "/primary-zwgk/",
+      MIIT_HTML_MIRROR_URLS: base + "/mobile-zwgk/",
+      MIIT_SEARCH_ATTEMPTS: "1",
+      MIIT_SEARCH_TIMEOUT_MS: "1000"
+    } });
+    assert.equal(result.status, 0, result.stdout + "\n" + result.stderr);
+    const payload = JSON.parse(await fs.readFile(file, "utf8"));
+    assert.equal(payload.runStatus, "degraded");
+    assert.equal(payload.counts.candidates, 1);
+    assert.equal(payload.counts.withFullText, 1);
+    assert.equal(payload.counts.analysisSelected, 0);
+    assert.equal(payload.sourceHealth[0].fallbackUsed, true);
+    assert.ok(payload.sourceHealth[0].fetchModes.includes("miit-official-homepage-mirror-fallback"));
+    assert.equal(payload.candidates[0].raw.origin, "miit-official-homepage-mirror-fallback");
+  } finally {
+    await closeServer(server);
+    await fs.rm(dir, { recursive: true, force: true });
   }
 }
 

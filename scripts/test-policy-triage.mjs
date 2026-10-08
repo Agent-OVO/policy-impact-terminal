@@ -47,4 +47,43 @@ const explicitPlan = buildLimitedPolicyPlan(candidates, {
 });
 assert.ok(explicitPlan.analysisQueue.length >= 1);
 
-console.log("[policy:triage-test] deterministic L0-L3 triage and manual-selection gate passed");
+// Actual Actions run numbers advance only when a workflow starts. This
+// provides progress across skipped wall-clock cron windows without changing
+// the 24-item cap or the explicit manual-analysis gate.
+const pool = Array.from({ length: 107 }, (_, i) => ({
+  title: "关于实施政策编号" + String(i).padStart(3, "0") + "的通知",
+  publishDate: "2026-10-01",
+  sourceUrl: "https://example.gov.cn/policy/" + i,
+  triage: {
+    analysisDepth: "L3",
+    reviewPriority: 100 - i,
+    requiresManualAnalysis: true,
+    excluded: false
+  },
+  fullText: "正式政策原文".repeat(80)
+}));
+const seen = new Set();
+for (let sequence = 1; sequence <= 7; sequence += 1) {
+  const result = buildLimitedPolicyPlan(pool, {
+    candidateLimit: 24,
+    ingestLimit: 24,
+    selectionSequence: sequence,
+    automaticAnalysisSelection: false
+  });
+  assert.equal(result.coverage.mode, "run_sequence_rotation");
+  assert.equal(result.candidatePool.length, 24);
+  assert.equal(result.counts.analysisSelected, 0);
+  for (const item of pool.slice(0, 8)) {
+    assert.ok(result.candidatePool.some(row => row.sourceUrl === item.sourceUrl));
+  }
+  result.candidatePool.forEach(row => seen.add(row.sourceUrl));
+}
+assert.equal(seen.size, 107, "all stable candidates reachable within seven successive executed runs");
+const repeat = buildLimitedPolicyPlan(pool, { candidateLimit: 24, selectionSequence: 3 });
+const repeated = buildLimitedPolicyPlan(pool, { candidateLimit: 24, selectionSequence: 3 });
+assert.deepEqual(repeat.candidatePool.map(row => row.sourceUrl), repeated.candidatePool.map(row => row.sourceUrl));
+const standalone = buildLimitedPolicyPlan(pool, { candidateLimit: 24 });
+assert.equal(standalone.coverage.mode, "ranked");
+assert.equal(standalone.candidatePool.length, 24);
+
+console.log("[policy:triage-test] deterministic L0-L3 triage, 24-cap run-sequence coverage, and manual-selection gate passed");
