@@ -864,8 +864,13 @@ function mergeIndexedAttachmentHtml(candidate, primaryHtml) {
 
 function attachFullText(candidate, value, html = "", attachmentResult = null) {
   const fullText = normalizePolicyText(value);
-  const officialPublishedAt = extractOfficialPublishedAtFromHtml(html, candidate.sourceKey) ?? candidate.officialPublishedAt ?? candidate.publishDateTime;
-  const publishDate = candidate.publishDate ?? (officialPublishedAt ? officialPublishedAt.slice(0, 10) : null);
+  const verifiedPagePublishedAt = extractOfficialPublishedAtFromHtml(html, candidate.sourceKey);
+  const officialPublishedAt = verifiedPagePublishedAt ?? candidate.officialPublishedAt ?? candidate.publishDateTime;
+  // The MIIT search index can lag or report a different date from the official
+  // publication page. Prefer only a date actually parsed from that page.
+  const publishDate = candidate.sourceKey === "miit_policy_library" && verifiedPagePublishedAt
+    ? verifiedPagePublishedAt.slice(0, 10)
+    : candidate.publishDate ?? (officialPublishedAt ? officialPublishedAt.slice(0, 10) : null);
   const baseCandidate = withoutHydrationFallback(candidate);
   return {
     ...baseCandidate,
