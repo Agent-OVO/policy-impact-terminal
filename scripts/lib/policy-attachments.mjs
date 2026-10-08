@@ -13,17 +13,17 @@ const DEFAULT_MAX_ZIP_ENTRY_BYTES = 40 * 1024 * 1024;
 const MIN_ATTACHMENT_TEXT_LENGTH = 8;
 const WRAPPER_TEXT_LENGTH = 1_200;
 const ATTACHMENT_TEXT_PATTERN = /附件|下载|附表|附录|正文(?:文件)?|全文(?:文件)?|名单(?:文件)?|目录(?:文件)?|清单(?:文件)?|表格(?:文件)?|材料(?:文件)?/i;
-const ATTACHMENT_DECLARATION_PATTERN = /(?:附件\s*[:：]?\s*(?:\d+[.、．)]?\s*)?.{0,180}\.(?:pdf|ofd|docx?|xlsx?|pptx?|csv|txt|json|xml|zip)|详见附件|请见附件|附件下载|附件如下)/i;
+const ATTACHMENT_DECLARATION_PATTERN = /(?:附件\s*[:：]?\s*(?:\d+[.、．)]?\s*)?.{0,180}\.(?:pdf|ofd|docx?|xlsx?|pptx?|wps|csv|txt|json|xml|zip)|详见附件|请见附件|附件下载|附件如下)/i;
 const SHORT_ISSUANCE_WRAPPER_PATTERN = /(?:现将|现予).{0,160}(?:印发|发布|公布).{0,120}(?:请|执行|落实|遵照|给你们)/s;
 const TITLE_ISSUANCE_PATTERN = /关于(?:印发|发布|公布|转发)《[^》]{4,120}》/;
 const INTERPRETATION_LINK_PATTERN = /政策解读|一图读懂|图解|答记者问|新闻发布|访谈|\/jd\/|\/zctj\/|\/jiedu\//i;
 const TEXT_TYPES = new Set(["pdf", "ofd", "docx", "xlsx", "pptx", "txt", "csv", "json", "xml", "html", "zip"]);
 const FILE_ATTACHMENT_TYPES = new Set([
-  "pdf", "ofd", "doc", "docx", "xls", "xlsx", "ppt", "pptx",
+  "pdf", "ofd", "doc", "docx", "wps", "xls", "xlsx", "ppt", "pptx",
   "csv", "txt", "json", "xml", "zip", "jpg", "png", "tiff", "bmp", "gif", "webp"
 ]);
 const EXTENSION_TYPES = new Map([
-  ["pdf", "pdf"], ["ofd", "ofd"], ["doc", "doc"], ["docx", "docx"],
+  ["pdf", "pdf"], ["ofd", "ofd"], ["doc", "doc"], ["docx", "docx"], ["wps", "wps"],
   ["xls", "xls"], ["xlsx", "xlsx"], ["ppt", "ppt"], ["pptx", "pptx"],
   ["csv", "csv"], ["txt", "txt"], ["json", "json"], ["xml", "xml"],
   ["html", "html"], ["htm", "html"], ["zip", "zip"],
@@ -547,7 +547,7 @@ function normalizeLogicalAttachmentTitle(value) {
   return cleanText(value)
     .normalize("NFKC")
     .toLowerCase()
-    .replace(/\.(?:pdf|ofd|docx?|xlsx?|pptx?|csv|txt|json|xml|html?|zip)$/i, "")
+    .replace(/\.(?:pdf|ofd|docx?|xlsx?|pptx?|wps|csv|txt|json|xml|html?|zip)$/i, "")
     .replace(/[《》“”"'【】()（）\[\],，.。;；:：\-_—\s]/g, "");
 }
 

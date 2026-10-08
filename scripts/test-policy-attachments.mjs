@@ -22,6 +22,41 @@ const discovered = discoverPolicyAttachments(discoveryHtml, "https://example.gov
 assert.deepEqual(discovered.map((item) => item.type), ["pdf", "xlsx", "doc", "ofd"]);
 assert.ok(discovered.every((item) => !/答记者问|一图读懂/.test(item.title)));
 assert.equal(discovered[1].url, "https://example.gov.cn/policy/list.xlsx");
+// MIIT officially publishes some announced annexes in Kingsoft WPS format.
+// An unsupported text extractor must NOT make the link disappear: download,
+// checksum and retain an explicit manual-extraction requirement instead.
+const officialWpsPage = `
+  <div class="TRS_Editor">
+    附件：1.<a href="/cms_files/attach/indicator.wps">国家绿色算力设施评价指标体系.wps</a>
+    2.<a href="/cms_files/attach/summary.wps">推荐汇总表.wps</a>
+  </div>`;
+const officialWpsLinks = discoverPolicyAttachments(
+  officialWpsPage,
+  "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/test.html"
+);
+assert.deepEqual(
+  officialWpsLinks.map(item => item.type),
+  ["wps", "wps"],
+  "official WPS files must be discoverable even without a text extractor"
+);
+const capturedWps = await hydratePolicyAttachments({
+  html: officialWpsPage,
+  pageText: "附件：请参照附件1和附件2执行推荐工作。",
+  policyTitle: "工业和信息化部国家绿色算力设施推荐工作的通知",
+  baseUrl: "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/test.html",
+  fetchBinary: async () => ({
+    buffer: Buffer.from("official WPS attachment binary payload"),
+    contentType: "application/octet-stream"
+  })
+});
+assert.equal(capturedWps.discoveredAttachmentCount, 2);
+assert.equal(capturedWps.downloadedAttachmentCount, 2);
+assert.equal(capturedWps.attachmentCollectionStatus, "complete");
+assert.equal(capturedWps.attachmentEvidenceIncomplete, false);
+assert.equal(capturedWps.attachmentManualReviewRequired, true);
+assert.equal(capturedWps.attachmentExtractionStatus, "downloaded_unextracted");
+assert.ok(capturedWps.attachments.every(x => x.downloadStatus === "downloaded" && x.sha256?.length === 64));
+
 const pdfViewerUrl = "https://example.gov.cn/cms_files/script/pdfjs/web/viewer.html?file=%2Fattachments%2Fplan.pdf";
 const withDirectAndViewer = discoverPolicyAttachments(
   `<a href="/attachments/plan.pdf">正式规划PDF</a><iframe src="${pdfViewerUrl}" title="嵌入附件"></iframe>`,
