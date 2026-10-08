@@ -95,6 +95,7 @@ await testMiitIndexedAttachmentAugmentsPrimaryPage();
 await testMiitAttachmentMirrorFallback();
 await testMiitOfficialHtmlFallback();
 await testMiitOfficialMobileMirrorFallback();
+await testMissingOfficialAnnexDegradesSourceHealth();
 
 console.log("[policy:crawl-contract-test] hourly schedule, MIIT official search/page/attachment fallbacks, bounded collection, and manual analysis contract passed");
 
@@ -614,6 +615,76 @@ async function testMiitOfficialMobileMirrorFallback() {
     assert.equal(payload.sourceHealth[0].fallbackUsed, true);
     assert.ok(payload.sourceHealth[0].fetchModes.includes("miit-official-homepage-mirror-fallback"));
     assert.equal(payload.candidates[0].raw.origin, "miit-official-homepage-mirror-fallback");
+  } finally {
+    await closeServer(server);
+    await fs.rm(dir, { recursive: true, force: true });
+  }
+}
+
+async function testMissingOfficialAnnexDegradesSourceHealth() {
+  const pageText = "关于做好年度设备质量监管、项目申报和财政资金监督的工作要求。".repeat(30)
+    + "附件：1.年度完整申报名单.xlsx。请依照附件实施。";
+  let base = "";
+  const server = http.createServer((req, res) => {
+    const uri = new URL(req.url ?? "/", "http://127.0.0.1");
+    if (uri.pathname === "/api/search/info") {
+      const records = uri.searchParams.get("p") === "2" ? [] : [{
+        data: {
+          title: "三部门关于开展2026年度设备质量监管申报工作的通知",
+          url: base + "/article.html",
+          jsearch_date: "2026-09-15",
+          filenumbername: "工信厅联〔2026〕123号",
+          publishgroupname: "工业和信息化部",
+          infoextends: "{}",
+          infocontent: pageText,
+          typename: "通知"
+        }
+      }];
+      res.writeHead(200, { "content-type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({ success: true, data: { searchResult: { dataResults: records } } }));
+      return;
+    }
+    if (uri.pathname === "/article.html") {
+      res.writeHead(200, { "content-type": "text/html; charset=utf-8" });
+      res.end('<div class="TRS_Editor">' + pageText + "</div>");
+      return;
+    }
+    res.writeHead(404); res.end("not found");
+  });
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "miit-missing-annex-test-"));
+  try {
+    await listenServer(server);
+    const address = server.address();
+    assert.ok(address && typeof address === "object");
+    base = "http://127.0.0.1:" + address.port;
+    const out = path.join(dir, "missing-annex.json");
+    const run = await runChild(process.execPath, [
+      path.resolve("scripts/crawl-policy-sources.mjs"),
+      "--source=miit_policy_library",
+      "--source-scan-limit=20",
+      "--candidate-limit=24",
+      "--ingest-limit=24",
+      "--since=2026-09-01",
+      "--manual-selection-only",
+      "--out=" + out
+    ], { cwd: process.cwd(), windowsHide: true, env: {
+      ...process.env,
+      MIIT_SEARCH_API_URLS: base + "/api/search/info",
+      MIIT_FALLBACK_LIST_URL: base + "/not-present",
+      MIIT_HTML_MIRROR_URLS: base + "/not-present",
+      MIIT_SEARCH_ATTEMPTS: "1",
+      MIIT_SEARCH_TIMEOUT_MS: "1000"
+    } });
+    assert.equal(run.status, 0, run.stdout + "\n" + run.stderr);
+    const data = JSON.parse(await fs.readFile(out, "utf8"));
+    assert.equal(data.counts.withFullText, 1, "full policy body should still be usable");
+    assert.equal(data.counts.errors, 0, "missing annex is distinct from source-network errors");
+    assert.equal(data.counts.analysisSelected, 0);
+    assert.equal(data.runStatus, "degraded", "annex gap must prevent a false fully healthy run");
+    assert.equal(data.sourceHealth[0].status, "degraded");
+    assert.equal(data.sourceHealth[0].attachmentEvidenceIncompleteCount, 1);
+    assert.equal(data.sourceHealth[0].attachmentManualReviewRequiredCount, 0);
+    assert.equal(data.candidates[0].raw.attachmentCollectionStatus, "missing");
   } finally {
     await closeServer(server);
     await fs.rm(dir, { recursive: true, force: true });
