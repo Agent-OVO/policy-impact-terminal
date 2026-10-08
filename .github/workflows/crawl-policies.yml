@@ -3,7 +3,8 @@ name: Crawl policy sources hourly
 on:
   schedule:
     # Every hour at minute 17. GitHub cron is UTC; frequency is timezone-independent.
-    - cron: "17 * * * *"
+    # Same minute/frequency; syntax refresh re-registers the GitHub schedule actor.
+    - cron: "17 */1 * * *"
   workflow_dispatch:
     inputs:
       source:

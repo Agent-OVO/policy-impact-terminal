@@ -9,7 +9,8 @@ on:
   schedule:
     # Best-effort backstop only. The workflow_run timer chain below is the
     # independent remote trigger that does not rely on the next cron event.
-    - cron: "4 * * * *"
+    # Equivalent hourly step, preserving minute 4 and the minute-34 backstop.
+    - cron: "4 */1 * * *"
     - cron: "34 * * * *"
   workflow_dispatch:
     inputs:

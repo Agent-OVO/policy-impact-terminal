@@ -8,7 +8,7 @@ import {
 } from "./lib/hourly-policy-operations.mjs";
 
 const workflow = await fs.readFile(".github/workflows/crawl-policies.yml", "utf8");
-assert.match(workflow, /cron:\s*"17 \* \* \* \*"/);
+assert.match(workflow, /cron:\s*"17 \*\/1 \* \* \*"/);
 assert.match(workflow, /--manual-selection-only/);
 assert.doesNotMatch(workflow, /--auto-select-analysis/);
 assert.equal(HOURLY_POLICY_OPERATIONS_VERSION, "hourly-policy-operations-v1");

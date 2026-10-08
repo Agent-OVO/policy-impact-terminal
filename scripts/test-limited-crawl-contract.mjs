@@ -32,14 +32,15 @@ assert.match(crawler, /awaiting_evidence/);
 assert.match(crawler, /DEFAULT_CANDIDATE_LIMIT = 24/);
 assert.match(crawler, /DEFAULT_INGEST_LIMIT = 24/);
 
-assert.match(workflow, /cron: "17 \* \* \* \*"/);
+assert.match(workflow, /cron: "17 \*\/1 \* \* \*"/);
 assert.match(workflow, /--manual-selection-only/);
 assert.match(workflow, /policy:triage-test/);
 assert.match(workflow, /policy:crawl-contract-test/);
 assert.match(workflow, /policy:hourly-operations-test/);
 assert.doesNotMatch(workflow, /--auto-select-analysis/);
 
-for (const minute of [7, 22, 37, 52]) {
+assert.match(recoveryWorkflow, /cron: "7 \*\/1 \* \* \*"/);
+for (const minute of [22, 37, 52]) {
   assert.match(recoveryWorkflow, new RegExp(`cron: "${minute} \\* \\* \\* \\*"`));
 }
 assert.doesNotMatch(recoveryWorkflow, /cron: "7,22,37,52/);
@@ -58,6 +59,8 @@ assert.match(recoveryWorkflow, /delay_minutes="85"/);
 assert.match(recoveryWorkflow, /delay_minutes="15"/);
 
 assert.match(livenessWorkflow, /workflow_run:/);
+assert.match(livenessWorkflow, /cron: "4 \*\/1 \* \* \*"/);
+assert.match(livenessWorkflow, /cron: "34 \* \* \* \*"/);
 assert.match(livenessWorkflow, /Crawl policy sources hourly/);
 assert.match(livenessWorkflow, /Recover missed policy collection/);
 assert.match(livenessWorkflow, /actions: write/);
