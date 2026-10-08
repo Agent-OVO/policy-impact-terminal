@@ -3,7 +3,8 @@ name: Build production operations summary
 on:
   schedule:
     # Daily at 00:35 UTC (08:35 Beijing / 09:35 Tokyo).
-    - cron: "35 0 * * *"
+    # Equivalent daily step, still 00:35 UTC, used for schedule re-registration.
+    - cron: "35 0 */1 * *"
   workflow_dispatch:
 
 permissions:

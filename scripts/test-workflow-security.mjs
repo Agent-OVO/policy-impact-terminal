@@ -61,7 +61,7 @@ assert.match(staleJobCleanupWorkflow, /if:\s*always\(\)/);
 assert.match(staleJobCleanupWorkflow, /retention-days:\s*30/);
 
 const operationsSummaryWorkflow = await fs.readFile(path.join(workflowDir, "production-operations-summary.yml"), "utf8");
-assert.match(operationsSummaryWorkflow, /cron:\s*"35 0 \* \* \*"/);
+assert.match(operationsSummaryWorkflow, /cron:\s*"35 0 \*\/1 \* \*"/);
 assert.match(operationsSummaryWorkflow, /node scripts\/build-production-operations-summary\.mjs/);
 assert.match(operationsSummaryWorkflow, /collect_workflow_runs "crawl-policies\.yml" 200/);
 assert.match(operationsSummaryWorkflow, /collect_workflow_runs "recover-policy-collection\.yml" 50/);
