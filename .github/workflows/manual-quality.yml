@@ -52,7 +52,7 @@ jobs:
       # Remove this step before merging; the resulting lock must be committed.
       - name: Generate audited dependency lock candidate (temporary)
         run: |
-          npm audit fix --package-lock-only --ignore-scripts --no-fund
+          npm audit fix --package-lock-only --ignore-scripts --no-fund --audit-level=high
           git diff --exit-code -- package.json
           npm ci --ignore-scripts --no-fund
           npm audit --audit-level=high
