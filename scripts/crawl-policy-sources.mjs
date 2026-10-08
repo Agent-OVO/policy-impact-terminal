@@ -386,7 +386,7 @@ async function fetchNdrcDocuments(source, args) {
     throw new Error("NDRC API response did not contain data.resultList.");
   }
 
-  return rows.map((item) =>
+  const apiCandidates = rows.map((item) =>
     makeCandidate(source, {
       title: item.title ?? item.dreTitle,
       sourceUrl: item.url,
@@ -401,6 +401,60 @@ async function fetchNdrcDocuments(source, args) {
       }
     })
   );
+
+  // The legacy searchable index can lag behind the published NDRC policy
+  // catalog. Read only the NDRC's own policy-order and notice indexes as
+  // complementary discovery within the existing ndrc_policy_documents source.
+  const indexUrls = [
+    "https://www.ndrc.gov.cn/xxgk/zcfb/fzggwl/",
+    "https://www.ndrc.gov.cn/xxgk/zcfb/tz/"
+  ];
+  const officialCandidates = [];
+  for (const indexUrl of indexUrls) {
+    try {
+      const html = await fetchText(indexUrl);
+      const $ = cheerio.load(html);
+      $("a[href]").each((_, element) => {
+        const href = $(element).attr("href");
+        if (!href) return;
+        let url;
+        try {
+          url = new URL(href, indexUrl);
+        } catch {
+          return;
+        }
+        if (url.hostname !== "www.ndrc.gov.cn") return;
+        // The dated NDRC URLs identify original policies, not news or commentary.
+        if (!/^\/xxgk\/zcfb\/(?:fzggwl|tz)\/20\d{4}\/t20\d{6}_\d+(?:_ext)?\.html$/i.test(url.pathname)) return;
+        url.pathname = url.pathname.replace(/_ext\.html$/i, ".html");
+        const title = cleanText($(element).text());
+        if (title.length < 6 || /政策解读|答记者问|一图读懂|图解/.test(title)) return;
+        const dateFromPath = url.pathname.match(/\/t(20\d{2})(\d{2})(\d{2})_/);
+        const dateText = dateFromPath
+          ? `${dateFromPath[1]}-${dateFromPath[2]}-${dateFromPath[3]}`
+          : null;
+        officialCandidates.push(makeCandidate(source, {
+          title,
+          sourceUrl: url.href,
+          publishDate: dateText,
+          publishDateTime: dateText,
+          policyNo: extractPolicyNo(title),
+          raw: { origin: "ndrc-official-policy-index", indexUrl }
+        }));
+      });
+    } catch (error) {
+      printWorkflowWarning(`NDRC policy index unavailable (${indexUrl}): ${getErrorMessage(error)}`);
+    }
+  }
+  const byUrl = new Map();
+  for (const item of [...officialCandidates, ...apiCandidates]) {
+    if (item.sourceUrl && !byUrl.has(item.sourceUrl)) byUrl.set(item.sourceUrl, item);
+  }
+  const merged = [...byUrl.values()].sort((a, b) =>
+    (b.publishDate || "").localeCompare(a.publishDate || "")
+  );
+  console.log(`[crawl] NDRC API=${apiCandidates.length}, officialCatalog=${officialCandidates.length}, unique=${merged.length}`);
+  return merged.slice(0, args.sourceScanLimit);
 }
 
 async function fetchMiitDocuments(source, args) {
