@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updatedAt": "2026-07-28",
+  "updatedAt": "2026-10-09",
   "reports": [
     {"policyId":"209014c2-561d-4421-a82b-b9e16f537d3f","category":"A","migrationStatus":"full","title":"南水北调中线干线工程供水价格"},
     {"policyId":"2d6943d5-1653-40d9-a148-a98aaf6fca82","category":"A","migrationStatus":"full","title":"先进计算赋能新质生产力典型应用案例名单"},
@@ -48,6 +48,8 @@
     {"policyId":"2595c38a-3b3c-4003-be20-aa4da4b2feb3","category":"B","migrationStatus":"full","title":"农业领域机器人典型应用场景遴选"},
     {"policyId":"4ce9cfc5-f9ca-48bb-a265-3ee7fdc9c39d","category":"C","migrationStatus":"light","title":"上海市暂时调整实施有关行政法规规定的批复"},
     {"policyId":"712467e3-0b35-4dfb-b4cb-0f686a2b42d3","category":"C","migrationStatus":"light","title":"国务院2026年度立法工作计划"},
-    {"policyId":"7d457090-64b4-4985-94f3-87f72f6ee3cb","category":"C","migrationStatus":"light","title":"行政复议法实施条例"}
+    {"policyId":"7d457090-64b4-4985-94f3-87f72f6ee3cb","category":"C","migrationStatus":"light","title":"行政复议法实施条例"},
+    {"policyId":"5c3ef1ae-306a-492a-aa01-e94163f3b52a","category":"B","migrationStatus":"full","title":"水电站大坝运行安全监督管理规定（2026年修订）"},
+    {"policyId":"5d00751a-f47e-4cc7-8a04-5c8f921802a9","category":"B","migrationStatus":"full","title":"新型电池产业发展十五五规划"}
   ]
 }
