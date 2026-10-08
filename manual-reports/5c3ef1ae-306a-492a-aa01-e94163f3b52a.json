@@ -1,0 +1,567 @@
+{
+  "id": "5c3ef1ae-306a-492a-aa01-e94163f3b52a",
+  "policyId": "5c3ef1ae-306a-492a-aa01-e94163f3b52a",
+  "analyzerVersion": "agent-manual-20261009",
+  "analysisMethod": "explicit-selected-official-source-comparative",
+  "generatedAt": "2026-10-09T01:15:00+08:00",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "部门规章",
+  "substantivePolicyType": "水电站大坝运行安全监管",
+  "primaryActionType": "监管治理",
+  "policySignalStrength": "medium",
+  "implementationCertainty": "high",
+  "analysisDepth": "L3",
+  "analysisDepthReason": "法律责任清晰，但核心检查制度主要沿用2015年规则，经营增量只有个别整改和在线监控合规补差，不能认定所有设施新增采购。",
+  "companyMappingMode": "no_company",
+  "summary": {
+    "id": "5c3ef1ae-306a-492a-aa01-e94163f3b52a",
+    "title": "《水电站大坝运行安全监督管理规定》2026年第47号令",
+    "issuer": "国家发展改革委",
+    "source": "国家发展改革委官网",
+    "publishDate": "2026-09-28",
+    "status": "published",
+    "confidence": 83,
+    "industryCount": 3,
+    "companyCount": 0,
+    "evidenceCount": 6,
+    "primarySignal": "在线监控表达更普遍、细化风险评级与隐患治理；年度详查、定期检查及现有在线监控有2015年制度基础",
+    "category": "大坝运行安全与合规技术服务"
+  },
+  "policy": {
+    "id": "5c3ef1ae-306a-492a-aa01-e94163f3b52a",
+    "title": "《水电站大坝运行安全监督管理规定》2026年第47号令",
+    "issuer": "国家发展改革委",
+    "publishDate": "2026-09-28",
+    "effectiveDate": "2026-09-14",
+    "sourceUrl": "https://zfxxgk.ndrc.gov.cn/wap/iteminfo.jsp?id=20664",
+    "sourceName": "国家发展改革委",
+    "policyNo": "国家发展改革委令第47号",
+    "publicPageDate": "2026-09-28",
+    "scope": "以发电为主，总装机容量五万千瓦及以上的大中型水电站大坝",
+    "status": "已施行"
+  },
+  "brief": {
+    "judgement": "有限观察：2026年第47号令于9月14日公布并施行（官网政策条目9月28日呈现），2015年已规定常态监测、年度详查、定期检查、特定大坝在线监控及病险坝专项治理。新规扩大在线监控条文的普遍性，并以“较大及以上工程隐患”明确专项治理门槛，但增量资产、投资、订单均未证明，不映射上市公司。",
+    "summary": "比较2015年第23号令与2026年第47号令，区分存量安全义务与新规可能增加的在线监控覆盖、病险坝治理需求。公开规章不存在特定供应商、财政采购预算和新增项目清单。",
+    "keyPoints": [
+      "原有5万千瓦适用门槛未改变，不等于所有水库均受同一规定影响。",
+      "2015年已有年度详查、周期检查及特定坝在线监控要求；不能将这些总量当作新增订单。",
+      "第八条改为普遍的“在线监控”表述，不再逐项列出2015年第八条三类特定大坝；法规并未列出逐坝安装改造清单。",
+      "2015年第二十二条已规定病险坝及正常坝重大隐患的专项治理；2026年第二十三条表述为“较大及以上工程隐患”，需先核对分类标准和实际整改项目。"
+    ],
+    "methodology": "国家发展改革委2026年全文、国家能源局2015年旧规条款逐项对照；以执行主体、合规差距、预算招标、实际验收分层。不把法规直接等同上市公司收入。"
+  },
+  "actions": [
+    {
+      "id": "a1",
+      "title": "在线监控与数据报送",
+      "actionType": "监管义务",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "需要运营现状评估、技术规范、具体整改任务和采购资金",
+      "body": "电力企业对适用范围大坝组织在线监控并按要求报送资料；但新建、改造范围取决于现状差距。",
+      "signal": "constraint",
+      "confidence": 87,
+      "clauseIds": [
+        "c2"
+      ],
+      "sortOrder": 1
+    },
+    {
+      "id": "a2",
+      "title": "年度详查和周期定期检查",
+      "actionType": "持续监管",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "需要运营现状评估、技术规范、具体整改任务和采购资金",
+      "body": "保留年度详查及通常五年一次的定期检查；属于长期存量服务，不可视为法令新增市场。",
+      "signal": "constraint",
+      "confidence": 85,
+      "clauseIds": [
+        "c3"
+      ],
+      "sortOrder": 2
+    },
+    {
+      "id": "a3",
+      "title": "病险坝隐患分类与治理",
+      "actionType": "风险治理",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "需要运营现状评估、技术规范、具体整改任务和采购资金",
+      "body": "2015年已要求病险坝和正常坝重大缺陷隐患专项设计审查施工验收；2026年把“较大及以上工程隐患”写入专项治理条件。是否扩大具体治理工程，须有分级认定、整改清单及预算。",
+      "signal": "constraint",
+      "confidence": 83,
+      "clauseIds": [
+        "c4"
+      ],
+      "sortOrder": 3
+    },
+    {
+      "id": "a4",
+      "title": "主体责任与法律责任",
+      "actionType": "法律约束",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "需要运营现状评估、技术规范、具体整改任务和采购资金",
+      "body": "监管检查及处罚加强合规约束，外包专业检测不转移电力企业主体责任。",
+      "signal": "constraint",
+      "confidence": 81,
+      "clauseIds": [
+        "c5"
+      ],
+      "sortOrder": 4
+    }
+  ],
+  "clauses": [
+    {
+      "id": "c1",
+      "no": "第三条",
+      "title": "适用范围未扩展至所有水库",
+      "excerpt": "本规定适用于以发电为主且总装机容量五万千瓦及以上的大、中型水电站大坝（以下简称大坝）。",
+      "body": "范围与2015年规则相同，不应以所有水库推算新增设备市场。",
+      "confidence": 95,
+      "keywords": [
+        "安全监管",
+        "隐患"
+      ],
+      "industries": [
+        "水电站运行安全管理"
+      ],
+      "sortOrder": 1
+    },
+    {
+      "id": "c2",
+      "no": "第八条",
+      "title": "在线监控的覆盖措辞变化",
+      "excerpt": "电力企业应当加强大坝安全监测与信息化建设，及时整理分析监测成果，在线监控大坝运行安全状态，并且按照要求向大坝中心报送大坝运行安全信息。",
+      "body": "旧规单独列明高坝、大库容和病险坝在线监控要求；新规的普遍表述可能提高部分大坝在线监控覆盖要求，但实施标准和缺口需逐坝核实。",
+      "confidence": 83,
+      "keywords": [
+        "在线监控",
+        "信息报送"
+      ],
+      "industries": [
+        "水电站运行安全管理"
+      ],
+      "sortOrder": 2
+    },
+    {
+      "id": "c3",
+      "no": "第十条、第十九条",
+      "title": "年度详查及定期检查仍属既有制度",
+      "excerpt": "定期检查一般每五年进行一次，检查时间一般不超过一年半。",
+      "body": "新规第十条继续规定每年详查，第十九条规定五年定期检查及3—10年风险调整区间；旧规第十条、第十九条已有相同主要制度，不将存量检查当作新订单。",
+      "confidence": 95,
+      "keywords": [
+        "安全监管",
+        "隐患"
+      ],
+      "industries": [
+        "水电站运行安全管理"
+      ],
+      "sortOrder": 3
+    },
+    {
+      "id": "c4",
+      "no": "第二十一至二十四条、第二十八条",
+      "title": "病险坝风险分类、专项治理与注册联动",
+      "excerpt": "大坝较大及以上工程隐患的治理应当进行专项设计、审查、施工和验收。",
+      "body": "旧规第二十二条已经明确病险坝与正常坝重大工程缺陷、隐患专项处理；新规第二十三条采用“较大及以上工程隐患”标准，并结合注册降级、注销安排。是否实质扩大招采，需要事故隐患分级依据和具体整改项目。",
+      "confidence": 95,
+      "keywords": [
+        "安全监管",
+        "隐患"
+      ],
+      "industries": [
+        "水电站运行安全管理"
+      ],
+      "sortOrder": 4
+    },
+    {
+      "id": "c5",
+      "no": "第十八条、第三十五条",
+      "title": "委托服务不转移责任与隐患治理处罚",
+      "excerpt": "电力企业委托大坝运行安全专业技术服务单位承担大坝运行安全分析、监测、测试、检验、检查、维护等具体工作的，大坝运行安全责任仍由委托方承担。",
+      "body": "旧规第十八条已作相同主体责任规定；新规第三十五、三十六条按现行安全生产法衔接事故隐患治理、风险分级与隐患制度相关责任。处罚压力不能直接折算检测服务订单。",
+      "confidence": 95,
+      "keywords": [
+        "安全监管",
+        "隐患"
+      ],
+      "industries": [
+        "水电站运行安全管理"
+      ],
+      "sortOrder": 5
+    }
+  ],
+  "chainNodes": [
+    {
+      "id": "n1",
+      "title": "大坝在线监测与运行信息系统",
+      "subtitle": "传感器、采集平台、远程监管数据",
+      "section": "upstream",
+      "relation": "watch_only",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 75,
+      "description": "电力企业依法承担在线监控和数据报送责任，是否产生增量采购取决于已有系统合规差距。",
+      "clauseIds": [
+        "c2"
+      ],
+      "companyIds": [],
+      "evidenceIds": [
+        "e1",
+        "e2"
+      ],
+      "impactReason": "条文要求与存量技术门槛比较后可能产生部分升级需求。",
+      "verificationSignals": [
+        "在线监控技术细则",
+        "特定大坝差距评估",
+        "正式采购公告"
+      ]
+    },
+    {
+      "id": "n2",
+      "title": "大坝检验监测与安全评估服务",
+      "subtitle": "年度检查、五年周期检验及运维",
+      "section": "midstream",
+      "relation": "existing_demand",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 81,
+      "description": "企业年度与周期安全检查属于法定存量义务，采购比例及规模受内部团队、旧合同影响。",
+      "clauseIds": [
+        "c3"
+      ],
+      "companyIds": [],
+      "evidenceIds": [
+        "e3"
+      ],
+      "impactReason": "核对2015年规则后主要归类为旧有工作，只有检查范围扩大才可能形成增量。",
+      "verificationSignals": [
+        "检查计划年度变化",
+        "外包采购比例",
+        "检验服务合同续期与新增区分"
+      ]
+    },
+    {
+      "id": "n3",
+      "title": "病险坝治理设计、施工与复核",
+      "subtitle": "具体隐患对应的定向整改",
+      "section": "downstream",
+      "relation": "conditional_demand",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 74,
+      "description": "2015年病险坝专项治理已有基础，2026年较大及以上隐患的专项治理是否带来新增工作，需核查分级标准、实际认定、预算、招标和验收。",
+      "clauseIds": [
+        "c4"
+      ],
+      "companyIds": [],
+      "evidenceIds": [
+        "e4",
+        "e6"
+      ],
+      "impactReason": "旧规已有专项治理，只有新标准相对旧规形成可证实的新增治理数量与合同，才归因为本次修订。",
+      "verificationSignals": [
+        "病险坝公示/命令",
+        "专项资金批复",
+        "隐患治理招投标和验收"
+      ]
+    }
+  ],
+  "chainEdges": [],
+  "companies": [],
+  "policyIndustryMap": [
+    {
+      "id": "pi1",
+      "industry": "大坝在线监测与运行信息系统",
+      "policyAction": "在线监控与数据报送",
+      "impactType": "conditional_compliance",
+      "impactDirection": "conditional",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "电力企业依法承担在线监控和数据报送责任，是否产生增量采购取决于已有系统合规差距。",
+      "relatedNodeIds": [
+        "n1"
+      ],
+      "watchSignals": [
+        "在线监控技术细则",
+        "特定大坝差距评估",
+        "正式采购公告"
+      ]
+    },
+    {
+      "id": "pi2",
+      "industry": "大坝检验监测与安全评估服务",
+      "policyAction": "年度详查和周期定期检查",
+      "impactType": "existing_compliance",
+      "impactDirection": "conditional",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "企业年度与周期安全检查属于法定存量义务，采购比例及规模受内部团队、旧合同影响。",
+      "relatedNodeIds": [
+        "n2"
+      ],
+      "watchSignals": [
+        "检查计划年度变化",
+        "外包采购比例",
+        "检验服务合同续期与新增区分"
+      ]
+    },
+    {
+      "id": "pi3",
+      "industry": "病险坝治理设计、施工与复核",
+      "policyAction": "病险坝隐患分类与治理",
+      "impactType": "conditional_compliance",
+      "impactDirection": "conditional",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "2015年病险坝专项治理已有基础，2026年较大及以上隐患的专项治理是否带来新增工作，需核查分级标准、实际认定、预算、招标和验收。",
+      "relatedNodeIds": [
+        "n3"
+      ],
+      "watchSignals": [
+        "病险坝公示/命令",
+        "专项资金批复",
+        "隐患治理招投标和验收"
+      ]
+    }
+  ],
+  "industryChain": [
+    {
+      "id": "ic1",
+      "chainName": "大坝在线监测与运行信息系统：法规责任到经营验证",
+      "nodes": [
+        {
+          "id": "n1",
+          "position": "upstream",
+          "evidenceLevel": "strong",
+          "policySensitivity": "medium",
+          "description": "电力企业依法承担在线监控和数据报送责任，是否产生增量采购取决于已有系统合规差距。",
+          "companyIds": []
+        }
+      ]
+    },
+    {
+      "id": "ic2",
+      "chainName": "大坝检验监测与安全评估服务：法规责任到经营验证",
+      "nodes": [
+        {
+          "id": "n2",
+          "position": "midstream",
+          "evidenceLevel": "strong",
+          "policySensitivity": "medium",
+          "description": "企业年度与周期安全检查属于法定存量义务，采购比例及规模受内部团队、旧合同影响。",
+          "companyIds": []
+        }
+      ]
+    },
+    {
+      "id": "ic3",
+      "chainName": "病险坝治理设计、施工与复核：法规责任到经营验证",
+      "nodes": [
+        {
+          "id": "n3",
+          "position": "downstream",
+          "evidenceLevel": "strong",
+          "policySensitivity": "medium",
+          "description": "2015年病险坝专项治理已有基础，2026年较大及以上隐患的专项治理是否带来新增工作，需核查分级标准、实际认定、预算、招标和验收。",
+          "companyIds": []
+        }
+      ]
+    }
+  ],
+  "companyMap": [],
+  "policyNetwork": [
+    {
+      "id": "pn1",
+      "relatedPolicy": "2015年《水电站大坝运行安全监督管理规定》（第23号令）",
+      "meaning": "以既有在线监控门槛、年度详查和周期检查对照2026年第47号令，避免将存量要求误列为新增市场。",
+      "relationshipType": "revision",
+      "evidenceLevel": "strong",
+      "sourceDate": "2015-04-01",
+      "sourceUrl": "https://zjb.nea.gov.cn/xxgk/zcfg/202309/t20230914_75962.html"
+    }
+  ],
+  "investmentDirection": {
+    "primaryDirection": "仅条件性观察在线监控补差与病险坝专项治理，不做上市公司受益确认",
+    "summary": "法律约束和措辞变化确实存在，但2015年已要求部分坝在线监控和病险坝专项治理；仅在新技术门槛或隐患等级认定改变既有整改范围，且落实预算招采与验收后，才可能归因新增经营贡献。",
+    "watchSignals": [
+      "在线监控实施细则与逐坝差距",
+      "隐患专项整改及采购公告",
+      "实际验收与企业收入归因"
+    ],
+    "risks": [
+      "已有系统覆盖度高",
+      "更多企业内部履责而非采购",
+      "按旧项目续签误认新规增量"
+    ]
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "title": "2026年新规在线监控条款",
+      "source": "国家发展改革委／国家能源局正式原文",
+      "sourceUrl": "https://zfxxgk.ndrc.gov.cn/wap/iteminfo.jsp?id=20664",
+      "type": "policy_text",
+      "date": "2026-09-14",
+      "sourceLocation": "第八条",
+      "excerpt": "在线监控大坝运行安全状态",
+      "interpretation": "监测覆盖表达普遍化，但不能推定每座需要新建成套系统。",
+      "evidenceObject": "policy_action",
+      "confidence": 95,
+      "clauseIds": [
+        "c2"
+      ],
+      "nodeIds": [
+        "n1"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e2",
+      "title": "2015年在线监控基准",
+      "source": "国家发展改革委／国家能源局正式原文",
+      "sourceUrl": "https://zjb.nea.gov.cn/xxgk/zcfg/202309/t20230914_75962.html",
+      "type": "policy_text",
+      "date": "2015-04-01",
+      "sourceLocation": "第八条",
+      "excerpt": "对坝高一百米以上的大坝、库容一亿立方米以上的大坝和病险坝，电力企业应当建立大坝安全在线监控系统",
+      "interpretation": "说明部分监测体系早于本次新规，是识别净增量的核心反证。",
+      "evidenceObject": "policy_action",
+      "confidence": 95,
+      "clauseIds": [
+        "c2"
+      ],
+      "nodeIds": [
+        "n1"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e3",
+      "title": "2015和2026详查周期",
+      "source": "国家发展改革委／国家能源局正式原文",
+      "sourceUrl": "https://zjb.nea.gov.cn/xxgk/zcfg/202309/t20230914_75962.html",
+      "type": "policy_text",
+      "date": "2015-04-01",
+      "sourceLocation": "第十条与定期检查章",
+      "excerpt": "定期检查一般每五年进行一次，检查时间一般不超过一年半。",
+      "interpretation": "2026年延续该机制，不应重复归功于新规。",
+      "evidenceObject": "policy_action",
+      "confidence": 95,
+      "clauseIds": [
+        "c3"
+      ],
+      "nodeIds": [
+        "n2"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e4",
+      "title": "2026新规隐患等级与专项治理",
+      "source": "国家发展改革委／国家能源局正式原文",
+      "sourceUrl": "https://zfxxgk.ndrc.gov.cn/wap/iteminfo.jsp?id=20664",
+      "type": "policy_text",
+      "date": "2026-09-14",
+      "sourceLocation": "第二十一条至第二十四条",
+      "excerpt": "大坝较大及以上工程隐患的治理应当进行专项设计、审查、施工和验收。",
+      "interpretation": "旧规第二十二条已建立病险坝重大隐患专项治理，故2026新措辞可能改变执行覆盖、但尚无逐坝新增项目证明。",
+      "evidenceObject": "policy_action",
+      "confidence": 95,
+      "clauseIds": [
+        "c4"
+      ],
+      "nodeIds": [
+        "n3"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e5",
+      "title": "适用范围与主体责任",
+      "source": "国家发展改革委／国家能源局正式原文",
+      "sourceUrl": "https://zfxxgk.ndrc.gov.cn/wap/iteminfo.jsp?id=20664",
+      "type": "policy_text",
+      "date": "2026-09-14",
+      "sourceLocation": "第三、四、十八条",
+      "excerpt": "本规定适用于以发电为主且总装机容量五万千瓦及以上的大、中型水电站大坝",
+      "interpretation": "不能把全部水库或受托技术服务假定成新增市场。",
+      "evidenceObject": "policy_action",
+      "confidence": 95,
+      "clauseIds": [
+        "c1",
+        "c5"
+      ],
+      "nodeIds": [],
+      "companyIds": []
+    },
+    {
+      "id": "e6",
+      "title": "2015年既有病险坝专项治理基准",
+      "source": "国家发展改革委2015年第23号令（国家能源局浙江监管办公室公布全文）",
+      "sourceUrl": "https://zjb.nea.gov.cn/xxgk/zcfg/202309/t20230914_75962.html",
+      "type": "policy_text",
+      "date": "2015-04-01",
+      "sourceLocation": "第二十二条",
+      "excerpt": "病坝、险坝以及正常坝的重大工程缺陷和隐患的处理应当专项设计、专项审查、专项施工和专项验收。",
+      "interpretation": "专项治理不是2026年首次创设。新规较大及以上隐患如何与旧规范围衔接，需逐坝核验，不能直接计算新增工程金额。",
+      "evidenceObject": "policy_action",
+      "confidence": 96,
+      "clauseIds": [
+        "c4"
+      ],
+      "nodeIds": [
+        "n3"
+      ],
+      "companyIds": []
+    }
+  ],
+  "backgroundCards": [
+    {
+      "id": "bg1",
+      "title": "监管基础早已存在",
+      "body": "2015年第23号令已规定安全监测、年度详查、定期检查和部分在线监控；不能仅看2026文本推导全部新业务。",
+      "evidenceIds": [
+        "e2",
+        "e3"
+      ]
+    },
+    {
+      "id": "bg2",
+      "title": "新规在线监控条款",
+      "body": "新规第八条采用更普遍的在线监控表述，但具体资产缺口和技术规则须进一步核实。",
+      "evidenceIds": [
+        "e1"
+      ]
+    },
+    {
+      "id": "bg3",
+      "title": "缺口在商业兑现",
+      "body": "存在制度要求不等于存在新采购，需先获得具体监管整改、预算与合同验收证据。",
+      "evidenceIds": [
+        "e4",
+        "e5",
+        "e6"
+      ]
+    }
+  ],
+  "compareInsights": {
+    "comparableCount": 1,
+    "status": "verified_old_new_regulatory_comparison",
+    "summary": "已与2015年第23号令逐条对照：监管五万千瓦范围、年度详查、五年定检与特定坝在线监控、病险坝专项处置均属于既有制度；2026年第八条在线监控不再列三类限定、第二十三条改用较大及以上隐患门槛，但不能由措辞直接推定采购量。"
+  },
+  "analysisCoverage": {
+    "status": "no_company_mapping",
+    "analysisMethod": "agent-manual-official-regulation-2015-vs-2026",
+    "evidenceCount": 6,
+    "industryNodeCount": 3,
+    "companyCount": 0,
+    "listedCompanyMapCount": 0,
+    "companyImpactConclusion": "未发现特定企业被政策点名，也没有明确的新增整改项目、供货合同或资金预算；目前只能识别被监管主体与潜在服务类型，不能把既有检验市场作为本次新增收益，故本轮零公司映射。",
+    "limitations": [
+      "2015年前后实际已建在线监控系统的逐坝覆盖率未知。",
+      "不掌握2026年生效后按新条款下达的预算或整改招标。",
+      "监管责任明确不代表外包需求规模增加。"
+    ]
+  }
+}
