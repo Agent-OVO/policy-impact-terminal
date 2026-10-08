@@ -48,6 +48,16 @@ jobs:
       - name: Install dependencies
         run: npm ci --ignore-scripts
 
+      # Temporary PR-branch-only step for deriving an audited lockfile.
+      # Remove this step before merging; the resulting lock must be committed.
+      - name: Generate audited dependency lock candidate (temporary)
+        run: |
+          npm audit fix --package-lock-only --ignore-scripts --no-fund
+          git diff --exit-code -- package.json
+          npm ci --ignore-scripts --no-fund
+          npm audit --audit-level=high
+          node -e 'const fs=require("node:fs");const obj=JSON.parse(fs.readFileSync("package-lock.json","utf8"));const s=JSON.stringify(obj);console.log("AUDIT_LOCK_CHARS="+s.length);for(let i=0;i<s.length;i+=4000)console.log("AUDIT_LOCK_CHUNK:"+String(Math.floor(i/4000)).padStart(4,"0")+":"+s.slice(i,i+4000));'
+
       - name: Audit dependencies and tracked secrets
         run: |
           npm run security:audit
