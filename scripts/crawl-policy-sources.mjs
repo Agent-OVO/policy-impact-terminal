@@ -1241,6 +1241,16 @@ function finalizeSourceHealth(sourceHealth, filtered, hydrated) {
     const extractionFailed = hydratedRows.length > 0 && withFullText === 0;
     const extractionPartial = hydratedRows.length > 0 && withFullText > 0 && withFullText < hydratedRows.length;
     const catalogPartial = (item.fetchModes ?? []).some(mode => mode.startsWith("miit-official-homepage-"));
+    // Source listings and page bodies can be healthy while the policy's
+    // declared annexes are absent or downloaded in a non-extractable format.
+    const attachmentEvidenceIncompleteCount = hydratedRows.filter(
+      (candidate) => candidate.raw?.attachmentEvidenceIncomplete === true
+    ).length;
+    const attachmentManualReviewRequiredCount = hydratedRows.filter(
+      (candidate) => candidate.raw?.attachmentManualReviewRequired === true
+    ).length;
+    const attachmentQualityDegraded = attachmentEvidenceIncompleteCount > 0 ||
+      attachmentManualReviewRequiredCount > 0;
     const attachmentMirrorFallback = hydratedRows.some((candidate) =>
       candidate.raw?.attachments?.some((attachment) => attachment.mirrorFallbackUsed === true)
     );
@@ -1252,7 +1262,7 @@ function finalizeSourceHealth(sourceHealth, filtered, hydrated) {
       ...item,
       status: item.status === "failed" || extractionFailed
         ? "failed"
-        : extractionPartial || catalogPartial
+        : extractionPartial || catalogPartial || attachmentQualityDegraded
           ? "degraded"
           : "ok",
       fetchModes,
@@ -1260,10 +1270,15 @@ function finalizeSourceHealth(sourceHealth, filtered, hydrated) {
       filteredCandidates,
       hydratedCandidates: hydratedRows.length,
       withFullText,
+      attachmentEvidenceIncompleteCount,
+      attachmentManualReviewRequiredCount,
       extractionRate: hydratedRows.length === 0 ? null : Number((withFullText / hydratedRows.length).toFixed(3)),
       ...(extractionFailed && !item.error ? { error: "selected candidates produced no usable policy full text" } : {}),
       ...(extractionPartial && !item.error ? { error: "some selected candidates produced no usable policy full text" } : {}),
-      ...(catalogPartial && !item.error ? { error: "MIIT official HTML latest-page fallback has limited catalog coverage" } : {})
+      ...(catalogPartial && !item.error ? { error: "MIIT official HTML latest-page fallback has limited catalog coverage" } : {}),
+      ...(attachmentQualityDegraded && !item.error ? {
+        error: "policy attachments require additional evidence or manual extraction"
+      } : {})
     };
   });
 }
