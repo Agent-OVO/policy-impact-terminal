@@ -70,6 +70,18 @@ export function discoverPolicyAttachments(html, baseUrl, options = {}) {
     } catch {
       continue;
     }
+    // PDF.js viewer.html is a display UI, not a policy attachment. When it
+    // embeds a same-origin PDF/OFD, download that original file instead.
+    // This also deduplicates a viewer iframe against a direct PDF link.
+    if (/\/viewer\.html$/i.test(url.pathname)) {
+      const embeddedFile = url.searchParams.get("file");
+      if (embeddedFile && /^\/[^?#]+\.(?:pdf|ofd)$/i.test(embeddedFile)) {
+        const candidateFile = new URL(embeddedFile, url.origin);
+        if (url.origin === new URL(baseUrl).origin && candidateFile.origin === url.origin) {
+          url = candidateFile;
+        }
+      }
+    }
     url.hash = "";
     const filename = decodeURIComponent(url.pathname.split("/").at(-1) || "");
     const candidateTitle = candidate.title || "";

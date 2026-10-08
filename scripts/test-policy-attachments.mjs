@@ -22,6 +22,22 @@ const discovered = discoverPolicyAttachments(discoveryHtml, "https://example.gov
 assert.deepEqual(discovered.map((item) => item.type), ["pdf", "xlsx", "doc", "ofd"]);
 assert.ok(discovered.every((item) => !/答记者问|一图读懂/.test(item.title)));
 assert.equal(discovered[1].url, "https://example.gov.cn/policy/list.xlsx");
+const pdfViewerUrl = "https://example.gov.cn/cms_files/script/pdfjs/web/viewer.html?file=%2Fattachments%2Fplan.pdf";
+const withDirectAndViewer = discoverPolicyAttachments(
+  `<a href="/attachments/plan.pdf">正式规划PDF</a><iframe src="${pdfViewerUrl}" title="嵌入附件"></iframe>`,
+  "https://example.gov.cn/policy/page.html"
+);
+assert.deepEqual(
+  withDirectAndViewer.map((item) => item.url),
+  ["https://example.gov.cn/attachments/plan.pdf"],
+  "embedded PDF.js viewer must resolve to the original file and deduplicate against direct links"
+);
+assert.deepEqual(
+  discoverPolicyAttachments(`<iframe src="${pdfViewerUrl}"></iframe>`, "https://example.gov.cn/policy/page.html")
+    .map((item) => ({ type: item.type, url: item.url })),
+  [{ type: "pdf", url: "https://example.gov.cn/attachments/plan.pdf" }],
+  "viewer-only PDF attachments must still be discoverable as source evidence"
+);
 assert.equal(discoverPolicyAttachments(`<div data-url="./navigation.html">普通导航</div>`, "https://example.gov.cn/page.html").length, 0);
 assert.equal(
   discoverPolicyAttachments(`

@@ -24,6 +24,9 @@ assert.match(crawler, /hydratePolicyAttachments/);
 assert.match(crawler, /miit-search-api-compact-fallback/);
 assert.match(crawler, /miit-search-api-rich-mirror-fallback/);
 assert.match(crawler, /miit-official-homepage-fallback/);
+assert.match(crawler, /ndrc-official-policy-index/);
+assert.match(crawler, /www\.ndrc\.gov\.cn\/xxgk\/zcfb\/fzggwl/);
+assert.match(crawler, /www\.ndrc\.gov\.cn\/xxgk\/zcfb\/tz/);
 assert.match(crawler, /attachmentEvidenceIncomplete/);
 assert.match(crawler, /awaiting_evidence/);
 assert.match(crawler, /DEFAULT_CANDIDATE_LIMIT = 24/);
@@ -81,12 +84,76 @@ assert.ok(scripts["policy:attachment-test"]);
 assert.ok(scripts["policy:hourly-recovery-test"]);
 assert.ok(scripts["policy:operations-test"]);
 
+await testMiitMultiplePages();
 await testMiitOfficialMirrorFallback();
 await testMiitIndexedAttachmentAugmentsPrimaryPage();
 await testMiitAttachmentMirrorFallback();
 await testMiitOfficialHtmlFallback();
 
 console.log("[policy:crawl-contract-test] hourly schedule, MIIT official search/page/attachment fallbacks, bounded collection, and manual analysis contract passed");
+
+async function testMiitMultiplePages() {
+  const policyText = "本规划围绕制造业产业结构、科研投入、技术标准和产业链协同部署实施任务，并要求后续开展可核验的年度监督评估。".repeat(9);
+  let baseUrl = "";
+  const server = http.createServer((request, response) => {
+    const url = new URL(request.url ?? "/", "http://127.0.0.1");
+    if (url.pathname === "/api/search/info") {
+      const page = url.searchParams.get("p") || "1";
+      const entry = page === "1" ? ["第一页政策", "2026-09-30", "1"] : ["第二页政策", "2026-09-12", "2"];
+      const pageText = policyText + (page === "1" ? "第一页只涉及制造业研发项目。" : "第二页只涉及数据治理专项标准。").repeat(16);
+      const fields = [{ fieldTitle: "正文", fieldName: "content", fieldType: "Text", fieldValue: `<p>${pageText}</p>` }];
+      response.writeHead(200, { "content-type": "application/json; charset=utf-8" });
+      response.end(JSON.stringify({ success: true, data: { searchResult: {
+        dataResults: [{ data: {
+          title: `工业和信息化部关于印发${entry[0]}管理办法的通知`,
+          url: `${baseUrl}/article-${entry[2]}.html`,
+          jsearch_date: entry[1],
+          filenumbername: `工信规〔2026〕${entry[2]}号`,
+          publishgroupname: "工业和信息化部",
+          infoextends: JSON.stringify({ infoContent: JSON.stringify(fields) }),
+          infocontent: pageText,
+          typename: "通知"
+        } }]
+      } } }));
+      return;
+    }
+    if (/^\/article-[12]\.html$/.test(url.pathname)) {
+      response.writeHead(200, { "content-type": "text/html; charset=utf-8" });
+      response.end(`<html><main><article>${url.pathname.includes("-1") ? "发布时间：2026-09-15 09:01 " : ""}${policyText}${url.pathname.includes("-1") ? "第一页制造业研发。" : "第二页数据治理。"}</article></main></html>`);
+      return;
+    }
+    response.writeHead(404);
+    response.end("Not found");
+  });
+  const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "miit-pagination-contract-"));
+  try {
+    await new Promise((resolve, reject) => { server.once("error", reject); server.listen(0, "127.0.0.1", resolve); });
+    const address = server.address();
+    assert.ok(address && typeof address === "object");
+    baseUrl = `http://127.0.0.1:${address.port}`;
+    const outPath = path.join(tempDir, "candidate.json");
+    const result = await runChild(process.execPath, [
+      path.resolve("scripts/crawl-policy-sources.mjs"),
+      "--source=miit_policy_library", "--source-scan-limit=50",
+      "--candidate-limit=10", "--ingest-limit=10", "--since=2026-09-01",
+      "--manual-selection-only", `--out=${outPath}`
+    ], { cwd: process.cwd(), windowsHide: true, env: {
+      ...process.env, MIIT_SEARCH_API_URLS: `${baseUrl}/api/search/info`,
+      MIIT_FALLBACK_LIST_URL: `${baseUrl}/missing/`,
+      MIIT_SEARCH_ATTEMPTS: "1", MIIT_SEARCH_TIMEOUT_MS: "1000"
+    } });
+    assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+    const data = JSON.parse(await fs.readFile(outPath, "utf8"));
+    assert.equal(data.counts.collected, 2, JSON.stringify({logs:result.stdout,candidates:data.candidates.map(x=>({title:x.title,url:x.sourceUrl})),sources:data.sourceHealth}));
+    assert.equal(data.counts.withFullText, 2);
+    assert.equal(data.counts.analysisSelected, 0, "pagination must never auto-select analysis");
+    assert.deepEqual(new Set(data.candidates.map(x => x.sourceUrl)).size, 2);
+    assert.equal(data.candidates.find(x => x.sourceUrl.endsWith("/article-1.html"))?.publishDate, "2026-09-15", "verified MIIT article date must override a conflicting search-index date");
+  } finally {
+    await new Promise(resolve => server.close(resolve));
+    await fs.rm(tempDir, { recursive: true, force: true });
+  }
+}
 
 async function testMiitOfficialMirrorFallback() {
   const policyText = "本通知围绕制造业高质量发展部署重点任务，明确实施范围、工作要求、组织保障、监督管理和后续评估机制。".repeat(12);

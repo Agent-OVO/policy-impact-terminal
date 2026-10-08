@@ -386,7 +386,7 @@ async function fetchNdrcDocuments(source, args) {
     throw new Error("NDRC API response did not contain data.resultList.");
   }
 
-  return rows.map((item) =>
+  const apiCandidates = rows.map((item) =>
     makeCandidate(source, {
       title: item.title ?? item.dreTitle,
       sourceUrl: item.url,
@@ -401,6 +401,60 @@ async function fetchNdrcDocuments(source, args) {
       }
     })
   );
+
+  // The legacy searchable index can lag behind the published NDRC policy
+  // catalog. Read only the NDRC's own policy-order and notice indexes as
+  // complementary discovery within the existing ndrc_policy_documents source.
+  const indexUrls = [
+    "https://www.ndrc.gov.cn/xxgk/zcfb/fzggwl/",
+    "https://www.ndrc.gov.cn/xxgk/zcfb/tz/"
+  ];
+  const officialCandidates = [];
+  for (const indexUrl of indexUrls) {
+    try {
+      const html = await fetchText(indexUrl);
+      const $ = cheerio.load(html);
+      $("a[href]").each((_, element) => {
+        const href = $(element).attr("href");
+        if (!href) return;
+        let url;
+        try {
+          url = new URL(href, indexUrl);
+        } catch {
+          return;
+        }
+        if (url.hostname !== "www.ndrc.gov.cn") return;
+        // The dated NDRC URLs identify original policies, not news or commentary.
+        if (!/^\/xxgk\/zcfb\/(?:fzggwl|tz)\/20\d{4}\/t20\d{6}_\d+(?:_ext)?\.html$/i.test(url.pathname)) return;
+        url.pathname = url.pathname.replace(/_ext\.html$/i, ".html");
+        const title = cleanText($(element).text());
+        if (title.length < 6 || /政策解读|答记者问|一图读懂|图解/.test(title)) return;
+        const dateFromPath = url.pathname.match(/\/t(20\d{2})(\d{2})(\d{2})_/);
+        const dateText = dateFromPath
+          ? `${dateFromPath[1]}-${dateFromPath[2]}-${dateFromPath[3]}`
+          : null;
+        officialCandidates.push(makeCandidate(source, {
+          title,
+          sourceUrl: url.href,
+          publishDate: dateText,
+          publishDateTime: dateText,
+          policyNo: extractPolicyNo(title),
+          raw: { origin: "ndrc-official-policy-index", indexUrl }
+        }));
+      });
+    } catch (error) {
+      printWorkflowWarning(`NDRC policy index unavailable (${indexUrl}): ${getErrorMessage(error)}`);
+    }
+  }
+  const byUrl = new Map();
+  for (const item of [...officialCandidates, ...apiCandidates]) {
+    if (item.sourceUrl && !byUrl.has(item.sourceUrl)) byUrl.set(item.sourceUrl, item);
+  }
+  const merged = [...byUrl.values()].sort((a, b) =>
+    (b.publishDate || "").localeCompare(a.publishDate || "")
+  );
+  console.log(`[crawl] NDRC API=${apiCandidates.length}, officialCatalog=${officialCandidates.length}, unique=${merged.length}`);
+  return merged.slice(0, args.sourceScanLimit);
 }
 
 async function fetchMiitDocuments(source, args) {
@@ -419,12 +473,36 @@ async function fetchMiitDocuments(source, args) {
     if (mirrorFallback) {
       printWorkflowWarning(`MIIT primary search endpoint failed; official mirror recovered ${result.rows.length} rows via ${new URL(result.endpoint).host}.`);
     }
-    return mapMiitRows(
-      source,
-      result.rows,
-      mirrorFallback ? "miit-search-api-rich-mirror-fallback" : "miit-search-api-rich",
-      result.endpoint
-    );
+    const origin = mirrorFallback ? "miit-search-api-rich-mirror-fallback" : "miit-search-api-rich";
+    const candidates = mapMiitRows(source, result.rows, origin, result.endpoint);
+    // MIIT currently returns at most 15 records per page even when pg=50.
+    // A second page is necessary to cover the September publication window.
+    if (args.sourceScanLimit > result.rows.length && result.rows.length > 0) {
+      try {
+        const next = await fetchMiitSearchRows(source, {
+          pageSize: Math.max(Math.min(args.sourceScanLimit, 50), 20),
+          selectFields: richFields,
+          mode: "rich",
+          page: 2
+        });
+        candidates.push(...mapMiitRows(
+          source,
+          next.rows,
+          next.endpoint === MIIT_SEARCH_API_URLS[0]
+            ? "miit-search-api-rich"
+            : "miit-search-api-rich-mirror-fallback",
+          next.endpoint
+        ));
+      } catch (pageError) {
+        printWorkflowWarning(`MIIT second search page unavailable; source catalog coverage is partial: ${getErrorMessage(pageError)}`);
+      }
+    }
+    const seenUrls = new Set();
+    return candidates.filter((item) => {
+      if (!item.sourceUrl || seenUrls.has(item.sourceUrl)) return false;
+      seenUrls.add(item.sourceUrl);
+      return true;
+    }).slice(0, args.sourceScanLimit);
   } catch (primaryError) {
     printWorkflowWarning(`MIIT rich search failed across official endpoints; retrying compact query: ${getErrorMessage(primaryError)}`);
     try {
@@ -501,7 +579,7 @@ async function fetchMiitSearchRowsAtEndpoint(source, input, endpoint, options = 
     highlightFields: "title_text,infocontent,webid",
     level: "6",
     sortFields: JSON.stringify([{ name: "deploytime", type: "desc" }]),
-    p: "1"
+    p: String(input.page ?? 1)
   });
   const data = await fetchJson(`${endpoint}?${params}`, {
     referer: buildMiitEndpointReferer(source.listUrl, endpoint),
@@ -786,8 +864,13 @@ function mergeIndexedAttachmentHtml(candidate, primaryHtml) {
 
 function attachFullText(candidate, value, html = "", attachmentResult = null) {
   const fullText = normalizePolicyText(value);
-  const officialPublishedAt = extractOfficialPublishedAtFromHtml(html, candidate.sourceKey) ?? candidate.officialPublishedAt ?? candidate.publishDateTime;
-  const publishDate = candidate.publishDate ?? (officialPublishedAt ? officialPublishedAt.slice(0, 10) : null);
+  const verifiedPagePublishedAt = extractOfficialPublishedAtFromHtml(html, candidate.sourceKey);
+  const officialPublishedAt = verifiedPagePublishedAt ?? candidate.officialPublishedAt ?? candidate.publishDateTime;
+  // The MIIT search index can lag or report a different date from the official
+  // publication page. Prefer only a date actually parsed from that page.
+  const publishDate = candidate.sourceKey === "miit_policy_library" && verifiedPagePublishedAt
+    ? verifiedPagePublishedAt.slice(0, 10)
+    : candidate.publishDate ?? (officialPublishedAt ? officialPublishedAt.slice(0, 10) : null);
   const baseCandidate = withoutHydrationFallback(candidate);
   return {
     ...baseCandidate,
