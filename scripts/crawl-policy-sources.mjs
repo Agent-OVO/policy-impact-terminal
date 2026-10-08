@@ -473,12 +473,36 @@ async function fetchMiitDocuments(source, args) {
     if (mirrorFallback) {
       printWorkflowWarning(`MIIT primary search endpoint failed; official mirror recovered ${result.rows.length} rows via ${new URL(result.endpoint).host}.`);
     }
-    return mapMiitRows(
-      source,
-      result.rows,
-      mirrorFallback ? "miit-search-api-rich-mirror-fallback" : "miit-search-api-rich",
-      result.endpoint
-    );
+    const origin = mirrorFallback ? "miit-search-api-rich-mirror-fallback" : "miit-search-api-rich";
+    const candidates = mapMiitRows(source, result.rows, origin, result.endpoint);
+    // MIIT currently returns at most 15 records per page even when pg=50.
+    // A second page is necessary to cover the September publication window.
+    if (args.sourceScanLimit > result.rows.length && result.rows.length > 0) {
+      try {
+        const next = await fetchMiitSearchRows(source, {
+          pageSize: Math.max(Math.min(args.sourceScanLimit, 50), 20),
+          selectFields: richFields,
+          mode: "rich",
+          page: 2
+        });
+        candidates.push(...mapMiitRows(
+          source,
+          next.rows,
+          next.endpoint === MIIT_SEARCH_API_URLS[0]
+            ? "miit-search-api-rich"
+            : "miit-search-api-rich-mirror-fallback",
+          next.endpoint
+        ));
+      } catch (pageError) {
+        printWorkflowWarning(`MIIT second search page unavailable; source catalog coverage is partial: ${getErrorMessage(pageError)}`);
+      }
+    }
+    const seenUrls = new Set();
+    return candidates.filter((item) => {
+      if (!item.sourceUrl || seenUrls.has(item.sourceUrl)) return false;
+      seenUrls.add(item.sourceUrl);
+      return true;
+    }).slice(0, args.sourceScanLimit);
   } catch (primaryError) {
     printWorkflowWarning(`MIIT rich search failed across official endpoints; retrying compact query: ${getErrorMessage(primaryError)}`);
     try {
@@ -555,7 +579,7 @@ async function fetchMiitSearchRowsAtEndpoint(source, input, endpoint, options = 
     highlightFields: "title_text,infocontent,webid",
     level: "6",
     sortFields: JSON.stringify([{ name: "deploytime", type: "desc" }]),
-    p: "1"
+    p: String(input.page ?? 1)
   });
   const data = await fetchJson(`${endpoint}?${params}`, {
     referer: buildMiitEndpointReferer(source.listUrl, endpoint),
