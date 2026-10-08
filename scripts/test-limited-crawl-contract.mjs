@@ -119,7 +119,7 @@ async function testMiitMultiplePages() {
     }
     if (/^\/article-[12]\.html$/.test(url.pathname)) {
       response.writeHead(200, { "content-type": "text/html; charset=utf-8" });
-      response.end(`<html><main><article>${policyText}${url.pathname.includes("-1") ? "第一页制造业研发。" : "第二页数据治理。"}</article></main></html>`);
+      response.end(`<html><main><article>${url.pathname.includes("-1") ? "发布时间：2026-09-15 09:01 " : ""}${policyText}${url.pathname.includes("-1") ? "第一页制造业研发。" : "第二页数据治理。"}</article></main></html>`);
       return;
     }
     response.writeHead(404);
@@ -148,6 +148,7 @@ async function testMiitMultiplePages() {
     assert.equal(data.counts.withFullText, 2);
     assert.equal(data.counts.analysisSelected, 0, "pagination must never auto-select analysis");
     assert.deepEqual(new Set(data.candidates.map(x => x.sourceUrl)).size, 2);
+    assert.equal(data.candidates.find(x => x.sourceUrl.endsWith("/article-1.html"))?.publishDate, "2026-09-15", "verified MIIT article date must override a conflicting search-index date");
   } finally {
     await new Promise(resolve => server.close(resolve));
     await fs.rm(tempDir, { recursive: true, force: true });
