@@ -25,6 +25,9 @@ const DEFAULT_ANALYSIS_PER_RUN_LIMIT = 3;
 const DEFAULT_PENDING_QUEUE_LIMIT = 8;
 const MIIT_SEARCH_API_URLS = buildMiitSearchApiUrls();
 const MIIT_FALLBACK_LIST_URL = process.env.MIIT_FALLBACK_LIST_URL || "https://www.miit.gov.cn/zwgk/";
+const MIIT_HTML_MIRROR_URLS = process.env.MIIT_HTML_MIRROR_URLS
+  ? process.env.MIIT_HTML_MIRROR_URLS.split(",").map((url) => url.trim()).filter(Boolean)
+  : ["https://wap.miit.gov.cn/zwgk/"];
 
 const SOURCES = [
   {
@@ -117,6 +120,10 @@ const filtered = collected
   .filter((item) => !args.since || (item.publishDate ? item.publishDate >= args.since : !args.excludeUndated));
 
 const initialDedupe = dedupeCandidates(filtered);
+// GitHub allocates a run number only for actual runs; missed scheduled minutes
+// do not move this cursor. Direct local diagnostics keep the original ranking.
+const runNumber = process.env.GITHUB_ACTIONS === "true" ? Number(process.env.GITHUB_RUN_NUMBER) : null;
+const selectionSequence = Number.isSafeInteger(runNumber) && runNumber > 0 ? runNumber : null;
 const preliminaryPlan = buildLimitedPolicyPlan(
   initialDedupe.candidates.map((item) => attachPolicyTriage(item)),
   {
@@ -125,7 +132,8 @@ const preliminaryPlan = buildLimitedPolicyPlan(
     analysisPerRunLimit: args.analysisPerRunLimit,
     pendingQueueLimit: args.pendingQueueLimit,
     automaticAnalysisSelection: args.autoSelectAnalysis,
-    hasUsableFullText: () => true
+    hasUsableFullText: () => true,
+    selectionSequence
   }
 );
 const hydrated = await hydrateCandidates(preliminaryPlan.candidatePool);
@@ -155,9 +163,12 @@ const output = {
   runStatus,
   sourceKeys: selectedSources.map((source) => source.key),
   limits: plan.limits,
+  coverage: preliminaryPlan.coverage,
   counts: {
     collected: collected.length,
     afterFilters: filtered.length,
+    eligibleAfterTriage: preliminaryPlan.coverage.eligibleTotal,
+    notSelectedThisRun: preliminaryPlan.coverage.deferredThisRun,
     candidates: plan.candidatePool.length,
     withFullText: plan.candidatePool.filter(hasUsableFullText).length,
     duplicates: duplicates.length,
@@ -596,7 +607,25 @@ async function fetchMiitSearchRowsAtEndpoint(source, input, endpoint, options = 
 }
 
 async function fetchMiitOfficialHomepage(source, args) {
-  const html = await fetchText(MIIT_FALLBACK_LIST_URL, {
+  const urls = [...new Set([MIIT_FALLBACK_LIST_URL, ...MIIT_HTML_MIRROR_URLS])];
+  const failed = [];
+  for (const url of urls) {
+    try {
+      const candidates = await fetchMiitOfficialHomepageAtUrl(source, args, url);
+      if (candidates.length === 0) throw new Error("no official policy links matched");
+      if (url !== MIIT_FALLBACK_LIST_URL) {
+        printWorkflowWarning("MIIT official mobile HTML mirror recovered latest policy links.");
+      }
+      return candidates;
+    } catch (error) {
+      failed.push(new URL(url).hostname + ": " + getErrorMessage(error));
+    }
+  }
+  throw new Error("MIIT official HTML fallbacks unavailable: " + failed.join(" | "));
+}
+
+async function fetchMiitOfficialHomepageAtUrl(source, args, listUrl) {
+  const html = await fetchText(listUrl, {
     referer: source.listUrl,
     attempts: 3,
     timeoutMs: 20_000
@@ -609,7 +638,11 @@ async function fetchMiitOfficialHomepage(source, args) {
     const href = $(anchor).attr("href");
     const title = cleanText($(anchor).attr("title") || $(anchor).text());
     if (!href || !title) return;
-    const sourceUrl = new URL(href, MIIT_FALLBACK_LIST_URL).href;
+    const url = new URL(href, listUrl);
+    // Do not silently follow a news or advertising link outside the ministry.
+    const listHost = new URL(listUrl).hostname;
+    if (!url.hostname.endsWith(".miit.gov.cn") && url.hostname !== "miit.gov.cn" && url.hostname !== listHost) return;
+    const sourceUrl = url.href;
     if (seen.has(sourceUrl)) return;
     seen.add(sourceUrl);
     const dateText = cleanText($(anchor).closest("li").find("span").first().text());
@@ -621,8 +654,10 @@ async function fetchMiitOfficialHomepage(source, args) {
       publishDateTime: publishDate,
       policyNo: extractPolicyNo(title),
       raw: {
-        origin: "miit-official-homepage-fallback",
-        fallbackListUrl: MIIT_FALLBACK_LIST_URL
+        origin: listUrl === MIIT_FALLBACK_LIST_URL
+          ? "miit-official-homepage-fallback"
+          : "miit-official-homepage-mirror-fallback",
+        fallbackListUrl: listUrl
       }
     }));
   });
@@ -1205,6 +1240,7 @@ function finalizeSourceHealth(sourceHealth, filtered, hydrated) {
     const withFullText = hydratedRows.filter(hasUsableFullText).length;
     const extractionFailed = hydratedRows.length > 0 && withFullText === 0;
     const extractionPartial = hydratedRows.length > 0 && withFullText > 0 && withFullText < hydratedRows.length;
+    const catalogPartial = (item.fetchModes ?? []).some(mode => mode.startsWith("miit-official-homepage-"));
     const attachmentMirrorFallback = hydratedRows.some((candidate) =>
       candidate.raw?.attachments?.some((attachment) => attachment.mirrorFallbackUsed === true)
     );
@@ -1216,7 +1252,7 @@ function finalizeSourceHealth(sourceHealth, filtered, hydrated) {
       ...item,
       status: item.status === "failed" || extractionFailed
         ? "failed"
-        : extractionPartial
+        : extractionPartial || catalogPartial
           ? "degraded"
           : "ok",
       fetchModes,
@@ -1226,7 +1262,8 @@ function finalizeSourceHealth(sourceHealth, filtered, hydrated) {
       withFullText,
       extractionRate: hydratedRows.length === 0 ? null : Number((withFullText / hydratedRows.length).toFixed(3)),
       ...(extractionFailed && !item.error ? { error: "selected candidates produced no usable policy full text" } : {}),
-      ...(extractionPartial && !item.error ? { error: "some selected candidates produced no usable policy full text" } : {})
+      ...(extractionPartial && !item.error ? { error: "some selected candidates produced no usable policy full text" } : {}),
+      ...(catalogPartial && !item.error ? { error: "MIIT official HTML latest-page fallback has limited catalog coverage" } : {})
     };
   });
 }

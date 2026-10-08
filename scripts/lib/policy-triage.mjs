@@ -173,7 +173,19 @@ export function buildLimitedPolicyPlan(candidates, options = {}) {
 
   const triaged = rankTriagedCandidates(candidates.map((item) => item?.triage ? item : attachPolicyTriage(item)));
   const excluded = triaged.filter((item) => item.triage.excluded);
-  const candidatePool = triaged.filter((item) => !item.triage.excluded).slice(0, candidateLimit);
+  // Use the monotonically increasing Actions run number, not wall-clock hours:
+  // a missed cron event does not skip a candidate window.
+  const eligibleRanked = triaged.filter((item) => !item.triage.excluded);
+  const sequence = Number(options.selectionSequence);
+  const rotating = Number.isSafeInteger(sequence) && sequence > 0 && eligibleRanked.length > candidateLimit;
+  const reserved = rotating ? Math.min(Math.floor(candidateLimit / 3), candidateLimit - 1) : 0;
+  const tail = eligibleRanked.slice(reserved);
+  const slots = candidateLimit - reserved;
+  const offset = rotating ? ((sequence - 1) * slots) % tail.length : 0;
+  const selectedTail = rotating
+    ? Array.from({ length: slots }, (_, i) => tail[(offset + i) % tail.length])
+    : tail.slice(0, slots);
+  const candidatePool = [...eligibleRanked.slice(0, reserved), ...selectedTail];
   const eligibleForIngest = candidatePool.filter((item) => hasUsableFullText(item));
   const ingestCandidates = eligibleForIngest.slice(0, ingestLimit);
   const manualEligible = eligibleForIngest.filter((item) => item.triage.requiresManualAnalysis);
@@ -192,6 +204,14 @@ export function buildLimitedPolicyPlan(candidates, options = {}) {
     analysisQueue,
     deferredManualCandidates: manualEligible.slice(pendingQueueLimit),
     queueOverflow: Math.max(0, manualEligible.length - pendingQueueLimit),
+    coverage: {
+      mode: rotating ? "run_sequence_rotation" : "ranked",
+      sequence: rotating ? sequence : null,
+      prioritySlots: reserved,
+      rotationSlots: rotating ? slots : 0,
+      eligibleTotal: eligibleRanked.length,
+      deferredThisRun: Math.max(0, eligibleRanked.length - candidatePool.length)
+    },
     counts: {
       triagedTotal: triaged.length,
       candidates: candidatePool.length,
