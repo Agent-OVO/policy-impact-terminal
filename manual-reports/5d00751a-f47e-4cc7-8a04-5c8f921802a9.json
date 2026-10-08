@@ -1,0 +1,584 @@
+{
+  "id": "5d00751a-f47e-4cc7-8a04-5c8f921802a9",
+  "policyId": "5d00751a-f47e-4cc7-8a04-5c8f921802a9",
+  "analyzerVersion": "agent-manual-20261009",
+  "analysisMethod": "explicit-selected-full-official-pdf-v1",
+  "generatedAt": "2026-10-09T01:16:00+08:00",
+  "methodologyVersion": "policy-industry-company-methodology-v1.0",
+  "documentShellType": "七部门联合规划通知",
+  "substantivePolicyType": "新型电池技术产业规划与供需治理",
+  "primaryActionType": "技术目标与行业治理",
+  "policySignalStrength": "high",
+  "implementationCertainty": "medium",
+  "analysisDepth": "L3",
+  "analysisDepthReason": "规划具有2030量化技术目标与装备标准方向，但未提供企业订单、补助金额、量产良率和价格约束执行方案，需在商业实现前保留大量反证。",
+  "companyMappingMode": "no_company",
+  "summary": {
+    "id": "5d00751a-f47e-4cc7-8a04-5c8f921802a9",
+    "title": "工业和信息化部等七部门关于印发《新型电池产业发展“十五五”规划》的通知",
+    "issuer": "工业和信息化部等七部门",
+    "source": "工业和信息化部官网及规划PDF",
+    "publishDate": "2026-09-28",
+    "status": "published",
+    "confidence": 82,
+    "industryCount": 3,
+    "companyCount": 0,
+    "evidenceCount": 6,
+    "primarySignal": "面向2030年全固态工程化、长寿命储能与质量一致性的技术路线，同时强化产能预警和价格竞争治理",
+    "category": "新型电池材料装备及储能安全"
+  },
+  "policy": {
+    "id": "5d00751a-f47e-4cc7-8a04-5c8f921802a9",
+    "title": "《新型电池产业发展“十五五”规划》",
+    "issuer": "工业和信息化部等七部门",
+    "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_255ea93df118460fa105c46c2f546d9a.html",
+    "publishDate": "2026-09-28",
+    "policyNo": "工信部联规〔2026〕220号",
+    "status": "已发布",
+    "sourceName": "工业和信息化部",
+    "attachmentHash": "7fd38a304359a99568fe63a0a1f41502be0ed25415e6459fd592c68655b84633",
+    "noticeTextMarkedOmitted": true
+  },
+  "brief": {
+    "judgement": "继续针对三条有限产业路径验证：本规划2026年9月14日成文、9月28日公开，2030年全固态初步规模化、15000次循环与PPB级缺陷是待完成的政策目标，不是2026年商业良率或订单。仅在客户验证、实质采购、验收、毛利/现金流形成可证据闭环后升级；产能预警和价格竞争治理不是本规划首创。",
+    "summary": "规划有五方面19项重点任务和五个专栏，关注固态电解质与工艺装备、分场景储能系统安全、检测认证和产业竞争秩序。以官方PDF与解释对照，不将市场热点当作采购证据。",
+    "keyPoints": [
+      "2030目标不可提前记作已实现产能、循环寿命和PPB良率。",
+      "固态、钠、液流路线差异明显，必须分别验证场景经济性。",
+      "制造与检测技术方向清晰，需求链尚缺客户认证、采购预算、验收与回款。",
+      "规划强调优化产业布局、健全公平竞争环境，但产能预警与低价竞争治理在2026年1月已部署；现阶段未见新限产令、限价令或上市公司特定订单。"
+    ],
+    "methodology": "以已通过官方附件门的11页公开PDF为第一手原文，工信部官方解读补充政策意图、2026年1月官方竞争秩序座谈会补充存量治理背景；按技术验证—采购—交付—盈利逐层求证。"
+  },
+  "actions": [
+    {
+      "id": "a1",
+      "title": "固态电池产业化目标",
+      "actionType": "技术与目标",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "相关部委实施细则、客户采购与测试认证资料",
+      "body": "强调电解质、界面及全固态电池初步规模化目标，尚未确认商业量产良率或成本竞争力。",
+      "signal": "conditional_opportunity",
+      "confidence": 86,
+      "clauseIds": [
+        "c1"
+      ],
+      "sortOrder": 1
+    },
+    {
+      "id": "a2",
+      "title": "先进材料与工艺装备",
+      "actionType": "产业研发",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "相关部委实施细则、客户采购与测试认证资料",
+      "body": "部署高精度叠片、干法电极、等静压等工程化设备和工艺验证，不能由技术方向直接生成订单。",
+      "signal": "conditional_opportunity",
+      "confidence": 85,
+      "clauseIds": [
+        "c2"
+      ],
+      "sortOrder": 2
+    },
+    {
+      "id": "a3",
+      "title": "安全储能与系统集成",
+      "actionType": "产品与系统标准",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "相关部委实施细则、客户采购与测试认证资料",
+      "body": "发展锂、钠、液流多路线电池和BMS/热管理，收益取决于实际应用经济性与验收。",
+      "signal": "conditional_opportunity",
+      "confidence": 84,
+      "clauseIds": [
+        "c3"
+      ],
+      "sortOrder": 3
+    },
+    {
+      "id": "a4",
+      "title": "标准检测认证与溯源",
+      "actionType": "科技服务",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "相关部委实施细则、客户采购与测试认证资料",
+      "body": "推动测试、认证、安全、溯源和碳足迹能力；应区分新增强制要求与既有服务。",
+      "signal": "conditional_opportunity",
+      "confidence": 83,
+      "clauseIds": [
+        "c4"
+      ],
+      "sortOrder": 4
+    },
+    {
+      "id": "a5",
+      "title": "布局与公平竞争：既有治理背景",
+      "actionType": "监管约束",
+      "actionEvidenceLevel": "strong",
+      "implementationDependency": "现行规范性文件的具体实施、产能监测及企业实际财务数据；不得当作本规划新命令",
+      "body": "规划提出区域集聚、主体集中及营造公平竞争环境；产能预警、规范低价竞争此前已由监管部门部署，本规划并未直接下达新增产能上限、价格限制或处罚决定。",
+      "signal": "constraint",
+      "confidence": 82,
+      "clauseIds": [
+        "c5"
+      ],
+      "sortOrder": 5
+    }
+  ],
+  "clauses": [
+    {
+      "id": "c1",
+      "no": "总体要求及2030年发展目标",
+      "title": "技术质量目标而非已实现成果",
+      "excerpt": "全固态电池初步实现规模化应用，长寿命锂电池循环寿命达到 15000 次，头部企业产品缺陷率达到 PPB 级。",
+      "body": "2030远期目标不能解释为2026量产良率、合同、销量与企业实际利润。",
+      "keywords": [
+        "技术质量目标而非已实现成果",
+        "新型电池"
+      ],
+      "industries": [
+        "新型电池制造",
+        "能源电子"
+      ],
+      "confidence": 91,
+      "sortOrder": 1
+    },
+    {
+      "id": "c2",
+      "no": "重点任务：全链条创新发展",
+      "title": "材料、固态界面与高端制造装备",
+      "excerpt": "发展高速化、柔性化、智能化高端成套设备，实现工艺联动和精度跃升，提高生产效率和产品一致性。",
+      "body": "技术攻关和试验需要真实工程验证，研发支持不等于设备销售合同。",
+      "keywords": [
+        "材料",
+        "新型电池"
+      ],
+      "industries": [
+        "新型电池制造",
+        "能源电子"
+      ],
+      "confidence": 90,
+      "sortOrder": 2
+    },
+    {
+      "id": "c3",
+      "no": "重点任务：高端产品和系统集成",
+      "title": "锂、钠、液流不同技术路线与场景",
+      "excerpt": "构建以锂电池为主，钠电池、液流电池等协同发展的新型电池产品供给体系。",
+      "body": "不同电池技术经济性差异大，不能合并为单一同质受益市场。",
+      "keywords": [
+        "锂",
+        "新型电池"
+      ],
+      "industries": [
+        "新型电池制造",
+        "能源电子"
+      ],
+      "confidence": 89,
+      "sortOrder": 3
+    },
+    {
+      "id": "c4",
+      "no": "产业科技服务和安全发展",
+      "title": "标准、检测认证、质量与碳足迹",
+      "excerpt": "提升标准研制、检测评估、失效分析、认证认可一体化公共服务能力。",
+      "body": "真实检测收费需可执行的标准/认证约束及获批资质，不可直接推算新增强制检测收入。",
+      "keywords": [
+        "标准",
+        "新型电池"
+      ],
+      "industries": [
+        "新型电池制造",
+        "能源电子"
+      ],
+      "confidence": 88,
+      "sortOrder": 4
+    },
+    {
+      "id": "c5",
+      "no": "产业治理和组织实施",
+      "title": "区域布局、公平竞争及组织实施的非定量表述",
+      "excerpt": "按照区域集聚、主体集中的原则，优化锂电池产业布局。",
+      "body": "规划第12项提出区域布局，最后组织实施段提出专项资金渠道统筹与公平竞争环境，但未给出新增拨款总额、项目清单、价格限制或强制产能上限。2026年1月产能预警与低价竞争监管属旧背景。",
+      "keywords": [
+        "产能预警",
+        "新型电池"
+      ],
+      "industries": [
+        "新型电池制造",
+        "能源电子"
+      ],
+      "confidence": 87,
+      "sortOrder": 5
+    }
+  ],
+  "chainNodes": [
+    {
+      "id": "n1",
+      "title": "全固态电池材料与制造装备验证",
+      "subtitle": "固态电解质、干法电极、等静压等",
+      "section": "upstream",
+      "relation": "watch_only",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 75,
+      "description": "政策明确固态技术和制造装备升级方向，但技术路线工艺良率、客户验证及实际产线交付还未取得。",
+      "clauseIds": [
+        "c1",
+        "c2"
+      ],
+      "companyIds": [],
+      "evidenceIds": [
+        "e1",
+        "e2"
+      ],
+      "impactReason": "规划点名研发和装备升级，但订单须后续证明。",
+      "verificationSignals": [
+        "量产验证与可靠性测试",
+        "真实设备招标/合同",
+        "产线交付与验收"
+      ]
+    },
+    {
+      "id": "n2",
+      "title": "储能电池系统安全与场景适配",
+      "subtitle": "锂、钠、液流电池及BMS热管理",
+      "section": "midstream",
+      "relation": "conditional_opportunity",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 74,
+      "description": "多种电池路线适合的经济场景不同；商业价值必须由具体储能项目的全寿命成本、安全验证和验收体现。",
+      "clauseIds": [
+        "c3"
+      ],
+      "companyIds": [],
+      "evidenceIds": [
+        "e3"
+      ],
+      "impactReason": "政策提供产业方向，但不决定路线市场份额。",
+      "verificationSignals": [
+        "不同路线LCOS与实证项目",
+        "储能安全标准",
+        "并网验收及回款"
+      ]
+    },
+    {
+      "id": "n3",
+      "title": "电池检测认证与质量合规服务",
+      "subtitle": "标准测试、寿命、缺陷与溯源",
+      "section": "downstream",
+      "relation": "conditional_opportunity",
+      "evidenceLevel": "strong",
+      "industryNodeEvidenceLevel": "strong",
+      "confidence": 78,
+      "description": "规划对检测认证技术能力的支持有明确政策文本，但尚无新增强制检测义务、付费主体和规模证据，现存公共服务或厂内质检不能直接折为新增订单。",
+      "clauseIds": [
+        "c4",
+        "c5"
+      ],
+      "companyIds": [],
+      "evidenceIds": [
+        "e4",
+        "e5"
+      ],
+      "impactReason": "标准与技术服务提升关注度但尚无单独采购金额。",
+      "verificationSignals": [
+        "正式检测认证标准",
+        "资质和订单",
+        "质量结果及单位测试价格"
+      ]
+    }
+  ],
+  "chainEdges": [],
+  "companies": [],
+  "policyIndustryMap": [
+    {
+      "id": "pi1",
+      "industry": "全固态电池材料与制造装备验证",
+      "policyAction": "先进材料与工艺装备",
+      "impactType": "conditional_innovation",
+      "impactDirection": "conditional",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "政策明确固态技术和制造装备升级方向，但技术路线工艺良率、客户验证及实际产线交付还未取得。",
+      "relatedNodeIds": [
+        "n1"
+      ],
+      "watchSignals": [
+        "量产验证与可靠性测试",
+        "真实设备招标/合同",
+        "产线交付与验收"
+      ]
+    },
+    {
+      "id": "pi2",
+      "industry": "储能电池系统安全与场景适配",
+      "policyAction": "安全储能与系统集成",
+      "impactType": "conditional_innovation",
+      "impactDirection": "conditional",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "多种电池路线适合的经济场景不同；商业价值必须由具体储能项目的全寿命成本、安全验证和验收体现。",
+      "relatedNodeIds": [
+        "n2"
+      ],
+      "watchSignals": [
+        "不同路线LCOS与实证项目",
+        "储能安全标准",
+        "并网验收及回款"
+      ]
+    },
+    {
+      "id": "pi3",
+      "industry": "电池检测认证与质量合规服务",
+      "policyAction": "标准检测认证与溯源",
+      "impactType": "conditional_innovation",
+      "impactDirection": "conditional",
+      "evidenceLevel": "strong",
+      "policyCloseness": "direct",
+      "reason": "规划对检测认证技术能力的支持有明确政策文本，但尚无新增强制检测义务、付费主体和规模证据，现存公共服务或厂内质检不能直接折为新增订单。",
+      "relatedNodeIds": [
+        "n3"
+      ],
+      "watchSignals": [
+        "正式检测认证标准",
+        "资质和订单",
+        "质量结果及单位测试价格"
+      ]
+    }
+  ],
+  "industryChain": [
+    {
+      "id": "ic1",
+      "chainName": "全固态电池材料与制造装备验证：研发与标准到经营兑现",
+      "nodes": [
+        {
+          "id": "n1",
+          "position": "upstream",
+          "evidenceLevel": "strong",
+          "policySensitivity": "medium",
+          "description": "政策明确固态技术和制造装备升级方向，但技术路线工艺良率、客户验证及实际产线交付还未取得。",
+          "companyIds": []
+        }
+      ]
+    },
+    {
+      "id": "ic2",
+      "chainName": "储能电池系统安全与场景适配：研发与标准到经营兑现",
+      "nodes": [
+        {
+          "id": "n2",
+          "position": "midstream",
+          "evidenceLevel": "strong",
+          "policySensitivity": "medium",
+          "description": "多种电池路线适合的经济场景不同；商业价值必须由具体储能项目的全寿命成本、安全验证和验收体现。",
+          "companyIds": []
+        }
+      ]
+    },
+    {
+      "id": "ic3",
+      "chainName": "电池检测认证与质量合规服务：研发与标准到经营兑现",
+      "nodes": [
+        {
+          "id": "n3",
+          "position": "downstream",
+          "evidenceLevel": "strong",
+          "policySensitivity": "medium",
+          "description": "规划对检测认证技术能力的支持有明确政策文本，但尚无新增强制检测义务、付费主体和规模证据，现存公共服务或厂内质检不能直接折为新增订单。",
+          "companyIds": []
+        }
+      ]
+    }
+  ],
+  "companyMap": [],
+  "policyNetwork": [
+    {
+      "id": "pn1",
+      "relatedPolicy": "2026年1月工信部等部门关于动力和储能电池竞争秩序的部署",
+      "meaning": "2026年1月已提出规范低价竞争、加强产能预警和质量监管，9月规划将治理和技术升级系统化，不能重复认定竞争秩序监管是首次出现。该会议不是具体项目或采购名单。",
+      "evidenceLevel": "strong",
+      "sourceDate": "2026-01-08",
+      "sourceUrl": "https://www.miit.gov.cn/xwfb/bldhd/art/2026/art_4aebd07038fd4f86b324ebac87a8857b.html",
+      "relationshipType": "prior_governance_context"
+    }
+  ],
+  "investmentDirection": {
+    "primaryDirection": "仅对固态工程验证与装备、储能安全、检测认证三环节开展条件性深研",
+    "summary": "2030技术目标、具体研发方向及检测服务定位被官方公开规划证实；未见新硬性产能约束、价格规则、公司采购、量产良率、补贴分配或确认利润。投资研究必须继续逐个证据门核实。",
+    "watchSignals": [
+      "固态电池生产线第三方认证与验收",
+      "储能安全检测标准及正式招采",
+      "产能利用率、价格竞争与经营现金流披露"
+    ],
+    "risks": [
+      "技术良率/成本不达标",
+      "现有产能过剩造成折旧与价格压力",
+      "网页通知标示‘本文有删减’，公开11页规划之外的信息未核验，不推断未公开政策承诺"
+    ]
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "title": "2030年技术与质量目标",
+      "source": "工业和信息化部等七部门《新型电池产业发展“十五五”规划》公开PDF",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20269/3d2b1f1a32a2488bbe856ce7058538a5.pdf",
+      "type": "policy_text",
+      "date": "2026-09-28",
+      "sourceLocation": "公开规划第一部分发展目标，第1—2页",
+      "excerpt": "全固态电池初步实现规模化应用，长寿命锂电池循环寿命达到 15000 次，头部企业产品缺陷率达到 PPB 级。",
+      "interpretation": "远期目标不能折算当前营收或实际产能。",
+      "evidenceObject": "policy_action",
+      "confidence": 90,
+      "clauseIds": [
+        "c1"
+      ],
+      "nodeIds": [
+        "n1"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e2",
+      "title": "先进材料与装备专项任务",
+      "source": "工信部官方通知及公开PDF",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20269/3d2b1f1a32a2488bbe856ce7058538a5.pdf",
+      "type": "policy_text",
+      "date": "2026-09-28",
+      "sourceLocation": "规划第2项及专栏2，第3页",
+      "excerpt": "提升高电导率、高性能固态电解质材料量产能力。",
+      "interpretation": "这里只证明政策关注的技术节点，不证明特定公司已交付。",
+      "evidenceObject": "policy_action",
+      "confidence": 94,
+      "clauseIds": [
+        "c2"
+      ],
+      "nodeIds": [
+        "n1"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e3",
+      "title": "不同电池路线和系统集成",
+      "source": "工信部官方通知及公开PDF",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20269/3d2b1f1a32a2488bbe856ce7058538a5.pdf",
+      "type": "policy_text",
+      "date": "2026-09-28",
+      "sourceLocation": "规划第3项，第4页",
+      "excerpt": "构建以锂电池为主，钠电池、液流电池等协同发展的新型电池产品供给体系。",
+      "interpretation": "各路线必须在对应应用场景比较全寿命成本与质量。",
+      "evidenceObject": "policy_action",
+      "confidence": 94,
+      "clauseIds": [
+        "c3"
+      ],
+      "nodeIds": [
+        "n2"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e4",
+      "title": "科技服务及检测认证体系",
+      "source": "工业和信息化部等七部门《新型电池产业发展“十五五”规划》公开PDF",
+      "sourceUrl": "https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20269/3d2b1f1a32a2488bbe856ce7058538a5.pdf",
+      "type": "policy_text",
+      "date": "2026-09-28",
+      "sourceLocation": "规划第15项，第9页",
+      "excerpt": "提升标准研制、检测评估、失效分析、认证认可一体化公共服务能力。",
+      "interpretation": "标准建设只是行业能力，不应直接转成采购金额。",
+      "evidenceObject": "policy_action",
+      "confidence": 90,
+      "clauseIds": [
+        "c4"
+      ],
+      "nodeIds": [
+        "n3"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e5",
+      "title": "2026年1月已有动力和储能电池竞争秩序治理部署",
+      "source": "工信部等部门早期竞争秩序部署",
+      "sourceUrl": "https://www.miit.gov.cn/xwfb/bldhd/art/2026/art_4aebd07038fd4f86b324ebac87a8857b.html",
+      "type": "policy_text",
+      "date": "2026-01-08",
+      "sourceLocation": "2026-01-08四部门座谈会",
+      "excerpt": "优化产能管理，健全产能监测和分级预警机制",
+      "interpretation": "2026年1月已经讨论电池产能预警与低价竞争；9月规划的公平竞争原则不意味着首创限价、限产或新的强制招标。",
+      "evidenceObject": "policy_action",
+      "confidence": 90,
+      "clauseIds": [
+        "c5"
+      ],
+      "nodeIds": [
+        "n3"
+      ],
+      "companyIds": []
+    },
+    {
+      "id": "e6",
+      "title": "规划公开版边界",
+      "source": "工信部官方通知及公开PDF",
+      "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_255ea93df118460fa105c46c2f546d9a.html",
+      "type": "policy_text",
+      "date": "2026-09-28",
+      "sourceLocation": "工信部政策通知正文的公开提示",
+      "excerpt": "（本文有删减）",
+      "interpretation": "网页通知明确有删减；不能无证据推断11页公开PDF的具体删减内容、隐藏资金或企业清单。只对取得的公开规划承担结论责任。",
+      "evidenceObject": "policy_action",
+      "confidence": 94,
+      "clauseIds": [
+        "c5"
+      ],
+      "nodeIds": [],
+      "companyIds": []
+    }
+  ],
+  "backgroundCards": [
+    {
+      "id": "bg1",
+      "title": "产业规模与能力的已有基础",
+      "body": "工信部解读显示‘十四五’已经形成大规模电池产业，2026年规划的2030指标是相对既有产业基础的未来目标，不代表现在已达到量产良率或每家企业都具备技术实力。",
+      "evidenceIds": [
+        "e1"
+      ]
+    },
+    {
+      "id": "bg2",
+      "title": "多技术路线、分场景商业化",
+      "body": "锂、钠与液流电池面向不同经济场景，装置寿命、安全、效率与原材料波动决定实际市场。",
+      "evidenceIds": [
+        "e2",
+        "e3"
+      ]
+    },
+    {
+      "id": "bg3",
+      "title": "规划也要求抑制低价和盲目扩产",
+      "body": "研发与标准化可能增加成本，在低价竞争下不一定改善利润；必须核查产能、毛利和回款。",
+      "evidenceIds": [
+        "e5"
+      ]
+    }
+  ],
+  "compareInsights": {
+    "comparableCount": 0,
+    "status": "no_strict_peer_plan_comparison",
+    "summary": "未启用横向对比，仅基于本次公开规划文本和2026年1月监管背景。1月电池低价竞争、产能预警部署属于早于9月规划的存量治理背景，不能算9月新增监管收益或项目证据。"
+  },
+  "analysisCoverage": {
+    "status": "no_company_mapping",
+    "analysisMethod": "agent-manual-official-pdf-cautious-conditional",
+    "evidenceCount": 6,
+    "industryNodeCount": 3,
+    "companyCount": 0,
+    "listedCompanyMapCount": 0,
+    "companyImpactConclusion": "规划虽明确全固态电解质、工艺装备、储能安全和检测认证方向，但未公布确认受益的企业清单、实际订单或专项预算分配，也缺少企业特定工艺良率与回款证据；因此仅研究产业节点，暂不映射具体上市公司。",
+    "limitations": [
+      "官方通知标注公开内容有删减，本研究不能推断未公开条款。",
+      "2030目标不等于2026年实际交付与产能。",
+      "未逐一研究上市公司年报、客户认证或设备采购，不做伪公司归因。"
+    ]
+  }
+}
