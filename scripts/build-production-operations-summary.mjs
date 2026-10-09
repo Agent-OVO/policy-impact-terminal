@@ -266,8 +266,8 @@ function classifyCollectionHealth(ageMinutes, thresholdMinutes) {
 }
 
 function collectionHealthInterpretation(status, kind) {
-  if (status === "healthy" && kind === "recovery") return "恢复链已完成补采，终端有效采集保持新鲜；主定时延迟不等于生产中断。";
-  if (status === "healthy") return "主定时或恢复采集在健康阈值内完成，终端有效采集正常。";
+  if (status === "healthy" && kind === "recovery") return "已确认恢复链完成补采，采集任务处于时效阈值内；本状态不判断四来源覆盖、附件完整性或新政策有效入库。";
+  if (status === "healthy") return "最近一次采集任务在运行时效阈值内成功；本状态不判断四来源覆盖、附件完整性或新政策有效入库。";
   if (status === "degraded") return "最近有效采集已超过健康阈值，但尚未达到陈旧阈值，应检查主定时和恢复链。";
   if (status === "stale") return "最近有效采集已超过陈旧阈值，应视为生产采集异常并立即处置。";
   return "没有可确认的成功主定时或实际恢复采集，无法判断生产新鲜度。";
