@@ -159,6 +159,7 @@ try {
   assert.equal(summary.collectionHealth.latestEffectiveRunKind, "recovery");
   assert.equal(summary.collectionHealth.effectiveAgeMinutes, 15);
   assert.equal(summary.collectionHealth.recoveryBacked, true);
+  assert.match(summary.collectionHealth.interpretation, /本状态不判断四来源覆盖、附件完整性或新政策有效入库/);
   assert.equal(summary.hourlyCollection.latestScheduledRunId, 2);
   assert.equal(summary.hourlyCollection.maxObservedScheduledGapMinutes, 60);
   assert.equal(summary.recoveryCollection.performedRuns, 1);
@@ -175,7 +176,8 @@ try {
   const markdown = await fs.readFile(outMarkdown, "utf8");
   assert.match(markdown, /有效采集健康度/);
   assert.match(markdown, /状态：healthy/);
-  assert.match(markdown, /恢复链已完成补采/);
+  assert.match(markdown, /恢复链完成补采/);
+  assert.match(markdown, /本状态不判断四来源覆盖、附件完整性或新政策有效入库/);
   assert.match(markdown, /最大主定时间隔：60分钟/);
   assert.match(markdown, /当前活动是（run 20）/);
   assert.match(markdown, /附件正文待证：1项/);
