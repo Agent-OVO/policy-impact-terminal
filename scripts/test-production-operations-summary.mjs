@@ -130,7 +130,7 @@ try {
   }));
   await fs.writeFile(registry, JSON.stringify({ reports: [] }));
 
-  const result = await runChild(process.execPath, [
+  const summaryArgs = [
     path.resolve("scripts/build-production-operations-summary.mjs"),
     `--hourly-runs=${hourly}`,
     `--recovery-runs=${recovery}`,
@@ -143,7 +143,8 @@ try {
     "--since=2026-07-27T00:00:00Z",
     "--as-of=2026-07-27T02:00:00Z",
     "--freshness-threshold-minutes=80"
-  ], {
+  ];
+  const result = await runChild(process.execPath, summaryArgs, {
     GITHUB_REPOSITORY: "Agent-OVO/policy-impact-terminal",
     GITHUB_RUN_ID: "999",
     GITHUB_RUN_ATTEMPT: "2"
@@ -159,6 +160,7 @@ try {
   assert.equal(summary.collectionHealth.latestEffectiveRunKind, "recovery");
   assert.equal(summary.collectionHealth.effectiveAgeMinutes, 15);
   assert.equal(summary.collectionHealth.recoveryBacked, true);
+  assert.match(summary.collectionHealth.interpretation, /本状态不判断四来源覆盖、附件完整性或新政策有效入库/);
   assert.equal(summary.hourlyCollection.latestScheduledRunId, 2);
   assert.equal(summary.hourlyCollection.maxObservedScheduledGapMinutes, 60);
   assert.equal(summary.recoveryCollection.performedRuns, 1);
@@ -175,14 +177,36 @@ try {
   const markdown = await fs.readFile(outMarkdown, "utf8");
   assert.match(markdown, /有效采集健康度/);
   assert.match(markdown, /状态：healthy/);
-  assert.match(markdown, /恢复链已完成补采/);
+  assert.match(markdown, /恢复链完成补采/);
+  assert.match(markdown, /本状态不判断四来源覆盖、附件完整性或新政策有效入库/);
   assert.match(markdown, /最大主定时间隔：60分钟/);
   assert.match(markdown, /当前活动是（run 20）/);
   assert.match(markdown, /附件正文待证：1项/);
   assert.match(markdown, /陈旧任务5个、涉及2项/);
   assert.match(markdown, /静态状态文档不作为实时权威源/);
 
-  console.log("[operations:summary-test] effective freshness, recovery-backed health, liveness state, stale-job visibility, duplicate integrity, and attachment evidence counts passed");
+  // With no performed recovery, exercise the independent scheduled-backed
+  // healthy wording while keeping the exact same freshness thresholds.
+  await fs.writeFile(recovery, "[]");
+  const scheduledResult = await runChild(process.execPath, summaryArgs, {
+    GITHUB_REPOSITORY: "Agent-OVO/policy-impact-terminal",
+    GITHUB_RUN_ID: "999",
+    GITHUB_RUN_ATTEMPT: "2"
+  });
+  assert.equal(scheduledResult.status, 0, `${scheduledResult.stdout}\n${scheduledResult.stderr}`);
+  const scheduledSummary = JSON.parse(await fs.readFile(outJson, "utf8"));
+  assert.equal(scheduledSummary.collectionHealth.status, "healthy");
+  assert.equal(scheduledSummary.collectionHealth.latestEffectiveRunKind, "scheduled");
+  assert.equal(scheduledSummary.collectionHealth.latestEffectiveRunId, 2);
+  assert.equal(scheduledSummary.collectionHealth.effectiveAgeMinutes, 40);
+  assert.equal(scheduledSummary.collectionHealth.recoveryBacked, false);
+  assert.match(scheduledSummary.collectionHealth.interpretation, /^最近一次采集任务在运行时效阈值内成功；/);
+  assert.match(scheduledSummary.collectionHealth.interpretation, /本状态不判断四来源覆盖、附件完整性或新政策有效入库/);
+  const scheduledMarkdown = await fs.readFile(outMarkdown, "utf8");
+  assert.match(scheduledMarkdown, /最近一次采集任务在运行时效阈值内成功/);
+  assert.match(scheduledMarkdown, /本状态不判断四来源覆盖、附件完整性或新政策有效入库/);
+
+  console.log("[operations:summary-test] scheduled/recovery-backed healthy wording, effective freshness, liveness state, stale-job visibility, duplicate integrity, and attachment evidence counts passed");
 } finally {
   await fs.rm(tempDir, { recursive: true, force: true });
 }
