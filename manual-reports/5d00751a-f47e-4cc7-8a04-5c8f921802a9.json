@@ -23,7 +23,7 @@
     "confidence": 82,
     "industryCount": 3,
     "companyCount": 0,
-    "evidenceCount": 6,
+    "evidenceCount": 7,
     "primarySignal": "面向2030年全固态工程化、长寿命储能与质量一致性的技术路线，同时强化产能预警和价格竞争治理",
     "category": "新型电池材料装备及储能安全"
   },
@@ -34,6 +34,10 @@
     "sourceUrl": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_255ea93df118460fa105c46c2f546d9a.html",
     "publishDate": "2026-09-28",
     "policyNo": "工信部联规〔2026〕220号",
+    "effectiveDate": "",
+    "documentDate": "2026-09-14",
+    "publicPageDate": "2026-09-28",
+    "category": "新型电池材料装备及储能安全",
     "status": "已发布",
     "sourceName": "工业和信息化部",
     "attachmentHash": "7fd38a304359a99568fe63a0a1f41502be0ed25415e6459fd592c68655b84633",
@@ -352,6 +356,8 @@
       "nodes": [
         {
           "id": "n1",
+          "name": "全固态电池材料与制造装备验证",
+          "watchSignals": ["客户验证与同工况可靠性测试", "真实设备合同", "交付验收和回款"],
           "position": "upstream",
           "evidenceLevel": "strong",
           "policySensitivity": "medium",
@@ -366,6 +372,8 @@
       "nodes": [
         {
           "id": "n2",
+          "name": "储能电池系统安全与场景适配",
+          "watchSignals": ["不同技术路线的场景经济性", "可执行安全要求", "项目验收与回款"],
           "position": "midstream",
           "evidenceLevel": "strong",
           "policySensitivity": "medium",
@@ -380,6 +388,8 @@
       "nodes": [
         {
           "id": "n3",
+          "name": "电池检测认证与质量合规服务",
+          "watchSignals": ["相对既有标准的新增要求", "机构资质和实际付费客户", "新增检测收费与利润"],
           "position": "downstream",
           "evidenceLevel": "strong",
           "policySensitivity": "medium",
@@ -398,24 +408,32 @@
       "evidenceLevel": "strong",
       "sourceDate": "2026-01-08",
       "sourceUrl": "https://www.miit.gov.cn/xwfb/bldhd/art/2026/art_4aebd07038fd4f86b324ebac87a8857b.html",
-      "relationshipType": "prior_governance_context"
+      "relationship": "prior_policy"
     }
   ],
   "investmentDirection": {
     "primaryDirection": "仅对固态工程验证与装备、储能安全、检测认证三环节开展条件性深研",
     "summary": "2030技术目标、具体研发方向及检测服务定位被官方公开规划证实；未见新硬性产能约束、价格规则、公司采购、量产良率、补贴分配或确认利润。投资研究必须继续逐个证据门核实。",
-    "watchSignals": [
+    "directionStrength": "pending",
+    "timeHorizon": "medium_term",
+    "watchIndustries": ["全固态电池材料与制造装备验证", "储能电池系统安全与场景适配", "电池检测认证与质量合规服务"],
+    "watchChainNodes": ["全固态电池材料与制造装备验证", "储能电池系统安全与场景适配", "电池检测认证与质量合规服务"],
+    "watchCompanies": [],
+    "minimumEvidenceNeeded": ["2026年第四季度至2027年：材料/设备须先有可重复的客户验证，再有实际合同、交付和验收；测试通过不等于订单，循环寿命必须注明工况。", "2026年第四季度至2027年上半年：比较既有GB 44240-2024等适用要求与新增要求，确认资质、付费主体、采购频次及收费；无净增量则下调关注。", "随后季报/年报：核验订单向收入、毛利和现金流的兑现，并检查利用率、价格与折旧；收入增但毛利/现金流恶化时不升级盈利判断。"],
+    "doNotOverread": ["2030目标不是2026年实绩；PPB产品缺陷率目标不能当作当前产线良率。", "规划科研方向或企业技术能力不等于政策订单；合同也不等于验收、收入和回款。", "已有安全标准、产能预警与低价竞争治理不算9月规划首创，不臆测新增限产、限价或财政总额。"],
+    "nearTermCatalysts": [
       "固态电池生产线第三方认证与验收",
       "储能安全检测标准及正式招采",
       "产能利用率、价格竞争与经营现金流披露"
     ],
-    "risks": [
+    "keyRisks": [
       "技术良率/成本不达标",
       "现有产能过剩造成折旧与价格压力",
       "网页通知标示‘本文有删减’，公开11页规划之外的信息未核验，不推断未公开政策承诺"
     ]
   },
   "evidence": [
+    {"id":"e7","title":"规划前已有储能锂电池安全标准","source":"国家标准全文公开系统","sourceUrl":"https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=8E520B1991C62DEBC55B46DE49C6F4F5","type":"policy_text","date":"2024-07-24","sourceLocation":"GB 44240-2024官方登记：名称、发布日期和实施日期","excerpt":"电能存储系统用锂蓄电池和电池组 安全要求","interpretation":"官方登记显示2024-07-24发布、2025-08-01实施。仅用于证明规划前已有相应安全标准；未逐条核验标准全文，不推断具体测试阈值、认证收费，也不外推为钠电或液流统一适用要求。","evidenceObject":"background","confidence":95,"clauseIds":[],"nodeIds":[],"companyIds":[]},
     {
       "id": "e1",
       "title": "2030年技术与质量目标",
@@ -503,7 +521,7 @@
       "sourceUrl": "https://www.miit.gov.cn/xwfb/bldhd/art/2026/art_4aebd07038fd4f86b324ebac87a8857b.html",
       "type": "policy_text",
       "date": "2026-01-08",
-      "sourceLocation": "2026-01-08四部门座谈会",
+      "sourceLocation": "2026-01-07召开四部门座谈会，2026-01-08发布报道",
       "excerpt": "优化产能管理，健全产能监测和分级预警机制",
       "interpretation": "2026年1月已经讨论电池产能预警与低价竞争；9月规划的公平竞争原则不意味着首创限价、限产或新的强制招标。",
       "evidenceObject": "policy_action",
@@ -535,7 +553,9 @@
       "companyIds": []
     }
   ],
+  "companyInsights": {"status":"empty","companyCount":0,"note":"本轮零公司映射：技术方向已明确，但未核验具体上市公司的客户验证、政策相关合同、验收、收入及利润。"},
   "backgroundCards": [
+    {"id":"bg4","title":"安全检测不是从本规划开始","body":"GB 44240-2024已于2025-08-01实施。规划支持检测认证能力，并不代表首次建立安全要求，更不直接决定新增强制检测、收费次数或利润。这里只核验官方标准登记信息。","evidenceIds":["e7"]},
     {
       "id": "bg1",
       "title": "产业规模与能力的已有基础",
@@ -565,18 +585,23 @@
   "compareInsights": {
     "comparableCount": 0,
     "status": "no_strict_peer_plan_comparison",
+    "similarityPoints": ["未启用横向对比；1月7日行业座谈会及已实施的GB 44240-2024仅作存量监管和标准背景。"],
+    "differencePoints": ["2030年技术目标与具体工艺方向明确，但未证明新增强制检测项目、专项预算、企业订单或利润。"],
     "summary": "未启用横向对比，仅基于本次公开规划文本和2026年1月监管背景。1月电池低价竞争、产能预警部署属于早于9月规划的存量治理背景，不能算9月新增监管收益或项目证据。"
   },
   "analysisCoverage": {
     "status": "no_company_mapping",
     "analysisMethod": "agent-manual-official-pdf-cautious-conditional",
-    "evidenceCount": 6,
+    "textLength": 7603,
+    "clauseCount": 5,
+    "actionCount": 5,
+    "evidenceCount": 7,
     "industryNodeCount": 3,
     "companyCount": 0,
     "listedCompanyMapCount": 0,
     "companyImpactConclusion": "规划虽明确全固态电解质、工艺装备、储能安全和检测认证方向，但未公布确认受益的企业清单、实际订单或专项预算分配，也缺少企业特定工艺良率与回款证据；因此仅研究产业节点，暂不映射具体上市公司。",
     "limitations": [
-      "官方通知标注公开内容有删减，本研究不能推断未公开条款。",
+      "官方通知注明本文有删减；研究仅覆盖取得的11页公开PDF。GB 44240-2024仅核验登记名称和实施日期，未据此解读标准全文。",
       "2030目标不等于2026年实际交付与产能。",
       "未逐一研究上市公司年报、客户认证或设备采购，不做伪公司归因。"
     ]

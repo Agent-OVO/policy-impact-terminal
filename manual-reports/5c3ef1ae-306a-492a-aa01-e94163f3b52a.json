@@ -23,7 +23,7 @@
     "confidence": 83,
     "industryCount": 3,
     "companyCount": 0,
-    "evidenceCount": 6,
+    "evidenceCount": 8,
     "primarySignal": "在线监控表达更普遍、细化风险评级与隐患治理；年度详查、定期检查及现有在线监控有2015年制度基础",
     "category": "大坝运行安全与合规技术服务"
   },
@@ -36,6 +36,7 @@
     "sourceUrl": "https://zfxxgk.ndrc.gov.cn/wap/iteminfo.jsp?id=20664",
     "sourceName": "国家发展改革委",
     "policyNo": "国家发展改革委令第47号",
+    "category": "大坝运行安全与合规技术服务",
     "publicPageDate": "2026-09-28",
     "scope": "以发电为主，总装机容量五万千瓦及以上的大中型水电站大坝",
     "status": "已施行"
@@ -68,11 +69,11 @@
     },
     {
       "id": "a2",
-      "title": "年度详查和周期定期检查",
+      "title": "延续年度与周期检查，明确首次定检启动期限",
       "actionType": "持续监管",
       "actionEvidenceLevel": "strong",
       "implementationDependency": "需要运营现状评估、技术规范、具体整改任务和采购资金",
-      "body": "保留年度详查及通常五年一次的定期检查；属于长期存量服务，不可视为法令新增市场。",
+      "body": "年度详查及通常五年定检已有2015年制度基础；2026年第十九条明确首次定检启动时限。仅接近期限且确有新增工作量、采购和预算的资产，才可能构成增量需求。",
       "signal": "constraint",
       "confidence": 85,
       "clauseIds": [
@@ -147,7 +148,7 @@
       "no": "第十条、第十九条",
       "title": "年度详查及定期检查仍属既有制度",
       "excerpt": "定期检查一般每五年进行一次，检查时间一般不超过一年半。",
-      "body": "新规第十条继续规定每年详查，第十九条规定五年定期检查及3—10年风险调整区间；旧规第十条、第十九条已有相同主要制度，不将存量检查当作新订单。",
+      "body": "旧规已有年度详查、通常五年定检及3—10年调整区间。2026年第十九条还明确：竣工安全鉴定后五年期满前一年内应启动首次定检；完建五年内未完成鉴定的，应在期满后六个月内启动。新增的是首次启动约束，不是全部周期检查市场。",
       "confidence": 95,
       "keywords": [
         "安全监管",
@@ -332,6 +333,8 @@
       "nodes": [
         {
           "id": "n1",
+          "name": "大坝在线监测与运行信息系统",
+          "watchSignals": ["在线监控实施细则与逐坝差距", "新增预算和采购合同", "验收及回款"],
           "position": "upstream",
           "evidenceLevel": "strong",
           "policySensitivity": "medium",
@@ -346,6 +349,8 @@
       "nodes": [
         {
           "id": "n2",
+          "name": "大坝检验监测与安全评估服务",
+          "watchSignals": ["首次定检启动期限对应资产及原计划", "新增或提前的外包采购", "检查合同及验收"],
           "position": "midstream",
           "evidenceLevel": "strong",
           "policySensitivity": "medium",
@@ -360,6 +365,8 @@
       "nodes": [
         {
           "id": "n3",
+          "name": "病险坝治理设计、施工与复核",
+          "watchSignals": ["较大及以上隐患的实际认定", "专项整改预算和招标", "治理工程验收及回款"],
           "position": "downstream",
           "evidenceLevel": "strong",
           "policySensitivity": "medium",
@@ -375,7 +382,7 @@
       "id": "pn1",
       "relatedPolicy": "2015年《水电站大坝运行安全监督管理规定》（第23号令）",
       "meaning": "以既有在线监控门槛、年度详查和周期检查对照2026年第47号令，避免将存量要求误列为新增市场。",
-      "relationshipType": "revision",
+      "relationship": "prior_policy",
       "evidenceLevel": "strong",
       "sourceDate": "2015-04-01",
       "sourceUrl": "https://zjb.nea.gov.cn/xxgk/zcfg/202309/t20230914_75962.html"
@@ -384,18 +391,27 @@
   "investmentDirection": {
     "primaryDirection": "仅条件性观察在线监控补差与病险坝专项治理，不做上市公司受益确认",
     "summary": "法律约束和措辞变化确实存在，但2015年已要求部分坝在线监控和病险坝专项治理；仅在新技术门槛或隐患等级认定改变既有整改范围，且落实预算招采与验收后，才可能归因新增经营贡献。",
-    "watchSignals": [
+    "directionStrength": "pending",
+    "timeHorizon": "medium_term",
+    "watchIndustries": ["大坝在线监测与运行信息系统", "大坝检验监测与安全评估服务", "病险坝治理设计、施工与复核"],
+    "watchChainNodes": ["大坝在线监测与运行信息系统", "大坝检验监测与安全评估服务", "病险坝治理设计、施工与复核"],
+    "watchCompanies": [],
+    "minimumEvidenceNeeded": ["2026年第四季度至2027年上半年：核对具体大坝在线监控或首次定检的新旧差距与实施期限；仅出现可执行缺口才升级，否则维持有限观察。", "同一资产的原检查/整改计划、新增预算与招标须能区分；仅注册换证、旧合同续签或网页晚发布不升级。", "确认采购后再核验中标、验收、收入和回款；无合同或经营兑现证据时不建立公司受益结论。"],
+    "doNotOverread": ["不把全部水库或登记大坝数乘以假定单价估算新增市场。", "不把2015年已有检查、外包和病险坝治理整体归为2026年新增。", "首次定检期限明确不等于所有大坝新增外包订单。"],
+    "nearTermCatalysts": [
       "在线监控实施细则与逐坝差距",
       "隐患专项整改及采购公告",
       "实际验收与企业收入归因"
     ],
-    "risks": [
+    "keyRisks": [
       "已有系统覆盖度高",
       "更多企业内部履责而非采购",
       "按旧项目续签误认新规增量"
     ]
   },
   "evidence": [
+    {"id":"e7","title":"注册复函的决策早于新规","source":"国家能源局综合司","sourceUrl":"https://www.nea.gov.cn/20260915/0c59fdb7c1fb4ef0ae9566ac1d315cb2/c.html","type":"policy_text","date":"2026-08-31","sourceLocation":"制发日期、第一项及第三至第五项","excerpt":"充分发挥在线监控系统效能","interpretation":"该复函在2026-08-31已制发，涉及6座首次和19座换证注册。网页9月15日呈现不证明25个项目由9月14日新规触发，注册和整改要求也不等同新增采购。","evidenceObject":"background","confidence":95,"clauseIds":[],"nodeIds":[],"companyIds":[]},
+    {"id":"e8","title":"首次定期检查新增启动时限","source":"国家发展改革委","sourceUrl":"https://zfxxgk.ndrc.gov.cn/wap/iteminfo.jsp?id=20664","type":"policy_text","date":"2026-09-14","sourceLocation":"第十九条第二款","excerpt":"工程完成竣工安全鉴定后五年期满前一年内应启动首次定期检查。","interpretation":"同款还规定完建后五年内未完成鉴定的，应在期满后六个月内启动。可能使部分初检及时启动，但需要适用资产、原计划和采购差额证据，不能重算所有定检市场。","evidenceObject":"policy_action","confidence":95,"clauseIds":["c3"],"nodeIds":["n2"],"companyIds":[]},
     {
       "id": "e1",
       "title": "2026年新规在线监控条款",
@@ -516,7 +532,9 @@
       "companyIds": []
     }
   ],
+  "companyInsights": {"status":"empty","companyCount":0,"note":"本轮零公司映射：尚无可归因于2026年修订的具体采购、供货合同、验收或经营兑现证据。"},
   "backgroundCards": [
+    {"id":"bg4","title":"日期与增量的真实反例","body":"清原上库坝等25座大坝注册复函于2026-08-31制发，9月15日网页呈现。其中6座首次、19座换证注册，不是25个新采购项目。晚于新规的网页日期，不能把此前作出的注册和整改要求变成新规订单。","evidenceIds":["e7"]},
     {
       "id": "bg1",
       "title": "监管基础早已存在",
@@ -548,12 +566,18 @@
   "compareInsights": {
     "comparableCount": 1,
     "status": "verified_old_new_regulatory_comparison",
+    "similarityPoints": ["2015年第23号令已规定适用范围、年度详查、五年周期检查、部分坝在线监控和病险坝专项治理。"],
+    "differencePoints": ["2026年第八条不再列出三类在线监控限定，第十九条明确首次定检启动期限，第二十三条采用较大及以上隐患专项治理门槛。", "上述差异是执行义务和时间约束，新增资产数、预算、合同与经营贡献仍未证实。"],
     "summary": "已与2015年第23号令逐条对照：监管五万千瓦范围、年度详查、五年定检与特定坝在线监控、病险坝专项处置均属于既有制度；2026年第八条在线监控不再列三类限定、第二十三条改用较大及以上隐患门槛，但不能由措辞直接推定采购量。"
   },
   "analysisCoverage": {
     "status": "no_company_mapping",
     "analysisMethod": "agent-manual-official-regulation-2015-vs-2026",
-    "evidenceCount": 6,
+    "textLength": 5431,
+    "clauseCount": 5,
+    "actionCount": 4,
+    "comparablePolicyCount": 1,
+    "evidenceCount": 8,
     "industryNodeCount": 3,
     "companyCount": 0,
     "listedCompanyMapCount": 0,

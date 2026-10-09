@@ -28,7 +28,7 @@
     "manual:evidence-test": "node scripts/test-policy-evidence-package.mjs",
     "manual:output-test": "node scripts/test-json-output.mjs",
     "manual:validate": "node scripts/validate-manual-report.mjs",
-    "manual:test": "node scripts/test-manual-report-validation.mjs",
+    "manual:test": "node scripts/test-manual-report-validation.mjs && node scripts/test-manual-report-readback-contract.mjs",
     "manual:metrics": "node scripts/report-quality-metrics.mjs",
     "manual:inbox-migration-plan": "node scripts/plan-manual-inbox-migration.mjs",
     "operations:summary": "node scripts/build-production-operations-summary.mjs",
