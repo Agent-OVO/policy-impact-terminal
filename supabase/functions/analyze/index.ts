@@ -1443,6 +1443,11 @@ function normalizeManualReportPayload(
   const authoritativeCompanyCount = companyMap.length > 0 ? companyMap.length : companies.length;
   const confidence = clampScoreValue(readRecordNumber(summaryInput, "confidence") ?? readRecordNumber(policyInput, "confidence") ?? policy.confidence ?? 80);
   const category = readRecordString(policyInput, "category") ?? policy.category ?? inferCategory(buildPolicyAnalysisText(policy));
+  const reviewedIssuer = readRecordString(policyInput, "issuer") ?? readRecordString(summaryInput, "issuer") ?? policy.issuer ?? "未知机构";
+  // A reviewed empty date means not separately specified; publication is not commencement.
+  const effectiveDate = Object.hasOwn(policyInput, "effectiveDate")
+    ? readRecordString(policyInput, "effectiveDate") ?? ""
+    : policy.effective_date ?? "";
 
   return {
     ...input,
@@ -1454,7 +1459,7 @@ function normalizeManualReportPayload(
       ...summaryInput,
       id: policy.external_id ?? policy.id,
       title: policy.title,
-      issuer: policy.issuer ?? "未知机构",
+      issuer: reviewedIssuer,
       source: policy.source_name ?? "政策来源",
       publishDate: policy.publish_date ?? "",
       status: "published",
@@ -1469,9 +1474,9 @@ function normalizeManualReportPayload(
       ...policyInput,
       title: policy.title,
       status: "已发布",
-      issuer: policy.issuer ?? "未知机构",
+      issuer: reviewedIssuer,
       publishDate: policy.publish_date ?? "",
-      effectiveDate: policy.effective_date ?? policy.publish_date ?? "",
+      effectiveDate,
       source: policy.source_name ?? "政策来源",
       category,
       level: policy.policy_level ?? "政策文件",
